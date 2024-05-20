@@ -16,34 +16,23 @@ const multiValueStyles =
 		'[:focus-visible_&]:border-teal-600 [:focus-visible_&]:ring-teal-600 [:focus-visible_&]:ring-opacity-25',
 	);
 const multiValueLabelStyles = 'select-none';
-const multiValueRemoveStyles =
-	'hover:bg-red-500/15 hover:text-red-900 text-gray-500 rounded p-0.5 [&>svg]:size-3.5 [&>svg]:stroke-[1.5] transition';
-const indicatorsContainerStyles = 'bg-red-50';
-const clearIndicatorStyles =
-	'text-gray-500 p-1 rounded-md hover:bg-red-50 hover:text-red-800';
-const dropdownIndicatorStyles =
-	'text-gray-500 px-1 group-hover:text-black [&>svg]:transition-transform [&>svg]:duration-500 [&>svg]:size-5.5';
-const menuStyles = 'rounded-md border border-gray-200 bg-white shadow-lg mt-1.5 p-1 text-sm';
-const groupHeadingStyles = 'ml-3 mt-2 mb-1 text-gray-500 text-sm';
+const multiValueRemoveStyles = 'hover:bg-red-500/15 hover:text-red-900 text-gray-500 rounded p-0.5 [&>svg]:size-3.5 [&>svg]:stroke-[1.5] transition';
+const clearIndicatorStyles = 'text-gray-500 p-1 rounded-md hover:bg-red-50 hover:text-red-800 transition';
+const dropdownIndicatorStyles = 'text-gray-500 px-1 group-hover:text-black [&>svg]:transition-transform [&>svg]:duration-500 [&>svg]:size-5.5';
+const menuStyles = 'rounded-md border border-gray-200 bg-white shadow-lg mt-1.5 text-sm overflow-x-hidden';
 const optionStyles = {
-	// base: 'hover:cursor-pointer p-1 rounded text-sm !flex items-center gap-1',
-	base: 'p-2 !flex min-w-40 items-center gap-1.5 rounded [&>svg]:size-5 [&>svg]:text-gray-500 transition',
+	base: 'p-2 !flex items-center gap-1.5 text-gray-800 rounded [&>svg]:size-5 [&>svg]:text-gray-500 transition mx-1 first:mt-1 last:mb-1 !w-auto',
 	focus: 'bg-gray-100 active:bg-teal-700/15',
 	selected: 'bg-teal-600/15 text-teal-950',
 };
-const noOptionsMessageStyles =
-	'text-gray-500 p-2 bg-gray-50 border border-dashed border-gray-200 rounded-sm';
-
-const containerStyles = '';
-const groupStyles = '';
+const noOptionsMessageStyles = 'text-gray-400 p-4';
+const groupHeadingStyles = 'ml-3 mt-2 text-gray-500 empty:hidden';
+const groupStyles = 'bg-gray-510 border-b last:border-b-0';
 const loadingIndicatorStyles = '';
 const loadingMessageStyles = '';
-const menuListStyles = '';
-const menuPortalStyles = '';
 
 export const eightshiftSelectClasses = {
 	clearIndicator: () => clearIndicatorStyles,
-	container: () => containerStyles,
 	control: ({ isFocused }) =>
 		classnames(
 			isFocused ? controlStyles.focus : controlStyles.nonFocus,
@@ -52,13 +41,10 @@ export const eightshiftSelectClasses = {
 	dropdownIndicator: () => dropdownIndicatorStyles,
 	group: () => groupStyles,
 	groupHeading: () => groupHeadingStyles,
-	indicatorsContainer: () => indicatorsContainerStyles,
 	input: () => selectInputStyles,
 	loadingIndicator: () => loadingIndicatorStyles,
 	loadingMessage: () => loadingMessageStyles,
 	menu: () => menuStyles,
-	menuList: () => menuListStyles,
-	menuPortal: () => menuPortalStyles,
 	multiValue: () => multiValueStyles,
 	multiValueLabel: () => multiValueLabelStyles,
 	multiValueRemove: () => multiValueRemoveStyles,
