@@ -96,7 +96,7 @@ const AccordionItem = forwardRef((props, ref) => {
 						ref={buttonRef}
 						className={classnames(
 							'flex size-8 items-center justify-center rounded border border-transparent duration-300 hover:border-gray-200 text-gray-700 hover:shadow-sm transition disabled:border-gray-100 disabled:text-gray-200 disabled:shadow-none',
-							'focus:outline-none focus-visible:border-teal-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-600 focus-visible:ring-opacity-25',
+							'focus:outline-none  focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
 							!actions || (!keepActionsOnExpand && isOpen && 'ml-auto'),
 						)}
 						{...filteredProps}

@@ -52,7 +52,7 @@ export const NumberPicker = ({
 				<Group
 					className={classnames(
 						'@container-[block-size] flex min-h-10 w-fit items-center rounded-md border border-gray-300 pl-1 pr-0.5 shadow transition',
-						isInputFocused && 'border-teal-600 outline-none ring ring-teal-600 ring-opacity-25',
+						isInputFocused && 'outline-none ring ring-teal-500 ring-opacity-50',
 						!prefix && 'pl-2',
 					)}
 				>

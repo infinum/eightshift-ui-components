@@ -102,7 +102,7 @@ export const MenuItem = (props) => {
 				'mx-1 mb-1 flex min-w-40 items-center gap-1.5 first:mt-1 [&>svg]:size-5 [&>svg]:text-gray-500',
 				'select-none rounded border border-transparent px-1 py-1.5 text-sm text-gray-800 transition hover:bg-gray-100 focus:outline-none',
 				'focus:outline-none focus-visible:outline-none focus-visible:ring',
-				'focus-visible:border-teal-600 focus-visible:ring-teal-600 focus-visible:ring-opacity-25',
+				' focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
 				className,
 			)}
 			onAction={onClick}

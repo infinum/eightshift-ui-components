@@ -21,8 +21,8 @@ export const Notice = (props) => {
 		},
 		warning: {
 			icon: icons.warning,
-			className: 'border-amber-400 shadow-amber-500/15 bg-amber-100/5',
-			iconColor: 'text-amber-400',
+			className: 'border-amber-500 shadow-amber-500/15 bg-amber-100/5',
+			iconColor: 'text-amber-500',
 			textColor: 'text-amber-900',
 			subtitleColor: 'text-amber-950/60',
 		},

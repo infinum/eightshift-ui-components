@@ -11,6 +11,7 @@ import { ResponsivePreview } from '../responsive-preview/responsive-preview';
 import { Button } from '../button/button';
 import { IconLabel } from '../icon-label/icon-label';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
+import { ToggleButton } from '../toggle-button/toggle-button';
 
 export const Responsive = (props) => {
 	const {
@@ -166,8 +167,8 @@ export const Responsive = (props) => {
 						subtitle={subtitle}
 					/>
 
-					<div className='ml-auto flex'>
-						<Menu triggerProps={{ inGroup: true }}>
+					<div className='button-group ml-auto flex'>
+						<Menu tooltip={__('Responsive options', 'eightshift-components')}>
 							<MenuSection label={__('Breakpoint type', 'eightshift-components')}>
 								<MenuItem
 									selected={!isDesktopFirst}
@@ -228,7 +229,7 @@ export const Responsive = (props) => {
 						</Menu>
 
 						<TriggeredPopover
-							aria-label={props['aria-label'] ?? __('Responsive preview', 'eightshift-components')}
+							aria-label={props['aria-label'] ?? __('Breakpoint preview', 'eightshift-components')}
 							trigger={
 								<Button
 									disabled={
@@ -237,8 +238,7 @@ export const Responsive = (props) => {
 										)
 									}
 									icon={icons.previewResponsive}
-									tooltip={__('Responsive preview', 'eightshift-components')}
-									className='rounded-none hover:z-10 focus-visible:z-10 -mx-[0.5px]'
+									tooltip={__('Breakpoint preview', 'eightshift-components')}
 								/>
 							}
 						>
@@ -252,37 +252,11 @@ export const Responsive = (props) => {
 							/>
 						</TriggeredPopover>
 
-						{/* <PopoverWithTrigger
-						trigger={({ ref, setIsOpen, isOpen }) => {
-							return (
-								<Button
-									ref={ref}
-									onClick={() => setIsOpen(!isOpen)}
-									icon={icons.visible}
-									className='!h-8 rounded-none border border-solid border-gray-200 border-r-transparent !py-1 px-2 text-gray-700 shadow-sm transition hover:bg-gray-200 hover:text-gray-800 hover:shadow focus:z-10 focus:!shadow focus-visible:border-indigo-400 focus-visible:!ring focus-visible:!ring-indigo-500 focus-visible:!ring-opacity-35 disabled:pointer-events-none disabled:!border-l-gray-200 disabled:text-gray-200 disabled:!opacity-100 [&>svg]:size-5'
-									label={__('Responsive preview', 'eightshift-components')}
-									disabled={!firstMobileFirstOverride && !lastDesktopFirstOverride}
-								/>
-							);
-						}}
-						position='top right'
-						contentClass='min-w-72'
-						allowCloseFromChildren
-					>
-						<TwResponsivePreview
-							value={value}
-							isDesktopFirst={isDesktopFirst}
-							breakpoints={breakpoints}
-							desktopFirstBreakpoints={desktopFirstBreakpoints}
-							options={options}
-						/>
-					</PopoverWithTrigger> */}
-
-						<Button
+						<ToggleButton
 							icon={isDesktopFirst ? icons.responsiveOverridesAlt : icons.responsiveOverridesAlt2}
-							onClick={() => setDetailsVisible(!detailsVisible)}
-							type={detailsVisible ? 'selected' : 'default'}
-							inGroup
+							onChange={() => setDetailsVisible(!detailsVisible)}
+							selected={detailsVisible}
+							tooltip={detailsVisible ? __('Hide responsive overrides', 'eightshift-components') : __('Show responsive overrides', 'eightshift-components')}
 						/>
 					</div>
 				</div>

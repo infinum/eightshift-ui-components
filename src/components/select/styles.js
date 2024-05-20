@@ -2,7 +2,7 @@ import { classnames } from '../../utilities/classnames';
 
 const controlStyles = {
 	base: 'border rounded-md bg-white text-sm transition group shadow !min-h-10',
-	focus: 'border-teal-600 ring ring-teal-600 ring-opacity-25',
+	focus: 'ring ring-teal-500 ring-opacity-50',
 	nonFocus: 'border-gray-300',
 };
 const placeholderStyles = 'text-gray-400 ml-0.5';
@@ -13,7 +13,7 @@ const multiValueStyles =
 	classnames(
 		'bg-gray-100 rounded p-1 border border-gray-100 hover:border-gray-300 items-center gap-1.5 transition overflow-visible',
 		'[:focus-visible_&]:outline-none [:focus-visible_&]:ring',
-		'[:focus-visible_&]:border-teal-600 [:focus-visible_&]:ring-teal-600 [:focus-visible_&]:ring-opacity-25',
+		'[:focus-visible_&]:ring-teal-500 [:focus-visible_&]:ring-opacity-50',
 	);
 const multiValueLabelStyles = 'select-none';
 const multiValueRemoveStyles = 'hover:bg-red-500/15 hover:text-red-900 text-gray-500 rounded p-0.5 [&>svg]:size-3.5 [&>svg]:stroke-[1.5] transition';

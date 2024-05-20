@@ -117,8 +117,8 @@ export const LinkInput = (props) => {
 				>
 					<Input
 						className={classnames(
-							'w-full rounded-md border border-gray-300 px-1 py-2 text-sm shadow-sm transition min-h-10',
-							'focus:outline-none focus-visible:border-teal-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-600 focus-visible:ring-opacity-25',
+							'w-full rounded-md border border-gray-300 pl-2 pr-1 py-2 text-sm shadow-sm transition min-h-10',
+							'focus:outline-none  focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
 							inputValue?.length > 0 && 'pr-8',
 							className,
 						)}
@@ -223,7 +223,7 @@ export const LinkInput = (props) => {
 									textValue={title}
 									className={classnames(
 										'grid w-full cursor-pointer select-none grid-cols-[auto,_minmax(0,_1fr)] gap-x-1.5 rounded-md border border-transparent p-1 transition hover:border-gray-300 hover:bg-gray-50',
-										'focus:outline-none focus-visible:border-teal-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-600 focus-visible:ring-opacity-25',
+										'focus:outline-none  focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
 									)}
 								>
 									<span className='row-span-2 self-center text-gray-500 [&>svg]:size-6'>
