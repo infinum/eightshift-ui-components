@@ -50,8 +50,7 @@ export const Button = (props) => {
 			regular: 'border-gray-300 text-gray-700 shadow-sm border',
 			hover: 'hover:border-gray-300 hover:bg-gray-100',
 			disabled: 'disabled:border-gray-200 disabled:text-gray-300 border',
-			focus:
-				' focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
+			focus: 'focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
 		},
 		selected: {
 			regular: 'border-teal-600 bg-teal-50 text-gray-900 shadow-sm z-10 border',
@@ -66,8 +65,7 @@ export const Button = (props) => {
 			regular:
 				'border-red-300 text-gray-700 text-gray-900 shadow-red-300/30 [&>svg]:text-red-500 shadow-sm border',
 			hover: 'hover:border-red-400 hover:bg-red-50 hover:text-red-500 hover:shadow-red-300/75',
-			focus:
-				'focus-visible:ring-red-500 focus-visible:ring-opacity-50',
+			focus: 'focus-visible:ring-red-500 focus-visible:ring-opacity-50',
 		},
 	};
 
@@ -76,7 +74,7 @@ export const Button = (props) => {
 			onPress={onClick || onPress}
 			isDisabled={disabled}
 			className={classnames(
-				'flex items-center justify-center gap-1 transition duration-300 rounded-md',
+				'flex items-center justify-center gap-1 rounded-md transition duration-300',
 				!disabled && themes[type]?.regular,
 				!disabled && themes[type]?.hover,
 				'disabled:shadow-none',
@@ -88,8 +86,8 @@ export const Button = (props) => {
 				children && sizes[size].button,
 				children && icon && sizes[size].iconButtonPadding,
 				children && !icon && sizes[size].buttonPadding,
-				'[.button-group_&:not(:first-child)]:rounded-l-none [.button-group_&:not(:last-child)]:rounded-r-none [.button-group_&:not(:last-child)]:-mr-px',
-				'[.button-group_div:not(:first-child)_>_&]:rounded-l-none [.button-group_div:not(:last-child)_>_&]:rounded-r-none [.button-group_div:not(:last-child)_>_&]:-mr-px',
+				'[.button-group_&:not(:first-child)]:rounded-l-none [.button-group_&:not(:last-child)]:-mr-px [.button-group_&:not(:last-child)]:rounded-r-none',
+				'[.button-group_div:not(:first-child)_>_&]:rounded-l-none [.button-group_div:not(:last-child)_>_&]:-mr-px [.button-group_div:not(:last-child)_>_&]:rounded-r-none',
 				sizes[size].iconSize,
 				className,
 			)}
