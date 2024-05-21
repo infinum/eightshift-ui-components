@@ -10,8 +10,7 @@
 		"url": "git+https://github.com/goranalkovic-infinum/eightshift-ui-components.git"
 	},
 	"files": [
-		"dist/*",
-		"lib"
+		"dist"
 	],
 	"sideEffects": false,
 	"exports": {
