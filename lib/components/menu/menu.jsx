@@ -58,7 +58,7 @@ export const Menu = (props) => {
 				{triggerLabel}
 			</Button>
 			<Popover
-				className='focus:es-uic-outline-none'
+				className='focus:es-uic-outline-none !es-uic-p-0'
 				aria-label={ariaLabel}
 			>
 				<ReactAriaMenu
@@ -133,7 +133,7 @@ export const SubMenuItem = (props) => {
 			})}
 			<Popover
 				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-components')}
-				className='focus:es-uic-outline-none'
+				className='focus:es-uic-outline-none !es-uic-p-0'
 				offset={-1}
 			>
 				<ReactAriaMenu

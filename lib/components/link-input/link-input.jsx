@@ -128,7 +128,7 @@ export const LinkInput = (props) => {
 					}
 				>
 					<Group
-						className='relative'
+						className='es-uic-relative'
 						ref={triggerRef}
 					>
 						<Input
@@ -197,7 +197,7 @@ export const LinkInput = (props) => {
 							setInstantClose(true);
 						}}
 						aria-label={__('Link suggestions', 'eightshift-components')}
-						className='es-uic-space-y-0.5 es-uic-p-2 es-uic-focus:outline-none'
+						className='es-uic-space-y-0.5 es-uic-p-2 focus:es-uic-outline-none'
 						items={list.items}
 						selectionMode='single'
 						disallowEmptySelection

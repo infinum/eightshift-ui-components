@@ -6,7 +6,7 @@ import { icons } from '../../icons/icons';
 import { camelCase, upperFirst } from '../../utilities/text-helpers';
 import { classnames } from '../../utilities/classnames';
 import { Tooltip } from '../tooltip/tooltip';
-import { IconLabel } from '../icon-label/icon-label';
+import { BaseControl } from '../base-control/base-control';
 
 /**
  * A component that can provide a 3x3 or a 2x2 grid of positions to pick from.
@@ -45,6 +45,7 @@ export const MatrixAlign = (props) => {
 
 		popoverPosition,
 	} = props;
+
 	const [currentValue, setCurrentValue] = useState(value);
 	const [tooltipText, setTooltipText] = useState(null);
 	const [popoverOpen, setPopoverOpen] = useState(false);
@@ -110,36 +111,25 @@ export const MatrixAlign = (props) => {
 					: icons.matrixAlignControlDotInactive,
 		}));
 
-	const Trigger = ({ wrapperClassName }) => (
-		<Button
-			icon={icons[`position${size}${upperFirst(camelCase(currentValue))}`]}
-			onPress={() => {
-				setPopoverOpen(true);
-			}}
-			forwardedRef={ref}
-			tooltip={tooltip}
-			wrapperClassName={wrapperClassName}
-		>
-			{!(icon || subtitle) && label}
-		</Button>
-	);
-
 	return (
 		<>
-			{(icon || label || subtitle) && (
-				<div className='es-uic-flex es-uic-w-full es-uic-items-center es-uic-gap-1'>
-					<IconLabel
-						icon={icon}
-						label={label}
-						subtitle={subtitle}
-					/>
-
-					<Trigger wrapperClassName='es-uic-ml-auto' />
-				</div>
-			)}
-
-			{!(icon || label || subtitle) && <Trigger />}
-
+			<BaseControl
+				icon={icon}
+				label={label}
+				subtitle={subtitle}
+				inline
+			>
+				<Button
+					icon={icons[`position${size}${upperFirst(camelCase(currentValue))}`]}
+					onPress={() => {
+						setPopoverOpen(true);
+					}}
+					forwardedRef={ref}
+					tooltip={tooltip}
+				>
+					{!(icon || subtitle) && label}
+				</Button>
+			</BaseControl>
 			<Popover
 				aria-label={ariaLabel ?? __('Select position', 'eightshift-components')}
 				position={popoverPosition}
@@ -162,7 +152,7 @@ export const MatrixAlign = (props) => {
 				>
 					<div
 						className={classnames(
-							'grid',
+							'es-uic-grid',
 							size === '3x3' && 'es-uic-grid-cols-3 es-uic-grid-rows-3',
 							size === '2x2' && 'es-uic-grid-cols-2 es-uic-grid-rows-2',
 						)}
