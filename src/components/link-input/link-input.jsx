@@ -11,7 +11,6 @@ import {
 	ListBoxItem,
 } from 'react-aria-components';
 import { __ } from '@wordpress/i18n';
-import { IconLabel } from '../icon-label/icon-label';
 import { icons } from '../icons/icons';
 import { classnames } from '../../utilities/classnames';
 import { useEffect, useRef, useState } from 'react';
@@ -20,6 +19,7 @@ import { Spacer } from '../spacer/spacer';
 import { useDebounce } from '@uidotdev/usehooks';
 import { Tooltip } from '../tooltip/tooltip';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
+import { BaseControl } from '../base-control/base-control';
 
 export const LinkInput = (props) => {
 	const {
@@ -46,6 +46,8 @@ export const LinkInput = (props) => {
 
 	const [inputValue, setInputValue] = useState(url);
 	const [suggestionsVisible, setSuggestionsVisible] = useState(false);
+	const [instantClose, setInstantClose] = useState(false);
+	const debouncedSuggestionsVisible = useDebounce(suggestionsVisible, inputDebounceDelay);
 
 	const triggerRef = useRef(null);
 
@@ -60,32 +62,38 @@ export const LinkInput = (props) => {
 		},
 	});
 
-	const debouncedInputValue = useDebounce(inputValue, inputDebounceDelay);
+	const shouldNotShowSuggestions = (url) => {
+		return (
+			url?.trim()?.length < 3 ||
+			url?.startsWith('#') ||
+			url?.startsWith(':') ||
+			url?.startsWith('mailto:') ||
+			url?.startsWith('tel:') ||
+			url?.startsWith('http://') ||
+			url?.startsWith('https://')
+		);
+	};
 
 	useEffect(() => {
-		const newUrl = debouncedInputValue;
-
-		if (
-			newUrl?.startsWith('#') ||
-			newUrl?.startsWith(':') ||
-			newUrl?.startsWith('mailto:') ||
-			newUrl?.startsWith('tel:') ||
-			newUrl?.startsWith('http://') ||
-			newUrl?.startsWith('https://')
-		) {
+		if (shouldNotShowSuggestions(inputValue)) {
 			setSuggestionsVisible(false);
-			onChange({ url: newUrl, isAnchor: newUrl?.includes('#') });
+
+			onChange({ url: inputValue, isAnchor: inputValue?.includes('#') });
 			return;
-		} else if (newUrl?.length < 3) {
+		}
+
+		if (inputValue?.length < 3) {
 			setSuggestionsVisible(false);
 			return;
 		}
 
-		setSuggestionsVisible(newUrl?.length > 3);
-	}, [debouncedInputValue, onChange]);
+		setInstantClose(false);
+		setSuggestionsVisible(inputValue?.length > 3);
+	}, [inputValue, onChange]);
 
 	const handleDialogOpenChange = (value) => {
 		setSuggestionsVisible(value);
+		setInstantClose(!value);
 
 		if (!value) {
 			triggerRef?.current?.focus();
@@ -101,58 +109,59 @@ export const LinkInput = (props) => {
 				onChange={(value) => setInputValue(value)}
 				isDisabled={disabled}
 			>
-				<Label className='flex items-center gap-1'>
-					<IconLabel
-						as={Label}
-						icon={icon}
-						label={label}
-						subtitle={subtitle}
-					/>
-
-					{actions && <div className='ml-auto flex items-center gap-1'>{actions}</div>}
-				</Label>
-				<Group
-					className='relative'
-					ref={triggerRef}
+				<BaseControl
+					as={Label}
+					icon={icon}
+					label={label}
+					subtitle={subtitle}
+					actions={actions}
+					labelAs={Label}
+					help={
+						help && (
+							<Text
+								className='text-sm text-gray-400'
+								slot='description'
+							>
+								{help}
+							</Text>
+						)
+					}
 				>
-					<Input
-						className={classnames(
-							'w-full rounded-md border border-gray-300 pl-2 pr-1 py-2 text-sm shadow-sm transition min-h-10',
-							'focus:outline-none  focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
-							inputValue?.length > 0 && 'pr-8',
-							className,
-						)}
-					/>
+					<Group
+						className='relative'
+						ref={triggerRef}
+					>
+						<Input
+							className={classnames(
+								'min-h-10 w-full rounded-md border border-gray-300 py-2 pl-2 pr-1 text-sm shadow-sm transition',
+								'focus:outline-none  focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
+								inputValue?.length > 0 && 'pr-8',
+								className,
+							)}
+						/>
 
-					<AnimatedVisibility
-						visible={inputValue?.length > 0}
-						className='absolute inset-y-1 right-1'
-						transition='scaleFade'
-					>
-						<ReactAriaButton>
-							<Tooltip text={__('Clear', 'eightshift-components')}>
-								<div className='flex size-7 items-center justify-center rounded bg-white/85 text-gray-600 backdrop-blur transition hover:bg-red-50 hover:text-red-500 [&>svg]:size-6'>
-									{removeIcon}
-								</div>
-							</Tooltip>
-						</ReactAriaButton>
-					</AnimatedVisibility>
-				</Group>
-				{help && (
-					<Text
-						className='text-sm text-gray-400'
-						slot='description'
-					>
-						{help}
-					</Text>
-				)}
+						<AnimatedVisibility
+							visible={inputValue?.length > 0}
+							className='absolute inset-y-1 right-1'
+							transition='scaleFade'
+						>
+							<ReactAriaButton>
+								<Tooltip text={__('Clear', 'eightshift-components')}>
+									<div className='flex size-7 items-center justify-center rounded bg-white/85 text-gray-600 backdrop-blur transition hover:bg-red-50 hover:text-red-500 [&>svg]:size-6'>
+										{removeIcon}
+									</div>
+								</Tooltip>
+							</ReactAriaButton>
+						</AnimatedVisibility>
+					</Group>
+				</BaseControl>
 			</SearchField>
 
 			<Popover
 				shouldFlip={false}
 				shouldCloseOnInteractOutside={() => true}
 				triggerRef={triggerRef}
-				isOpen={suggestionsVisible}
+				isOpen={instantClose ? false : debouncedSuggestionsVisible}
 				onOpenChange={handleDialogOpenChange}
 				placement='bottom'
 				className={({ isEntering, isExiting }) =>
@@ -179,14 +188,14 @@ export const LinkInput = (props) => {
 							setInputValue(key.currentKey);
 							onChange({ url: key.currentKey, isAnchor: key.currentKey?.includes('#') });
 							setSuggestionsVisible(false);
+							setInstantClose(true);
 						}}
-						aria-label='Pick a Pokemon'
+						aria-label={__('Link suggestions', 'eightshift-components')}
+						className='space-y-0.5 p-2 focus:outline-none'
 						items={list.items}
 						selectionMode='single'
-						autoFocus
 						disallowEmptySelection
-						renderEmptyState={() => <div>pRAzno</div>}
-						className='space-y-0.5 p-2 focus:outline-none'
+						autoFocus
 					>
 						{(item) => {
 							const {
