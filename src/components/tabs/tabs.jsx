@@ -17,9 +17,16 @@ export const Tabs = (props) => {
 	let tabPanelCounter = 1;
 	let tabCounter = 1;
 
-	const childrenWithIds = children.reduce((acc, child, index) => {
+	const preparedChildren = Array.isArray(children) ? children : [children];
+
+	const childrenWithIds = preparedChildren.reduce((acc, child, index) => {
 		if (child.type.displayName === 'TabList') {
-			tabCounter = (child?.props?.children?.length ?? 0) + 1;
+			const childItems = Array.isArray(child?.props?.children) ? child?.props?.children : [child?.props?.children].filter(Boolean);
+
+			tabCounter = (childItems?.length ?? 0) + 1;
+			if (childItems.length < 1) {
+				return acc;
+			}
 
 			return [
 				...acc,
@@ -28,7 +35,7 @@ export const Tabs = (props) => {
 					{
 						key: index,
 					},
-					child?.props?.children?.map((innerChild, i) =>
+					childItems?.map((innerChild, i) =>
 						cloneElement(innerChild, {
 							id: `tab-${baseId}-${i + 1}`,
 							key: i,
@@ -65,8 +72,8 @@ export const Tabs = (props) => {
 						'Number of <Tab>s (%s) and <TabPanel>s (%s) should be the same. <Tab>s should be within a <TabList>.',
 						'eightshift-components',
 					),
-					tabCounter,
-					tabPanelCounter,
+					tabCounter - 1,
+					tabPanelCounter - 1,
 				)}
 				alignIconToTitle
 			/>
