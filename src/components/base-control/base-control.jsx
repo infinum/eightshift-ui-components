@@ -46,7 +46,7 @@ export const BaseControl = (props) => {
 	}
 
 	return (
-		<div className={classnames('space-y-2', className)}>
+		<div className={classnames('space-y-1', className)}>
 			<div className='flex items-center gap-1'>
 				{(label || icon || subtitle) && (
 					<IconLabel
@@ -67,7 +67,8 @@ export const BaseControl = (props) => {
 				)}
 			</div>
 
-			{!inline && <div className='space-y-1'>{children}</div>}
+			{!inline && Array.isArray(children) && children.filter(Boolean).length > 1 && <div className='space-y-1 bg-red-200'>{children}</div>}
+			{!inline && (!Array.isArray(children) || children.filter(Boolean).length < 2) && children}
 
 			{help && <span className='text-sm text-gray-400'>{help}</span>}
 		</div>
