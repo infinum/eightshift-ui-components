@@ -551,7 +551,7 @@ function App() {
 
 					<Button icon={icons.emptyRect}>Hello</Button>
 
-					<div className='button-group es-uic-flex'>
+					<div className='es-uic-button-group es-uic-flex'>
 						<Button icon={icons.small} />
 						<Button icon={icons.medium} />
 						<Button icon={icons.large} />
@@ -742,7 +742,7 @@ function App() {
 						onChange={(newValue) => setResp(newValue)}
 						options={respOpt}
 						componentToRender={({ currentValue, handleChange }) => (
-							<div className='button-group es-uic-flex'>
+							<div className='es-uic-button-group es-uic-flex'>
 								{respOpt.map((opt) => (
 									<ToggleButton
 										key={opt.value}
