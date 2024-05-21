@@ -12,8 +12,8 @@ export default {
 	theme: {
 		extend: {
 			spacing: {
-				'18': '4.5rem',
 				'5.5': '1.375rem',
+				'18': '4.5rem',
 			},
 			fontSize: {
 				// 'sm': '.8125rem', // 13px

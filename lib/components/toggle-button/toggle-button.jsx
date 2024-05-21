@@ -19,15 +19,15 @@ export const ToggleButton = (props) => {
 
 	const sizes = {
 		small: {
-			iconButton: 'es-uic-size-6',
-			button: 'es-uic-h-6 es-uic-min-w-6',
+			iconButton: 'es-uic-size-7',
+			button: 'es-uic-h-7 es-uic-min-w-7',
 			iconButtonPadding: 'es-uic-px-1',
 			buttonPadding: 'es-uic-px-2',
 			iconSize: '[&>svg]:es-uic-size-4',
 		},
 		default: {
-			iconButton: 'es-uic-size-8',
-			button: 'es-uic-h-8 es-uic-min-w-8',
+			iconButton: 'es-uic-size-9',
+			button: 'es-uic-h-9 es-uic-min-w-9',
 			iconButtonPadding: 'es-uic-px-1.5',
 			buttonPadding: 'es-uic-px-2',
 			iconSize: '[&>svg]:es-uic-size-5.5',

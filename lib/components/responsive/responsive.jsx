@@ -277,7 +277,7 @@ export const Responsive = (props) => {
 
 				<AnimatedVisibility
 					visible={detailsVisible}
-					className='space-y-1'
+					className='es-uic-space-y-2'
 				>
 					{breakpointsToMap.map((breakpoint) => {
 						const realBreakpointName = breakpoint.replace('max-', '');
