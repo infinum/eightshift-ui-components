@@ -19,6 +19,9 @@ export const Tooltip = (props) => {
 		doNotReplaceChild = false,
 	} = props;
 
+	// Temporarily disabled.
+	return children;
+
 	const triggerItems = doNotReplaceChild ? children : <div className={classnames('es-uic-size-fit', wrapperClassName)}>{children}</div>;
 
 	return (
