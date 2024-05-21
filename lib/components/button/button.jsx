@@ -86,8 +86,8 @@ export const Button = (props) => {
 				children && sizes[size].button,
 				children && icon && sizes[size].iconButtonPadding,
 				children && !icon && sizes[size].buttonPadding,
-				'[.button-group_&:not(:first-child)]:es-uic-rounded-l-none [.button-group_&:not(:last-child)]:-es-uic-mr-px [.button-group_&:not(:last-child)]:es-uic-rounded-r-none',
-				'[.button-group_div:not(:first-child)_>_&]:es-uic-rounded-l-none [.button-group_div:not(:last-child)_>_&]:-es-uic-mr-px [.button-group_div:not(:last-child)_>_&]:es-uic-rounded-r-none',
+				'[.es-uic-button-group_&:not(:first-child)]:es-uic-rounded-l-none [.es-uic-button-group_&:not(:last-child)]:-es-uic-mr-px [.es-uic-button-group_&:not(:last-child)]:es-uic-rounded-r-none',
+				'[.es-uic-button-group_div:not(:first-child)_>_&]:es-uic-rounded-l-none [.es-uic-button-group_div:not(:last-child)_>_&]:-es-uic-mr-px [.es-uic-button-group_div:not(:last-child)_>_&]:es-uic-rounded-r-none',
 				sizes[size].iconSize,
 				className,
 			)}
@@ -112,3 +112,7 @@ export const Button = (props) => {
 		</Tooltip>
 	);
 };
+
+export const ButtonGroup = ({ children, className }) => (
+	<div className={classnames('es-uic-flex es-uic-button-group', className)}>{children}</div>
+);

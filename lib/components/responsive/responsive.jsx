@@ -58,7 +58,9 @@ export const Responsive = (props) => {
 							<div
 								className={classnames(
 									'es-uic-flex es-uic-flex-col es-uic-items-start es-uic-gap-4 es-uic-text-start',
-									!firstMobileFirstOverride || !lastDesktopFirstOverride ? 'es-uic-w-72' : 'es-uic-w-40',
+									!firstMobileFirstOverride || !lastDesktopFirstOverride
+										? 'es-uic-w-72'
+										: 'es-uic-w-40',
 								)}
 							>
 								<div>
@@ -66,7 +68,9 @@ export const Responsive = (props) => {
 									<br />
 
 									{!firstMobileFirstOverride && !lastDesktopFirstOverride && (
-										<span>{__('Always applied, regardless of browser width.', 'eightshift-components')}</span>
+										<span>
+											{__('Always applied, regardless of browser width.', 'eightshift-components')}
+										</span>
 									)}
 
 									{firstMobileFirstOverride && (
@@ -142,7 +146,11 @@ export const Responsive = (props) => {
 						</div>
 					</Tooltip>
 				)}
-				<div className={classnames(detailsVisible ? 'es-uic-col-start-2 es-uic-col-end-2' : 'es-uic-col-span-full')}>
+				<div
+					className={classnames(
+						detailsVisible ? 'es-uic-col-start-2 es-uic-col-end-2' : 'es-uic-col-span-full',
+					)}
+				>
 					{componentToRender({
 						breakpoint: '_default',
 						currentValue: value?.['_default'],
@@ -167,7 +175,7 @@ export const Responsive = (props) => {
 						subtitle={subtitle}
 					/>
 
-					<div className='button-group es-uic-ml-auto es-uic-flex'>
+					<div className='es-uic-button-group es-uic-ml-auto es-uic-flex'>
 						<Menu tooltip={__('Responsive options', 'eightshift-components')}>
 							<MenuSection label={__('Breakpoint type', 'eightshift-components')}>
 								<MenuItem
@@ -256,7 +264,11 @@ export const Responsive = (props) => {
 							icon={isDesktopFirst ? icons.responsiveOverridesAlt : icons.responsiveOverridesAlt2}
 							onChange={() => setDetailsVisible(!detailsVisible)}
 							selected={detailsVisible}
-							tooltip={detailsVisible ? __('Hide responsive overrides', 'eightshift-components') : __('Show responsive overrides', 'eightshift-components')}
+							tooltip={
+								detailsVisible
+									? __('Hide responsive overrides', 'eightshift-components')
+									: __('Show responsive overrides', 'eightshift-components')
+							}
 						/>
 					</div>
 				</div>
