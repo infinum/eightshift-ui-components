@@ -44,8 +44,10 @@ export const Popover = (props) => {
 			className={({ isEntering, isExiting }) =>
 				classnames(
 					'es-uic-rounded-md es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-shadow-lg es-uic-outline-none',
-					isEntering && 'es-uic-animate-slideDownAndFade',
-					isExiting && 'es-uic-animate-slideUpAndFadeOut',
+					isEntering &&
+						'es-uic-animate-in es-uic-slide-in-from-top-2 es-uic-fade-in-0 es-uic-fill-mode-forwards es-uic-outline',
+					isExiting &&
+						'es-uic-animate-out es-uic-slide-out-to-top-2 es-uic-fade-out-0 es-uic-fill-mode-forwards es-uic-outline',
 					'es-uic-p-1 es-uic-text-sm',
 					className,
 				)
