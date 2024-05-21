@@ -10,7 +10,7 @@ import { cloneElement, useId } from 'react';
 import { Notice } from '../notice/notice';
 
 export const Tabs = (props) => {
-	const { children, vertical } = props;
+	const { children, vertical, className, ...rest } = props;
 
 	const baseId = useId();
 
@@ -75,9 +75,11 @@ export const Tabs = (props) => {
 
 	return (
 		<ReactAriaTabs
+			{...rest}
 			orientation={vertical ? 'vertical' : 'horizontal'}
 			className={classnames(
 				vertical ? 'grid size-full min-h-40 grid-cols-[minmax(0,_15rem),_2fr] gap-4' : 'flex-col',
+				className,
 			)}
 		>
 			{childrenWithIds}
@@ -88,15 +90,16 @@ export const Tabs = (props) => {
 Tabs.displayName = 'Tabs';
 
 export const TabList = (props) => {
-	const { children, 'aria-label': ariaLabel, ...other } = props;
+	const { children, 'aria-label': ariaLabel, className, ...other } = props;
 	return (
 		<ReactAriaTabList
 			aria-label={ariaLabel ?? __('tabs', 'eightshift-components')}
 			className={({ orientation }) =>
 				classnames(
-					'flex',
+					'flex gap-1',
 					orientation === 'vertical' && 'h-full flex-col border-r pr-1.5',
 					orientation === 'horizontal' && 'w-full items-end border-b border-b-gray-300',
+					className,
 				)
 			}
 			{...other}
@@ -109,25 +112,27 @@ export const TabList = (props) => {
 TabList.displayName = 'TabList';
 
 export const Tab = (props) => {
-	const { children, disabled, isParentVertical, ...other } = props;
+	const { children, disabled, isParentVertical, className, ...other } = props;
 	return (
 		<ReactAriaTab
 			{...other}
 			isDisabled={disabled}
 			className={({ isSelected, isDisabled }) => {
 				return classnames(
-					'relative flex select-none items-center rounded px-2 py-1.5 text-sm transition',
+					'relative flex select-none items-center rounded p-1.5 text-sm transition',
 					'focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
-					'after:absolute after:inset-x-0 after:-bottom-0.5 after:h-1 after:rounded-full after:bg-teal-600 after:shadow-sm after:shadow-teal-500/25 after:transition after:duration-300 after:content-[""]',
-					isSelected && 'border-b-teal-600 text-teal-950 after:opacity-100',
+					'after:absolute after:rounded-full after:bg-teal-600 after:shadow-sm after:shadow-teal-500/25 after:transition after:duration-300 after:content-[""]',
+					!isParentVertical && 'after:inset-x-0 after:-bottom-px after:h-0.5',
+					isSelected && 'border-b-teal-600 text-teal-900 after:opacity-100',
 					isSelected && isParentVertical && 'after:scale-y-100',
 					isSelected && !isParentVertical && 'after:scale-x-100',
 					!isSelected && !isDisabled && 'text-gray-800 after:opacity-0 hover:bg-gray-100',
-					isDisabled && 'text-gray-300 after:hidden',
 					!isSelected && !isDisabled && isParentVertical && 'after:scale-y-75',
 					!isSelected && !isDisabled && !isParentVertical && 'after:scale-x-75',
+					isDisabled && 'text-gray-300 after:hidden',
 					isParentVertical &&
-						'ml-1.5 after:inset-y-0 after:-left-1.5 after:right-auto after:my-auto after:h-7 after:w-1',
+						'pl-3 after:inset-y-0 after:left-px after:right-auto after:my-auto after:h-7 after:w-[0.1875rem]',
+					className,
 				);
 			}}
 		>
@@ -139,11 +144,11 @@ export const Tab = (props) => {
 Tab.displayName = 'Tab';
 
 export const TabPanel = (props) => {
-	const { children, ...other } = props;
+	const { children, className, ...other } = props;
 	return (
 		<ReactAriaTabPanel
 			{...other}
-			className='space-y-2.5 text-sm focus:outline-none'
+			className={classnames('mt-1.5 space-y-2.5 text-sm focus:outline-none', className)}
 		>
 			{children}
 		</ReactAriaTabPanel>

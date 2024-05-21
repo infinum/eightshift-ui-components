@@ -65,11 +65,11 @@ export const ListBox = (props) => {
 				<ReactAriaListBox
 					selectionMode={selectionMode}
 					className={classnames(
-						'rounded-md border border-gray-300 p-1 text-sm shadow-sm transition focus:outline-none',
+						'rounded-lg border border-gray-300 p-1 text-sm shadow-sm transition focus:outline-none',
 						orientation === 'horizontal' && 'flex w-fit max-w-full gap-0.5',
 						orientation === 'vertical' && 'flex flex-col gap-0.5',
 						orientation === 'horizontal-tiles' &&
-							'grid min-h-20 w-fit max-w-full auto-cols-[fit-content(6rem)] grid-rows-[1fr,_auto,_auto] gap-x-0.5',
+							'grid min-h-20 w-fit max-w-full auto-cols-[fit-content(6rem)] grid-rows-[1fr,_minmax(auto,_0.5fr),_auto] gap-x-0.5',
 						className,
 					)}
 					aria-label={ariaLabel ?? __('Choose', 'eightshift-components')}
@@ -84,7 +84,7 @@ export const ListBox = (props) => {
 						const { label, icon, subtitle, tooltip, disabled } = item;
 						return (
 							<ReactAriaListBoxItem
-								textValue={label}
+								textValue={label ?? tooltip}
 								onHoverChange={(isHovered) => {
 									if (label || !tooltip) {
 										return;
