@@ -3,6 +3,13 @@
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
+	"main": "dist/eightshift-ui-components.js",
+	"files": [
+		"dist"
+	],
+	"sideEffects": [
+		"**/*.css"
+	],
 	"scripts": {
 		"dev": "vite",
 		"start": "vite",

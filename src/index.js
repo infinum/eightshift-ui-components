@@ -1,3 +1,5 @@
+import './index.css';
+
 export { AnimatedVisibility } from './components/animated-visibility/animated-visibility';
 export { BaseControl } from './components/base-control/base-control';
 export { BreakpointPreview } from './components/breakpoint-preview/breakpoint-preview';
