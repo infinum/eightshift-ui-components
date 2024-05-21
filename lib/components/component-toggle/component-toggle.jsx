@@ -5,8 +5,20 @@ import { Switch } from '../toggle/switch';
 import { Tooltip } from '../tooltip/tooltip';
 
 export const ComponentToggle = (props) => {
-	const { children, icon, label, useComponent, onChange, noUseToggle, expandButtonDisabled } =
-		props;
+	const {
+		children,
+		icon,
+		label,
+		useComponent,
+		onChange,
+		noUseToggle,
+		expandButtonDisabled,
+		controlOnly,
+	} = props;
+
+	if (controlOnly) {
+		return children;
+	}
 
 	return (
 		<Expandable
