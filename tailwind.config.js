@@ -26,6 +26,8 @@ export default {
 		plugin(function ({ addVariant, addComponents }) {
 			addVariant('r-checked', '&[data-state="checked"]');
 			addVariant('r-disabled', '&[data-disabled]');
+			addVariant('r-closed', '&[data-state="closed"]');
+			addVariant('r-delayed-open', '&[data-state="delayed-open"]');
 			addComponents({
 				'.no-webkit-highlight': {
 					'-webkit-tap-highlight-color': 'transparent',

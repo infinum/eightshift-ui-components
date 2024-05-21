@@ -19,9 +19,6 @@ export const Tooltip = (props) => {
 		doNotReplaceChild = false,
 	} = props;
 
-	// Temporarily disabled.
-	return children;
-
 	const triggerItems = doNotReplaceChild ? children : <div className={classnames('es-uic-size-fit', wrapperClassName)}>{children}</div>;
 
 	return (
@@ -44,8 +41,10 @@ export const Tooltip = (props) => {
 							theme === 'light' && 'es-uic-border-gray-200 es-uic-bg-white/60 es-uic-text-gray-700',
 							theme === 'dark' && 'es-uic-border-gray-600 es-uic-bg-black/60 es-uic-text-gray-100',
 							'es-uic-z-20 es-uic-select-none es-uic-rounded-md es-uic-border es-uic-px-1.5 es-uic-py-0.5 es-uic-text-sm es-uic-shadow es-uic-backdrop-blur es-uic-will-change-[transform,opacity]',
-							'data-[state=closed]:es-uic-animate-scaleOutAndFade',
-							'data-[state=delayed-open]:data-[side=bottom]:es-uic-animate-slideUpAndFade data-[state=delayed-open]:data-[side=left]:es-uic-animate-slideRightAndFade data-[state=delayed-open]:data-[side=right]:es-uic-animate-slideLeftAndFade data-[state=delayed-open]:data-[side=top]:es-uic-animate-slideDownAndFade',
+							'es-uic-slide-in-from-top-2 es-uic-fade-in-0 es-uic-fill-mode-forwards es-uic-outline',
+							'r-closed:es-uic-animate-out r-closed:es-uic-zoom-out-95 r-closed:es-uic-fade-out-0 r-closed:es-uic-fill-mode-forwards',
+							'r-delayed-open:es-uic-animate-in r-delayed-open:es-uic-zoom-in-95 r-delayed-open:fade-in-100 r-delayed-open:es-uic-fill-mode-forwards',
+							// 'data-[state=delayed-open]:es-uic-animate-in data-[state=delayed-open]:data-[side=bottom]:es-uic-animate-slideUpAndFade data-[state=delayed-open]:data-[side=left]:es-uic-animate-slideRightAndFade data-[state=delayed-open]:data-[side=right]:es-uic-animate-slideLeftAndFade data-[state=delayed-open]:data-[side=top]:es-uic-animate-slideDownAndFade',
 							className,
 						)}
 					>
