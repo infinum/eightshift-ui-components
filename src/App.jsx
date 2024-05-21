@@ -1,20 +1,24 @@
 import { useState } from 'react';
-import { Toggle } from './components/toggle/toggle';
-import { icons } from './components/icons/icons';
-import { AnimatedVisibility } from './components/animated-visibility/animated-visibility';
-import { Spacer } from './components/spacer/spacer';
-import { Expandable } from './components/expandable/expandable';
-import { Notice } from './components/notice/notice';
-import { LinkInput } from './components/link-input/link-input';
-import { TriggeredPopover } from './components/popover/popover';
-import { Button } from './components/button/button';
-import { MatrixAlign } from './components/matrix-align/matrix-align';
-import { Menu, MenuItem, MenuSection, MenuSeparator, SubMenuItem } from './components/menu/menu';
-import { Tooltip } from './components/tooltip/tooltip';
-import { NumberPicker } from './components/number-picker/number-picker';
-import { Responsive } from './components/responsive/responsive';
-import { BaseControl } from './components/base-control/base-control';
-import {
+import{
+	Toggle,
+	icons,
+	AnimatedVisibility,
+	Spacer,
+	Expandable,
+	Notice,
+	LinkInput,
+	TriggeredPopover,
+	Button,
+	MatrixAlign,
+	Menu,
+	MenuItem,
+	MenuSection,
+	MenuSeparator,
+	SubMenuItem,
+	Tooltip,
+	NumberPicker,
+	Responsive,
+	BaseControl,
 	Select,
 	AsyncSelect,
 	MultiSelect,
@@ -26,12 +30,15 @@ import {
 	RSMultiValueRemove,
 	RSClearIndicator,
 	RSMultiValueContainer,
-} from './components/select';
-import { ToggleButton } from './components/toggle-button/toggle-button';
-import { Tab, TabList, TabPanel, Tabs } from './components/tabs/tabs';
-import { InputField } from './components/input/input';
-import { ComponentToggle } from './components/component-toggle/component-toggle';
-import { ListBox } from './components/list-box/list-box';
+	ToggleButton,
+	Tab,
+	TabList,
+	TabPanel,
+	Tabs,
+	InputField,
+	ComponentToggle,
+	ListBox,
+} from '../lib';
 
 function App() {
 	const [toggled, setToggled] = useState(false);
