@@ -18,7 +18,7 @@ export default {
 			fontSize: {
 				// 'sm': '.8125rem', // 13px
 				'sm': '.78125rem', // 12.5px
-				'xs': '.65625rem', // 10.5px
+				'xs': '.6875rem', // 11px
 			},
 		},
 	},

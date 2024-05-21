@@ -17,9 +17,11 @@ import { __ } from '@wordpress/i18n';
 export const Menu = (props) => {
 	const {
 		children,
-		triggerIcon = icons.hamburgerMenu,
+
 		triggerLabel,
+		triggerIcon = icons.hamburgerMenu,
 		triggerProps,
+
 		tooltip,
 
 		keepOpen = false,

@@ -16,6 +16,7 @@ export const Button = (props) => {
 		onPress,
 		forwardedRef,
 		wrapperClassName,
+		tooltipProps,
 		...other
 	} = props;
 
@@ -107,6 +108,7 @@ export const Button = (props) => {
 		<Tooltip
 			text={tooltip}
 			wrapperClassName={wrapperClassName}
+			{...tooltipProps}
 		>
 			{component}
 		</Tooltip>
