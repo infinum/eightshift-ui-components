@@ -13,67 +13,67 @@ export const BreakpointPreview = (props) => {
 
 	const activeColors = {
 		blue: {
-			text: 'text-blue-500',
-			bg: 'bg-blue-500',
+			text: 'es-uic-text-blue-500',
+			bg: 'es-uic-bg-blue-500',
 		},
 		green: {
-			text: 'text-lime-500',
-			bg: 'bg-lime-500',
+			text: 'es-uic-text-lime-500',
+			bg: 'es-uic-bg-lime-500',
 		},
 		yellow: {
-			text: 'text-yellow-400',
-			bg: 'bg-yellow-400',
+			text: 'es-uic-text-yellow-400',
+			bg: 'es-uic-bg-yellow-400',
 		},
 		red: {
-			text: 'text-red-500',
-			bg: 'bg-red-500',
+			text: 'es-uic-text-red-500',
+			bg: 'es-uic-bg-red-500',
 		},
 		indigo: {
-			text: 'text-indigo-500',
-			bg: 'bg-indigo-500',
+			text: 'es-uic-text-indigo-500',
+			bg: 'es-uic-bg-indigo-500',
 		},
 		orange: {
-			text: 'text-orange-500',
-			bg: 'bg-orange-500',
+			text: 'es-uic-text-orange-500',
+			bg: 'es-uic-bg-orange-500',
 		},
 		cyan: {
-			text: 'text-cyan-500',
-			bg: 'bg-cyan-500',
+			text: 'es-uic-text-cyan-500',
+			bg: 'es-uic-bg-cyan-500',
 		},
 		teal: {
-			text: 'text-teal-500',
-			bg: 'bg-teal-500',
+			text: 'es-uic-text-teal-500',
+			bg: 'es-uic-bg-teal-500',
 		},
 		fuchsia: {
-			text: 'text-fuchsia-500',
-			bg: 'bg-fuchsia-500',
+			text: 'es-uic-text-fuchsia-500',
+			bg: 'es-uic-bg-fuchsia-500',
 		},
 		black: {
-			text: 'text-black',
-			bg: 'bg-black',
+			text: 'es-uic-text-black',
+			bg: 'es-uic-bg-black',
 		},
 		default: {
-			text: 'text-slate-600',
-			bg: 'bg-slate-600',
+			text: 'es-uic-text-slate-600',
+			bg: 'es-uic-bg-slate-600',
 		},
 	};
 
 	return (
 		<div
 			className={classnames(
-				'grid w-full shrink-0 auto-cols-auto grid-rows-[auto,_auto] gap-x-2 gap-y-0.5',
+				'es-uic-grid es-uic-w-full es-uic-shrink-0 es-uic-auto-cols-auto es-uic-grid-rows-[auto,_auto] es-uic-gap-x-2 es-uic-gap-y-0.5',
 			)}
 		>
 			{dotsStart && (
 				<>
-					<div className='row-start-1 flex shrink-0 translate-x-1 items-center gap-1 font-mono font-medium text-gray-400'>
-						<div className='flex gap-0.5 text-gray-300'>
-							<div className='size-0.5 rounded bg-current' />
-							<div className='size-0.5 rounded bg-current' />
-							<div className='size-0.5 rounded bg-current' />
+					<div className='es-uic-row-start-1 es-uic-flex es-uic-shrink-0 es-uic-translate-x-1 es-uic-items-center es-uic-gap-1 es-uic-font-mono es-uic-font-medium es-uic-text-gray-400'>
+						<div className='es-uic-flex es-uic-gap-0.5 es-uic-text-gray-300'>
+							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
 						</div>
 					</div>
-					<div className='row-start-2' />
+					<div className='es-uic-row-start-2' />
 				</>
 			)}
 
@@ -97,7 +97,7 @@ export const BreakpointPreview = (props) => {
 
 					return (
 						<Fragment key={i}>
-							<div className='row-start-1 flex min-w-28 items-center gap-1 font-mono font-medium text-gray-400'>
+							<div className='es-uic-row-start-1 es-uic-flex es-uic-min-w-28 es-uic-items-center es-uic-gap-1 es-uic-font-mono es-uic-font-medium es-uic-text-gray-400'>
 								{dotsStart && (
 									<div
 										className={classnames(
@@ -105,16 +105,16 @@ export const BreakpointPreview = (props) => {
 											active ? activeTextColor : 'text-gray-300',
 										)}
 									>
-										<div className='size-0.5 rounded bg-current' />
-										<div className='size-0.5 rounded bg-current' />
-										<div className='size-0.5 rounded bg-current' />
+										<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+										<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+										<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
 									</div>
 								)}
 								{width && <span>{width}</span>}
 								<div
 									className={classnames(
-										'grow rounded',
-										active ? 'h-0.5' : 'h-px bg-gray-300',
+										'es-uic-grow es-uic-rounded',
+										active ? 'es-uic-h-0.5' : 'es-uic-h-px es-uic-bg-gray-300',
 										active && activeBgColor,
 									)}
 								/>
@@ -122,25 +122,25 @@ export const BreakpointPreview = (props) => {
 								{dotsEnd && (
 									<div
 										className={classnames(
-											'flex gap-0.5',
-											active ? activeTextColor : 'text-gray-300',
+											'es-uic-flex es-uic-gap-0.5',
+											active ? activeTextColor : 'es-uic-text-gray-300',
 										)}
 									>
-										<div className='size-0.5 rounded bg-current' />
-										<div className='size-0.5 rounded bg-current' />
-										<div className='size-0.5 rounded bg-current' />
+										<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+										<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+										<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
 									</div>
 								)}
 							</div>
-							<div className='row-start-2 flex w-full min-w-28 flex-col items-start gap-1'>
+							<div className='es-uic-row-start-2 es-uic-flex es-uic-w-full es-uic-min-w-28 es-uic-flex-col es-uic-items-start es-uic-gap-1'>
 								<span
 									className={classnames(
-										'rounded px-1 py-0.5',
-										hasActive && active && 'text-white',
+										'es-uic-rounded es-uic-px-1 es-uic-py-0.5',
+										hasActive && active && 'es-uic-text-white',
 										hasActive && active && activeBgColor,
-										hasActive && !active && 'bg-gray-200 text-gray-500',
-										!hasActive && 'bg-gray-600 text-white',
-										alignEnd && 'ml-auto',
+										hasActive && !active && 'es-uic-bg-gray-200 es-uic-text-gray-500',
+										!hasActive && 'es-uic-bg-gray-600 es-uic-text-white',
+										alignEnd && 'es-uic-ml-auto',
 									)}
 								>
 									{upperFirst(breakpoint)}
@@ -148,9 +148,9 @@ export const BreakpointPreview = (props) => {
 								{value && (
 									<span
 										className={classnames(
-											'-mt-0.5 px-1',
-											active ? 'text-gray-400' : 'text-gray-400',
-											alignEnd && 'ml-auto',
+											'-es-uic-mt-0.5 es-uic-px-1',
+											active ? 'es-uic-text-gray-400' : 'es-uic-text-gray-400',
+											alignEnd && 'es-uic-ml-auto',
 										)}
 									>
 										{value}
@@ -164,14 +164,14 @@ export const BreakpointPreview = (props) => {
 
 			{dotsEnd && (
 				<>
-					<div className='row-start-1 flex shrink-0 -translate-x-1 items-center gap-1 font-mono font-medium text-gray-400'>
-						<div className='flex gap-0.5 text-gray-300'>
-							<div className='size-0.5 rounded bg-current' />
-							<div className='size-0.5 rounded bg-current' />
-							<div className='size-0.5 rounded bg-current' />
+					<div className='es-uic-row-start-1 es-uic-flex es-uic-shrink-0 -es-uic-translate-x-1 es-uic-items-center es-uic-gap-1 es-uic-font-mono es-uic-font-medium es-uic-text-gray-400'>
+						<div className='es-uic-flex es-uic-gap-0.5 es-uic-text-gray-300'>
+							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
 						</div>
 					</div>
-					<div className='row-start-2' />
+					<div className='es-uic-row-start-2' />
 				</>
 			)}
 		</div>

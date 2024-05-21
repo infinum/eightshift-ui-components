@@ -2,7 +2,6 @@ import Select, { components } from 'react-select';
 import { DndContext } from '@dnd-kit/core';
 import { restrictToParentElement } from '@dnd-kit/modifiers';
 import { SortableContext } from '@dnd-kit/sortable';
-
 import {
 	CustomSelectDefaultClearIndicator,
 	CustomSelectDefaultDropdownIndicator,

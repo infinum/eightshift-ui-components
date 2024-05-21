@@ -20,7 +20,7 @@ export const Expandable = (props) => {
 
 	const itemArray = [
 		{
-			key: 'item1',
+			key: 'expandable-item',
 			label: label,
 			icon: icon,
 			subtitle: subtitle,

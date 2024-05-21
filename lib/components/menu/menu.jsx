@@ -7,7 +7,7 @@ import {
 	Header,
 	SubmenuTrigger,
 } from 'react-aria-components';
-import { icons } from '../icons/icons';
+import { icons } from '../../icons/icons';
 import { Button } from '../button/button';
 import { Popover } from '../popover/popover';
 import { classnames } from '../../utilities/classnames';
@@ -23,6 +23,8 @@ export const Menu = (props) => {
 		tooltip,
 
 		keepOpen = false,
+
+		'aria-label': ariaLabel = __('Menu', 'eightshift-components'),
 
 		openOnLongPress = false,
 	} = props;
@@ -56,11 +58,11 @@ export const Menu = (props) => {
 				{triggerLabel}
 			</Button>
 			<Popover
-				className='focus:outline-none'
-				aria-label={props['aria-label'] ?? __('Menu', 'eightshift-components')}
+				className='focus:es-uic-outline-none'
+				aria-label={ariaLabel}
 			>
 				<ReactAriaMenu
-					className='focus:outline-none'
+					className='focus:es-uic-outline-none'
 					{...props}
 					{...additionalProps}
 				>
@@ -76,19 +78,19 @@ export const MenuSection = (props) => {
 	return (
 		<Section
 			className={classnames(
-				'space-y-1 border-b pb-1 last:border-b-0',
-				label && 'pt-2 first:pt-1.5',
-				!label && 'last:pb-0',
+				'es-uic-space-y-1 es-uic-border-b es-uic-pb-1 last:es-uic-border-b-0',
+				label && 'es-uic-pt-2 first:es-uic-pt-1.5',
+				!label && 'last:es-uic-pb-0',
 			)}
 		>
-			{label && <Header className='ml-1.5 text-xs font-medium text-gray-400'>{label}</Header>}
+			{label && <Header className='es-uic-ml-1.5 es-uic-text-xs es-uic-font-medium es-uic-text-gray-400'>{label}</Header>}
 			{children}
 		</Section>
 	);
 };
 
 export const MenuSeparator = () => {
-	return <ReactAriaSeparator className=' mb-1 border-b border-gray-300' />;
+	return <ReactAriaSeparator className='es-uic-mb-1 es-uic-border-b es-uic-border-gray-300' />;
 };
 
 export const MenuItem = (props) => {
@@ -99,10 +101,11 @@ export const MenuItem = (props) => {
 			{...props}
 			isDisabled={disabled}
 			className={classnames(
-				'mx-1 mb-1 flex min-w-40 items-center gap-1.5 first:mt-1 [&>svg]:size-5 [&>svg]:text-gray-500',
-				'select-none rounded border border-transparent px-1 py-1.5 text-sm text-gray-800 transition hover:bg-gray-100 focus:outline-none',
-				'focus:outline-none focus-visible:outline-none focus-visible:ring',
-				' focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
+				'es-uic-mx-1 es-uic-mb-1 es-uic-flex es-uic-min-w-40 es-uic-items-center es-uic-gap-1.5',
+				'first:es-uic-mt-1 [&>svg]:es-uic-size-5 [&>svg]:es-uic-text-gray-500',
+				'es-uic-select-none es-uic-rounded es-uic-border es-uic-border-transparent es-uic-px-1 es-uic-py-1.5 es-uic-text-sm es-uic-text-gray-800 es-uic-transition',
+				'hover:es-uic-bg-gray-100',
+				'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 				className,
 			)}
 			onAction={onClick}
@@ -113,7 +116,7 @@ export const MenuItem = (props) => {
 			{icon}
 			{children}
 			{shortcut && (
-				<div className='ml-auto text-[0.6875rem] tracking-tight text-gray-400'>{shortcut}</div>
+				<div className='es-uic-ml-auto es-uic-text-[0.6875rem] es-uic-tracking-tight es-uic-text-gray-400'>{shortcut}</div>
 			)}
 			{endIcon && <div className={classnames(!shortcut && 'ml-auto')}>{endIcon}</div>}
 		</ReactAriaMenuItem>
@@ -126,16 +129,16 @@ export const SubMenuItem = (props) => {
 	return (
 		<SubmenuTrigger>
 			{cloneElement(trigger, {
-				endIcon: <span className='text-gray-400'>{icons.caretRightFill}</span>,
+				endIcon: <span className='es-uic-text-gray-400'>{icons.caretRightFill}</span>,
 			})}
 			<Popover
 				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-components')}
-				className='focus:outline-none'
+				className='focus:es-uic-outline-none'
 				offset={-1}
 			>
 				<ReactAriaMenu
 					aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-components')}
-					className='focus:outline-none'
+					className='focus:es-uic-outline-none'
 				>
 					{children}
 				</ReactAriaMenu>

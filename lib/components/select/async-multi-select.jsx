@@ -137,8 +137,8 @@ export const AsyncMultiSelect = (props) => {
 							DropdownIndicator: customDropdownArrow ?? CustomSelectDefaultDropdownIndicator,
 							ClearIndicator: customClearIndicator ?? CustomSelectDefaultClearIndicator,
 						}}
-						menuPortalTarget={document.body}
-						menuPosition='fixed'
+						// menuPortalTarget={document.body}
+						// menuPosition='fixed'
 						{...additionalProps}
 					/>
 				</SortableContext>

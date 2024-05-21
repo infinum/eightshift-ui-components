@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Expandable } from '../expandable/expandable';
-import { icons } from '../icons/icons';
+import { icons } from '../../icons/icons';
 import { Switch } from '../toggle/switch';
 import { Tooltip } from '../tooltip/tooltip';
 
@@ -15,7 +15,7 @@ export const ComponentToggle = (props) => {
 			actions={
 				!noUseToggle && (
 					<Tooltip text={__('Toggle component', 'eightshift-components')}>
-						<div className='mr-0.5 flex min-h-8 items-center border-r border-r-gray-200 pr-1.5'>
+						<div className='es-uic-mr-0.5 es-uic-flex es-uic-min-h-8 es-uic-items-center es-uic-border-r es-uic-border-r-gray-200 es-uic-pr-1.5'>
 							<Switch
 								checked={useComponent}
 								onChange={onChange}

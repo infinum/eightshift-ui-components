@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { upperFirst } from '../../utilities/text-helpers';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
-import { icons } from '../icons/icons';
+import { icons } from '../../icons/icons';
 import { IconLabel } from '../icon-label/icon-label';
 
 export const ResponsivePreview = (props) => {
@@ -86,14 +86,14 @@ export const ResponsivePreview = (props) => {
 	}
 
 	return (
-		<div className='flex min-w-72 flex-col items-start gap-4 p-2'>
-			<div className='flex w-full items-center gap-2.5'>
+		<div className='es-uic-flex es-uic-min-w-72 es-uic-flex-col es-uic-items-start es-uic-gap-4 es-uic-p-2'>
+			<div className='es-uic-flex es-uic-w-full es-uic-items-center es-uic-gap-2.5'>
 				<IconLabel
 					icon={icons.previewResponsive}
 					label={__('Responsive preview', 'eightshift-components')}
 				/>
 
-				<span className='ml-auto select-none rounded bg-gray-100 px-1 py-0.5 text-xs text-gray-500'>
+				<span className='es-uic-ml-auto es-uic-select-none es-uic-rounded es-uic-bg-gray-100 es-uic-px-1 es-uic-py-0.5 es-uic-text-xs es-uic-text-gray-500'>
 					{isDesktopFirst
 						? __('Desktop-first', 'eightshift-components')
 						: __('Mobile-first', 'eightshift-components')}
@@ -101,7 +101,7 @@ export const ResponsivePreview = (props) => {
 			</div>
 
 			{previewItems.length === 0 && (
-				<span className='text-gray-500 text-sm italic'>{__('No overrides applied', 'eightshift-components')}</span>
+				<span className='es-uic-text-gray-500 es-uic-text-sm es-uic-italic'>{__('No overrides applied', 'eightshift-components')}</span>
 			)}
 			<BreakpointPreview
 				blocks={previewItems}

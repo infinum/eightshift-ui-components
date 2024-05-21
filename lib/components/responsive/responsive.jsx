@@ -4,7 +4,7 @@ import { classnames } from '../../utilities/classnames';
 import { __ } from '@wordpress/i18n';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { upperFirst } from '../../utilities/text-helpers';
-import { icons } from '../icons/icons';
+import { icons } from '../../icons/icons';
 import { Menu, MenuItem, MenuSection } from '../menu/menu';
 import { TriggeredPopover } from '../popover/popover';
 import { ResponsivePreview } from '../responsive-preview/responsive-preview';
@@ -47,18 +47,18 @@ export const Responsive = (props) => {
 	const DefaultControl = () => {
 		return (
 			<div
-				className='grid grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2rem)] items-center gap-x-2'
+				className='es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2rem)] es-uic-items-center es-uic-gap-x-2'
 				key={`default-${value?.['_default']}`}
 			>
 				{detailsVisible && (
 					<Tooltip
-						className='p-2'
+						className='es-uic-p-3'
 						theme='light'
 						text={
 							<div
 								className={classnames(
-									'flex flex-col items-start gap-4 text-start',
-									!firstMobileFirstOverride || !lastDesktopFirstOverride ? 'w-72' : 'w-40',
+									'es-uic-flex es-uic-flex-col es-uic-items-start es-uic-gap-4 es-uic-text-start',
+									!firstMobileFirstOverride || !lastDesktopFirstOverride ? 'es-uic-w-72' : 'es-uic-w-40',
 								)}
 							>
 								<div>
@@ -66,7 +66,7 @@ export const Responsive = (props) => {
 									<br />
 
 									{!firstMobileFirstOverride && !lastDesktopFirstOverride && (
-										<span>Always applied regardless of browser width.</span>
+										<span>{__('Always applied, regardless of browser width.', 'eightshift-components')}</span>
 									)}
 
 									{firstMobileFirstOverride && (
@@ -84,7 +84,7 @@ export const Responsive = (props) => {
 									)}
 								</div>
 
-								<div className='mx-auto'>
+								<div className='es-uic-mx-auto'>
 									{firstMobileFirstOverride && (
 										<BreakpointPreview
 											blocks={[
@@ -137,12 +137,12 @@ export const Responsive = (props) => {
 							</div>
 						}
 					>
-						<div className='flex size-8 cursor-help items-center justify-center rounded bg-gray-200 p-0.5 text-gray-950 [&>svg]:size-4'>
+						<div className='es-uic-flex es-uic-size-8 es-uic-cursor-help es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-gray-200 es-uic-p-0.5 es-uic-text-gray-950 [&>svg]:es-uic-size-4'>
 							{icons.play}
 						</div>
 					</Tooltip>
 				)}
-				<div className={classnames(detailsVisible ? 'col-start-2 col-end-2' : 'col-span-full')}>
+				<div className={classnames(detailsVisible ? 'es-uic-col-start-2 es-uic-col-end-2' : 'es-uic-col-span-full')}>
 					{componentToRender({
 						breakpoint: '_default',
 						currentValue: value?.['_default'],
@@ -159,15 +159,15 @@ export const Responsive = (props) => {
 
 	return (
 		<>
-			<div className='space-y-2'>
-				<div className='flex items-center gap-1'>
+			<div className='es-uic-space-y-2'>
+				<div className='es-uic-flex es-uic-items-center es-uic-gap-1'>
 					<IconLabel
 						icon={icon}
 						label={label}
 						subtitle={subtitle}
 					/>
 
-					<div className='button-group ml-auto flex'>
+					<div className='button-group es-uic-ml-auto es-uic-flex'>
 						<Menu tooltip={__('Responsive options', 'eightshift-components')}>
 							<MenuSection label={__('Breakpoint type', 'eightshift-components')}>
 								<MenuItem
@@ -272,14 +272,14 @@ export const Responsive = (props) => {
 
 						return (
 							<div
-								className='grid grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2rem)] items-center gap-x-2'
+								className='es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2rem)] es-uic-items-center es-uic-gap-x-2'
 								key={`${breakpoint}-${value?.[breakpoint]}`}
 							>
 								<Tooltip
 									theme='light'
 									text={`${upperFirst(realBreakpointName)} - when width is larger than ${globalManifest.globalVariables.breakpoints[realBreakpointName]}px`}
 								>
-									<div className='flex size-8 shrink-0 items-center justify-center rounded bg-gray-100 p-0.5 text-gray-800'>
+									<div className='es-uic-flex es-uic-size-8 es-uic-shrink-0 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-gray-100 es-uic-p-0.5 es-uic-text-gray-800'>
 										{icons?.[`screen${upperFirst(realBreakpointName)}`]}
 									</div>
 								</Tooltip>
@@ -312,7 +312,7 @@ export const Responsive = (props) => {
 				</AnimatedVisibility>
 
 				{isDesktopFirst && <DefaultControl />}
-				{help && <div className='text-xs text-gray-400'>{help}</div>}
+				{help && <div className='es-uic-text-xs es-uic-text-gray-400'>{help}</div>}
 			</div>
 		</>
 	);

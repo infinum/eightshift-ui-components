@@ -240,7 +240,7 @@ function App() {
 	const CustomValueDisplay = (props) => {
 		return (
 			<RSSingleValue {...props}>
-				<span className='es-bg-admin-accent es-color-pure-white es-p-1 es-line-h-1 es-rounded-1.5 es-font-weight-500'>
+				<span className='es-uic-border es-uic-border-dotted es-uic-border-sky-400 es-uic-p-2 es-uic-rounded-sm'>
 					{props.children}
 				</span>
 			</RSSingleValue>
@@ -249,11 +249,11 @@ function App() {
 
 	const CustomMultiValueDisplay = (props) => {
 		const colors = [
-			'es-bg-red-500',
-			'es-bg-blue-500',
-			'es-bg-green-500',
-			'es-bg-yellow-500',
-			'es-bg-cool-gray-900',
+			'es-uic-bg-red-500',
+			'es-uic-bg-blue-500',
+			'es-uic-bg-green-500',
+			'es-uic-bg-yellow-500',
+			'es-uic-bg-slate-900',
 		];
 		const colorIndex =
 			props.options.findIndex((option) => option.value === props.data.value) % colors.length;
@@ -261,7 +261,7 @@ function App() {
 		return (
 			<RSMultiValue {...props}>
 				<span
-					className={`${colors[colorIndex]} es-color-pure-white es-p-1 es-line-h-1 es-rounded-1 es-font-weight-500`}
+					className={`${colors[colorIndex]} es-uic-text-white es-uic-p-1 es-uic-leading-none es-uic-rounded es-uic-font-medium`}
 				>
 					{props.children}
 				</span>
@@ -272,7 +272,7 @@ function App() {
 	const CustomDropdownIndicator = (props) => {
 		return (
 			<RSDropdownIndicator {...props}>
-				<span className='es-nested-size-6! es-color-admin-accent! es-line-h-0! -es-ml-1'>
+				<span className='[&>svg]:es-uic-text-lime-500'>
 					{props.selectProps.menuIsOpen ? icons.arrowUpSquareAlt : icons.arrowDownSquareAlt}
 				</span>
 			</RSDropdownIndicator>
@@ -349,9 +349,9 @@ function App() {
 	];
 
 	return (
-		<div className='font-geist flex min-h-screen items-center justify-center gap-4 overscroll-contain bg-neutral-100 p-2'>
-			<Tabs vertical className='h-[90vh] max-w-screen-sm bg-white rounded-lg shadow-sm overflow-y-auto'>
-				<TabList className='p-5 border-r-0 self-start sticky top-0'>
+		<div className='font-geist es-uic-flex es-uic-min-h-screen es-uic-items-center es-uic-justify-center es-uic-gap-4 es-uic-overscroll-contain es-uic-bg-neutral-100 es-uic-p-2'>
+			<Tabs vertical className='es-uic-h-[90vh] es-uic-max-w-screen-sm es-uic-bg-white es-uic-rounded-lg es-uic-shadow-sm es-uic-overflow-y-auto'>
+				<TabList className='es-uic-p-5 es-uic-border-r-0 es-uic-self-start es-uic-sticky es-uic-top-0'>
 					<Tab>Toggle / Switch</Tab>
 					<Tab>Spacer</Tab>
 					<Tab>AnimatedVisibility</Tab>
@@ -372,7 +372,7 @@ function App() {
 					<Tab>ComponentToggle</Tab>
 					<Tab>ListBox</Tab>
 				</TabList>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<Toggle
 						selected={toggled}
 						onChange={(value) => setToggled(value)}
@@ -380,15 +380,15 @@ function App() {
 						label='Airplane mode'
 					/>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<Spacer
 						size='s'
-						className='bg-violet-50'
+						className='es-uic-bg-violet-50'
 						border
 					/>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
-					<div className='flex min-h-56 flex-col gap-2 rounded-md border border-dotted border-gray-300 p-2'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+					<div className='es-uic-flex es-uic-min-h-56 es-uic-flex-col es-uic-gap-2 es-uic-rounded-md es-uic-border es-uic-border-dotted es-uic-border-gray-300 es-uic-p-2'>
 						<ToggleButton
 							className='mx-auto'
 							checked={animVis}
@@ -397,23 +397,23 @@ function App() {
 							Hidden thingy
 						</ToggleButton>
 						<AnimatedVisibility visible={animVis}>
-							<div className='h-40 w-full rounded-md bg-yellow-200 p-4'>Hi, I&apos;m content</div>
+							<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 es-uic-p-4'>Hi, I&apos;m content</div>
 						</AnimatedVisibility>
 					</div>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<Expandable
 						icon={icons.experiment}
 						label='Lorem ipsum dolor'
 						actions={
 							<Button
-								onClick={() => alert('hi')}
+								onClick={() => console.log('hi')}
 								icon={icons.emptyRect}
 								type='ghost'
 							/>
 						}
 					>
-						<div className='h-40 w-full rounded-md bg-gray-200 p-4'>lorem</div>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>lorem</div>
 					</Expandable>
 
 					<Expandable
@@ -422,17 +422,17 @@ function App() {
 						keepActionsOnExpand
 						actions={
 							<Button
-								className='flex size-8 items-center justify-center rounded border [&>svg]:size-5.5'
-								onClick={() => alert('hi')}
+								className='es-uic-flex es-uic-size-8 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border [&>svg]:es-uic-size-5.5'
+								onClick={() => console.log('hi')}
 								icon={icons.emptyRect}
 								type='ghost'
 							></Button>
 						}
 					>
-						<div className='h-40 w-full rounded-md bg-gray-200 p-4'>lorem</div>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>lorem</div>
 					</Expandable>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<LinkInput
 						url={linkTxt}
 						help='Help, not sure how to input this'
@@ -440,7 +440,7 @@ function App() {
 						fetchSuggestions={getLinkData}
 					/>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<Notice
 						label='Lorem ipsum dolor'
 						subtitle='Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
@@ -489,13 +489,13 @@ function App() {
 						type='placeholder'
 					/>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
-					<TriggeredPopover>Hello</TriggeredPopover>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+					<TriggeredPopover className='es-uic-p-5 es-uic-bg-purple-50'>Hello</TriggeredPopover>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<Button>Hello</Button>
 
-					<div className='flex items-center gap-2'>
+					<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>
 						<Button
 							size='small'
 							icon={icons.componentGeneric}
@@ -509,7 +509,7 @@ function App() {
 						</Button>
 					</div>
 
-					<div className='flex items-center gap-2'>
+					<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>
 						<Button icon={icons.componentGeneric} />
 						<Button>Hello</Button>
 						<Button icon={icons.componentGeneric}>Hello</Button>
@@ -535,7 +535,7 @@ function App() {
 						Hello
 					</Button>
 
-					<div className='flex items-center gap-2'>
+					<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>
 						<Button
 							size='large'
 							icon={icons.componentGeneric}
@@ -551,13 +551,13 @@ function App() {
 
 					<Button icon={icons.emptyRect}>Hello</Button>
 
-					<div className='button-group flex'>
+					<div className='button-group es-uic-flex'>
 						<Button icon={icons.small} />
 						<Button icon={icons.medium} />
 						<Button icon={icons.large} />
 					</div>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<MatrixAlign
 						value={matrixVal}
 						onChange={(value) => setMatrixVal(value)}
@@ -571,7 +571,7 @@ function App() {
 						label='Position'
 					/>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<Menu
 						aria-label='Bok i tebi'
 						keepOpen
@@ -640,7 +640,7 @@ function App() {
 						</SubMenuItem>
 					</Menu>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<Tooltip
 						text='Hello'
 						doNotReplaceChild
@@ -655,7 +655,7 @@ function App() {
 						Hover me
 					</Tooltip>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<NumberPicker
 						label='Pick a number'
 						value={num}
@@ -734,7 +734,7 @@ function App() {
 						/>
 					</NumberPicker>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<Responsive
 						icon={icons.emptyRect}
 						label='Font family'
@@ -742,7 +742,7 @@ function App() {
 						onChange={(newValue) => setResp(newValue)}
 						options={respOpt}
 						componentToRender={({ currentValue, handleChange }) => (
-							<div className='button-group flex'>
+							<div className='button-group es-uic-flex'>
 								{respOpt.map((opt) => (
 									<ToggleButton
 										key={opt.value}
@@ -767,7 +767,7 @@ function App() {
 						}}
 					/>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<BaseControl>
 						<Button>Hi</Button>
 					</BaseControl>
@@ -816,7 +816,7 @@ function App() {
 						<Button>Hi</Button>
 					</BaseControl>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
@@ -964,7 +964,7 @@ function App() {
 						icon={icons.group}
 					/>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<Tabs>
 						<TabList></TabList>
 						<TabPanel>Abc</TabPanel>
@@ -981,7 +981,7 @@ function App() {
 						<TabPanel>Alea jacta est.</TabPanel>
 					</Tabs>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<InputField
 						value={txt1}
 						onChange={setTxt1}
@@ -996,14 +996,14 @@ function App() {
 						label='Lorem'
 					/>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<ComponentToggle
 						icon={icons.paragraph}
 						label='Paragraph'
 						useComponent={useComp}
 						onChange={setUseComp}
 					>
-						<div className='min-h-24 w-full rounded-md bg-yellow-100 p-2'>Lorem options</div>
+						<div className='es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 p-2'>Lorem options</div>
 					</ComponentToggle>
 
 					<ComponentToggle
@@ -1013,7 +1013,7 @@ function App() {
 						onChange={setUseComp}
 						noUseToggle
 					>
-						<div className='min-h-24 w-full rounded-md bg-yellow-100 p-2'>Lorem options no use</div>
+						<div className='es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 p-2'>Lorem options no use</div>
 					</ComponentToggle>
 
 					<ComponentToggle
@@ -1023,12 +1023,12 @@ function App() {
 						onChange={setUseComp}
 						expandButtonDisabled
 					>
-						<div className='min-h-24 w-full rounded-md bg-yellow-100 p-2'>
+						<div className='es-uic-min-h-24 es-uic-w-full es-uic-rounded-md bg-slate-200 es-uic-p-2'>
 							Lorem options expandButtonDisabled
 						</div>
 					</ComponentToggle>
 				</TabPanel>
-				<TabPanel className='space-y-4 m-5 !p-5'>
+				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<ListBox
 						icon={icons.emptyRect}
 						label='Font family'

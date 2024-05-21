@@ -3,9 +3,11 @@ let plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 export default {
+	prefix: 'es-uic-',
 	content: [
 		"./index.html",
 		"./src/**/*.{js,ts,jsx,tsx}",
+		"./lib/**/*.{js,ts,jsx,tsx}",
 	],
 	theme: {
 		extend: {

@@ -44,8 +44,8 @@ export const InputField = (props) => {
 					<ReactAriaInput
 						{...other}
 						className={classnames(
-							'min-h-10 w-full rounded-md border border-gray-300 p-2 text-sm shadow-sm transition',
-							'focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
+							'es-uic-min-h-10 es-uic-w-full es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-shadow-sm es-uic-transition',
+							'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 							className,
 						)}
 					/>
@@ -54,8 +54,8 @@ export const InputField = (props) => {
 					<TextArea
 						{...other}
 						className={classnames(
-							'min-h-10 w-full rounded-md border border-gray-300 p-2 text-sm shadow-sm transition',
-							'focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
+							'es-uic-min-h-10 es-uic-w-full es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-shadow-sm es-uic-transition',
+							'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 							className,
 						)}
 					/>

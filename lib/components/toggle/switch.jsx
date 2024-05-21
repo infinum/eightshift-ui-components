@@ -1,4 +1,5 @@
 import { Switch as ReactAriaSwitch } from 'react-aria-components';
+import { classnames } from '../../utilities/classnames';
 
 export const Switch = (props) => {
 	const { checked, onChange, disabled, id, children } = props;
@@ -9,11 +10,24 @@ export const Switch = (props) => {
 			isDisabled={disabled}
 			isSelected={checked}
 			onChange={onChange}
-			className='group flex items-center justify-between gap-2'
+			className='es-uic-group es-uic-flex es-uic-items-center es-uic-justify-between es-uic-gap-2'
 		>
 			{children}
-			<div className='no-webkit-highlight h-4 w-7 shrink-0 cursor-pointer rounded-full border border-gray-500 bg-white p-[0.1875rem] shadow-sm outline-none transition group-focus-visible:ring group-focus-visible:ring-teal-500 group-focus-visible:ring-opacity-50 group-selected:border-teal-800/75 group-selected:shadow-teal-500/25 group-selected:bg-teal-100/25 group-disabled:cursor-default group-disabled:border-gray-300 group-disabled:bg-white'>
-				<span className='block size-2 rounded-full border border-gray-500 bg-gray-500 transition will-change-transform group-selected:translate-x-3 group-selected:scale-125 group-selected:border-teal-600 group-selected:bg-teal-600 group-disabled:border-gray-300 group-disabled:bg-white' />
+			<div
+				className={classnames(
+					'es-uic-no-webkit-highlight es-uic-h-4 es-uic-w-7 es-uic-shrink-0 es-uic-cursor-pointer es-uic-rounded-full es-uic-border es-uic-border-gray-500 es-uic-bg-white es-uic-p-[0.1875rem] es-uic-shadow-sm es-uic-outline-none es-uic-transition',
+					'group-focus-visible:es-uic-ring group-focus-visible:es-uic-ring-teal-500 group-focus-visible:es-uic-ring-opacity-50',
+					'group-selected:es-uic-border-teal-800/75 group-selected:es-uic-bg-teal-100/25 group-selected:es-uic-shadow-teal-500/25',
+					'group-disabled:es-uic-cursor-default group-disabled:es-uic-border-gray-300 group-disabled:es-uic-bg-white',
+				)}
+			>
+				<span
+					className={classnames(
+						'es-uic-block es-uic-size-2 es-uic-rounded-full es-uic-border es-uic-border-gray-500 es-uic-bg-gray-500 es-uic-transition es-uic-will-change-transform',
+						'group-selected:es-uic-translate-x-3 group-selected:es-uic-scale-125 group-selected:es-uic-border-teal-600 group-selected:es-uic-bg-teal-600',
+						'group-disabled:es-uic-border-gray-300 group-disabled:es-uic-bg-white',
+					)}
+				/>
 			</div>
 		</ReactAriaSwitch>
 	);

@@ -5,14 +5,11 @@ import { useTreeState } from '@react-stately/tree';
 import { AccordionContext } from './accordion-context';
 import AccordionItem from './accordion-item';
 
-// eslint-disable-next-line react/display-name
 const AccordionGroup = forwardRef((props, ref) => {
-	// const { onPress, onExpandedChange, ...others } = props;
 	const state = useTreeState(props);
 	const accordionRef = useRef();
 	const { accordionProps } = useAccordion(props, state, accordionRef);
 
-	/* istanbul ignore next */
 	useImperativeHandle(ref, () => accordionRef.current);
 
 	return (
@@ -34,5 +31,7 @@ const AccordionGroup = forwardRef((props, ref) => {
 		</AccordionContext.Provider>
 	);
 });
+
+AccordionGroup.displayName = 'AccordionGroup';
 
 export default AccordionGroup;

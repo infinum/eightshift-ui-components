@@ -43,16 +43,17 @@ export const Popover = (props) => {
 			containerPadding={containerPadding}
 			className={({ isEntering, isExiting }) =>
 				classnames(
-					'rounded-md border border-gray-200 bg-white shadow-lg outline-none',
-					isEntering && 'animate-slideDownAndFade',
-					isExiting && 'animate-slideUpAndFadeOut',
-					className ?? 'p-1 text-sm',
+					'es-uic-rounded-md es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-shadow-lg es-uic-outline-none',
+					isEntering && 'es-uic-animate-slideDownAndFade',
+					isExiting && 'es-uic-animate-slideUpAndFadeOut',
+					'es-uic-p-1 es-uic-text-sm',
+					className,
 				)
 			}
 			style={style}
 		>
 			<Dialog
-				className='outline-none'
+				className='es-uic-outline-none'
 				{...other}
 			>
 				{children}

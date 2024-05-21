@@ -11,7 +11,7 @@ import {
 	ListBoxItem,
 } from 'react-aria-components';
 import { __ } from '@wordpress/i18n';
-import { icons } from '../icons/icons';
+import { icons } from '../../icons/icons';
 import { classnames } from '../../utilities/classnames';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncList } from 'react-stately';
@@ -103,7 +103,7 @@ export const LinkInput = (props) => {
 	return (
 		<>
 			<SearchField
-				className='flex flex-col gap-1'
+				className='es-uic-space-y-1'
 				type='url'
 				value={inputValue ?? ''}
 				onChange={(value) => setInputValue(value)}
@@ -119,7 +119,7 @@ export const LinkInput = (props) => {
 					help={
 						help && (
 							<Text
-								className='text-sm text-gray-400'
+								className='es-uic-text-sm es-uic-text-gray-400'
 								slot='description'
 							>
 								{help}
@@ -133,21 +133,27 @@ export const LinkInput = (props) => {
 					>
 						<Input
 							className={classnames(
-								'min-h-10 w-full rounded-md border border-gray-300 py-2 pl-2 pr-1 text-sm shadow-sm transition',
-								'focus:outline-none  focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
-								inputValue?.length > 0 && 'pr-8',
+								'es-uic-min-h-10 es-uic-w-full es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-py-2 es-uic-pl-2 es-uic-pr-1 es-uic-text-sm es-uic-shadow-sm es-uic-transition',
+								'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+								inputValue?.length > 0 && 'es-uic-pr-8',
 								className,
 							)}
 						/>
 
 						<AnimatedVisibility
 							visible={inputValue?.length > 0}
-							className='absolute inset-y-1 right-1'
+							className='es-uic-absolute es-uic-inset-y-1 es-uic-right-1'
 							transition='scaleFade'
 						>
 							<ReactAriaButton>
 								<Tooltip text={__('Clear', 'eightshift-components')}>
-									<div className='flex size-7 items-center justify-center rounded bg-white/85 text-gray-600 backdrop-blur transition hover:bg-red-50 hover:text-red-500 [&>svg]:size-6'>
+									<div
+										className={classnames(
+											'es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-white/85 es-uic-text-gray-600 es-uic-backdrop-blur es-uic-transition',
+											'hover:es-uic-bg-red-50 hover:es-uic-text-red-500',
+											'[&>svg]:es-uic-size-6',
+										)}
+									>
 										{removeIcon}
 									</div>
 								</Tooltip>
@@ -166,9 +172,9 @@ export const LinkInput = (props) => {
 				placement='bottom'
 				className={({ isEntering, isExiting }) =>
 					classnames(
-						'rounded-md border border-gray-200 bg-white shadow-lg outline-none',
-						isEntering && 'animate-slideDownAndFade',
-						isExiting && 'animate-slideUpAndFadeOut',
+						'es-uic-rounded-md es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-shadow-lg es-uic-outline-none',
+						isEntering && 'es-uic-animate-slideDownAndFade',
+						isExiting && 'es-uic-animate-slideUpAndFadeOut',
 					)
 				}
 				style={{
@@ -176,7 +182,7 @@ export const LinkInput = (props) => {
 				}}
 			>
 				<Dialog
-					className='outline-none'
+					className='es-uic-outline-none'
 					aria-label={__('URL suggestions', 'eightshift-components')}
 				>
 					<ListBox
@@ -191,7 +197,7 @@ export const LinkInput = (props) => {
 							setInstantClose(true);
 						}}
 						aria-label={__('Link suggestions', 'eightshift-components')}
-						className='space-y-0.5 p-2 focus:outline-none'
+						className='es-uic-space-y-0.5 es-uic-p-2 es-uic-focus:outline-none'
 						items={list.items}
 						selectionMode='single'
 						disallowEmptySelection
@@ -231,16 +237,17 @@ export const LinkInput = (props) => {
 									id={url}
 									textValue={title}
 									className={classnames(
-										'grid w-full cursor-pointer select-none grid-cols-[auto,_minmax(0,_1fr)] gap-x-1.5 rounded-md border border-transparent p-1 transition hover:border-gray-300 hover:bg-gray-50',
-										'focus:outline-none  focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
+										'es-uic-grid es-uic-w-full es-uic-cursor-pointer es-uic-select-none es-uic-grid-cols-[auto,_minmax(0,_1fr)] es-uic-gap-x-1.5 es-uic-rounded-md es-uic-border es-uic-border-transparent es-uic-p-1 es-uic-transition',
+										'hover:es-uic-border-gray-300 hover:es-uic-bg-gray-50',
+										'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 									)}
 								>
-									<span className='row-span-2 self-center text-gray-500 [&>svg]:size-6'>
+									<span className='es-uic-row-span-2 es-uic-self-center es-uic-text-gray-500 [&>svg]:es-uic-size-6'>
 										{typeIcon}
 									</span>
 
-									<span className='block self-start truncate text-sm'>{title}</span>
-									<span className='block self-end truncate text-xs text-gray-400'>
+									<span className='es-uic-block es-uic-self-start es-uic-truncate es-uic-text-sm'>{title}</span>
+									<span className='es-uic-block es-uic-self-end es-uic-truncate es-uic-text-xs es-uic-text-gray-400'>
 										{url?.replace(location.origin, '').replace(/\/$/, '')}
 									</span>
 								</ListBoxItem>
@@ -249,26 +256,26 @@ export const LinkInput = (props) => {
 					</ListBox>
 					<Spacer border />
 
-					<div className='grid select-none grid-cols-[auto,_1fr] items-center gap-x-1.5 gap-y-1 p-3 text-sm text-gray-500'>
-						<div className='flex gap-0.5 justify-self-center'>
-							<kbd className='flex size-5 items-center justify-center rounded border p-0.5 font-sans text-xs text-gray-400'>
+					<div className='es-uic-grid es-uic-select-none es-uic-grid-cols-[auto,_1fr] es-uic-items-center es-uic-gap-x-1.5 es-uic-gap-y-1 es-uic-p-3 es-uic-text-sm es-uic-text-gray-500'>
+						<div className='es-uic-flex es-uic-gap-0.5 es-uic-justify-self-center'>
+							<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
 								&uarr;
 							</kbd>
-							<kbd className='flex size-5 items-center justify-center rounded border p-0.5 font-sans text-xs text-gray-400'>
+							<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
 								&darr;
 							</kbd>
 						</div>
 						{__('Navigate', 'eightshift-components')}
-						<div className='flex gap-0.5 justify-self-center'>
-							<kbd className='flex size-5 items-center justify-center justify-self-center rounded border p-0.5 font-sans text-xs text-gray-400'>
+						<div className='es-uic-flex es-uic-gap-0.5 es-uic-justify-self-center'>
+							<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
 								&crarr;
 							</kbd>
-							<kbd className='flex size-5 items-center justify-center justify-self-center rounded border p-0.5 font-sans text-xs text-gray-400'>
+							<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
 								␣
 							</kbd>
 						</div>
 						{__('Select an item', 'eightshift-components')}
-						<kbd className='flex h-5 min-w-5 items-center justify-center justify-self-center rounded border p-0.5 font-sans text-xs text-gray-400'>
+						<kbd className='es-uic-flex es-uic-h-5 es-uic-min-w-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
 							Esc
 						</kbd>{' '}
 						{__('Close suggestion panel', 'eightshift-components')}

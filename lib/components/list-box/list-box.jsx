@@ -59,17 +59,18 @@ export const ListBox = (props) => {
 		>
 			<Tooltip
 				text={tooltipText}
-				wrapperClassName={classnames(orientation === 'vertical' && 'w-full')}
+				wrapperClassName={classnames(orientation === 'vertical' && 'es-uic-w-full')}
 				open={tooltipText?.length > 1}
 			>
 				<ReactAriaListBox
 					selectionMode={selectionMode}
 					className={classnames(
-						'rounded-lg border border-gray-300 p-1 text-sm shadow-sm transition focus:outline-none',
-						orientation === 'horizontal' && 'flex w-fit max-w-full gap-0.5',
-						orientation === 'vertical' && 'flex flex-col gap-0.5',
+						'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-p-1 es-uic-text-sm es-uic-shadow-sm es-uic-transition',
+						'focus:es-uic-outline-none',
+						orientation === 'horizontal' && 'es-uic-flex es-uic-w-fit es-uic-max-w-full es-uic-gap-0.5',
+						orientation === 'vertical' && 'es-uic-flex es-uic-flex-col es-uic-gap-0.5',
 						orientation === 'horizontal-tiles' &&
-							'grid min-h-20 w-fit max-w-full auto-cols-[fit-content(6rem)] grid-rows-[1fr,_minmax(auto,_0.5fr),_auto] gap-x-0.5',
+							'es-uic-grid es-uic-min-h-20 es-uic-w-fit es-uic-max-w-full es-uic-auto-cols-[fit-content(6rem)] es-uic-grid-rows-[1fr,_minmax(auto,_0.5fr),_auto] es-uic-gap-x-0.5',
 						className,
 					)}
 					aria-label={ariaLabel ?? __('Choose', 'eightshift-components')}
@@ -95,18 +96,18 @@ export const ListBox = (props) => {
 								onFocus={() => setTooltipText(tooltip ?? label)}
 								className={({ isDisabled, isSelected }) => {
 									return classnames(
-										'flex min-h-9 select-none rounded-md border transition',
-										'focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
+										'es-uic-flex es-uic-min-h-9 es-uic-select-none es-uic-rounded-md es-uic-border es-uic-transition',
+										'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 										isSelected &&
 											!disabled &&
-											'border-teal-600 bg-teal-100/5 shadow-sm shadow-teal-500/25',
-										!isSelected && !disabled && 'border-transparent hover:bg-gray-100',
-										isDisabled && 'border-transparent opacity-30 grayscale',
-										orientation !== 'horizontal-tiles' && 'px-2 py-1.5',
-										icon && !label && !subtitle && 'size-9 !p-1.5',
+											'es-uic-border-teal-600 es-uic-bg-teal-100/5 es-uic-shadow-sm es-uic-shadow-teal-500/25',
+										!isSelected && !disabled && 'es-uic-border-transparent hover:es-uic-bg-gray-100',
+										isDisabled && 'es-uic-border-transparent es-uic-opacity-30 es-uic-grayscale',
+										orientation !== 'horizontal-tiles' && 'es-uic-px-2 es-uic-py-1.5',
+										icon && !label && !subtitle && 'es-uic-size-9 !es-uic-p-1.5',
 										orientation === 'horizontal-tiles' &&
-											'row-start-1 row-end-4 grid min-w-18 grid-rows-subgrid items-center justify-items-center p-1.5 text-center leading-tight',
-										orientation === 'horizontal-tiles' && subtitle && '[&_svg]:mb-1',
+											'es-uic-row-start-1 es-uic-row-end-4 es-uic-grid es-uic-min-w-18 es-uic-grid-rows-subgrid es-uic-items-center es-uic-justify-items-center es-uic-p-1.5 es-uic-text-center es-uic-leading-tight',
+										orientation === 'horizontal-tiles' && subtitle && '[&_svg]:es-uic-mb-1',
 									);
 								}}
 							>

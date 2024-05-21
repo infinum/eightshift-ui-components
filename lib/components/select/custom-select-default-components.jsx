@@ -1,8 +1,7 @@
 import React from 'react';
 import { components } from 'react-select';
-import { icons } from '../icons/icons';
+import { icons } from '../../icons/icons';
 import { classnames } from '../../utilities/classnames';
-// import { icons, classnames } from '@eightshift/frontend-libs/scripts';
 
 /**
  * Default dropdown indicator for CustomSelect.
@@ -13,7 +12,7 @@ export const CustomSelectDefaultDropdownIndicator = (props) => {
 	return (
 		<components.DropdownIndicator {...props}>
 			{React.cloneElement(icons.dropdownCaretAlt, {
-				className: classnames(props.selectProps.menuIsOpen && '-scale-y-100 '),
+				className: classnames(props.selectProps.menuIsOpen && '-es-uic-scale-y-100 '),
 			})}
 		</components.DropdownIndicator>
 	);
@@ -35,6 +34,6 @@ export const CustomSelectDefaultClearIndicator = (props) => (
  */
 export const CustomSelectDefaultMultiValueRemove = (props) => (
 	<components.MultiValueRemove {...props}>
-		{React.cloneElement(icons.clear, { className: 'size-4' })}
+		{React.cloneElement(icons.clear, { className: 'es-uic-size-4' })}
 	</components.MultiValueRemove>
 );

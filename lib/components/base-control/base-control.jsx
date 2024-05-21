@@ -46,8 +46,8 @@ export const BaseControl = (props) => {
 	}
 
 	return (
-		<div className={classnames('space-y-1', className)}>
-			<div className={classnames('flex items-center gap-1', !inline && icon && 'pb-1')}>
+		<div className={classnames('es-uic-space-y-1', className)}>
+			<div className={classnames('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && icon && 'es-uic-pb-1')}>
 				{(label || icon || subtitle) && (
 					<IconLabel
 						icon={icon}
@@ -58,21 +58,21 @@ export const BaseControl = (props) => {
 					/>
 				)}
 
-				{inline && <div className='ml-auto flex items-center gap-1'>{children}</div>}
+				{inline && <div className='es-uic-ml-auto es-uic-flex es-uic-items-center es-uic-gap-1'>{children}</div>}
 
 				{actions && (
-					<div className={classnames('flex items-center gap-1', !inline && 'ml-auto')}>
+					<div className={classnames('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && 'es-uic-ml-auto')}>
 						{actions}
 					</div>
 				)}
 			</div>
 
 			{!inline && Array.isArray(children) && children.filter(Boolean).length > 1 && (
-				<div className='space-y-1'>{children}</div>
+				<div className='es-uic-space-y-1'>{children}</div>
 			)}
 			{!inline && (!Array.isArray(children) || children.filter(Boolean).length < 2) && children}
 
-			{help && <span className='text-sm text-gray-400'>{help}</span>}
+			{help && <span className='es-uic-text-sm es-uic-text-gray-400'>{help}</span>}
 		</div>
 	);
 };

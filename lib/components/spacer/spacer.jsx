@@ -4,28 +4,28 @@ export const Spacer = (props) => {
 	const { size, border, className, text, icon, vertical = false } = props;
 
 	const spaceClass = classnames(
-		vertical ? 'h-full' : 'w-full',
-		!vertical && border && size === 's' && 'h-1',
-		!vertical && !border && size === 's' && 'h-2.5',
-		!vertical && border && size === 'm' && 'h-2',
-		!vertical && !border && size === 'm' && 'h-5',
-		vertical && border && size === 's' && 'w-1',
-		vertical && !border && size === 's' && 'w-2.5',
-		vertical && border && size === 'm' && 'w-2',
-		vertical && !border && size === 'm' && 'w-5',
+		vertical ? 'es-uic-h-full' : 'es-uic-w-full',
+		!vertical && border && size === 's' && 'es-uic-h-1',
+		!vertical && !border && size === 's' && 'es-uic-h-2.5',
+		!vertical && border && size === 'm' && 'es-uic-h-2',
+		!vertical && !border && size === 'm' && 'es-uic-h-5',
+		vertical && border && size === 's' && 'es-uic-w-1',
+		vertical && !border && size === 's' && 'es-uic-w-2.5',
+		vertical && border && size === 'm' && 'es-uic-w-2',
+		vertical && !border && size === 'm' && 'es-uic-w-5',
 		className,
 	);
 
 	if (text || icon) {
 		return (
-			<div className={classnames('flex items-center gap-1.5', className)}>
+			<div className={classnames('es-uic-flex es-uic-items-center es-uic-gap-1.5', className)}>
 				{icon && (
-					<span className='shrink-0 rounded bg-gray-500 p-0.5 text-gray-50 shadow-sm [&>svg]:size-5.5'>
+					<span className='es-uic-shrink-0 es-uic-rounded es-uic-bg-gray-500 es-uic-p-0.5 es-uic-text-gray-50 es-uic-shadow-sm [&>svg]:es-uic-size-5.5'>
 						{icon}
 					</span>
 				)}
-				{text && <span className='shrink-0 text-balance text-sm text-gray-500'>{text}</span>}
-				{border && <div className='h-px w-full bg-gray-300' />}
+				{text && <span className='es-uic-shrink-0 es-uic-text-balance es-uic-text-sm es-uic-text-gray-500'>{text}</span>}
+				{border && <div className='es-uic-h-px es-uic-w-full es-uic-bg-gray-300' />}
 			</div>
 		);
 	}
@@ -34,7 +34,7 @@ export const Spacer = (props) => {
 		return (
 			<div>
 				<div className={spaceClass} />
-				<div className={classnames('bg-gray-300', vertical ? 'h-full w-px' : 'h-px w-full')} />
+				<div className={classnames('es-uic-bg-gray-300', vertical ? 'es-uic-h-full es-uic-w-px' : 'es-uic-h-px es-uic-w-full')} />
 				<div className={spaceClass} />
 			</div>
 		);

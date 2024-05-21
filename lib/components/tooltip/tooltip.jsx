@@ -19,7 +19,7 @@ export const Tooltip = (props) => {
 		doNotReplaceChild = false,
 	} = props;
 
-	const triggerItems = doNotReplaceChild ? children : <div className={classnames('size-fit', wrapperClassName)}>{children}</div>;
+	const triggerItems = doNotReplaceChild ? children : <div className={classnames('es-uic-size-fit', wrapperClassName)}>{children}</div>;
 
 	return (
 		<RadixTooltip.Provider
@@ -38,10 +38,11 @@ export const Tooltip = (props) => {
 						side={side}
 						sideOffset={offset}
 						className={classnames(
-							theme === 'light' && 'border-gray-200 bg-white/60 text-gray-700',
-							theme === 'dark' && 'border-gray-600 bg-black/60 text-gray-100',
-							'z-20 select-none rounded-md border px-1.5 py-0.5 text-sm shadow backdrop-blur will-change-[transform,opacity]',
-							'data-[state=closed]:animate-scaleOutAndFade data-[state=delayed-open]:data-[side=bottom]:animate-slideUpAndFade data-[state=delayed-open]:data-[side=left]:animate-slideRightAndFade data-[state=delayed-open]:data-[side=right]:animate-slideLeftAndFade data-[state=delayed-open]:data-[side=top]:animate-slideDownAndFade',
+							theme === 'light' && 'es-uic-border-gray-200 es-uic-bg-white/60 es-uic-text-gray-700',
+							theme === 'dark' && 'es-uic-border-gray-600 es-uic-bg-black/60 es-uic-text-gray-100',
+							'es-uic-z-20 es-uic-select-none es-uic-rounded-md es-uic-border es-uic-px-1.5 es-uic-py-0.5 es-uic-text-sm es-uic-shadow es-uic-backdrop-blur es-uic-will-change-[transform,opacity]',
+							'data-[state=closed]:es-uic-animate-scaleOutAndFade',
+							'data-[state=delayed-open]:data-[side=bottom]:es-uic-animate-slideUpAndFade data-[state=delayed-open]:data-[side=left]:es-uic-animate-slideRightAndFade data-[state=delayed-open]:data-[side=right]:es-uic-animate-slideLeftAndFade data-[state=delayed-open]:data-[side=top]:es-uic-animate-slideDownAndFade',
 							className,
 						)}
 					>

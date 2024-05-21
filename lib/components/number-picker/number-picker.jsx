@@ -1,7 +1,7 @@
 import { cloneElement, useState } from 'react';
 import { Group, Input, Label, NumberField, Text } from 'react-aria-components';
 import { Button } from '../button/button';
-import { icons } from '../icons/icons';
+import { icons } from '../../icons/icons';
 import { classnames } from '../../utilities/classnames';
 import { BaseControl } from '../base-control/base-control';
 
@@ -51,15 +51,15 @@ export const NumberPicker = ({
 			>
 				<Group
 					className={classnames(
-						'@container-[block-size] flex min-h-10 w-fit items-center rounded-md border border-gray-300 pl-1 pr-0.5 shadow transition',
-						isInputFocused && 'outline-none ring ring-teal-500 ring-opacity-50',
-						!prefix && 'pl-2',
+						'es-uic-flex es-uic-min-h-10 es-uic-w-fit es-uic-items-center es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-pl-1 es-uic-pr-0.5 es-uic-shadow es-uic-transition',
+						isInputFocused && 'es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+						!prefix && 'es-uic-pl-2',
 					)}
 				>
 					{prefix && (
 						<span
 							slot='prefix'
-							className='col-start-1 row-span-2 mr-0.5 select-none self-center text-gray-500'
+							className='es-uic-col-start-1 es-uic-row-span-2 es-uic-mr-0.5 es-uic-select-none es-uic-self-center es-uic-text-gray-500'
 						>
 							{prefix}
 						</span>
@@ -67,7 +67,7 @@ export const NumberPicker = ({
 					<Input
 						onFocus={() => setIsInputFocused(true)}
 						onBlur={() => setIsInputFocused(false)}
-						className='col-start-2 row-span-2 bg-transparent py-1 tabular-nums focus:outline-none'
+						className='es-uic-col-start-2 es-uic-row-span-2 es-uic-bg-transparent es-uic-py-1 es-uic-tabular-nums focus:es-uic-outline-none'
 						placeholder={placeholder}
 						style={{
 							width: fixedWidth
@@ -78,7 +78,7 @@ export const NumberPicker = ({
 					{suffix && (
 						<span
 							slot='suffix'
-							className='col-start-3 row-span-2 select-none self-center text-gray-500'
+							className='es-uic-col-start-3 es-uic-row-span-2 es-uic-select-none es-uic-self-center es-uic-text-gray-500'
 						>
 							{suffix}
 						</span>
@@ -86,13 +86,13 @@ export const NumberPicker = ({
 					<div>
 						<Button
 							type='ghost'
-							className='col-start-4 !h-3 !w-5 !rounded !text-gray-500 disabled:!text-gray-300 [&>svg]:size-[0.8rem]'
+							className='es-uic-col-start-4 !es-uic-h-3 !es-uic-w-5 !es-uic-rounded !es-uic-text-gray-500 disabled:!es-uic-text-gray-300 [&>svg]:es-uic-size-[0.8rem]'
 							slot='increment'
 							icon={icons.caretUpFill}
 						/>
 						<Button
 							type='ghost'
-							className='col-start-4 !h-3 !w-5 !rounded !text-gray-500 disabled:!text-gray-300 [&>svg]:size-[0.8rem]'
+							className='es-uic-col-start-4 !es-uic-h-3 !es-uic-w-5 !es-uic-rounded !es-uic-text-gray-500 disabled:!es-uic-text-gray-300 [&>svg]:es-uic-size-[0.8rem]'
 							slot='decrement'
 							icon={icons.caretDownFill}
 						/>
@@ -100,8 +100,8 @@ export const NumberPicker = ({
 
 					{children && (
 						<>
-							<div className='h-[2.375rem] w-px bg-gray-300' />
-							<div className='pl-1 pr-0.5'>
+							<div className='es-uic-h-[2.375rem] es-uic-w-px es-uic-bg-gray-300' />
+							<div className='es-uic-pl-1 es-uic-pr-0.5'>
 								{Array.isArray(children)
 									? children.map((child) => cloneElement(child, { slot: null }))
 									: cloneElement(children, { slot: null })}

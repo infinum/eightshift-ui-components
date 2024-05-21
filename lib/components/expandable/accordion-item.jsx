@@ -5,13 +5,12 @@ import { useButton } from '@react-aria/button';
 import { mergeProps } from '@react-aria/utils';
 
 import { AccordionContext } from './accordion-context';
-import { icons } from '../icons/icons';
+import { icons } from '../../icons/icons';
 import { IconLabel } from '../icon-label/icon-label';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { classnames } from '../../utilities/classnames';
 import { Tooltip } from '../tooltip/tooltip';
 
-// eslint-disable-next-line react/display-name
 const AccordionItem = forwardRef((props, ref) => {
 	const { item } = props;
 	const {
@@ -58,8 +57,8 @@ const AccordionItem = forwardRef((props, ref) => {
 		<div {...others}>
 			<div
 				className={classnames(
-					'flex w-full items-center gap-1 border border-gray-300 p-1 transition-[border-radius]',
-					isOpen ? 'rounded-t-lg border-b-transparent' : 'rounded-lg',
+					'es-uic-flex es-uic-w-full es-uic-items-center es-uic-gap-1 es-uic-border es-uic-border-gray-300 es-uic-p-1 es-uic-transition-[border-radius]',
+					isOpen ? 'es-uic-rounded-t-lg es-uic-border-b-transparent' : 'es-uic-rounded-lg',
 				)}
 			>
 				<IconLabel
@@ -73,7 +72,7 @@ const AccordionItem = forwardRef((props, ref) => {
 				{actions && !keepActionsOnExpand && (
 					<AnimatedVisibility
 						visible={!isOpen}
-						className='ml-auto flex gap-2'
+						className='es-uic-ml-auto es-uic-flex gap-2'
 						transition='scaleFade'
 						noInitial
 					>
@@ -82,7 +81,7 @@ const AccordionItem = forwardRef((props, ref) => {
 				)}
 
 				{actions && keepActionsOnExpand && (
-					<div className='ml-auto flex gap-2'>{actions}</div>
+					<div className='es-uic-ml-auto es-uic-flex es-uic-gap-2'>{actions}</div>
 				)}
 
 				<Tooltip
@@ -95,16 +94,18 @@ const AccordionItem = forwardRef((props, ref) => {
 					<button
 						ref={buttonRef}
 						className={classnames(
-							'flex size-8 items-center justify-center rounded border border-transparent duration-300 hover:border-gray-200 text-gray-700 hover:shadow-sm transition disabled:border-gray-100 disabled:text-gray-200 disabled:shadow-none',
-							'focus:outline-none  focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
-							!actions || (!keepActionsOnExpand && isOpen && 'ml-auto'),
+							'es-uic-flex es-uic-size-8 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-border-transparent es-uic-duration-300 es-uic-text-gray-700 es-uic-transition',
+							'hover:es-uic-border-gray-200 hover:es-uic-shadow-sm',
+							'disabled:es-uic-border-gray-100 disabled:es-uic-text-gray-200 disabled:es-uic-shadow-none',
+							'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+							!actions || (!keepActionsOnExpand && isOpen && 'es-uic-ml-auto'),
 						)}
 						{...filteredProps}
 					>
 						<span
 							className={classnames(
-								'transition-transform duration-300 will-change-transform [&>svg]:size-5.5',
-								isOpen && '-scale-y-100',
+								'es-uic-transition-transform es-uic-duration-300 es-uic-will-change-transform [&>svg]:es-uic-size-5.5',
+								isOpen && '-es-uic-scale-y-100',
 							)}
 						>
 							{isOpen && !disabled ? icons.caretDownFill : icons.caretDown}
@@ -114,7 +115,7 @@ const AccordionItem = forwardRef((props, ref) => {
 			</div>
 
 			<AnimatedVisibility
-				className='rounded-b-lg border-x border-b border-gray-300 p-1'
+				className='es-uic-rounded-b-lg es-uic-border-x es-uic-border-b es-uic-border-gray-300 es-uic-p-1'
 				visible={isOpen && !disabled}
 				{...accordionRegionProps}
 			>
@@ -123,5 +124,7 @@ const AccordionItem = forwardRef((props, ref) => {
 		</div>
 	);
 });
+
+AccordionItem.displayName = 'AccordionItem';
 
 export default AccordionItem;

@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { __ } from '@wordpress/i18n';
 import { Popover } from '../popover/popover';
 import { Button } from '../button/button';
-import { icons } from '../icons/icons';
+import { icons } from '../../icons/icons';
 import { camelCase, upperFirst } from '../../utilities/text-helpers';
 import { classnames } from '../../utilities/classnames';
 import { Tooltip } from '../tooltip/tooltip';
@@ -40,6 +40,8 @@ export const MatrixAlign = (props) => {
 		label,
 		icon,
 		subtitle,
+
+		'aria-label': ariaLabel,
 
 		popoverPosition,
 	} = props;
@@ -125,21 +127,21 @@ export const MatrixAlign = (props) => {
 	return (
 		<>
 			{(icon || label || subtitle) && (
-				<div className='flex w-full items-center gap-1'>
+				<div className='es-uic-flex es-uic-w-full es-uic-items-center es-uic-gap-1'>
 					<IconLabel
 						icon={icon}
 						label={label}
 						subtitle={subtitle}
 					/>
 
-					<Trigger wrapperClassName='ml-auto' />
+					<Trigger wrapperClassName='es-uic-ml-auto' />
 				</div>
 			)}
 
 			{!(icon || label || subtitle) && <Trigger />}
 
 			<Popover
-				aria-label={props['aria-label'] ?? __('Select position', 'eightshift-components')}
+				aria-label={ariaLabel ?? __('Select position', 'eightshift-components')}
 				position={popoverPosition}
 				triggerRef={ref}
 				onOpenChange={(isOpen) => {
@@ -161,8 +163,8 @@ export const MatrixAlign = (props) => {
 					<div
 						className={classnames(
 							'grid',
-							size === '3x3' && 'grid-cols-3 grid-rows-3',
-							size === '2x2' && 'grid-cols-2 grid-rows-2',
+							size === '3x3' && 'es-uic-grid-cols-3 es-uic-grid-rows-3',
+							size === '2x2' && 'es-uic-grid-cols-2 es-uic-grid-rows-2',
 						)}
 					>
 						{sizeOptions.map(({ value, label, icon }) => (
