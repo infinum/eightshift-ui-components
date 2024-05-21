@@ -17,7 +17,7 @@ export default {
 			},
 			fontSize: {
 				// 'sm': '.8125rem', // 13px
-				'sm': '.75rem', // 12px
+				'sm': '.78125rem', // 12.5px
 				'xs': '.65625rem', // 10.5px
 			},
 			keyframes: {
@@ -63,11 +63,11 @@ export default {
 				slideLeftAndFade: 'slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
 				slideUpAndFade: 'slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
 				slideRightAndFade: 'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
-				slideDownAndFadeOut: 'slideDownAndFadeOut 400ms cubic-bezier(0.16, 1, 0.3, 1)',
-				slideLeftAndFadeOut: 'slideLeftAndFadeOut 400ms cubic-bezier(0.16, 1, 0.3, 1)',
-				slideUpAndFadeOut: 'slideUpAndFadeOut 400ms cubic-bezier(0.16, 1, 0.3, 1)',
-				slideRightAndFadeOut: 'slideRightAndFadeOut 400ms cubic-bezier(0.16, 1, 0.3, 1)',
-				scaleOutAndFade: 'scaleOutAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+				slideDownAndFadeOut: 'slideDownAndFadeOut 200ms cubic-bezier(0.16, 1, 0.3, 1)',
+				slideLeftAndFadeOut: 'slideLeftAndFadeOut 200ms cubic-bezier(0.16, 1, 0.3, 1)',
+				slideUpAndFadeOut: 'slideUpAndFadeOut 200ms cubic-bezier(0.16, 1, 0.3, 1)',
+				slideRightAndFadeOut: 'slideRightAndFadeOut 200ms cubic-bezier(0.16, 1, 0.3, 1)',
+				scaleOutAndFade: 'scaleOutAndFade 200ms cubic-bezier(0.16, 1, 0.3, 1)',
 			},
 		},
 	},
