@@ -8,11 +8,12 @@ export default defineConfig({
 	build: {
 		lib: {
 			name: 'EightshiftUiComponents',
-			entry: resolve(__dirname, 'src/index.js'),
+			entry: resolve('src', 'index.js'),
 			formats: ['es'],
 			rollupOptions: {
 				external: ['react', 'react/jsx-runtime'],
 			},
+			manifest: true,
 			copyPublicDir: false,
 		}
 	}
