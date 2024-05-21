@@ -7,14 +7,12 @@
 	"module": "./dist/index.js",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/goranalkovic-infinum/eightshift-ui-components"
+		"url": "git+https://github.com/goranalkovic-infinum/eightshift-ui-components.git"
 	},
 	"files": [
 		"dist"
 	],
-	"sideEffects": [
-		"**/*.css"
-	],
+	"sideEffects": false,
 	"exports": {
 		".": {
 			"import": "./dist/index.js",
