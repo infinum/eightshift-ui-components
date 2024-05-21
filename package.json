@@ -5,6 +5,10 @@
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/goranalkovic-infinum/eightshift-ui-components"
+	},
 	"files": [
 		"dist"
 	],
@@ -15,7 +19,8 @@
 		".": {
 			"import": "./dist/index.js",
 			"require": "./dist/index.js"
-		}
+		},
+		"./dist/assets/index.css": "./dist/assets/index.css"
 	},
 	"scripts": {
 		"dev": "vite",
@@ -25,6 +30,10 @@
 		"preview": "vite preview"
 	},
 	"peerDependencies": {
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"dependencies": {
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},
@@ -54,9 +63,7 @@
 		"postcss": "^8.4.38",
 		"prettier": "^3.2.5",
 		"prettier-plugin-tailwindcss": "^0.5.14",
-		"react": "^18.2.0",
 		"react-aria-components": "^1.2.0",
-		"react-dom": "^18.2.0",
 		"react-select": "^5.8.0",
 		"react-stately": "^3.31.0",
 		"tailwindcss": "^3.4.3",
