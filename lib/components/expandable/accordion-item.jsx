@@ -58,7 +58,7 @@ const AccordionItem = forwardRef((props, ref) => {
 			<div
 				className={classnames(
 					'es-uic-flex es-uic-w-full es-uic-items-center es-uic-gap-1 es-uic-border es-uic-border-gray-300 es-uic-p-1 es-uic-transition-[border-radius]',
-					isOpen ? 'es-uic-rounded-t-lg es-uic-border-b-transparent' : 'es-uic-rounded-lg',
+					isOpen ? 'es-uic-rounded-t-lg es-uic-rounded-b-0 es-uic-border-b-transparent' : 'es-uic-rounded-lg',
 				)}
 			>
 				<IconLabel
@@ -72,7 +72,7 @@ const AccordionItem = forwardRef((props, ref) => {
 				{actions && !keepActionsOnExpand && (
 					<AnimatedVisibility
 						visible={!isOpen}
-						className='es-uic-ml-auto es-uic-flex gap-2'
+						className='es-uic-ml-auto es-uic-flex es-uic-gap-2'
 						transition='scaleFade'
 						noInitial
 					>

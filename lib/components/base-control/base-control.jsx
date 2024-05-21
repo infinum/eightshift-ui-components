@@ -45,6 +45,10 @@ export const BaseControl = (props) => {
 		return null;
 	}
 
+	if (!(label || icon || subtitle)) {
+		return children;
+	}
+
 	return (
 		<div className={classnames('es-uic-space-y-1', className)}>
 			<div className={classnames('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && icon && 'es-uic-pb-1')}>

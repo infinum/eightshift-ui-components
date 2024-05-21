@@ -16,7 +16,9 @@ export default {
 				'5.5': '1.375rem',
 			},
 			fontSize: {
-				'sm': '.8125rem',
+				// 'sm': '.8125rem', // 13px
+				'sm': '.75rem', // 12px
+				'xs': '.65625rem', // 10.5px
 			},
 			keyframes: {
 				slideDownAndFade: {
