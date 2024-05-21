@@ -1,9 +1,10 @@
 {
 	"name": "eightshift-ui-components",
 	"private": true,
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"type": "module",
-	"main": "dist/eightshift-ui-components.js",
+	"main": "./dist/eightshift-ui-components.js",
+	"module": "./dist/eightshift-ui-components.js",
 	"files": [
 		"dist"
 	],
