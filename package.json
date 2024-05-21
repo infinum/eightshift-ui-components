@@ -10,6 +10,12 @@
 	"sideEffects": [
 		"**/*.css"
 	],
+	"exports":{
+		".": {
+			"import": "./dist/eightshift-ui-components.js",
+			"require": "./dist/eightshift-ui-components.js"
+		}
+	},
 	"scripts": {
 		"dev": "vite",
 		"start": "vite",

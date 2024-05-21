@@ -7,6 +7,7 @@ export default defineConfig({
 	plugins: [react()],
 	build: {
 		lib: {
+			name: 'EightshiftUiComponents',
 			entry: resolve(__dirname, 'src/index.js'),
 			formats: ['es'],
 			rollupOptions: {
