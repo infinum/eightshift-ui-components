@@ -59,8 +59,8 @@ export const ListBox = (props) => {
 		>
 			<Tooltip
 				text={tooltipText}
-				open={tooltipText !== null}
-				wrapperClassName='w-full'
+				wrapperClassName={classnames(orientation === 'vertical' && 'w-full')}
+				open={tooltipText?.length > 1}
 			>
 				<ReactAriaListBox
 					selectionMode={selectionMode}
@@ -77,33 +77,31 @@ export const ListBox = (props) => {
 					disallowEmptySelection={!canDeselect}
 					orientation={orientationPropValue}
 					selectedKeys={[value]}
-					onSelectionChange={(key) => onChange(key?.currentKey ?? key?.anchorKey)}
+					onSelectionChange={(key) => {
+						onChange(key?.currentKey ?? key?.anchorKey);
+						setTooltipText(null);
+					}}
 					{...rest}
 				>
 					{(item) => {
 						const { label, icon, subtitle, tooltip, disabled } = item;
+
 						return (
 							<ReactAriaListBoxItem
 								textValue={label ?? tooltip}
-								onHoverChange={(isHovered) => {
-									if (label || !tooltip) {
-										return;
-									}
-
-									if (isHovered) {
-										setTooltipText(label);
-									} else {
-										setTooltipText(null);
-									}
-								}}
 								isDisabled={disabled}
+								onHoverStart={() => setTooltipText(tooltip ?? label)}
+								onHoverEnd={() => setTooltipText(null)}
+								onFocus={() => setTooltipText(tooltip ?? label)}
 								className={({ isDisabled, isSelected }) => {
 									return classnames(
 										'flex min-h-9 select-none rounded-md border transition',
 										'focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-teal-500 focus-visible:ring-opacity-50',
-										isSelected && !disabled && 'border-teal-600 bg-teal-100/5 shadow-sm shadow-teal-500/25',
+										isSelected &&
+											!disabled &&
+											'border-teal-600 bg-teal-100/5 shadow-sm shadow-teal-500/25',
 										!isSelected && !disabled && 'border-transparent hover:bg-gray-100',
-										isDisabled && 'opacity-30 grayscale border-transparent',
+										isDisabled && 'border-transparent opacity-30 grayscale',
 										orientation !== 'horizontal-tiles' && 'px-2 py-1.5',
 										icon && !label && !subtitle && 'size-9 !p-1.5',
 										orientation === 'horizontal-tiles' &&
@@ -116,9 +114,7 @@ export const ListBox = (props) => {
 									icon={icon}
 									label={label}
 									subtitle={subtitle}
-									className={classnames(
-										orientation === 'horizontal' && 'leading-none',
-									)}
+									className={classnames(orientation === 'horizontal' && 'leading-none')}
 									contentsOnly={orientation === 'horizontal-tiles'}
 								/>
 							</ReactAriaListBoxItem>
