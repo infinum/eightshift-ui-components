@@ -11,9 +11,6 @@ export default defineConfig({
 		react(),
 		libInjectCss(),
 	],
-	// esbuild: {
-	// 	legalComments: 'inline',
-	// },
 	build: {
 		copyPublicDir: false,
 		lib: {
@@ -21,6 +18,7 @@ export default defineConfig({
 			entry: resolve(__dirname, 'lib/index.js'),
 			formats: ['es']
 		},
+		minify: 'keepNames',
 		rollupOptions: {
 			external: ['react', 'react/jsx-runtime'],
 			input: Object.fromEntries(
