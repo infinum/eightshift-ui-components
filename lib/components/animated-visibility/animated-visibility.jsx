@@ -1,5 +1,3 @@
-import './animated-visibility.d';
-
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
