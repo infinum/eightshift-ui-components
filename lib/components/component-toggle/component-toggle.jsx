@@ -14,6 +14,7 @@ export const ComponentToggle = (props) => {
 		noUseToggle,
 		expandButtonDisabled,
 		controlOnly,
+		contentClassName = 'es-uic-space-y-2.5',
 	} = props;
 
 	if (controlOnly) {
@@ -38,7 +39,7 @@ export const ComponentToggle = (props) => {
 			}
 			disabled={!useComponent || expandButtonDisabled}
 		>
-			{!expandButtonDisabled && children}
+			{!expandButtonDisabled && <div className={contentClassName}>{children}</div>}
 		</Expandable>
 	);
 };
