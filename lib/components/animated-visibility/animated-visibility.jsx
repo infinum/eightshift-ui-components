@@ -7,10 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion';
  * @param {Object} props - The component props.
  * @param {boolean} props.visible - Whether the content should be visible
  * @param {string} props.className - Classes to pass to the element wrapper.
- * @param {React.ReactNode} props.children - The content to show/hide.
  * @param {boolean} [props.noInitial=false] - If `true`, the animation when the component is first mounted is disabled.
  * @param {ElementTransition} [props.transition='slideFade'] - The transition to use when showing/hiding the content.
- * @param {Object} [props.other] - Other props to pass to the element.
  *
  * @returns {JSX.Element} The AnimatedVisibility component.
  *
