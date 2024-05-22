@@ -1,13 +1,20 @@
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * @preserve
- *
  * Component that allows animating the visibility of its children.
  *
  * @component
- * @param {AnimatedVisibilityProps} props - The component props.
+ * @param {Object} props - The component props.
+ * @param {boolean} props.visible - Whether the content should be visible
+ * @param {string} props.className - Classes to pass to the element wrapper.
+ * @param {React.ReactNode} props.children - The content to show/hide.
+ * @param {boolean} [props.noInitial=false] - If `true`, the animation when the component is first mounted is disabled.
+ * @param {ElementTransition} [props.transition='slideFade'] - The transition to use when showing/hiding the content.
+ * @param {Object} [props.other] - Other props to pass to the element.
+ *
  * @returns {JSX.Element} The AnimatedVisibility component.
+ *
+ * @typedef {'slideFade' |'scaleFade'} ElementTransition
  *
  * @example
  * const [visible, setVisible] = useState(false);
@@ -15,6 +22,8 @@ import { motion, AnimatePresence } from 'framer-motion';
  * <AnimatedVisibility visible={visible}>
  * 	<div>Content</div>
  * </AnimatedVisibility>
+ *
+ * @preserve
  */
 export const AnimatedVisibility = (props) => {
 	const {
@@ -55,22 +64,3 @@ export const AnimatedVisibility = (props) => {
 		</AnimatePresence>
 	);
 };
-
-/**
- * @preserve
- * @typedef {'slideFade' |'scaleFade'} ElementTransition
- */
-
-/**
- * @preserve
- *
- * A component to show/hide content with an animation.
- *
- * @typedef {Object} AnimatedVisibilityProps
- * @prop {boolean} props.visible - Whether the content should be visible
- * @prop {string} props.className - Classes to pass to the element wrapper.
- * @prop {React.ReactNode} props.children - The content to show/hide.
- * @prop {boolean} [props.noInitial=false] - If `true`, the animation when the component is first mounted is disabled.
- * @prop {ElementTransition} [props.transition='slideFade'] - The transition to use when showing/hiding the content.
- * @prop {Object} [props.other] - Other props to pass to the element.
- */
