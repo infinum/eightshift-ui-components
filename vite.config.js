@@ -11,6 +11,9 @@ export default defineConfig({
 		react(),
 		libInjectCss(),
 	],
+	// esbuild: {
+	// 	legalComments: 'inline',
+	// },
 	build: {
 		copyPublicDir: false,
 		lib: {

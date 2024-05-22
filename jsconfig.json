@@ -6,6 +6,6 @@
 		"jsx": "react-native",
 		"checkJs": true
 	},
-	"include": ["lib/**/*.d.js", "lib/**/*.js", "lib/**/*.cjs", "lib/**/*.mjs", "lib/**/*.jsx"],
-	"exclude": ["node_modules", "./functions/", "./docs", "src/*"]
+	"include": ["lib"],
+	"exclude": ["node_modules", "./functions/", "./docs", "src"]
 }
