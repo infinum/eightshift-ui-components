@@ -87,7 +87,7 @@ export const ToggleButton = (props) => {
 					'[.es-uic-button-group_&:not(:first-child)]:es-uic-rounded-l-none [.es-uic-button-group_&:not(:last-child)]:-es-uic-mr-px [.es-uic-button-group_&:not(:last-child)]:es-uic-rounded-r-none',
 					'[.es-uic-button-group_&:not(:first-child)]:after:es-uic-rounded-l-none [.es-uic-button-group_&:not(:last-child)]:after:es-uic-rounded-r-none',
 					'[.es-uic-button-group_div:not(:first-child)_>_&]:es-uic-rounded-l-none [.es-uic-button-group_div:not(:last-child)_>_&]:-es-uic-mr-px [.es-uic-button-group_div:not(:last-child)_>_&]:es-uic-rounded-r-none',
-					'[.es-uic-button-group_div:not(:last-child)_>_&]after:es-uic-rounded-r-none [.es-uic-button-group_div:not(:first-child)_>_&]:after:es-uic-rounded-l-none',
+					'[.es-uic-button-group_div:not(:last-child)_>_&]:after:es-uic-rounded-r-none [.es-uic-button-group_div:not(:first-child)_>_&]:after:es-uic-rounded-l-none',
 					className,
 				)
 			}

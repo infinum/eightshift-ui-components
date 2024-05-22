@@ -1,5 +1,5 @@
 import { useObjectRef } from 'react-aria';
-import { Button as ReactAriaButton } from 'react-aria-components';
+import { Button as ReactAriaButton, Toolbar } from 'react-aria-components';
 import { classnames } from '../../utilities/classnames';
 import { Tooltip } from '../tooltip/tooltip';
 
@@ -54,8 +54,9 @@ export const Button = (props) => {
 			focus: 'focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 		},
 		selected: {
-			regular: 'es-uic-border-teal-600 es-uic-bg-teal-50 es-uic-text-gray-900 es-uic-shadow-sm es-uic-z-10 es-uic-border',
-			hover: 'hover:es-uic-border-teal-600 hover:es-uic-bg-teal-100/50',
+			regular:
+				'es-uic-bg-teal-600 es-uic-text-white es-uic-border-teal-600 after:es-uic-opacity-45 es-uic-border es-uic-shadow-md es-uic-shadow-teal-500/25',
+			hover: 'hover:es-uic-shadow-teal-600/50 hover:after:es-uic-opacity-60',
 		},
 		ghost: {
 			regular: 'es-uic-border-transparent es-uic-text-gray-700',
@@ -65,7 +66,8 @@ export const Button = (props) => {
 		danger: {
 			regular:
 				'es-uic-border-red-300 es-uic-text-gray-700 es-uic-text-gray-900 es-uic-shadow-red-300/30 [&>svg]:es-uic-text-red-500 es-uic-shadow-sm es-uic-border',
-			hover: 'hover:es-uic-border-red-400 hover:es-uic-bg-red-50 hover:es-uic-text-red-500 hover:es-uic-shadow-red-300/75',
+			hover:
+				'hover:es-uic-border-red-400 hover:es-uic-bg-red-50 hover:es-uic-text-red-500 hover:es-uic-shadow-red-300/75',
 			focus: 'focus-visible:es-uic-ring-red-500 focus-visible:es-uic-ring-opacity-50',
 		},
 	};
@@ -90,6 +92,12 @@ export const Button = (props) => {
 				'[.es-uic-button-group_&:not(:first-child)]:es-uic-rounded-l-none [.es-uic-button-group_&:not(:last-child)]:-es-uic-mr-px [.es-uic-button-group_&:not(:last-child)]:es-uic-rounded-r-none',
 				'[.es-uic-button-group_div:not(:first-child)_>_&]:es-uic-rounded-l-none [.es-uic-button-group_div:not(:last-child)_>_&]:-es-uic-mr-px [.es-uic-button-group_div:not(:last-child)_>_&]:es-uic-rounded-r-none',
 				sizes[size].iconSize,
+				type === 'selected' &&
+					'es-uic-relative es-uic-isolate after:es-uic-absolute after:es-uic-inset-0 after:-es-uic-z-10 after:es-uic-rounded-[0.3125rem] after:es-uic-bg-gradient-to-br after:es-uic-from-teal-100/40 after:es-uic-via-transparent after:es-uic-to-teal-200/50 after:es-uic-opacity-0 after:es-uic-transition-opacity after:es-uic-content-[""]',
+				type === 'selected' &&
+					'[.es-uic-button-group_&:not(:first-child)]:after:es-uic-rounded-l-none [.es-uic-button-group_&:not(:last-child)]:after:es-uic-rounded-r-none',
+				type === 'selected' &&
+					'[.es-uic-button-group_div:not(:first-child)_>_&]:after:es-uic-rounded-l-none [.es-uic-button-group_div:not(:last-child)_>_&]:after:es-uic-rounded-r-none',
 				className,
 			)}
 			ref={objRef}
@@ -116,5 +124,5 @@ export const Button = (props) => {
 };
 
 export const ButtonGroup = ({ children, className }) => (
-	<div className={classnames('es-uic-flex es-uic-button-group', className)}>{children}</div>
+	<Toolbar className={classnames('es-uic-button-group es-uic-flex', className)}>{children}</Toolbar>
 );
