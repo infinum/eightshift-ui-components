@@ -10,6 +10,49 @@ import { IconLabel } from '../icon-label/icon-label';
 import { Tooltip } from '../tooltip/tooltip';
 import { useState } from 'react';
 
+/**
+ * A component that allows selecting a single or multiple options from a list.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {JSX.Element} [props.icon] - Icon to display in the label.
+ * @param {string} [props.label] - Label to display.
+ * @param {string} [props.subtitle] - Subtitle to display.
+ * @param {JSX.Element} [props.actions] - Actions to display in the header.
+ * @param {string} [props.help] - Help text to display below the list.
+ * @param {boolean} [props.inline] - If `true`, the list is displayed inline with the label.
+ * @param {Object[]} props.options - The list of options to display.
+ * @param {string} props.options[].value - The value of the option. Should be unique!
+ * @param {string} [props.options[].label] - The label of the option.
+ * @param {JSX.Element} [props.options[].icon] - The icon of the option.
+ * @param {string} [props.options[].subtitle] - The subtitle of the option.
+ * @param {string} [props.options[].tooltip] - The tooltip text of the option.
+ * @param {boolean} [props.options[].disabled] - If `true`, the option is cannot be selected.
+ * @param {ListBoxSelectionMode} [props.selectionMode='single'] - The selection mode.
+ * @param {string} props.value - The currently selected value.
+ * @param {Function} props.onChange - Function to run when the selection changes.
+ * @param {boolean} [props.canDeselect=false] - If `true`, the selected value can be deselected (`null` is set in that case).
+ * @param {ListBoxOrientation} [props.orientation='horizontal'] - The orientation of the list. If all options have only an icon set, the orientation is forced to be horizontal.
+ * @param {string} [props.className] - Classes to pass to the list.
+ *
+ * @returns {JSX.Element} The ListBox component.
+ *
+ * @typedef {'single' | 'multiple'} ListBoxSelectionMode
+ * @typedef {'horizontal' | 'vertical' | 'horizontal-tiles'} ListBoxOrientation
+ *
+ * @example
+ * <ListBox
+ * 	label='My list'
+ * 	options={[
+ * 		{ value: 'option1', label: 'Option 1' },
+ * 		{ value: 'option2', label: 'Option 2' },
+ * 	]}
+ * 	value={selectedValue}
+ * 	onChange={setSelectedValue}
+ * />
+ *
+ * @preserve
+ */
 export const ListBox = (props) => {
 	const {
 		icon,

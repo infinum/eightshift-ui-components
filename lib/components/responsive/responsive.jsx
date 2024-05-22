@@ -13,6 +13,50 @@ import { IconLabel } from '../icon-label/icon-label';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { ToggleButton } from '../toggle-button/toggle-button';
 
+/**
+ * A component that allows the user to set different values for different breakpoints.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {Object} props.value - The current value of the component.
+ * @param {Function} props.onChange - Function to run when the value changes. `(newValue: Object) => void`.
+ * @param {string} props.label - The label of the component.
+ * @param {JSX.Element} props.icon - The icon of the component.
+ * @param {string} props.subtitle - The subtitle of the component.
+ * @param {string} props.help - The help text of the component.
+ * @param {Array<string>} props.options - Options of the attribute the component is linked to. `{ value: string, label: string }[]`.
+ * @param {Function} props.componentToRender - The component to render for each breakpoint. `(props: { breakpoint: string, currentValue: string, handleChange: Function }) => JSX.Element`.
+ * @param {Array<string>} props.breakpoints - Breakpoints to use.
+ * @param {Array<string>} [props.desktopFirstBreakpoints] - Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order.
+ * @param {Object} props.globalManifest - The global manifest.
+ *
+ * @returns {JSX.Element} The Responsive component.
+ *
+ * @example
+ * <Responsive
+ * 	value={value}
+ * 	onChange={onChange}
+ * 	icon={icons.myIcon}
+ * 	label={__('Label', 'eightshift-components')}
+ * 	options={[
+ * 		{ value: 'value1', label: 'Value 1' },
+ * 		{ value: 'value2', label: 'Value 2' },
+ * 		{ value: 'value3', label: 'Value 3' },
+ * 	]}
+ * 	componentToRender={({ breakpoint, currentValue, handleChange }) => (
+ * 		<Select
+ * 			label={breakpoint}
+ * 			value={currentValue}
+ * 			options={options}
+ * 			onChange={handleChange}
+ * 		/>
+ * 	)}
+ * 	breakpoints={['mobile', 'tablet', 'desktop', 'large']}
+ * 	globalManifest={globalManifest}
+ * />
+ *
+ * @preserve
+ */
 export const Responsive = (props) => {
 	const {
 		value,

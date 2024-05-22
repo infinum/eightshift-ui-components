@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
  * Component that allows animating the visibility of its children.
  *
  * @component
- * @param {Object} props - The component props.
+ * @param {Object} props - Component props.
  * @param {boolean} props.visible - Whether the content should be visible
  * @param {string} props.className - Classes to pass to the element wrapper.
  * @param {boolean} [props.noInitial=false] - If `true`, the animation when the component is first mounted is disabled.

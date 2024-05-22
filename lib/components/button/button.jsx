@@ -3,6 +3,34 @@ import { Button as ReactAriaButton, Toolbar } from 'react-aria-components';
 import { classnames } from '../../utilities/classnames';
 import { Tooltip } from '../tooltip/tooltip';
 
+/**
+ * A simple button component.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {JSX.Element} [props.icon] - Icon to display within the button.
+ * @param {ButtonSize} [props.size='default'] - The size of the button.
+ * @param {ButtonType} [props.type='default'] - The type of the button.
+ * @param {boolean} [props.disabled] - If `true`, the button is disabled.
+ * @param {string} [props.className] - Classes to pass to the button.
+ * @param {string} [props.tooltip] - Tooltip text to display on hover.
+ * @param {Function} [props.onPress] - Function to run when the button is pressed.
+ * @param {React.Ref} [props.forwardedRef] - Ref to forward to the button. Use the same as the `ref` prop.
+ * @param {string} [props.wrapperClassName] - Classes to pass to the tooltip wrapper.
+ * @param {Object} [props.tooltipProps] - Props to pass to the tooltip.
+ *
+ * @returns {JSX.Element} The Button component.
+ *
+ * @typedef {'small' | 'default' | 'large'} ButtonSize
+ * @typedef {'default' | 'selected' | 'ghost' | 'danger'} ButtonType
+ *
+ * @example
+ * <Button onPress={() => console.log('Hi!')} icon={icons.myIcon} />
+ *
+ * <Button onPress={() => console.log('Hi!')} icon={icons.myIcon}>My button</Button>
+ *
+ * @preserve
+ */
 export const Button = (props) => {
 	const {
 		children,
@@ -12,7 +40,6 @@ export const Button = (props) => {
 		disabled,
 		className,
 		tooltip,
-		onClick,
 		onPress,
 		forwardedRef,
 		wrapperClassName,
@@ -74,7 +101,7 @@ export const Button = (props) => {
 
 	const component = (
 		<ReactAriaButton
-			onPress={onClick || onPress}
+			onPress={onPress}
 			isDisabled={disabled}
 			className={classnames(
 				'es-uic-flex es-uic-items-center es-uic-justify-center es-uic-gap-1 es-uic-rounded-md es-uic-transition es-uic-duration-300',
@@ -123,6 +150,26 @@ export const Button = (props) => {
 	);
 };
 
+/**
+ * A wrapper for `Button` or `ToggleButton` components that visually groups them and ensures proper keyboard navigation.
+ *
+ * **Note**: Only intended for horizontal groups of buttons that don't wrap.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string} [props.className] - Classes to pass to the button group container.
+ *
+ * @returns {JSX.Element} The ButtonGroup component.
+ *
+ * @example
+ * <ButtonGroup>
+ * 	<Button ... />
+ * 	<Button ... />
+ * 	<Button ... />
+ * </ButtonGroup>
+ *
+ * @preserve
+ */
 export const ButtonGroup = ({ children, className }) => (
 	<Toolbar className={classnames('es-uic-button-group es-uic-flex', className)}>{children}</Toolbar>
 );

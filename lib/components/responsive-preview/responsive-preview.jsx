@@ -4,13 +4,40 @@ import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { icons } from '../../icons/icons';
 import { IconLabel } from '../icon-label/icon-label';
 
+/**
+ * A component that displays a preview of the responsive settings.
+ *
+ * **Note**: Only intended for horizontal groups of buttons that don't wrap.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {Object} props.value - The value object.
+ * @param {boolean} props.isDesktopFirst - Whether the desktop-first mode is enabled.
+ * @param {Array} props.breakpoints - Breakpoints to use.
+ * @param {Array} [props.desktopFirstBreakpoints] - Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order.
+ * @param {Array} props.options - Options of the attribute the component is linked to. `{ value: string, label: string }[]`.
+ * @param {Object} props.globalManifest - The global manifest.
+ *
+ * @returns {JSX.Element} The ResponsivePreview component.
+ *
+ * @example
+ * <ResponsivePreview
+ * 	value={value}
+ * 	isDesktopFirst={isDesktopFirst}
+ * 	breakpoints={breakpoints}
+ * 	options={options}
+ * 	globalManifest={globalManifest}
+ * />
+ *
+ * @preserve
+ */
 export const ResponsivePreview = (props) => {
 	const {
 		value,
 		isDesktopFirst,
 
 		breakpoints,
-		desktopFirstBreakpoints,
+		desktopFirstBreakpoints = breakpoints.map((bp) => `max-${bp}`),
 
 		options,
 

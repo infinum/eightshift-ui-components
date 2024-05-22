@@ -1,6 +1,27 @@
 import { classnames } from '../../utilities/classnames';
 import { icons } from '../../icons/icons';
 
+/**
+ * A simple notice component.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {JSX.Element} [props.icon] - Icon to display within the notice.
+ * @param {string} [props.label] - The label of the notice.
+ * @param {string} [props.subtitle] - The subtitle of the notice.
+ * @param {string} [props.className] - Classes to pass to the notice.
+ * @param {NoticeType} [props.type='default'] - The type of the notice.
+ * @param {boolean} [props.alignIconToTitle=false] - If `true`, the icon will be aligned to the first row of title, instead of vertically centered.
+ *
+ * @returns {JSX.Element} The Notice component.
+ *
+ * @typedef {'info' | 'success' | 'warning' | 'error' | 'placeholder' | 'default'} NoticeType
+ *
+ * @example
+ * <Notice label='This is a notice' />
+ *
+ * @preserve
+ */
 export const Notice = (props) => {
 	const { icon, label, subtitle, className, type = 'default', alignIconToTitle = false } = props;
 

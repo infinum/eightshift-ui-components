@@ -8,6 +8,34 @@ import {
 import { BaseControl } from '../base-control/base-control';
 import { classnames } from '../../utilities/classnames';
 
+/**
+ * An input field.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {JSX.Element} [props.icon] - Icon to display in the label.
+ * @param {string} [props.label] - Label to display.
+ * @param {string} [props.subtitle] - Subtitle to display.
+ * @param {string} [props.help] - Help text to display below the input.
+ * @param {JSX.Element} [props.actions] - Actions to display to the right of the label.
+ * @param {string} [props.value] - The current value of the input.
+ * @param {Function} [props.onChange] - Function to run when the input value changes.
+ * @param {string} [props.type='text'] - The input type. Renders a `<textarea>` instead of `<input>` if set to 'multiline'.
+ * @param {boolean} [props.disabled] - If `true`, the input is disabled.
+ * @param {boolean} [props.readOnly] - If `true`, the input is read-only.
+ * @param {string} [props.className] - Classes to pass to the input field.
+ *
+ * @returns {JSX.Element} The InputField component.
+ *
+ * @example
+ * <InputField
+ * 	label='My input'
+ * 	value={inputValue}
+ * 	onChange={setInputValue}
+ * />
+ *
+ * @preserve
+ */
 export const InputField = (props) => {
 	const {
 		icon,

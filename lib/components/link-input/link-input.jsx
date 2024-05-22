@@ -21,6 +21,36 @@ import { Tooltip } from '../tooltip/tooltip';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { BaseControl } from '../base-control/base-control';
 
+/**
+ * Component that allows URL selection, with a list of suggestions and type-to-search.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string} [props.url] - The current URL.
+ * @param {Function} [props.onChange] - Function to run when the URL changes.
+ * @param {string} [props.label] - Label to display.
+ * @param {string} [props.subtitle] - Subtitle to display.
+ * @param {string} [props.help] - Help text to display below the input.
+ * @param {JSX.Element} [props.actions] - Actions to display to the right of the label.
+ * @param {JSX.Element} [props.icon=icons.globe] - Icon to display in the label.
+ * @param {JSX.Element} [props.removeIcon=icons.clearAlt] - Icon to display in the input's clear button.
+ * @param {boolean} [props.disabled=false] - If `true`, the input is disabled.
+ * @param {Function} [props.suggestionTypeIconOverride] - Function
+ * @param {Function} [props.fetchSuggestions] - A function that fetches suggestions based on the input value.
+ * @param {string} [props.className] - Classes to pass to the input field.
+ * @param {number} [props.inputDebounceDelay=500] - The delay in milliseconds before the input value is considered final.
+ * @param {Function} [props.suggestionTypeIconOverride] - Allows overriding the default icon for the suggestion type, e.g. when using CPTs. Should be in the format: `(type) => icon or React component`.
+ *
+ * @returns {JSX.Element} The LinkInput component.
+ *
+ * @example
+ * <LinkInput
+ * 	url={url}
+ * 	onChange={setUrl}
+ * />
+ *
+ * @preserve
+ */
 export const LinkInput = (props) => {
 	const {
 		url,

@@ -14,6 +14,56 @@ import { classnames } from '../../utilities/classnames';
 import { cloneElement } from 'react';
 import { __ } from '@wordpress/i18n';
 
+/**
+ * A simple menu component.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string} [props.triggerLabel] - The label of the trigger button.
+ * @param {JSX.Element} [props.triggerIcon] - The icon of the trigger button.
+ * @param {Object} [props.triggerProps] - Props to pass to the trigger button.
+ * @param {string} [props.tooltip] - Tooltip text to display on the trigger button.
+ * @param {boolean} [props.keepOpen=false] - If `true`, the menu will not close when an item is selected.
+ * @param {boolean} [props.openOnLongPress=false] - If `true`, the menu will open on long press instead of click. If enabled, a regular `onPress` event can also be passed to the trigger button to enable dual behavior.
+ *
+ * @returns {JSX.Element} The Menu component.
+ *
+ * @example
+ * <Menu>
+ * 	<MenuSection label='Section 1'>
+ * 		<MenuItem>Item 1</MenuItem>
+ * 		<MenuItem>Item 2</MenuItem>
+ * 	</MenuSection>
+ * 	<MenuSection label='Section 2'>
+ * 		<MenuItem>Item 3</MenuItem>
+ * 		<MenuItem>Item 4</MenuItem>
+ * 	</MenuSection>
+ * </Menu>
+ *
+ * @example
+ * <Menu>
+ * 	<MenuItem>Item 1</MenuItem>
+ * 	<MenuItem>Item 2</MenuItem>
+ * 	<MenuSeparator />
+ * 	<MenuItem>Item 3</MenuItem>
+ * 	<MenuItem>Item 4</MenuItem>
+ * </Menu>
+ *
+ * @example
+ * <Menu>
+ * 	<MenuItem>Item 1</MenuItem>
+ * 	<MenuItem>Item 2</MenuItem>
+ * 	<SubMenuItem
+ * 		trigger={<MenuItem>Submenu</MenuItem>}
+ * 	>
+ * 		<MenuItem>Subitem 1</MenuItem>
+ * 		<MenuItem>Subitem 2</MenuItem>
+ * 	</SubMenuItem>
+ * </Menu>
+ *
+ *
+ * @preserve
+ */
 export const Menu = (props) => {
 	const {
 		children,
@@ -75,6 +125,21 @@ export const Menu = (props) => {
 	);
 };
 
+/**
+ * A wrapper for `MenuItem` components that visually groups them and ensures proper keyboard navigation.
+ *
+ * **Important**: <MenuSection> cannot be mixed with other <MenuItem> in the top-level of the same menu.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string} [props.label] - The label of the section.
+ *
+ * @returns {JSX.Element} The MenuSection component.
+ *
+ * @see `Menu` for usage example.
+ *
+ * @preserve
+ */
 export const MenuSection = (props) => {
 	const { children, label } = props;
 	return (
@@ -91,10 +156,39 @@ export const MenuSection = (props) => {
 	);
 };
 
+/**
+ * A menu separator.
+ *
+ * @returns {JSX.Element} The MenuSeparator component.
+ *
+ * @see `Menu` for usage example.
+ *
+ * @preserve
+ */
 export const MenuSeparator = () => {
 	return <ReactAriaSeparator className='es-uic-mb-1 es-uic-border-b es-uic-border-gray-300' />;
 };
 
+/**
+ * A menu item.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {JSX.Element} [props.icon] - The icon of the item.
+ * @param {string} [props.shortcut] - A slot for text like the keyboard shortcut, displayed on the right side of the item.
+ * @param {boolean} [props.checked] - If `true`, the item is marked as checked. This is visually represented by a checkmark icon.
+ * @param {boolean} [props.selected] - If `true`, the item is marked as selected. This is visually represented by a circle.
+ * @param {boolean} [props.disabled] - If `true`, the item will be disabled.
+ * @param {JSX.Element} [props.endIcon] - The icon at the right side of the item.
+ * @param {Function} [props.onClick] - Function to run when the item is clicked.
+ * @param {string} [props.className] - Classes to pass to the menu item.
+ *
+ * @returns {JSX.Element} The MenuItem component.
+ *
+ * @see `Menu` for usage example.
+ *
+ * @preserve
+ */
 export const MenuItem = (props) => {
 	const { icon, children, checked, selected, disabled, endIcon, onClick, shortcut, className } =
 		props;
@@ -125,6 +219,19 @@ export const MenuItem = (props) => {
 	);
 };
 
+/**
+ * A supplementary menu item that triggers a submenu.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {JSX.Element} props.trigger - The trigger button for the submenu. **This should be a `MenuItem`.**
+ *
+ * @returns {JSX.Element} The SubMenuItem component.
+ *
+ * @see `Menu` for usage example.
+ *
+ * @preserve
+ */
 export const SubMenuItem = (props) => {
 	const { children, trigger } = props;
 

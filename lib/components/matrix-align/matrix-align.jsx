@@ -12,21 +12,30 @@ import { BaseControl } from '../base-control/base-control';
  * A component that can provide a 3x3 or a 2x2 grid of positions to pick from.
  * Replaces the default Gutenberg `AlignmentMatrixControl`/`BlockAlignmentMatrixControl`/`BlockAlignmentMatrixToolbar`.
  *
- * @typedef {'wp'|'tileButton'|'inline'} MatrixAlignControlType
- * @typedef {'top' | 'top left' | 'top right' | 'middle' | 'middle left' | 'middle right' | 'bottom' | 'bottom left' | 'bottom right'} AppearOrigin
+ * @component
+ * @param {Object} props - Component props.
+ * @param {MatrixSize} [props.size='3x3'] - The size of the matrix. Can be either '3x3' or '2x2'.
+ * @param {string} props.value - The currently selected value.
+ * @param {Function} props.onChange - Function to run when the selection changes.
+ * @param {string} [props.tooltip='Position'] - Tooltip text to display on the trigger button.
+ * @param {string} [props.label] - Label to display.
+ * @param {JSX.Element} [props.icon] - Icon to display within the button.
+ * @param {string} [props.subtitle] - Subtitle to display.
+ * @param {string} [props.popoverPosition='bottom'] - The position of the popover.
  *
- * @param {object} props                                      - MatrixAlignControl options.
- * @param {MatrixAlignControlType} [props.type='wp']          - Style of the option trigger. `wp` replicates the default Gutenberg control, `tileButton` shows a regular button that fits with a `tileButton` IconToggle well.
- * @param {'3x3'|'2x2'} [props.size='3x3']                    - Defines the matrix size to show. Can be either `3x3` or `2x2`.
- * @param {React.Component?} [props.label]                    - Label displayed on the trigger button. (tooltip when style is `wp`, text label below icon when style is `tileButton`)
- * @param {string} props.value                                - Current value.
- * @param {function} [props.onChange]                         - Function that is called on every value change.
- * @param {string?} [props.additionalTriggerClasses]          - If provided, the classes are appended to the trigger button.
- * @param {React.Component?} [props.icon]                     - Icon to show next to the label
- * @param {React.Component?} [props.subtitle]                 - Subtitle below the label.
- * @param {boolean?} [props.noBottomSpacing]                  - If `true`, space below the control is removed.
- * @param {boolean?} [props.reducedBottomSpacing]             - If `true`, space below the control is reduced.
- * @param {AppearOrigin} [props.popoverPosition='top center'] - Position where the popover appears.
+ * @returns {JSX.Element} The MatrixAlign component.
+ *
+ * @typedef {'3x3' | '2x2'} MatrixSize
+ * @typedef {'bottom' | 'bottom left' | 'bottom right' | 'bottom start' | 'bottom end' | 'top' | 'top left' | 'top right' | 'top start' | 'top end' | 'left' | 'left top' | 'left bottom' | 'start' | 'start top' | 'start bottom' | 'right' | 'right top' | 'right bottom' | 'end' | 'end top' | 'end bottom'} PopoverPosition
+ *
+ * @example
+ * <MatrixAlign
+ * 		size='3x3'
+ * 		value='top left'
+ * 		onChange={setAlignment}
+ * />
+ *
+ * @preserve
  */
 export const MatrixAlign = (props) => {
 	const {

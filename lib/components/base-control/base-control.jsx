@@ -2,23 +2,27 @@ import { classnames } from '../../utilities/classnames';
 import { IconLabel } from '../icon-label/icon-label';
 
 /**
- * @since 8.0.0
+ * Component that allows wrapping components with a common layout that includes a label and optional icon, subtitle, actions, and help text.
  *
- * A base component to optionally encase a component with a label and help.
+ * @component
+ * @param {Object} props - Component props.
+ * @param {JSX.Element} [props.icon] - Icon to display in the label.
+ * @param {string} props.label - Label to display.
+ * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to show to the right of the label.
+ * @param {string} [props.help] - Help text to show below the component.
+ * @param {boolean} [props.inline] - If `true`, the component is displayed inline - icon/label/subtitle are on the left, the passed content is on the right. **Note:** not compatible with `actions`.
+ * @param {string} [props.className] - Classes to pass to the main element wrapper.
+ * @param {boolean} [props.fullWidthLabel] - If `true`, the label expands to fill up the whole width, instead of taking up only the space it needs.
+ * @param {JSX.Element} [props.labelAs] - If provided, the label (includes icon and subtitle) will be rendered as this element.
  *
- * @param {object} props                                - Control options.
- * @param {React.Component?} [props.icon]               - Icon to show next to the label
- * @param {React.Component?} [props.label]              - Label to show above component.
- * @param {React.Component?} [props.subtitle]           - Subtitle below the label.
- * @param {React.Component?} [props.actions]            - Actions to show to the right of the label.
- * @param {React.Component?} [props.help]               - Help to show below the control.
- * @param {React.Component?} [props.children]           - Content to show.
- * @param {string?} [props.additionalClasses]           - Classes to add to the control base.
- * @param {string?} [props.additionalLabelClasses]      - Classes to add to the control label.
- * @param {boolean?} [props.inlineLabel=false]          - If `true`, the label is displayed inline with the control. In that case `actions` are shown below the control.
- * @param {boolean?} [props.noBottomSpacing=false]      - If `true`, space below the control is removed.
- * @param {boolean?} [props.reducedBottomSpacing=false] - If `true`, space below the control is reduced.
- * @param {function?} [props.wrapChildren]              - If passed (function `(children) => React.Component`), the children are wrapped in the provided element.
+ * @returns {JSX.Element} The BaseControl component.
+ *
+ * @example
+ * <BaseControl label='My component' icon={icons.myIcon}>
+ * 	<div>Content</div>
+ * </BaseControl>
+ *
+ * @preserve
  */
 export const BaseControl = (props) => {
 	const {
@@ -64,7 +68,7 @@ export const BaseControl = (props) => {
 
 				{inline && <div className='es-uic-ml-auto es-uic-flex es-uic-items-center es-uic-gap-1'>{children}</div>}
 
-				{actions && (
+				{!inline && actions && (
 					<div className={classnames('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && 'es-uic-ml-auto')}>
 						{actions}
 					</div>
