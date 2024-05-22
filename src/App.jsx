@@ -38,6 +38,7 @@ import{
 	InputField,
 	ComponentToggle,
 	ListBox,
+	ButtonGroup,
 } from '../lib';
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
 	const [txt2, setTxt2] = useState('');
 	const [useComp, setUseComp] = useState(false);
 	let [selectedKey, setSelectedKey] = useState('sans');
+	let [loremIpsum, setLoremIpsum] = useState(0);
 
 	const [resp, setResp] = useState({
 		_default: 'sans',
@@ -551,11 +553,11 @@ function App() {
 
 					<Button icon={icons.emptyRect}>Hello</Button>
 
-					<div className='es-uic-button-group es-uic-flex'>
-						<Button icon={icons.small} />
-						<Button icon={icons.medium} />
-						<Button icon={icons.large} />
-					</div>
+					<ButtonGroup>
+						<Button type={loremIpsum === 0 ? 'selected' : 'default'} onClick={() => setLoremIpsum(0)} icon={icons.small} />
+						<Button type={loremIpsum === 1 ? 'selected' : 'default'} onClick={() => setLoremIpsum(1)} icon={icons.medium} />
+						<Button type={loremIpsum === 2 ? 'selected' : 'default'} onClick={() => setLoremIpsum(2)} icon={icons.large} />
+					</ButtonGroup>
 				</TabPanel>
 				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
 					<MatrixAlign
