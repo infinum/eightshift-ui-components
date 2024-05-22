@@ -1,5 +1,21 @@
+import './animated-visibility.d';
+
 import { motion, AnimatePresence } from 'framer-motion';
 
+/**
+ * Component that allows animating the visibility of its children.
+ *
+ * @component
+ * @param {AnimatedVisibilityProps} props - The component props.
+ * @returns {JSX.Element} The AnimatedVisibility component.
+ *
+ * @example
+ * const [visible, setVisible] = useState(false);
+ *
+ * <AnimatedVisibility visible={visible}>
+ * 	<div>Content</div>
+ * </AnimatedVisibility>
+ */
 export const AnimatedVisibility = (props) => {
 	const {
 		visible,

@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"module": "ES6",
+		"target": "ES2021",
+		"jsx": "react-native",
+		"checkJs": true
+	},
+	"include": ["lib/**/*.d.js", "lib/**/*.js", "lib/**/*.cjs", "lib/**/*.mjs", "lib/**/*.jsx"],
+	"exclude": ["node_modules", "./functions/", "./docs", "src/*"]
+}
