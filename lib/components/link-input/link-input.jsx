@@ -114,6 +114,11 @@ export const LinkInput = (props) => {
 
 		if (inputValue?.length < 3) {
 			setSuggestionsVisible(false);
+
+			onChange({
+				url: inputValue,
+				isAnchor: inputValue?.includes('#'),
+			});
 			return;
 		}
 
@@ -125,12 +130,14 @@ export const LinkInput = (props) => {
 		setSuggestionsVisible(value);
 		setInstantClose(!value);
 
-
 		if (!value) {
 			triggerRef?.current?.focus();
-		} else if (value && url !== inputValue) {
-			onChange({ url: inputValue, isAnchor: inputValue?.includes('#') });
 		}
+
+		onChange({
+			url: inputValue,
+			isAnchor: inputValue?.includes('#'),
+		});
 	};
 
 	return (
@@ -208,9 +215,9 @@ export const LinkInput = (props) => {
 					classnames(
 						'es-uic-rounded-md es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-shadow-lg es-uic-outline-none',
 						isEntering &&
-						'es-uic-animate-in es-uic-slide-in-from-top-2 es-uic-fade-in-0 es-uic-fill-mode-forwards es-uic-outline',
-					isExiting &&
-						'es-uic-animate-out es-uic-slide-out-to-top-2 es-uic-fade-out-0 es-uic-fill-mode-forwards es-uic-outline',
+							'es-uic-outline es-uic-animate-in es-uic-fade-in-0 es-uic-slide-in-from-top-2 es-uic-fill-mode-forwards',
+						isExiting &&
+							'es-uic-outline es-uic-animate-out es-uic-fade-out-0 es-uic-slide-out-to-top-2 es-uic-fill-mode-forwards',
 					)
 				}
 				style={{
@@ -228,7 +235,12 @@ export const LinkInput = (props) => {
 							}
 
 							setInputValue(key.currentKey);
-							onChange({ url: key.currentKey, isAnchor: key.currentKey?.includes('#') });
+
+							onChange({
+								url: key.currentKey,
+								isAnchor: key.currentKey?.includes('#'),
+							});
+
 							setSuggestionsVisible(false);
 							setInstantClose(true);
 						}}
@@ -282,7 +294,9 @@ export const LinkInput = (props) => {
 										{typeIcon}
 									</span>
 
-									<span className='es-uic-block es-uic-self-start es-uic-truncate es-uic-text-sm'>{title}</span>
+									<span className='es-uic-block es-uic-self-start es-uic-truncate es-uic-text-sm'>
+										{title}
+									</span>
 									<span className='es-uic-block es-uic-self-end es-uic-truncate es-uic-text-xs es-uic-text-gray-400'>
 										{url?.replace(location.origin, '').replace(/\/$/, '')}
 									</span>
