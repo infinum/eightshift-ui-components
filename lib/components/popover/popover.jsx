@@ -173,7 +173,7 @@ export const TriggeredPopover = (props) => {
 		crossOffset,
 		containerPadding,
 
-		...rest,
+		...rest
 	} = props;
 
 	return (
