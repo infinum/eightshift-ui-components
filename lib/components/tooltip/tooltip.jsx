@@ -10,18 +10,18 @@ import { classnames } from '../../utilities/classnames';
  *
  * @component
  * @param {Object} props - Component props.
- * @param {string|JSX.Element} text - The text to display in the tooltip.
- * @param {TooltipTheme} [theme='dark'] - The theme of the tooltip.
- * @param {number} [offset=5] - Offset from the element.
- * @param {number} [delayDuration=700] - Duration before the tooltip is shown, in milliseconds.
- * @param {number} [skipDelayDuration=300] - Time in which the user can move the cursor to a different trigger without waiting for the `delayDuration`, in milliseconds.
- * @param {boolean} [defaultOpen] - (**Uncontrolled mode**) Whether the tooltip is initially open.
- * @param {boolean} [open] - (**Controlled mode**) Whether the tooltip is open.
- * @param {Function} [onOpenChange] - (**Controlled mode**) Function to run when the tooltip is opened or closed.
- * @param {TooltipSide} [side] - The side of the trigger element where the tooltip will be displayed.
- * @param {string} [className] - Classes to pass to the tooltip.
- * @param {string} [wrapperClassName] - Classes to pass to the tooltip wrapper (if `doNotReplaceChild` is `false`).
- * @param {boolean} [doNotReplaceChild=false] - If `false`, the tooltip will merge its props in the trigger component. If `true`, the tooltip will wrap the trigger component with a `<button>` element.
+ * @param {string|JSX.Element} props.text - The text to display in the tooltip.
+ * @param {TooltipTheme} [props.theme='dark'] - The theme of the tooltip.
+ * @param {number} [props.offset=5] - Offset from the element.
+ * @param {number} [props.delayDuration=700] - Duration before the tooltip is shown, in milliseconds.
+ * @param {number} [props.skipDelayDuration=300] - Time in which the user can move the cursor to a different trigger without waiting for the `delayDuration`, in milliseconds.
+ * @param {boolean} [props.defaultOpen] - (**Uncontrolled mode**) Whether the tooltip is initially open.
+ * @param {boolean} [props.open] - (**Controlled mode**) Whether the tooltip is open.
+ * @param {Function} [props.onOpenChange] - (**Controlled mode**) Function to run when the tooltip is opened or closed.
+ * @param {TooltipSide} [props.side] - The side of the trigger element where the tooltip will be displayed.
+ * @param {string} [props.className] - Classes to pass to the tooltip.
+ * @param {string} [props.wrapperClassName] - Classes to pass to the tooltip wrapper (if `doNotReplaceChild` is `false`).
+ * @param {boolean} [props.doNotReplaceChild=false] - If `false`, the tooltip will merge its props in the trigger component. If `true`, the tooltip will wrap the trigger component with a `<button>` element.
  *
  * @returns {JSX.Element} The Tooltip component.
  *

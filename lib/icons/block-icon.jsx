@@ -23,7 +23,9 @@ import { blockIcons } from "./icons";
  *
  * @access public
  *
- * @returns {string}
+ * @returns {JSX.Element} The BlockIcon component.
+ *
+ * @preserve
  */
 export const BlockIcon = (props) => {
 	const { iconName } = props;

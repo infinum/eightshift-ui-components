@@ -6,9 +6,9 @@ import { classnames } from '../../utilities/classnames';
  *
  * @component
  * @param {Object} props - Component props.
- * @param {boolean} checked - Whether the switch is checked.
- * @param {Function} onChange - Function to call when the switch is toggled.
- * @param {boolean} [disabled] - Whether the switch is disabled.
+ * @param {boolean} props.checked - Whether the switch is checked.
+ * @param {Function} props.onChange - Function to call when the switch is toggled.
+ * @param {boolean} [props.disabled] - Whether the switch is disabled.
  *
  * @returns {JSX.Element} The Switch component.
  *

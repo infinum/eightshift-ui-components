@@ -8,13 +8,13 @@ import { IconLabel } from '../icon-label/icon-label';
  *
  * @component
  * @param {Object} props - Component props.
- * @param {boolean} checked - Whether the switch is checked.
- * @param {Function} onChange - Function to call when the switch is toggled.
- * @param {boolean} [disabled] - Whether the switch is disabled.
- * @param {JSX.Element} [icon] - Icon to display.
- * @param {string} label - Label to display.
- * @param {string} [subtitle] - Subtitle to display.
- * @param {string} [className] - Classes to pass to the label.
+ * @param {boolean} props.checked - Whether the switch is checked.
+ * @param {Function} props.onChange - Function to call when the switch is toggled.
+ * @param {boolean} [props.disabled] - Whether the switch is disabled.
+ * @param {JSX.Element} [props.icon] - Icon to display.
+ * @param {string} props.label - Label to display.
+ * @param {string} [props.subtitle] - Subtitle to display.
+ * @param {string} [props.className] - Classes to pass to the label.
  *
  * @returns {JSX.Element} The Toggle component.
  *
