@@ -57,7 +57,7 @@ const AccordionItem = forwardRef((props, ref) => {
 		<div {...others}>
 			<div
 				className={classnames(
-					'es-uic-flex es-uic-w-full es-uic-items-center es-uic-gap-1 es-uic-border es-uic-border-gray-300 es-uic-p-1 es-uic-transition-[border-radius]',
+					'es-uic-flex es-uic-w-full es-uic-items-center es-uic-gap-1 es-uic-border es-uic-border-gray-300 es-uic-p-1 es-uic-pl-2 es-uic-transition-[border-radius]',
 					isOpen ? 'es-uic-rounded-t-lg es-uic-rounded-b-0 es-uic-border-b-transparent' : 'es-uic-rounded-lg',
 				)}
 			>

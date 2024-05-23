@@ -190,7 +190,7 @@ export const LinkInput = (props) => {
 								<Tooltip text={__('Clear', 'eightshift-components')}>
 									<div
 										className={classnames(
-											'es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-white/85 es-uic-text-gray-600 es-uic-backdrop-blur es-uic-transition',
+											'es-uic-flex es-uic-size-8 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-white/85 es-uic-text-gray-600 es-uic-backdrop-blur es-uic-transition',
 											'hover:es-uic-bg-red-50 hover:es-uic-text-red-500',
 											'[&>svg]:es-uic-size-6',
 										)}
