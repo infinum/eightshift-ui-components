@@ -31,20 +31,33 @@ import { classnames } from '../../utilities/classnames';
 export const Spacer = (props) => {
 	const { size = 'm', border, className, text, icon, vertical = false } = props;
 
+	const sizes = {
+		xs: {
+			sizeHorizontal: 'es-uic-h-1',
+			sizeHorizontalBorder: 'es-uic-h-0.5',
+			sizeVertical: 'es-uic-w-1',
+			sizeVerticalBorder: 'es-uic-w-0.5',
+		},
+		s: {
+			sizeHorizontal: 'es-uic-h-2.5',
+			sizeHorizontalBorder: 'es-uic-h-1',
+			sizeVertical: 'es-uic-w-2.5',
+			sizeVerticalBorder: 'es-uic-w-1',
+		},
+		m: {
+			sizeHorizontal: 'es-uic-h-5',
+			sizeHorizontalBorder: 'es-uic-h-2',
+			sizeVertical: 'es-uic-w-5',
+			sizeVerticalBorder: 'es-uic-w-2',
+		},
+	};
+
 	const spaceClass = classnames(
 		vertical ? 'es-uic-h-full' : 'es-uic-w-full',
-		!vertical && border && size === 's' && 'es-uic-h-0.5',
-		!vertical && !border && size === 's' && 'es-uic-h-1',
-		!vertical && border && size === 's' && 'es-uic-h-1',
-		!vertical && !border && size === 's' && 'es-uic-h-2.5',
-		!vertical && border && size === 'm' && 'es-uic-h-2',
-		!vertical && !border && size === 'm' && 'es-uic-h-5',
-		vertical && border && size === 's' && 'es-uic-w-0.5',
-		vertical && !border && size === 's' && 'es-uic-w-1',
-		vertical && border && size === 's' && 'es-uic-w-1',
-		vertical && !border && size === 's' && 'es-uic-w-2.5',
-		vertical && border && size === 'm' && 'es-uic-w-2',
-		vertical && !border && size === 'm' && 'es-uic-w-5',
+		!vertical && !border && sizes[size].sizeHorizontal,
+		!vertical && border && sizes[size].sizeHorizontalBorder,
+		vertical && !border && sizes[size].sizeVertical,
+		vertical && border && sizes[size].sizeVerticalBorder,
 		className,
 	);
 
