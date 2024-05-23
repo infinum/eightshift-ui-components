@@ -156,7 +156,8 @@ export const TriggeredPopover = (props) => {
 	const {
 		trigger,
 
-		triggerButtonLabel,
+		triggerButtonIcon,
+		triggerButtonLabel = !triggerButtonIcon && __('Open', 'eightshift-components'),
 		triggerButtonProps,
 
 		children,
@@ -180,8 +181,11 @@ export const TriggeredPopover = (props) => {
 		<DialogTrigger onOpenChange={onOpenChange}>
 			{trigger}
 			{!trigger && (
-				<Button {...triggerButtonProps}>
-					{triggerButtonLabel ?? __('Open', 'eightshift-components')}
+				<Button
+					icon={triggerButtonIcon}
+					{...triggerButtonProps}
+				>
+					{triggerButtonLabel}
 				</Button>
 			)}
 			<Popover
