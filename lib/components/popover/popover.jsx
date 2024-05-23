@@ -17,7 +17,8 @@ import { Button } from '../button/button';
  * @param {boolean} props.isOpen - (**Uncontrolled mode**) If `true`, the popover is open.
  * @param {Function} props.onOpenChange - (**Uncontrolled mode**) Function to run when the popover is opened or closed. `(isOpen: boolean) => void`.
  * @param {PopoverPlacement} props.placement - The placement of the popover.
- * @param {string} props.className - Classes to pass to the popover.
+ * @param {string} [props.className] - Classes to pass to the popover contents.
+ * @param {string} [props.wrapperClassName] - Classes to pass to the popover wrapper.
  * @param {Object} props.style - Styles to pass to the popover.
  * @param {number} props.offset - Offset from the trigger element, on the same axis as the placement of the popover (e.g. if `placement` is `left`, this controls the horizontal spacing from the element).
  * @param {number} props.crossOffset - Offset from the trigger element, on the opposite axis as the placement of the popover (e.g. if `placement` is `left`, this controls the vertical spacing from the element).
@@ -72,6 +73,7 @@ export const Popover = (props) => {
 		placement,
 
 		className,
+		wrapperClassName,
 
 		style,
 
@@ -104,14 +106,13 @@ export const Popover = (props) => {
 						'es-uic-outline es-uic-animate-in es-uic-fade-in-0 es-uic-slide-in-from-top-2 es-uic-fill-mode-forwards',
 					isExiting &&
 						'es-uic-outline es-uic-animate-out es-uic-fade-out-0 es-uic-slide-out-to-top-2 es-uic-fill-mode-forwards',
-					'es-uic-p-1 es-uic-text-sm',
-					className,
+					wrapperClassName,
 				)
 			}
 			style={style}
 		>
 			<Dialog
-				className='es-uic-outline-none'
+				className={classnames('es-uic-p-1 es-uic-text-sm es-uic-outline-none', className)}
 				{...other}
 			>
 				{children}
@@ -171,6 +172,8 @@ export const TriggeredPopover = (props) => {
 		offset,
 		crossOffset,
 		containerPadding,
+
+		...rest,
 	} = props;
 
 	return (
@@ -189,6 +192,7 @@ export const TriggeredPopover = (props) => {
 				containerPadding={containerPadding}
 				className={className}
 				style={style}
+				{...rest}
 			>
 				{children}
 			</Popover>
