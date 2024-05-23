@@ -130,6 +130,7 @@ export const Popover = (props) => {
  * @component
  * @param {Object} props - Component props.
  * @param {JSX.Element} props.trigger - Allows using a custom trigger element.
+ * @param {JSX.Element} [props.triggerButtonIcon] - The icon for the built-in trigger button.
  * @param {string} props.triggerButtonLabel - The label for the built-in trigger button.
  * @param {Object} props.triggerButtonProps - Props to pass to the built-in trigger button.
  * @param {Function} props.onOpenChange - Function to run when the popover is opened or closed. `(isOpen: boolean) => void`.
