@@ -6,67 +6,81 @@ import { BaseControl } from '../base-control/base-control';
 import { eightshiftSelectClasses } from './styles';
 
 /**
- * A simple, customizable select menu.
+ * Select menu.
  *
- * @param {object} props                                     - Select options.
- * @param {string?} [props.label]                            - Label displayed above the control.
- * @param {string?} [props.help]                             - Help text displayed below the control.
- * @param {React.Component?} [props.icon]                    - Icon to show next to the label
- * @param {React.Component?} [props.subtitle]                - Subtitle below the label.
- * @param {React.Component?} [props.actions]                 - Actions to show to the right of the label.
- * @param {boolean?} [props.inlineLabel]                     - If `true`, the label is displayed inline with the control. In that case `actions` are shown below the control.
- * @param {array<{string, string}>?} props.options           - Options to choose from. Option should be in `{label: '', value: ''}` format.
- * @param {object} props.value                               - Current value
- * @param {boolean} [props.simpleValue=false]                - If `true`, instead of passing (and getting) a `{label: '', value: ''}` object from the component, only the value is returned.
- * @param {function} props.onChange                          - Function called when the selection is changed.
- * @param {boolean} [props.clearable=false]                  - If `true`, a button to remove the value is shown.
- * @param {boolean} [props.noSearch=false]                   - If `true`, the search functionality is disabled.
- * @param {boolean} [props.disabled=false]                   - If set `true`, the component is disabled.
- * @param {boolean} [props.closeMenuAfterSelect=false]       - If set `true`, the dropdown is closed immediately after selecting an option.
- * @param {string?} [props.placeholder]                      - Placeholder text when nothing is selected.
- * @param {React.Component?} [props.customDropdownIndicator] - If provided, replaces the default dropdown arrow indicator.
- * @param {React.Component?} [props.customClearIndicator]    - If provided and `noClear` is `false`, replaces the default 'Clear all' button.
- * @param {React.Component?} [props.customMenuOption]        - If provided, replaces the default item in the dropdown menu (react-select's `components.Option`).
- * @param {React.Component?} [props.customValueDisplay]      - If provided, replaces the default current value display of each selected item (react-select's `components.SingleValue`).
- * @param {boolean} [props.noBottomSpacing]                  - If `true`, the default bottom spacing is removed.
- * @param {boolean?} [props.reducedBottomSpacing]            - If `true`, space below the control is reduced.
- * @param {string?} [props.additionalClasses='']             - If provided, the classes are added to the component container.
- * @param {string?} [props.additionalSelectClasses='']       - If provided, the classes are added to the Select element itself.
- * @param {object?} [props.additionalProps={}]               - If provided, the provided props will be passed to the Select control.
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string} [props.icon] - Icon of the component.
+ * @param {string} [props.help] - Help text of the component.
+ * @param {string} [props.label] - Label of the component.
+ * @param {boolean} [props.inline] - Whether the Select menu is displayed inline with the label, to the right.
+ * @param {Array} [props.actions] - Actions to show to the right of the label.
+ * @param {string} [props.subtitle] - Subtitle of the component.
+ * @param {{label: string, value: string, metadata: Object<string, any>?}[]} props.options - Options to display in the select. `[{ label: string, value: string }]`.
+ * @param {string|{label: string, value: string, metadata: Object<string, any>?}} props.value - Current value of the select.
+ * @param {Function} props.onChange - Function to call when the value changes.
+ * @param {boolean} [props.simpleValue=false] - If `true`, instead of using a `{label: '', value: ''}` value type, a string is used (just the value).
+ * @param {boolean} [props.clearable] - Whether the select is clearable.
+ * @param {boolean} [props.noSearch] - Whether the search is disabled.
+ * @param {boolean} [props.disabled] - Whether the select is disabled.
+ * @param {boolean} [props.keepMenuOpenAfterSelect] - Whether the menu stays open after an select.
+ * @param {string} [props.placeholder] - Placeholder text to show when no value is selected.
+ * @param {JSX.Element} [props.customMenuOption] - If provided, replaces the default item in the dropdown menu (react-select's `components.Option`).
+ * @param {JSX.Element} [props.customValueDisplay] - If provided, replaces the default current value display of each selected item (react-select's `components.MultiValue`).
+ * @param {JSX.Element} [props.customDropdownArrow] - If provided, replaces the default dropdown arrow indicator.
+ * @param {JSX.Element} [props.customClearIndicator] - If provided, replaces the default 'Clear all' button.
+ * @param {string} [props.className] - Classes to pass to the select menu.
+ *
+ * @returns {JSX.Element} The Select component.
+ *
+ * @example
+ * const [value, setValue] = useState(null);
+ *
+ * const options = [
+ * 	{ label: 'Option 1', value: 'option-1' },
+ * 	{ label: 'Option 2', value: 'option-2' },
+ * 	{ label: 'Option 3', value: 'option-3' },
+ * ];
+ *
+ * <MultiSelect
+ * 	label='Select items'
+ * 	options={loadOptions}
+ * 	value={value}
+ * 	onChange={setValue}
+ * />
+ *
+ * @preserve
  */
 export const Select = (props) => {
 	const {
-		label,
-		help,
 		icon,
-		subtitle,
-		actions,
+		help,
+		label,
 		inline,
+		actions,
+		subtitle,
 
-		options,
 		value,
-
-		simpleValue = false,
-
 		onChange,
 
-		clearable = false,
-		noSearch = false,
+		options,
+		simpleValue = false,
 
 		disabled = false,
-
-		closeMenuAfterSelect = false,
+		noSearch = false,
+		clearable = false,
+		keepMenuOpenAfterSelect = false,
 
 		placeholder,
 
-		customClearIndicator,
-		customDropdownArrow,
 		customMenuOption,
 		customValueDisplay,
+		customDropdownArrow,
+		customClearIndicator,
 
 		className,
 
-		additionalProps,
+		...additionalProps
 	} = props;
 
 	return (
@@ -83,7 +97,7 @@ export const Select = (props) => {
 				options={options}
 				value={getValue(simpleValue, value, options)}
 				onChange={(v) => customOnChange(simpleValue, v, onChange)}
-				closeMenuOnSelect={closeMenuAfterSelect}
+				closeMenuOnSelect={!keepMenuOpenAfterSelect}
 				isClearable={clearable}
 				isSearchable={!noSearch}
 				isDisabled={disabled}

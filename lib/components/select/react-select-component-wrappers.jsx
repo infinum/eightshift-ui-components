@@ -9,7 +9,9 @@ import { components } from 'react-select';
  *
  * (a wrapper for `components.DropdownIndicator` from `react-select`)
  *
- * @param {object} props - components.DropdownIndicator props.
+ * @param {import('react-select').DropdownIndicatorProps} props - components.DropdownIndicator props.
+ *
+ * @preserve
 */
 export const RSDropdownIndicator = (props) => (
 	<components.DropdownIndicator {...props} />
@@ -20,7 +22,9 @@ export const RSDropdownIndicator = (props) => (
  *
  * (a wrapper for `components.SingleValue` from `react-select`)
  *
- * @param {object} props - components.SingleValue props.
+ * @param {import('react-select').SingleValueProps} props - components.SingleValue props.
+ *
+ * @preserve
 */
 export const RSSingleValue = (props) => (
 	<components.SingleValue {...props} />
@@ -31,7 +35,9 @@ export const RSSingleValue = (props) => (
  *
  * (a wrapper for `components.MultiValue` from `react-select`)
  *
- * @param {object} props - components.SingleValue props.
+ * @param {import('react-select').MultiValueProps} props - components.SingleValue props.
+ *
+ * @preserve
 */
 export const RSMultiValue = (props) => (
 	<components.MultiValue {...props} />
@@ -42,7 +48,9 @@ export const RSMultiValue = (props) => (
  *
  * (a wrapper for `components.Option` from `react-select`)
  *
- * @param {object} props - components.Option props.
+ * @param {import('react-select').OptionProps} props - components.Option props.
+ *
+ * @preserve
 */
 export const RSOption = (props) => (
 	<components.Option {...props} />
@@ -54,7 +62,9 @@ export const RSOption = (props) => (
  *
  * (a wrapper for `components.MultiValueRemove` from `react-select`)
  *
- * @param {object} props - components.MultiValueRemove props.
+ * @param {import('react-select').MultiValueRemoveProps} props - components.MultiValueRemove props.
+ *
+ * @preserve
 */
 export const RSMultiValueRemove = (props) => (
 	<components.MultiValueRemove {...props} />
@@ -66,7 +76,9 @@ export const RSMultiValueRemove = (props) => (
  *
  * (a wrapper for `components.MultiValueContainer` from `react-select`)
  *
- * @param {object} props - components.MultiValueContainer props.
+ * @param {import('react-select').MultiValueGenericProps} props - components.MultiValueContainer props.
+ *
+ * @preserve
 */
 export const RSMultiValueContainer = (props) => (
 	<components.MultiValueContainer {...props} />
@@ -77,7 +89,9 @@ export const RSMultiValueContainer = (props) => (
  *
  * (a wrapper for `components.MultiValueLabel` from `react-select`)
  *
- * @param {object} props - components.MultiValueLabel props.
+ * @param {import('react-select').MultiValueGenericProps} props - components.MultiValueLabel props.
+ *
+ * @preserve
 */
 export const RSMultiValueLabel = (props) => (
 	<components.MultiValueLabel {...props} />
@@ -86,7 +100,9 @@ export const RSMultiValueLabel = (props) => (
 /**
  * Default clear indicator for CustomSelect.
  *
- * @param {object} props - components.ClearIndicator props.
+ * @param {import('react-select').ClearIndicatorProps} props - components.ClearIndicator props.
+ *
+ * @preserve
 */
 export const RSClearIndicator = (props) => (
 	<components.ClearIndicator {...props} />

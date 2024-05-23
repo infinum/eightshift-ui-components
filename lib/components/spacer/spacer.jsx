@@ -1,5 +1,33 @@
 import { classnames } from '../../utilities/classnames';
 
+/**
+ * A simple spacer/divider component, with optional text or icon.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {SpacerSize} [props.size='m'] - The size of the spacer. Can be 's' or 'm'.
+ * @param {boolean} [props.border=false] - Whether to show a border in the middle.
+ * @param {string} [props.className] - Additional classes to add.
+ * @param {string} [props.text] - Text to display.
+ * @param {JSX.Element} [props.icon] - Icon to display.
+ * @param {boolean} [props.vertical=false] - Whether the spacer is vertical.
+ *
+ * @returns {JSX.Element} The Spacer component.
+ *
+ * @typedef {'m' | 's'} SpacerSize
+ *
+ * @example
+ * <Spacer />
+ *
+ * <Spacer border />
+ *
+ * <Spacer vertical />
+ * <Spacer vertical border />
+ *
+ * <Spacer text='My divider' icon={icons.myIcon} />
+ *
+ * @preserve
+ */
 export const Spacer = (props) => {
 	const { size, border, className, text, icon, vertical = false } = props;
 

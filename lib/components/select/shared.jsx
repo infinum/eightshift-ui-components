@@ -5,11 +5,13 @@
 /**
  * Handles getting the current value.
  *
- * @param {boolean} simpleValue If `simpleValue` is selected.
- * @param {any} value Current value.
- * @param {array<any>} options Options passed to the component.
+ * @param {boolean} simpleValue - Whether `simpleValue` is set.
+ * @param {string|{label: string, value: string, metadata: Object<string, any>[]}} value - Current value.
+ * @param {{label: string, value: string}[]} options - Options passed to the component.
  *
  * @returns Appropriate output for the given input combination.
+ *
+ * @preserve
  */
 export const getValue = (simpleValue, value, options) => {
 	if (!simpleValue) {
@@ -26,10 +28,12 @@ export const getValue = (simpleValue, value, options) => {
 /**
  * Handles the `onChange` callback.
  *
- * @param {*} simpleValue If `simpleValue` is selected.
- * @param {*} newValue The new value to be set.
- * @param {callback} onChange The `onChange` callback passed to the component.
- * @returns
+ * @param {boolean} simpleValue - Whether `simpleValue` is set.
+ * @param {string|{label: string, value: string, metadata: Object<string, any>[]}} newValue - The new value to be set.
+ * @param {Function} - onChange The `onChange` callback passed to the component.
+ * @returns {void}
+ *
+ * @preserve
  */
 export const customOnChange = (simpleValue, newValue, onChange) => {
 	if (!simpleValue) {

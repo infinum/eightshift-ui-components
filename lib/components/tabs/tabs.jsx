@@ -9,6 +9,28 @@ import { classnames } from '../../utilities/classnames';
 import { cloneElement, useId } from 'react';
 import { Notice } from '../notice/notice';
 
+/**
+ * Main tab container.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {boolean} [props.vertical=false] - Whether the tabs are vertical.
+ * @param {string} [props.className] - Classes to pass to the tabs container.
+ *
+ * @returns {JSX.Element} The Tabs component.
+ *
+ * @example
+ * <Tabs>
+ * 	<TabList>
+ * 		<Tab>Tab 1</Tab>
+ * 		<Tab>Tab 2</Tab>
+ * 	</TabList>
+ * 	<TabPanel>Content 1</TabPanel>
+ * 	<TabPanel>Content 2</TabPanel>
+ * </Tabs>
+ *
+ * @preserve
+ */
 export const Tabs = (props) => {
 	const { children, vertical, className, ...rest } = props;
 
@@ -101,6 +123,19 @@ export const Tabs = (props) => {
 
 Tabs.displayName = 'Tabs';
 
+/**
+ * Container for tabs within the Tabs component.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string} [props.className] - Classes to pass to the tab list.
+ *
+ * @returns {JSX.Element} The TabList component.
+ *
+ * @see {@link Tabs} for usage example.
+ *
+ * @preserve
+ */
 export const TabList = (props) => {
 	const { children, 'aria-label': ariaLabel, className, ...other } = props;
 	return (
@@ -124,6 +159,20 @@ export const TabList = (props) => {
 
 TabList.displayName = 'TabList';
 
+/**
+ * A tab within the TabList component, in the Tabs component.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {boolean} [props.disabled] - Whether the tab is disabled.
+ * @param {string} [props.className] - Classes to pass to the tab.
+ *
+ * @returns {JSX.Element} The Tab component.
+ *
+ * @see {@link Tabs} for usage example.
+ *
+ * @preserve
+ */
 export const Tab = (props) => {
 	const { children, disabled, isParentVertical, className, ...other } = props;
 	return (
@@ -158,6 +207,19 @@ export const Tab = (props) => {
 
 Tab.displayName = 'Tab';
 
+/**
+ * Container for tab content within the Tabs component.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string} [props.className] - Classes to pass to the tab content container.
+ *
+ * @returns {JSX.Element} The TabPanel component.
+ *
+ * @see {@link Tabs} for usage example.
+ *
+ * @preserve
+ */
 export const TabPanel = (props) => {
 	const { children, className, ...other } = props;
 	return (

@@ -136,7 +136,7 @@ export const Menu = (props) => {
  *
  * @returns {JSX.Element} The MenuSection component.
  *
- * @see `Menu` for usage example.
+ * @see {@link Menu} for usage example.
  *
  * @preserve
  */
@@ -161,7 +161,7 @@ export const MenuSection = (props) => {
  *
  * @returns {JSX.Element} The MenuSeparator component.
  *
- * @see `Menu` for usage example.
+ * @see {@link Menu} for usage example.
  *
  * @preserve
  */
@@ -185,7 +185,7 @@ export const MenuSeparator = () => {
  *
  * @returns {JSX.Element} The MenuItem component.
  *
- * @see `Menu` for usage example.
+ * @see {@link Menu} for usage example.
  *
  * @preserve
  */
@@ -228,7 +228,7 @@ export const MenuItem = (props) => {
  *
  * @returns {JSX.Element} The SubMenuItem component.
  *
- * @see `Menu` for usage example.
+ * @see {@link Menu} for usage example.
  *
  * @preserve
  */

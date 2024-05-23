@@ -2,6 +2,46 @@ import { ToggleButton as ReactAriaToggleButton } from 'react-aria-components';
 import { classnames } from '../../utilities/classnames';
 import { Tooltip } from '../tooltip/tooltip';
 
+/**
+ * A simple toggle button component.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {JSX.Element} [props.icon] - Icon to display within the button.
+ * @param {ButtonSize} [props.size='default'] - The size of the button.
+ * @param {ButtonType} [props.type='default'] - The type of the button.
+ * @param {boolean} [props.disabled] - If `true`, the button is disabled.
+ * @param {string} [props.className] - Classes to pass to the button.
+ * @param {string} [props.tooltip] - Tooltip text to display on hover.
+ * @param {boolean} props.selected - Whether the button is selected.
+ * @param {Function} [props.onChange] - Function to run when the toggle state changes.
+ * @param {string} [props.wrapperClassName] - Classes to pass to the tooltip wrapper.
+ * @param {Object} [props.tooltipProps] - Props to pass to the tooltip.
+ *
+ * @returns {JSX.Element} The Button component.
+ *
+ * @typedef {'small' | 'default' | 'large'} ButtonSize
+ * @typedef {'default' | 'selected' | 'ghost' | 'danger'} ButtonType
+ *
+ * @example
+ * const [selected, setSelected] = useState(false);
+ *
+ * <ToggleButton
+ * 	selected={selected}
+ * 	onChange={setSelected}
+ * 	icon={icons.myIcon}
+ * 	/>
+ *
+ * <ToggleButton
+ * 		selected={selected}
+ * 		onChange={setSelected}
+ * 		icon={icons.myIcon}
+ * >
+ * 		My button
+ * </ToggleButton>
+ *
+ * @preserve
+ */
 export const ToggleButton = (props) => {
 	const {
 		children,
@@ -14,6 +54,7 @@ export const ToggleButton = (props) => {
 		selected,
 		onChange,
 		wrapperClassName,
+		tooltipProps,
 		...other
 	} = props;
 
@@ -106,6 +147,7 @@ export const ToggleButton = (props) => {
 		<Tooltip
 			text={tooltip}
 			wrapperClassName={wrapperClassName}
+			{...tooltipProps}
 		>
 			{component}
 		</Tooltip>

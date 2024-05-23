@@ -6,7 +6,9 @@ import { classnames } from '../../utilities/classnames';
 /**
  * Default dropdown indicator for CustomSelect.
  *
- * @param {object} props - components.DropdownIndicator props.
+ * @param {import('react-select').DropdownIndicatorProps} props - components.DropdownIndicator props.
+ *
+ * @preserve
  */
 export const CustomSelectDefaultDropdownIndicator = (props) => {
 	return (
@@ -21,7 +23,9 @@ export const CustomSelectDefaultDropdownIndicator = (props) => {
 /**
  * Default clear indicator for CustomSelect.
  *
- * @param {object} props - components.DropdownIndicator props.
+ * @param {import('react-select').ClearIndicatorProps} props - components.DropdownIndicator props.
+ *
+ * @preserve
  */
 export const CustomSelectDefaultClearIndicator = (props) => (
 	<components.ClearIndicator {...props}>{icons.clear}</components.ClearIndicator>
@@ -30,7 +34,9 @@ export const CustomSelectDefaultClearIndicator = (props) => (
 /**
  * Default multiple value remove element for CustomSelect.
  *
- * @param {object} props - components.MultiValueRemove props.
+ * @param {import('react-select').MultiValueRemoveProps} props - components.MultiValueRemove props.
+ *
+ * @preserve
  */
 export const CustomSelectDefaultMultiValueRemove = (props) => (
 	<components.MultiValueRemove {...props}>

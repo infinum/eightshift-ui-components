@@ -1,6 +1,27 @@
 import { Switch as ReactAriaSwitch } from 'react-aria-components';
 import { classnames } from '../../utilities/classnames';
 
+/**
+ * A toggle switch.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {boolean} checked - Whether the switch is checked.
+ * @param {Function} onChange - Function to call when the switch is toggled.
+ * @param {boolean} [disabled] - Whether the switch is disabled.
+ *
+ * @returns {JSX.Element} The Switch component.
+ *
+ * @example
+ * const [checked, setChecked] = useState(false);
+ *
+ * <Switch
+ * 	checked={checked}
+ * 	onChange={() => setChecked(!checked)}
+ * />
+ *
+ * @preserve
+ */
 export const Switch = (props) => {
 	const { checked, onChange, disabled, id, children } = props;
 

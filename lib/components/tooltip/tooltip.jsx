@@ -1,6 +1,41 @@
 import * as RadixTooltip from '@radix-ui/react-tooltip';
 import { classnames } from '../../utilities/classnames';
 
+/**
+ * A simple tooltip component.
+ *
+ * It can be used in two modes:
+ * - **Controlled mode**: You can control the tooltip with the `open` prop.
+ * - **Uncontrolled mode**: The tooltip will be open by default with the `defaultOpen` prop.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string|JSX.Element} text - The text to display in the tooltip.
+ * @param {TooltipTheme} [theme='dark'] - The theme of the tooltip.
+ * @param {number} [offset=5] - Offset from the element.
+ * @param {number} [delayDuration=700] - Duration before the tooltip is shown, in milliseconds.
+ * @param {number} [skipDelayDuration=300] - Time in which the user can move the cursor to a different trigger without waiting for the `delayDuration`, in milliseconds.
+ * @param {boolean} [defaultOpen] - (**Uncontrolled mode**) Whether the tooltip is initially open.
+ * @param {boolean} [open] - (**Controlled mode**) Whether the tooltip is open.
+ * @param {Function} [onOpenChange] - (**Controlled mode**) Function to run when the tooltip is opened or closed.
+ * @param {TooltipSide} [side] - The side of the trigger element where the tooltip will be displayed.
+ * @param {string} [className] - Classes to pass to the tooltip.
+ * @param {string} [wrapperClassName] - Classes to pass to the tooltip wrapper (if `doNotReplaceChild` is `false`).
+ * @param {boolean} [doNotReplaceChild=false] - If `false`, the tooltip will merge its props in the trigger component. If `true`, the tooltip will wrap the trigger component with a `<button>` element.
+ *
+ * @returns {JSX.Element} The Tooltip component.
+ *
+ * @typedef {'light' | 'dark'} TooltipTheme
+ * @typedef {'top' | 'bottom' | 'left' | 'right' | undefined} TooltipSide
+ * @typedef {'center' | 'start' | 'end' | undefined} TooltipAlign
+ *
+ * @example
+ * <Tooltip text='My tooltip'>
+ * 	<Button>Hover me</Button>
+ * </Tooltip>
+ *
+ * @preserve
+ */
 export const Tooltip = (props) => {
 	const {
 		children,
@@ -11,7 +46,9 @@ export const Tooltip = (props) => {
 		skipDelayDuration = 300,
 		open,
 		defaultOpen,
-		side = 'top',
+		onOpenChange,
+		side,
+		align,
 		className,
 
 		wrapperClassName,
@@ -29,6 +66,7 @@ export const Tooltip = (props) => {
 			<RadixTooltip.Root
 				open={open}
 				defaultOpen={defaultOpen}
+				onOpenChange={onOpenChange}
 			>
 				<RadixTooltip.Trigger asChild={!doNotReplaceChild}>
 					{triggerItems}
@@ -36,6 +74,7 @@ export const Tooltip = (props) => {
 				<RadixTooltip.Portal>
 					<RadixTooltip.Content
 						side={side}
+						align={align}
 						sideOffset={offset}
 						className={classnames(
 							theme === 'light' && 'es-uic-border-gray-200 es-uic-bg-white/60 es-uic-text-gray-700',
