@@ -125,8 +125,11 @@ export const LinkInput = (props) => {
 		setSuggestionsVisible(value);
 		setInstantClose(!value);
 
+
 		if (!value) {
 			triggerRef?.current?.focus();
+		} else if (value && url !== inputValue) {
+			onChange({ url: inputValue, isAnchor: inputValue?.includes('#') });
 		}
 	};
 
@@ -168,6 +171,7 @@ export const LinkInput = (props) => {
 								inputValue?.length > 0 && 'es-uic-pr-8',
 								className,
 							)}
+							onBlur={() => onChange({ url: inputValue, isAnchor: inputValue?.includes('#') })}
 						/>
 
 						<AnimatedVisibility
