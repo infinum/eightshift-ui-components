@@ -1,12 +1,7 @@
-import {
-	TextField,
-	Label,
-	Input as ReactAriaInput,
-	TextArea,
-	Text,
-} from 'react-aria-components';
+import { TextField, Label, Input as ReactAriaInput, TextArea, Text } from 'react-aria-components';
 import { BaseControl } from '../base-control/base-control';
 import { classnames } from '../../utilities/classnames';
+import { useCellEditMode } from '../../hooks/use-cell-edit-mode';
 
 /**
  * An input field.
@@ -20,12 +15,14 @@ import { classnames } from '../../utilities/classnames';
  * @param {JSX.Element} [props.actions] - Actions to display to the right of the label.
  * @param {string} [props.value] - The current value of the input.
  * @param {Function} [props.onChange] - Function to run when the input value changes.
- * @param {string} [props.type='text'] - The input type. Renders a `<textarea>` instead of `<input>` if set to 'multiline'.
+ * @param {InputType} [props.type='text'] - The input type. Renders a `<textarea>` instead of `<input>` if set to 'multiline'.
  * @param {boolean} [props.disabled] - If `true`, the input is disabled.
  * @param {boolean} [props.readOnly] - If `true`, the input is read-only.
  * @param {string} [props.className] - Classes to pass to the input field.
  *
  * @returns {JSX.Element} The InputField component.
+ *
+ * @typedef {'text' | 'search' | 'url' | 'tel' | 'email' | 'password' | 'multiline'} InputType
  *
  * @example
  * <InputField
@@ -52,6 +49,9 @@ export const InputField = (props) => {
 		...other
 	} = props;
 
+	// Put the control in edit mode when focused so that the external
+	const preventProps = useCellEditMode();
+
 	return (
 		<TextField
 			value={value}
@@ -59,6 +59,27 @@ export const InputField = (props) => {
 			isDisabled={disabled}
 			isReadOnly={readOnly}
 			{...other}
+			onSelect={(e) => {
+				preventProps.onClick();
+
+				if (props.onSelect) {
+					props.onSelect(e);
+				}
+			}}
+			onFocus={(e) => {
+				preventProps.onFocus();
+
+				if (props.onFocus) {
+					props.onFocus(e);
+				}
+			}}
+			onBlur={(e) => {
+				preventProps.onBlur();
+
+				if (props.onBlur) {
+					props.onBlur(e);
+				}
+			}}
 		>
 			<BaseControl
 				icon={icon}
