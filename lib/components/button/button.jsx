@@ -75,7 +75,7 @@ export const Button = (props) => {
 
 	const themes = {
 		default: {
-			regular: 'es-uic-border-gray-300 es-uic-text-gray-700 es-uic-shadow-sm border',
+			regular: 'es-uic-text-gray-700 es-uic-shadow-sm es-uic-border es-uic-border-gray-300 es-uic-bg-white',
 			hover: 'hover:es-uic-border-gray-300 hover:es-uic-bg-gray-100',
 			disabled: 'disabled:es-uic-border-gray-200 disabled:es-uic-text-gray-300 es-uic-border',
 			focus: 'focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
@@ -105,10 +105,10 @@ export const Button = (props) => {
 			isDisabled={disabled}
 			className={classnames(
 				'es-uic-flex es-uic-items-center es-uic-justify-center es-uic-gap-1 es-uic-rounded-md es-uic-transition es-uic-duration-300',
-				!disabled && themes[type]?.regular,
-				!disabled && themes[type]?.hover,
+				!disabled && (themes[type]?.regular ?? themes.default.regular),
+				!disabled && (themes[type]?.hover ?? themes.default.hover),
 				'disabled:es-uic-shadow-none',
-				themes[type]?.disabled ?? themes.default.disabled,
+				disabled && (themes[type]?.disabled ?? themes.default.disabled),
 				'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring',
 				themes[type]?.focus ?? themes.default.focus,
 				icon && !children && sizes[size].iconButton,
