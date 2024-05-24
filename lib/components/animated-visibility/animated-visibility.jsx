@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from 'framer-motion';
  *
  * @returns {JSX.Element} The AnimatedVisibility component.
  *
- * @typedef {'slideFade' |'scaleFade'} ElementTransition
+ * @typedef {'slideFade' |'scaleFade' | 'scaleRotateFade'} ElementTransition
  *
  * @example
  * const [visible, setVisible] = useState(false);
@@ -43,6 +43,11 @@ export const AnimatedVisibility = (props) => {
 			initial: { opacity: 0, scale: 0.9 },
 			animate: { opacity: 1, scale: 1 },
 			exit: { opacity: 0, scale: 0.9 },
+		},
+		scaleRotateFade: {
+			initial: { opacity: 0, scale: 0.95, rotate: '-25deg' },
+			animate: { opacity: 1, scale: 1, rotate: '0deg' },
+			exit: { opacity: 0, scale: 0.95, rotate: '-25deg' },
 		},
 	};
 
