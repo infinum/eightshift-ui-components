@@ -3,26 +3,26 @@ import {
 	Label,
 	Button as ReactAriaButton,
 	Input,
-	Text,
 	Group,
-	Dialog,
-	Popover,
-	ListBox,
-	ListBoxItem,
+	Toolbar,
 } from 'react-aria-components';
 import { __ } from '@wordpress/i18n';
 import { icons } from '../../icons/icons';
 import { classnames } from '../../utilities/classnames';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useAsyncList } from 'react-stately';
 import { Spacer } from '../spacer/spacer';
-import { useDebounce } from '@uidotdev/usehooks';
 import { Tooltip } from '../tooltip/tooltip';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { BaseControl } from '../base-control/base-control';
+import { Button } from '../button/button';
+import { IconLabel } from '../icon-label/icon-label';
+import { Popover } from '../popover/popover';
+import { useCellEditMode } from '../../hooks/use-cell-edit-mode';
+import { useDebouncedCallback } from 'use-debounce';
 
 /**
- * Component that allows URL selection, with a list of suggestions and type-to-search.
+ * Component that allows URL selection, with a suggestionList of suggestions and type-to-search.
  *
  * @component
  * @param {Object} props - Component props.
@@ -31,6 +31,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {string} [props.label] - Label to display.
  * @param {string} [props.subtitle] - Subtitle to display.
  * @param {string} [props.help] - Help text to display below the input.
+ * @param {string} [props.placeholder] - Placeholder to show in the input field.
  * @param {JSX.Element} [props.actions] - Actions to display to the right of the label.
  * @param {JSX.Element} [props.icon=icons.globe] - Icon to display in the label.
  * @param {JSX.Element} [props.removeIcon=icons.clearAlt] - Icon to display in the input's clear button.
@@ -61,6 +62,8 @@ export const LinkInput = (props) => {
 		help,
 		actions,
 
+		placeholder = __('Type to search or enter URL', 'eightshift-component'),
+
 		icon = icons.globe,
 		removeIcon = icons.clearAlt,
 
@@ -74,14 +77,13 @@ export const LinkInput = (props) => {
 		inputDebounceDelay = 500,
 	} = props;
 
-	const [inputValue, setInputValue] = useState(url);
+	const [inputValue, setInputValue] = useState(url ?? '');
 	const [suggestionsVisible, setSuggestionsVisible] = useState(false);
-	const [instantClose, setInstantClose] = useState(false);
-	const debouncedSuggestionsVisible = useDebounce(suggestionsVisible, inputDebounceDelay);
 
 	const triggerRef = useRef(null);
+	const inputRef = useRef(null);
 
-	const list = useAsyncList({
+	const suggestionList = useAsyncList({
 		getKey: ({ item }) => item.value,
 		async load({ signal }) {
 			const items = await fetchSuggestions(inputValue, signal);
@@ -93,6 +95,10 @@ export const LinkInput = (props) => {
 	});
 
 	const shouldNotShowSuggestions = (url) => {
+		if (!url) {
+			return true;
+		}
+
 		return (
 			url?.trim()?.length < 3 ||
 			url?.startsWith('#') ||
@@ -104,49 +110,37 @@ export const LinkInput = (props) => {
 		);
 	};
 
-	useEffect(() => {
-		if (shouldNotShowSuggestions(inputValue)) {
-			setSuggestionsVisible(false);
+	const debounced = useDebouncedCallback(
+		useCallback(
+			(value) => {
+				onChange({ url: value, isAnchor: value?.includes('#') });
 
-			onChange({ url: inputValue, isAnchor: inputValue?.includes('#') });
-			return;
-		}
+				if (shouldNotShowSuggestions(value)) {
+					setSuggestionsVisible(false);
+				} else {
+					suggestionList.setFilterText(value);
+					setSuggestionsVisible(value?.length > 3);
+				}
+			},
+			[onChange, suggestionList],
+		),
+		inputDebounceDelay,
+		{ maxWait: 2000 },
+	);
 
-		if (inputValue?.length < 3) {
-			setSuggestionsVisible(false);
-
-			onChange({
-				url: inputValue,
-				isAnchor: inputValue?.includes('#'),
-			});
-			return;
-		}
-
-		setInstantClose(false);
-		setSuggestionsVisible(inputValue?.length > 3);
-	}, [inputValue, onChange]);
-
-	const handleDialogOpenChange = (value) => {
-		setSuggestionsVisible(value);
-		setInstantClose(!value);
-
-		if (!value) {
-			triggerRef?.current?.focus();
-		}
-
-		onChange({
-			url: inputValue,
-			isAnchor: inputValue?.includes('#'),
-		});
-	};
+	// Put the control in edit mode when focused so that the external navigation presses don't mess with text input.
+	const preventProps = useCellEditMode();
 
 	return (
 		<>
 			<SearchField
-				className='es-uic-space-y-1'
+				className='es-uic-w-full es-uic-space-y-1'
 				type='url'
-				value={inputValue ?? ''}
-				onChange={(value) => setInputValue(value)}
+				value={inputValue}
+				onChange={(value) => {
+					setInputValue(value);
+					debounced(value);
+				}}
 				isDisabled={disabled}
 			>
 				<BaseControl
@@ -156,29 +150,44 @@ export const LinkInput = (props) => {
 					subtitle={subtitle}
 					actions={actions}
 					labelAs={Label}
-					help={
-						help && (
-							<Text
-								className='es-uic-text-sm es-uic-text-gray-400'
-								slot='description'
-							>
-								{help}
-							</Text>
-						)
-					}
+					help={help}
 				>
 					<Group
 						className='es-uic-relative'
 						ref={triggerRef}
 					>
 						<Input
+							placeholder={placeholder}
+							ref={inputRef}
 							className={classnames(
 								'es-uic-min-h-10 es-uic-w-full es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-py-2 es-uic-pl-2 es-uic-pr-1 es-uic-text-sm es-uic-shadow-sm es-uic-transition',
 								'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 								inputValue?.length > 0 && 'es-uic-pr-8',
 								className,
 							)}
-							onBlur={() => onChange({ url: inputValue, isAnchor: inputValue?.includes('#') })}
+							onSelect={(e) => {
+								preventProps.onClick();
+
+								if (props.onSelect) {
+									props.onSelect(e);
+								}
+							}}
+							onFocus={(e) => {
+								preventProps.onFocus();
+
+								onChange({ url: inputValue, isAnchor: inputValue?.includes('#') });
+
+								if (props.onFocus) {
+									props.onFocus(e);
+								}
+							}}
+							onBlur={(e) => {
+								preventProps.onBlur();
+
+								if (props.onBlur) {
+									props.onBlur(e);
+								}
+							}}
 						/>
 
 						<AnimatedVisibility
@@ -205,53 +214,44 @@ export const LinkInput = (props) => {
 			</SearchField>
 
 			<Popover
+				aria-label={__('URL suggestions', 'eightshift-components')}
 				shouldFlip={false}
-				shouldCloseOnInteractOutside={() => true}
 				triggerRef={triggerRef}
-				isOpen={instantClose ? false : debouncedSuggestionsVisible}
-				onOpenChange={handleDialogOpenChange}
+				isOpen={suggestionsVisible}
+				onOpenChange={(value) => {
+					setSuggestionsVisible(value);
+					debounced.cancel();
+				}}
 				placement='bottom'
-				className={({ isEntering, isExiting }) =>
-					classnames(
-						'es-uic-rounded-md es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-shadow-lg es-uic-outline-none',
-						isEntering &&
-							'es-uic-outline es-uic-animate-in es-uic-fade-in-0 es-uic-slide-in-from-top-2 es-uic-fill-mode-forwards',
-						isExiting &&
-							'es-uic-outline es-uic-animate-out es-uic-fade-out-0 es-uic-slide-out-to-top-2 es-uic-fill-mode-forwards',
-					)
-				}
+				className='!es-uic-p-0'
 				style={{
 					width: `${triggerRef.current?.offsetWidth}px`,
 				}}
 			>
-				<Dialog
-					className='es-uic-outline-none'
-					aria-label={__('URL suggestions', 'eightshift-components')}
-				>
-					<ListBox
-						onSelectionChange={(key) => {
-							if (!key?.currentKey) {
-								return;
-							}
+				{suggestionList.isLoading && (
+					<IconLabel
+						icon={icons.progressbarIntermittent}
+						label={__('Loading suggestions...', 'eightshift-components')}
+						subtitle={__('Please wait', 'eightshift-components')}
+						className='es-uic-min-h-14 es-uic-p-2'
+					/>
+				)}
 
-							setInputValue(key.currentKey);
+				{!suggestionList.isLoading && suggestionList.items.length === 0 && (
+					<IconLabel
+						icon={icons.searchEmpty}
+						label={__('No suggestions found', 'eightshift-components')}
+						subtitle={__('Try a different search term.', 'eightshift-components')}
+						className='es-uic-min-h-14 es-uic-p-2'
+					/>
+				)}
 
-							onChange({
-								url: key.currentKey,
-								isAnchor: key.currentKey?.includes('#'),
-							});
-
-							setSuggestionsVisible(false);
-							setInstantClose(true);
-						}}
-						aria-label={__('Link suggestions', 'eightshift-components')}
-						className='es-uic-space-y-0.5 es-uic-p-2 focus:es-uic-outline-none'
-						items={list.items}
-						selectionMode='single'
-						disallowEmptySelection
-						autoFocus
+				{!suggestionList.isLoading && suggestionList.items.length > 0 && (
+					<Toolbar
+						orientation='vertical'
+						className='es-uic-flex es-uic-min-h-10 es-uic-flex-col es-uic-space-y-1 es-uic-p-2'
 					>
-						{(item) => {
+						{suggestionList.items.map((item, index) => {
 							const {
 								label: title,
 								value: url,
@@ -281,56 +281,66 @@ export const LinkInput = (props) => {
 							}
 
 							return (
-								<ListBoxItem
-									id={url}
-									textValue={title}
+								<Button
+									textValue={label}
+									size='large'
+									type='ghost'
 									className={classnames(
-										'es-uic-grid es-uic-w-full es-uic-cursor-pointer es-uic-select-none es-uic-grid-cols-[auto,_minmax(0,_1fr)] es-uic-gap-x-1.5 es-uic-rounded-md es-uic-border es-uic-border-transparent es-uic-p-1 es-uic-transition',
-										'hover:es-uic-border-gray-300 hover:es-uic-bg-gray-50',
-										'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+										'es-uic-w-full es-uic-text-start',
+										'es-uic-grid es-uic-grid-cols-[auto,_minmax(0,_1fr)] es-uic-grid-rows-2 es-uic-items-center es-uic-justify-items-start es-uic-gap-x-2 es-uic-gap-y-0',
+										'[&>svg]:es-uic-row-span-2 [&>svg]:es-uic-shrink-0',
+										'[&>span:last-child]:es-uic-self-start [&>span]:es-uic-w-full [&>span]:es-uic-self-end [&>span]:es-uic-truncate',
 									)}
+									key={url}
+									onPress={() => {
+										setInputValue(url);
+										debounced(url);
+
+										setSuggestionsVisible(false);
+									}}
+									icon={typeIcon}
+									autoFocus={index === 0}
 								>
-									<span className='es-uic-row-span-2 es-uic-self-center es-uic-text-gray-500 [&>svg]:es-uic-size-6'>
-										{typeIcon}
-									</span>
-
-									<span className='es-uic-block es-uic-self-start es-uic-truncate es-uic-text-sm'>
-										{title}
-									</span>
-									<span className='es-uic-block es-uic-self-end es-uic-truncate es-uic-text-xs es-uic-text-gray-400'>
-										{url?.replace(location.origin, '').replace(/\/$/, '')}
-									</span>
-								</ListBoxItem>
+									<IconLabel
+										label={title}
+										subtitle={url?.replace(location.origin, '').replace(/\/$/, '')}
+										contentsOnly
+									/>
+								</Button>
 							);
-						}}
-					</ListBox>
-					<Spacer border />
+						})}
+					</Toolbar>
+				)}
 
-					<div className='es-uic-grid es-uic-select-none es-uic-grid-cols-[auto,_1fr] es-uic-items-center es-uic-gap-x-1.5 es-uic-gap-y-1 es-uic-p-3 es-uic-text-sm es-uic-text-gray-500'>
-						<div className='es-uic-flex es-uic-gap-0.5 es-uic-justify-self-center'>
-							<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
-								&uarr;
-							</kbd>
-							<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
-								&darr;
-							</kbd>
-						</div>
-						{__('Navigate', 'eightshift-components')}
-						<div className='es-uic-flex es-uic-gap-0.5 es-uic-justify-self-center'>
-							<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
-								&crarr;
-							</kbd>
-							<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
-								␣
-							</kbd>
-						</div>
-						{__('Select an item', 'eightshift-components')}
-						<kbd className='es-uic-flex es-uic-h-5 es-uic-min-w-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
-							Esc
-						</kbd>{' '}
-						{__('Close suggestion panel', 'eightshift-components')}
+				<Spacer
+					size='px'
+					border
+				/>
+
+				<div className='es-uic-grid es-uic-select-none es-uic-grid-cols-[auto,_1fr] es-uic-items-center es-uic-gap-x-1.5 es-uic-gap-y-1 es-uic-p-2 es-uic-text-sm es-uic-text-gray-500'>
+					<div className='es-uic-flex es-uic-gap-0.5 es-uic-justify-self-center'>
+						<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
+							&uarr;
+						</kbd>
+						<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
+							&darr;
+						</kbd>
 					</div>
-				</Dialog>
+					{__('Navigate', 'eightshift-components')}
+					<div className='es-uic-flex es-uic-gap-0.5 es-uic-justify-self-center'>
+						<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
+							&crarr;
+						</kbd>
+						<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
+							␣
+						</kbd>
+					</div>
+					{__('Select an item', 'eightshift-components')}
+					<kbd className='es-uic-flex es-uic-h-5 es-uic-min-w-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
+						Esc
+					</kbd>{' '}
+					{__('Close suggestion panel', 'eightshift-components')}
+				</div>
 			</Popover>
 		</>
 	);
