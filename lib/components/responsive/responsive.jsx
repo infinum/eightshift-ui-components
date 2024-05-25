@@ -8,10 +8,11 @@ import { icons } from '../../icons/icons';
 import { Menu, MenuItem, MenuSection } from '../menu/menu';
 import { TriggeredPopover } from '../popover/popover';
 import { ResponsivePreview } from '../responsive-preview/responsive-preview';
-import { Button } from '../button/button';
+import { Button, ButtonGroup } from '../button/button';
 import { IconLabel } from '../icon-label/icon-label';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { ToggleButton } from '../toggle-button/toggle-button';
+import { BaseControl } from '../base-control/base-control';
 
 /**
  * A component that allows the user to set different values for different breakpoints.
@@ -210,166 +211,161 @@ export const Responsive = (props) => {
 	};
 
 	return (
-		<>
-			<div className='es-uic-space-y-2'>
-				<div className='es-uic-flex es-uic-items-center es-uic-gap-1'>
-					<IconLabel
-						icon={icon}
-						label={label}
-						subtitle={subtitle}
-					/>
+		<BaseControl
+			icon={icon}
+			label={label}
+			subtitle={subtitle}
+			help={help}
+			actions={
+				<ButtonGroup>
+					<Menu tooltip={__('Responsive options', 'eightshift-components')}>
+						<MenuSection label={__('Breakpoint type', 'eightshift-components')}>
+							<MenuItem
+								selected={!isDesktopFirst}
+								onClick={() => {
+									const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
+										(prev, curr) => ({ ...prev, [curr]: null }),
+										{},
+									);
 
-					<div className='es-uic-button-group es-uic-ml-auto es-uic-flex'>
-						<Menu tooltip={__('Responsive options', 'eightshift-components')}>
-							<MenuSection label={__('Breakpoint type', 'eightshift-components')}>
-								<MenuItem
-									selected={!isDesktopFirst}
-									onClick={() => {
-										const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
-											(prev, curr) => ({ ...prev, [curr]: null }),
-											{},
-										);
-
-										onChange({
-											...value,
-											...thingsToDelete,
-											_mobileFirst: false,
-										});
-									}}
-								>
-									<IconLabel
-										label={__('Mobile-first', 'eightshift-components')}
-										subtitle={__('Recommended', 'eightshift-components')}
-									/>
-								</MenuItem>
-								<MenuItem
-									selected={isDesktopFirst}
-									onClick={() => {
-										const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
-											(prev, curr) => ({ ...prev, [curr]: null }),
-											{},
-										);
-
-										onChange({
-											...value,
-											...thingsToDelete,
-											_mobileFirst: true,
-										});
-									}}
-								>
-									{__('Desktop-first', 'eightshift-components')}
-								</MenuItem>
-							</MenuSection>
-							<MenuSection>
-								<MenuItem
-									icon={icons.clearAlt}
-									onClick={() => {
-										const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
-											(prev, curr) => ({ ...prev, [curr]: null }),
-											{},
-										);
-
-										onChange({
-											...value,
-											...thingsToDelete,
-										});
-									}}
-								>
-									{__('Clear responsive overrides', 'eightshift-components')}
-								</MenuItem>
-							</MenuSection>
-						</Menu>
-
-						<TriggeredPopover
-							aria-label={props['aria-label'] ?? __('Breakpoint preview', 'eightshift-components')}
-							trigger={
-								<Button
-									disabled={
-										!Object.keys(value).some(
-											(key) => !key?.startsWith('_') && value?.[key] !== undefined,
-										)
-									}
-									icon={icons.previewResponsive}
-									tooltip={__('Breakpoint preview', 'eightshift-components')}
-								/>
-							}
-						>
-							<ResponsivePreview
-								value={value}
-								isDesktopFirst={isDesktopFirst}
-								breakpoints={breakpoints}
-								desktopFirstBreakpoints={desktopFirstBreakpoints}
-								options={options}
-								globalManifest={globalManifest}
-							/>
-						</TriggeredPopover>
-
-						<ToggleButton
-							icon={isDesktopFirst ? icons.responsiveOverridesAlt : icons.responsiveOverridesAlt2}
-							onChange={() => setDetailsVisible(!detailsVisible)}
-							selected={detailsVisible}
-							tooltip={
-								detailsVisible
-									? __('Hide responsive overrides', 'eightshift-components')
-									: __('Show responsive overrides', 'eightshift-components')
-							}
-						/>
-					</div>
-				</div>
-
-				{!isDesktopFirst && <DefaultControl />}
-
-				<AnimatedVisibility
-					visible={detailsVisible}
-					className='es-uic-space-y-2'
-				>
-					{breakpointsToMap.map((breakpoint) => {
-						const realBreakpointName = breakpoint.replace('max-', '');
-
-						return (
-							<div
-								className='es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2rem)] es-uic-items-center es-uic-gap-x-2'
-								key={`${breakpoint}-${value?.[breakpoint]}`}
+									onChange({
+										...value,
+										...thingsToDelete,
+										_mobileFirst: false,
+									});
+								}}
 							>
-								<Tooltip
-									theme='light'
-									text={`${upperFirst(realBreakpointName)} - when width is larger than ${globalManifest.globalVariables.breakpoints[realBreakpointName]}px`}
-								>
-									<div className='es-uic-flex es-uic-size-8 es-uic-shrink-0 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-gray-100 es-uic-p-0.5 es-uic-text-gray-800'>
-										{icons?.[`screen${upperFirst(realBreakpointName)}`]}
-									</div>
-								</Tooltip>
-
-								{componentToRender({
-									breakpoint: breakpoint,
-									currentValue: value?.[breakpoint],
-									handleChange: (newValue) => {
-										onChange({
-											...value,
-											[breakpoint]: newValue,
-										});
-									},
-								})}
-
-								<Button
-									onClick={() => {
-										onChange({
-											...value,
-											[breakpoint]: undefined,
-										});
-									}}
-									icon={icons.clearAlt}
-									disabled={!value?.[breakpoint]}
-									type='ghost'
+								<IconLabel
+									label={__('Mobile-first', 'eightshift-components')}
+									subtitle={__('Recommended', 'eightshift-components')}
 								/>
-							</div>
-						);
-					})}
-				</AnimatedVisibility>
+							</MenuItem>
+							<MenuItem
+								selected={isDesktopFirst}
+								onClick={() => {
+									const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
+										(prev, curr) => ({ ...prev, [curr]: null }),
+										{},
+									);
 
-				{isDesktopFirst && <DefaultControl />}
-				{help && <div className='es-uic-text-xs es-uic-text-gray-400'>{help}</div>}
-			</div>
-		</>
+									onChange({
+										...value,
+										...thingsToDelete,
+										_mobileFirst: true,
+									});
+								}}
+							>
+								{__('Desktop-first', 'eightshift-components')}
+							</MenuItem>
+						</MenuSection>
+						<MenuSection>
+							<MenuItem
+								icon={icons.clearAlt}
+								onClick={() => {
+									const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
+										(prev, curr) => ({ ...prev, [curr]: null }),
+										{},
+									);
+
+									onChange({
+										...value,
+										...thingsToDelete,
+									});
+								}}
+							>
+								{__('Clear responsive overrides', 'eightshift-components')}
+							</MenuItem>
+						</MenuSection>
+					</Menu>
+
+					<TriggeredPopover
+						aria-label={props['aria-label'] ?? __('Breakpoint preview', 'eightshift-components')}
+						trigger={
+							<Button
+								disabled={
+									!Object.keys(value).some(
+										(key) => !key?.startsWith('_') && value?.[key] !== undefined,
+									)
+								}
+								icon={icons.previewResponsive}
+								tooltip={__('Breakpoint preview', 'eightshift-components')}
+							/>
+						}
+					>
+						<ResponsivePreview
+							value={value}
+							isDesktopFirst={isDesktopFirst}
+							breakpoints={breakpoints}
+							desktopFirstBreakpoints={desktopFirstBreakpoints}
+							options={options}
+							globalManifest={globalManifest}
+						/>
+					</TriggeredPopover>
+
+					<ToggleButton
+						icon={isDesktopFirst ? icons.responsiveOverridesAlt : icons.responsiveOverridesAlt2}
+						onChange={() => setDetailsVisible(!detailsVisible)}
+						selected={detailsVisible}
+						tooltip={
+							detailsVisible
+								? __('Hide responsive overrides', 'eightshift-components')
+								: __('Show responsive overrides', 'eightshift-components')
+						}
+					/>
+				</ButtonGroup>
+			}
+		>
+			{!isDesktopFirst && <DefaultControl />}
+
+			<AnimatedVisibility
+				visible={detailsVisible}
+				className='es-uic-space-y-2'
+			>
+				{breakpointsToMap.map((breakpoint) => {
+					const realBreakpointName = breakpoint.replace('max-', '');
+
+					return (
+						<div
+							className='es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2rem)] es-uic-items-center es-uic-gap-x-2'
+							key={`${breakpoint}-${value?.[breakpoint]}`}
+						>
+							<Tooltip
+								theme='light'
+								text={`${upperFirst(realBreakpointName)} - when width is larger than ${globalManifest.globalVariables.breakpoints[realBreakpointName]}px`}
+							>
+								<div className='es-uic-flex es-uic-size-8 es-uic-shrink-0 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-gray-100 es-uic-p-0.5 es-uic-text-gray-800'>
+									{icons?.[`screen${upperFirst(realBreakpointName)}`]}
+								</div>
+							</Tooltip>
+
+							{componentToRender({
+								breakpoint: breakpoint,
+								currentValue: value?.[breakpoint],
+								handleChange: (newValue) => {
+									onChange({
+										...value,
+										[breakpoint]: newValue,
+									});
+								},
+							})}
+
+							<Button
+								onClick={() => {
+									onChange({
+										...value,
+										[breakpoint]: undefined,
+									});
+								}}
+								icon={icons.clearAlt}
+								disabled={!value?.[breakpoint]}
+								type='ghost'
+							/>
+						</div>
+					);
+				})}
+			</AnimatedVisibility>
+
+			{isDesktopFirst && <DefaultControl />}
+		</BaseControl>
 	);
 };
