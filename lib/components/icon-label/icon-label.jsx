@@ -48,7 +48,7 @@ export const IconLabel = (props) => {
 		>
 			{icon && <span className='es-uic-text-slate-500 [&>svg]:es-uic-size-5.5'>{icon}</span>}
 			{(label || subtitle) && (
-				<div className='es-uic-flex es-uic-flex-col'>
+				<div className='es-uic-flex es-uic-flex-col es-uic-items-start es-uic-text-start'>
 					{label && <span>{label}</span>}
 					{subtitle && <span className='es-uic-text-xs es-uic-text-gray-500'>{subtitle}</span>}
 				</div>
