@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import{
+import {
 	Toggle,
 	icons,
 	AnimatedVisibility,
@@ -40,6 +40,11 @@ import{
 	ListBox,
 	ButtonGroup,
 } from '../lib';
+import { Repeater } from '../lib/components/repeater/repeater';
+import { RepeaterItem } from '../lib/components/repeater/repeater-item';
+import { classnames } from '../lib/utilities/classnames';
+import { Checkbox } from '../lib/components/checkbox/checkbox';
+import { RadioButton, RadioButtonGroup } from '../lib/components/radio/radio';
 
 function App() {
 	const [toggled, setToggled] = useState(false);
@@ -55,6 +60,7 @@ function App() {
 	const [useComp, setUseComp] = useState(false);
 	let [selectedKey, setSelectedKey] = useState('sans');
 	let [loremIpsum, setLoremIpsum] = useState(0);
+	let [radioValue, setRadioValue] = useState(null);
 
 	const [resp, setResp] = useState({
 		_default: 'sans',
@@ -187,7 +193,7 @@ function App() {
 			return filtered;
 		}
 
-		return linkData;
+		return [];
 	};
 
 	const data = [
@@ -242,7 +248,7 @@ function App() {
 	const CustomValueDisplay = (props) => {
 		return (
 			<RSSingleValue {...props}>
-				<span className='es-uic-border es-uic-border-dotted es-uic-border-sky-400 es-uic-p-2 es-uic-rounded-sm'>
+				<span className='es-uic-rounded-sm es-uic-border es-uic-border-dotted es-uic-border-sky-400 es-uic-p-2'>
 					{props.children}
 				</span>
 			</RSSingleValue>
@@ -263,7 +269,7 @@ function App() {
 		return (
 			<RSMultiValue {...props}>
 				<span
-					className={`${colors[colorIndex]} es-uic-text-white es-uic-p-1 es-uic-leading-none es-uic-rounded es-uic-font-medium`}
+					className={`${colors[colorIndex]} es-uic-rounded es-uic-p-1 es-uic-font-medium es-uic-leading-none es-uic-text-white`}
 				>
 					{props.children}
 				</span>
@@ -350,10 +356,25 @@ function App() {
 		},
 	];
 
+	const repeaterDefaultItems = [
+		{
+			title: '',
+		},
+		{
+			title: 'Abc',
+		},
+		{},
+	];
+
+	const [repeaterItems, setRepeaterItems] = useState(repeaterDefaultItems);
+
 	return (
 		<div className='font-geist es-uic-flex es-uic-min-h-screen es-uic-items-center es-uic-justify-center es-uic-gap-4 es-uic-overscroll-contain es-uic-bg-neutral-100 es-uic-p-2'>
-			<Tabs vertical className='es-uic-h-[90vh] es-uic-max-w-screen-sm es-uic-bg-white es-uic-rounded-lg es-uic-shadow-sm es-uic-overflow-y-auto'>
-				<TabList className='es-uic-p-5 es-uic-border-r-0 es-uic-self-start es-uic-sticky es-uic-top-0'>
+			<Tabs
+				vertical
+				className='es-uic-h-[90vh] es-uic-max-w-screen-sm es-uic-overflow-y-auto es-uic-rounded-lg es-uic-bg-white es-uic-shadow-sm'
+			>
+				<TabList className='es-uic-sticky es-uic-top-0 es-uic-self-start es-uic-border-r-0 es-uic-p-5'>
 					<Tab>Toggle / Switch</Tab>
 					<Tab>Spacer</Tab>
 					<Tab>AnimatedVisibility</Tab>
@@ -373,8 +394,11 @@ function App() {
 					<Tab>InputField</Tab>
 					<Tab>ComponentToggle</Tab>
 					<Tab>ListBox</Tab>
+					<Tab>Repeater</Tab>
+					<Tab>Checkbox</Tab>
+					<Tab>RadioButton</Tab>
 				</TabList>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Toggle
 						selected={toggled}
 						onChange={(value) => setToggled(value)}
@@ -382,14 +406,14 @@ function App() {
 						label='Airplane mode'
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Spacer
 						size='s'
 						className='es-uic-bg-violet-50'
 						border
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<div className='es-uic-flex es-uic-min-h-56 es-uic-flex-col es-uic-gap-2 es-uic-rounded-md es-uic-border es-uic-border-dotted es-uic-border-gray-300 es-uic-p-2'>
 						<ToggleButton
 							className='mx-auto'
@@ -398,12 +422,18 @@ function App() {
 						>
 							Hidden thingy
 						</ToggleButton>
-						<AnimatedVisibility visible={animVis}>
-							<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 es-uic-p-4'>Hi, I&apos;m content</div>
+						<AnimatedVisibility
+							visible={animVis}
+							noInitial
+							transition='scaleFade'
+						>
+							<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 es-uic-p-4'>
+								Hi, I&apos;m content
+							</div>
 						</AnimatedVisibility>
 					</div>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Expandable
 						icon={icons.experiment}
 						label='Lorem ipsum dolor'
@@ -415,7 +445,9 @@ function App() {
 							/>
 						}
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>lorem</div>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>
+							lorem
+						</div>
 					</Expandable>
 
 					<Expandable
@@ -431,10 +463,12 @@ function App() {
 							></Button>
 						}
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>lorem</div>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>
+							lorem
+						</div>
 					</Expandable>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<LinkInput
 						url={linkTxt}
 						help='Help, not sure how to input this'
@@ -442,7 +476,7 @@ function App() {
 						fetchSuggestions={getLinkData}
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Notice
 						label='Lorem ipsum dolor'
 						subtitle='Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
@@ -491,10 +525,10 @@ function App() {
 						type='placeholder'
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
-					<TriggeredPopover className='es-uic-p-5 es-uic-bg-purple-50'>Hello</TriggeredPopover>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+					<TriggeredPopover className='es-uic-bg-purple-50 es-uic-p-5'>Hello</TriggeredPopover>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Button>Hello</Button>
 
 					<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>
@@ -554,12 +588,24 @@ function App() {
 					<Button icon={icons.emptyRect}>Hello</Button>
 
 					<ButtonGroup>
-						<Button type={loremIpsum === 0 ? 'selected' : 'default'} onClick={() => setLoremIpsum(0)} icon={icons.small} />
-						<Button type={loremIpsum === 1 ? 'selected' : 'default'} onClick={() => setLoremIpsum(1)} icon={icons.medium} />
-						<Button type={loremIpsum === 2 ? 'selected' : 'default'} onClick={() => setLoremIpsum(2)} icon={icons.large} />
+						<Button
+							type={loremIpsum === 0 ? 'selected' : 'default'}
+							onClick={() => setLoremIpsum(0)}
+							icon={icons.small}
+						/>
+						<Button
+							type={loremIpsum === 1 ? 'selected' : 'default'}
+							onClick={() => setLoremIpsum(1)}
+							icon={icons.medium}
+						/>
+						<Button
+							type={loremIpsum === 2 ? 'selected' : 'default'}
+							onClick={() => setLoremIpsum(2)}
+							icon={icons.large}
+						/>
 					</ButtonGroup>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<MatrixAlign
 						value={matrixVal}
 						onChange={(value) => setMatrixVal(value)}
@@ -573,7 +619,7 @@ function App() {
 						label='Position'
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Menu
 						aria-label='Bok i tebi'
 						keepOpen
@@ -642,7 +688,7 @@ function App() {
 						</SubMenuItem>
 					</Menu>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Tooltip
 						text='Hello'
 						doNotReplaceChild
@@ -657,7 +703,7 @@ function App() {
 						Hover me
 					</Tooltip>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<NumberPicker
 						label='Pick a number'
 						value={num}
@@ -736,7 +782,7 @@ function App() {
 						/>
 					</NumberPicker>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Responsive
 						icon={icons.emptyRect}
 						label='Font family'
@@ -769,7 +815,7 @@ function App() {
 						}}
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<BaseControl>
 						<Button>Hi</Button>
 					</BaseControl>
@@ -818,7 +864,7 @@ function App() {
 						<Button>Hi</Button>
 					</BaseControl>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
@@ -966,7 +1012,7 @@ function App() {
 						icon={icons.group}
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Tabs>
 						<TabList></TabList>
 						<TabPanel>Abc</TabPanel>
@@ -983,7 +1029,7 @@ function App() {
 						<TabPanel>Alea jacta est.</TabPanel>
 					</Tabs>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<InputField
 						value={txt1}
 						onChange={setTxt1}
@@ -998,14 +1044,16 @@ function App() {
 						label='Lorem'
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<ComponentToggle
 						icon={icons.paragraph}
 						label='Paragraph'
 						useComponent={useComp}
 						onChange={setUseComp}
 					>
-						<div className='es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 p-2'>Lorem options</div>
+						<div className='p-2 es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200'>
+							Lorem options
+						</div>
 					</ComponentToggle>
 
 					<ComponentToggle
@@ -1015,7 +1063,9 @@ function App() {
 						onChange={setUseComp}
 						noUseToggle
 					>
-						<div className='es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 p-2'>Lorem options no use</div>
+						<div className='p-2 es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200'>
+							Lorem options no use
+						</div>
 					</ComponentToggle>
 
 					<ComponentToggle
@@ -1025,12 +1075,12 @@ function App() {
 						onChange={setUseComp}
 						expandButtonDisabled
 					>
-						<div className='es-uic-min-h-24 es-uic-w-full es-uic-rounded-md bg-slate-200 es-uic-p-2'>
+						<div className='bg-slate-200 es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-p-2'>
 							Lorem options expandButtonDisabled
 						</div>
 					</ComponentToggle>
 				</TabPanel>
-				<TabPanel className='es-uic-space-y-4 es-uic-m-5 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<ListBox
 						icon={icons.emptyRect}
 						label='Font family'
@@ -1064,6 +1114,192 @@ function App() {
 						onChange={(key) => setSelectedKey(key)}
 						orientation='horizontal-tiles'
 					/>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+					<Repeater
+						items={repeaterItems}
+						onChange={setRepeaterItems}
+						itemLabelProp='title'
+						label='Hello'
+						addDefaultItem={{
+							title: 'Hello',
+						}}
+						onAfterItemAdd={(item) => console.log('Added', item)}
+						onAfterItemRemove={(items) => console.log('Removed', items)}
+					>
+						{(item) => {
+							const { title, subtitle, toggledThingy, link, updateData } = item;
+
+							return (
+								<RepeaterItem
+									label={title ?? 'New item'}
+									icon={icons.emptyCircle}
+									className={classnames(!title && '!es-uic-text-gray-400')}
+								>
+									<InputField
+										label='Title'
+										type='text'
+										value={title}
+										onChange={(value) => updateData({ title: value })}
+									/>
+									<InputField
+										label='Subtitle'
+										type='multiline'
+										value={subtitle}
+										onChange={(value) => updateData({ subtitle: value })}
+									/>
+
+									<Toggle
+										icon={icons.emptyCircle}
+										label='Toggle something'
+										checked={toggledThingy}
+										onChange={(value) => updateData({ toggledThingy: value })}
+									/>
+
+									<LinkInput
+										url={link}
+										help='Help, not sure how to input this'
+										onChange={({ url }) => updateData({ link: url })}
+										fetchSuggestions={getLinkData}
+									/>
+								</RepeaterItem>
+							);
+						}}
+					</Repeater>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+					<Checkbox
+						checked={toggled}
+						onChange={(value) => setToggled(value)}
+						label='Hello'
+					/>
+
+					<Checkbox
+						checked={toggled}
+						onChange={(value) => setToggled(value)}
+						label='Hello'
+						subtitle='Lorem ipsum dolor'
+					/>
+
+					<Checkbox
+						checked={toggled}
+						onChange={(value) => setToggled(value)}
+						label='Hello'
+						subtitle='Lorem ipsum dolor'
+						icon={icons.experiment}
+					/>
+
+					<Checkbox
+						checked={toggled}
+						onChange={(value) => setToggled(value)}
+						label='Hello'
+						subtitle='Lorem ipsum dolor'
+						alignEnd
+					/>
+
+					<Checkbox
+						checked={toggled}
+						onChange={(value) => setToggled(value)}
+						indeterminate
+					>
+						Hello
+					</Checkbox>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+					<RadioButtonGroup
+						label='Hello'
+						value={radioValue}
+						onChange={setRadioValue}
+					>
+						<RadioButton
+							label='Lorem'
+							subtitle='Ipsum value dolor sit amet'
+							icon={icons.emptyCircle}
+							value='lorem'
+						/>
+						<RadioButton
+							label='Ipsum'
+							subtitle='Ipsum value dolor sit amet'
+							icon={icons.emptyCircle}
+							value='ipsum'
+						/>
+						<RadioButton
+							label='Dolor'
+							subtitle='Ipsum value dolor sit amet'
+							icon={icons.emptyCircle}
+							value='dolor'
+						/>
+					</RadioButtonGroup>
+
+					<RadioButtonGroup
+						label='Hello'
+						value={radioValue}
+						orientation='horizontal'
+						onChange={setRadioValue}
+					>
+						<RadioButton
+							label='Lorem'
+							subtitle='Ips value'
+							value='lorem'
+						/>
+						<RadioButton
+							label='Ipsum'
+							subtitle='Ips value'
+							value='ipsum'
+						/>
+						<RadioButton
+							label='Dolor'
+							subtitle='Ips value'
+							value='dolor'
+						/>
+					</RadioButtonGroup>
+
+					<RadioButtonGroup
+						label='Hello'
+						value={radioValue}
+						onChange={setRadioValue}
+						design='segmented'
+					>
+						<RadioButton
+							label='Lorem'
+							subtitle='Ips value'
+							value='lorem'
+						/>
+						<RadioButton
+							label='Ipsum'
+							subtitle='Ips value'
+							value='ipsum'
+						/>
+						<RadioButton
+							label='Dolor'
+							subtitle='Ips value'
+							value='dolor'
+						/>
+					</RadioButtonGroup>
+
+					<RadioButtonGroup
+						label='Hello'
+						value={radioValue}
+						orientation='horizontal'
+						onChange={setRadioValue}
+						design='segmented'
+					>
+						<RadioButton
+							label='Lorem'
+							subtitle='Ips value'
+							value='lorem'
+						/>
+						<RadioButton
+							label='Ipsum'
+							subtitle='Ips value'
+							value='ipsum'
+						/>
+						<RadioButton
+							label='Dolor'
+							subtitle='Ips value'
+							value='dolor'
+						/>
+					</RadioButtonGroup>
 				</TabPanel>
 			</Tabs>
 		</div>
