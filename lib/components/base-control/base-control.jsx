@@ -1,3 +1,4 @@
+import { Text } from 'react-aria-components';
 import { classnames } from '../../utilities/classnames';
 import { IconLabel } from '../icon-label/icon-label';
 
@@ -55,7 +56,12 @@ export const BaseControl = (props) => {
 
 	return (
 		<div className={classnames('es-uic-space-y-1', className)}>
-			<div className={classnames('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && icon && 'es-uic-pb-1')}>
+			<div
+				className={classnames(
+					'es-uic-flex es-uic-items-center es-uic-gap-1',
+					!inline && icon && 'es-uic-pb-1',
+				)}
+			>
 				{(label || icon || subtitle) && (
 					<IconLabel
 						icon={icon}
@@ -66,10 +72,19 @@ export const BaseControl = (props) => {
 					/>
 				)}
 
-				{inline && <div className='es-uic-ml-auto es-uic-flex es-uic-items-center es-uic-gap-1'>{children}</div>}
+				{inline && (
+					<div className='es-uic-ml-auto es-uic-flex es-uic-items-center es-uic-gap-1'>
+						{children}
+					</div>
+				)}
 
 				{!inline && actions && (
-					<div className={classnames('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && 'es-uic-ml-auto')}>
+					<div
+						className={classnames(
+							'es-uic-flex es-uic-items-center es-uic-gap-1',
+							!inline && 'es-uic-ml-auto',
+						)}
+					>
 						{actions}
 					</div>
 				)}
@@ -80,7 +95,14 @@ export const BaseControl = (props) => {
 			)}
 			{!inline && (!Array.isArray(children) || children.filter(Boolean).length < 2) && children}
 
-			{help && <span className='es-uic-text-sm es-uic-text-gray-400'>{help}</span>}
+			{help && (
+				<Text
+					className='es-uic-text-sm es-uic-text-gray-400'
+					slot='description'
+				>
+					{help}
+				</Text>
+			)}
 		</div>
 	);
 };
