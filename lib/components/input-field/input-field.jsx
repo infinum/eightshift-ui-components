@@ -54,7 +54,7 @@ export const InputField = (props) => {
 
 	return (
 		<TextField
-			value={value}
+			value={value ?? ''}
 			onChange={onChange}
 			isDisabled={disabled}
 			isReadOnly={readOnly}
