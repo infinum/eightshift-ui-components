@@ -10,6 +10,54 @@ import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { ToggleButton } from '../toggle-button/toggle-button';
 
+/**
+ * A component that allows re-ordering a list of items with additional sub-options.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {JSX.Element} [props.icon] - Icon to display in the label.
+ * @param {string} [props.label] - Label to display.
+ * @param {string} [props.subtitle] - Subtitle to display.
+ * @param {string} [props.help] - Help text to display below the input.
+ * @param {JSX.Element} [props.actions] - Actions to display to the right of the label.
+ * @param {Object[]<string, any>} props.items - Data to display in the repeater.
+ * @param {string} [props.itemLabelProp] - Property of an item to use as the label when re-ordering items.
+ * @param {boolean} [props.hideEmptyState] - If `true`, the empty state will not be displayed when there are no items.
+ * @param {Object<string, any>} [props.addDefaultItem] - Additional properties to add to a new item.
+ * @param {boolean} [props.addDisabled] - If `true`, the add button is disabled.
+ * @param {Function} props.onChange - Function to run when the items change.
+ * @param {Function} [props.onAfterItemAdd] - Function to run after an item is added.
+ * @param {Function} [props.onAfterItemRemove] - Function to run after an item is removed.
+ *
+ * @returns {JSX.Element} The Repeater component.
+ *
+ * @example
+ * <Repeater
+ * 	label='My repeater'
+ * 	items={items}
+ * 	onChange={setItems}
+ * >
+ * 	{(item) => {
+ * 		const { title, updateData } = item;
+ *
+ * 		return (
+ * 			<RepeaterItem
+ * 				label={title ?? 'New item'}
+ * 				icon={icons.myIcon}
+ * 			>
+ * 				<InputField
+ * 					label='Title'
+ * 					type='text'
+ * 					value={title}
+ * 					onChange={(value) => updateData({ title: value })}
+ * 				/>
+ * 			</RepeaterItem>
+ * 		);
+ * 	}}
+ * </Repeater>
+ *
+ * @preserve
+ */
 export const Repeater = (props) => {
 	const itemIdBase = useId('repeater-item-');
 
@@ -25,6 +73,10 @@ export const Repeater = (props) => {
 		help,
 		actions,
 		hideEmptyState,
+		addDefaultItem = {},
+		addDisabled,
+		onAfterItemAdd,
+		onAfterItemRemove,
 		...rest
 	} = props;
 
@@ -34,6 +86,7 @@ export const Repeater = (props) => {
 	});
 
 	const [selectable, setSelectable] = useState(false);
+	const [canDelete, setCanDelete] = useState(false);
 
 	let { dragAndDropHooks } = useDragAndDrop({
 		isDisabled: selectable,
@@ -63,10 +116,15 @@ export const Repeater = (props) => {
 			);
 		},
 		renderDragPreview(items) {
+			let label = items[0]['text/plain'];
+
+			if (!label || label === '') {
+				label = __('New item', 'eightshift-components');
+			}
+
 			return (
-				<div className='es-uic-rounded-md es-uic-bg-teal-500/85 es-uic-px-1.5 es-uic-py-1 es-uic-text-xs es-uic-text-white es-uic-backdrop-blur-xl es-uic-animate-in es-uic-fade-in-0 es-uic-zoom-in-95'>
-					{items[0]['text/plain']}
-					<span className='badge'>{items.length}</span>
+				<div className='es-uic-rounded-md es-uic-bg-teal-500 es-uic-px-1.5 es-uic-py-1 es-uic-text-xs es-uic-text-white es-uic-shadow-lg es-uic-shadow-teal-500/30'>
+					{label}
 				</div>
 			);
 		},
@@ -93,6 +151,7 @@ export const Repeater = (props) => {
 			const { id, ...rest } = item;
 			return rest;
 		});
+
 		onChange(items);
 	}, [list.items, onChange]);
 
@@ -111,42 +170,53 @@ export const Repeater = (props) => {
 						transition='scaleFade'
 					>
 						<Button
-							onClick={() => {
+							onPress={() => {
+								const removedItems = [
+									...(list?.selectedKeys.keys()?.map((key) => list.getItem(key)) ?? []),
+								];
+
 								list.removeSelectedItems();
 								setSelectable(false);
+								setCanDelete(false);
+
+								if (onAfterItemRemove) {
+									onAfterItemRemove(removedItems);
+								}
 							}}
 							size='small'
 							icon={icons.trash}
-							tooltip={__('Add item', 'eightshift-components')}
-							disabled={list.selectedKeys.size === 0}
+							tooltip={__('Remove selected', 'eightshift-components')}
+							disabled={!canDelete}
+							aria-label={__('Remove selected', 'eightshift-components')}
 							type='danger'
 						/>
 					</AnimatedVisibility>
 					<ButtonGroup>
 						<Button
-							onPress={() => list.append({ id: Math.random() })}
+							onPress={() => {
+								const newItem = { id: `${itemIdBase}${list.items.length + 1}`, ...addDefaultItem };
+								list.append(newItem);
+
+								if (onAfterItemAdd) {
+									onAfterItemAdd(newItem);
+								}
+							}}
 							size='small'
 							icon={icons.add}
 							tooltip={__('Add item', 'eightshift-components')}
-							disabled={selectable}
+							disabled={addDisabled || selectable}
 						/>
 
 						<ToggleButton
 							selected={selectable}
-							onChange={() => setSelectable(!selectable)}
+							onChange={() => {
+								list.setSelectedKeys([]);
+								setSelectable(!selectable);
+							}}
 							size='small'
 							icon={icons.checkSquare}
 							tooltip={__('Select items', 'eightshift-components')}
 						/>
-
-						{/* <Menu triggerProps={{ size: 'small' }}>
-							<MenuItem
-								onClick={() => setSelectable(!selectable)}
-								checked={selectable}
-							>
-								{__('Select items', 'eightshift-components')}
-							</MenuItem>
-						</Menu> */}
 					</ButtonGroup>
 				</>
 			}
@@ -154,18 +224,19 @@ export const Repeater = (props) => {
 		>
 			<GridList
 				aria-label={ariaLabel ?? __('Repeater', 'eightshift-component')}
-				// selectionMode='multiple'
 				selectionMode={selectable ? 'multiple' : 'none'}
 				selectionBehavior='toggle'
 				selectedKeys={list.selectedKeys}
-				onSelectionChange={list.setSelectedKeys}
+				onSelectionChange={(selected) => {
+					list.setSelectedKeys(selected);
+					setCanDelete((selected.size ?? 0) > 0);
+				}}
 				items={list.items.map((item) => ({
 					...item,
 					updateData: (newValue) => {
 						list.update(item.id, { ...list.getItem(item.id), ...newValue });
 					},
 					deleteItem: () => list.remove(item.id),
-
 				}))}
 				dragAndDropHooks={dragAndDropHooks}
 				renderEmptyState={() =>
@@ -175,7 +246,6 @@ export const Repeater = (props) => {
 						</div>
 					)
 				}
-				className={classnames('es-uic-w-full')}
 				{...rest}
 			>
 				{children}

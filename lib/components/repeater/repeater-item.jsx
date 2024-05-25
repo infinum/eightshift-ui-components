@@ -5,21 +5,59 @@ import { classnames } from '../../utilities/classnames';
 import { Expandable } from '../expandable/expandable';
 import { __ } from '@wordpress/i18n';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
-import { Menu, MenuItem } from '../menu/menu';
 
+/**
+ * A Repeater item.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {JSX.Element} [props.icon] - Icon to display in the label.
+ * @param {string} [props.label] - Label to display.
+ * @param {string} [props.subtitle] - Subtitle to display.
+ * @param {JSX.Element} [props.actions] - Actions to display to the right of the label.
+ * @param {string} [props.textValue] - The text value of the item.
+ * @param {string} [props.className] - Classes to pass to the item.
+ *
+ * @returns {JSX.Element} The ButtonGroup component.
+ *
+ * @see {@link Repeater} for usage example.
+ *
+ * @preserve
+ */
 export const RepeaterItem = (props) => {
-	const { children, icon, label, subtitle, className, actions, ...rest } = props;
+	const {
+		children,
+		icon,
+		label,
+		subtitle,
+		'aria-label': ariaLabel,
+		className,
+		actions,
+		textValue,
+		...rest
+	} = props;
+
+	let a11yLabel = textValue;
+
+	if (label?.length > 0) {
+		a11yLabel = label;
+	}
+
+	if (a11yLabel === '' || !a11yLabel) {
+		a11yLabel = __('New item', 'eightshift-components');
+	}
+
 	return (
 		<GridListItem
-			aria-label='Abc'
-			textValue={props.textValue}
+			aria-label={ariaLabel ?? a11yLabel}
+			textValue={a11yLabel}
 			className={classnames(
 				'es-uic-rounded-lg es-uic-transition',
 				'focus:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 			)}
 			{...rest}
 		>
-			{({ selectionMode, allowsDragging }) => (
+			{({ selectionMode, allowsDragging, isDragging }) => (
 				<Expandable
 					disabled={selectionMode === 'multiple'}
 					icon={
@@ -31,6 +69,7 @@ export const RepeaterItem = (props) => {
 					label={<div className='es-uic-flex es-uic-items-center es-uic-gap-1'>{label}</div>}
 					subtitle={subtitle}
 					labelClassName={className}
+					className={classnames(isDragging && 'es-uic-opacity-25')}
 					actions={
 						<>
 							{selectionMode === 'none' && allowsDragging && (
@@ -43,10 +82,6 @@ export const RepeaterItem = (props) => {
 									tooltip={__('Re-order', 'eightshift-components')}
 								/>
 							)}
-
-							<Menu>
-								<MenuItem>{__('Remove', 'eightshift-components')}</MenuItem>
-							</Menu>
 
 							{actions}
 						</>
@@ -61,8 +96,6 @@ export const RepeaterItem = (props) => {
 };
 
 const Checkbox = (props) => {
-	const { children } = props;
-
 	return (
 		<ReactAriaCheckbox {...props}>
 			{({ isIndeterminate, isSelected }) => (
@@ -84,7 +117,7 @@ const Checkbox = (props) => {
 							{icons.check}
 						</AnimatedVisibility>
 					</div>
-					{children}
+					{props.children}
 				</>
 			)}
 		</ReactAriaCheckbox>
