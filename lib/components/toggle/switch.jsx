@@ -29,7 +29,7 @@ export const Switch = (props) => {
 		<ReactAriaSwitch
 			id={id}
 			isDisabled={disabled}
-			isSelected={checked}
+			isSelected={checked ?? false}
 			onChange={onChange}
 			className='es-uic-group es-uic-flex es-uic-items-center es-uic-justify-between es-uic-gap-2'
 		>
