@@ -14,7 +14,7 @@ import { classnames } from '../../utilities/classnames';
  *
  * @returns {JSX.Element} The Spacer component.
  *
- * @typedef {'xs' | 's' | 'm'} SpacerSize
+ * @typedef {'px' | 'xs' | 's' | 'm'} SpacerSize
  *
  * @example
  * <Spacer />
@@ -32,6 +32,12 @@ export const Spacer = (props) => {
 	const { size = 'm', border, className, text, icon, vertical = false } = props;
 
 	const sizes = {
+		px: {
+			sizeHorizontal: 'es-uic-h-px',
+			sizeHorizontalBorder: 'es-uic-h-px',
+			sizeVertical: 'es-uic-w-px',
+			sizeVerticalBorder: 'es-uic-w-px',
+		},
 		xs: {
 			sizeHorizontal: 'es-uic-h-1',
 			sizeHorizontalBorder: 'es-uic-h-0.5',
@@ -82,14 +88,14 @@ export const Spacer = (props) => {
 	if (border) {
 		return (
 			<div>
-				<div className={spaceClass} />
+				{size !== 'px' && <div className={spaceClass} />}
 				<div
 					className={classnames(
 						'es-uic-bg-gray-300',
 						vertical ? 'es-uic-h-full es-uic-w-px' : 'es-uic-h-px es-uic-w-full',
 					)}
 				/>
-				<div className={spaceClass} />
+				{size !== 'px' && <div className={spaceClass} />}
 			</div>
 		);
 	}
