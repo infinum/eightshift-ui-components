@@ -1,4 +1,4 @@
-import { TextField, Label, Input as ReactAriaInput, TextArea, Text } from 'react-aria-components';
+import { TextField, Label, Input as ReactAriaInput, TextArea } from 'react-aria-components';
 import { BaseControl } from '../base-control/base-control';
 import { classnames } from '../../utilities/classnames';
 import { useCellEditMode } from '../../hooks/use-cell-edit-mode';
@@ -49,7 +49,7 @@ export const InputField = (props) => {
 		...other
 	} = props;
 
-	// Put the control in edit mode when focused so that the external
+	// Put the control in edit mode when focused so that the external navigation presses don't mess with text input.
 	const preventProps = useCellEditMode();
 
 	return (
@@ -87,7 +87,7 @@ export const InputField = (props) => {
 				subtitle={subtitle}
 				actions={actions}
 				labelAs={Label}
-				help={help && <Text slot='description'>{help}</Text>}
+				help={help}
 			>
 				{type !== 'multiline' && (
 					<ReactAriaInput

@@ -78,7 +78,7 @@ export const NumberPicker = ({
 				icon={icon}
 				label={label}
 				subtitle={subtitle}
-				help={help && <Text slot='description'>{help}</Text>}
+				help={help}
 				inline={inline}
 				className='text-sm'
 			>

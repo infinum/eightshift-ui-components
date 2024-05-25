@@ -1,7 +1,6 @@
 import {
 	ListBox as ReactAriaListBox,
 	ListBoxItem as ReactAriaListBoxItem,
-	Text,
 } from 'react-aria-components';
 import { classnames } from '../../utilities/classnames';
 import { BaseControl } from '../base-control/base-control';
@@ -98,7 +97,7 @@ export const ListBox = (props) => {
 			subtitle={subtitle}
 			actions={actions}
 			inline={inline}
-			help={help && <Text slot='description'>{help}</Text>}
+			help={help}
 		>
 			<Tooltip
 				text={tooltipText}
