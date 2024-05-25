@@ -13,6 +13,7 @@ import { IconLabel } from '../icon-label/icon-label';
  * @param {string} [props.help] - Help text to show below the component.
  * @param {boolean} [props.inline] - If `true`, the component is displayed inline - icon/label/subtitle are on the left, the passed content is on the right. **Note:** not compatible with `actions`.
  * @param {string} [props.className] - Classes to pass to the main element wrapper.
+ * @param {string} [props.controlContainerClassName] - Classes to pass to the control container.
  * @param {boolean} [props.fullWidthLabel] - If `true`, the label expands to fill up the whole width, instead of taking up only the space it needs.
  * @param {JSX.Element} [props.labelAs] - If provided, the label (includes icon and subtitle) will be rendered as this element.
  *
@@ -40,6 +41,7 @@ export const BaseControl = (props) => {
 		inline,
 
 		className,
+		controlContainerClassName,
 
 		fullWidthLabel,
 
@@ -73,7 +75,12 @@ export const BaseControl = (props) => {
 				)}
 
 				{inline && (
-					<div className='es-uic-ml-auto es-uic-flex es-uic-items-center es-uic-gap-1'>
+					<div
+						className={classnames(
+							'es-uic-ml-auto es-uic-flex es-uic-items-center es-uic-gap-1',
+							controlContainerClassName,
+						)}
+					>
 						{children}
 					</div>
 				)}
@@ -91,7 +98,7 @@ export const BaseControl = (props) => {
 			</div>
 
 			{!inline && Array.isArray(children) && children.filter(Boolean).length > 1 && (
-				<div className='es-uic-space-y-1'>{children}</div>
+				<div className={classnames('es-uic-space-y-1', controlContainerClassName)}>{children}</div>
 			)}
 			{!inline && (!Array.isArray(children) || children.filter(Boolean).length < 2) && children}
 
