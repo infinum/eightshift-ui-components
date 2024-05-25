@@ -104,7 +104,8 @@ export const Button = (props) => {
 			onPress={onPress}
 			isDisabled={disabled}
 			className={classnames(
-				'es-uic-flex es-uic-items-center es-uic-justify-center es-uic-gap-1 es-uic-rounded-md es-uic-transition es-uic-duration-300',
+				'es-uic-flex es-uic-items-center es-uic-gap-1 es-uic-rounded-md es-uic-transition es-uic-duration-300',
+				(icon && !children) && 'es-uic-justify-center',
 				!disabled && (themes[type]?.regular ?? themes.default.regular),
 				!disabled && (themes[type]?.hover ?? themes.default.hover),
 				'disabled:es-uic-shadow-none',
