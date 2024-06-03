@@ -39,12 +39,14 @@ import {
 	ComponentToggle,
 	ListBox,
 	ButtonGroup,
+	Repeater,
+	RepeaterItem,
+	Checkbox,
+	RadioButton,
+	RadioButtonGroup,
+	Slider,
 } from '../lib';
-import { Repeater } from '../lib/components/repeater/repeater';
-import { RepeaterItem } from '../lib/components/repeater/repeater-item';
 import { classnames } from '../lib/utilities/classnames';
-import { Checkbox } from '../lib/components/checkbox/checkbox';
-import { RadioButton, RadioButtonGroup } from '../lib/components/radio/radio';
 
 function App() {
 	const [toggled, setToggled] = useState(false);
@@ -368,6 +370,15 @@ function App() {
 
 	const [repeaterItems, setRepeaterItems] = useState(repeaterDefaultItems);
 
+	const [sliderValue, setSliderValue] = useState(0);
+	const [sliderValue2, setSliderValue2] = useState(0);
+	const [rangeSliderValue, setRangeSliderValue] = useState([33, 66]);
+	const [rangeSliderValue2, setRangeSliderValue2] = useState([33, 55, 66]);
+
+	// return (
+	// 	<div className='es-uic-mx-auto es-uic-flex es-uic-w-96 es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-gap-2.5 es-uic-p-10'></div>
+	// );
+
 	return (
 		<div className='font-geist es-uic-flex es-uic-min-h-screen es-uic-items-center es-uic-justify-center es-uic-gap-4 es-uic-overscroll-contain es-uic-bg-neutral-100 es-uic-p-2'>
 			<Tabs
@@ -397,10 +408,11 @@ function App() {
 					<Tab>Repeater</Tab>
 					<Tab>Checkbox</Tab>
 					<Tab>RadioButton</Tab>
+					<Tab>Slider</Tab>
 				</TabList>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Toggle
-						selected={toggled}
+						checked={toggled}
 						onChange={(value) => setToggled(value)}
 						icon={icons.experiment}
 						label='Airplane mode'
@@ -1300,6 +1312,241 @@ function App() {
 							value='dolor'
 						/>
 					</RadioButtonGroup>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+					<Slider
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+					/>
+
+					<Slider
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+						step={11}
+						markers
+					/>
+
+					<Slider
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+						step={25}
+						markers='dots'
+					/>
+
+					<Slider
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+						step={33}
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+						markers
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+						markers={{
+							0: 'nula',
+							25: '',
+							50: 'fifty',
+							75: '',
+							100: 'fullmax',
+						}}
+						startPoint={50}
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+						markers={{
+							0: 'nula',
+							25: '',
+							50: 'fifty',
+							75: '',
+							100: 'fullmax',
+						}}
+						startPoint={50}
+						noActiveHighlight
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+						markers={{
+							0: <span className='es-uic-text-red-500'>R</span>,
+							50: <span className='es-uic-text-green-500'>G</span>,
+							100: <span className='es-uic-text-blue-500'>B</span>,
+						}}
+						startPoint={50}
+						noActiveHighlight
+						trackStyle={{
+							backgroundImage:
+								'linear-gradient(to right in oklab, #ff000060, #00ff0060, #0000ff60)',
+						}}
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Slider'
+						value={sliderValue2}
+						onChange={setSliderValue2}
+						min={-40}
+						max={60}
+						step={10}
+						markers
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Slider'
+						value={sliderValue2}
+						onChange={setSliderValue2}
+						min={-40}
+						max={60}
+						step={10}
+						markers={{
+							0: 'nula',
+							'-40': 'isklj.',
+							60: 'uklj.',
+						}}
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Range slider'
+						value={rangeSliderValue}
+						onChange={setRangeSliderValue}
+					/>
+
+					<Slider
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+						before={icons.emptyCircle}
+					/>
+
+					<Slider
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+						after={icons.emptyCircle}
+					/>
+
+					<Slider
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+						before={icons.emptyCircle}
+						after={icons.emptyCircle}
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Range slider'
+						value={rangeSliderValue}
+						onChange={setRangeSliderValue}
+						disabled
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Range slider'
+						value={rangeSliderValue}
+						onChange={setRangeSliderValue}
+						inputField
+						max={100}
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Range slider'
+						value={rangeSliderValue2}
+						onChange={setRangeSliderValue2}
+						max={100}
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+						vertical
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+						vertical
+						startPoint={50}
+						markers={{
+							0: 'nula',
+							50: 'fifty',
+							100: 'fullmax',
+						}}
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+						vertical
+						markers
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+						before={icons.emptyCircle}
+						after={icons.emptyCircle}
+						vertical
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Slider'
+						value={sliderValue}
+						onChange={setSliderValue}
+						before={icons.emptyCircle}
+						after={icons.emptyCircle}
+						inputField
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Range slider'
+						value={rangeSliderValue}
+						onChange={setRangeSliderValue}
+						vertical
+					/>
+
+					<Slider
+						icon={icons.emptyRect}
+						label='Range slider'
+						value={rangeSliderValue}
+						onChange={setRangeSliderValue}
+						vertical
+						markers
+					/>
 				</TabPanel>
 			</Tabs>
 		</div>
