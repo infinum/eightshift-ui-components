@@ -77,7 +77,7 @@ export const Button = (props) => {
 		default: {
 			regular: 'es-uic-text-gray-700 es-uic-shadow-sm es-uic-border es-uic-border-gray-300 es-uic-bg-white',
 			hover: 'hover:es-uic-border-gray-300 hover:es-uic-bg-gray-100',
-			disabled: 'disabled:es-uic-border-gray-200 disabled:es-uic-text-gray-300 es-uic-border',
+			disabled: 'disabled:es-uic-border-gray-300 disabled:es-uic-bg-gray-50/50 disabled:es-uic-text-gray-300 es-uic-border',
 			focus: 'focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 		},
 		selected: {
