@@ -182,13 +182,14 @@ export const RadioButtonGroup = (props) => {
 		mappedChildren = [children];
 	}
 
-	mappedChildren = children.map((child) => {
+	mappedChildren = children.map((child, index) => {
 		if (child.type.displayName !== 'RadioButton') {
 			return child;
 		}
 
 		return cloneElement(child, {
 			design: orientation === 'horizontal' ? `${design}Horizontal` : design,
+			key: child.props.value ?? index,
 		});
 	});
 
