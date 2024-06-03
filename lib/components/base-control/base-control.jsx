@@ -9,6 +9,7 @@ import { IconLabel } from '../icon-label/icon-label';
  * @param {Object} props - Component props.
  * @param {JSX.Element} [props.icon] - Icon to display in the label.
  * @param {string} props.label - Label to display.
+ * @param {string} props.subtitle - Subtitle to display below the label.
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to show to the right of the label.
  * @param {string} [props.help] - Help text to show below the component.
  * @param {boolean} [props.inline] - If `true`, the component is displayed inline - icon/label/subtitle are on the left, the passed content is on the right. **Note:** not compatible with `actions`.
