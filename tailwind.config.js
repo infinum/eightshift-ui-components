@@ -17,12 +17,13 @@ export default {
 		},
 		extend: {
 			spacing: {
+				'3.25': '0.8125rem', // 13px
 				'5.5': '1.375rem',
 				'18': '4.5rem',
 			},
 			fontSize: {
-				'sm': '.78125rem', // 12.5px
-				'xs': '.6875rem', // 11px
+				'sm': '0.78125rem', // 12.5px
+				'xs': '0.6875rem', // 11px
 			},
 		},
 	},
