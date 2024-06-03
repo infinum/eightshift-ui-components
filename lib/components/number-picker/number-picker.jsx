@@ -1,5 +1,5 @@
 import { cloneElement, useState } from 'react';
-import { Group, Input, Label, NumberField, Text } from 'react-aria-components';
+import { Group, Input, Label, NumberField } from 'react-aria-components';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
 import { classnames } from '../../utilities/classnames';
@@ -27,8 +27,11 @@ import { BaseControl } from '../base-control/base-control';
  * @param {number} [props.fixedWidth] - If passed, sets the width of the input field to the provided number of characters. Useful if you have e.g. value from 1 to 1000, but you don't want the input field to change size when on lower values.
  * @param {boolean} [props.inline] - If `true`, the number picker is displayed inline.
  * @param {boolean} [props.noScrollToChange=false] - If `true`, the number picker does not change value when scrolling.
+ * @param {NumberPickerSize} [props.size='default'] - Determines the input field size.
  *
  * @returns {JSX.Element} The NumberPicker component.
+ *
+ * @typedef {'compact' | 'default'} NumberPickerSize
  *
  * @example
  * <NumberPicker
@@ -57,9 +60,21 @@ export const NumberPicker = ({
 	children,
 	inline,
 	noScrollToChange = false,
+	size = 'default',
 	...props
 }) => {
 	const [isInputFocused, setIsInputFocused] = useState(false);
+
+	const sizes = {
+		compact: {
+			field: 'es-uic-min-h-5',
+			noPrefixPadding: 'es-uic-pl-1.5',
+		},
+		default: {
+			field: 'es-uic-min-h-10',
+			noPrefixPadding: 'es-uic-pl-2',
+		}
+	};
 
 	return (
 		<NumberField
@@ -84,9 +99,10 @@ export const NumberPicker = ({
 			>
 				<Group
 					className={classnames(
-						'es-uic-flex es-uic-min-h-10 es-uic-w-fit es-uic-items-center es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-pl-1 es-uic-pr-0.5 es-uic-shadow es-uic-transition',
+						'es-uic-flex es-uic-w-fit es-uic-items-center es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-pl-1 es-uic-pr-0.5 es-uic-shadow-sm es-uic-transition',
 						isInputFocused && 'es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-						!prefix && 'es-uic-pl-2',
+						!prefix && (sizes?.[size]?.noPrefixPadding ?? sizes.default.noPrefixPadding),
+						sizes?.[size]?.field ?? sizes.default.field,
 					)}
 				>
 					{prefix && (
@@ -100,7 +116,7 @@ export const NumberPicker = ({
 					<Input
 						onFocus={() => setIsInputFocused(true)}
 						onBlur={() => setIsInputFocused(false)}
-						className='es-uic-col-start-2 es-uic-row-span-2 es-uic-bg-transparent es-uic-py-1 es-uic-tabular-nums focus:es-uic-outline-none'
+						className='es-uic-col-start-2 es-uic-row-span-2 es-uic-bg-transparent es-uic-py-1 es-uic-tabular-nums focus:es-uic-outline-none es-uic-text-sm'
 						placeholder={placeholder}
 						style={{
 							width: fixedWidth
