@@ -1227,19 +1227,19 @@ function App() {
 							label='Lorem'
 							subtitle='Ipsum value dolor sit amet'
 							icon={icons.emptyCircle}
-							value='lorem'
+							value='lorem1'
 						/>
 						<RadioButton
 							label='Ipsum'
 							subtitle='Ipsum value dolor sit amet'
 							icon={icons.emptyCircle}
-							value='ipsum'
+							value='ipsum1'
 						/>
 						<RadioButton
 							label='Dolor'
 							subtitle='Ipsum value dolor sit amet'
 							icon={icons.emptyCircle}
-							value='dolor'
+							value='dolor1'
 						/>
 					</RadioButtonGroup>
 
@@ -1252,17 +1252,17 @@ function App() {
 						<RadioButton
 							label='Lorem'
 							subtitle='Ips value'
-							value='lorem'
+							value='lorem2'
 						/>
 						<RadioButton
 							label='Ipsum'
 							subtitle='Ips value'
-							value='ipsum'
+							value='ipsum2'
 						/>
 						<RadioButton
 							label='Dolor'
 							subtitle='Ips value'
-							value='dolor'
+							value='dolor2'
 						/>
 					</RadioButtonGroup>
 
@@ -1275,17 +1275,17 @@ function App() {
 						<RadioButton
 							label='Lorem'
 							subtitle='Ips value'
-							value='lorem'
+							value='lorem3'
 						/>
 						<RadioButton
 							label='Ipsum'
 							subtitle='Ips value'
-							value='ipsum'
+							value='ipsum3'
 						/>
 						<RadioButton
 							label='Dolor'
 							subtitle='Ips value'
-							value='dolor'
+							value='dolor3'
 						/>
 					</RadioButtonGroup>
 
@@ -1299,17 +1299,17 @@ function App() {
 						<RadioButton
 							label='Lorem'
 							subtitle='Ips value'
-							value='lorem'
+							value='lorem4'
 						/>
 						<RadioButton
 							label='Ipsum'
 							subtitle='Ips value'
-							value='ipsum'
+							value='ipsum4'
 						/>
 						<RadioButton
 							label='Dolor'
 							subtitle='Ips value'
-							value='dolor'
+							value='dolor4'
 						/>
 					</RadioButtonGroup>
 				</TabPanel>
