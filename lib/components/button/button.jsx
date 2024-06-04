@@ -2,6 +2,7 @@ import { useObjectRef } from 'react-aria';
 import { Button as ReactAriaButton, Toolbar } from 'react-aria-components';
 import { classnames } from '../../utilities/classnames';
 import { Tooltip } from '../tooltip/tooltip';
+import { __ } from '@wordpress/i18n';
 
 /**
  * A simple button component.
@@ -44,6 +45,9 @@ export const Button = (props) => {
 		forwardedRef,
 		wrapperClassName,
 		tooltipProps,
+		'aria-label': ariaLabel = typeof children === 'string'
+			? children
+			: __('Menu item', 'eightshift-component'),
 		...other
 	} = props;
 
@@ -129,6 +133,7 @@ export const Button = (props) => {
 				className,
 			)}
 			ref={objRef}
+			aria-label={ariaLabel}
 			{...other}
 		>
 			{icon}

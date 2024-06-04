@@ -1,4 +1,4 @@
-import { DropIndicator } from 'react-aria-components';
+import { DropIndicator, GridListContext } from 'react-aria-components';
 import { useListData } from 'react-stately';
 import { GridList, useDragAndDrop } from 'react-aria-components';
 import { Button, ButtonGroup } from '../button/button';
@@ -28,6 +28,7 @@ import { ToggleButton } from '../toggle-button/toggle-button';
  * @param {Function} props.onChange - Function to run when the items change.
  * @param {Function} [props.onAfterItemAdd] - Function to run after an item is added.
  * @param {Function} [props.onAfterItemRemove] - Function to run after an item is removed.
+ * @param {Number} [props.minItems] - The minimum number of items that must be present. If there are less items than this, deleting items will be disabled.
  *
  * @returns {JSX.Element} The Repeater component.
  *
@@ -77,19 +78,21 @@ export const Repeater = (props) => {
 		addDisabled,
 		onAfterItemAdd,
 		onAfterItemRemove,
+		minItems,
 		...rest
 	} = props;
 
 	const list = useListData({
-		initialItems: items.map((item, i) => ({ id: item.id ?? `${itemIdBase}${i}`, ...item })),
+		initialItems: items?.map((item, i) => ({ id: item.id ?? `${itemIdBase}${i}`, ...item })),
 		getKey: ({ id }) => id,
 	});
 
 	const [selectable, setSelectable] = useState(false);
 	const [canDelete, setCanDelete] = useState(false);
+	const [canReorder, setCanReorder] = useState(true);
 
 	let { dragAndDropHooks } = useDragAndDrop({
-		isDisabled: selectable,
+		isDisabled: selectable || !canReorder,
 
 		getItems: (keys) =>
 			[...keys].map((key) => ({
@@ -144,6 +147,7 @@ export const Repeater = (props) => {
 		},
 	});
 
+
 	// Update main value when items change.
 	useEffect(() => {
 		const items = list.items.map((item) => {
@@ -153,7 +157,8 @@ export const Repeater = (props) => {
 		});
 
 		onChange(items);
-	}, [list.items, onChange]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [list.items]);
 
 	return (
 		<BaseControl
@@ -216,40 +221,47 @@ export const Repeater = (props) => {
 							size='small'
 							icon={icons.checkSquare}
 							tooltip={__('Select items', 'eightshift-components')}
+							disabled={minItems && items.length <= minItems}
 						/>
 					</ButtonGroup>
 				</>
 			}
 			className='es-uic-w-full'
 		>
-			<GridList
-				aria-label={ariaLabel ?? __('Repeater', 'eightshift-component')}
-				selectionMode={selectable ? 'multiple' : 'none'}
-				selectionBehavior='toggle'
-				selectedKeys={list.selectedKeys}
-				onSelectionChange={(selected) => {
-					list.setSelectedKeys(selected);
-					setCanDelete((selected.size ?? 0) > 0);
-				}}
-				items={list.items.map((item) => ({
-					...item,
-					updateData: (newValue) => {
-						list.update(item.id, { ...list.getItem(item.id), ...newValue });
-					},
-					deleteItem: () => list.remove(item.id),
-				}))}
-				dragAndDropHooks={dragAndDropHooks}
-				renderEmptyState={() =>
-					hideEmptyState ? null : (
-						<div className='es-uic-rounded-md es-uic-border es-uic-border-dashed es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-text-gray-400'>
-							{__('No items', 'eightshift-components')}
-						</div>
-					)
-				}
-				{...rest}
-			>
-				{children}
-			</GridList>
+			<GridListContext.Provider value={{ setCanReorder: setCanReorder }}>
+				<GridList
+					aria-label={ariaLabel ?? __('Repeater', 'eightshift-component')}
+					selectionMode={selectable ? 'multiple' : 'none'}
+					selectionBehavior='toggle'
+					selectedKeys={list.selectedKeys}
+					onSelectionChange={(selected) => {
+						list.setSelectedKeys(selected);
+						setCanDelete((selected.size ?? 0) > 0);
+					}}
+					items={list.items.map((item, index) => ({
+						...item,
+						updateData: (newValue) => {
+							list.update(item.id, { ...list.getItem(item.id), ...newValue });
+						},
+						itemIndex: index,
+						deleteItem: () => list.remove(item.id),
+						canReorder,
+						setCanReorder,
+					}))}
+					dragAndDropHooks={dragAndDropHooks}
+					renderEmptyState={() =>
+						hideEmptyState ? null : (
+							<div className='es-uic-rounded-md es-uic-border es-uic-border-dashed es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-text-gray-400'>
+								{__('No items', 'eightshift-components')}
+							</div>
+						)
+					}
+					className='es-uic-space-y-1.5'
+					{...rest}
+				>
+					{children}
+				</GridList>
+			</GridListContext.Provider>
 		</BaseControl>
 	);
 };

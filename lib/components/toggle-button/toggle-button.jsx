@@ -90,7 +90,7 @@ export const ToggleButton = (props) => {
 				'es-uic-bg-teal-600 es-uic-text-white es-uic-border-teal-600 after:es-uic-opacity-30 es-uic-border es-uic-shadow-md es-uic-shadow-teal-500/25',
 			selectedHover: 'hover:es-uic-shadow-teal-600/50 hover:after:es-uic-opacity-40',
 			focus: ' focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-			disabled: 'disabled:es-uic-border-gray-200 disabled:es-uic-text-gray-300',
+			disabled: 'disabled:es-uic-border-gray-200 disabled:es-uic-text-gray-300 es-uic-border',
 		},
 		ghost: {
 			regular: 'es-uic-border-transparent es-uic-text-gray-700',

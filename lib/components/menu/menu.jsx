@@ -76,7 +76,7 @@ export const Menu = (props) => {
 
 		keepOpen = false,
 
-		'aria-label': ariaLabel = __('Menu', 'eightshift-components'),
+		'aria-label': ariaLabel = triggerLabel ?? __('Menu', 'eightshift-components'),
 
 		openOnLongPress = false,
 	} = props;
@@ -110,10 +110,11 @@ export const Menu = (props) => {
 				{triggerLabel}
 			</Button>
 			<Popover
-				className='focus:es-uic-outline-none !es-uic-p-0'
+				className='!es-uic-p-0 focus:es-uic-outline-none'
 				aria-label={ariaLabel}
 			>
 				<ReactAriaMenu
+					aria-label={ariaLabel}
 					className='focus:es-uic-outline-none'
 					{...props}
 					{...additionalProps}
@@ -150,7 +151,11 @@ export const MenuSection = (props) => {
 				!label && 'last:es-uic-pb-0',
 			)}
 		>
-			{label && <Header className='es-uic-ml-1.5 es-uic-text-xs es-uic-font-medium es-uic-text-gray-400'>{label}</Header>}
+			{label && (
+				<Header className='es-uic-ml-1.5 es-uic-text-xs es-uic-font-medium es-uic-text-gray-400'>
+					{label}
+				</Header>
+			)}
 			{children}
 		</Section>
 	);
@@ -190,11 +195,25 @@ export const MenuSeparator = () => {
  * @preserve
  */
 export const MenuItem = (props) => {
-	const { icon, children, checked, selected, disabled, endIcon, onClick, shortcut, className } =
-		props;
+	const {
+		icon,
+		children,
+		checked,
+		selected,
+		disabled,
+		endIcon,
+		onClick,
+		shortcut,
+		className,
+		'aria-label': ariaLabel = typeof children === 'string'
+			? children
+			: __('Menu item', 'eightshift-component'),
+	} = props;
+
 	return (
 		<ReactAriaMenuItem
 			{...props}
+			aria-label={ariaLabel}
 			isDisabled={disabled}
 			className={classnames(
 				'es-uic-mx-1 es-uic-mb-1 es-uic-flex es-uic-min-w-40 es-uic-items-center es-uic-gap-1.5',
@@ -212,7 +231,9 @@ export const MenuItem = (props) => {
 			{icon}
 			{children}
 			{shortcut && (
-				<div className='es-uic-ml-auto es-uic-text-[0.6875rem] es-uic-tracking-tight es-uic-text-gray-400'>{shortcut}</div>
+				<div className='es-uic-ml-auto es-uic-text-[0.6875rem] es-uic-tracking-tight es-uic-text-gray-400'>
+					{shortcut}
+				</div>
 			)}
 			{endIcon && <div className={classnames(!shortcut && 'ml-auto')}>{endIcon}</div>}
 		</ReactAriaMenuItem>
@@ -242,7 +263,7 @@ export const SubMenuItem = (props) => {
 			})}
 			<Popover
 				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-components')}
-				className='focus:es-uic-outline-none !es-uic-p-0'
+				className='!es-uic-p-0 focus:es-uic-outline-none'
 				offset={-1}
 			>
 				<ReactAriaMenu

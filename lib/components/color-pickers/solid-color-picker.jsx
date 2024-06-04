@@ -16,29 +16,52 @@ import { TriggeredPopover } from '../popover/popover';
 import { icons } from '../../icons/icons';
 import { Spacer } from '../spacer/spacer';
 
+/**
+ * A solid color picker.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {import('react-aria-components').Color} props.value - The color value. Hex format is preferred, but HSL, HSB, and RGB are also supported.
+ * @param {Function} props.onChange - The change handler.
+ * @param {boolean} [props.disabled] - Whether the color picker is disabled.
+ * @param {Function} [props.onChangeEnd] - The change end handler.
+ * @param {boolean} [props.allowTransparency=false] - Whether the color picker allows transparency.
+ * @param {import('react-aria-components').ColorFormat} [props.outputFormat] - The output format. Default is 'hex' (or 'hexa' if `allowTransparency` is true).
+ *
+ * @returns {JSX.Element} The ButtonGroup component.
+ *
+ * @example
+ * <ButtonGroup
+ *
+ * @preserve
+ */
 export const SolidColorPicker = (props) => {
-	const { value, onChange, disabled, onChangeEnd, allowTransparency = false, outputFormat } = props;
+	const { value: rawValue, onChange, disabled, onChangeEnd, allowTransparency = false, outputFormat } = props;
 
-	const [color, setColor] = useState(
-		parseColor(value).toFormat(allowTransparency ? 'hsla' : 'hsl'),
-	);
+	const value = rawValue?.replace('transparent', 'rgba(0, 0, 0, 0)');
+
+	const defaultColor = parseColor('#00000000').toFormat(allowTransparency ? 'hsla' : 'hsl');
+
+	const modifiedValue = value && value?.length > 1 ? parseColor(value) : defaultColor;
+
+	const [color, setColor] = useState(modifiedValue.toFormat(allowTransparency ? 'hsla' : 'hsl'));
 
 	let handleChangeEnd;
 
 	if (onChangeEnd) {
 		handleChangeEnd = (color) => {
-			setColor(color);
-			onChangeEnd(color.toString(outputFormat ?? (allowTransparency ? 'hexa' : 'hex')));
+			setColor(color ?? defaultColor);
+			onChange(color?.toString(outputFormat ?? (allowTransparency ? 'hexa' : 'hex')));
 		};
 	}
 
 	let handleChange = (color) => {
-		setColor(color);
-		onChange(color.toString(outputFormat ?? (allowTransparency ? 'hexa' : 'hex')));
+		setColor(color ?? defaultColor);
+		onChange(color?.toString(outputFormat ?? (allowTransparency ? 'hexa' : 'hex')));
 	};
 
 	return (
-		<div className='es-uic-space-y-2'>
+		<div className='es-uic-flex es-uic-flex-col es-uic-gap-2 es-uic-items-center'>
 			<ColorArea
 				value={color}
 				xChannel='saturation'
@@ -100,6 +123,13 @@ export const SolidColorPicker = (props) => {
 							'[&:has(>_[data-focus-visible="true"])]:es-uic-ring [&:has(>_[data-focus-visible="true"])]:es-uic-ring-teal-500 [&:has(>_[data-focus-visible="true"])]:es-uic-ring-opacity-50',
 							'disabled:!es-uic-bg-gradient-to-r disabled:es-uic-from-white disabled:es-uic-to-gray-100',
 						)}
+						style={() => {
+							const startColor = color.clone().withChannelValue('alpha', 0).toString('hsla');
+							const endColor = color.clone().withChannelValue('alpha', 1).toString('hsla');
+							return {
+								background: `linear-gradient(to right, ${startColor}, ${endColor}), repeating-conic-gradient(rgb(204, 204, 204) 0%, rgb(204, 204, 204) 25%, white 0%, white 50%) 50% center / 14px 14px`,
+							};
+						}}
 					>
 						<ColorThumb
 							className={classnames(
@@ -117,7 +147,7 @@ export const SolidColorPicker = (props) => {
 			<div className='es-uic-flex es-uic-items-center es-uic-justify-center es-uic-gap-2'>
 				<ColorField
 					value={color}
-					onChange={(color) => handleChange(color.toFormat('hsl'))}
+					onChange={(color) => handleChange(color?.toFormat('hsl'))}
 					aria-label={__('Hex color value', 'eightshift-ui-components')}
 					isDisabled={disabled}
 				>
@@ -145,8 +175,8 @@ export const SolidColorPicker = (props) => {
 						text='RGB'
 					/>
 					<ColorField
-						value={color.toFormat(allowTransparency ? 'rgba' : 'rgb')}
-						onChange={(color) => handleChange(color.toFormat('hsl'))}
+						value={color?.toFormat(allowTransparency ? 'rgba' : 'rgb')}
+						onChange={(color) => handleChange(color?.toFormat('hsl'))}
 						channel='red'
 					>
 						<BaseControl
@@ -162,8 +192,8 @@ export const SolidColorPicker = (props) => {
 						</BaseControl>
 					</ColorField>
 					<ColorField
-						value={color.toFormat(allowTransparency ? 'rgba' : 'rgb')}
-						onChange={(color) => handleChange(color.toFormat('hsl'))}
+						value={color?.toFormat(allowTransparency ? 'rgba' : 'rgb')}
+						onChange={(color) => handleChange(color?.toFormat('hsl'))}
 						channel='green'
 					>
 						<BaseControl
@@ -179,8 +209,8 @@ export const SolidColorPicker = (props) => {
 						</BaseControl>
 					</ColorField>
 					<ColorField
-						value={color.toFormat(allowTransparency ? 'rgba' : 'rgb')}
-						onChange={(color) => handleChange(color.toFormat('hsl'))}
+						value={color?.toFormat(allowTransparency ? 'rgba' : 'rgb')}
+						onChange={(color) => handleChange(color?.toFormat('hsl'))}
 						channel='blue'
 					>
 						<BaseControl
@@ -201,8 +231,8 @@ export const SolidColorPicker = (props) => {
 						text='HSL'
 					/>
 					<ColorField
-						value={color.toFormat(allowTransparency ? 'hsla' : 'hsl')}
-						onChange={(color) => handleChange(color.toFormat('hsl'))}
+						value={color?.toFormat(allowTransparency ? 'hsla' : 'hsl')}
+						onChange={(color) => handleChange(color?.toFormat('hsl'))}
 						channel='hue'
 					>
 						<BaseControl
@@ -219,8 +249,8 @@ export const SolidColorPicker = (props) => {
 					</ColorField>
 
 					<ColorField
-						value={color.toFormat(allowTransparency ? 'hsla' : 'hsl')}
-						onChange={(color) => handleChange(color.toFormat('hsl'))}
+						value={color?.toFormat(allowTransparency ? 'hsla' : 'hsl')}
+						onChange={(color) => handleChange(color?.toFormat('hsl'))}
 						channel='saturation'
 					>
 						<BaseControl
@@ -237,8 +267,8 @@ export const SolidColorPicker = (props) => {
 					</ColorField>
 
 					<ColorField
-						value={color.toFormat(allowTransparency ? 'hsla' : 'hsl')}
-						onChange={(color) => handleChange(color.toFormat('hsl'))}
+						value={color?.toFormat(allowTransparency ? 'hsla' : 'hsl')}
+						onChange={(color) => handleChange(color?.toFormat('hsl'))}
 						channel='lightness'
 					>
 						<BaseControl
@@ -259,8 +289,8 @@ export const SolidColorPicker = (props) => {
 						text='HSB'
 					/>
 					<ColorField
-						value={color.toFormat(allowTransparency ? 'hsba' : 'hsb')}
-						onChange={(color) => handleChange(color.toFormat('hsl'))}
+						value={color?.toFormat(allowTransparency ? 'hsba' : 'hsb')}
+						onChange={(color) => handleChange(color?.toFormat('hsl'))}
 						channel='hue'
 					>
 						<BaseControl
@@ -277,8 +307,8 @@ export const SolidColorPicker = (props) => {
 					</ColorField>
 
 					<ColorField
-						value={color.toFormat(allowTransparency ? 'hsba' : 'hsb')}
-						onChange={(color) => handleChange(color.toFormat('hsl'))}
+						value={color?.toFormat(allowTransparency ? 'hsba' : 'hsb')}
+						onChange={(color) => handleChange(color?.toFormat('hsl'))}
 						channel='saturation'
 					>
 						<BaseControl
@@ -295,8 +325,8 @@ export const SolidColorPicker = (props) => {
 					</ColorField>
 
 					<ColorField
-						value={color.toFormat(allowTransparency ? 'hsba' : 'hsb')}
-						onChange={(color) => handleChange(color.toFormat('hsl'))}
+						value={color?.toFormat(allowTransparency ? 'hsba' : 'hsb')}
+						onChange={(color) => handleChange(color?.toFormat('hsl'))}
 						channel='brightness'
 					>
 						<BaseControl

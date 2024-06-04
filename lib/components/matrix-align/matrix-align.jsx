@@ -143,12 +143,7 @@ export const MatrixAlign = (props) => {
 				aria-label={ariaLabel ?? __('Select position', 'eightshift-components')}
 				position={popoverPosition}
 				triggerRef={ref}
-				onOpenChange={(isOpen) => {
-					setPopoverOpen(isOpen);
-					if (!isOpen) {
-						onChange(currentValue);
-					}
-				}}
+				onOpenChange={setPopoverOpen}
 				isOpen={popoverOpen}
 				ariaLabel={label ?? tooltip}
 			>
@@ -174,10 +169,11 @@ export const MatrixAlign = (props) => {
 								onHoverStart={() => setTooltipText(label)}
 								onHoverEnd={() => setTooltipText(null)}
 								onFocus={() => setTooltipText(label)}
-								onClick={() => {
+								onPress={() => {
 									setCurrentValue(value);
 									setTooltipText(null);
 									setPopoverOpen(false);
+									onChange(value);
 								}}
 							/>
 						))}

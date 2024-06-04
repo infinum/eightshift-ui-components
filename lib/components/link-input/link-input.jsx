@@ -18,7 +18,6 @@ import { BaseControl } from '../base-control/base-control';
 import { Button } from '../button/button';
 import { IconLabel } from '../icon-label/icon-label';
 import { Popover } from '../popover/popover';
-import { useCellEditMode } from '../../hooks/use-cell-edit-mode';
 import { useDebouncedCallback } from 'use-debounce';
 
 /**
@@ -128,9 +127,6 @@ export const LinkInput = (props) => {
 		{ maxWait: 2000 },
 	);
 
-	// Put the control in edit mode when focused so that the external navigation presses don't mess with text input.
-	const preventProps = useCellEditMode();
-
 	return (
 		<>
 			<SearchField
@@ -165,27 +161,11 @@ export const LinkInput = (props) => {
 								inputValue?.length > 0 && 'es-uic-pr-8',
 								className,
 							)}
-							onSelect={(e) => {
-								preventProps.onClick();
-
-								if (props.onSelect) {
-									props.onSelect(e);
-								}
-							}}
 							onFocus={(e) => {
-								preventProps.onFocus();
-
 								onChange({ url: inputValue, isAnchor: inputValue?.includes('#') });
 
 								if (props.onFocus) {
 									props.onFocus(e);
-								}
-							}}
-							onBlur={(e) => {
-								preventProps.onBlur();
-
-								if (props.onBlur) {
-									props.onBlur(e);
 								}
 							}}
 						/>

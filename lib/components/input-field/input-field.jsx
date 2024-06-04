@@ -1,7 +1,6 @@
 import { TextField, Label, Input as ReactAriaInput, TextArea } from 'react-aria-components';
 import { BaseControl } from '../base-control/base-control';
 import { classnames } from '../../utilities/classnames';
-import { useCellEditMode } from '../../hooks/use-cell-edit-mode';
 
 /**
  * An input field.
@@ -49,9 +48,6 @@ export const InputField = (props) => {
 		...other
 	} = props;
 
-	// Put the control in edit mode when focused so that the external navigation presses don't mess with text input.
-	const preventProps = useCellEditMode();
-
 	return (
 		<TextField
 			value={value ?? ''}
@@ -59,27 +55,6 @@ export const InputField = (props) => {
 			isDisabled={disabled}
 			isReadOnly={readOnly}
 			{...other}
-			onSelect={(e) => {
-				preventProps.onClick();
-
-				if (props.onSelect) {
-					props.onSelect(e);
-				}
-			}}
-			onFocus={(e) => {
-				preventProps.onFocus();
-
-				if (props.onFocus) {
-					props.onFocus(e);
-				}
-			}}
-			onBlur={(e) => {
-				preventProps.onBlur();
-
-				if (props.onBlur) {
-					props.onBlur(e);
-				}
-			}}
 		>
 			<BaseControl
 				icon={icon}

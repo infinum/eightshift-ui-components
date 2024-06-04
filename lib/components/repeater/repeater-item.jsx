@@ -1,10 +1,16 @@
-import { Checkbox as ReactAriaCheckbox, GridListItem } from 'react-aria-components';
+import {
+	Checkbox as ReactAriaCheckbox,
+	GridListItem,
+	GridListContext,
+} from 'react-aria-components';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
 import { classnames } from '../../utilities/classnames';
 import { Expandable } from '../expandable/expandable';
 import { __ } from '@wordpress/i18n';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
+import { useRef } from 'react';
+import { useCellEditMode } from '../../hooks/use-cell-edit-mode';
 
 /**
  * A Repeater item.
@@ -47,51 +53,69 @@ export const RepeaterItem = (props) => {
 		a11yLabel = __('New item', 'eightshift-components');
 	}
 
-	return (
-		<GridListItem
-			aria-label={ariaLabel ?? a11yLabel}
-			textValue={a11yLabel}
-			className={classnames(
-				'es-uic-rounded-lg es-uic-transition',
-				'focus:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-			)}
-			{...rest}
-		>
-			{({ selectionMode, allowsDragging, isDragging }) => (
-				<Expandable
-					disabled={selectionMode === 'multiple'}
-					icon={
-						<>
-							{selectionMode === 'multiple' && <Checkbox slot='selection' />}
-							{selectionMode === 'none' && icon}
-						</>
-					}
-					label={<div className='es-uic-flex es-uic-items-center es-uic-gap-1'>{label}</div>}
-					subtitle={subtitle}
-					labelClassName={className}
-					className={classnames(isDragging && 'es-uic-opacity-25')}
-					actions={
-						<>
-							{selectionMode === 'none' && allowsDragging && (
-								<Button
-									size='small'
-									className='es-uic-h-6 es-uic-w-4 !es-uic-text-gray-500 es-uic-opacity-5 focus:!es-uic-opacity-100'
-									slot='drag'
-									type='ghost'
-									icon={icons.reorderGrabberV}
-									tooltip={__('Re-order', 'eightshift-components')}
-								/>
-							)}
+	const itemRef = useRef(null);
 
-							{actions}
-						</>
-					}
-					noFocusHandling
-				>
-					{children}
-				</Expandable>
-			)}
-		</GridListItem>
+	const preventProps = useCellEditMode(itemRef);
+
+	return (
+		<GridListContext.Consumer>
+			{({ setCanReorder }) => {
+				return (
+					<GridListItem
+						aria-label={ariaLabel ?? a11yLabel}
+						textValue={a11yLabel}
+						className={classnames(
+							'es-uic-rounded-lg es-uic-transition',
+							'focus:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+						)}
+						{...rest}
+					>
+						{({ selectionMode, allowsDragging, isDragging }) => (
+							<Expandable
+								disabled={selectionMode === 'multiple'}
+								icon={
+									<>
+										{selectionMode === 'multiple' && <Checkbox slot='selection' />}
+										{selectionMode === 'none' && icon}
+									</>
+								}
+								label={<div className='es-uic-flex es-uic-items-center es-uic-gap-1'>{label}</div>}
+								subtitle={subtitle}
+								labelClassName={className}
+								className={classnames(isDragging && 'es-uic-opacity-25')}
+								onOpenChange={(isOpen) => setCanReorder(!isOpen)}
+								actions={
+									<>
+										{selectionMode === 'none' && allowsDragging && (
+											<Button
+												size='small'
+												className='es-uic-h-6 es-uic-w-4 !es-uic-text-gray-500 es-uic-opacity-5 focus:!es-uic-opacity-100'
+												slot='drag'
+												type='ghost'
+												icon={icons.reorderGrabberV}
+												tooltip={__('Re-order', 'eightshift-components')}
+											/>
+										)}
+
+										{actions}
+									</>
+								}
+								noFocusHandling
+								{...preventProps}
+							>
+								<div
+									className='pero'
+									// {...preventProps}
+									// ref={itemRef}
+								>
+									{children}
+								</div>
+							</Expandable>
+						)}
+					</GridListItem>
+				);
+			}}
+		</GridListContext.Consumer>
 	);
 };
 

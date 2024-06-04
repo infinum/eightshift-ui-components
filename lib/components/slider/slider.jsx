@@ -11,7 +11,7 @@ import {
 import { BaseControl } from '../base-control/base-control';
 import { classnames } from '../../utilities/classnames';
 import { NumberPicker } from '../number-picker/number-picker';
-import { useContext, useRef, useState } from 'react';
+import { useContext, useState } from 'react';
 import { generateMarkers } from './utils';
 
 /**
@@ -39,6 +39,7 @@ import { generateMarkers } from './utils';
  * @param {JSX.Element} [props.before] - Element to display before the slider.
  * @param {JSX.Element} [props.after] - Element to display after the slider.
  * @param {string[]} [props.thumbLabels] - ARIA labels for the thumbs.
+ * @param {Function} [props.thumbContent] - If provided, the function will be called with the current value of the thumb, and the return value will be displayed within the thumb. `(currentIndex: number) => JSX.Element`.
  * @param {string} [props.labelClassName] - Additional classes to pass to the label.
  * @param {Object<string, any>} [props.trackStyle] - Additional style for the track.
  *
@@ -47,7 +48,11 @@ import { generateMarkers } from './utils';
  * @typedef {'dots' | 'lines' | 'true' | Object<Number, string>} SliderMarkerType
  *
  * @example
- * <ButtonGroup
+ * <Slider
+ * 	label='My slider'
+ * 	value={sliderValue}
+ * 	onChange={setSliderValue}
+ * />
  *
  * @preserve
  */
@@ -83,6 +88,7 @@ export const Slider = (props) => {
 		after,
 
 		thumbLabels,
+		thumbContent,
 
 		labelClassName,
 		trackStyle,
@@ -106,8 +112,6 @@ export const Slider = (props) => {
 
 	const markerData = vertical ? markerEntries.toReversed() : markerEntries;
 
-	const elementRef = useRef(null);
-
 	return (
 		<ReactAriaSlider
 			value={value}
@@ -119,7 +123,6 @@ export const Slider = (props) => {
 			orientation={vertical ? 'vertical' : 'horizontal'}
 			className='es-uic-w-full es-uic-pb-3.5'
 			onChangeEnd={onChangeEnd}
-			ref={elementRef}
 			{...other}
 		>
 			<BaseControl
@@ -271,97 +274,90 @@ export const Slider = (props) => {
 									/>
 								)}
 
-								<div
-									className={classnames(
-										'es-uic-relative es-uic-col-start-1 es-uic-row-start-1',
-										!vertical && 'es-uic-h-1 es-uic-w-full es-uic-self-center',
-										vertical &&
-											'es-uic-h-full es-uic-w-1 es-uic-flex-col es-uic-justify-self-center',
-									)}
-								>
-									{markerData.map(([rawDotValue, labelData]) => {
-										let percentageValue;
+								{markers && (
+									<div
+										className={classnames(
+											'es-uic-relative es-uic-col-start-1 es-uic-row-start-1',
+											!vertical && 'es-uic-h-1 es-uic-w-full es-uic-self-center',
+											vertical &&
+												'es-uic-h-full es-uic-w-1 es-uic-flex-col es-uic-justify-self-center',
+										)}
+									>
+										{markerData.map(([rawDotValue, labelData], index) => {
+											const dotValue = parseFloat(rawDotValue);
 
-										const totalValueWidth = min < 0 ? max + Math.abs(min) + 1 : max - min;
+											let isWithinActiveBar = false;
 
-										const dotValue = parseFloat(rawDotValue);
+											if (Array.isArray(value)) {
+												isWithinActiveBar =
+													value[0] <= dotValue && dotValue <= value[value.length - 1];
+											} else if (startPoint && dotValue >= startPoint) {
+												isWithinActiveBar =
+													dotValue >= startPoint &&
+													dotValue <= currValue &&
+													dotValue !== startPoint;
+											} else if (startPoint && dotValue < startPoint) {
+												isWithinActiveBar =
+													dotValue <= startPoint &&
+													dotValue >= currValue &&
+													dotValue !== startPoint;
+											} else if (min < 0 && dotValue >= 0) {
+												isWithinActiveBar =
+													dotValue >= 0 && dotValue <= currValue && dotValue !== 0;
+											} else if (min < 0 && dotValue < 0) {
+												isWithinActiveBar =
+													dotValue <= 0 && dotValue >= currValue && dotValue !== 0;
+											} else {
+												isWithinActiveBar =
+													dotValue <= currValue && dotValue > min && dotValue < max;
+											}
 
-										if (min < 0 && dotValue < 0) {
-											percentageValue =
-												Math.abs(min) / totalValueWidth + dotValue / totalValueWidth;
-										} else if (min < 0 && dotValue >= 0) {
-											percentageValue =
-												Math.abs(min) / totalValueWidth + dotValue / totalValueWidth;
-										} else {
-											percentageValue = dotValue / totalValueWidth;
-										}
-
-										if (vertical) {
-											percentageValue = 1 - percentageValue;
-										}
-
-										let isWithinActiveBar = false;
-
-										if (Array.isArray(value)) {
-											isWithinActiveBar =
-												value[0] <= dotValue && dotValue <= value[value.length - 1];
-										} else if (startPoint && dotValue >= startPoint) {
-											isWithinActiveBar =
-												dotValue >= startPoint && dotValue <= currValue && dotValue !== startPoint;
-										} else if (startPoint && dotValue < startPoint) {
-											isWithinActiveBar =
-												dotValue <= startPoint && dotValue >= currValue && dotValue !== startPoint;
-										} else if (min < 0 && dotValue >= 0) {
-											isWithinActiveBar = dotValue >= 0 && dotValue <= currValue && dotValue !== 0;
-										} else if (min < 0 && dotValue < 0) {
-											isWithinActiveBar = dotValue <= 0 && dotValue >= currValue && dotValue !== 0;
-										} else {
-											isWithinActiveBar = dotValue <= currValue && dotValue > min && dotValue < max;
-										}
-
-										return (
-											<div
-												key={dotValue}
-												className={classnames(
-													'es-uic-absolute',
-													vertical
-														? 'es-uic-h-px es-uic-w-1'
-														: 'es-uic-h-1 es-uic-w-px es-uic-translate-x-1/2',
-													!(
-														dotValue === min ||
-														dotValue === max ||
-														(dotValue === startPoint && !noActiveHighlight) ||
-														(min < 0 && dotValue === 0 && !noActiveHighlight) ||
-														isWithinActiveBar
-													) && 'es-uic-bg-gray-300',
-													!noActiveHighlight && isWithinActiveBar && 'es-uic-bg-teal-500/75',
-												)}
-												style={{
-													left: vertical ? null : `calc(${percentageValue * 100}%)`,
-													top: vertical ? `calc(${percentageValue * 100}%)` : null,
-												}}
-											>
-												<span
+											return (
+												<div
+													key={index}
 													className={classnames(
-														'es-uic-absolute es-uic-select-none es-uic-text-xs es-uic-transition-colors',
+														'es-uic-absolute',
 														vertical
-															? 'es-uic-left-3.5 es-uic-top-0 -es-uic-translate-y-1/2'
-															: 'es-uic-left-0 es-uic-top-2.5 -es-uic-translate-x-1/2',
-														(
-															Array.isArray(value)
-																? value.includes(Number(dotValue))
-																: value === Number(dotValue) && !disabled
-														)
-															? 'es-uic-text-teal-700'
-															: 'es-uic-text-gray-300',
+															? 'es-uic-h-px es-uic-w-1'
+															: 'es-uic-h-1 es-uic-w-px es-uic-translate-x-1/2',
+														!(
+															dotValue === min ||
+															dotValue === max ||
+															(dotValue === startPoint && !noActiveHighlight) ||
+															(min < 0 && dotValue === 0 && !noActiveHighlight) ||
+															isWithinActiveBar
+														) && 'es-uic-bg-gray-300',
+														!noActiveHighlight && isWithinActiveBar && 'es-uic-bg-teal-500/75',
 													)}
+													style={{
+														left: vertical ? null : `${state.getValuePercent(dotValue) * 100}%`,
+														top: vertical
+															? `calc(${state.getValuePercent(dotValue) * 100}%)`
+															: null,
+													}}
 												>
-													{markers && markers !== 'dots' && labelData}
-												</span>
-											</div>
-										);
-									})}
-								</div>
+													<span
+														className={classnames(
+															'es-uic-absolute es-uic-select-none es-uic-text-xs es-uic-transition-colors',
+															vertical
+																? 'es-uic-left-3.5 es-uic-top-0 -es-uic-translate-y-1/2'
+																: 'es-uic-left-0 es-uic-top-2.5 -es-uic-translate-x-1/2',
+															(
+																Array.isArray(value)
+																	? value.includes(Number(dotValue))
+																	: value === Number(dotValue) && !disabled
+															)
+																? 'es-uic-text-teal-700'
+																: 'es-uic-text-gray-300',
+														)}
+													>
+														{markers && markers !== 'dots' && labelData}
+													</span>
+												</div>
+											);
+										})}
+									</div>
+								)}
 
 								<div className='es-uic-relative es-uic-col-start-1 es-uic-row-start-1 es-uic-p-px'>
 									{state.values.map((_, i) => (
@@ -371,7 +367,6 @@ export const Slider = (props) => {
 											aria-label={thumbLabels?.[i]}
 											className={classnames(
 												'es-uic-absolute es-uic-size-3.5 es-uic-rounded-full es-uic-border es-uic-transition es-uic-duration-300',
-												// '!es-uic-translate-x-0 !es-uic-translate-y-0',
 												vertical
 													? '!-es-uic-translate-y-1/2 !es-uic-translate-x-0'
 													: '!-es-uic-translate-x-1/2 !es-uic-translate-y-0',
@@ -387,9 +382,11 @@ export const Slider = (props) => {
 												setCurrentThumbIndex(i);
 											}}
 										>
-											{state.values.length > 1 && currentThumbIndex === i && (
+											{inputField && state.values.length > 1 && currentThumbIndex === i && (
 												<div className='es-uic-m-0.5 es-uic-size-2 es-uic-rounded-full es-uic-bg-teal-100' />
 											)}
+
+											{thumbContent && thumbContent(i)}
 										</ReactAriaSliderThumb>
 									))}
 								</div>
