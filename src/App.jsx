@@ -109,36 +109,18 @@ function App() {
 		{
 			label: 'Sans',
 			value: 'sans',
-			icon: icons.emptyCircle,
+			icon: icons.num1Square,
 			subtitle: 'Helvetica',
 		},
 		{
 			label: 'Serif',
 			value: 'serif',
-			icon: icons.emptyCircle,
+			icon: icons.num2Square,
 		},
 		{
 			label: 'Monospaced',
 			value: 'mono',
-			icon: icons.emptyCircle,
-		},
-	];
-
-	const listBoxOpts3 = [
-		{
-			tooltip: 'Sans',
-			value: 'sans',
-			icon: icons.emptyCircle,
-		},
-		{
-			tooltip: 'Serif',
-			value: 'serif',
-			icon: icons.emptyCircle,
-		},
-		{
-			tooltip: 'Monospaced',
-			value: 'mono',
-			icon: icons.emptyCircle,
+			icon: icons.num3Square,
 		},
 	];
 
@@ -146,17 +128,17 @@ function App() {
 		{
 			label: 'Sans',
 			value: 'sans',
-			icon: icons.emptyCircle,
+			icon: icons.num1Square,
 		},
 		{
 			label: 'Serif',
 			value: 'serif',
-			icon: icons.emptyCircle,
+			icon: icons.num2Square,
 		},
 		{
 			label: 'Monospaced',
 			value: 'mono',
-			icon: icons.emptyCircle,
+			icon: icons.num3Square,
 		},
 	];
 
@@ -1259,14 +1241,6 @@ function App() {
 						icon={icons.emptyRect}
 						label='Font family'
 						options={listBoxOpts2}
-						value={selectedKey}
-						onChange={(key) => setSelectedKey(key)}
-					/>
-
-					<ListBox
-						icon={icons.emptyRect}
-						label='Font family'
-						options={listBoxOpts3}
 						value={selectedKey}
 						onChange={(key) => setSelectedKey(key)}
 					/>

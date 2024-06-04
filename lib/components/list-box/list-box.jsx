@@ -6,8 +6,6 @@ import { classnames } from '../../utilities/classnames';
 import { BaseControl } from '../base-control/base-control';
 import { __ } from '@wordpress/i18n';
 import { IconLabel } from '../icon-label/icon-label';
-import { Tooltip } from '../tooltip/tooltip';
-import { useState } from 'react';
 
 /**
  * A component that allows selecting a single or multiple options from a list.
@@ -71,8 +69,6 @@ export const ListBox = (props) => {
 		...rest
 	} = props;
 
-	const [tooltipText, setTooltipText] = useState(null);
-
 	const mappedOptions = options.map((option) => ({
 		...option,
 		id: option.id ?? option.value,
@@ -99,72 +95,65 @@ export const ListBox = (props) => {
 			inline={inline}
 			help={help}
 		>
-			<Tooltip
-				text={tooltipText}
-				wrapperClassName={classnames(orientation === 'vertical' && 'es-uic-w-full')}
-				open={tooltipText?.length > 1}
+			<ReactAriaListBox
+				selectionMode={selectionMode}
+				className={classnames(
+					'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-p-1 es-uic-text-sm es-uic-shadow-sm es-uic-transition',
+					'focus:es-uic-outline-none',
+					orientation === 'horizontal' &&
+						'es-uic-flex es-uic-w-fit es-uic-max-w-full es-uic-gap-0.5',
+					orientation === 'vertical' && 'es-uic-flex es-uic-flex-col es-uic-gap-0.5',
+					orientation === 'horizontal-tiles' &&
+						'es-uic-grid es-uic-min-h-20 es-uic-w-fit es-uic-max-w-full es-uic-auto-cols-[fit-content(6rem)] es-uic-grid-rows-[1fr,_minmax(auto,_0.5fr),_auto] es-uic-gap-x-0.5',
+					className,
+				)}
+				aria-label={ariaLabel ?? __('Choose', 'eightshift-components')}
+				items={mappedOptions}
+				disallowEmptySelection={!canDeselect}
+				orientation={orientationPropValue}
+				selectedKeys={[value]}
+				onSelectionChange={(key) => {
+					onChange(key?.currentKey ?? key?.anchorKey);
+				}}
+				{...rest}
 			>
-				<ReactAriaListBox
-					selectionMode={selectionMode}
-					className={classnames(
-						'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-p-1 es-uic-text-sm es-uic-shadow-sm es-uic-transition',
-						'focus:es-uic-outline-none',
-						orientation === 'horizontal' && 'es-uic-flex es-uic-w-fit es-uic-max-w-full es-uic-gap-0.5',
-						orientation === 'vertical' && 'es-uic-flex es-uic-flex-col es-uic-gap-0.5',
-						orientation === 'horizontal-tiles' &&
-							'es-uic-grid es-uic-min-h-20 es-uic-w-fit es-uic-max-w-full es-uic-auto-cols-[fit-content(6rem)] es-uic-grid-rows-[1fr,_minmax(auto,_0.5fr),_auto] es-uic-gap-x-0.5',
-						className,
-					)}
-					aria-label={ariaLabel ?? __('Choose', 'eightshift-components')}
-					items={mappedOptions}
-					disallowEmptySelection={!canDeselect}
-					orientation={orientationPropValue}
-					selectedKeys={[value]}
-					onSelectionChange={(key) => {
-						onChange(key?.currentKey ?? key?.anchorKey);
-						setTooltipText(null);
-					}}
-					{...rest}
-				>
-					{(item) => {
-						const { label, icon, subtitle, tooltip, disabled } = item;
+				{(item) => {
+					const { label, icon, subtitle, tooltip, disabled } = item;
 
-						return (
-							<ReactAriaListBoxItem
-								textValue={label ?? tooltip}
-								isDisabled={disabled}
-								onHoverStart={() => setTooltipText(tooltip ?? label)}
-								onHoverEnd={() => setTooltipText(null)}
-								onFocus={() => setTooltipText(tooltip ?? label)}
-								className={({ isDisabled, isSelected }) => {
-									return classnames(
-										'es-uic-flex es-uic-min-h-9 es-uic-select-none es-uic-rounded-md es-uic-border es-uic-transition',
-										'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-										isSelected &&
-											!disabled &&
-											'es-uic-border-teal-600 es-uic-bg-teal-100/5 es-uic-shadow-sm es-uic-shadow-teal-500/25',
-										!isSelected && !disabled && 'es-uic-border-transparent hover:es-uic-bg-gray-100',
-										isDisabled && 'es-uic-border-transparent es-uic-opacity-30 es-uic-grayscale',
-										orientation !== 'horizontal-tiles' && 'es-uic-px-2 es-uic-py-1.5',
-										icon && !label && !subtitle && 'es-uic-size-9 !es-uic-p-1.5',
-										orientation === 'horizontal-tiles' &&
-											'es-uic-row-start-1 es-uic-row-end-4 es-uic-grid es-uic-min-w-18 es-uic-grid-rows-subgrid es-uic-items-center es-uic-justify-items-center es-uic-p-1.5 es-uic-text-center es-uic-leading-tight',
-										orientation === 'horizontal-tiles' && subtitle && '[&_svg]:es-uic-mb-1',
-									);
-								}}
-							>
-								<IconLabel
-									icon={icon}
-									label={label}
-									subtitle={subtitle}
-									className={classnames(orientation === 'horizontal' && 'leading-none')}
-									contentsOnly={orientation === 'horizontal-tiles'}
-								/>
-							</ReactAriaListBoxItem>
-						);
-					}}
-				</ReactAriaListBox>
-			</Tooltip>
+					return (
+						<ReactAriaListBoxItem
+							textValue={label ?? tooltip}
+							isDisabled={disabled}
+							className={({ isDisabled, isSelected }) => {
+								return classnames(
+									'es-uic-flex es-uic-min-h-9 es-uic-select-none es-uic-rounded-md es-uic-border es-uic-transition',
+									'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+									isSelected &&
+										!disabled &&
+										'es-uic-bg-teal-600 es-uic-text-white es-uic-border-teal-600 after:es-uic-opacity-45 es-uic-border es-uic-shadow-md es-uic-shadow-teal-500/25',
+										isSelected && !disabled && 'es-uic-text-white [&_svg]:es-uic-text-white [&_span]:es-uic-text-white [&_span_+_span]:es-uic-text-white/80',
+										isSelected && !disabled && 'es-uic-relative es-uic-isolate after:es-uic-absolute after:es-uic-inset-0 after:-es-uic-z-10 after:es-uic-rounded-[0.3125rem] after:es-uic-bg-gradient-to-br after:es-uic-from-teal-100/40 after:es-uic-via-transparent after:es-uic-to-teal-200/50 after:es-uic-opacity-0 after:es-uic-transition-opacity after:es-uic-content-[""]',
+									!isSelected && !disabled && 'es-uic-border-transparent hover:es-uic-bg-gray-100',
+									isDisabled && 'es-uic-border-transparent es-uic-opacity-30 es-uic-grayscale',
+									orientation !== 'horizontal-tiles' && 'es-uic-px-2 es-uic-py-1.5',
+									icon && !label && !subtitle && 'es-uic-size-9 !es-uic-p-1.5',
+									orientation === 'horizontal-tiles' &&
+										'es-uic-row-start-1 es-uic-row-end-4 es-uic-grid es-uic-min-w-18 es-uic-grid-rows-subgrid es-uic-items-center es-uic-justify-items-center es-uic-p-1.5 es-uic-text-center es-uic-leading-tight',
+									orientation === 'horizontal-tiles' && subtitle && '[&_svg]:es-uic-mb-1',
+								);
+							}}
+						>
+							<IconLabel
+								icon={icon}
+								label={label}
+								subtitle={subtitle}
+								className={classnames(orientation === 'horizontal' && 'leading-none')}
+								contentsOnly={orientation === 'horizontal-tiles'}
+							/>
+						</ReactAriaListBoxItem>
+					);
+				}}
+			</ReactAriaListBox>
 		</BaseControl>
 	);
 };
