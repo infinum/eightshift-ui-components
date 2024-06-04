@@ -60,6 +60,7 @@ export const MatrixAlign = (props) => {
 	const [popoverOpen, setPopoverOpen] = useState(false);
 
 	const ref = useRef(null);
+	const innerRef = useRef(null);
 
 	const allSizeOptions = [
 		{
@@ -149,12 +150,15 @@ export const MatrixAlign = (props) => {
 			>
 				<Tooltip
 					text={tooltipText}
-					side='bottom'
+					placement='bottom'
 					delayDuration={200}
 					open={popoverOpen && tooltipText !== null}
 					offset={10}
+					triggerRef={innerRef}
+					className={tooltipText === null ? 'es-uic-opacity-0' : ''}
 				>
 					<div
+						ref={innerRef}
 						className={classnames(
 							'es-uic-grid',
 							size === '3x3' && 'es-uic-grid-cols-3 es-uic-grid-rows-3',
