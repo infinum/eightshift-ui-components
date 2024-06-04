@@ -48,6 +48,7 @@ import {
 	SolidColorPicker,
 	GradientEditor,
 	ColorSwatch,
+	ColorPicker,
 } from '../lib';
 import { classnames } from '../lib/utilities/classnames';
 
@@ -383,6 +384,131 @@ function App() {
 	let [currColor3, setCurrColor3] = useState('hsla(180, 61.19%, 13.14%, 1)');
 	let [grad, setGrad] = useState('linear-gradient(30deg, #000, #00000000)');
 
+	const defaultColors = [
+		{
+			name: 'Red',
+			slug: 'red',
+			color: '#FF0000',
+		},
+		{
+			name: 'Green',
+			slug: 'green',
+			color: '#00FF00',
+		},
+		{
+			name: 'Blue',
+			slug: 'blue',
+			color: '#0000FF',
+		},
+		{
+			name: 'Yellow',
+			slug: 'yellow',
+			color: '#FFFF00',
+		},
+		{
+			name: 'Black',
+			slug: 'black',
+			color: '#000000',
+		},
+		{
+			name: 'White',
+			slug: 'white',
+			color: '#FFFFFF',
+		},
+	];
+
+	const groupedColors = [
+		{
+			name: 'Red 50',
+			slug: 'red-50',
+			color: '#fef2f2',
+		},
+		{
+			name: 'Red 100',
+			slug: 'red-100',
+			color: '#fee2e2',
+		},
+		{
+			name: 'Red 200',
+			slug: 'red-200',
+			color: '#fecaca',
+		},
+		{
+			name: 'Red 300',
+			slug: 'red-300',
+			color: '#fecaca',
+		},
+		{
+			name: 'Red 400',
+			slug: 'red-400',
+			color: '#f87171',
+		},
+		{
+			name: 'Red 500',
+			slug: 'red-500',
+			color: '#ef4444',
+		},
+		{
+			name: 'Red 600',
+			slug: 'red-600',
+			color: '#dc2626',
+		},
+		{
+			name: 'Red 700',
+			slug: 'red-700',
+			color: '#b91c1c',
+		},
+		{
+			name: 'Red 800',
+			slug: 'red-800',
+			color: '#991b1b',
+		},
+		{
+			name: 'Red 900',
+			slug: 'red-900',
+			color: '#7f1d1d',
+		},
+		{
+			name: 'Red 950',
+			slug: 'red-950',
+			color: '#450a0a',
+		},
+		{
+			name: 'Blue 100',
+			slug: 'blue100',
+			color: '#dbeafe',
+		},
+		{
+			name: 'Blue 500',
+			slug: 'blue500',
+			color: '#3b82f6',
+		},
+		{
+			name: 'Blue 700',
+			slug: 'blue700',
+			color: '#1d4ed8',
+		},
+		{
+			name: 'Green 500',
+			slug: 'green-500',
+			color: '#22c55e',
+		},
+		{
+			name: 'Black',
+			slug: 'black',
+			color: '#000000',
+		},
+		{
+			name: 'White',
+			slug: 'white',
+			color: '#FFFFFF',
+		},
+	];
+
+	const [color1, setColor1] = useState();
+	const [color3, setColor3] = useState('blue');
+	const [color2, setColor2] = useState('blue500');
+
 	// return (
 	// 	<div className='es-uic-mx-auto es-uic-flex es-uic-w-96 es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-gap-2.5 es-uic-p-10'>
 
@@ -422,6 +548,7 @@ function App() {
 					<Tab>SolidColorPicker</Tab>
 					<Tab>GradientEditor</Tab>
 					<Tab>ColorSwatch</Tab>
+					<Tab>ColorPicker</Tab>
 				</TabList>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Toggle
@@ -1614,10 +1741,63 @@ function App() {
 					<ColorSwatch color='transparent' />
 					<ColorSwatch color='#4433EE80' />
 					<ColorSwatch color='#0D3636' />
-					<ColorSwatch gradient='linear-gradient(#0D3636, rgb(249 250 251))' colorName='Linear gradient' />
-					<ColorSwatch gradient='radial-gradient(#0D3636, rgb(249 250 251))' colorName='Radial gradient' />
-					<ColorSwatch gradient='conic-gradient(#0D3636, rgb(249 250 251))'colorName='Conic gradient'  />
+					<ColorSwatch
+						gradient='linear-gradient(#0D3636, rgb(249 250 251))'
+						colorName='Linear gradient'
+					/>
+					<ColorSwatch
+						gradient='radial-gradient(#0D3636, rgb(249 250 251))'
+						colorName='Radial gradient'
+					/>
+					<ColorSwatch
+						gradient='conic-gradient(#0D3636, rgb(249 250 251))'
+						colorName='Conic gradient'
+					/>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+					<ColorPicker
+						value={color1}
+						onChange={setColor1}
+						colors={defaultColors}
+						clearable
+					/>
 
+					<ColorPicker
+						value={color3}
+						onChange={setColor3}
+						colors={defaultColors}
+					/>
+
+					<ColorPicker
+						value={color2}
+						onChange={setColor2}
+						colors={groupedColors}
+						type='fillColor'
+					/>
+
+					<ColorPicker
+						value={color2}
+						onChange={setColor2}
+						colors={groupedColors}
+						type='textColor'
+					/>
+
+					<ColorPicker
+						value={color2}
+						onChange={setColor2}
+						colors={groupedColors}
+						type='textHighlightColor'
+					/>
+
+					<ColorPicker
+						icon={icons.color}
+						label='Color'
+						value={color2}
+						onChange={setColor2}
+						colors={groupedColors}
+						noColorGroups
+						showColorCode
+					/>
 				</TabPanel>
 			</Tabs>
 		</div>
