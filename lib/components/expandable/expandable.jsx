@@ -68,6 +68,7 @@ export const Expandable = (props) => {
 				isOpen && 'es-uic-border-opacity-100 es-uic-shadow-lg',
 				className,
 			)}
+			{...other}
 		>
 			<div
 				className={classnames(
@@ -125,7 +126,6 @@ export const Expandable = (props) => {
 				className='es-uic-space-y-2.5 es-uic-border-t es-uic-p-2'
 				transition='slideFade'
 				noInitial
-				{...other}
 			>
 				{children}
 			</AnimatedVisibility>
@@ -138,7 +138,6 @@ export const Expandable = (props) => {
 
 	return (
 		<FocusScope
-			restoreFocus
 			contain={isOpen}
 			autoFocus={isOpen}
 		>

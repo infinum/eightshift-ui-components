@@ -103,13 +103,7 @@ export const RepeaterItem = (props) => {
 								noFocusHandling
 								{...preventProps}
 							>
-								<div
-									className='pero'
-									// {...preventProps}
-									// ref={itemRef}
-								>
-									{children}
-								</div>
+								{children}
 							</Expandable>
 						)}
 					</GridListItem>

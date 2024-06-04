@@ -49,6 +49,7 @@ import {
 	GradientEditor,
 	ColorSwatch,
 	ColorPicker,
+	DecorativeTooltip,
 } from '../lib';
 import { classnames } from '../lib/utilities/classnames';
 
@@ -840,19 +841,23 @@ function App() {
 						</SubMenuItem>
 					</Menu>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
-					<Tooltip
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5 es-uic-flex es-uic-flex-col es-uic-items-center'>
+					<DecorativeTooltip
 						text='Hello'
-						doNotReplaceChild
 					>
 						Hover me
-					</Tooltip>
-					<Tooltip
+					</DecorativeTooltip>
+					<DecorativeTooltip
 						text='Hello'
 						theme='light'
-						doNotReplaceChild
 					>
 						Hover me
+					</DecorativeTooltip>
+
+					<Tooltip text='Hi, I am a tooltip'>
+						<Button>
+							Hover me
+						</Button>
 					</Tooltip>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
@@ -1205,6 +1210,8 @@ function App() {
 					>
 						<div className='p-2 es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200'>
 							Lorem options
+							<Button>Hello</Button>
+							<InputField label='Hi' />
 						</div>
 					</ComponentToggle>
 
@@ -1215,8 +1222,11 @@ function App() {
 						onChange={setUseComp}
 						noUseToggle
 					>
-						<div className='p-2 es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200'>
+						<div className='es-uic-p-2 es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200'>
 							Lorem options no use
+
+							<Button>Hello</Button>
+							<InputField label='Hi' />
 						</div>
 					</ComponentToggle>
 
@@ -1229,6 +1239,9 @@ function App() {
 					>
 						<div className='bg-slate-200 es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-p-2'>
 							Lorem options expandButtonDisabled
+
+							<Button>Hello</Button>
+							<InputField label='Hi' />
 						</div>
 					</ComponentToggle>
 				</TabPanel>
