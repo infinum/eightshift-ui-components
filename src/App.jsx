@@ -47,6 +47,7 @@ import {
 	Slider,
 	SolidColorPicker,
 	GradientEditor,
+	ColorSwatch,
 } from '../lib';
 import { classnames } from '../lib/utilities/classnames';
 
@@ -420,6 +421,7 @@ function App() {
 					<Tab>Slider</Tab>
 					<Tab>SolidColorPicker</Tab>
 					<Tab>GradientEditor</Tab>
+					<Tab>ColorSwatch</Tab>
 				</TabList>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Toggle
@@ -1606,6 +1608,16 @@ function App() {
 					<code className='es-uic-max-w-60 es-uic-rounded-md es-uic-border es-uic-bg-gray-50 es-uic-p-1 es-uic-font-mono es-uic-text-xs'>
 						{grad}
 					</code>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+					<ColorSwatch color='red' />
+					<ColorSwatch color='transparent' />
+					<ColorSwatch color='#4433EE80' />
+					<ColorSwatch color='#0D3636' />
+					<ColorSwatch gradient='linear-gradient(#0D3636, rgb(249 250 251))' colorName='Linear gradient' />
+					<ColorSwatch gradient='radial-gradient(#0D3636, rgb(249 250 251))' colorName='Radial gradient' />
+					<ColorSwatch gradient='conic-gradient(#0D3636, rgb(249 250 251))'colorName='Conic gradient'  />
+
 				</TabPanel>
 			</Tabs>
 		</div>
