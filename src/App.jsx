@@ -45,6 +45,8 @@ import {
 	RadioButton,
 	RadioButtonGroup,
 	Slider,
+	SolidColorPicker,
+	GradientEditor,
 } from '../lib';
 import { classnames } from '../lib/utilities/classnames';
 
@@ -375,8 +377,15 @@ function App() {
 	const [rangeSliderValue, setRangeSliderValue] = useState([33, 66]);
 	const [rangeSliderValue2, setRangeSliderValue2] = useState([33, 55, 66]);
 
+	let [currColor, setCurrColor] = useState('#0D3636');
+	let [currColor2, setCurrColor2] = useState('#0D3636');
+	let [currColor3, setCurrColor3] = useState('hsla(180, 61.19%, 13.14%, 1)');
+	let [grad, setGrad] = useState('linear-gradient(30deg, #000, #00000000)');
+
 	// return (
-	// 	<div className='es-uic-mx-auto es-uic-flex es-uic-w-96 es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-gap-2.5 es-uic-p-10'></div>
+	// 	<div className='es-uic-mx-auto es-uic-flex es-uic-w-96 es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-gap-2.5 es-uic-p-10'>
+
+	// 	</div>
 	// );
 
 	return (
@@ -409,6 +418,8 @@ function App() {
 					<Tab>Checkbox</Tab>
 					<Tab>RadioButton</Tab>
 					<Tab>Slider</Tab>
+					<Tab>SolidColorPicker</Tab>
+					<Tab>GradientEditor</Tab>
 				</TabList>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Toggle
@@ -1547,6 +1558,54 @@ function App() {
 						vertical
 						markers
 					/>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+					<SolidColorPicker
+						value={currColor}
+						onChange={setCurrColor}
+					/>
+
+					<code className='es-uic-flex es-uic-min-h-9 es-uic-min-w-24 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-bg-gray-100 es-uic-p-1 es-uic-text-sm'>
+						{currColor}
+					</code>
+
+					<SolidColorPicker
+						value={currColor2}
+						onChange={setCurrColor2}
+						allowTransparency
+					/>
+
+					<code className='es-uic-flex es-uic-min-h-9 es-uic-min-w-24 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-bg-gray-100 es-uic-p-1 es-uic-text-sm'>
+						{currColor2}
+					</code>
+
+					<SolidColorPicker
+						value={currColor3}
+						onChange={setCurrColor3}
+						allowTransparency
+						outputFormat='hsla'
+					/>
+
+					<code className='es-uic-flex es-uic-min-h-9 es-uic-min-w-24 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-bg-gray-100 es-uic-p-1 es-uic-text-sm'>
+						{currColor3}
+					</code>
+
+					<SolidColorPicker
+						value={currColor3}
+						onChange={setCurrColor3}
+						allowTransparency
+						disabled
+					/>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+					<GradientEditor
+						value={grad}
+						onChange={setGrad}
+					/>
+
+					<code className='es-uic-max-w-60 es-uic-rounded-md es-uic-border es-uic-bg-gray-50 es-uic-p-1 es-uic-font-mono es-uic-text-xs'>
+						{grad}
+					</code>
 				</TabPanel>
 			</Tabs>
 		</div>
