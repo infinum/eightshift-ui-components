@@ -15,6 +15,7 @@ import { BaseControl } from '../base-control/base-control';
 import { MatrixAlign } from '../matrix-align/matrix-align';
 import { Spacer } from '../spacer/spacer';
 import { Toggle } from '../toggle/toggle';
+import { classnames } from '../../utilities/classnames';
 
 const getGradientResult = (input, type) => {
 	if (!input || !type) {
@@ -94,44 +95,44 @@ const gradientTypes = [
 
 const linearDirections = [
 	{
-		label: __('To right'),
+		label: __('Right'),
 		value: 'right',
-		icon: icons.arrowRight,
+		iconClass: 'es-uic-bg-gradient-to-r',
 	},
 	{
-		label: __('To left'),
+		label: __('Left'),
 		value: 'left',
-		icon: icons.arrowLeft,
+		iconClass: 'es-uic-bg-gradient-to-l',
 	},
 	{
-		label: __('To top'),
+		label: __('Top'),
 		value: 'top',
-		icon: icons.arrowUp,
+		iconClass: 'es-uic-bg-gradient-to-t',
 	},
 	{
-		label: __('To bottom'),
+		label: __('Bottom'),
 		value: 'bottom',
-		icon: icons.arrowDown,
+		iconClass: 'es-uic-bg-gradient-to-b',
 	},
 	{
-		label: __('To top-right'),
+		label: __('Top-right'),
 		value: 'top right',
-		icon: icons.emptyCircle,
+		iconClass: 'es-uic-bg-gradient-to-tr',
 	},
 	{
-		label: __('To top-left'),
+		label: __('Top-left'),
 		value: 'top left',
-		icon: icons.emptyCircle,
+		iconClass: 'es-uic-bg-gradient-to-tl',
 	},
 	{
-		label: __('To bottom-right'),
+		label: __('Bottom-right'),
 		value: 'bottom right',
-		icon: icons.emptyCircle,
+		iconClass: 'es-uic-bg-gradient-to-br',
 	},
 	{
-		label: __('To bottom-left'),
+		label: __('Bottom-left'),
 		value: 'bottom left',
-		icon: icons.emptyCircle,
+		iconClass: 'es-uic-bg-gradient-to-bl',
 	},
 ];
 
@@ -225,12 +226,12 @@ export const GradientEditor = (props) => {
 				<div className='es-uic-flex es-uic-gap-1'>
 					<NumberPicker
 						inline
-						icon={icons.emptyCircle}
+						icon={icons.angle}
 						label={__('Angle', 'eightshift-ui-components')}
 						min={0}
 						max={360}
 						step={1}
-						value={gradientData?.orientation?.value?.value}
+						value={gradientData?.orientation?.type === 'angular' ? gradientData?.orientation?.value?.value : null}
 						onChange={(angle) => {
 							setGradientData({
 								...gradientData,
@@ -242,17 +243,18 @@ export const GradientEditor = (props) => {
 					/>
 
 					<Menu
-						triggerIcon={icons.optionListAlt}
+						triggerIcon={icons.sliders}
 						triggerProps={{
 							tooltip: __('Presets', 'eightshift-ui-components'),
 							size: 'large',
 						}}
+						keepOpen
 					>
-						{linearDirections.map(({ label, value, icon }) => {
+						{linearDirections.map(({ label, value, iconClass }) => {
 							return (
 								<MenuItem
 									key={value}
-									icon={icon}
+									icon={<div className={classnames('es-uic-size-5 es-uic-from-gray-700 es-uic-to-gray-200 es-uic-rounded-sm', iconClass)} />}
 									onClick={() => {
 										setGradientData({
 											...gradientData,
@@ -272,7 +274,7 @@ export const GradientEditor = (props) => {
 				<div className='es-uic-space-y-2'>
 					<BaseControl
 						label={__('Shape', 'eightshift-ui-components')}
-						icon={icons.emptyCircle}
+						icon={icons.genericShapesAlt}
 						inline
 					>
 						<ButtonGroup>
@@ -304,7 +306,7 @@ export const GradientEditor = (props) => {
 					</BaseControl>
 
 					<MatrixAlign
-						icon={icons.emptyCircle}
+						icon={icons.centerPoint}
 						label={__('Center point', 'eightshift-ui-components')}
 						value={`${gradientData?.position?.y?.value ?? 'center'} ${gradientData?.position?.x?.value ?? 'center'}`}
 						onChange={(position) => {
@@ -326,7 +328,7 @@ export const GradientEditor = (props) => {
 				<div className='es-uic-space-y-2'>
 					<NumberPicker
 						inline
-						icon={icons.emptyCircle}
+						icon={icons.angle}
 						label={__('Angle', 'eightshift-ui-components')}
 						min={0}
 						max={360}
@@ -343,7 +345,7 @@ export const GradientEditor = (props) => {
 					/>
 
 					<MatrixAlign
-						icon={icons.emptyCircle}
+						icon={icons.centerPoint}
 						label={__('Center point', 'eightshift-ui-components')}
 						value={`${gradientData?.position?.y?.value ?? 'center'} ${gradientData?.position?.x?.value ?? 'center'}`}
 						onChange={(value) => {
@@ -365,7 +367,7 @@ export const GradientEditor = (props) => {
 					});
 				}}
 				label={__('Repeating', 'eightshift-ui-components')}
-				icon={icons.emptyCircle}
+				icon={icons.gradientRepeat}
 			/>
 
 			<Spacer border />
@@ -382,8 +384,8 @@ export const GradientEditor = (props) => {
 					});
 				}}
 				itemLabelProp='title'
-				icon={icons.emptyCircle}
-				label={__('Stops', 'eightshift-ui-components')}
+				icon={icons.gradientStop}
+				label={__('Gradient stops', 'eightshift-ui-components')}
 				addDefaultItem={{
 					color: '#000000',
 				}}
