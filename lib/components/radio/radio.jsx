@@ -1,7 +1,7 @@
 import { Label, Radio, RadioGroup } from 'react-aria-components';
 import { classnames } from '../../utilities/classnames';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
-import { IconLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../icon-label/icon-label';
 import { BaseControl } from '../base-control/base-control';
 import { cloneElement } from 'react';
 
@@ -69,7 +69,7 @@ export const RadioButton = (props) => {
 			{({ isSelected }) => (
 				<>
 					{(icon || alignEnd) && (label || subtitle) && (
-						<IconLabel
+						<RichLabel
 							icon={icon}
 							label={label}
 							subtitle={subtitle}
@@ -95,7 +95,7 @@ export const RadioButton = (props) => {
 						</AnimatedVisibility>
 					</div>
 					{!icon && !alignEnd && (label || subtitle) && (
-						<IconLabel
+						<RichLabel
 							label={label}
 							subtitle={subtitle}
 							className={labelClassName}

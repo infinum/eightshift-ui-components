@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { Menu, MenuItem, MenuSection } from '../menu/menu';
 import { ColorSwatch } from './color-swatch';
-import { IconLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../icon-label/icon-label';
 import { BaseControl } from '../base-control/base-control';
 import { classnames } from '../../utilities/classnames';
 import { icons } from '../../icons/icons';
@@ -136,7 +136,7 @@ export const ColorPicker = (props) => {
 		>
 			{!showColorCode && name}
 			{showColorCode && (
-				<IconLabel
+				<RichLabel
 					label={name}
 					subtitle={color.toUpperCase()}
 				/>

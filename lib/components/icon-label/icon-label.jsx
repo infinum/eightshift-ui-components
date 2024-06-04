@@ -13,17 +13,17 @@ import { classnames } from '../../utilities/classnames';
  * @param {boolean} [props.fullWidth=false] - If `true`, the component will take up as much space as it can.
  * @param {boolean} [props.contentsOnly] - If `true`, only the label (/icon/subtitle) will be rendered, without any wrapping elements. Useful if you want to provide your own layout.
  *
- * @returns {JSX.Element} The IconLabel component.
+ * @returns {JSX.Element} The RichLabel component.
  *
  * @example
- * <IconLabel
+ * <RichLabel
  * 	icon={icons.myIcon}
  * 	label='My label'
  * />
  *
  * @preserve
  */
-export const IconLabel = (props) => {
+export const RichLabel = (props) => {
 	const { icon, label, subtitle, as, className, fullWidth = false, contentsOnly } = props;
 
 	const ComponentToRender = as ?? 'div';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../icon-label/icon-label';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
@@ -76,7 +76,7 @@ export const Expandable = (props) => {
 					isOpen && 'es-uic-pl-2 es-uic-pr-1',
 				)}
 			>
-				<IconLabel
+				<RichLabel
 					icon={icon}
 					label={label}
 					subtitle={subtitle}

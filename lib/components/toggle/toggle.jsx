@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Label } from 'react-aria-components';
 import { Switch } from './switch';
-import { IconLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../icon-label/icon-label';
 
 /**
  * A toggle switch with a label and optional icon and subtitle.
@@ -41,7 +41,7 @@ export const Toggle = (props) => {
 			disabled={disabled}
 			className={className}
 		>
-			<IconLabel
+			<RichLabel
 				as={Label}
 				icon={icon}
 				label={label}

@@ -5,7 +5,7 @@ import {
 import { classnames } from '../../utilities/classnames';
 import { BaseControl } from '../base-control/base-control';
 import { __ } from '@wordpress/i18n';
-import { IconLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../icon-label/icon-label';
 
 /**
  * A component that allows selecting a single or multiple options from a list.
@@ -143,7 +143,7 @@ export const ListBox = (props) => {
 								);
 							}}
 						>
-							<IconLabel
+							<RichLabel
 								icon={icon}
 								label={label}
 								subtitle={subtitle}

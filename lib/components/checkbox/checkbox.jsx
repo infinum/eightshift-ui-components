@@ -2,7 +2,7 @@ import { Checkbox as ReactAriaCheckbox } from 'react-aria-components';
 import { classnames } from '../../utilities/classnames';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { icons } from '../../icons/icons';
-import { IconLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../icon-label/icon-label';
 
 /**
  * A simple checkbox.
@@ -70,7 +70,7 @@ export const Checkbox = (props) => {
 			{({ isIndeterminate, isSelected }) => (
 				<>
 				{((icon || alignEnd) && (label || subtitle)) && (
-						<IconLabel
+						<RichLabel
 							icon={icon}
 							label={label}
 							subtitle={subtitle}
@@ -103,7 +103,7 @@ export const Checkbox = (props) => {
 						</AnimatedVisibility>
 					</div>
 					{(!icon && !alignEnd && (label || subtitle)) && (
-						<IconLabel
+						<RichLabel
 							label={label}
 							subtitle={subtitle}
 							className={labelClassName}

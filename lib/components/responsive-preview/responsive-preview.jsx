@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { upperFirst } from '../../utilities/text-helpers';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { icons } from '../../icons/icons';
-import { IconLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../icon-label/icon-label';
 
 /**
  * A component that displays a preview of the responsive settings.
@@ -115,7 +115,7 @@ export const ResponsivePreview = (props) => {
 	return (
 		<div className='es-uic-flex es-uic-min-w-72 es-uic-flex-col es-uic-items-start es-uic-gap-4 es-uic-p-2'>
 			<div className='es-uic-flex es-uic-w-full es-uic-items-center es-uic-gap-2.5'>
-				<IconLabel
+				<RichLabel
 					icon={icons.previewResponsive}
 					label={__('Responsive preview', 'eightshift-components')}
 				/>

@@ -9,7 +9,7 @@ import { Menu, MenuItem, MenuSection } from '../menu/menu';
 import { TriggeredPopover } from '../popover/popover';
 import { ResponsivePreview } from '../responsive-preview/responsive-preview';
 import { Button, ButtonGroup } from '../button/button';
-import { IconLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../icon-label/icon-label';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { ToggleButton } from '../toggle-button/toggle-button';
 import { BaseControl } from '../base-control/base-control';
@@ -235,7 +235,7 @@ export const Responsive = (props) => {
 									});
 								}}
 							>
-								<IconLabel
+								<RichLabel
 									label={__('Mobile-first', 'eightshift-components')}
 									subtitle={__('Recommended', 'eightshift-components')}
 								/>

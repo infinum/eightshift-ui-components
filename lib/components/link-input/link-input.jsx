@@ -16,7 +16,7 @@ import { Tooltip } from '../tooltip/tooltip';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { BaseControl } from '../base-control/base-control';
 import { Button } from '../button/button';
-import { IconLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../icon-label/icon-label';
 import { Popover } from '../popover/popover';
 import { useDebouncedCallback } from 'use-debounce';
 
@@ -209,7 +209,7 @@ export const LinkInput = (props) => {
 				}}
 			>
 				{suggestionList.isLoading && (
-					<IconLabel
+					<RichLabel
 						icon={icons.progressbarIntermittent}
 						label={__('Loading suggestions...', 'eightshift-components')}
 						subtitle={__('Please wait', 'eightshift-components')}
@@ -218,7 +218,7 @@ export const LinkInput = (props) => {
 				)}
 
 				{!suggestionList.isLoading && suggestionList.items.length === 0 && (
-					<IconLabel
+					<RichLabel
 						icon={icons.searchEmpty}
 						label={__('No suggestions found', 'eightshift-components')}
 						subtitle={__('Try a different search term.', 'eightshift-components')}
@@ -281,7 +281,7 @@ export const LinkInput = (props) => {
 									icon={typeIcon}
 									autoFocus={index === 0}
 								>
-									<IconLabel
+									<RichLabel
 										label={title}
 										subtitle={url?.replace(location.origin, '').replace(/\/$/, '')}
 										contentsOnly

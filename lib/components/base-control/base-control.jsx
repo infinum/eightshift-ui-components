@@ -1,6 +1,6 @@
 import { Text } from 'react-aria-components';
 import { classnames } from '../../utilities/classnames';
-import { IconLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../icon-label/icon-label';
 
 /**
  * Component that allows wrapping components with a common layout that includes a label and optional icon, subtitle, actions, and help text.
@@ -66,7 +66,7 @@ export const BaseControl = (props) => {
 				)}
 			>
 				{(label || icon || subtitle) && (
-					<IconLabel
+					<RichLabel
 						icon={icon}
 						label={label}
 						subtitle={subtitle}
