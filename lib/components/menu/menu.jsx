@@ -97,6 +97,10 @@ export const Menu = (props) => {
 		additionalProps.trigger = 'longPress';
 	}
 
+	const hasSubmenuItems = Array.isArray(children)
+		? children.some((child) => child?.type?.displayName === 'SubMenuItem')
+		: children?.type?.displayName === 'SubMenuItem';
+
 	return (
 		<MenuTrigger
 			{...props}
@@ -112,6 +116,7 @@ export const Menu = (props) => {
 			<Popover
 				className='!es-uic-p-0 focus:es-uic-outline-none'
 				aria-label={ariaLabel}
+				wrapperClassName={classnames(!hasSubmenuItems && 'es-uic-overflow-y-auto')}
 			>
 				<ReactAriaMenu
 					aria-label={ariaLabel}
@@ -148,7 +153,7 @@ export const MenuSection = (props) => {
 			className={classnames(
 				'es-uic-space-y-1 es-uic-border-b es-uic-pb-1 last:es-uic-border-b-0',
 				label && 'es-uic-pt-2 first:es-uic-pt-1.5',
-				!label && 'last:es-uic-pb-0',
+				!label && 'last:es-uic-pb-1',
 			)}
 		>
 			{label && (
@@ -235,7 +240,7 @@ export const MenuItem = (props) => {
 					{shortcut}
 				</div>
 			)}
-			{endIcon && <div className={classnames(!shortcut && 'ml-auto')}>{endIcon}</div>}
+			{endIcon && <div className={classnames(!shortcut && 'es-uic-ml-auto')}>{endIcon}</div>}
 		</ReactAriaMenuItem>
 	);
 };
@@ -276,3 +281,5 @@ export const SubMenuItem = (props) => {
 		</SubmenuTrigger>
 	);
 };
+
+SubMenuItem.displayName = 'SubMenuItem';
