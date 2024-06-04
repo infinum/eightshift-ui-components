@@ -223,7 +223,7 @@ export const GradientEditor = (props) => {
 			<Spacer size='xs' />
 
 			{gradientType === 'linear' && (
-				<div className='es-uic-flex es-uic-gap-1'>
+				<div className='es-uic-flex es-uic-items-center es-uic-gap-1'>
 					<NumberPicker
 						inline
 						icon={icons.angle}
@@ -239,6 +239,7 @@ export const GradientEditor = (props) => {
 							});
 						}}
 						suffix='°'
+						size='small'
 						className='es-uic-grow'
 					/>
 
@@ -246,7 +247,6 @@ export const GradientEditor = (props) => {
 						triggerIcon={icons.sliders}
 						triggerProps={{
 							tooltip: __('Presets', 'eightshift-ui-components'),
-							size: 'large',
 						}}
 						keepOpen
 					>

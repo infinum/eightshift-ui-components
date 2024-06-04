@@ -31,7 +31,7 @@ import { BaseControl } from '../base-control/base-control';
  *
  * @returns {JSX.Element} The NumberPicker component.
  *
- * @typedef {'compact' | 'default'} NumberPickerSize
+ * @typedef {'compact' | 'small' | 'default'} NumberPickerSize
  *
  * @example
  * <NumberPicker
@@ -69,6 +69,10 @@ export const NumberPicker = ({
 		compact: {
 			field: 'es-uic-min-h-5',
 			noPrefixPadding: 'es-uic-pl-1.5',
+		},
+		small: {
+			field: 'es-uic-min-h-9',
+			noPrefixPadding: 'es-uic-pl-2',
 		},
 		default: {
 			field: 'es-uic-min-h-10',

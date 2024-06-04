@@ -14,7 +14,8 @@ import { IconLabel } from '../icon-label/icon-label';
  * @param {JSX.Element} [props.icon] - Icon to display.
  * @param {string} props.label - Label to display.
  * @param {string} [props.subtitle] - Subtitle to display.
- * @param {string} [props.className] - Classes to pass to the label.
+ * @param {string} [props.className] - Classes to pass to the toggle switch.
+ * @param {string} [props.labelClassName] - Classes to pass to the label.
  *
  * @returns {JSX.Element} The Toggle component.
  *
@@ -31,20 +32,21 @@ import { IconLabel } from '../icon-label/icon-label';
  * @preserve
  */
 export const Toggle = (props) => {
-	const { checked, onChange, icon, label, subtitle, disabled, className } = props;
+	const { checked, onChange, icon, label, subtitle, disabled, className, labelClassName } = props;
 
 	return (
 		<Switch
 			checked={checked}
 			onChange={onChange}
 			disabled={disabled}
+			className={className}
 		>
 			<IconLabel
 				as={Label}
 				icon={icon}
 				label={label}
 				subtitle={subtitle}
-				className={className}
+				className={labelClassName}
 				fullWidth
 			/>
 		</Switch>
