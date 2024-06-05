@@ -5,6 +5,7 @@ let plugin = require('tailwindcss/plugin');
 /** @type {import('tailwindcss').Config} */
 export default {
 	prefix: 'es-uic-',
+	important: true,
 	content: [
 		"./index.html",
 		"./src/**/*.{js,ts,jsx,tsx}",
