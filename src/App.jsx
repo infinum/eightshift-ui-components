@@ -50,6 +50,8 @@ import {
 	ColorSwatch,
 	ColorPicker,
 	DecorativeTooltip,
+	ResponsiveLegacy,
+	Switch,
 } from '../lib';
 import { classnames } from '../lib/utilities/classnames';
 
@@ -252,8 +254,7 @@ function App() {
 			'es-uic-bg-yellow-500',
 			'es-uic-bg-slate-900',
 		];
-		const colorIndex =
-			props.options.findIndex((option) => option.value === props.data.value) % colors.length;
+		const colorIndex = props.options.findIndex((option) => option.value === props.data.value) % colors.length;
 
 		return (
 			<RSMultiValue {...props}>
@@ -492,14 +493,54 @@ function App() {
 	const [color3, setColor3] = useState('blue');
 	const [color2, setColor2] = useState('blue500');
 
-	// return (
-	// 	<div className='es-uic-mx-auto es-uic-flex es-uic-w-96 es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-gap-2.5 es-uic-p-10'>
+	const respOptions = [
+		{ label: 'Lorem', value: false },
+		{ label: 'Ipsum', value: true },
+	];
 
-	// 	</div>
-	// );
+	const [responsiveState, setResponsiveState] = useState({
+		myAttrLarge: false,
+		myAttrDesktop: undefined,
+		myAttrTablet: undefined,
+		myAttrMobile: true,
+	});
+
+	const [responsiveState2, setResponsiveState2] = useState({
+		myAttrLarge: false,
+		myAttrDesktop: undefined,
+		myAttrTablet: undefined,
+		myAttrMobile: true,
+	});
+
+	const [responsiveState3, setResponsiveState3] = useState({
+		myAttrLarge: false,
+		myAttrDesktop: '',
+		myAttrTablet: '',
+		myAttrMobile: true,
+	});
+
+	const responsiveAttr = {
+		large: 'myAttrLarge',
+		desktop: 'myAttrDesktop',
+		tablet: 'myAttrTablet',
+		mobile: 'myAttrMobile',
+	};
+
+	const globalManifest = {
+		globalVariables: {
+			breakpoints: {
+				mobile: 480,
+				tablet: 960,
+				desktop: 1440,
+				large: 1920,
+			},
+		},
+	};
 
 	return (
-		<div className='font-geist es-uic-flex es-uic-min-h-screen es-uic-items-center es-uic-justify-center es-uic-gap-4 es-uic-overscroll-contain es-uic-bg-neutral-100 es-uic-p-2'>
+		<div className='font-geist es-uic-flex es-uic-min-h-screen es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-overscroll-contain es-uic-bg-neutral-100 es-uic-p-2'>
+			<div className='es-uic-mx-auto es-uic-flex es-uic-w-96 es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-gap-2.5 es-uic-p-10 empty:es-uic-hidden'></div>
+
 			<Tabs
 				vertical
 				className='es-uic-h-[90vh] es-uic-max-w-screen-sm es-uic-overflow-y-auto es-uic-rounded-lg es-uic-bg-white es-uic-shadow-sm'
@@ -532,6 +573,7 @@ function App() {
 					<Tab>GradientEditor</Tab>
 					<Tab>ColorSwatch</Tab>
 					<Tab>ColorPicker</Tab>
+					<Tab>ResponsiveLegacy</Tab>
 				</TabList>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Toggle
@@ -580,9 +622,7 @@ function App() {
 							/>
 						}
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>
-							lorem
-						</div>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>lorem</div>
 					</Expandable>
 
 					<Expandable
@@ -598,9 +638,7 @@ function App() {
 							></Button>
 						}
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>
-							lorem
-						</div>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>lorem</div>
 					</Expandable>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
@@ -823,12 +861,8 @@ function App() {
 						</SubMenuItem>
 					</Menu>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5 es-uic-flex es-uic-flex-col es-uic-items-center'>
-					<DecorativeTooltip
-						text='Hello'
-					>
-						Hover me
-					</DecorativeTooltip>
+				<TabPanel className='es-uic-m-5 es-uic-flex es-uic-flex-col es-uic-items-center es-uic-space-y-4 !es-uic-p-5'>
+					<DecorativeTooltip text='Hello'>Hover me</DecorativeTooltip>
 					<DecorativeTooltip
 						text='Hello'
 						theme='light'
@@ -837,9 +871,7 @@ function App() {
 					</DecorativeTooltip>
 
 					<Tooltip text='Hi, I am a tooltip'>
-						<Button>
-							Hover me
-						</Button>
+						<Button>Hover me</Button>
 					</Tooltip>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
@@ -1204,9 +1236,8 @@ function App() {
 						onChange={setUseComp}
 						noUseToggle
 					>
-						<div className='es-uic-p-2 es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200'>
+						<div className='es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 es-uic-p-2'>
 							Lorem options no use
-
 							<Button>Hello</Button>
 							<InputField label='Hi' />
 						</div>
@@ -1221,7 +1252,6 @@ function App() {
 					>
 						<div className='bg-slate-200 es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-p-2'>
 							Lorem options expandButtonDisabled
-
 							<Button>Hello</Button>
 							<InputField label='Hi' />
 						</div>
@@ -1522,8 +1552,7 @@ function App() {
 						startPoint={50}
 						noActiveHighlight
 						trackStyle={{
-							backgroundImage:
-								'linear-gradient(to right in oklab, #ff000060, #00ff0060, #0000ff60)',
+							backgroundImage: 'linear-gradient(to right in oklab, #ff000060, #00ff0060, #0000ff60)',
 						}}
 					/>
 
@@ -1785,6 +1814,115 @@ function App() {
 						noColorGroups
 						showColorCode
 					/>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+					<ResponsiveLegacy
+						icon={icons.help}
+						label='Lorem or ipsum?'
+						attribute={responsiveAttr}
+						value={responsiveState}
+						onChange={(attrName, newVal) => {
+							setResponsiveState({
+								...responsiveState,
+								[attrName]: newVal,
+							});
+						}}
+						options={respOptions}
+						breakpointData={globalManifest.globalVariables.breakpoints}
+						allowUndefined
+					>
+						{({ currentValue, options, handleChange }) => (
+							<ButtonGroup>
+								{options.map(({ label, value }) => (
+									<ToggleButton
+										key={value}
+										onChange={() => handleChange(value)}
+										selected={currentValue === value}
+									>
+										{label}
+									</ToggleButton>
+								))}
+							</ButtonGroup>
+						)}
+					</ResponsiveLegacy>
+
+					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(responsiveState, null, 2)}</pre>
+
+					<ResponsiveLegacy
+						icon={icons.help}
+						label='Lorem or ipsum?'
+						attribute={responsiveAttr}
+						value={responsiveState2}
+						onChange={(attrName, newVal) => {
+							setResponsiveState2({
+								...responsiveState2,
+								[attrName]: newVal,
+							});
+						}}
+						options={respOptions}
+						breakpointData={globalManifest.globalVariables.breakpoints}
+						allowUndefined
+						inline
+					>
+						{({ currentValue, options, handleChange, isInlineCollapsedView }) => {
+							if (isInlineCollapsedView) {
+								return (
+									<Switch
+										checked={currentValue}
+										onChange={(v) => handleChange(v)}
+									/>
+								);
+							}
+
+							return (
+								<ButtonGroup>
+									{options.map(({ label, value }) => (
+										<ToggleButton
+											key={value}
+											onChange={() => handleChange(value)}
+											selected={currentValue === value}
+										>
+											{label}
+										</ToggleButton>
+									))}
+								</ButtonGroup>
+							);
+						}}
+					</ResponsiveLegacy>
+
+					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(responsiveState2, null, 2)}</pre>
+
+					<ResponsiveLegacy
+						icon={icons.help}
+						label='Lorem or ipsum?'
+						attribute={responsiveAttr}
+						value={responsiveState3}
+						onChange={(attrName, newVal) => {
+							setResponsiveState3({
+								...responsiveState3,
+								[attrName]: newVal,
+							});
+						}}
+						options={respOptions}
+						breakpointData={globalManifest.globalVariables.breakpoints}
+						inline
+					>
+						{({ currentValue, options, handleChange }) => (
+							<ButtonGroup>
+								{options.map(({ label, value }) => (
+									<ToggleButton
+										key={value}
+										onChange={() => handleChange(value)}
+										selected={currentValue === value}
+									>
+										{label}
+									</ToggleButton>
+								))}
+							</ButtonGroup>
+						)}
+					</ResponsiveLegacy>
+
+					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(responsiveState3, null, 2)}</pre>
 				</TabPanel>
 			</Tabs>
 		</div>
