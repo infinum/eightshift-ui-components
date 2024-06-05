@@ -158,7 +158,7 @@ export const TriggeredPopover = (props) => {
 		trigger,
 
 		triggerButtonIcon,
-		triggerButtonLabel = !triggerButtonIcon && __('Open', 'eightshift-components'),
+		triggerButtonLabel = !triggerButtonIcon && __('Open', 'eightshift-ui-components'),
 		triggerButtonProps,
 
 		children,

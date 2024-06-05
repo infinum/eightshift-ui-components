@@ -38,7 +38,7 @@ import { BaseControl } from '../base-control/base-control';
  * 	value={value}
  * 	onChange={onChange}
  * 	icon={icons.myIcon}
- * 	label={__('Label', 'eightshift-components')}
+ * 	label={__('Label', 'eightshift-ui-components')}
  * 	options={[
  * 		{ value: 'value1', label: 'Value 1' },
  * 		{ value: 'value2', label: 'Value 2' },
@@ -109,12 +109,12 @@ export const Responsive = (props) => {
 								)}
 							>
 								<div>
-									<span className='font-semibold'>{__('Default', 'eightshift-components')}</span>
+									<span className='font-semibold'>{__('Default', 'eightshift-ui-components')}</span>
 									<br />
 
 									{!firstMobileFirstOverride && !lastDesktopFirstOverride && (
 										<span>
-											{__('Always applied, regardless of browser width.', 'eightshift-components')}
+											{__('Always applied, regardless of browser width.', 'eightshift-ui-components')}
 										</span>
 									)}
 
@@ -138,7 +138,7 @@ export const Responsive = (props) => {
 										<BreakpointPreview
 											blocks={[
 												{
-													breakpoint: __('Default', 'eightshift-components'),
+													breakpoint: __('Default', 'eightshift-ui-components'),
 													widthEnd:
 														globalManifest.globalVariables.breakpoints[firstMobileFirstOverride],
 													value:
@@ -171,7 +171,7 @@ export const Responsive = (props) => {
 													alignEnd: true,
 												},
 												{
-													breakpoint: __('Default', 'eightshift-components'),
+													breakpoint: __('Default', 'eightshift-ui-components'),
 													value:
 														options?.find((opt) => opt.value === value?.['_default'])?.label ??
 														upperFirst(value?.['_default']),
@@ -218,8 +218,8 @@ export const Responsive = (props) => {
 			help={help}
 			actions={
 				<ButtonGroup>
-					<Menu tooltip={__('Responsive options', 'eightshift-components')}>
-						<MenuSection label={__('Breakpoint type', 'eightshift-components')}>
+					<Menu tooltip={__('Responsive options', 'eightshift-ui-components')}>
+						<MenuSection label={__('Breakpoint type', 'eightshift-ui-components')}>
 							<MenuItem
 								selected={!isDesktopFirst}
 								onClick={() => {
@@ -236,8 +236,8 @@ export const Responsive = (props) => {
 								}}
 							>
 								<RichLabel
-									label={__('Mobile-first', 'eightshift-components')}
-									subtitle={__('Recommended', 'eightshift-components')}
+									label={__('Mobile-first', 'eightshift-ui-components')}
+									subtitle={__('Recommended', 'eightshift-ui-components')}
 								/>
 							</MenuItem>
 							<MenuItem
@@ -255,7 +255,7 @@ export const Responsive = (props) => {
 									});
 								}}
 							>
-								{__('Desktop-first', 'eightshift-components')}
+								{__('Desktop-first', 'eightshift-ui-components')}
 							</MenuItem>
 						</MenuSection>
 						<MenuSection>
@@ -273,13 +273,13 @@ export const Responsive = (props) => {
 									});
 								}}
 							>
-								{__('Clear responsive overrides', 'eightshift-components')}
+								{__('Clear responsive overrides', 'eightshift-ui-components')}
 							</MenuItem>
 						</MenuSection>
 					</Menu>
 
 					<TriggeredPopover
-						aria-label={props['aria-label'] ?? __('Breakpoint preview', 'eightshift-components')}
+						aria-label={props['aria-label'] ?? __('Breakpoint preview', 'eightshift-ui-components')}
 						trigger={
 							<Button
 								disabled={
@@ -288,7 +288,7 @@ export const Responsive = (props) => {
 									)
 								}
 								icon={icons.previewResponsive}
-								tooltip={__('Breakpoint preview', 'eightshift-components')}
+								tooltip={__('Breakpoint preview', 'eightshift-ui-components')}
 							/>
 						}
 					>
@@ -308,8 +308,8 @@ export const Responsive = (props) => {
 						selected={detailsVisible}
 						tooltip={
 							detailsVisible
-								? __('Hide responsive overrides', 'eightshift-components')
-								: __('Show responsive overrides', 'eightshift-components')
+								? __('Hide responsive overrides', 'eightshift-ui-components')
+								: __('Show responsive overrides', 'eightshift-ui-components')
 						}
 					/>
 				</ButtonGroup>

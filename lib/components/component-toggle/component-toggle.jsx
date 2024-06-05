@@ -57,7 +57,7 @@ export const ComponentToggle = (props) => {
 			subtitle={subtitle}
 			actions={
 				!noUseToggle && (
-					<DecorativeTooltip text={__('Toggle component', 'eightshift-components')}>
+					<DecorativeTooltip text={__('Toggle component', 'eightshift-ui-components')}>
 						<div className='es-uic-mr-0.5 es-uic-flex es-uic-min-h-8 es-uic-items-center es-uic-border-r es-uic-border-r-gray-200 es-uic-pr-1.5'>
 							<Switch
 								checked={useComponent}

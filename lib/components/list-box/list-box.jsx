@@ -107,7 +107,7 @@ export const ListBox = (props) => {
 						'es-uic-grid es-uic-min-h-20 es-uic-w-fit es-uic-max-w-full es-uic-auto-cols-[fit-content(6rem)] es-uic-grid-rows-[1fr,_minmax(auto,_0.5fr),_auto] es-uic-gap-x-0.5',
 					className,
 				)}
-				aria-label={ariaLabel ?? __('Choose', 'eightshift-components')}
+				aria-label={ariaLabel ?? __('Choose', 'eightshift-ui-components')}
 				items={mappedOptions}
 				disallowEmptySelection={!canDeselect}
 				orientation={orientationPropValue}

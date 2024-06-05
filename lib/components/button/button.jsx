@@ -47,7 +47,7 @@ export const Button = (props) => {
 		tooltipProps,
 		'aria-label': ariaLabel = typeof children === 'string'
 			? children
-			: __('Menu item', 'eightshift-component'),
+			: __('Menu item', 'eightshift-ui-components'),
 		...other
 	} = props;
 

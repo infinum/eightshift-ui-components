@@ -44,7 +44,7 @@ export const MatrixAlign = (props) => {
 		value,
 		onChange,
 
-		tooltip = __('Position', 'eightshift-components'),
+		tooltip = __('Position', 'eightshift-ui-components'),
 
 		label,
 		icon,
@@ -65,47 +65,47 @@ export const MatrixAlign = (props) => {
 	const allSizeOptions = [
 		{
 			value: 'top left',
-			label: __('Top-left', 'eightshift-components'),
+			label: __('Top-left', 'eightshift-ui-components'),
 			availableOn: ['3x3', '2x2'],
 		},
 		{
 			value: 'top center',
-			label: __('Top-center', 'eightshift-components'),
+			label: __('Top-center', 'eightshift-ui-components'),
 			availableOn: ['3x3'],
 		},
 		{
 			value: 'top right',
-			label: __('Top-right', 'eightshift-components'),
+			label: __('Top-right', 'eightshift-ui-components'),
 			availableOn: ['3x3', '2x2'],
 		},
 		{
 			value: 'center left',
-			label: __('Center-left', 'eightshift-components'),
+			label: __('Center-left', 'eightshift-ui-components'),
 			availableOn: ['3x3'],
 		},
 		{
 			value: 'center center',
-			label: __('Center', 'eightshift-components'),
+			label: __('Center', 'eightshift-ui-components'),
 			availableOn: ['3x3'],
 		},
 		{
 			value: 'center right',
-			label: __('Center-right', 'eightshift-components'),
+			label: __('Center-right', 'eightshift-ui-components'),
 			availableOn: ['3x3'],
 		},
 		{
 			value: 'bottom left',
-			label: __('Bottom-left', 'eightshift-components'),
+			label: __('Bottom-left', 'eightshift-ui-components'),
 			availableOn: ['3x3', '2x2'],
 		},
 		{
 			value: 'bottom center',
-			label: __('Bottom-center', 'eightshift-components'),
+			label: __('Bottom-center', 'eightshift-ui-components'),
 			availableOn: ['3x3'],
 		},
 		{
 			value: 'bottom right',
-			label: __('Bottom-right', 'eightshift-components'),
+			label: __('Bottom-right', 'eightshift-ui-components'),
 			availableOn: ['3x3', '2x2'],
 		},
 	];
@@ -141,7 +141,7 @@ export const MatrixAlign = (props) => {
 				</Button>
 			</BaseControl>
 			<Popover
-				aria-label={ariaLabel ?? __('Select position', 'eightshift-components')}
+				aria-label={ariaLabel ?? __('Select position', 'eightshift-ui-components')}
 				position={popoverPosition}
 				triggerRef={ref}
 				onOpenChange={setPopoverOpen}

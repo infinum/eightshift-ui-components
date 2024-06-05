@@ -96,7 +96,7 @@ export const Repeater = (props) => {
 
 		getItems: (keys) =>
 			[...keys].map((key) => ({
-				'text/plain': list.getItem(key)[itemLabelProp] ?? __('New item', 'eightshift-components'),
+				'text/plain': list.getItem(key)[itemLabelProp] ?? __('New item', 'eightshift-ui-components'),
 			})),
 		onReorder(e) {
 			if (e.target.dropPosition === 'before') {
@@ -122,7 +122,7 @@ export const Repeater = (props) => {
 			let label = items[0]['text/plain'];
 
 			if (!label || label === '') {
-				label = __('New item', 'eightshift-components');
+				label = __('New item', 'eightshift-ui-components');
 			}
 
 			return (
@@ -190,9 +190,9 @@ export const Repeater = (props) => {
 							}}
 							size='small'
 							icon={icons.trash}
-							tooltip={__('Remove selected', 'eightshift-components')}
+							tooltip={__('Remove selected', 'eightshift-ui-components')}
 							disabled={!canDelete}
-							aria-label={__('Remove selected', 'eightshift-components')}
+							aria-label={__('Remove selected', 'eightshift-ui-components')}
 							type='danger'
 						/>
 					</AnimatedVisibility>
@@ -208,7 +208,7 @@ export const Repeater = (props) => {
 							}}
 							size='small'
 							icon={icons.add}
-							tooltip={__('Add item', 'eightshift-components')}
+							tooltip={__('Add item', 'eightshift-ui-components')}
 							disabled={addDisabled || selectable}
 						/>
 
@@ -220,7 +220,7 @@ export const Repeater = (props) => {
 							}}
 							size='small'
 							icon={icons.checkSquare}
-							tooltip={__('Select items', 'eightshift-components')}
+							tooltip={__('Select items', 'eightshift-ui-components')}
 							disabled={minItems && items.length <= minItems}
 						/>
 					</ButtonGroup>
@@ -230,7 +230,7 @@ export const Repeater = (props) => {
 		>
 			<GridListContext.Provider value={{ setCanReorder: setCanReorder }}>
 				<GridList
-					aria-label={ariaLabel ?? __('Repeater', 'eightshift-component')}
+					aria-label={ariaLabel ?? __('Repeater', 'eightshift-ui-components')}
 					selectionMode={selectable ? 'multiple' : 'none'}
 					selectionBehavior='toggle'
 					selectedKeys={list.selectedKeys}
@@ -252,7 +252,7 @@ export const Repeater = (props) => {
 					renderEmptyState={() =>
 						hideEmptyState ? null : (
 							<div className='es-uic-rounded-md es-uic-border es-uic-border-dashed es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-text-gray-400'>
-								{__('No items', 'eightshift-components')}
+								{__('No items', 'eightshift-ui-components')}
 							</div>
 						)
 					}

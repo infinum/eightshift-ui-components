@@ -56,12 +56,12 @@ export const LinkInput = (props) => {
 		url,
 		onChange,
 
-		label = __('Link', 'eightshift-component'),
+		label = __('Link', 'eightshift-ui-components'),
 		subtitle,
 		help,
 		actions,
 
-		placeholder = __('Type to search or enter URL', 'eightshift-component'),
+		placeholder = __('Type to search or enter URL', 'eightshift-ui-components'),
 
 		icon = icons.globe,
 		removeIcon = icons.clearAlt,
@@ -176,7 +176,7 @@ export const LinkInput = (props) => {
 							transition='scaleFade'
 						>
 							<ReactAriaButton>
-								<Tooltip text={__('Clear', 'eightshift-components')}>
+								<Tooltip text={__('Clear', 'eightshift-ui-components')}>
 									<div
 										className={classnames(
 											'es-uic-flex es-uic-size-8 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-white/85 es-uic-text-gray-600 es-uic-backdrop-blur es-uic-transition',
@@ -194,7 +194,7 @@ export const LinkInput = (props) => {
 			</SearchField>
 
 			<Popover
-				aria-label={__('URL suggestions', 'eightshift-components')}
+				aria-label={__('URL suggestions', 'eightshift-ui-components')}
 				shouldFlip={false}
 				triggerRef={triggerRef}
 				isOpen={suggestionsVisible}
@@ -211,8 +211,8 @@ export const LinkInput = (props) => {
 				{suggestionList.isLoading && (
 					<RichLabel
 						icon={icons.progressbarIntermittent}
-						label={__('Loading suggestions...', 'eightshift-components')}
-						subtitle={__('Please wait', 'eightshift-components')}
+						label={__('Loading suggestions...', 'eightshift-ui-components')}
+						subtitle={__('Please wait', 'eightshift-ui-components')}
 						className='es-uic-min-h-14 es-uic-p-2'
 					/>
 				)}
@@ -220,8 +220,8 @@ export const LinkInput = (props) => {
 				{!suggestionList.isLoading && suggestionList.items.length === 0 && (
 					<RichLabel
 						icon={icons.searchEmpty}
-						label={__('No suggestions found', 'eightshift-components')}
-						subtitle={__('Try a different search term.', 'eightshift-components')}
+						label={__('No suggestions found', 'eightshift-ui-components')}
+						subtitle={__('Try a different search term.', 'eightshift-ui-components')}
 						className='es-uic-min-h-14 es-uic-p-2'
 					/>
 				)}
@@ -306,7 +306,7 @@ export const LinkInput = (props) => {
 							&darr;
 						</kbd>
 					</div>
-					{__('Navigate', 'eightshift-components')}
+					{__('Navigate', 'eightshift-ui-components')}
 					<div className='es-uic-flex es-uic-gap-0.5 es-uic-justify-self-center'>
 						<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
 							&crarr;
@@ -315,11 +315,11 @@ export const LinkInput = (props) => {
 							␣
 						</kbd>
 					</div>
-					{__('Select an item', 'eightshift-components')}
+					{__('Select an item', 'eightshift-ui-components')}
 					<kbd className='es-uic-flex es-uic-h-5 es-uic-min-w-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
 						Esc
 					</kbd>{' '}
-					{__('Close suggestion panel', 'eightshift-components')}
+					{__('Close suggestion panel', 'eightshift-ui-components')}
 				</div>
 			</Popover>
 		</>

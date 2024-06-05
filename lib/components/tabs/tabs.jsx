@@ -90,12 +90,12 @@ export const Tabs = (props) => {
 				type='error'
 				label={__(
 					'Component is not configured correctly. Skipping render to prevent errors.',
-					'eightshift-components',
+					'eightshift-ui-components',
 				)}
 				subtitle={sprintf(
 					__(
 						'Number of <Tab>s (%s) and <TabPanel>s (%s) should be the same. <Tab>s should be within a <TabList>.',
-						'eightshift-components',
+						'eightshift-ui-components',
 					),
 					tabCounter - 1,
 					tabPanelCounter - 1,
@@ -140,7 +140,7 @@ export const TabList = (props) => {
 	const { children, 'aria-label': ariaLabel, className, ...other } = props;
 	return (
 		<ReactAriaTabList
-			aria-label={ariaLabel ?? __('tabs', 'eightshift-components')}
+			aria-label={ariaLabel ?? __('tabs', 'eightshift-ui-components')}
 			className={({ orientation }) =>
 				classnames(
 					'es-uic-flex es-uic-gap-1',

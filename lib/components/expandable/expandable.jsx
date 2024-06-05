@@ -110,7 +110,7 @@ export const Expandable = (props) => {
 						}
 					}}
 					tooltip={
-						isOpen ? __('Close', 'eightshift-components') : __('Open', 'eightshift-components')
+						isOpen ? __('Close', 'eightshift-ui-components') : __('Open', 'eightshift-ui-components')
 					}
 					disabled={disabled}
 					className={classnames(

@@ -50,7 +50,7 @@ export const RepeaterItem = (props) => {
 	}
 
 	if (a11yLabel === '' || !a11yLabel) {
-		a11yLabel = __('New item', 'eightshift-components');
+		a11yLabel = __('New item', 'eightshift-ui-components');
 	}
 
 	const itemRef = useRef(null);
@@ -93,7 +93,7 @@ export const RepeaterItem = (props) => {
 												slot='drag'
 												type='ghost'
 												icon={icons.reorderGrabberV}
-												tooltip={__('Re-order', 'eightshift-components')}
+												tooltip={__('Re-order', 'eightshift-ui-components')}
 											/>
 										)}
 

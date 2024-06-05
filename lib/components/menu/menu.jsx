@@ -76,7 +76,7 @@ export const Menu = (props) => {
 
 		keepOpen = false,
 
-		'aria-label': ariaLabel = triggerLabel ?? __('Menu', 'eightshift-components'),
+		'aria-label': ariaLabel = triggerLabel ?? __('Menu', 'eightshift-ui-components'),
 
 		openOnLongPress = false,
 	} = props;
@@ -212,7 +212,7 @@ export const MenuItem = (props) => {
 		className,
 		'aria-label': ariaLabel = typeof children === 'string'
 			? children
-			: __('Menu item', 'eightshift-component'),
+			: __('Menu item', 'eightshift-ui-components'),
 	} = props;
 
 	return (
@@ -267,12 +267,12 @@ export const SubMenuItem = (props) => {
 				endIcon: <span className='es-uic-text-gray-400'>{icons.caretRightFill}</span>,
 			})}
 			<Popover
-				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-components')}
+				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
 				className='!es-uic-p-0 focus:es-uic-outline-none'
 				offset={-1}
 			>
 				<ReactAriaMenu
-					aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-components')}
+					aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
 					className='focus:es-uic-outline-none'
 				>
 					{children}
