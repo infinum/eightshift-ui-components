@@ -5,8 +5,7 @@ let plugin = require('tailwindcss/plugin');
 /** @type {import('tailwindcss').Config} */
 export default {
 	prefix: 'es-uic-',
-	// important: ':is(body,div.block-editor-block-inspector,div.block-editor-writing-flow)',
-	important: 'body',
+	important: ':is(body,div.block-editor-block-inspector,div.block-editor-writing-flow)',
 	content: [
 		"./index.html",
 		"./src/**/*.{js,ts,jsx,tsx}",
