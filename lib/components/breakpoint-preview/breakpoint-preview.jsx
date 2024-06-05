@@ -46,7 +46,9 @@ import { upperFirst } from '../../utilities/text-helpers';
  * @preserve
  */
 export const BreakpointPreview = (props) => {
-	const { blocks, dotsStart = false, dotsEnd = false } = props;
+	const { blocks: rawBlocks, dotsStart = false, dotsEnd = false } = props;
+
+	const blocks = rawBlocks.filter(Boolean);
 
 	if (!blocks || blocks.length < 1) {
 		return null;
@@ -144,7 +146,7 @@ export const BreakpointPreview = (props) => {
 								{dotsStart && (
 									<div
 										className={classnames(
-											'flex gap-0.5',
+											'es-uic-flex es-uic-gap-0.5',
 											active ? activeTextColor : 'text-gray-300',
 										)}
 									>
