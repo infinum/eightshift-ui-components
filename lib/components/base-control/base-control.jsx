@@ -62,7 +62,7 @@ export const BaseControl = (props) => {
 			<div
 				className={classnames(
 					'es-uic-flex es-uic-items-center es-uic-gap-1',
-					!inline && icon && 'es-uic-pb-1',
+					!inline && !icon && 'es-uic-pb-0.5',
 				)}
 			>
 				{(label || icon || subtitle) && (
@@ -87,12 +87,7 @@ export const BaseControl = (props) => {
 				)}
 
 				{!inline && actions && (
-					<div
-						className={classnames(
-							'es-uic-flex es-uic-items-center es-uic-gap-1',
-							!inline && 'es-uic-ml-auto',
-						)}
-					>
+					<div className={classnames('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && 'es-uic-ml-auto')}>
 						{actions}
 					</div>
 				)}
