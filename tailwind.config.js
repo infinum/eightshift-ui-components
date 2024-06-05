@@ -29,9 +29,6 @@ export default {
 			},
 		},
 	},
-	corePlugins: {
-		preflight: false,
-	},
 	plugins: [
 		plugin(function ({ addVariant, addComponents }) {
 			addVariant('r-closed', '&[data-state="closed"]');
