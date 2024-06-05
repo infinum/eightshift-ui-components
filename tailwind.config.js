@@ -12,14 +12,14 @@ export default {
 		"./lib/**/*.{js,ts,jsx,tsx}",
 	],
 	theme: {
-		transitionDuration: {
-			DEFAULT: '250ms'
-		},
 		fontFamily: {
 			'sans': ['Geist', ...defaultTheme.fontFamily.sans],
 			'mono': defaultTheme.fontFamily.mono,
 		},
 		extend: {
+			transitionDuration: {
+				DEFAULT: '250ms'
+			},
 			spacing: {
 				'3.25': '0.8125rem', // 13px
 				'5.5': '1.375rem',
@@ -32,9 +32,7 @@ export default {
 		},
 	},
 	plugins: [
-		plugin(function ({ addVariant, addComponents }) {
-			addVariant('r-closed', '&[data-state="closed"]');
-			addVariant('r-delayed-open', '&[data-state="delayed-open"]');
+		plugin(function ({ addComponents }) {
 			addComponents({
 				'.no-webkit-highlight': {
 					'-webkit-tap-highlight-color': 'transparent',
