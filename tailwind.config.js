@@ -12,8 +12,11 @@ export default {
 		"./lib/**/*.{js,ts,jsx,tsx}",
 	],
 	theme: {
+		transitionDuration: {
+			DEFAULT: '250ms'
+		},
 		fontFamily: {
-			'sans': ['Geist' ,...defaultTheme.fontFamily.sans],
+			'sans': ['Geist', ...defaultTheme.fontFamily.sans],
 			'mono': defaultTheme.fontFamily.mono,
 		},
 		extend: {
