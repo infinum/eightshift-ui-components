@@ -36,7 +36,14 @@ import { Spacer } from '../spacer/spacer';
  * @preserve
  */
 export const SolidColorPicker = (props) => {
-	const { value: rawValue, onChange, disabled, onChangeEnd, allowTransparency = false, outputFormat } = props;
+	const {
+		value: rawValue,
+		onChange,
+		disabled,
+		onChangeEnd,
+		allowTransparency = false,
+		outputFormat,
+	} = props;
 
 	const value = rawValue?.replace('transparent', 'rgba(0, 0, 0, 0)');
 
@@ -60,8 +67,13 @@ export const SolidColorPicker = (props) => {
 		onChange(color?.toString(outputFormat ?? (allowTransparency ? 'hexa' : 'hex')));
 	};
 
+	const valueInputClassName = classnames(
+		'es-uic-h-8 es-uic-w-12 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-tabular-nums es-uic-text-sm es-uic-shadow-sm es-uic-transition es-uic-text-right selection:es-uic-bg-teal-500/20 selection:es-uic-text-teal-950',
+		'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+	);
+
 	return (
-		<div className='es-uic-flex es-uic-flex-col es-uic-gap-2 es-uic-items-center'>
+		<div className='es-uic-flex es-uic-flex-col es-uic-items-center es-uic-gap-2'>
 			<ColorArea
 				value={color}
 				xChannel='saturation'
@@ -153,7 +165,7 @@ export const SolidColorPicker = (props) => {
 				>
 					<Input
 						className={classnames(
-							'es-uic-h-9 es-uic-w-20 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-font-mono es-uic-text-sm es-uic-shadow-sm es-uic-transition',
+							'es-uic-h-9 es-uic-w-20 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-tabular-nums es-uic-text-sm es-uic-shadow-sm es-uic-transition',
 							'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 						)}
 					/>
@@ -164,6 +176,7 @@ export const SolidColorPicker = (props) => {
 					className='es-uic-w-48 es-uic-space-y-1 es-uic-p-2'
 					triggerButtonProps={{
 						disabled: disabled,
+						tooltip: __('Advanced color options', 'eightshift-ui-components'),
 					}}
 				>
 					<Label className='es-uic-text-sm'>
@@ -183,12 +196,7 @@ export const SolidColorPicker = (props) => {
 							label={__('Red', 'eightshift-ui-components')}
 							inline
 						>
-							<Input
-								className={classnames(
-									'es-uic-h-8 es-uic-w-11 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-font-mono es-uic-text-sm es-uic-shadow-sm es-uic-transition',
-									'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-								)}
-							/>
+							<Input className={valueInputClassName} />
 						</BaseControl>
 					</ColorField>
 					<ColorField
@@ -200,12 +208,7 @@ export const SolidColorPicker = (props) => {
 							label={__('Green', 'eightshift-ui-components')}
 							inline
 						>
-							<Input
-								className={classnames(
-									'es-uic-h-8 es-uic-w-11 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-font-mono es-uic-text-sm es-uic-shadow-sm es-uic-transition',
-									'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-								)}
-							/>
+							<Input className={valueInputClassName} />
 						</BaseControl>
 					</ColorField>
 					<ColorField
@@ -217,12 +220,7 @@ export const SolidColorPicker = (props) => {
 							label={__('Blue', 'eightshift-ui-components')}
 							inline
 						>
-							<Input
-								className={classnames(
-									'es-uic-h-8 es-uic-w-11 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-font-mono es-uic-text-sm es-uic-shadow-sm es-uic-transition',
-									'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-								)}
-							/>
+							<Input className={valueInputClassName} />
 						</BaseControl>
 					</ColorField>
 
@@ -239,12 +237,7 @@ export const SolidColorPicker = (props) => {
 							label={__('Hue', 'eightshift-ui-components')}
 							inline
 						>
-							<Input
-								className={classnames(
-									'es-uic-h-8 es-uic-w-12 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-font-mono es-uic-text-sm es-uic-shadow-sm es-uic-transition',
-									'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-								)}
-							/>
+							<Input className={valueInputClassName} />
 						</BaseControl>
 					</ColorField>
 
@@ -257,12 +250,7 @@ export const SolidColorPicker = (props) => {
 							label={__('Saturation', 'eightshift-ui-components')}
 							inline
 						>
-							<Input
-								className={classnames(
-									'es-uic-h-8 es-uic-w-12 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-font-mono es-uic-text-sm es-uic-shadow-sm es-uic-transition',
-									'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-								)}
-							/>
+							<Input className={valueInputClassName} />
 						</BaseControl>
 					</ColorField>
 
@@ -275,12 +263,7 @@ export const SolidColorPicker = (props) => {
 							label={__('Lightness', 'eightshift-ui-components')}
 							inline
 						>
-							<Input
-								className={classnames(
-									'es-uic-h-8 es-uic-w-12 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-font-mono es-uic-text-sm es-uic-shadow-sm es-uic-transition',
-									'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-								)}
-							/>
+							<Input className={valueInputClassName} />
 						</BaseControl>
 					</ColorField>
 
@@ -297,12 +280,7 @@ export const SolidColorPicker = (props) => {
 							label={__('Hue', 'eightshift-ui-components')}
 							inline
 						>
-							<Input
-								className={classnames(
-									'es-uic-h-8 es-uic-w-12 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-font-mono es-uic-text-sm es-uic-shadow-sm es-uic-transition',
-									'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-								)}
-							/>
+							<Input className={valueInputClassName} />
 						</BaseControl>
 					</ColorField>
 
@@ -315,12 +293,7 @@ export const SolidColorPicker = (props) => {
 							label={__('Saturation', 'eightshift-ui-components')}
 							inline
 						>
-							<Input
-								className={classnames(
-									'es-uic-h-8 es-uic-w-12 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-font-mono es-uic-text-sm es-uic-shadow-sm es-uic-transition',
-									'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-								)}
-							/>
+							<Input className={valueInputClassName} />
 						</BaseControl>
 					</ColorField>
 
@@ -333,12 +306,7 @@ export const SolidColorPicker = (props) => {
 							label={__('Brightness', 'eightshift-ui-components')}
 							inline
 						>
-							<Input
-								className={classnames(
-									'es-uic-h-8 es-uic-w-12 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-font-mono es-uic-text-sm es-uic-shadow-sm es-uic-transition',
-									'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-								)}
-							/>
+							<Input className={valueInputClassName} />
 						</BaseControl>
 					</ColorField>
 				</TriggeredPopover>
