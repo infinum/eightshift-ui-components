@@ -1,8 +1,29 @@
-# React + Vite
+# Eightshift UI components
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A collection of commonly-used UI components, utilities and icons, meant to provide the best experience both for users and developers while making the editor UI look modern.
 
-Currently, two official plugins are available:
+Built using [React Aria components](https://react-spectrum.adobe.com/react-aria/), styled using [TailwindCSS](https://tailwindcss.com/). Build process and library export is set up with [Vite](https://vitejs.dev/).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Who do I talk to?
+
+If you have any questions or problems, please [open an issue](https://github.com/infinum/eightshift-ui-components/issues) on GitHub and we will do our best to give you a timely answer.
+
+## Maintainers
+Eightshift UI components is maintained and sponsored by
+[Eightshift](https://eightshift.com) and [Infinum](https://infinum.com).
+
+## License
+Eightshift UI components are provided by [Team Eightshift](https://eightshift.com) at [Infinum](https://infinum.com). This is free software, and may be redistributed under the terms specified in the LICENSE file.
+
+## To-do
+[] AdvancedColorPicker
+
+### Won't bring over from Frontend libs
+- BlockInserter
+- ColumnConfigSlider - for now
+- Responsive components (ResponsiveNumberPicker, ResponsiveSlider, ResponsiveToggleButton)
+- PresetPicker
+- Responsive (classic) - for now
+- ReOrderable - will deprecate
+- TileButton - will deprecate
+- WidthOffsetRangeSlider
