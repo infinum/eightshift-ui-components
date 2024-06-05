@@ -18,7 +18,7 @@
 			"import": "./dist/index.js",
 			"require": "./dist/index.js"
 		},
-		"./dist/assets/index.css": "./dist/assets/index.css"
+		"./dist/assets/style.css": "./dist/assets/style.css"
 	},
 	"scripts": {
 		"dev": "vite",
