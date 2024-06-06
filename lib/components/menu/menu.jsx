@@ -25,6 +25,7 @@ import { __ } from '@wordpress/i18n';
  * @param {string} [props.tooltip] - Tooltip text to display on the trigger button.
  * @param {boolean} [props.keepOpen=false] - If `true`, the menu will not close when an item is selected.
  * @param {boolean} [props.openOnLongPress=false] - If `true`, the menu will open on long press instead of click. If enabled, a regular `onPress` event can also be passed to the trigger button to enable dual behavior.
+ * @param {Object} [props.popoverProps] - Props to pass to the popover.
  *
  * @returns {JSX.Element} The Menu component.
  *
@@ -72,6 +73,8 @@ export const Menu = (props) => {
 		triggerIcon = icons.hamburgerMenu,
 		triggerProps,
 
+		popoverProps,
+
 		tooltip,
 
 		keepOpen = false,
@@ -117,6 +120,7 @@ export const Menu = (props) => {
 				className='!es-uic-p-0 focus:es-uic-outline-none'
 				aria-label={ariaLabel}
 				wrapperClassName={classnames(!hasSubmenuItems && 'es-uic-overflow-y-auto')}
+				{...popoverProps}
 			>
 				<ReactAriaMenu
 					aria-label={ariaLabel}
@@ -157,9 +161,7 @@ export const MenuSection = (props) => {
 			)}
 		>
 			{label && (
-				<Header className='es-uic-ml-1.5 es-uic-text-xs es-uic-font-medium es-uic-text-gray-400'>
-					{label}
-				</Header>
+				<Header className='es-uic-ml-1.5 es-uic-text-xs es-uic-font-medium es-uic-text-gray-400'>{label}</Header>
 			)}
 			{children}
 		</Section>
@@ -210,9 +212,7 @@ export const MenuItem = (props) => {
 		onClick,
 		shortcut,
 		className,
-		'aria-label': ariaLabel = typeof children === 'string'
-			? children
-			: __('Menu item', 'eightshift-ui-components'),
+		'aria-label': ariaLabel = typeof children === 'string' ? children : __('Menu item', 'eightshift-ui-components'),
 	} = props;
 
 	return (
@@ -223,9 +223,10 @@ export const MenuItem = (props) => {
 			className={classnames(
 				'es-uic-mx-1 es-uic-mb-1 es-uic-flex es-uic-min-w-40 es-uic-items-center es-uic-gap-1.5',
 				'first:es-uic-mt-1 [&>svg]:es-uic-size-5 [&>svg]:es-uic-text-gray-500',
-				'es-uic-select-none es-uic-rounded es-uic-border es-uic-border-transparent es-uic-px-1 es-uic-py-1.5 es-uic-text-sm es-uic-text-gray-800 es-uic-transition',
+				'es-uic-select-none es-uic-rounded es-uic-border es-uic-border-transparent es-uic-px-1 es-uic-py-1.5 es-uic-text-sm es-uic-transition',
 				'hover:es-uic-bg-gray-100',
 				'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+				disabled ? 'es-uic-text-gray-400' : 'es-uic-text-gray-800',
 				className,
 			)}
 			onAction={onClick}
@@ -251,6 +252,7 @@ export const MenuItem = (props) => {
  * @component
  * @param {Object} props - Component props.
  * @param {JSX.Element} props.trigger - The trigger button for the submenu. **This should be a `MenuItem`.**
+ * @param {Object} [props.popoverProps] - Props to pass to the popover.
  *
  * @returns {JSX.Element} The SubMenuItem component.
  *
@@ -259,7 +261,7 @@ export const MenuItem = (props) => {
  * @preserve
  */
 export const SubMenuItem = (props) => {
-	const { children, trigger } = props;
+	const { children, trigger, popoverProps } = props;
 
 	return (
 		<SubmenuTrigger>
@@ -270,6 +272,7 @@ export const SubMenuItem = (props) => {
 				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
 				className='!es-uic-p-0 focus:es-uic-outline-none'
 				offset={-1}
+				{...popoverProps}
 			>
 				<ReactAriaMenu
 					aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
