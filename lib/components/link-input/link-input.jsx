@@ -31,7 +31,7 @@ import { useDebouncedCallback } from 'use-debounce';
  * @param {string} [props.subtitle] - Subtitle to display.
  * @param {string} [props.help] - Help text to display below the input.
  * @param {string} [props.placeholder] - Placeholder to show in the input field.
- * @param {JSX.Element} [props.actions] - Actions to display to the right of the label.
+ * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display to the right of the label.
  * @param {JSX.Element} [props.icon=icons.globe] - Icon to display in the label.
  * @param {JSX.Element} [props.removeIcon=icons.clearAlt] - Icon to display in the input's clear button.
  * @param {boolean} [props.disabled=false] - If `true`, the input is disabled.

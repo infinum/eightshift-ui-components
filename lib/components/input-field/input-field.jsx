@@ -11,7 +11,7 @@ import { classnames } from '../../utilities/classnames';
  * @param {string} [props.label] - Label to display.
  * @param {string} [props.subtitle] - Subtitle to display.
  * @param {string} [props.help] - Help text to display below the input.
- * @param {JSX.Element} [props.actions] - Actions to display to the right of the label.
+ * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display to the right of the label.
  * @param {string} [props.value] - The current value of the input.
  * @param {Function} [props.onChange] - Function to run when the input value changes.
  * @param {InputType} [props.type='text'] - The input type. Renders a `<textarea>` instead of `<input>` if set to 'multiline'.

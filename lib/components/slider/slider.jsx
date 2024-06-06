@@ -23,7 +23,7 @@ import { generateMarkers } from './utils';
  * @param {string} [props.label] - The label of the slider.
  * @param {string} [props.subtitle] - The subtitle of the slider.
  * @param {string} [props.help] - The help text shown below the slider.
- * @param {JSX.Element} [props.actions] - Actions to display next to the label.
+ * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display next to the label.
  * @param {Number} [props.min=0] - The minimum value of the slider.
  * @param {Number} [props.max=100] - The maximum value of the slider.
  * @param {Number} [props.step=1] - The step value of the slider.

@@ -13,9 +13,9 @@ import { RichLabel } from '../icon-label/icon-label';
  * @param {Object} props - Component props.
  * @param {Object} props.value - The value object.
  * @param {boolean} props.isDesktopFirst - Whether the desktop-first mode is enabled.
- * @param {Array} props.breakpoints - Breakpoints to use.
- * @param {Array} [props.desktopFirstBreakpoints] - Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order.
- * @param {Array} props.options - Options of the attribute the component is linked to. `{ value: string, label: string }[]`.
+ * @param {string[]} props.breakpoints - Breakpoints to use.
+ * @param {string[]} [props.desktopFirstBreakpoints] - Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order.
+ * @param {{label: string, value: string}[]} props.options - Options of the attribute the component is linked to. `{ value: string, label: string }[]`.
  * @param {Object} props.breakpointData - Breakpoints to use. `{ [breakpoint: string]: number }`.
  *
  * @returns {JSX.Element} The ResponsivePreview component.

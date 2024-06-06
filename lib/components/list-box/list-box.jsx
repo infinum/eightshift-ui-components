@@ -15,7 +15,7 @@ import { RichLabel } from '../icon-label/icon-label';
  * @param {JSX.Element} [props.icon] - Icon to display in the label.
  * @param {string} [props.label] - Label to display.
  * @param {string} [props.subtitle] - Subtitle to display.
- * @param {JSX.Element} [props.actions] - Actions to display in the header.
+ * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display in the header.
  * @param {string} [props.help] - Help text to display below the list.
  * @param {boolean} [props.inline] - If `true`, the list is displayed inline with the label.
  * @param {Object[]} props.options - The list of options to display.

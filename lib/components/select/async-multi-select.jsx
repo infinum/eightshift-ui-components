@@ -26,7 +26,7 @@ import { eightshiftSelectClasses } from './styles';
  * @param {string} [props.help] - Help text of the component.
  * @param {string} [props.icon] - Icon of the component.
  * @param {string} [props.subtitle] - Subtitle of the component.
- * @param {Array} [props.actions] - Actions to show to the right of the label.
+ * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to show to the right of the label.
  * @param {boolean} [props.inline] - Whether the Select menu is displayed inline with the label, to the right.
  * @param {boolean|{label: string, value: string, metadata: Object<string, any>?}[]>} [props.preloadOptions=true] - If `true`, the initial loading is done as soon as the component is loaded. If an array of `{label: '', value: ''}` option is provided, that is loaded immediately, dynamic fetching only happens in search. If `false`, nothing is loaded immediately, fetching only happens when an user types to search.
  * @param {Function<Promise>} props.loadOptions - Async function that returns an array of `{label: '', value: ''}`-formatted items. `loadOptions(searchText: string): Promise<{label: string, value: string, [metadata]: Array}[]>`.

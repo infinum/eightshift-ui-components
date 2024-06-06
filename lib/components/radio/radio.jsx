@@ -121,7 +121,7 @@ RadioButton.displayName = 'RadioButton';
  * @param {JSX.Element} [props.icon] - Icon to show before the label.
  * @param {string} [props.label] - Label to show above the control.
  * @param {string} [props.help] - Help text displayed below the control.
- * @param {JSX.Element[]} [props.actions] - Actions to show to the right of the label.
+ * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to show to the right of the label.
  * @param {string} [props.subtitle] - Subtitle to show below the label.
  * @param {RadioButtonGroupOrientation} [props.orientation='vertical'] - Orientation of the radio buttons.
  * @param {RadioButtonGroupDesign} [props.design='default'] - Design of the radio buttons.

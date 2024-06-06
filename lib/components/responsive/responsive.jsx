@@ -32,9 +32,9 @@ import { BaseControl } from '../base-control/base-control';
  * @param {string} props.help - The help text of the component.
  * @param {string} props.label - The label of the component.
  * @param {string} props.subtitle - The subtitle of the component.
- * @param {Array<string>} props.options - Options of the attribute the component is linked to. `{ value: string, label: string }[]`.
- * @param {Array<string>} props.breakpoints - Breakpoints to use.
- * @param {Array<string>} [props.desktopFirstBreakpoints] - Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order.
+ * @param {{label: string, value: string}[]} props.options - Options of the attribute the component is linked to. `{ value: string, label: string }[]`.
+ * @param {string[]} props.breakpoints - Breakpoints to use.
+ * @param {string[]} [props.desktopFirstBreakpoints] - Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order.
  * @param {Object<string, number>} [props.breakpointData] - Currently used breakpoint data. `{ [breakpoint: string]: number }`.
  *
  * @returns {JSX.Element} The Responsive component.

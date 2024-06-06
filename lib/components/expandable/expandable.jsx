@@ -18,7 +18,7 @@ import { FocusScope } from 'react-aria';
  * @param {string} [props.subtitle] - Subtitle to display.
  * @param {string} [props.className] - Classes to pass to the container.
  * @param {string} [props.labelClassName] - Classes to pass to the label.
- * @param {JSX.Element} [props.actions] - Actions to display in the panel header, left of the expand button.
+ * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display in the panel header, left of the expand button.
  * @param {boolean} [props.keepActionsOnExpand=false] - If `true`, the actions are not hidden when the panel is expanded.
  * @param {boolean} [props.disabled] - If `true`, the expand button is disabled.
  * @param {boolean} [props.noFocusHandling] - If `true`, the focus trapping when the item is expanded is disabled. Useful when part of another component that manages focus itself.

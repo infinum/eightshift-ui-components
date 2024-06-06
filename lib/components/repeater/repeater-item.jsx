@@ -20,7 +20,7 @@ import { useCellEditMode } from '../../hooks/use-cell-edit-mode';
  * @param {JSX.Element} [props.icon] - Icon to display in the label.
  * @param {string} [props.label] - Label to display.
  * @param {string} [props.subtitle] - Subtitle to display.
- * @param {JSX.Element} [props.actions] - Actions to display to the right of the label.
+ * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display to the right of the label.
  * @param {string} [props.textValue] - The text value of the item.
  * @param {string} [props.className] - Classes to pass to the item.
  *

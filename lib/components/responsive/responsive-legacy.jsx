@@ -36,7 +36,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {string} [props.help] - The help text of the component.
  * @param {string} [props.label] - The label of the component.
  * @param {string} [props.subtitle] - The subtitle of the component.
- * @param {string[]} props.options - Options of the attribute the component is linked to. `{ value: string, label: string }[]`.
+ * @param {{label: string, value: string}[]} props.options - Options of the attribute the component is linked to. `{ value: string, label: string }[]`.
  * @param {any} [props.inheritValue=''] - Value that will be used as a default for breakpoints that don't have a value set. If `undefined`, needs to be used, use `allowUndefined` instead.
  * @param {boolean?} [props.allowUndefined] - If `true`, `undefined` is used as a default value for breakpoints that don't have a value set. Overrides `inheritValue`.
  * @param {Object} props.globalManifest - The global manifest.
