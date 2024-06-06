@@ -16,7 +16,7 @@ import { RichLabel } from '../icon-label/icon-label';
  * @param {Array} props.breakpoints - Breakpoints to use.
  * @param {Array} [props.desktopFirstBreakpoints] - Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order.
  * @param {Array} props.options - Options of the attribute the component is linked to. `{ value: string, label: string }[]`.
- * @param {Object} props.globalManifest - The global manifest.
+ * @param {Object} props.breakpointData - Breakpoints to use. `{ [breakpoint: string]: number }`.
  *
  * @returns {JSX.Element} The ResponsivePreview component.
  *
@@ -26,7 +26,7 @@ import { RichLabel } from '../icon-label/icon-label';
  * 	isDesktopFirst={isDesktopFirst}
  * 	breakpoints={breakpoints}
  * 	options={options}
- * 	globalManifest={globalManifest}
+ * 	breakpointData={breakpointData} // e.g. from global manifest
  * />
  *
  * @preserve
@@ -41,7 +41,7 @@ export const ResponsivePreview = (props) => {
 
 		options,
 
-		globalManifest,
+		breakpointData,
 	} = props;
 
 	const firstMobileFirstOverride = breakpoints.find((breakpoint) => value?.[breakpoint]);
@@ -70,7 +70,7 @@ export const ResponsivePreview = (props) => {
 			previewItems = [
 				...previewItems,
 				{
-					width: globalManifest.globalVariables.breakpoints[breakpoint],
+					width: breakpointData[breakpoint],
 					breakpoint: breakpoint,
 					value:
 						options?.find((opt) => opt.value === value?.[firstMobileFirstOverride])?.label ??
@@ -89,7 +89,7 @@ export const ResponsivePreview = (props) => {
 			previewItems = [
 				...previewItems,
 				{
-					width: globalManifest.globalVariables.breakpoints[breakpoints[i - 1]],
+					width: breakpointData[breakpoints[i - 1]],
 					breakpoint: breakpoint.replace('max-', ''),
 					value:
 						options?.find((opt) => opt.value === value?.[breakpoint])?.label ??
@@ -101,7 +101,7 @@ export const ResponsivePreview = (props) => {
 		previewItems = [
 			...previewItems,
 			{
-				width: globalManifest.globalVariables.breakpoints[breakpoints.at(-1)],
+				width: breakpointData[breakpoints.at(-1)],
 				breakpoint: __('Default', 'eightshift-ui-components'),
 				value:
 					options?.find((opt) => opt.value === value?.['_default'])?.label ??
