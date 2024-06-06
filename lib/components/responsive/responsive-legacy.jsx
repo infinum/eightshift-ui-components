@@ -208,8 +208,8 @@ export const ResponsiveLegacy = (props) => {
 					className={classnames(
 						'es-uic-grid es-uic-items-center es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-end] es-uic-duration-150',
 						detailsVisible
-							? 'es-uic-mb-2 es-uic-grid-cols-[minmax(0,_2rem),_minmax(0,_1fr),_minmax(0,_2rem)]'
-							: 'es-uic-grid-cols-[minmax(0,_0rem),_minmax(0,_1fr),_minmax(0,_2rem)]',
+							? 'es-uic-mb-2 es-uic-grid-cols-[minmax(0,_2rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
+							: 'es-uic-grid-cols-[minmax(0,_0rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]',
 					)}
 					key={defaultBreakpoint}
 				>
@@ -226,7 +226,7 @@ export const ResponsiveLegacy = (props) => {
 			)}
 			{inline && (
 				<AnimatedVisibility
-					className='es-uic-mb-2 es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_auto)] es-uic-items-center es-uic-gap-x-2'
+					className='es-uic-mb-2 es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2'
 					key={defaultBreakpoint}
 					visible={detailsVisible}
 				>
@@ -250,18 +250,18 @@ export const ResponsiveLegacy = (props) => {
 				{breakpoints.map((breakpoint, i) => {
 					const isOverrideSet = value[attribute[breakpoint]] !== inheritValue;
 
-					let aboveOverride = rawBreakpoints
+					const aboveOverride = rawBreakpoints
 						.slice(0, i + 1)
 						.toReversed()
 						.find((breakpoint) => value?.[attribute[breakpoint]] !== inheritValue);
 
-					let belowOverride = rawBreakpoints
+					const belowOverride = rawBreakpoints
 						.slice(i + 2)
 						.find((breakpoint) => value?.[attribute[breakpoint]] !== inheritValue);
 
 					return (
 						<div
-							className='es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_auto)] es-uic-items-center es-uic-gap-x-2'
+							className='es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2'
 							key={breakpoint}
 						>
 							<DecorativeTooltip
@@ -367,7 +367,6 @@ export const ResponsiveLegacy = (props) => {
 								icon={icons.clearAlt}
 								disabled={value?.[attribute[breakpoint]] === inheritValue}
 								type='ghost'
-								size='large'
 							/>
 						</div>
 					);
