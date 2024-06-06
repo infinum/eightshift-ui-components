@@ -15,7 +15,8 @@ import { BaseControl } from '../base-control/base-control';
 import { MatrixAlign } from '../matrix-align/matrix-align';
 import { Spacer } from '../spacer/spacer';
 import { Toggle } from '../toggle/toggle';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 
 const getGradientResult = (input, type) => {
 	if (!input || !type) {
@@ -254,7 +255,7 @@ export const GradientEditor = (props) => {
 							return (
 								<MenuItem
 									key={value}
-									icon={<div className={classnames('es-uic-size-5 es-uic-from-gray-700 es-uic-to-gray-200 es-uic-rounded-sm', iconClass)} />}
+									icon={<div className={clsx('es-uic-size-5 es-uic-from-gray-700 es-uic-to-gray-200 es-uic-rounded-sm', iconClass)} />}
 									onClick={() => {
 										setGradientData({
 											...gradientData,

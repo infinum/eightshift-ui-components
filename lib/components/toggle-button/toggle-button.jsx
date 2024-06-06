@@ -1,5 +1,6 @@
 import { ToggleButton as ReactAriaToggleButton } from 'react-aria-components';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { Tooltip } from '../tooltip/tooltip';
 
 /**
@@ -108,7 +109,7 @@ export const ToggleButton = (props) => {
 			onChange={onChange}
 			isDisabled={disabled}
 			className={({ isSelected }) =>
-				classnames(
+				clsx(
 					'es-uic-isolate es-uic-flex es-uic-items-center es-uic-justify-center es-uic-gap-1 es-uic-rounded-md es-uic-transition es-uic-duration-300 es-uic-relative',
 					'after:es-uic-absolute after:es-uic-inset-0 after:-es-uic-z-10 after:es-uic-rounded-[0.3125rem] after:es-uic-bg-gradient-to-br after:es-uic-from-teal-100/40 after:es-uic-via-transparent after:es-uic-to-teal-200/50 after:es-uic-opacity-0 after:es-uic-transition-opacity after:es-uic-content-[""]',
 					'disabled:es-uic-shadow-none',

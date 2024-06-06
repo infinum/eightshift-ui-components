@@ -1,5 +1,6 @@
 import { Text } from 'react-aria-components';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { RichLabel } from '../rich-label/rich-label';
 
 /**
@@ -58,9 +59,9 @@ export const BaseControl = (props) => {
 	}
 
 	return (
-		<div className={classnames('es-uic-space-y-1', className)}>
+		<div className={clsx('es-uic-space-y-1', className)}>
 			<div
-				className={classnames(
+				className={clsx(
 					'es-uic-flex es-uic-items-center es-uic-gap-1',
 					!inline && !icon && 'es-uic-pb-0.5',
 				)}
@@ -77,7 +78,7 @@ export const BaseControl = (props) => {
 
 				{inline && (
 					<div
-						className={classnames(
+						className={clsx(
 							'es-uic-ml-auto es-uic-flex es-uic-items-center es-uic-gap-1',
 							controlContainerClassName,
 						)}
@@ -87,14 +88,14 @@ export const BaseControl = (props) => {
 				)}
 
 				{!inline && actions && (
-					<div className={classnames('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && 'es-uic-ml-auto')}>
+					<div className={clsx('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && 'es-uic-ml-auto')}>
 						{actions}
 					</div>
 				)}
 			</div>
 
 			{!inline && Array.isArray(children) && children.filter(Boolean).length > 1 && (
-				<div className={classnames('es-uic-space-y-1', controlContainerClassName)}>{children}</div>
+				<div className={clsx('es-uic-space-y-1', controlContainerClassName)}>{children}</div>
 			)}
 			{!inline && (!Array.isArray(children) || children.filter(Boolean).length < 2) && children}
 

@@ -1,4 +1,5 @@
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 
 /**
  * Component that provides a container panel for options, with an optional title.
@@ -22,7 +23,7 @@ import { classnames } from '../../utilities/classnames';
 export const ContainerPanel = ({ children, className, title }) => {
 	return (
 		<div
-			className={classnames(
+			className={clsx(
 				'es-uic-space-y-2.5 es-uic-border-t es-uic-border-t-gray-200 es-uic-p-4 es-uic-pt-3',
 				className,
 			)}

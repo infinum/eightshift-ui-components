@@ -1,7 +1,8 @@
 import React from 'react';
 import { components } from 'react-select';
 import { icons } from '../../icons/icons';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 
 /**
  * Default dropdown indicator for CustomSelect.
@@ -14,7 +15,7 @@ export const CustomSelectDefaultDropdownIndicator = (props) => {
 	return (
 		<components.DropdownIndicator {...props}>
 			{React.cloneElement(icons.dropdownCaretAlt, {
-				className: classnames(props.selectProps.menuIsOpen && '-es-uic-scale-y-100 '),
+				className: clsx(props.selectProps.menuIsOpen && '-es-uic-scale-y-100 '),
 			})}
 		</components.DropdownIndicator>
 	);

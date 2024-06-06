@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { upperFirst } from '../../utilities/text-helpers';
 
 /**
@@ -105,7 +106,7 @@ export const BreakpointPreview = (props) => {
 
 	return (
 		<div
-			className={classnames(
+			className={clsx(
 				'es-uic-grid es-uic-w-fit es-uic-mx-auto es-uic-shrink-0 es-uic-auto-cols-auto es-uic-grid-rows-[auto,_auto] es-uic-gap-x-2 es-uic-gap-y-0.5',
 			)}
 		>
@@ -145,7 +146,7 @@ export const BreakpointPreview = (props) => {
 							<div className='es-uic-row-start-1 es-uic-flex es-uic-min-w-28 es-uic-items-center es-uic-gap-1 es-uic-font-mono es-uic-font-medium es-uic-text-gray-400'>
 								{dotsStart && (
 									<div
-										className={classnames(
+										className={clsx(
 											'es-uic-flex es-uic-gap-0.5',
 											active ? activeTextColor : 'text-gray-300',
 										)}
@@ -157,7 +158,7 @@ export const BreakpointPreview = (props) => {
 								)}
 								{width && <span>{width}</span>}
 								<div
-									className={classnames(
+									className={clsx(
 										'es-uic-grow es-uic-rounded',
 										active ? 'es-uic-h-0.5' : 'es-uic-h-px es-uic-bg-gray-300',
 										active && activeBgColor,
@@ -166,7 +167,7 @@ export const BreakpointPreview = (props) => {
 								{widthEnd && <span>{widthEnd}</span>}
 								{dotsEnd && (
 									<div
-										className={classnames(
+										className={clsx(
 											'es-uic-flex es-uic-gap-0.5',
 											active ? activeTextColor : 'es-uic-text-gray-300',
 										)}
@@ -179,7 +180,7 @@ export const BreakpointPreview = (props) => {
 							</div>
 							<div className='es-uic-row-start-2 es-uic-flex es-uic-w-full es-uic-min-w-28 es-uic-flex-col es-uic-items-start es-uic-gap-1'>
 								<span
-									className={classnames(
+									className={clsx(
 										'es-uic-rounded es-uic-px-1 es-uic-py-0.5',
 										hasActive && active && 'es-uic-text-white',
 										hasActive && active && activeBgColor,
@@ -192,7 +193,7 @@ export const BreakpointPreview = (props) => {
 								</span>
 								{value && (
 									<span
-										className={classnames(
+										className={clsx(
 											'-es-uic-mt-0.5 es-uic-px-1',
 											active ? 'es-uic-text-gray-400' : 'es-uic-text-gray-400',
 											alignEnd && 'es-uic-ml-auto',

@@ -3,7 +3,8 @@ import { Menu, MenuItem, MenuSection } from '../menu/menu';
 import { ColorSwatch } from './color-swatch';
 import { RichLabel } from '../rich-label/rich-label';
 import { BaseControl } from '../base-control/base-control';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { icons } from '../../icons/icons';
 
 /**
@@ -14,7 +15,7 @@ import { icons } from '../../icons/icons';
  * @param {string} [props.icon] - Icon to display.
  * @param {string} [props.label] - Label to display.
  * @param {string} [props.subtitle] - Subtitle to display.
- * @param {string} [props.labelClassName] - Additional classnames passed to the label.
+ * @param {string} [props.labelClassName] - Additional clsx passed to the label.
  * @param {string} props.value - Selected value.
  * @param {Function} props.onChange - Function to run when the value changes.
  * @param {Object[]} props.colors - Colors to display.
@@ -161,7 +162,7 @@ export const ColorPicker = (props) => {
 			icon={icon}
 			label={label}
 			subtitle={subtitle}
-			className={classnames('es-uic-w-full', labelClassName)}
+			className={clsx('es-uic-w-full', labelClassName)}
 			inline
 		>
 			<Menu

@@ -1,5 +1,6 @@
 import { Checkbox as ReactAriaCheckbox } from 'react-aria-components';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { icons } from '../../icons/icons';
 import { RichLabel } from '../rich-label/rich-label';
@@ -61,7 +62,7 @@ export const Checkbox = (props) => {
 			isReadOnly={readOnly}
 			isSelected={checked ?? false}
 			onChange={onChange}
-			className={classnames(
+			className={clsx(
 				'es-uic-flex es-uic-w-full es-uic-items-center es-uic-gap-1.5 es-uic-text-sm',
 				className,
 			)}
@@ -79,7 +80,7 @@ export const Checkbox = (props) => {
 						/>
 					)}
 					<div
-						className={classnames(
+						className={clsx(
 							'es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded-md es-uic-border es-uic-text-gray-600 es-uic-shadow-sm es-uic-transition',
 							isSelected
 								? 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white'

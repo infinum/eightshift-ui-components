@@ -1,4 +1,5 @@
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { icons } from '../../icons/icons';
 
 /**
@@ -72,7 +73,7 @@ export const Notice = (props) => {
 	return (
 		<div>
 			<div
-				className={classnames(
+				className={clsx(
 					'es-uic-grid es-uic-grid-cols-[auto,_1fr] es-uic-grid-rows-[auto,_auto] es-uic-rounded-md es-uic-border es-uic-bg-gradient-to-tr es-uic-shadow-sm',
 					styles[type].className,
 					(icon || styles[type].icon) ? 'es-uic-gap-x-1.5 es-uic-p-1.5' : 'es-uic-py-1.5 es-uic-px-2',
@@ -81,7 +82,7 @@ export const Notice = (props) => {
 			>
 				{(icon || styles[type].icon) && (
 					<span
-						className={classnames(
+						className={clsx(
 							'es-uic-col-span-1 es-uic-col-start-1 es-uic-row-span-2 es-uic-row-start-1 es-uic-shrink-0 es-uic-self-center [&>svg]:es-uic-size-7',
 							alignIconToTitle ? 'es-uic-self-baseline' : 'es-uic-self-center',
 							styles[type].iconColor,
@@ -93,7 +94,7 @@ export const Notice = (props) => {
 
 				{label && (
 					<span
-						className={classnames(
+						className={clsx(
 							'es-uic-col-span-2 es-uic-col-start-2 es-uic-text-balance es-uic-text-sm es-uic-leading-tight',
 							subtitle ? 'es-uic-self-end' : 'es-uic-row-span-2 es-uic-self-center',
 							styles[type].textColor,
@@ -104,7 +105,7 @@ export const Notice = (props) => {
 				)}
 				{subtitle && (
 					<span
-						className={classnames(
+						className={clsx(
 							'es-uic-col-span-2 es-uic-col-start-2 es-uic-text-balance es-uic-text-xs es-uic-leading-tight',
 							styles[type].subtitleColor,
 							label ? 'es-uic-self-start' : 'es-uic-row-span-2 es-uic-self-center',

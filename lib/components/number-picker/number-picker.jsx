@@ -2,7 +2,8 @@ import { cloneElement, useState } from 'react';
 import { Group, Input, Label, NumberField } from 'react-aria-components';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { BaseControl } from '../base-control/base-control';
 
 /**
@@ -102,7 +103,7 @@ export const NumberPicker = ({
 				className='text-sm'
 			>
 				<Group
-					className={classnames(
+					className={clsx(
 						'es-uic-flex es-uic-w-fit es-uic-items-center es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-pl-1 es-uic-pr-0.5 es-uic-shadow-sm es-uic-transition',
 						isInputFocused && 'es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 						!prefix && (sizes?.[size]?.noPrefixPadding ?? sizes.default.noPrefixPadding),

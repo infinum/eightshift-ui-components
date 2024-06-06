@@ -1,5 +1,6 @@
 import { Dialog, DialogTrigger, Popover as ReactAriaPopover } from 'react-aria-components';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { __ } from '@wordpress/i18n';
 import { Button } from '../button/button';
 
@@ -100,7 +101,7 @@ export const Popover = (props) => {
 			crossOffset={crossOffset}
 			containerPadding={containerPadding}
 			className={({ isEntering, isExiting }) =>
-				classnames(
+				clsx(
 					'es-uic-rounded-md es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-shadow-lg es-uic-outline-none',
 					isEntering &&
 						'es-uic-outline es-uic-animate-in es-uic-fade-in-0 es-uic-slide-in-from-top-2 es-uic-fill-mode-forwards',
@@ -112,7 +113,7 @@ export const Popover = (props) => {
 			style={style}
 		>
 			<Dialog
-				className={classnames('es-uic-p-1 es-uic-text-sm es-uic-outline-none', className)}
+				className={clsx('es-uic-p-1 es-uic-text-sm es-uic-outline-none', className)}
 				{...other}
 			>
 				{children}

@@ -8,7 +8,8 @@ import {
 } from 'react-aria-components';
 import { __ } from '@wordpress/i18n';
 import { icons } from '../../icons/icons';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { useCallback, useRef, useState } from 'react';
 import { useAsyncList } from 'react-stately';
 import { Spacer } from '../spacer/spacer';
@@ -155,7 +156,7 @@ export const LinkInput = (props) => {
 						<Input
 							placeholder={placeholder}
 							ref={inputRef}
-							className={classnames(
+							className={clsx(
 								'es-uic-min-h-10 es-uic-w-full es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-py-2 es-uic-pl-2 es-uic-pr-1 es-uic-text-sm es-uic-shadow-sm es-uic-transition selection:es-uic-bg-teal-500/20 selection:es-uic-text-teal-950',
 								'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 								inputValue?.length > 0 && 'es-uic-pr-8',
@@ -178,7 +179,7 @@ export const LinkInput = (props) => {
 							<ReactAriaButton>
 								<Tooltip text={__('Clear', 'eightshift-ui-components')}>
 									<div
-										className={classnames(
+										className={clsx(
 											'es-uic-flex es-uic-size-8 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-white/85 es-uic-text-gray-600 es-uic-backdrop-blur es-uic-transition',
 											'hover:es-uic-bg-red-50 hover:es-uic-text-red-500',
 											'[&>svg]:es-uic-size-6',
@@ -265,7 +266,7 @@ export const LinkInput = (props) => {
 									textValue={label}
 									size='large'
 									type='ghost'
-									className={classnames(
+									className={clsx(
 										'es-uic-w-full es-uic-text-start',
 										'es-uic-grid es-uic-grid-cols-[auto,_minmax(0,_1fr)] es-uic-grid-rows-2 es-uic-items-center es-uic-justify-items-start es-uic-gap-x-2 es-uic-gap-y-0',
 										'[&>svg]:es-uic-row-span-2 [&>svg]:es-uic-shrink-0',

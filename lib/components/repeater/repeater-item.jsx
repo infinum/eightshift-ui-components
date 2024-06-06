@@ -5,7 +5,8 @@ import {
 } from 'react-aria-components';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { Expandable } from '../expandable/expandable';
 import { __ } from '@wordpress/i18n';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
@@ -64,7 +65,7 @@ export const RepeaterItem = (props) => {
 					<GridListItem
 						aria-label={ariaLabel ?? a11yLabel}
 						textValue={a11yLabel}
-						className={classnames(
+						className={clsx(
 							'es-uic-rounded-lg es-uic-transition',
 							'focus:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 						)}
@@ -82,7 +83,7 @@ export const RepeaterItem = (props) => {
 								label={<div className='es-uic-flex es-uic-items-center es-uic-gap-1'>{label}</div>}
 								subtitle={subtitle}
 								labelClassName={className}
-								className={classnames(isDragging && 'es-uic-opacity-25')}
+								className={clsx(isDragging && 'es-uic-opacity-25')}
 								onOpenChange={(isOpen) => setCanReorder(!isOpen)}
 								actions={
 									<>
@@ -119,7 +120,7 @@ const Checkbox = (props) => {
 			{({ isIndeterminate, isSelected }) => (
 				<>
 					<div
-						className={classnames(
+						className={clsx(
 							'es-uic-flex es-uic-size-5.5 es-uic-items-center es-uic-justify-center es-uic-rounded-md es-uic-border es-uic-text-gray-600 es-uic-shadow-sm es-uic-transition',
 							isSelected && 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white',
 						)}

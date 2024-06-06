@@ -1,6 +1,7 @@
 import { useObjectRef } from 'react-aria';
 import { Button as ReactAriaButton, Toolbar } from 'react-aria-components';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { Tooltip } from '../tooltip/tooltip';
 import { __ } from '@wordpress/i18n';
 
@@ -107,7 +108,7 @@ export const Button = (props) => {
 		<ReactAriaButton
 			onPress={onPress}
 			isDisabled={disabled}
-			className={classnames(
+			className={clsx(
 				'es-uic-flex es-uic-items-center es-uic-gap-1 es-uic-rounded-md es-uic-transition es-uic-duration-300',
 				(icon && !children) && 'es-uic-justify-center',
 				!disabled && (themes[type]?.regular ?? themes.default.regular),
@@ -177,5 +178,5 @@ export const Button = (props) => {
  * @preserve
  */
 export const ButtonGroup = ({ children, className }) => (
-	<Toolbar className={classnames('es-uic-button-group es-uic-flex', className)}>{children}</Toolbar>
+	<Toolbar className={clsx('es-uic-button-group es-uic-flex', className)}>{children}</Toolbar>
 );

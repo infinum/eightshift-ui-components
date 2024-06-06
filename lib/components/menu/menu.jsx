@@ -10,7 +10,8 @@ import {
 import { icons } from '../../icons/icons';
 import { Button } from '../button/button';
 import { Popover } from '../popover/popover';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { cloneElement } from 'react';
 import { __ } from '@wordpress/i18n';
 
@@ -119,7 +120,7 @@ export const Menu = (props) => {
 			<Popover
 				className='!es-uic-p-0 focus:es-uic-outline-none'
 				aria-label={ariaLabel}
-				wrapperClassName={classnames(!hasSubmenuItems && 'es-uic-overflow-y-auto')}
+				wrapperClassName={clsx(!hasSubmenuItems && 'es-uic-overflow-y-auto')}
 				{...popoverProps}
 			>
 				<ReactAriaMenu
@@ -154,7 +155,7 @@ export const MenuSection = (props) => {
 	const { children, label } = props;
 	return (
 		<Section
-			className={classnames(
+			className={clsx(
 				'es-uic-space-y-1 es-uic-border-b es-uic-pb-1 last:es-uic-border-b-0',
 				label && 'es-uic-pt-2 first:es-uic-pt-1.5',
 				!label && 'last:es-uic-pb-1',
@@ -220,7 +221,7 @@ export const MenuItem = (props) => {
 			{...props}
 			aria-label={ariaLabel}
 			isDisabled={disabled}
-			className={classnames(
+			className={clsx(
 				'es-uic-mx-1 es-uic-mb-1 es-uic-flex es-uic-min-w-40 es-uic-items-center es-uic-gap-1.5',
 				'first:es-uic-mt-1 [&>svg]:es-uic-size-5 [&>svg]:es-uic-text-gray-500',
 				'es-uic-select-none es-uic-rounded es-uic-border es-uic-border-transparent es-uic-px-1 es-uic-py-1.5 es-uic-text-sm es-uic-transition',
@@ -241,7 +242,7 @@ export const MenuItem = (props) => {
 					{shortcut}
 				</div>
 			)}
-			{endIcon && <div className={classnames(!shortcut && 'es-uic-ml-auto')}>{endIcon}</div>}
+			{endIcon && <div className={clsx(!shortcut && 'es-uic-ml-auto')}>{endIcon}</div>}
 		</ReactAriaMenuItem>
 	);
 };

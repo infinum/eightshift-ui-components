@@ -1,5 +1,6 @@
 import { Label, Radio, RadioGroup } from 'react-aria-components';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { RichLabel } from '../rich-label/rich-label';
 import { BaseControl } from '../base-control/base-control';
@@ -44,12 +45,12 @@ export const RadioButton = (props) => {
 	} = props;
 
 	const styles = {
-		segmented: classnames(
+		segmented: clsx(
 			'es-uic-py-1 es-uic-px-1.5 es-uic-border hover:es-uic-bg-gray-50 es-uic-transition',
 			'first:es-uic-rounded-t-lg last:es-uic-rounded-b-lg',
 			'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50 focus-visible:es-uic-z-10',
 		),
-		segmentedHorizontal: classnames(
+		segmentedHorizontal: clsx(
 			'es-uic-py-1 es-uic-px-1.5 es-uic-border hover:es-uic-bg-gray-50 es-uic-transition es-uic-grow',
 			'first:es-uic-rounded-l-lg last:es-uic-rounded-r-lg',
 			'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50 focus-visible:es-uic-z-10',
@@ -59,7 +60,7 @@ export const RadioButton = (props) => {
 	return (
 		<Radio
 			isDisabled={disabled}
-			className={classnames(
+			className={clsx(
 				'es-uic-flex es-uic-items-center es-uic-gap-1.5 es-uic-text-sm',
 				styles[design],
 				className,
@@ -78,7 +79,7 @@ export const RadioButton = (props) => {
 						/>
 					)}
 					<div
-						className={classnames(
+						className={clsx(
 							'es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded-full es-uic-border es-uic-text-gray-600 es-uic-shadow-sm es-uic-transition',
 							isSelected
 								? 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white'
@@ -195,7 +196,7 @@ export const RadioButtonGroup = (props) => {
 
 	return (
 		<RadioGroup
-			className={classnames('es-uic-w-full', className)}
+			className={clsx('es-uic-w-full', className)}
 			isDisabled={disabled}
 			isReadOnly={readOnly}
 			onChange={onChange}
@@ -211,7 +212,7 @@ export const RadioButtonGroup = (props) => {
 				help={help}
 				labelAs={Label}
 				className={labelClassName}
-				controlContainerClassName={classnames(
+				controlContainerClassName={clsx(
 					orientation === 'horizontal' &&
 						'es-uic-flex es-uic-flex-wrap !es-uic-space-y-0 es-uic-gap-2.5',
 						design === 'segmented' && orientation ==='vertical' && '!-es-uic-space-y-px',

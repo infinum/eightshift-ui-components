@@ -4,7 +4,8 @@ import { Popover } from '../popover/popover';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
 import { camelCase, upperFirst } from '../../utilities/text-helpers';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { Tooltip } from '../tooltip/tooltip';
 import { BaseControl } from '../base-control/base-control';
 
@@ -159,7 +160,7 @@ export const MatrixAlign = (props) => {
 				>
 					<div
 						ref={innerRef}
-						className={classnames(
+						className={clsx(
 							'es-uic-grid',
 							size === '3x3' && 'es-uic-grid-cols-3 es-uic-grid-rows-3',
 							size === '2x2' && 'es-uic-grid-cols-2 es-uic-grid-rows-2',

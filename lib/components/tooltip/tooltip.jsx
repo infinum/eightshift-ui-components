@@ -5,7 +5,8 @@ import {
 } from 'react-aria-components';
 import { useHover, useFocusWithin, mergeProps } from 'react-aria';
 
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { useRef, useState } from 'react';
 
 /**
@@ -91,7 +92,7 @@ export const Tooltip = (props) => {
 				offset={offset}
 				crossOffset={crossOffset}
 				className={({ isEntering, isExiting }) =>
-					classnames(
+					clsx(
 						'es-uic-group',
 						'es-uic-z-20 es-uic-select-none es-uic-rounded-md es-uic-border es-uic-px-1.5 es-uic-py-0.5 es-uic-text-sm es-uic-shadow es-uic-backdrop-blur-xl es-uic-will-change-[transform,opacity]',
 						theme === 'light' && 'es-uic-border-gray-200 es-uic-bg-white/60 es-uic-text-gray-700',
@@ -112,7 +113,7 @@ export const Tooltip = (props) => {
 							width={8}
 							height={8}
 							viewBox='0 0 8 8'
-							className={classnames(
+							className={clsx(
 								'es-uic-m-px es-uic-stroke-none es-uic-drop-shadow-sm',
 								theme === 'light' && 'es-uic-fill-gray-200',
 								theme === 'dark' && 'es-uic-fill-gray-600',
@@ -194,7 +195,7 @@ export const DecorativeTooltip = (props) => {
 		>
 			<div
 				ref={ref}
-				className={classnames('es-uic-inline', wrapperClassName)}
+				className={clsx('es-uic-inline', wrapperClassName)}
 				{...mergeProps(hoverProps, focusWithinProps)}
 			>
 				{children}

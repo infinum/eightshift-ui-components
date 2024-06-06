@@ -1,4 +1,5 @@
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 
 /**
  * Component that displays a label, with an optional icon and subtitle.
@@ -40,7 +41,7 @@ export const RichLabel = (props) => {
 
 	return (
 		<ComponentToRender
-			className={classnames(
+			className={clsx(
 				'es-uic-flex es-uic-items-center es-uic-gap-1.5 es-uic-text-sm es-uic-leading-tight es-uic-text-gray-800',
 				fullWidth && 'es-uic-grow',
 				className,

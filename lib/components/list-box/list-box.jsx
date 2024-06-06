@@ -2,7 +2,8 @@ import {
 	ListBox as ReactAriaListBox,
 	ListBoxItem as ReactAriaListBoxItem,
 } from 'react-aria-components';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { BaseControl } from '../base-control/base-control';
 import { __ } from '@wordpress/i18n';
 import { RichLabel } from '../rich-label/rich-label';
@@ -97,7 +98,7 @@ export const ListBox = (props) => {
 		>
 			<ReactAriaListBox
 				selectionMode={selectionMode}
-				className={classnames(
+				className={clsx(
 					'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-p-1 es-uic-text-sm es-uic-shadow-sm es-uic-transition',
 					'focus:es-uic-outline-none',
 					orientation === 'horizontal' &&
@@ -125,7 +126,7 @@ export const ListBox = (props) => {
 							textValue={label ?? tooltip}
 							isDisabled={disabled}
 							className={({ isDisabled, isSelected }) => {
-								return classnames(
+								return clsx(
 									'es-uic-flex es-uic-min-h-9 es-uic-select-none es-uic-rounded-md es-uic-border es-uic-transition',
 									'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 									isSelected &&
@@ -147,7 +148,7 @@ export const ListBox = (props) => {
 								icon={icon}
 								label={label}
 								subtitle={subtitle}
-								className={classnames(orientation === 'horizontal' && 'leading-none')}
+								className={clsx(orientation === 'horizontal' && 'leading-none')}
 								contentsOnly={orientation === 'horizontal-tiles'}
 							/>
 						</ReactAriaListBoxItem>

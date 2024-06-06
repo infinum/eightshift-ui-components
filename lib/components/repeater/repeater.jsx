@@ -4,7 +4,8 @@ import { GridList, useDragAndDrop } from 'react-aria-components';
 import { Button, ButtonGroup } from '../button/button';
 import { icons } from '../../icons/icons';
 import { useEffect, useId, useState } from 'react';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
@@ -110,7 +111,7 @@ export const Repeater = (props) => {
 				<DropIndicator
 					target={target}
 					className={({ isDropTarget }) =>
-						classnames(
+						clsx(
 							'es-uic-h-10 es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-transition',
 							isDropTarget ? 'es-uic-border-teal-500 es-uic-bg-teal-500/5' : 'es-uic-border-dashed',
 						)

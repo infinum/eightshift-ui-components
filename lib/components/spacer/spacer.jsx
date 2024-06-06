@@ -1,4 +1,5 @@
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 
 /**
  * A simple spacer/divider component, with optional text or icon.
@@ -58,7 +59,7 @@ export const Spacer = (props) => {
 		},
 	};
 
-	const spaceClass = classnames(
+	const spaceClass = clsx(
 		vertical ? 'es-uic-h-full' : 'es-uic-w-full',
 		!vertical && !border && sizes[size].sizeHorizontal,
 		!vertical && border && sizes[size].sizeHorizontalBorder,
@@ -69,7 +70,7 @@ export const Spacer = (props) => {
 
 	if (text || icon) {
 		return (
-			<div className={classnames('es-uic-flex es-uic-items-center es-uic-gap-1.5', className)}>
+			<div className={clsx('es-uic-flex es-uic-items-center es-uic-gap-1.5', className)}>
 				{icon && (
 					<span className='es-uic-shrink-0 es-uic-rounded es-uic-bg-gray-500 es-uic-p-0.5 es-uic-text-gray-50 es-uic-shadow-sm [&>svg]:es-uic-size-5.5'>
 						{icon}
@@ -90,7 +91,7 @@ export const Spacer = (props) => {
 			<div>
 				{size !== 'px' && <div className={spaceClass} />}
 				<div
-					className={classnames(
+					className={clsx(
 						'es-uic-bg-gray-300',
 						vertical ? 'es-uic-h-full es-uic-w-px' : 'es-uic-h-px es-uic-w-full',
 					)}

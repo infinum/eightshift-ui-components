@@ -5,7 +5,8 @@ import {
 	TabPanel as ReactAriaTabPanel,
 } from 'react-aria-components';
 import { __, sprintf } from '@wordpress/i18n';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { cloneElement, useId } from 'react';
 import { Notice } from '../notice/notice';
 
@@ -76,7 +77,7 @@ export const Tabs = (props) => {
 				cloneElement(child, {
 					id: `tab-${baseId}-${tabPanelCounter++}`,
 					key: index,
-					className: classnames(child.props.className, vertical && 'es-uic-border-l es-uic-border-l-300 es-uic-pl-3'),
+					className: clsx(child.props.className, vertical && 'es-uic-border-l es-uic-border-l-300 es-uic-pl-3'),
 				}),
 			];
 		}
@@ -109,7 +110,7 @@ export const Tabs = (props) => {
 		<ReactAriaTabs
 			{...rest}
 			orientation={vertical ? 'vertical' : 'horizontal'}
-			className={classnames(
+			className={clsx(
 				vertical
 					? 'es-uic-grid es-uic-size-full es-uic-min-h-40 es-uic-grid-cols-[minmax(0,_15rem),_2fr] es-uic-gap-4'
 					: 'es-uic-flex-col',
@@ -142,7 +143,7 @@ export const TabList = (props) => {
 		<ReactAriaTabList
 			aria-label={ariaLabel ?? __('tabs', 'eightshift-ui-components')}
 			className={({ orientation }) =>
-				classnames(
+				clsx(
 					'es-uic-flex es-uic-gap-1',
 					orientation === 'vertical' && 'es-uic-h-full es-uic-flex-col es-uic-pr-1.5',
 					orientation === 'horizontal' &&
@@ -180,7 +181,7 @@ export const Tab = (props) => {
 			{...other}
 			isDisabled={disabled}
 			className={({ isSelected, isDisabled }) => {
-				return classnames(
+				return clsx(
 					'es-uic-relative es-uic-flex es-uic-select-none es-uic-items-center es-uic-rounded es-uic-p-1.5 es-uic-text-sm es-uic-transition',
 					'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 					'after:es-uic-absolute after:es-uic-rounded-full after:es-uic-bg-teal-600 after:es-uic-shadow-sm after:es-uic-shadow-teal-500/25 after:es-uic-transition after:es-uic-duration-300 after:es-uic-content-[""]',
@@ -225,7 +226,7 @@ export const TabPanel = (props) => {
 	return (
 		<ReactAriaTabPanel
 			{...other}
-			className={classnames(
+			className={clsx(
 				'es-uic-mt-1.5 es-uic-space-y-2.5 es-uic-text-sm focus:es-uic-outline-none',
 				className,
 			)}

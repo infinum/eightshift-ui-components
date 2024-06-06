@@ -6,7 +6,8 @@ import {
 	Label,
 } from 'react-aria-components';
 import { BaseControl } from '../base-control/base-control';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { icons } from '../../icons/icons';
 
@@ -107,7 +108,7 @@ export const ColumnConfigSlider = (props) => {
 						return (
 							<>
 								<div
-									className={classnames(
+									className={clsx(
 										'es-uic-col-span-full es-uic-row-span-1 es-uic-row-start-1 es-uic-h-full es-uic-w-full es-uic-grow es-uic-rounded-md es-uic-border',
 										disabled
 											? 'es-uic-border-gray-200 es-uic-bg-white'
@@ -118,7 +119,7 @@ export const ColumnConfigSlider = (props) => {
 								{markerData.slice(0, -1).map((marker) => (
 									<div
 										key={marker}
-										className={classnames(
+										className={clsx(
 											'es-uic-row-span-1 es-uic-row-start-1 es-uic-h-full es-uic-w-px es-uic-justify-self-center',
 											marker >= value[0] - 1 && marker < value[1] ? 'es-uic-bg-teal-700/25' : 'es-uic-bg-gray-300',
 											(marker === value[0] - 2 || marker === value[1] - 1) && 'es-uic-hidden',
@@ -128,7 +129,7 @@ export const ColumnConfigSlider = (props) => {
 								))}
 
 								<div
-									className={classnames(
+									className={clsx(
 										'es-uic-pointer-events-none es-uic-col-start-1 es-uic-row-start-1 es-uic-border',
 										'es-uic-h-full es-uic-w-full es-uic-self-center es-uic-rounded-md',
 										disabled
@@ -144,7 +145,7 @@ export const ColumnConfigSlider = (props) => {
 									return (
 										<span
 											key={marker}
-											className={classnames(
+											className={clsx(
 												'es-uic-row-span-1 es-uic-row-start-1 es-uic-select-none es-uic-place-self-center es-uic-text-xs es-uic-transition-colors',
 												'es-uic-inset-y-0 es-uic-my-auto es-uic-h-fit es-uic-pl-px es-uic-text-center',
 												'[&>svg]:es-uic-size-3 [&>svg]:es-uic-stroke-[1.5]',
@@ -166,7 +167,7 @@ export const ColumnConfigSlider = (props) => {
 										index={i}
 										aria-label={thumbLabels?.[i]}
 										isDisabled={(i === 0 && disableOffset) || (i === 1 && disableWidth)}
-										className={classnames(
+										className={clsx(
 											'!es-uic-static es-uic-row-span-1 es-uic-row-start-1 es-uic-h-6 es-uic-w-1.5 es-uic-rounded-full es-uic-border es-uic-transition es-uic-duration-300',
 											i === 0 &&
 												'!-es-uic-translate-x-1/2 !es-uic-translate-y-0 es-uic-self-center es-uic-justify-self-start',
@@ -207,7 +208,7 @@ export const ColumnConfigSlider = (props) => {
  * @preserve
  */
 export const ColumnConfigSliderOutput = ({ showOuterAsGutter }) => (
-	<ReactAriaSliderOutput className={classnames('es-uic-text-xs es-uic-tabular-nums es-uic-text-gray-600')}>
+	<ReactAriaSliderOutput className={clsx('es-uic-text-xs es-uic-tabular-nums es-uic-text-gray-600')}>
 		{({ state }) => {
 			const columns = state.getThumbMaxValue(1);
 			const offset = parseInt(state.getThumbValueLabel(0));

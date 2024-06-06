@@ -3,7 +3,8 @@ import { RichLabel } from '../rich-label/rich-label';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { __ } from '@wordpress/i18n';
 import { Label } from 'react-aria-components';
 import { FocusScope } from 'react-aria';
@@ -63,7 +64,7 @@ export const Expandable = (props) => {
 
 	const component = (
 		<div
-			className={classnames(
+			className={clsx(
 				'es-uic-w-full es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-border-opacity-0 es-uic-text-sm es-uic-transition',
 				isOpen && 'es-uic-border-opacity-100 es-uic-shadow-lg',
 				className,
@@ -71,7 +72,7 @@ export const Expandable = (props) => {
 			{...other}
 		>
 			<div
-				className={classnames(
+				className={clsx(
 					'es-uic-flex es-uic-h-10 es-uic-items-center es-uic-gap-1 es-uic-py-1 es-uic-transition-[padding-inline]',
 					isOpen && 'es-uic-pl-2 es-uic-pr-1',
 				)}
@@ -113,7 +114,7 @@ export const Expandable = (props) => {
 						isOpen ? __('Close', 'eightshift-ui-components') : __('Open', 'eightshift-ui-components')
 					}
 					disabled={disabled}
-					className={classnames(
+					className={clsx(
 						'[&>svg]:es-uic-transition-transform',
 						isOpen && '[&>svg]:-es-uic-scale-y-100',
 					)}

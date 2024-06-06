@@ -54,7 +54,7 @@ import {
 	Switch,
 	ColumnConfigSlider,
 } from '../lib';
-import { classnames } from '../lib/utilities/classnames';
+import { clsx } from 'clsx/lite';
 
 function App() {
 	const [toggled, setToggled] = useState(false);
@@ -1305,7 +1305,7 @@ function App() {
 								<RepeaterItem
 									label={title ?? 'New item'}
 									icon={icons.emptyCircle}
-									className={classnames(!title && '!es-uic-text-gray-400')}
+									className={clsx(!title && '!es-uic-text-gray-400')}
 								>
 									<InputField
 										label='Title'

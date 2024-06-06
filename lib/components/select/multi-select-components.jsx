@@ -1,7 +1,8 @@
 import { arrayMove } from '@dnd-kit/sortable';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 
 export const getDragEndHandler = (onChange, items) => {
 	return (event) => {
@@ -43,7 +44,7 @@ export const getMultiValue = (ComponentToRender) => {
 			<div
 				style={style}
 				ref={setNodeRef}
-				className={classnames(
+				className={clsx(
 					'focus:es-uic-outline-none',
 					// Make non-dragged tiles have no pointer events, so you don't see hover styles on things like the remove button.
 					CSS.Translate.toString(transform) && '[&_>_div]:es-uic-pointer-events-none',

@@ -137,7 +137,7 @@ export const AsyncMultiSelect = (props) => {
 						isDisabled={disabled}
 						className={className}
 						placeholder={placeholder}
-						classNames={eightshiftSelectClasses}
+						clsx={eightshiftSelectClasses}
 						components={{
 							MultiValue: getMultiValue(customValueDisplay ?? components.MultiValue),
 							MultiValueContainer: customValueContainer ?? components.MultiValueContainer,

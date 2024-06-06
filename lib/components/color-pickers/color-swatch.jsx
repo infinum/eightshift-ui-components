@@ -1,5 +1,6 @@
 import { ColorSwatch as ReactAriaColorSwatch, parseColor } from 'react-aria-components';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -9,7 +10,7 @@ import { __ } from '@wordpress/i18n';
  * @param {Object} props - Component props.
  * @param {string} [props.color] - The color to display.
  * @param {string} [props.gradient] - The gradient to display.
- * @param {string} [props.className] - Additional classnames to apply.
+ * @param {string} [props.className] - Additional clsx to apply.
  * @param {string} [props.colorName] - The name of the color. Should be auto-generated for colors.
  *
  * @returns {JSX.Element} The ColorSwatch component.
@@ -53,7 +54,7 @@ export const ColorSwatch = (props) => {
 				background: (color || gradient) && backgroundGradient,
 			}}
 			className={() =>
-				classnames(
+				clsx(
 					'es-uic-size-6 es-uic-rounded es-uic-border es-uic-border-gray-300 es-uic-shadow-sm',
 					!color && !gradient && 'es-uic-bg-white',
 					className,

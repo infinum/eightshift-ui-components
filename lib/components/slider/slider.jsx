@@ -9,7 +9,8 @@ import {
 	LabelContext,
 } from 'react-aria-components';
 import { BaseControl } from '../base-control/base-control';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { NumberPicker } from '../number-picker/number-picker';
 import { useContext, useState } from 'react';
 import { generateMarkers } from './utils';
@@ -136,7 +137,7 @@ export const Slider = (props) => {
 
 						{!inputField && (
 							<ReactAriaSliderOutput
-								className={classnames('es-uic-text-xs es-uic-tabular-nums es-uic-text-gray-600')}
+								className={clsx('es-uic-text-xs es-uic-tabular-nums es-uic-text-gray-600')}
 							>
 								{({ state }) => state.values.map((_, i) => state.getThumbValueLabel(i)).join(' – ')}
 							</ReactAriaSliderOutput>
@@ -156,7 +157,7 @@ export const Slider = (props) => {
 				}
 				labelAs={Label}
 				className={labelClassName}
-				controlContainerClassName={classnames(
+				controlContainerClassName={clsx(
 					'es-uic-flex es-uic-items-center es-uic-gap-2.5 !es-uic-space-y-0',
 					vertical && 'es-uic-flex-col',
 				)}
@@ -168,7 +169,7 @@ export const Slider = (props) => {
 				)}
 
 				<ReactAriaSliderTrack
-					className={classnames(
+					className={clsx(
 						'es-uic-isolate es-uic-grid es-uic-grid-cols-1 es-uic-grid-rows-1',
 						vertical
 							? 'es-uic-mx-auto es-uic-h-40 es-uic-w-4'
@@ -236,7 +237,7 @@ export const Slider = (props) => {
 						return (
 							<>
 								<div
-									className={classnames(
+									className={clsx(
 										'es-uic-relative es-uic-col-start-1 es-uic-row-start-1 es-uic-rounded-full es-uic-border',
 										!vertical && 'es-uic-h-1.5 es-uic-w-full es-uic-self-center',
 										vertical &&
@@ -250,7 +251,7 @@ export const Slider = (props) => {
 
 								{!noActiveHighlight && (
 									<div
-										className={classnames(
+										className={clsx(
 											'es-uic-absolute es-uic-col-start-1 es-uic-row-start-1 es-uic-border',
 											!vertical && 'es-uic-h-1.5 es-uic-w-full es-uic-self-center',
 											vertical &&
@@ -276,7 +277,7 @@ export const Slider = (props) => {
 
 								{markers && (
 									<div
-										className={classnames(
+										className={clsx(
 											'es-uic-relative es-uic-col-start-1 es-uic-row-start-1',
 											!vertical && 'es-uic-h-1 es-uic-w-full es-uic-self-center',
 											vertical &&
@@ -315,7 +316,7 @@ export const Slider = (props) => {
 											return (
 												<div
 													key={index}
-													className={classnames(
+													className={clsx(
 														'es-uic-absolute',
 														vertical
 															? 'es-uic-h-px es-uic-w-1'
@@ -337,7 +338,7 @@ export const Slider = (props) => {
 													}}
 												>
 													<span
-														className={classnames(
+														className={clsx(
 															'es-uic-absolute es-uic-select-none es-uic-text-xs es-uic-transition-colors',
 															vertical
 																? 'es-uic-left-3.5 es-uic-top-0 -es-uic-translate-y-1/2'
@@ -365,7 +366,7 @@ export const Slider = (props) => {
 											key={i}
 											index={i}
 											aria-label={thumbLabels?.[i]}
-											className={classnames(
+											className={clsx(
 												'es-uic-absolute es-uic-size-3.5 es-uic-rounded-full es-uic-border es-uic-transition es-uic-duration-300',
 												vertical
 													? '!-es-uic-translate-y-1/2 !es-uic-translate-x-0'
@@ -436,7 +437,7 @@ const NumberInputField = (props) => {
 
 			{fieldIndex === -1 && !isSingleValue && (
 				<ReactAriaSliderOutput
-					className={classnames('es-uic-text-xs es-uic-tabular-nums es-uic-text-gray-600')}
+					className={clsx('es-uic-text-xs es-uic-tabular-nums es-uic-text-gray-600')}
 				>
 					{({ state }) => state.values.map((_, i) => state.getThumbValueLabel(i)).join(' – ')}
 				</ReactAriaSliderOutput>

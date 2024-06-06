@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { DecorativeTooltip } from '../tooltip/tooltip';
-import { classnames } from '../../utilities/classnames';
+import { clsx } from 'clsx/lite';
+
 import { __, sprintf } from '@wordpress/i18n';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { upperFirst } from '../../utilities/text-helpers';
@@ -292,7 +293,7 @@ export const Responsive = (props) => {
 		>
 			{!isDesktopFirst && (
 				<div
-					className={classnames(
+					className={clsx(
 						'es-uic-grid es-uic-items-center es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-end] es-uic-duration-150',
 						detailsVisible
 							? 'es-uic-mb-2 es-uic-grid-cols-[minmax(0,_2rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
@@ -301,7 +302,7 @@ export const Responsive = (props) => {
 					key='_default-mobile-first'
 				>
 					{detailsVisible && <DefaultTooltip />}
-					<div className={classnames(detailsVisible ? 'es-uic-col-start-2 es-uic-col-end-2' : 'es-uic-col-span-full')}>
+					<div className={clsx(detailsVisible ? 'es-uic-col-start-2 es-uic-col-end-2' : 'es-uic-col-span-full')}>
 						{children({
 							breakpoint: '_default',
 							currentValue: value?.['_default'],
@@ -502,7 +503,7 @@ export const Responsive = (props) => {
 								}
 							>
 								<div
-									className={classnames(
+									className={clsx(
 										'es-uic-flex es-uic-size-8 es-uic-shrink-0 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-gray-100 es-uic-p-0.5 es-uic-text-gray-800',
 										!value[breakpoint] && '[&>svg]:es-uic-opacity-25',
 									)}
@@ -541,7 +542,7 @@ export const Responsive = (props) => {
 
 			{isDesktopFirst && (
 				<div
-					className={classnames(
+					className={clsx(
 						'es-uic-grid es-uic-items-center es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-start] es-uic-duration-150',
 						detailsVisible
 							? '!es-uic-mt-2 es-uic-grid-cols-[minmax(0,_2rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
@@ -550,7 +551,7 @@ export const Responsive = (props) => {
 					key='_default-desktop-first'
 				>
 					{detailsVisible && <DefaultTooltip />}
-					<div className={classnames(detailsVisible ? 'es-uic-col-start-2 es-uic-col-end-2' : 'es-uic-col-span-full')}>
+					<div className={clsx(detailsVisible ? 'es-uic-col-start-2 es-uic-col-end-2' : 'es-uic-col-span-full')}>
 						{children({
 							breakpoint: '_default',
 							currentValue: value?.['_default'],
