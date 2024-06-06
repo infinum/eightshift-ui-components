@@ -70,7 +70,7 @@ export const Menu = (props) => {
 		children,
 
 		triggerLabel,
-		triggerIcon = icons.hamburgerMenu,
+		triggerIcon = !triggerLabel && icons.hamburgerMenu,
 		triggerProps,
 
 		popoverProps,
