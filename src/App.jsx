@@ -960,8 +960,11 @@ function App() {
 						value={resp}
 						onChange={(newValue) => setResp(newValue)}
 						options={respOpt}
-						componentToRender={({ currentValue, handleChange }) => (
-							<div className='es-uic-button-group es-uic-flex'>
+						breakpoints={['mobile', 'tablet', 'desktop', 'large']}
+						breakpointData={globalManifest.globalVariables.breakpoints}
+					>
+						{({ currentValue, handleChange }) => (
+							<ButtonGroup>
 								{respOpt.map((opt) => (
 									<ToggleButton
 										key={opt.value}
@@ -971,20 +974,11 @@ function App() {
 										{opt.label}
 									</ToggleButton>
 								))}
-							</div>
+							</ButtonGroup>
 						)}
-						breakpoints={['mobile', 'tablet', 'desktop', 'large']}
-						globalManifest={{
-							globalVariables: {
-								breakpoints: {
-									mobile: 480,
-									tablet: 960,
-									desktop: 1440,
-									large: 1920,
-								},
-							},
-						}}
-					/>
+					</Responsive>
+
+					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(resp, null, 2)}</pre>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<BaseControl>
