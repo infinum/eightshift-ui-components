@@ -16,7 +16,7 @@ import { Tooltip } from '../tooltip/tooltip';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { BaseControl } from '../base-control/base-control';
 import { Button } from '../button/button';
-import { RichLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../rich-label/rich-label';
 import { Popover } from '../popover/popover';
 import { useDebouncedCallback } from 'use-debounce';
 

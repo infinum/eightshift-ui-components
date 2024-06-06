@@ -9,7 +9,7 @@ import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
 import { TriggeredPopover } from '../popover/popover';
 import { ResponsivePreview } from '../responsive-preview/responsive-preview';
 import { Button, ButtonGroup } from '../button/button';
-import { RichLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../rich-label/rich-label';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { ToggleButton } from '../toggle-button/toggle-button';
 import { BaseControl } from '../base-control/base-control';

@@ -2,7 +2,7 @@ import { Checkbox as ReactAriaCheckbox } from 'react-aria-components';
 import { classnames } from '../../utilities/classnames';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { icons } from '../../icons/icons';
-import { RichLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../rich-label/rich-label';
 
 /**
  * A simple checkbox.

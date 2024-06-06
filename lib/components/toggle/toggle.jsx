@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Label } from 'react-aria-components';
 import { Switch } from './switch';
-import { RichLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../rich-label/rich-label';
 
 /**
  * A toggle switch with a label and optional icon and subtitle.

@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { upperFirst } from '../../utilities/text-helpers';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { icons } from '../../icons/icons';
-import { RichLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../rich-label/rich-label';
 
 /**
  * A component that displays a preview of the responsive settings.

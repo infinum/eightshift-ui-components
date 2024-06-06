@@ -5,7 +5,7 @@ import {
 import { classnames } from '../../utilities/classnames';
 import { BaseControl } from '../base-control/base-control';
 import { __ } from '@wordpress/i18n';
-import { RichLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../rich-label/rich-label';
 
 /**
  * A component that allows selecting a single or multiple options from a list.

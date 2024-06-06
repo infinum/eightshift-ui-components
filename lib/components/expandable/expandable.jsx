@@ -1,5 +1,5 @@
 import React from 'react';
-import { RichLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../rich-label/rich-label';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';

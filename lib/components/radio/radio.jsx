@@ -1,7 +1,7 @@
 import { Label, Radio, RadioGroup } from 'react-aria-components';
 import { classnames } from '../../utilities/classnames';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
-import { RichLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../rich-label/rich-label';
 import { BaseControl } from '../base-control/base-control';
 import { cloneElement } from 'react';
 

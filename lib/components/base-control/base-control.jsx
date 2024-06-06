@@ -1,6 +1,6 @@
 import { Text } from 'react-aria-components';
 import { classnames } from '../../utilities/classnames';
-import { RichLabel } from '../icon-label/icon-label';
+import { RichLabel } from '../rich-label/rich-label';
 
 /**
  * Component that allows wrapping components with a common layout that includes a label and optional icon, subtitle, actions, and help text.
