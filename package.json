@@ -6,7 +6,7 @@
 	"module": "./dist/index.js",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/goranalkovic-infinum/eightshift-ui-components.git"
+		"url": "git+https://github.com/infinum/eightshift-ui-components.git"
 	},
 	"files": [
 		"dist"
