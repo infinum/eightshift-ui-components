@@ -52,6 +52,7 @@ import {
 	DecorativeTooltip,
 	ResponsiveLegacy,
 	Switch,
+	ColumnConfigSlider,
 } from '../lib';
 import { classnames } from '../lib/utilities/classnames';
 
@@ -537,6 +538,12 @@ function App() {
 		},
 	};
 
+	const [colConfig, setColConfig] = useState([2, 4]);
+	const [colConfig2, setColConfig2] = useState([2, 4]);
+	const [colConfig3, setColConfig3] = useState([2, 4]);
+	const [colConfig4, setColConfig4] = useState([2, 4]);
+	const [colConfig5, setColConfig5] = useState([2, 4]);
+
 	return (
 		<div className='font-geist es-uic-flex es-uic-min-h-screen es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-overscroll-contain es-uic-bg-neutral-100 es-uic-p-2'>
 			<div className='es-uic-mx-auto es-uic-flex es-uic-w-96 es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-gap-2.5 es-uic-p-10 empty:es-uic-hidden'></div>
@@ -574,6 +581,7 @@ function App() {
 					<Tab>ColorSwatch</Tab>
 					<Tab>ColorPicker</Tab>
 					<Tab>ResponsiveLegacy</Tab>
+					<Tab>ColumnConfigSlider</Tab>
 				</TabList>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Toggle
@@ -1917,6 +1925,66 @@ function App() {
 					</ResponsiveLegacy>
 
 					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(responsiveState3, null, 2)}</pre>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+					<ColumnConfigSlider
+						icon={icons.columns}
+						label='Column configuration'
+						value={colConfig}
+						onChange={setColConfig}
+					/>
+
+					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(colConfig)}</pre>
+
+					<ColumnConfigSlider
+						icon={icons.columns}
+						label='Column configuration'
+						value={colConfig2}
+						onChange={setColConfig2}
+						columns={14}
+					/>
+
+					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(colConfig2)}</pre>
+
+					<ColumnConfigSlider
+						icon={icons.columns}
+						label='Column configuration'
+						value={colConfig3}
+						onChange={setColConfig3}
+						columns={14}
+						showOuterAsGutter
+					/>
+
+					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(colConfig2)}</pre>
+
+					<ColumnConfigSlider
+						icon={icons.columns}
+						label='Column configuration'
+						value={colConfig4}
+						onChange={setColConfig4}
+						disableOffset
+					/>
+
+					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(colConfig2)}</pre>
+
+					<ColumnConfigSlider
+						icon={icons.columns}
+						label='Column configuration'
+						value={colConfig5}
+						onChange={setColConfig5}
+						disableWidth
+					/>
+
+					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(colConfig2)}</pre>
+
+					<ColumnConfigSlider
+						icon={icons.columns}
+						label='Column configuration'
+						value={colConfig5}
+						onChange={setColConfig5}
+						disableWidth
+						disableOffset
+					/>
 				</TabPanel>
 			</Tabs>
 		</div>

@@ -20,7 +20,6 @@ Eightshift UI components are provided by [Team Eightshift](https://eightshift.co
 
 ### Won't bring over from Frontend libs
 - BlockInserter
-- ColumnConfigSlider - for now
 - Responsive components (ResponsiveNumberPicker, ResponsiveSlider, ResponsiveToggleButton)
 - PresetPicker
 - ReOrderable - will deprecate
