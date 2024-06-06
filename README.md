@@ -23,7 +23,6 @@ Eightshift UI components are provided by [Team Eightshift](https://eightshift.co
 - ColumnConfigSlider - for now
 - Responsive components (ResponsiveNumberPicker, ResponsiveSlider, ResponsiveToggleButton)
 - PresetPicker
-- Responsive (classic) - for now
 - ReOrderable - will deprecate
 - TileButton - will deprecate
 - WidthOffsetRangeSlider
