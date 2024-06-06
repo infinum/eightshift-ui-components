@@ -32,8 +32,8 @@ export const RichLabel = (props) => {
 		return (
 			<>
 				{icon && <span className='es-uic-text-slate-500 [&>svg]:es-uic-size-5.5'>{icon}</span>}
-				{label && <span>{label}</span>}
-				{subtitle && <span className='es-uic-text-xs es-uic-text-gray-500'>{subtitle}</span>}
+				{label && <span className='es-uic-text-balance'>{label}</span>}
+				{subtitle && <span className='es-uic-text-xs es-uic-text-gray-500 es-uic-text-balance'>{subtitle}</span>}
 			</>
 		);
 	}
@@ -48,7 +48,7 @@ export const RichLabel = (props) => {
 		>
 			{icon && <span className='es-uic-text-slate-500 [&>svg]:es-uic-size-5.5'>{icon}</span>}
 			{(label || subtitle) && (
-				<div className='es-uic-flex es-uic-flex-col es-uic-items-start es-uic-text-start'>
+				<div className='es-uic-flex es-uic-flex-col es-uic-items-start es-uic-text-start es-uic-text-balance'>
 					{label && <span>{label}</span>}
 					{subtitle && <span className='es-uic-text-xs es-uic-text-gray-500'>{subtitle}</span>}
 				</div>
