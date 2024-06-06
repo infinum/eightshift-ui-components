@@ -106,19 +106,19 @@ export const BreakpointPreview = (props) => {
 	return (
 		<div
 			className={classnames(
-				'es-uic-grid es-uic-w-full es-uic-shrink-0 es-uic-auto-cols-auto es-uic-grid-rows-[auto,_auto] es-uic-gap-x-2 es-uic-gap-y-0.5',
+				'es-uic-grid es-uic-w-fit es-uic-mx-auto es-uic-shrink-0 es-uic-auto-cols-auto es-uic-grid-rows-[auto,_auto] es-uic-gap-x-2 es-uic-gap-y-0.5',
 			)}
 		>
 			{dotsStart && (
 				<>
-					<div className='es-uic-row-start-1 es-uic-flex es-uic-shrink-0 es-uic-translate-x-1 es-uic-items-center es-uic-gap-1 es-uic-font-mono es-uic-font-medium es-uic-text-gray-400'>
+					<div className='es-uic-row-start-1 es-uic-flex es-uic-shrink-0 es-uic-translate-x-1 es-uic-items-center es-uic-gap-1 es-uic-text-gray-400 es-uic-justify-self-end'>
 						<div className='es-uic-flex es-uic-gap-0.5 es-uic-text-gray-300'>
 							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
 							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
 							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
 						</div>
 					</div>
-					<div className='es-uic-row-start-2' />
+					<div className='es-uic-row-start-2 es-uic-size-px es-uic-justify-self-end' />
 				</>
 			)}
 
@@ -216,7 +216,7 @@ export const BreakpointPreview = (props) => {
 							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
 						</div>
 					</div>
-					<div className='es-uic-row-start-2' />
+					<div className='es-uic-row-start-2 es-uic-size-px' />
 				</>
 			)}
 		</div>
