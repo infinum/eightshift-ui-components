@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Tooltip } from '../tooltip/tooltip';
+import { DecorativeTooltip } from '../tooltip/tooltip';
 import { classnames } from '../../utilities/classnames';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { upperFirst } from '../../utilities/text-helpers';
 import { icons } from '../../icons/icons';
-import { Menu, MenuItem, MenuSection } from '../menu/menu';
+import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
 import { TriggeredPopover } from '../popover/popover';
 import { ResponsivePreview } from '../responsive-preview/responsive-preview';
 import { Button, ButtonGroup } from '../button/button';
@@ -17,19 +17,25 @@ import { BaseControl } from '../base-control/base-control';
 /**
  * A component that allows the user to set different values for different breakpoints.
  *
+ * Inner items should be passed as a render function.
+ * The following props are passed to the render function:
+ * - `breakpoint: string` - Name of the current breakpoint.
+ * - `currentValue: any` - Current value.
+ * - `handleChange: Function<(attributeName: string, value: any) => void>` - A function to change the value for the breakpoint..
+ * - `options: Object<string, any>` - (Optional) Options list passed to the `ResponsiveLegacy` component. (optional)
+ *
  * @component
  * @param {Object} props - Component props.
  * @param {Object} props.value - The current value of the component.
  * @param {Function} props.onChange - Function to run when the value changes. `(newValue: Object) => void`.
- * @param {string} props.label - The label of the component.
  * @param {JSX.Element} props.icon - The icon of the component.
- * @param {string} props.subtitle - The subtitle of the component.
  * @param {string} props.help - The help text of the component.
+ * @param {string} props.label - The label of the component.
+ * @param {string} props.subtitle - The subtitle of the component.
  * @param {Array<string>} props.options - Options of the attribute the component is linked to. `{ value: string, label: string }[]`.
- * @param {Function} props.componentToRender - The component to render for each breakpoint. `(props: { breakpoint: string, currentValue: string, handleChange: Function }) => JSX.Element`.
  * @param {Array<string>} props.breakpoints - Breakpoints to use.
  * @param {Array<string>} [props.desktopFirstBreakpoints] - Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order.
- * @param {Object} props.globalManifest - The global manifest.
+ * @param {Object<string, number>} [props.breakpointData] - Currently used breakpoint data. `{ [breakpoint: string]: number }`.
  *
  * @returns {JSX.Element} The Responsive component.
  *
@@ -44,7 +50,10 @@ import { BaseControl } from '../base-control/base-control';
  * 		{ value: 'value2', label: 'Value 2' },
  * 		{ value: 'value3', label: 'Value 3' },
  * 	]}
- * 	componentToRender={({ breakpoint, currentValue, handleChange }) => (
+ * 	breakpoints={['mobile', 'tablet', 'desktop', 'large']}
+ * 	breakpointData={breakpointData}
+ * >
+ * 	{({ breakpoint, currentValue, options, handleChange }) => (
  * 		<Select
  * 			label={breakpoint}
  * 			value={currentValue}
@@ -52,9 +61,7 @@ import { BaseControl } from '../base-control/base-control';
  * 			onChange={handleChange}
  * 		/>
  * 	)}
- * 	breakpoints={['mobile', 'tablet', 'desktop', 'large']}
- * 	globalManifest={globalManifest}
- * />
+ * </Responsive>
  *
  * @preserve
  */
@@ -63,19 +70,19 @@ export const Responsive = (props) => {
 		value,
 		onChange,
 
-		label,
 		icon,
-		subtitle,
 		help,
+		label,
+		subtitle,
 
 		options,
-
-		componentToRender,
 
 		breakpoints,
 		desktopFirstBreakpoints = breakpoints.map((bp) => `max-${bp}`),
 
-		globalManifest,
+		breakpointData,
+
+		children,
 	} = props;
 
 	const [detailsVisible, setDetailsVisible] = useState(false);
@@ -83,132 +90,98 @@ export const Responsive = (props) => {
 	const isDesktopFirst = value?.['_mobileFirst'] === true;
 
 	const firstMobileFirstOverride = breakpoints.find((breakpoint) => value?.[breakpoint]);
-	const lastDesktopFirstOverride = desktopFirstBreakpoints
-		.toReversed()
-		.find((breakpoint) => value?.[breakpoint]);
+	const lastDesktopFirstOverride = desktopFirstBreakpoints.toReversed().find((breakpoint) => value?.[breakpoint]);
 
 	const breakpointsToMap = isDesktopFirst ? desktopFirstBreakpoints : breakpoints;
 
-	const DefaultControl = () => {
-		return (
-			<div
-				className='es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2rem)] es-uic-items-center es-uic-gap-x-2'
-				key={`default-${value?.['_default']}`}
-			>
-				{detailsVisible && (
-					<Tooltip
-						className='es-uic-p-3'
-						theme='light'
-						text={
-							<div
-								className={classnames(
-									'es-uic-flex es-uic-flex-col es-uic-items-start es-uic-gap-4 es-uic-text-start',
-									!firstMobileFirstOverride || !lastDesktopFirstOverride
-										? 'es-uic-w-72'
-										: 'es-uic-w-40',
-								)}
-							>
-								<div>
-									<span className='font-semibold'>{__('Default', 'eightshift-ui-components')}</span>
-									<br />
+	const DefaultTooltip = () => (
+		<DecorativeTooltip
+			placement='left'
+			className='es-uic-p-3'
+			theme='light'
+			offset={7.5}
+			arrow
+			text={
+				<div className='es-uic-max-w-64 es-uic-p-1'>
+					<span className='es-uic-block es-uic-text-balance es-uic-font-semibold es-uic-tabular-nums'>
+						{__('Default', 'eightshift-ui-components')}
+					</span>
 
-									{!firstMobileFirstOverride && !lastDesktopFirstOverride && (
-										<span>
-											{__('Always applied, regardless of browser width.', 'eightshift-ui-components')}
-										</span>
-									)}
+					<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
+						{!firstMobileFirstOverride &&
+							!lastDesktopFirstOverride &&
+							__('Always applied, regardless of browser width.', 'eightshift-ui-components')}
 
-									{firstMobileFirstOverride && (
-										<span>
-											Applies when the browser is narrower than{' '}
-											{globalManifest.globalVariables.breakpoints[firstMobileFirstOverride]}px.
-										</span>
-									)}
+						{firstMobileFirstOverride &&
+							sprintf(
+								__('Applies when the browser width is %dpx or narrower.', 'eightshift-ui-components'),
+								breakpointData[firstMobileFirstOverride] - 1,
+							)}
 
-									{lastDesktopFirstOverride && (
-										<span>
-											Applies when the browser is wider than{' '}
-											{globalManifest.globalVariables.breakpoints[breakpoints.at(-1)]}px.
-										</span>
-									)}
-								</div>
+						{lastDesktopFirstOverride &&
+							sprintf(
+								__('Applies when the browser width is %dpx or more.', 'eightshift-ui-components'),
+								breakpointData[breakpoints.at(-1)],
+							)}
+					</span>
 
-								<div className='es-uic-mx-auto'>
-									{firstMobileFirstOverride && (
-										<BreakpointPreview
-											blocks={[
-												{
-													breakpoint: __('Default', 'eightshift-ui-components'),
-													widthEnd:
-														globalManifest.globalVariables.breakpoints[firstMobileFirstOverride],
-													value:
-														options?.find((opt) => opt.value === value?.['_default'])?.label ??
-														upperFirst(value?.['_default']),
-													dotsStart: true,
-													alignEnd: true,
-													active: true,
-												},
-												{
-													breakpoint: firstMobileFirstOverride,
-													value:
-														options?.find((opt) => opt.value === value?.[firstMobileFirstOverride])
-															?.label ?? upperFirst(value?.[firstMobileFirstOverride]),
-													dotsEnd: true,
-												},
-											]}
-										/>
-									)}
+					<div className='es-uic-mx-auto'>
+						{firstMobileFirstOverride && (
+							<BreakpointPreview
+								blocks={[
+									{
+										breakpoint: __('Default', 'eightshift-ui-components'),
+										widthEnd: breakpointData[firstMobileFirstOverride] - 1,
+										value:
+											options?.find((opt) => opt.value === value?.['_default'])?.label ??
+											upperFirst(value?.['_default']),
+										dotsStart: true,
+										alignEnd: true,
+										active: true,
+									},
+									{
+										breakpoint: firstMobileFirstOverride,
+										value:
+											options?.find((opt) => opt.value === value?.[firstMobileFirstOverride])?.label ??
+											upperFirst(value?.[firstMobileFirstOverride]),
+										dotsEnd: true,
+									},
+								]}
+							/>
+						)}
 
-									{lastDesktopFirstOverride && (
-										<BreakpointPreview
-											blocks={[
-												{
-													breakpoint: lastDesktopFirstOverride.replace('max-', ''),
-													value:
-														options?.find((opt) => opt.value === value?.[lastDesktopFirstOverride])
-															?.label ?? upperFirst(value?.[lastDesktopFirstOverride]),
-													dotsStart: true,
-													alignEnd: true,
-												},
-												{
-													breakpoint: __('Default', 'eightshift-ui-components'),
-													value:
-														options?.find((opt) => opt.value === value?.['_default'])?.label ??
-														upperFirst(value?.['_default']),
-													width: globalManifest.globalVariables.breakpoints[breakpoints.at(-1)],
-													dotsEnd: true,
-													active: true,
-												},
-											]}
-										/>
-									)}
-								</div>
-							</div>
-						}
-					>
-						<div className='es-uic-flex es-uic-size-8 es-uic-cursor-help es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-gray-200 es-uic-p-0.5 es-uic-text-gray-950 [&>svg]:es-uic-size-4'>
-							{icons.play}
-						</div>
-					</Tooltip>
-				)}
-				<div
-					className={classnames(
-						detailsVisible ? 'es-uic-col-start-2 es-uic-col-end-2' : 'es-uic-col-span-full',
-					)}
-				>
-					{componentToRender({
-						breakpoint: '_default',
-						currentValue: value?.['_default'],
-						handleChange: (newValue) =>
-							onChange({
-								...value,
-								_default: newValue,
-							}),
-					})}
+						{lastDesktopFirstOverride && (
+							<BreakpointPreview
+								blocks={[
+									{
+										breakpoint: lastDesktopFirstOverride.replace('max-', ''),
+										value:
+											options?.find((opt) => opt.value === value?.[lastDesktopFirstOverride])?.label ??
+											upperFirst(value?.[lastDesktopFirstOverride]),
+										dotsStart: true,
+										alignEnd: true,
+									},
+									{
+										breakpoint: __('Default', 'eightshift-ui-components'),
+										value:
+											options?.find((opt) => opt.value === value?.['_default'])?.label ??
+											upperFirst(value?.['_default']),
+										width: breakpointData[breakpoints.at(-1)],
+										dotsEnd: true,
+										active: true,
+									},
+								]}
+							/>
+						)}
+					</div>
 				</div>
+			}
+		>
+			<div className='es-uic-flex es-uic-size-8 es-uic-cursor-help es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-gray-200 es-uic-p-0.5 es-uic-text-gray-950 [&>svg]:es-uic-size-4'>
+				{icons.play}
 			</div>
-		);
-	};
+		</DecorativeTooltip>
+	);
 
 	return (
 		<BaseControl
@@ -218,75 +191,77 @@ export const Responsive = (props) => {
 			help={help}
 			actions={
 				<ButtonGroup>
-					<Menu tooltip={__('Responsive options', 'eightshift-ui-components')}>
-						<MenuSection label={__('Breakpoint type', 'eightshift-ui-components')}>
-							<MenuItem
-								selected={!isDesktopFirst}
-								onClick={() => {
-									const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
-										(prev, curr) => ({ ...prev, [curr]: null }),
-										{},
-									);
+					<Menu
+						tooltip={__('Responsive options', 'eightshift-ui-components')}
+						popoverProps={{ placement: 'bottom right' }}
+					>
+						<MenuItem
+							className='!es-uic-pb-0 !es-uic-pt-1'
+							disabled
+						>
+							{__('Breakpoint mode', 'eightshift-ui-components')}
+						</MenuItem>
+						<MenuItem
+							selected={!isDesktopFirst}
+							onClick={() => {
+								const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
+									(prev, curr) => ({ ...prev, [curr]: undefined }),
+									{},
+								);
 
-									onChange({
-										...value,
-										...thingsToDelete,
-										_mobileFirst: false,
-									});
-								}}
-							>
-								<RichLabel
-									label={__('Mobile-first', 'eightshift-ui-components')}
-									subtitle={__('Recommended', 'eightshift-ui-components')}
-								/>
-							</MenuItem>
-							<MenuItem
-								selected={isDesktopFirst}
-								onClick={() => {
-									const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
-										(prev, curr) => ({ ...prev, [curr]: null }),
-										{},
-									);
+								onChange({
+									...value,
+									...thingsToDelete,
+									_mobileFirst: false,
+								});
+							}}
+						>
+							<RichLabel
+								label={__('Mobile-first', 'eightshift-ui-components')}
+								subtitle={__('Recommended', 'eightshift-ui-components')}
+							/>
+						</MenuItem>
+						<MenuItem
+							selected={isDesktopFirst}
+							onClick={() => {
+								const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
+									(prev, curr) => ({ ...prev, [curr]: undefined }),
+									{},
+								);
 
-									onChange({
-										...value,
-										...thingsToDelete,
-										_mobileFirst: true,
-									});
-								}}
-							>
-								{__('Desktop-first', 'eightshift-ui-components')}
-							</MenuItem>
-						</MenuSection>
-						<MenuSection>
-							<MenuItem
-								icon={icons.clearAlt}
-								onClick={() => {
-									const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
-										(prev, curr) => ({ ...prev, [curr]: null }),
-										{},
-									);
+								onChange({
+									...value,
+									...thingsToDelete,
+									_mobileFirst: true,
+								});
+							}}
+						>
+							{__('Desktop-first', 'eightshift-ui-components')}
+						</MenuItem>
+						<MenuSeparator />
+						<MenuItem
+							icon={icons.clearAlt}
+							onClick={() => {
+								const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
+									(prev, curr) => ({ ...prev, [curr]: undefined }),
+									{},
+								);
 
-									onChange({
-										...value,
-										...thingsToDelete,
-									});
-								}}
-							>
-								{__('Clear responsive overrides', 'eightshift-ui-components')}
-							</MenuItem>
-						</MenuSection>
+								onChange({
+									...value,
+									...thingsToDelete,
+								});
+							}}
+						>
+							{__('Clear all overrides', 'eightshift-ui-components')}
+						</MenuItem>
 					</Menu>
 
 					<TriggeredPopover
 						aria-label={props['aria-label'] ?? __('Breakpoint preview', 'eightshift-ui-components')}
 						trigger={
 							<Button
-								disabled={
-									!Object.keys(value).some(
-										(key) => !key?.startsWith('_') && value?.[key] !== undefined,
-									)
-								}
+								disabled={!Object.keys(value).some((key) => !key?.startsWith('_') && value?.[key] !== undefined)}
 								icon={icons.previewResponsive}
 								tooltip={__('Breakpoint preview', 'eightshift-ui-components')}
 							/>
@@ -298,7 +273,7 @@ export const Responsive = (props) => {
 							breakpoints={breakpoints}
 							desktopFirstBreakpoints={desktopFirstBreakpoints}
 							options={options}
-							globalManifest={globalManifest}
+							breakpointData={breakpointData}
 						/>
 					</TriggeredPopover>
 
@@ -315,30 +290,226 @@ export const Responsive = (props) => {
 				</ButtonGroup>
 			}
 		>
-			{!isDesktopFirst && <DefaultControl />}
+			{!isDesktopFirst && (
+				<div
+					className={classnames(
+						'es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2rem)] es-uic-items-center es-uic-gap-x-2',
+						detailsVisible && 'es-uic-mb-2',
+					)}
+					key='_default-mobile-first'
+				>
+					{detailsVisible && <DefaultTooltip />}
+					<div className={classnames(detailsVisible ? 'es-uic-col-start-2 es-uic-col-end-2' : 'es-uic-col-span-full')}>
+						{children({
+							breakpoint: '_default',
+							currentValue: value?.['_default'],
+							handleChange: (newValue) =>
+								onChange({
+									...value,
+									_default: newValue,
+								}),
+							options: options,
+						})}
+					</div>
+				</div>
+			)}
 
 			<AnimatedVisibility
 				visible={detailsVisible}
 				className='es-uic-space-y-2'
 			>
-				{breakpointsToMap.map((breakpoint) => {
+				{breakpointsToMap.map((breakpoint, i) => {
 					const realBreakpointName = breakpoint.replace('max-', '');
+
+					const filterBreakpoints = isDesktopFirst
+						? [...breakpointsToMap, '_default']
+						: ['_default', ...breakpointsToMap];
+
+					const aboveOverride = isDesktopFirst
+						? filterBreakpoints.slice(i + 1).find((breakpoint) => value?.[breakpoint])
+						: filterBreakpoints
+								.slice(0, i + 1)
+								.toReversed()
+								.find((breakpoint) => value?.[breakpoint]);
+
+					const belowOverride = isDesktopFirst
+						? filterBreakpoints
+								.slice(0, i)
+								.toReversed()
+								.find((breakpoint) => value?.[breakpoint])
+						: filterBreakpoints.slice(i + 2).find((breakpoint) => value?.[breakpoint]);
 
 					return (
 						<div
 							className='es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2rem)] es-uic-items-center es-uic-gap-x-2'
-							key={`${breakpoint}-${value?.[breakpoint]}`}
+							key={realBreakpointName}
 						>
-							<Tooltip
+							<DecorativeTooltip
+								placement='left'
 								theme='light'
-								text={`${upperFirst(realBreakpointName)} - when width is larger than ${globalManifest.globalVariables.breakpoints[realBreakpointName]}px`}
+								offset={7.5}
+								arrow
+								text={
+									<div className='es-uic-max-w-96 es-uic-p-1'>
+										<span className='es-uic-block es-uic-font-semibold'>{upperFirst(realBreakpointName)}</span>
+
+										<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
+											{!isDesktopFirst && (
+												<>
+													{!belowOverride &&
+														value[breakpoint] &&
+														sprintf(
+															__('Applied when the browser width is %dpx or more.', 'eightshift-ui-components'),
+															breakpointData[realBreakpointName],
+														)}
+
+													{belowOverride &&
+														value[breakpoint] &&
+														sprintf(
+															__(
+																'Applied when the browser width is between %dpx and %dpx.',
+																'eightshift-ui-components',
+															),
+															breakpointData[realBreakpointName],
+															breakpointData[belowOverride] - 1,
+														)}
+
+													{!value[breakpoint] &&
+														sprintf(__('From %dpx', 'eightshift-ui-components'), breakpointData[realBreakpointName])}
+												</>
+											)}
+
+											{isDesktopFirst && (
+												<>
+													{!belowOverride &&
+														value[breakpoint] &&
+														sprintf(
+															__('Applied when the browser width is %dpx or less.', 'eightshift-ui-components'),
+															breakpointData[realBreakpointName] - 1,
+														)}
+
+													{belowOverride &&
+														value[breakpoint] &&
+														sprintf(
+															__(
+																'Applied when the browser width is between %dpx and %dpx.',
+																'eightshift-ui-components',
+															),
+															breakpointData[belowOverride?.replace('max-', '')],
+															breakpointData[realBreakpointName] - 1,
+														)}
+
+													{!value[breakpoint] &&
+														sprintf(
+															__('Up to %dpx', 'eightshift-ui-components'),
+															breakpointData[belowOverride?.replace('max-', '')],
+														)}
+												</>
+											)}
+										</span>
+
+										{!value[breakpoint] && (
+											<span className='es-uic-mt-2 es-uic-block es-uic-font-medium es-uic-italic'>
+												{__('Not set', 'eightshift-ui-components')}
+											</span>
+										)}
+
+										{value[breakpoint] && (
+											<div className='es-uic-mx-auto es-uic-mt-2'>
+												{!isDesktopFirst && (
+													<BreakpointPreview
+														dotsStart={belowOverride}
+														blocks={[
+															aboveOverride !== '_default' && {
+																breakpoint: aboveOverride,
+																value:
+																	options?.find((opt) => opt.value === value?.[aboveOverride])?.label ??
+																	upperFirst(value?.[aboveOverride]),
+																dotsStart: !belowOverride,
+																alignEnd: !belowOverride,
+															},
+															aboveOverride === '_default' && {
+																breakpoint: __('Default', 'eightshift-ui-components'),
+																value:
+																	options?.find((opt) => opt.value === value?.['_default'])?.label ??
+																	upperFirst(value?.['_default']),
+																dotsStart: !belowOverride,
+																alignEnd: !belowOverride,
+															},
+															{
+																breakpoint: realBreakpointName,
+																value:
+																	options?.find((opt) => opt.value === value?.[breakpoint])?.label ??
+																	upperFirst(value?.[breakpoint]),
+																width: breakpointData[realBreakpointName],
+																active: true,
+																dotsEnd: !belowOverride,
+															},
+															belowOverride && {
+																breakpoint: belowOverride,
+																value:
+																	options?.find((opt) => opt.value === value?.[belowOverride])?.label ??
+																	upperFirst(value?.[belowOverride]),
+																width: breakpointData[belowOverride],
+																dotsEnd: true,
+															},
+														]}
+													/>
+												)}
+
+												{isDesktopFirst && (
+													<BreakpointPreview
+														dotsStart
+														dotsEnd={aboveOverride !== '_default'}
+														blocks={[
+															belowOverride && {
+																breakpoint: belowOverride?.replace('max-', ''),
+																value:
+																	options?.find((opt) => opt.value === value?.[belowOverride?.replace('max-', '')])
+																		?.label ?? upperFirst(value?.[belowOverride]),
+															},
+															{
+																breakpoint: realBreakpointName,
+																value:
+																	options?.find((opt) => opt.value === value?.[breakpoint])?.label ??
+																	upperFirst(value?.[realBreakpointName]),
+																width: breakpointData[filterBreakpoints[i - 1]?.replace('max-', '')],
+																active: true,
+															},
+															aboveOverride !== '_default' && {
+																breakpoint: aboveOverride?.replace('max-', ''),
+																value:
+																	options?.find((opt) => opt.value === value?.[aboveOverride])?.label ??
+																	upperFirst(value?.[aboveOverride]),
+																width: breakpointData[breakpoint?.replace('max-', '')],
+															},
+															aboveOverride === '_default' && {
+																breakpoint: __('Default', 'eightshift-ui-components'),
+																value:
+																	options?.find((opt) => opt.value === value?.['_default'])?.label ??
+																	upperFirst(value?.['_default']),
+																width: breakpointData[breakpoint?.replace('max-', '')],
+																dotsEnd: true,
+															},
+														]}
+													/>
+												)}
+											</div>
+										)}
+									</div>
+								}
 							>
-								<div className='es-uic-flex es-uic-size-8 es-uic-shrink-0 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-gray-100 es-uic-p-0.5 es-uic-text-gray-800'>
+								<div
+									className={classnames(
+										'es-uic-flex es-uic-size-8 es-uic-shrink-0 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-gray-100 es-uic-p-0.5 es-uic-text-gray-800',
+										!value[breakpoint] && '[&>svg]:es-uic-opacity-25',
+									)}
+								>
 									{icons?.[`screen${upperFirst(realBreakpointName)}`]}
 								</div>
-							</Tooltip>
+							</DecorativeTooltip>
 
-							{componentToRender({
+							{children({
 								breakpoint: breakpoint,
 								currentValue: value?.[breakpoint],
 								handleChange: (newValue) => {
@@ -347,10 +518,11 @@ export const Responsive = (props) => {
 										[breakpoint]: newValue,
 									});
 								},
+								options: options,
 							})}
 
 							<Button
-								onClick={() => {
+								onPress={() => {
 									onChange({
 										...value,
 										[breakpoint]: undefined,
@@ -365,7 +537,29 @@ export const Responsive = (props) => {
 				})}
 			</AnimatedVisibility>
 
-			{isDesktopFirst && <DefaultControl />}
+			{isDesktopFirst && (
+				<div
+					className={classnames(
+						'es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2rem)] es-uic-items-center es-uic-gap-x-2',
+						detailsVisible && '!es-uic-mt-2',
+					)}
+					key='_default-desktop-first'
+				>
+					{detailsVisible && <DefaultTooltip />}
+					<div className={classnames(detailsVisible ? 'es-uic-col-start-2 es-uic-col-end-2' : 'es-uic-col-span-full')}>
+						{children({
+							breakpoint: '_default',
+							currentValue: value?.['_default'],
+							handleChange: (newValue) =>
+								onChange({
+									...value,
+									_default: newValue,
+								}),
+							options: options,
+						})}
+					</div>
+				</div>
+			)}
 		</BaseControl>
 	);
 };
