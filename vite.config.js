@@ -13,12 +13,13 @@ export default defineConfig({
 		libInjectCss(),
 	],
 	build: {
-		copyPublicDir: false,
+		copyPublicDir: true,
 		lib: {
 			name: 'EightshiftUiComponents',
 			entry: {
 				index: resolve(__dirname, 'lib/index.js'),
 				styles: resolve(__dirname, 'lib/style.js'),
+				fonts: resolve(__dirname, 'lib/fonts.js'),
 			},
 			formats: ['es']
 		},
@@ -27,7 +28,7 @@ export default defineConfig({
 			external: ['react', 'react/jsx-runtime'],
 			input: Object.fromEntries(
 				// https://rollupjs.org/configuration-options/#input
-				glob.sync('lib/**/*.{js,jsx}', {
+				glob.sync('lib/**/*.{js,jsx,woff2}', {
 					ignore: ["lib/**/*.d.ts"],
 				}).map(file => [
 					// 1. The name of the entry point

@@ -14,7 +14,7 @@ export default {
 	theme: {
 		fontFamily: {
 			'sans': ['Geist', ...defaultTheme.fontFamily.sans],
-			'mono': defaultTheme.fontFamily.mono,
+			'mono': ['Geist Mono', defaultTheme.fontFamily.mono],
 		},
 		extend: {
 			transitionDuration: {

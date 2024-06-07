@@ -55,6 +55,7 @@ import {
 	ColumnConfigSlider,
 } from '../lib';
 import { clsx } from 'clsx/lite';
+import '../lib/fonts/fonts.css';
 
 function App() {
 	const [toggled, setToggled] = useState(false);
