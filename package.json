@@ -20,7 +20,7 @@
 			"require": "./dist/index.js"
 		},
 		"./dist/assets/style.css": "./dist/assets/style.css",
-		"./styles": "./dist/assets/style.css"
+		"./dist/assets/fonts.css": "./dist/assets/fonts.css"
 	},
 	"scripts": {
 		"dev": "vite",
