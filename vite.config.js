@@ -20,6 +20,7 @@ export default defineConfig({
 				index: resolve(__dirname, 'lib/index.js'),
 				styles: resolve(__dirname, 'lib/style.js'),
 				fonts: resolve(__dirname, 'lib/fonts.js'),
+				wp: resolve(__dirname, 'lib/wp.js'),
 			},
 			formats: ['es']
 		},
