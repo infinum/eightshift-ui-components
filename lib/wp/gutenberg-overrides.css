@@ -1,3 +1,4 @@
+/* Override font family. */
 .edit-post-header,
 .components-popover,
 .edit-post-sidebar,
@@ -19,10 +20,12 @@
 .block-editor-inserter__tabs,
 .editor-list-view-sidebar,
 .edit-post-layout__footer,
-.components-snackbar {
+.components-snackbar,
+.components-text-control__input {
 	@apply es-uic-font-sans;
 }
 
+/* Add rounded corners to make components look nicer and more uniform. */
 .edit-post-header__toolbar .components-button,
 .edit-post-header__settings .components-button,
 .edit-post-sidebar .components-button,
@@ -35,7 +38,7 @@
 .components-combobox-control__suggestions-container,
 .components-checkbox-control__input,
 .components-tooltip,
-.components-toggle-group-control-option-base {
+button.components-toggle-group-control-option-base {
 	@apply !es-uic-rounded;
 }
 
@@ -50,4 +53,10 @@
 
 .block-editor-inserter__search {
 	@apply !es-uic-rounded-t-lg;
+}
+
+/* Fix weird label casings */
+.components-base-control__label,
+.components-input-control__label {
+	@apply !es-uic-normal-case !es-uic-text-[13px] !es-uic-tracking-normal !es-uic-font-normal;
 }
