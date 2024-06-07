@@ -57,6 +57,7 @@ button.components-toggle-group-control-option-base {
 
 /* Fix weird label casings */
 .components-base-control__label,
-.components-input-control__label {
+.components-input-control__label,
+.components-custom-select-control__label {
 	@apply !es-uic-normal-case !es-uic-text-[13px] !es-uic-tracking-normal !es-uic-font-normal;
 }
