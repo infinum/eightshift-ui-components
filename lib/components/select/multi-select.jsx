@@ -120,7 +120,7 @@ export const MultiSelect = (props) => {
 						isDisabled={disabled}
 						className={className}
 						placeholder={placeholder}
-						clsx={eightshiftSelectClasses}
+						classNames={eightshiftSelectClasses}
 						components={{
 							MultiValue: getMultiValue(customValueDisplay ?? components.MultiValue),
 							MultiValueContainer: customValueContainer ?? components.MultiValueContainer,

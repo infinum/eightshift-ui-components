@@ -115,7 +115,7 @@ export const AsyncSelect = (props) => {
 				isDisabled={disabled}
 				className={className}
 				placeholder={placeholder}
-				clsx={eightshiftSelectClasses}
+				classNames={eightshiftSelectClasses}
 				components={{
 					Option: customMenuOption ?? components.Option,
 					SingleValue: customValueDisplay ?? components.SingleValue,
