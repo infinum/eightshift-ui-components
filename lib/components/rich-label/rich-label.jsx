@@ -42,16 +42,16 @@ export const RichLabel = (props) => {
 	return (
 		<ComponentToRender
 			className={clsx(
-				'es-uic-flex es-uic-items-center es-uic-gap-1.5 es-uic-text-sm es-uic-leading-tight es-uic-text-gray-800',
+				'es-uic-flex es-uic-items-center es-uic-gap-1.5 es-uic-text-sm es-uic-leading-tight es-uic-text-gray-800 [&>span>svg]:es-uic-text-slate-500',
 				fullWidth && 'es-uic-grow',
 				className,
 			)}
 		>
-			{icon && <span className='es-uic-text-slate-500 [&>svg]:es-uic-size-5.5'>{icon}</span>}
+			{icon && <span className='[&>svg]:es-uic-size-5.5'>{icon}</span>}
 			{(label || subtitle) && (
 				<div className='es-uic-flex es-uic-flex-col es-uic-items-start es-uic-text-start es-uic-text-balance'>
 					{label && <span>{label}</span>}
-					{subtitle && <span className='es-uic-text-xs es-uic-text-gray-500'>{subtitle}</span>}
+					{subtitle && <span className='es-uic-text-xs'>{subtitle}</span>}
 				</div>
 			)}
 		</ComponentToRender>

@@ -53,6 +53,7 @@ import {
 	ResponsiveLegacy,
 	Switch,
 	ColumnConfigSlider,
+	ContainerPanel,
 } from '../lib';
 import { clsx } from 'clsx/lite';
 import '../lib/fonts/fonts.css';
@@ -583,6 +584,7 @@ function App() {
 					<Tab>ColorPicker</Tab>
 					<Tab>ResponsiveLegacy</Tab>
 					<Tab>ColumnConfigSlider</Tab>
+					<Tab>ContainerPanel</Tab>
 				</TabList>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Toggle
@@ -1986,6 +1988,24 @@ function App() {
 						disableWidth
 						disableOffset
 					/>
+				</TabPanel>
+
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+					<ContainerPanel>
+						<div className='es-uic-bg-gray-400 es-uic-rounded-md es-uic-w-full es-uic-h-40' />
+					</ContainerPanel>
+
+					<ContainerPanel title='Component name'>
+						<div className='es-uic-bg-gray-400 es-uic-rounded-md es-uic-w-full es-uic-h-40' />
+					</ContainerPanel>
+
+					<ContainerPanel title='Component name' withToggle>
+						<div className='es-uic-bg-gray-400 es-uic-rounded-md es-uic-w-full es-uic-h-40' />
+					</ContainerPanel>
+
+					<ContainerPanel title='Component name' closeable>
+						<div className='es-uic-bg-gray-400 es-uic-rounded-md es-uic-w-full es-uic-h-40' />
+					</ContainerPanel>
 				</TabPanel>
 			</Tabs>
 		</div>
