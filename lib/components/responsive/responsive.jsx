@@ -6,8 +6,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { upperFirst } from '../../utilities/text-helpers';
 import { icons } from '../../icons/icons';
-import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
-import { TriggeredPopover } from '../popover/popover';
+import { Menu, MenuItem, MenuSeparator, SubMenuItem } from '../menu/menu';
 import { ResponsivePreview } from '../responsive-preview/responsive-preview';
 import { Button, ButtonGroup } from '../button/button';
 import { RichLabel } from '../rich-label/rich-label';
@@ -37,6 +36,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {string[]} props.breakpoints - Breakpoints to use.
  * @param {string[]} [props.desktopFirstBreakpoints] - Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order.
  * @param {Object<string, number>} [props.breakpointData] - Currently used breakpoint data. `{ [breakpoint: string]: number }`.
+ * @param {boolean} [props.noModeSelect] - If `true`, the mode selection (desktop-first/mobile-first) is hidden.
  *
  * @returns {JSX.Element} The Responsive component.
  *
@@ -82,6 +82,8 @@ export const Responsive = (props) => {
 		desktopFirstBreakpoints = breakpoints.map((bp) => `max-${bp}`),
 
 		breakpointData,
+
+		noModeSelect,
 
 		children,
 	} = props;
@@ -192,54 +194,93 @@ export const Responsive = (props) => {
 			help={help}
 			actions={
 				<ButtonGroup>
+					<ToggleButton
+						icon={isDesktopFirst ? icons.responsiveOverridesAlt : icons.responsiveOverridesAlt2}
+						onChange={() => setDetailsVisible(!detailsVisible)}
+						selected={detailsVisible}
+						tooltip={
+							detailsVisible
+								? __('Hide responsive overrides', 'eightshift-ui-components')
+								: __('Show responsive overrides', 'eightshift-ui-components')
+						}
+					/>
+
 					<Menu
 						tooltip={__('Responsive options', 'eightshift-ui-components')}
 						popoverProps={{ placement: 'bottom right' }}
+						triggerProps={{ className: 'es-uic-w-5 es-uic-stroke-[1.25]' }}
+						triggerIcon={icons.caretDown}
 					>
-						<MenuItem
-							className='!es-uic-pb-0 !es-uic-pt-1'
-							disabled
-						>
-							{__('Breakpoint mode', 'eightshift-ui-components')}
-						</MenuItem>
-						<MenuItem
-							selected={!isDesktopFirst}
-							onClick={() => {
-								const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
-									(prev, curr) => ({ ...prev, [curr]: undefined }),
-									{},
-								);
+						{!noModeSelect && (
+							<>
+								<MenuItem
+									className='!es-uic-pb-0 !es-uic-pt-1'
+									disabled
+								>
+									{__('Breakpoint mode', 'eightshift-ui-components')}
+								</MenuItem>
+								<MenuItem
+									selected={!isDesktopFirst}
+									onClick={() => {
+										const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
+											(prev, curr) => ({ ...prev, [curr]: undefined }),
+											{},
+										);
 
-								onChange({
-									...value,
-									...thingsToDelete,
-									_mobileFirst: false,
-								});
-							}}
-						>
-							<RichLabel
-								label={__('Mobile-first', 'eightshift-ui-components')}
-								subtitle={__('Recommended', 'eightshift-ui-components')}
-							/>
-						</MenuItem>
-						<MenuItem
-							selected={isDesktopFirst}
-							onClick={() => {
-								const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
-									(prev, curr) => ({ ...prev, [curr]: undefined }),
-									{},
-								);
+										onChange({
+											...value,
+											...thingsToDelete,
+											_mobileFirst: false,
+										});
+									}}
+								>
+									<RichLabel
+										label={__('Mobile-first', 'eightshift-ui-components')}
+										subtitle={__('Recommended', 'eightshift-ui-components')}
+									/>
+								</MenuItem>
+								<MenuItem
+									selected={isDesktopFirst}
+									onClick={() => {
+										const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
+											(prev, curr) => ({ ...prev, [curr]: undefined }),
+											{},
+										);
 
-								onChange({
-									...value,
-									...thingsToDelete,
-									_mobileFirst: true,
-								});
-							}}
-						>
-							{__('Desktop-first', 'eightshift-ui-components')}
-						</MenuItem>
-						<MenuSeparator />
+										onChange({
+											...value,
+											...thingsToDelete,
+											_mobileFirst: true,
+										});
+									}}
+								>
+									{__('Desktop-first', 'eightshift-ui-components')}
+								</MenuItem>
+								<MenuSeparator />
+							</>
+						)}
+
+						{Object.keys(value).some((key) => !key?.startsWith('_') && value?.[key] !== undefined) && (
+							<SubMenuItem
+								trigger={
+									<MenuItem icon={icons.previewResponsive}>
+										{__('Responsive preview', 'eightshift-ui-components')}
+									</MenuItem>
+								}
+							>
+								<MenuItem disabled>
+									<ResponsivePreview
+										value={value}
+										isDesktopFirst={isDesktopFirst}
+										breakpoints={breakpoints}
+										desktopFirstBreakpoints={desktopFirstBreakpoints}
+										options={options}
+										breakpointData={breakpointData}
+									/>
+								</MenuItem>
+							</SubMenuItem>
+						)}
+						{Object.keys(value).some((key) => !key?.startsWith('_') && value?.[key] !== undefined) && <MenuSeparator />}
 						<MenuItem
 							icon={icons.clearAlt}
 							onClick={() => {
@@ -255,37 +296,6 @@ export const Responsive = (props) => {
 							{__('Clear all overrides', 'eightshift-ui-components')}
 						</MenuItem>
 					</Menu>
-
-					<TriggeredPopover
-						aria-label={props['aria-label'] ?? __('Breakpoint preview', 'eightshift-ui-components')}
-						trigger={
-							<Button
-								disabled={!Object.keys(value).some((key) => !key?.startsWith('_') && value?.[key] !== undefined)}
-								icon={icons.previewResponsive}
-								tooltip={__('Breakpoint preview', 'eightshift-ui-components')}
-							/>
-						}
-					>
-						<ResponsivePreview
-							value={value}
-							isDesktopFirst={isDesktopFirst}
-							breakpoints={breakpoints}
-							desktopFirstBreakpoints={desktopFirstBreakpoints}
-							options={options}
-							breakpointData={breakpointData}
-						/>
-					</TriggeredPopover>
-
-					<ToggleButton
-						icon={isDesktopFirst ? icons.responsiveOverridesAlt : icons.responsiveOverridesAlt2}
-						onChange={() => setDetailsVisible(!detailsVisible)}
-						selected={detailsVisible}
-						tooltip={
-							detailsVisible
-								? __('Hide responsive overrides', 'eightshift-ui-components')
-								: __('Show responsive overrides', 'eightshift-ui-components')
-						}
-					/>
 				</ButtonGroup>
 			}
 		>
