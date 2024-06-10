@@ -36,13 +36,16 @@ export const ResponsivePreview = (props) => {
 		value,
 		isDesktopFirst,
 
-		breakpoints,
-		desktopFirstBreakpoints = breakpoints.map((bp) => `max-${bp}`),
+		breakpoints: rawBreakpoints,
+		desktopFirstBreakpoints: rawDesktopFirstBreakpoints,
 
 		options,
 
 		breakpointData,
 	} = props;
+
+	const breakpoints = rawBreakpoints.slice(1);
+	const desktopFirstBreakpoints = rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1);
 
 	const firstMobileFirstOverride = breakpoints.find((breakpoint) => value?.[breakpoint]);
 	const lastDesktopFirstOverride = desktopFirstBreakpoints

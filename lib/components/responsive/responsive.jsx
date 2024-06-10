@@ -78,8 +78,8 @@ export const Responsive = (props) => {
 
 		options,
 
-		breakpoints,
-		desktopFirstBreakpoints = breakpoints.map((bp) => `max-${bp}`),
+		breakpoints: rawBreakpoints,
+		desktopFirstBreakpoints: rawDesktopFirstBreakpoints,
 
 		breakpointData,
 
@@ -87,6 +87,9 @@ export const Responsive = (props) => {
 
 		children,
 	} = props;
+
+	const breakpoints = rawBreakpoints.slice(1);
+	const desktopFirstBreakpoints = rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1);
 
 	const [detailsVisible, setDetailsVisible] = useState(false);
 
@@ -115,13 +118,13 @@ export const Responsive = (props) => {
 							!lastDesktopFirstOverride &&
 							__('Always applied, regardless of browser width.', 'eightshift-ui-components')}
 
-						{firstMobileFirstOverride &&
+						{firstMobileFirstOverride && !isDesktopFirst &&
 							sprintf(
 								__('Applies when the browser width is %dpx or narrower.', 'eightshift-ui-components'),
 								breakpointData[firstMobileFirstOverride] - 1,
 							)}
 
-						{lastDesktopFirstOverride &&
+						{lastDesktopFirstOverride && isDesktopFirst &&
 							sprintf(
 								__('Applies when the browser width is %dpx or more.', 'eightshift-ui-components'),
 								breakpointData[breakpoints.at(-1)],
@@ -129,7 +132,7 @@ export const Responsive = (props) => {
 					</span>
 
 					<div className='es-uic-mx-auto'>
-						{firstMobileFirstOverride && (
+						{firstMobileFirstOverride && !isDesktopFirst && (
 							<BreakpointPreview
 								blocks={[
 									{
@@ -153,7 +156,7 @@ export const Responsive = (props) => {
 							/>
 						)}
 
-						{lastDesktopFirstOverride && (
+						{lastDesktopFirstOverride && isDesktopFirst && (
 							<BreakpointPreview
 								blocks={[
 									{
@@ -414,7 +417,7 @@ export const Responsive = (props) => {
 													{!value[breakpoint] &&
 														sprintf(
 															__('Up to %dpx', 'eightshift-ui-components'),
-															breakpointData[belowOverride?.replace('max-', '')],
+															breakpointData[breakpoint?.replace('max-', '')],
 														)}
 												</>
 											)}
