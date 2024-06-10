@@ -19,6 +19,7 @@ import { RichLabel } from '../rich-label/rich-label';
  * @param {string} [props.subtitle] - Subtitle to display on the top of the panel.
  * @param {boolean} [props.withToggle] - If `true`, the panel will have a toggle button to control the visibility of child items. Will not show if `title` is not set.
  * @param {boolean} [props.closeable] - If `true`, the panel will have a close button to control the visibility of child items. Will not show if `title` is not set.
+ * @param {boolean} [props.startOpen] - If `true`, and panel has either a toggle or a close button, the panel will be open by default.
  *
  * @returns {JSX.Element} The ContainerPanel component.
  *
@@ -29,12 +30,24 @@ import { RichLabel } from '../rich-label/rich-label';
  *
  * @preserve
  */
-export const ContainerPanel = ({ children, className, title, icon, subtitle, withToggle, closeable }) => {
-	const [open, setOpen] = useState(true);
+export const ContainerPanel = ({
+	children,
+	className,
+	title,
+	icon,
+	subtitle,
+	withToggle,
+	closeable,
+	startOpen = false,
+}) => {
+	const [open, setOpen] = useState(startOpen);
 
 	return (
 		<div
-			className={clsx('es-uic-space-y-2.5 es-uic-border-t es-uic-border-t-gray-200 es-uic-p-4 es-uic-pt-3', className)}
+			className={clsx(
+				'es-uic-space-y-2.5 es-uic-border-t es-uic-border-t-gray-200 es-uic-p-4 es-uic-py-2.5',
+				className,
+			)}
 		>
 			{title && (
 				<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>
