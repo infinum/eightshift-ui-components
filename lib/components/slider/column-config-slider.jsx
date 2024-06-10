@@ -80,7 +80,7 @@ export const ColumnConfigSlider = (props) => {
 			step={1}
 			isDisabled={disabled}
 			orientation='horizontal'
-			className='es-uic-w-full es-uic-pb-3.5'
+			className='es-uic-w-full'
 			onChangeEnd={onChangeEnd}
 			{...other}
 		>
