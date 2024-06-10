@@ -243,15 +243,13 @@ export const Responsive = (props) => {
 						<MenuItem
 							icon={icons.clearAlt}
 							onClick={() => {
-								const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
-									(prev, curr) => ({ ...prev, [curr]: undefined }),
-									{},
-								);
+								const newValue = { ...value };
 
-								onChange({
-									...value,
-									...thingsToDelete,
+								[...breakpoints, ...desktopFirstBreakpoints].forEach((breakpoint) => {
+									delete newValue[breakpoint];
 								});
+
+								onChange(newValue);
 							}}
 						>
 							{__('Clear all overrides', 'eightshift-ui-components')}
@@ -526,10 +524,9 @@ export const Responsive = (props) => {
 
 							<Button
 								onPress={() => {
-									onChange({
-										...value,
-										[breakpoint]: undefined,
-									});
+									const newValue = { ...value };
+									delete newValue[breakpoint];
+									onChange(newValue);
 								}}
 								icon={icons.clearAlt}
 								disabled={!value?.[breakpoint]}
