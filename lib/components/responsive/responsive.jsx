@@ -310,6 +310,7 @@ export const Responsive = (props) => {
 									_default: newValue,
 								}),
 							options: options,
+							key: Object.keys(value),
 						})}
 					</div>
 				</div>
@@ -520,6 +521,7 @@ export const Responsive = (props) => {
 									});
 								},
 								options: options,
+								key: Object.keys(value),
 							})}
 
 							<Button
@@ -558,6 +560,7 @@ export const Responsive = (props) => {
 									_default: newValue,
 								}),
 							options: options,
+							key: Object.keys(value),
 						})}
 					</div>
 				</div>
