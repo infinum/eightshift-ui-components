@@ -48,7 +48,7 @@ export const ContainerPanel = ({
 				'es-uic-space-y-2.5 es-uic-border-t es-uic-border-t-gray-200 es-uic-px-4',
 				!(withToggle || closeable) && 'es-uic-py-4',
 				(withToggle || closeable) && !open && 'es-uic-py-2.5',
-				(withToggle || closeable) && open && 'es-uic-py-4',
+				(withToggle || closeable) && open && 'es-uic-pt-2.5 es-uic-pb-4',
 				className,
 			)}
 		>
