@@ -343,7 +343,7 @@ export const Responsive = (props) => {
 					return (
 						<div
 							className='es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2'
-							key={realBreakpointName}
+							key={Object.keys(value)}
 						>
 							<DecorativeTooltip
 								placement='left'
