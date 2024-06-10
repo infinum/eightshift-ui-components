@@ -43,12 +43,7 @@ export const ContainerPanel = ({
 	const [open, setOpen] = useState(startOpen);
 
 	return (
-		<div
-			className={clsx(
-				'es-uic-space-y-2.5 es-uic-border-t es-uic-border-t-gray-200 es-uic-p-4 es-uic-py-2.5',
-				className,
-			)}
-		>
+		<div className={clsx('es-uic-space-y-2.5 es-uic-border-t es-uic-border-t-gray-200 es-uic-p-4', className)}>
 			{title && (
 				<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>
 					<RichLabel
