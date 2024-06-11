@@ -22,7 +22,7 @@ export const ImagePlaceholder = (props) => {
 	return (
 		<div
 			className={clsx(
-				'es-uic-size-24 es-uic-overflow-hidden es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-text-gray-300 es-uic-shadow',
+				'es-uic-size-20 es-uic-overflow-hidden es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-text-gray-300 es-uic-shadow',
 				'es-uic-grid es-uic-grid-cols-1 es-uic-grid-rows-1',
 				'[&>*]:es-uic-col-start-1 [&>*]:es-uic-col-end-1 [&>*]:es-uic-row-start-1 [&>*]:es-uic-row-end-1',
 			)}
