@@ -89,7 +89,7 @@ export const Responsive = (props) => {
 	} = props;
 
 	const breakpoints = rawBreakpoints.slice(1);
-	const desktopFirstBreakpoints = rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1);
+	const desktopFirstBreakpoints = (rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1)).map((breakpoint) => breakpoint.startsWith('max-') ? breakpoint : `max-${breakpoint}`);
 
 	const [detailsVisible, setDetailsVisible] = useState(false);
 
