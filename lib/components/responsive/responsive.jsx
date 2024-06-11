@@ -368,14 +368,14 @@ export const Responsive = (props) => {
 											{!isDesktopFirst && (
 												<>
 													{!belowOverride &&
-														value[breakpoint] &&
+														typeof value[breakpoint] !== 'undefined' &&
 														sprintf(
 															__('Applied when the browser width is %dpx or more.', 'eightshift-ui-components'),
 															breakpointData[realBreakpointName],
 														)}
 
 													{belowOverride &&
-														value[breakpoint] &&
+														typeof value[breakpoint] !== 'undefined' &&
 														sprintf(
 															__(
 																'Applied when the browser width is between %dpx and %dpx.',
@@ -385,7 +385,7 @@ export const Responsive = (props) => {
 															breakpointData[belowOverride] - 1,
 														)}
 
-													{!value[breakpoint] &&
+													{typeof value[breakpoint] === 'undefined' &&
 														sprintf(__('From %dpx', 'eightshift-ui-components'), breakpointData[realBreakpointName])}
 												</>
 											)}
@@ -393,14 +393,14 @@ export const Responsive = (props) => {
 											{isDesktopFirst && (
 												<>
 													{!belowOverride &&
-														value[breakpoint] &&
+														typeof value[breakpoint] !== 'undefined' &&
 														sprintf(
 															__('Applied when the browser width is %dpx or less.', 'eightshift-ui-components'),
 															breakpointData[realBreakpointName] - 1,
 														)}
 
 													{belowOverride &&
-														value[breakpoint] &&
+														typeof value[breakpoint] !== 'undefined' &&
 														sprintf(
 															__(
 																'Applied when the browser width is between %dpx and %dpx.',
@@ -410,7 +410,7 @@ export const Responsive = (props) => {
 															breakpointData[realBreakpointName] - 1,
 														)}
 
-													{!value[breakpoint] &&
+													{typeof value[breakpoint] === 'undefined' &&
 														sprintf(
 															__('Up to %dpx', 'eightshift-ui-components'),
 															breakpointData[breakpoint?.replace('max-', '')],
@@ -419,13 +419,13 @@ export const Responsive = (props) => {
 											)}
 										</span>
 
-										{!value[breakpoint] && (
+										{typeof value[breakpoint] === 'undefined' && (
 											<span className='es-uic-mt-2 es-uic-block es-uic-font-medium es-uic-italic'>
 												{__('Not set', 'eightshift-ui-components')}
 											</span>
 										)}
 
-										{value[breakpoint] && (
+										{typeof value[breakpoint] !== 'undefined' && (
 											<div className='es-uic-mx-auto es-uic-mt-2'>
 												{!isDesktopFirst && (
 													<BreakpointPreview
