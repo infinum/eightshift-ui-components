@@ -12,6 +12,7 @@ import { clsx } from 'clsx/lite';
  * @param {boolean} [props.disabled] - Whether the switch is disabled.
  * @param {string} [props.id] - The ID of the switch.
  * @param {string} [props.className] - Classes to pass to the switch.
+ * @param {boolean} [props.isIndeterminate] - If `true`, the switch will render in an indeterminate state.
  *
  * @returns {JSX.Element} The Switch component.
  *
@@ -26,7 +27,7 @@ import { clsx } from 'clsx/lite';
  * @preserve
  */
 export const Switch = (props) => {
-	const { checked, onChange, disabled, id, children, className } = props;
+	const { checked, onChange, disabled, id, children, className, isIndeterminate } = props;
 
 	return (
 		<ReactAriaSwitch
@@ -51,6 +52,7 @@ export const Switch = (props) => {
 							'es-uic-block es-uic-size-2 es-uic-rounded-full es-uic-border es-uic-border-gray-500 es-uic-bg-gray-500 es-uic-transition es-uic-will-change-transform',
 							'group-selected:es-uic-translate-x-3 group-selected:es-uic-scale-125 group-selected:es-uic-border-teal-600 group-selected:es-uic-bg-teal-600',
 							'group-disabled:es-uic-border-gray-300 group-disabled:es-uic-bg-white',
+							isIndeterminate && 'es-uic-translate-x-1.5',
 						)}
 					/>
 				</div>

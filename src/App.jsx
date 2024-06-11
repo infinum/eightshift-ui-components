@@ -62,6 +62,7 @@ import '../lib/fonts/fonts.css';
 
 function App() {
 	const [toggled, setToggled] = useState(false);
+	const [toggled2, setToggled2] = useState(null);
 	const [linkTxt, setLinkTxt] = useState();
 	const [matrixVal, setMatrixVal] = useState('center center');
 	const [matrixVal2, setMatrixVal2] = useState('top left');
@@ -595,6 +596,21 @@ function App() {
 						onChange={(value) => setToggled(value)}
 						icon={icons.experiment}
 						label='Airplane mode'
+					/>
+
+					<Switch
+						checked={toggled}
+						onChange={(value) => setToggled(value)}
+						icon={icons.experiment}
+						label='Airplane mode'
+					/>
+
+					<Switch
+						checked={toggled2}
+						onChange={(value) => setToggled2(value)}
+						icon={icons.experiment}
+						label='Airplane mode'
+						isIndeterminate={toggled2 === null}
 					/>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
