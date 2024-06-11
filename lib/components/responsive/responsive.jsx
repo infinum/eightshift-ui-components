@@ -544,7 +544,7 @@ export const Responsive = (props) => {
 									onChange(newValue);
 								}}
 								icon={icons.clearAlt}
-								disabled={!value?.[breakpoint]}
+								disabled={typeof value?.[breakpoint] === 'undefined'}
 								type='ghost'
 							/>
 						</div>
