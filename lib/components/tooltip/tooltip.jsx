@@ -94,7 +94,7 @@ export const Tooltip = (props) => {
 				className={({ isEntering, isExiting }) =>
 					clsx(
 						'es-uic-group',
-						'es-uic-z-20 es-uic-select-none es-uic-rounded-md es-uic-border es-uic-px-1.5 es-uic-py-0.5 es-uic-text-sm es-uic-shadow es-uic-backdrop-blur-xl es-uic-will-change-[transform,opacity]',
+						'es-uic-z-20 es-uic-select-none es-uic-rounded-md es-uic-border es-uic-px-1.5 es-uic-py-0.5 es-uic-text-sm es-uic-shadow es-uic-backdrop-blur-xl es-uic-will-change-[transform,opacity] es-uic-fill-mode-forwards',
 						theme === 'light' && 'es-uic-border-gray-200 es-uic-bg-white/60 es-uic-text-gray-700',
 						theme === 'dark' && 'es-uic-border-gray-600 es-uic-bg-black/60 es-uic-text-gray-100',
 						isEntering && 'es-uic-duration-300 es-uic-ease-out es-uic-animate-in es-uic-fade-in',
