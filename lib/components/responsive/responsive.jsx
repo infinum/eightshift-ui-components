@@ -516,7 +516,7 @@ export const Responsive = (props) => {
 								<div
 									className={clsx(
 										'es-uic-flex es-uic-size-8 es-uic-shrink-0 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-gray-100 es-uic-p-0.5 es-uic-text-gray-800',
-										!value[breakpoint] && '[&>svg]:es-uic-opacity-25',
+										typeof value[breakpoint] === 'undefined' && '[&>svg]:es-uic-opacity-30',
 									)}
 								>
 									{icons?.[`screen${upperFirst(realBreakpointName)}`]}
