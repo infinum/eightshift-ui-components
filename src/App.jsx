@@ -56,6 +56,7 @@ import {
 	ContainerPanel,
 	HStack,
 	VStack,
+	ImagePlaceholder,
 } from '../lib';
 import { clsx } from 'clsx/lite';
 import '../lib/fonts/fonts.css';
@@ -76,6 +77,8 @@ function App() {
 	let [selectedKey, setSelectedKey] = useState('sans');
 	let [loremIpsum, setLoremIpsum] = useState(0);
 	let [radioValue, setRadioValue] = useState(null);
+
+	let [imgUrl, setImgUrl] = useState(null);
 
 	const [resp, setResp] = useState({
 		_default: 'sans',
@@ -589,6 +592,7 @@ function App() {
 					<Tab>ColumnConfigSlider</Tab>
 					<Tab>ContainerPanel</Tab>
 					<Tab>Layout components</Tab>
+					<Tab>ImagePlaceholder</Tab>
 				</TabList>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Toggle
@@ -2086,6 +2090,30 @@ function App() {
 						<Button icon={icons.emptyCircle} />
 						<Button icon={icons.emptyCircle} />
 					</VStack>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+					<ImagePlaceholder />
+					<ImagePlaceholder url='https://picsum.photos/200' />
+
+					<Spacer border />
+
+					<HStack>
+					<Button
+						size='small'
+						onPress={() => setImgUrl('https://picsum.photos/200')}
+						disabled={imgUrl !== null}
+					>
+						Set URL
+					</Button>
+					<Button
+						size='small'
+						onPress={() => setImgUrl(null)}
+						disabled={imgUrl === null}
+					>
+						Unset URL
+					</Button>
+					</HStack>
+					<ImagePlaceholder url={imgUrl} />
 				</TabPanel>
 			</Tabs>
 		</div>
