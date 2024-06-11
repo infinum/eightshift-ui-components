@@ -98,7 +98,9 @@ export const Responsive = (props) => {
 	const isDesktopFirst = value?.['_mobileFirst'] === true;
 
 	const firstMobileFirstOverride = breakpoints.find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
-	const lastDesktopFirstOverride = desktopFirstBreakpoints.toReversed().find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
+	const lastDesktopFirstOverride = desktopFirstBreakpoints
+		.toReversed()
+		.find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
 
 	const breakpointsToMap = isDesktopFirst ? desktopFirstBreakpoints : breakpoints;
 
@@ -429,22 +431,24 @@ export const Responsive = (props) => {
 													<BreakpointPreview
 														dotsStart={belowOverride}
 														blocks={[
-															aboveOverride !== '_default' && {
-																breakpoint: aboveOverride,
-																value:
-																	options?.find((opt) => opt.value === value?.[aboveOverride])?.label ??
-																	upperFirst(value?.[aboveOverride]),
-																dotsStart: !belowOverride,
-																alignEnd: !belowOverride,
-															},
-															aboveOverride === '_default' && {
-																breakpoint: __('Default', 'eightshift-ui-components'),
-																value:
-																	options?.find((opt) => opt.value === value?.['_default'])?.label ??
-																	upperFirst(value?.['_default']),
-																dotsStart: !belowOverride,
-																alignEnd: !belowOverride,
-															},
+															aboveOverride !== '_default' &&
+																typeof value?.[aboveOverride] !== 'undefined' && {
+																	breakpoint: aboveOverride,
+																	value:
+																		options?.find((opt) => opt.value === value?.[aboveOverride])?.label ??
+																		upperFirst(value?.[aboveOverride]),
+																	dotsStart: !belowOverride,
+																	alignEnd: !belowOverride,
+																},
+															aboveOverride === '_default' &&
+																typeof value?.['_default'] !== 'undefined' && {
+																	breakpoint: __('Default', 'eightshift-ui-components'),
+																	value:
+																		options?.find((opt) => opt.value === value?.['_default'])?.label ??
+																		upperFirst(value?.['_default']),
+																	dotsStart: !belowOverride,
+																	alignEnd: !belowOverride,
+																},
 															{
 																breakpoint: realBreakpointName,
 																value:
@@ -454,14 +458,15 @@ export const Responsive = (props) => {
 																active: true,
 																dotsEnd: !belowOverride,
 															},
-															belowOverride && {
-																breakpoint: belowOverride,
-																value:
-																	options?.find((opt) => opt.value === value?.[belowOverride])?.label ??
-																	upperFirst(value?.[belowOverride]),
-																width: breakpointData[belowOverride],
-																dotsEnd: true,
-															},
+															belowOverride &&
+																typeof value?.[belowOverride] !== 'undefined' && {
+																	breakpoint: belowOverride,
+																	value:
+																		options?.find((opt) => opt.value === value?.[belowOverride])?.label ??
+																		upperFirst(value?.[belowOverride]),
+																	width: breakpointData[belowOverride],
+																	dotsEnd: true,
+																},
 														]}
 													/>
 												)}
