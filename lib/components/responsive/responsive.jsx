@@ -89,14 +89,16 @@ export const Responsive = (props) => {
 	} = props;
 
 	const breakpoints = rawBreakpoints.slice(1);
-	const desktopFirstBreakpoints = (rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1)).map((breakpoint) => breakpoint.startsWith('max-') ? breakpoint : `max-${breakpoint}`);
+	const desktopFirstBreakpoints = (rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1)).map((breakpoint) =>
+		breakpoint.startsWith('max-') ? breakpoint : `max-${breakpoint}`,
+	);
 
 	const [detailsVisible, setDetailsVisible] = useState(false);
 
 	const isDesktopFirst = value?.['_mobileFirst'] === true;
 
-	const firstMobileFirstOverride = breakpoints.find((breakpoint) => value?.[breakpoint]);
-	const lastDesktopFirstOverride = desktopFirstBreakpoints.toReversed().find((breakpoint) => value?.[breakpoint]);
+	const firstMobileFirstOverride = breakpoints.find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
+	const lastDesktopFirstOverride = desktopFirstBreakpoints.toReversed().find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
 
 	const breakpointsToMap = isDesktopFirst ? desktopFirstBreakpoints : breakpoints;
 
@@ -118,13 +120,15 @@ export const Responsive = (props) => {
 							!lastDesktopFirstOverride &&
 							__('Always applied, regardless of browser width.', 'eightshift-ui-components')}
 
-						{firstMobileFirstOverride && !isDesktopFirst &&
+						{firstMobileFirstOverride &&
+							!isDesktopFirst &&
 							sprintf(
 								__('Applies when the browser width is %dpx or narrower.', 'eightshift-ui-components'),
 								breakpointData[firstMobileFirstOverride] - 1,
 							)}
 
-						{lastDesktopFirstOverride && isDesktopFirst &&
+						{lastDesktopFirstOverride &&
+							isDesktopFirst &&
 							sprintf(
 								__('Applies when the browser width is %dpx or more.', 'eightshift-ui-components'),
 								breakpointData[breakpoints.at(-1)],
@@ -225,14 +229,8 @@ export const Responsive = (props) => {
 								<MenuItem
 									selected={!isDesktopFirst}
 									onClick={() => {
-										const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
-											(prev, curr) => ({ ...prev, [curr]: undefined }),
-											{},
-										);
-
 										onChange({
-											...value,
-											...thingsToDelete,
+											_default: value['_default'],
 											_mobileFirst: false,
 										});
 									}}
@@ -245,14 +243,8 @@ export const Responsive = (props) => {
 								<MenuItem
 									selected={isDesktopFirst}
 									onClick={() => {
-										const thingsToDelete = [...breakpoints, ...desktopFirstBreakpoints].reduce(
-											(prev, curr) => ({ ...prev, [curr]: undefined }),
-											{},
-										);
-
 										onChange({
-											...value,
-											...thingsToDelete,
+											_default: value['_default'],
 											_mobileFirst: true,
 										});
 									}}
@@ -263,7 +255,7 @@ export const Responsive = (props) => {
 							</>
 						)}
 
-						{Object.keys(value).some((key) => !key?.startsWith('_') && value?.[key] !== undefined) && (
+						{Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined') && (
 							<SubMenuItem
 								trigger={
 									<MenuItem icon={icons.previewResponsive}>
@@ -283,7 +275,9 @@ export const Responsive = (props) => {
 								</MenuItem>
 							</SubMenuItem>
 						)}
-						{Object.keys(value).some((key) => !key?.startsWith('_') && value?.[key] !== undefined) && <MenuSeparator />}
+						{Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined') && (
+							<MenuSeparator />
+						)}
 						<MenuItem
 							icon={icons.clearAlt}
 							onClick={() => {
@@ -341,18 +335,18 @@ export const Responsive = (props) => {
 						: ['_default', ...breakpointsToMap];
 
 					const aboveOverride = isDesktopFirst
-						? filterBreakpoints.slice(i + 1).find((breakpoint) => value?.[breakpoint])
+						? filterBreakpoints.slice(i + 1).find((breakpoint) => typeof value?.[breakpoint] !== 'undefined')
 						: filterBreakpoints
 								.slice(0, i + 1)
 								.toReversed()
-								.find((breakpoint) => value?.[breakpoint]);
+								.find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
 
 					const belowOverride = isDesktopFirst
 						? filterBreakpoints
 								.slice(0, i)
 								.toReversed()
-								.find((breakpoint) => value?.[breakpoint])
-						: filterBreakpoints.slice(i + 2).find((breakpoint) => value?.[breakpoint]);
+								.find((breakpoint) => typeof value?.[breakpoint] !== 'undefined')
+						: filterBreakpoints.slice(i + 2).find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
 
 					return (
 						<div
