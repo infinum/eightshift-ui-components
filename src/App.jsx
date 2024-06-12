@@ -897,6 +897,17 @@ function App() {
 							</SubMenuItem>
 						</SubMenuItem>
 					</Menu>
+
+					<OptionSelect
+						type='menu'
+						value={loremIpsum}
+						onChange={(v) => setLoremIpsum(v)}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+					/>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-flex es-uic-flex-col es-uic-items-center es-uic-space-y-4 !es-uic-p-5'>
 					<DecorativeTooltip text='Hello'>Hover me</DecorativeTooltip>

@@ -1,6 +1,7 @@
 import { icons } from '../../icons/icons';
 import { BaseControl } from '../base-control/base-control';
 import { ButtonGroup } from '../button/button';
+import { Menu, MenuItem } from '../menu/menu';
 import { RadioButton, RadioButtonGroup } from '../radio/radio';
 import { ToggleButton } from '../toggle-button/toggle-button';
 
@@ -19,16 +20,18 @@ import { ToggleButton } from '../toggle-button/toggle-button';
  * @param {Function} props.onChange - Function to run when the selected value changes.
  * @param {{label: string, value: any, tooltip: string|JSX.Element, icon: JSX.Element|string, ariaLabel: string }[]} props.options - The list of options to choose from.
  * @param {string} [props.disabled] - If `true`, the option select component is disabled.
- * @param {boolean} [props.vertical] - If `true`, the options are displayed vertically.
+ * @param {boolean} [props.vertical] - If `true`, the options are displayed vertically. Not applicable to the `menu` type.
  * @param {OptionSelectType} [props.type='toggleButton'] - The type of the option select component.
  * @param {string} [props.className] - Classes to pass to the main element wrapper.
  * @param {string} [props.itemClassName] - Classes to pass to each item.
  * @param {Object} [props.wrapperProps] - Props to pass to the wrapper.
  * @param {Object} [props.itemProps] - Props to pass to each item.
+ * @param {boolean} [props.noTriggerLabel] - Whether the trigger label should be hidden. Applies only to the `menu` type.
+ * @param {boolean} [props.noTriggerIcon] - Whether the trigger icon should be hidden. Applies only to the `menu` type.
  *
  * @returns {JSX.Element} The OptionSelect component.
  *
- * @typedef {'toggleButtons' | 'radios' | 'radiosSegmented'} OptionSelectType
+ * @typedef {'toggleButtons' | 'radios' | 'radiosSegmented' | 'menu'} OptionSelectType
  *
  * @example
  * <OptionSelect
@@ -69,8 +72,15 @@ export const OptionSelect = (props) => {
 		wrapperProps,
 		itemProps,
 
+		noTriggerLabel,
+		noTriggerIcon,
+
+		children,
+
 		...rest
 	} = props;
+
+	const currentItem = options?.find(({ value: optionValue }) => optionValue === value);
 
 	return (
 		<BaseControl
@@ -134,6 +144,31 @@ export const OptionSelect = (props) => {
 						/>
 					))}
 				</RadioButtonGroup>
+			)}
+
+			{type === 'menu' && (
+				<Menu
+					triggerLabel={!noTriggerLabel && currentItem?.label}
+					triggerIcon={!noTriggerIcon && currentItem?.icon}
+					keepOpen
+					{...wrapperProps}
+				>
+					{options.map(({ label: optionLabel, value: optionValue, icon: optionIcon, ariaLabel: optionAriaLabel }) => (
+						<MenuItem
+							key={optionValue}
+							selected={value === optionValue}
+							disabled={disabled}
+							className={itemClassName}
+							icon={typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon}
+							aria-label={optionAriaLabel ?? optionLabel}
+							onClick={() => onChange(optionValue)}
+							{...itemProps}
+						>
+							{optionLabel}
+						</MenuItem>
+					))}
+					{children}
+				</Menu>
 			)}
 		</BaseControl>
 	);
