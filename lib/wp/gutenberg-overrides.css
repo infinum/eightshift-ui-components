@@ -69,5 +69,5 @@ button.components-toggle-group-control-option-base {
 
 /* Fix block appender alignment */
 .block-list-appender.wp-block {
-	@apply !es-uic-static !p-1;
+	@apply !es-uic-static !es-uic-p-1;
 }
