@@ -66,3 +66,8 @@ button.components-toggle-group-control-option-base {
 .edit-post-sidebar {
 	@apply !es-uic-w-80;
 }
+
+/* Fix block appender alignment */
+.block-list-appender.wp-block {
+	@apply !es-uic-static !p-1;
+}
