@@ -5,7 +5,7 @@ let plugin = require('tailwindcss/plugin');
 /** @type {import('tailwindcss').Config} */
 export default {
 	prefix: 'es-uic-',
-	important: ':is(body,#wpwrap,input)',
+	important: ':is(body,#wpwrap,[role="group"])',
 	content: [
 		"./index.html",
 		"./src/**/*.{js,ts,jsx,tsx}",
