@@ -28,6 +28,8 @@ import { ToggleButton } from '../toggle-button/toggle-button';
  * @param {Object} [props.itemProps] - Props to pass to each item.
  * @param {boolean} [props.noTriggerLabel] - Whether the trigger label should be hidden. Applies only to the `menu` type.
  * @param {boolean} [props.noTriggerIcon] - Whether the trigger icon should be hidden. Applies only to the `menu` type.
+ * @param {boolean} [props.noItemLabel] - Whether the option label should be hidden.
+ * @param {boolean} [props.noItemIcon] - Whether the option icon should be hidden.
  *
  * @returns {JSX.Element} The OptionSelect component.
  *
@@ -75,6 +77,9 @@ export const OptionSelect = (props) => {
 		noTriggerLabel,
 		noTriggerIcon,
 
+		noItemLabel,
+		noItemIcon,
+
 		children,
 
 		...rest
@@ -112,12 +117,12 @@ export const OptionSelect = (props) => {
 								onChange={() => onChange(optionValue)}
 								disabled={disabled}
 								className={itemClassName}
-								icon={typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon}
+								icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
 								tooltip={optionTooltip}
 								aria-label={optionAriaLabel ?? optionLabel ?? optionTooltip}
 								{...itemProps}
 							>
-								{optionLabel}
+								{!noItemLabel && optionLabel}
 							</ToggleButton>
 						),
 					)}
@@ -137,9 +142,9 @@ export const OptionSelect = (props) => {
 							value={optionValue}
 							disabled={disabled}
 							className={itemClassName}
-							icon={typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon}
+							icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
 							aria-label={optionAriaLabel ?? optionLabel}
-							label={optionLabel}
+							label={!noItemLabel && optionLabel}
 							{...itemProps}
 						/>
 					))}
@@ -149,7 +154,9 @@ export const OptionSelect = (props) => {
 			{type === 'menu' && (
 				<Menu
 					triggerLabel={!noTriggerLabel && currentItem?.label}
-					triggerIcon={!noTriggerIcon && currentItem?.icon}
+					triggerIcon={
+						!noTriggerIcon && (typeof currentItem?.icon === 'string' ? icons?.[currentItem?.icon] : currentItem?.icon)
+					}
 					keepOpen
 					{...wrapperProps}
 				>
@@ -159,12 +166,12 @@ export const OptionSelect = (props) => {
 							selected={value === optionValue}
 							disabled={disabled}
 							className={itemClassName}
-							icon={typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon}
+							icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
 							aria-label={optionAriaLabel ?? optionLabel}
 							onClick={() => onChange(optionValue)}
 							{...itemProps}
 						>
-							{optionLabel}
+							{!noItemLabel && optionLabel}
 						</MenuItem>
 					))}
 					{children}
