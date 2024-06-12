@@ -23,6 +23,8 @@ import { BaseControl } from '../base-control/base-control';
  * - `currentValue: any` - Current value.
  * - `handleChange: Function<(attributeName: string, value: any) => void>` - A function to change the value for the breakpoint..
  * - `options: Object<string, any>` - (Optional) Options list passed to the `ResponsiveLegacy` component. (optional)
+ * - `isInlineCollapsedView: boolean` - (Optional) `true` if in `inline` mode, and the details are collapsed.
+ * - `isInlineExpandedView: boolean` - (Optional) `true` if in `inline` mode, and the details are shown.
  *
  * @component
  * @param {Object} props - Component props.
@@ -37,6 +39,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {string[]} [props.desktopFirstBreakpoints] - Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order.
  * @param {Object<string, number>} [props.breakpointData] - Currently used breakpoint data. `{ [breakpoint: string]: number }`.
  * @param {boolean} [props.noModeSelect] - If `true`, the mode selection (desktop-first/mobile-first) is hidden.
+ * @param {boolean} [props.inline] - If `true`, the default breakpoint is shown inline with the label. In the expanded state, all breakpoints are shown below the label.
  *
  * @returns {JSX.Element} The Responsive component.
  *
@@ -84,6 +87,8 @@ export const Responsive = (props) => {
 		breakpointData,
 
 		noModeSelect,
+
+		inline,
 
 		children,
 	} = props;
@@ -189,8 +194,8 @@ export const Responsive = (props) => {
 				</div>
 			}
 		>
-			<div className='es-uic-flex es-uic-size-8 es-uic-cursor-help es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-gray-200 es-uic-p-0.5 es-uic-text-gray-950 [&>svg]:es-uic-size-4'>
-				{icons.play}
+			<div className='es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-teal-50 es-uic-p-0.5 es-uic-text-teal-800 es-uic-border es-uic-border-teal-500/10 [&>svg]:es-uic-size-5 es-uic-shadow-sm es-uic-shadow-teal-600/25'>
+				{icons.arrowRight}
 			</div>
 		</DecorativeTooltip>
 	);
@@ -202,108 +207,133 @@ export const Responsive = (props) => {
 			subtitle={subtitle}
 			help={help}
 			actions={
-				<ButtonGroup>
-					<ToggleButton
-						icon={isDesktopFirst ? icons.responsiveOverridesAlt : icons.responsiveOverridesAlt2}
-						onChange={() => setDetailsVisible(!detailsVisible)}
-						selected={detailsVisible}
-						tooltip={
-							detailsVisible
-								? __('Hide responsive overrides', 'eightshift-ui-components')
-								: __('Show responsive overrides', 'eightshift-ui-components')
-						}
-					/>
-
-					<Menu
-						tooltip={__('Responsive options', 'eightshift-ui-components')}
-						popoverProps={{ placement: 'bottom right' }}
-						triggerProps={{ className: 'es-uic-w-5 es-uic-stroke-[1.25]' }}
-						triggerIcon={icons.caretDown}
-					>
-						{!noModeSelect && (
-							<>
-								<MenuItem
-									className='!es-uic-pb-0 !es-uic-pt-1'
-									disabled
-								>
-									{__('Breakpoint mode', 'eightshift-ui-components')}
-								</MenuItem>
-								<MenuItem
-									selected={!isDesktopFirst}
-									onClick={() => {
-										onChange({
-											_default: value['_default'],
-											_mobileFirst: false,
-										});
-									}}
-								>
-									<RichLabel
-										label={__('Mobile-first', 'eightshift-ui-components')}
-										subtitle={__('Recommended', 'eightshift-ui-components')}
-									/>
-								</MenuItem>
-								<MenuItem
-									selected={isDesktopFirst}
-									onClick={() => {
-										onChange({
-											_default: value['_default'],
-											_mobileFirst: true,
-										});
-									}}
-								>
-									{__('Desktop-first', 'eightshift-ui-components')}
-								</MenuItem>
-								<MenuSeparator />
-							</>
-						)}
-
-						{Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined') && (
-							<SubMenuItem
-								trigger={
-									<MenuItem icon={icons.previewResponsive}>
-										{__('Responsive preview', 'eightshift-ui-components')}
-									</MenuItem>
-								}
-							>
-								<MenuItem disabled>
-									<ResponsivePreview
-										value={value}
-										isDesktopFirst={isDesktopFirst}
-										breakpoints={breakpoints}
-										desktopFirstBreakpoints={desktopFirstBreakpoints}
-										options={options}
-										breakpointData={breakpointData}
-									/>
-								</MenuItem>
-							</SubMenuItem>
-						)}
-						{Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined') && (
-							<MenuSeparator />
-						)}
-						<MenuItem
-							icon={icons.clearAlt}
-							onClick={() => {
-								const newValue = { ...value };
-
-								[...breakpoints, ...desktopFirstBreakpoints].forEach((breakpoint) => {
-									delete newValue[breakpoint];
-								});
-
-								onChange(newValue);
-							}}
+				<>
+					{inline && (
+						<AnimatedVisibility
+							className='es-uic-mr-0.5'
+							visible={!detailsVisible}
+							key='_default-inline'
+							transition='scaleFade'
+							noInitial
 						>
-							{__('Clear all overrides', 'eightshift-ui-components')}
-						</MenuItem>
-					</Menu>
-				</ButtonGroup>
+							{children({
+								breakpoint: '_default',
+								currentValue: value?.['_default'],
+								handleChange: (newValue) =>
+									onChange({
+										...value,
+										_default: newValue,
+									}),
+								options: options,
+								key: Object.keys(value),
+								isInlineCollapsedView: true,
+							})}
+						</AnimatedVisibility>
+					)}
+
+					<ButtonGroup>
+						<ToggleButton
+							icon={isDesktopFirst ? icons.responsiveOverridesAlt : icons.responsiveOverridesAlt2}
+							onChange={() => setDetailsVisible(!detailsVisible)}
+							selected={detailsVisible}
+							tooltip={
+								detailsVisible
+									? __('Hide responsive overrides', 'eightshift-ui-components')
+									: __('Show responsive overrides', 'eightshift-ui-components')
+							}
+						/>
+
+						<Menu
+							tooltip={__('Responsive options', 'eightshift-ui-components')}
+							popoverProps={{ placement: 'bottom right' }}
+							triggerProps={{ className: 'es-uic-w-5.5 es-uic-stroke-[1.25]'}}
+							triggerIcon={icons.dropdownCaretAlt}
+						>
+							{!noModeSelect && (
+								<>
+									<MenuItem
+										className='!es-uic-pb-0 !es-uic-pt-1'
+										disabled
+									>
+										{__('Breakpoint mode', 'eightshift-ui-components')}
+									</MenuItem>
+									<MenuItem
+										selected={!isDesktopFirst}
+										onClick={() => {
+											onChange({
+												_default: value['_default'],
+												_mobileFirst: false,
+											});
+										}}
+									>
+										<RichLabel
+											label={__('Mobile-first', 'eightshift-ui-components')}
+											subtitle={__('Recommended', 'eightshift-ui-components')}
+										/>
+									</MenuItem>
+									<MenuItem
+										selected={isDesktopFirst}
+										onClick={() => {
+											onChange({
+												_default: value['_default'],
+												_mobileFirst: true,
+											});
+										}}
+									>
+										{__('Desktop-first', 'eightshift-ui-components')}
+									</MenuItem>
+									<MenuSeparator />
+								</>
+							)}
+
+							{Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined') && (
+								<SubMenuItem
+									trigger={
+										<MenuItem icon={icons.previewResponsive}>
+											{__('Responsive preview', 'eightshift-ui-components')}
+										</MenuItem>
+									}
+								>
+									<MenuItem disabled>
+										<ResponsivePreview
+											value={value}
+											isDesktopFirst={isDesktopFirst}
+											breakpoints={breakpoints}
+											desktopFirstBreakpoints={desktopFirstBreakpoints}
+											options={options}
+											breakpointData={breakpointData}
+										/>
+									</MenuItem>
+								</SubMenuItem>
+							)}
+							{Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined') && (
+								<MenuSeparator />
+							)}
+							<MenuItem
+								icon={icons.clearAlt}
+								onClick={() => {
+									const newValue = { ...value };
+
+									[...breakpoints, ...desktopFirstBreakpoints].forEach((breakpoint) => {
+										delete newValue[breakpoint];
+									});
+
+									onChange(newValue);
+								}}
+							>
+								{__('Clear all overrides', 'eightshift-ui-components')}
+							</MenuItem>
+						</Menu>
+					</ButtonGroup>
+				</>
 			}
 		>
-			{!isDesktopFirst && (
+			{!isDesktopFirst && !inline && (
 				<div
 					className={clsx(
 						'es-uic-grid es-uic-items-center es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-end] es-uic-duration-150',
 						detailsVisible
-							? 'es-uic-mb-2 es-uic-grid-cols-[minmax(0,_2rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
+							? 'es-uic-mb-2 es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
 							: 'es-uic-grid-cols-[minmax(0,_0rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]',
 					)}
 					key='_default-mobile-first'
@@ -323,6 +353,30 @@ export const Responsive = (props) => {
 						})}
 					</div>
 				</div>
+			)}
+
+			{!isDesktopFirst && inline && (
+				<AnimatedVisibility
+					className='es-uic-mb-2 es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2'
+					key='_default-mobile-first-inline'
+					visible={detailsVisible}
+				>
+					<DefaultTooltip />
+					<div className='es-uic-col-start-2 es-uic-col-end-2'>
+						{children({
+							breakpoint: '_default',
+							currentValue: value?.['_default'],
+							handleChange: (newValue) =>
+								onChange({
+									...value,
+									_default: newValue,
+								}),
+							options: options,
+							key: Object.keys(value),
+							isInlineExpandedView: true,
+						})}
+					</div>
+				</AnimatedVisibility>
 			)}
 
 			<AnimatedVisibility
@@ -515,8 +569,8 @@ export const Responsive = (props) => {
 							>
 								<div
 									className={clsx(
-										'es-uic-flex es-uic-size-8 es-uic-shrink-0 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-gray-100 es-uic-p-0.5 es-uic-text-gray-800',
-										typeof value[breakpoint] === 'undefined' && '[&>svg]:es-uic-opacity-30',
+										'es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-p-0.5 es-uic-border [&>svg]:es-uic-size-5 es-uic-shadow-sm es-uic-transition-colors',
+										typeof value[breakpoint] !== 'undefined' ? 'es-uic-bg-gray-50 es-uic-text-gray-700 es-uic-border-gray-200' : 'es-uic-bg-white es-uic-text-gray-500 es-uic-border-gray-100',
 									)}
 								>
 									{icons?.[`screen${upperFirst(realBreakpointName)}`]}
@@ -551,12 +605,12 @@ export const Responsive = (props) => {
 				})}
 			</AnimatedVisibility>
 
-			{isDesktopFirst && (
+			{isDesktopFirst && !inline && (
 				<div
 					className={clsx(
 						'es-uic-grid es-uic-items-center es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-start] es-uic-duration-150',
 						detailsVisible
-							? '!es-uic-mt-2 es-uic-grid-cols-[minmax(0,_2rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
+							? '!es-uic-mt-2 es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
 							: 'es-uic-grid-cols-[minmax(0,_0rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]',
 					)}
 					key='_default-desktop-first'
@@ -576,6 +630,30 @@ export const Responsive = (props) => {
 						})}
 					</div>
 				</div>
+			)}
+
+			{isDesktopFirst && inline && (
+				<AnimatedVisibility
+					className='es-uic-pt-1 es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2'
+					key='_default-desktop-first-inline'
+					visible={detailsVisible}
+				>
+					<DefaultTooltip />
+					<div className='es-uic-col-start-2 es-uic-col-end-2'>
+						{children({
+							breakpoint: '_default',
+							currentValue: value?.['_default'],
+							handleChange: (newValue) =>
+								onChange({
+									...value,
+									_default: newValue,
+								}),
+							options: options,
+							key: Object.keys(value),
+							isInlineExpandedView: true,
+						})}
+					</div>
+				</AnimatedVisibility>
 			)}
 		</BaseControl>
 	);

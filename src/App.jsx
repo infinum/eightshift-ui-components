@@ -1011,18 +1011,32 @@ function App() {
 						breakpoints={['mobile', 'tablet', 'desktop', 'large']}
 						breakpointData={globalManifest.globalVariables.breakpoints}
 					>
-						{({ currentValue, handleChange }) => (
-							<ButtonGroup>
-								{respOpt.map((opt) => (
-									<ToggleButton
-										key={opt.value}
-										onChange={() => handleChange(opt.value)}
-										selected={currentValue === opt.value}
-									>
-										{opt.label}
-									</ToggleButton>
-								))}
-							</ButtonGroup>
+						{({ currentValue, handleChange, options }) => (
+							<OptionSelect
+								options={options}
+								onChange={(value) => handleChange(value)}
+								value={currentValue}
+							/>
+						)}
+					</Responsive>
+
+					<Responsive
+						icon={icons.emptyRect}
+						label='Font family'
+						value={resp}
+						onChange={(newValue) => setResp(newValue)}
+						options={respOpt}
+						breakpoints={['mobile', 'tablet', 'desktop', 'large']}
+						breakpointData={globalManifest.globalVariables.breakpoints}
+						inline
+					>
+						{({ currentValue, handleChange, options, isInlineCollapsedView }) => (
+							<OptionSelect
+								options={options}
+								onChange={(value) => handleChange(value)}
+								value={currentValue}
+								type={isInlineCollapsedView ? 'menu' : 'toggleButtons'}
+							/>
 						)}
 					</Responsive>
 

@@ -159,7 +159,7 @@ export const ResponsiveLegacy = (props) => {
 				</div>
 			}
 		>
-			<div className='es-uic-flex es-uic-size-8 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-gray-200 es-uic-p-0.5 es-uic-text-gray-950 [&>svg]:es-uic-size-4'>
+			<div className='es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-border-teal-500/10 es-uic-bg-teal-50 es-uic-p-0.5 es-uic-text-teal-800 es-uic-shadow-sm es-uic-shadow-teal-600/25 [&>svg]:es-uic-size-5'>
 				{icons[`screen${upperFirst(defaultBreakpoint)}`] ?? icons.play}
 			</div>
 		</DecorativeTooltip>
@@ -209,7 +209,7 @@ export const ResponsiveLegacy = (props) => {
 					className={clsx(
 						'es-uic-grid es-uic-items-center es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-end] es-uic-duration-150',
 						detailsVisible
-							? 'es-uic-mb-2 es-uic-grid-cols-[minmax(0,_2rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
+							? 'es-uic-mb-2 es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
 							: 'es-uic-grid-cols-[minmax(0,_0rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]',
 					)}
 					key={defaultBreakpoint}
@@ -348,8 +348,10 @@ export const ResponsiveLegacy = (props) => {
 							>
 								<div
 									className={clsx(
-										'es-uic-flex es-uic-size-8 es-uic-shrink-0 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-gray-100 es-uic-p-0.5 es-uic-text-gray-800',
-										value[attribute[breakpoint]] === inheritValue && '[&>svg]:es-uic-opacity-25',
+										'es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-shadow-sm es-uic-transition-colors [&>svg]:es-uic-size-5',
+										value[attribute[breakpoint]] === inheritValue
+											? 'es-uic-border-gray-200 es-uic-bg-gray-50 es-uic-text-gray-700'
+											: 'es-uic-border-gray-100 es-uic-bg-white es-uic-text-gray-500',
 									)}
 								>
 									{icons?.[`screen${upperFirst(breakpoint)}`]}
