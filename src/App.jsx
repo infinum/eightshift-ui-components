@@ -57,6 +57,7 @@ import {
 	HStack,
 	VStack,
 	ImagePlaceholder,
+	OptionSelect,
 } from '../lib';
 import { clsx } from 'clsx/lite';
 import '../lib/fonts/fonts.css';
@@ -794,23 +795,25 @@ function App() {
 
 					<Button icon={icons.emptyRect}>Hello</Button>
 
-					<ButtonGroup>
-						<Button
-							type={loremIpsum === 0 ? 'selected' : 'default'}
-							onClick={() => setLoremIpsum(0)}
-							icon={icons.small}
-						/>
-						<Button
-							type={loremIpsum === 1 ? 'selected' : 'default'}
-							onClick={() => setLoremIpsum(1)}
-							icon={icons.medium}
-						/>
-						<Button
-							type={loremIpsum === 2 ? 'selected' : 'default'}
-							onClick={() => setLoremIpsum(2)}
-							icon={icons.large}
-						/>
-					</ButtonGroup>
+					<OptionSelect
+						value={loremIpsum}
+						onChange={(v) => setLoremIpsum(v)}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+					/>
+
+					<OptionSelect
+						value={loremIpsum}
+						onChange={(v) => setLoremIpsum(v)}
+						options={[
+							{ tooltip: 'Small', value: 0, icon: icons.small },
+							{ tooltip: 'Medium', value: 1, icon: icons.medium },
+							{ tooltip: 'Large', value: 2, icon: icons.large },
+						]}
+					/>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<MatrixAlign
@@ -1411,20 +1414,48 @@ function App() {
 						<RadioButton
 							label='Lorem'
 							subtitle='Ipsum value dolor sit amet'
-							icon={icons.emptyCircle}
+							icon={icons.emptyRect}
 							value='lorem1'
 						/>
 						<RadioButton
 							label='Ipsum'
 							subtitle='Ipsum value dolor sit amet'
-							icon={icons.emptyCircle}
+							icon={icons.emptyRect}
 							value='ipsum1'
 						/>
 						<RadioButton
 							label='Dolor'
 							subtitle='Ipsum value dolor sit amet'
-							icon={icons.emptyCircle}
+							icon={icons.emptyRect}
 							value='dolor1'
+						/>
+					</RadioButtonGroup>
+
+					<RadioButtonGroup
+						label='Hello'
+						value={radioValue}
+						onChange={setRadioValue}
+					>
+						<RadioButton
+							label='Lorem'
+							subtitle='Ipsum value dolor sit amet'
+							icon={icons.emptyRect}
+							value='lorem1'
+							alignEnd
+						/>
+						<RadioButton
+							label='Ipsum'
+							subtitle='Ipsum value dolor sit amet'
+							icon={icons.emptyRect}
+							value='ipsum1'
+							alignEnd
+						/>
+						<RadioButton
+							label='Dolor'
+							subtitle='Ipsum value dolor sit amet'
+							icon={icons.emptyRect}
+							value='dolor1'
+							alignEnd
 						/>
 					</RadioButtonGroup>
 
@@ -1497,6 +1528,30 @@ function App() {
 							value='dolor4'
 						/>
 					</RadioButtonGroup>
+
+					<OptionSelect
+						type='radios'
+						value={loremIpsum}
+						onChange={(v) => setLoremIpsum(v)}
+						options={[
+							{ label: 'Small', value: 0 },
+							{ label: 'Medium', value: 1 },
+							{ label: 'Large', value: 2 },
+						]}
+					/>
+
+					<OptionSelect
+						type='radiosSegmented'
+						value={loremIpsum}
+						onChange={(v) => setLoremIpsum(v)}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+						vertical
+						itemProps={{ alignEnd: true }}
+					/>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Slider
@@ -2098,20 +2153,20 @@ function App() {
 					<Spacer border />
 
 					<HStack>
-					<Button
-						size='small'
-						onPress={() => setImgUrl('https://picsum.photos/200')}
-						disabled={imgUrl !== null}
-					>
-						Set URL
-					</Button>
-					<Button
-						size='small'
-						onPress={() => setImgUrl(null)}
-						disabled={imgUrl === null}
-					>
-						Unset URL
-					</Button>
+						<Button
+							size='small'
+							onPress={() => setImgUrl('https://picsum.photos/200')}
+							disabled={imgUrl !== null}
+						>
+							Set URL
+						</Button>
+						<Button
+							size='small'
+							onPress={() => setImgUrl(null)}
+							disabled={imgUrl === null}
+						>
+							Unset URL
+						</Button>
 					</HStack>
 					<ImagePlaceholder url={imgUrl} />
 				</TabPanel>
