@@ -195,7 +195,7 @@ export const Responsive = (props) => {
 			}
 		>
 			<div className='es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-teal-50 es-uic-p-0.5 es-uic-text-teal-800 es-uic-border es-uic-border-teal-500/10 [&>svg]:es-uic-size-5 es-uic-shadow-sm es-uic-shadow-teal-600/25'>
-				{icons.arrowRight}
+				{icons[`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`]}
 			</div>
 		</DecorativeTooltip>
 	);
