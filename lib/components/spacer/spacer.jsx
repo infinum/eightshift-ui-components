@@ -30,7 +30,7 @@ import { clsx } from 'clsx/lite';
  * @preserve
  */
 export const Spacer = (props) => {
-	const { size = 'm', border, className, text, icon, vertical = false } = props;
+	const { size = 'px', border, className, text, icon, vertical = false } = props;
 
 	const sizes = {
 		px: {
