@@ -109,6 +109,7 @@ export const Button = (props) => {
 			isDisabled={disabled}
 			className={clsx(
 				'es-uic-flex es-uic-items-center es-uic-gap-1 es-uic-rounded-md es-uic-transition es-uic-duration-300',
+				(icon && children) ? 'es-uic-justify-start' : 'es-uic-justify-center',
 				icon && !children && 'es-uic-justify-center',
 				!disabled && (themes[type]?.regular ?? themes.default.regular),
 				!disabled && (themes[type]?.hover ?? themes.default.hover),
