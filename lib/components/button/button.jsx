@@ -46,9 +46,7 @@ export const Button = (props) => {
 		forwardedRef,
 		wrapperClassName,
 		tooltipProps,
-		'aria-label': ariaLabel = typeof children === 'string'
-			? children
-			: __('Menu item', 'eightshift-ui-components'),
+		'aria-label': ariaLabel = typeof children === 'string' ? children : __('Menu item', 'eightshift-ui-components'),
 		...other
 	} = props;
 
@@ -82,7 +80,8 @@ export const Button = (props) => {
 		default: {
 			regular: 'es-uic-text-gray-700 es-uic-shadow-sm es-uic-border es-uic-border-gray-300 es-uic-bg-white',
 			hover: 'hover:es-uic-border-gray-300 hover:es-uic-bg-gray-100',
-			disabled: 'disabled:es-uic-border-gray-300 disabled:es-uic-bg-gray-50/50 disabled:es-uic-text-gray-300 es-uic-border',
+			disabled:
+				'disabled:es-uic-border-gray-300 disabled:es-uic-bg-gray-50/50 disabled:es-uic-text-gray-300 es-uic-border',
 			focus: 'focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 		},
 		selected: {
@@ -110,7 +109,7 @@ export const Button = (props) => {
 			isDisabled={disabled}
 			className={clsx(
 				'es-uic-flex es-uic-items-center es-uic-gap-1 es-uic-rounded-md es-uic-transition es-uic-duration-300',
-				(icon && !children) && 'es-uic-justify-center',
+				icon && !children && 'es-uic-justify-center',
 				!disabled && (themes[type]?.regular ?? themes.default.regular),
 				!disabled && (themes[type]?.hover ?? themes.default.hover),
 				'disabled:es-uic-shadow-none',
@@ -122,15 +121,21 @@ export const Button = (props) => {
 				children && sizes[size].button,
 				children && icon && sizes[size].iconButtonPadding,
 				children && !icon && sizes[size].buttonPadding,
-				'[.es-uic-button-group_&:not(:first-child)]:es-uic-rounded-l-none [.es-uic-button-group_&:not(:last-child)]:-es-uic-mr-px [.es-uic-button-group_&:not(:last-child)]:es-uic-rounded-r-none',
-				'[.es-uic-button-group_div:not(:first-child)_>_&]:es-uic-rounded-l-none [.es-uic-button-group_div:not(:last-child)_>_&]:-es-uic-mr-px [.es-uic-button-group_div:not(:last-child)_>_&]:es-uic-rounded-r-none',
+				'[.es-uic-button-group-h_&:not(:first-child)]:es-uic-rounded-l-none [.es-uic-button-group-h_&:not(:last-child)]:-es-uic-mr-px [.es-uic-button-group-h_&:not(:last-child)]:es-uic-rounded-r-none',
+				'[.es-uic-button-group-h_div:not(:first-child)_>_&]:es-uic-rounded-l-none [.es-uic-button-group-h_div:not(:last-child)_>_&]:-es-uic-mr-px [.es-uic-button-group-h_div:not(:last-child)_>_&]:es-uic-rounded-r-none',
 				sizes[size].iconSize,
 				type === 'selected' &&
 					'es-uic-relative es-uic-isolate after:es-uic-absolute after:es-uic-inset-0 after:-es-uic-z-10 after:es-uic-rounded-[0.3125rem] after:es-uic-bg-gradient-to-br after:es-uic-from-teal-100/40 after:es-uic-via-transparent after:es-uic-to-teal-200/50 after:es-uic-opacity-0 after:es-uic-transition-opacity after:es-uic-content-[""]',
 				type === 'selected' &&
-					'[.es-uic-button-group_&:not(:first-child)]:after:es-uic-rounded-l-none [.es-uic-button-group_&:not(:last-child)]:after:es-uic-rounded-r-none',
+					'[.es-uic-button-group-h_&:not(:first-child)]:after:es-uic-rounded-l-none [.es-uic-button-group-h_&:not(:last-child)]:after:es-uic-rounded-r-none',
 				type === 'selected' &&
-					'[.es-uic-button-group_div:not(:first-child)_>_&]:after:es-uic-rounded-l-none [.es-uic-button-group_div:not(:last-child)_>_&]:after:es-uic-rounded-r-none',
+					'[.es-uic-button-group-h_div:not(:first-child)_>_&]:after:es-uic-rounded-l-none [.es-uic-button-group-h_div:not(:last-child)_>_&]:after:es-uic-rounded-r-none',
+				'[.es-uic-button-group-v_&:not(:first-child)]:es-uic-rounded-t-none [.es-uic-button-group-v_&:not(:last-child)]:-es-uic-mb-px [.es-uic-button-group-v_&:not(:last-child)]:es-uic-rounded-b-none',
+				'[.es-uic-button-group-v_div:not(:first-child)_>_&]:es-uic-rounded-t-none [.es-uic-button-group-v_div:not(:last-child)_>_&]:-es-uic-mb-px [.es-uic-button-group-v_div:not(:last-child)_>_&]:es-uic-rounded-b-none',
+				type === 'selected' &&
+					'[.es-uic-button-group-v_&:not(:first-child)]:after:es-uic-rounded-t-none [.es-uic-button-group-v_&:not(:last-child)]:after:es-uic-rounded-b-none',
+				type === 'selected' &&
+					'[.es-uic-button-group-v_div:not(:first-child)_>_&]:after:es-uic-rounded-t-none [.es-uic-button-group-v_div:not(:last-child)_>_&]:after:es-uic-rounded-b-none',
 				className,
 			)}
 			ref={objRef}
@@ -165,6 +170,7 @@ export const Button = (props) => {
  * @component
  * @param {Object} props - Component props.
  * @param {string} [props.className] - Classes to pass to the button group container.
+ * @param {boolean} [props.vertical] - If `true`, the buttons are displayed vertically.
  *
  * @returns {JSX.Element} The ButtonGroup component.
  *
@@ -177,6 +183,15 @@ export const Button = (props) => {
  *
  * @preserve
  */
-export const ButtonGroup = ({ children, className }) => (
-	<Toolbar className={clsx('es-uic-button-group es-uic-flex', className)}>{children}</Toolbar>
+export const ButtonGroup = ({ children, className, vertical }) => (
+	<Toolbar
+		className={clsx(
+			'es-uic-flex',
+			vertical ? 'es-uic-button-group-v es-uic-flex-col' : 'es-uic-button-group-h',
+			className,
+		)}
+		orientation={vertical ? 'vertical' : 'horizontal'}
+	>
+		{children}
+	</Toolbar>
 );
