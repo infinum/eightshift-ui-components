@@ -118,7 +118,7 @@ export const OptionSelect = (props) => {
 								disabled={disabled}
 								className={itemClassName}
 								icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
-								tooltip={optionTooltip}
+								tooltip={optionTooltip ?? optionAriaLabel ?? (noItemLabel && optionLabel)}
 								aria-label={optionAriaLabel ?? optionLabel ?? optionTooltip}
 								{...itemProps}
 							>
