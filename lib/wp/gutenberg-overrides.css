@@ -71,3 +71,7 @@ button.components-toggle-group-control-option-base {
 .block-list-appender.wp-block {
 	@apply !es-uic-static !es-uic-p-1;
 }
+
+.components-dropdown.block-editor-inserter {
+	@apply !es-uic-mx-auto !es-uic-w-fit;
+}
