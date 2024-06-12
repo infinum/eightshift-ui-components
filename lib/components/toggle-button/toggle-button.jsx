@@ -126,10 +126,14 @@ export const ToggleButton = (props) => {
 					children && !icon && sizes[size].buttonPadding,
 					sizes[size].iconSize,
 					isSelected && (themes[type]?.selected ?? themes.default.selected),
-					'[.es-uic-button-group_&:not(:first-child)]:es-uic-rounded-l-none [.es-uic-button-group_&:not(:last-child)]:-es-uic-mr-px [.es-uic-button-group_&:not(:last-child)]:es-uic-rounded-r-none',
-					'[.es-uic-button-group_&:not(:first-child)]:after:es-uic-rounded-l-none [.es-uic-button-group_&:not(:last-child)]:after:es-uic-rounded-r-none',
-					'[.es-uic-button-group_div:not(:first-child)_>_&]:es-uic-rounded-l-none [.es-uic-button-group_div:not(:last-child)_>_&]:-es-uic-mr-px [.es-uic-button-group_div:not(:last-child)_>_&]:es-uic-rounded-r-none',
-					'[.es-uic-button-group_div:not(:last-child)_>_&]:after:es-uic-rounded-r-none [.es-uic-button-group_div:not(:first-child)_>_&]:after:es-uic-rounded-l-none',
+					'[.es-uic-button-group-h_&:not(:first-child)]:es-uic-rounded-l-none [.es-uic-button-group-h_&:not(:last-child)]:-es-uic-mr-px [.es-uic-button-group-h_&:not(:last-child)]:es-uic-rounded-r-none',
+					'[.es-uic-button-group-h_&:not(:first-child)]:after:es-uic-rounded-l-none [.es-uic-button-group-h_&:not(:last-child)]:after:es-uic-rounded-r-none',
+					'[.es-uic-button-group-h_div:not(:first-child)_>_&]:es-uic-rounded-l-none [.es-uic-button-group-h_div:not(:last-child)_>_&]:-es-uic-mr-px [.es-uic-button-group-h_div:not(:last-child)_>_&]:es-uic-rounded-r-none',
+					'[.es-uic-button-group-h_div:not(:last-child)_>_&]:after:es-uic-rounded-r-none [.es-uic-button-group-h_div:not(:first-child)_>_&]:after:es-uic-rounded-l-none',
+					'[.es-uic-button-group-v_&:not(:first-child)]:es-uic-rounded-t-none [.es-uic-button-group-v_&:not(:last-child)]:-es-uic-mb-px [.es-uic-button-group-v_&:not(:last-child)]:es-uic-rounded-b-none',
+					'[.es-uic-button-group-v_&:not(:first-child)]:after:es-uic-rounded-t-none [.es-uic-button-group-v_&:not(:last-child)]:after:es-uic-rounded-b-none',
+					'[.es-uic-button-group-v_div:not(:first-child)_>_&]:es-uic-rounded-t-none [.es-uic-button-group-v_div:not(:last-child)_>_&]:-es-uic-mb-px [.es-uic-button-group-v_div:not(:last-child)_>_&]:es-uic-rounded-b-none',
+					'[.es-uic-button-group-v_div:not(:last-child)_>_&]:after:es-uic-rounded-b-none [.es-uic-button-group-v_div:not(:first-child)_>_&]:after:es-uic-rounded-t-none',
 					className,
 				)
 			}
