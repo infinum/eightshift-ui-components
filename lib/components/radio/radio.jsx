@@ -41,17 +41,18 @@ export const RadioButton = (props) => {
 		alignEnd,
 
 		children,
-		...other
+
+		...rest
 	} = props;
 
-	const styles = {
+	const styleClassName = {
 		segmented: clsx(
-			'es-uic-py-1 es-uic-px-1.5 es-uic-border hover:es-uic-bg-gray-50 es-uic-transition',
+			'es-uic-py-1 es-uic-px-1.5 es-uic-border hover:es-uic-bg-gray-50 es-uic-transition es-uic-min-h-10',
 			'first:es-uic-rounded-t-lg last:es-uic-rounded-b-lg',
 			'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50 focus-visible:es-uic-z-10',
 		),
 		segmentedHorizontal: clsx(
-			'es-uic-py-1 es-uic-px-1.5 es-uic-border hover:es-uic-bg-gray-50 es-uic-transition es-uic-grow',
+			'es-uic-py-1 es-uic-px-1.5 es-uic-border hover:es-uic-bg-gray-50 es-uic-transition es-uic-grow es-uic-min-h-10',
 			'first:es-uic-rounded-l-lg last:es-uic-rounded-r-lg',
 			'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50 focus-visible:es-uic-z-10',
 		),
@@ -60,16 +61,12 @@ export const RadioButton = (props) => {
 	return (
 		<Radio
 			isDisabled={disabled}
-			className={clsx(
-				'es-uic-flex es-uic-items-center es-uic-gap-1.5 es-uic-text-sm',
-				styles[design],
-				className,
-			)}
-			{...other}
+			className={clsx('es-uic-flex es-uic-items-center es-uic-gap-1.5 es-uic-text-sm', styleClassName[design], className)}
+			{...rest}
 		>
-			{({ isSelected }) => (
+			{({ isSelected, isFocusVisible }) => (
 				<>
-					{(icon || alignEnd) && (label || subtitle) && (
+					{alignEnd && (label || subtitle || icon) && (
 						<RichLabel
 							icon={icon}
 							label={label}
@@ -81,9 +78,8 @@ export const RadioButton = (props) => {
 					<div
 						className={clsx(
 							'es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded-full es-uic-border es-uic-text-gray-600 es-uic-shadow-sm es-uic-transition',
-							isSelected
-								? 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white'
-								: 'es-uic-border-gray-300',
+							isSelected ? 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white' : 'es-uic-border-gray-300',
+							!design?.startsWith('segmented') && isFocusVisible && 'es-uic-ring es-uic-ring-teal-500 es-uic-ring-opacity-50',
 						)}
 					>
 						<AnimatedVisibility
@@ -95,11 +91,12 @@ export const RadioButton = (props) => {
 							<div className='es-uic-size-2.5 es-uic-rounded-full es-uic-bg-white es-uic-shadow-sm' />
 						</AnimatedVisibility>
 					</div>
-					{!icon && !alignEnd && (label || subtitle) && (
+					{!alignEnd && (
 						<RichLabel
+							icon={icon}
 							label={label}
 							subtitle={subtitle}
-							className={labelClassName}
+							className={clsx(labelClassName, '[&_>_span_>_svg]:!es-uic-size-5')}
 						/>
 					)}
 					{!(icon || label || subtitle) && children}
@@ -174,7 +171,7 @@ export const RadioButtonGroup = (props) => {
 		className,
 		labelClassName,
 
-		...other
+		...rest
 	} = props;
 
 	let mappedChildren = children ?? [];
@@ -202,7 +199,7 @@ export const RadioButtonGroup = (props) => {
 			onChange={onChange}
 			value={value}
 			orientation={orientation}
-			{...other}
+			{...rest}
 		>
 			<BaseControl
 				icon={icon}
@@ -212,14 +209,17 @@ export const RadioButtonGroup = (props) => {
 				help={help}
 				labelAs={Label}
 				className={labelClassName}
-				controlContainerClassName={clsx(
-					orientation === 'horizontal' &&
-						'es-uic-flex es-uic-flex-wrap !es-uic-space-y-0 es-uic-gap-2.5',
-						design === 'segmented' && orientation ==='vertical' && '!-es-uic-space-y-px',
-						design === 'segmented' && orientation ==='horizontal' && '!es-uic-gap-0 !es-uic-nowrap -es-uic-space-x-px',
-				)}
 			>
-				{mappedChildren}
+				<div
+					className={clsx(
+						design === 'default' && orientation === 'horizontal' && 'es-uic-flex es-uic-flex-wrap es-uic-gap-2.5',
+						design === 'default' && orientation === 'vertical' && 'es-uic-flex es-uic-flex-col es-uic-gap-2.5',
+						design === 'segmented' && orientation === 'vertical' && 'es-uic-flex es-uic-flex-col -es-uic-space-y-px',
+						design === 'segmented' && orientation === 'horizontal' && 'es-uic-nowrap es-uic-flex -es-uic-space-x-px',
+					)}
+				>
+					{mappedChildren}
+				</div>
 			</BaseControl>
 		</RadioGroup>
 	);
