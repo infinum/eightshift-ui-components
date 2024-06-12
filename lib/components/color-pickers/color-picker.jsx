@@ -147,13 +147,13 @@ export const ColorPicker = (props) => {
 
 	let tooltipText;
 
-	if (!label && type === 'default') {
+	if (type === 'default') {
 		tooltipText = __('Color', 'eightshift-ui-components');
-	} else if (!label && type === 'fillColor') {
+	} else if (type === 'fillColor') {
 		tooltipText = __('Fill color', 'eightshift-ui-components');
-	} else if (!label && type === 'textColor') {
+	} else if (type === 'textColor') {
 		tooltipText = __('Text color', 'eightshift-ui-components');
-	} else if (!label && type === 'textHighlightColor') {
+	} else if (type === 'textHighlightColor') {
 		tooltipText = __('Text highlight color', 'eightshift-ui-components');
 	}
 
@@ -206,10 +206,7 @@ export const ColorPicker = (props) => {
 					</>
 				}
 				keepOpen
-				triggerProps={{
-					tooltip: tooltipText,
-					...rest.triggerProps,
-				}}
+				tooltip={!label && tooltipText}
 				{...rest}
 			>
 				{(noColorGroups || !hasColorGroups) &&
