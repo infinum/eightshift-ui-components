@@ -76,9 +76,10 @@ export const Spacer = (props) => {
 					icon={icon}
 					label={text}
 					subtitle={subtitle}
-					className='!es-uic-text-slate-500 [&>span>svg]:!es-uic-text-slate-400 es-uic-shrink-0'
+					className='es-uic-shrink-0 es-uic-text-slate-500'
 				/>
-				{border && <div className='es-uic-h-px es-uic-w-full es-uic-bg-gray-300' />}
+
+				{border && <div className='es-uic-h-px es-uic-w-full es-uic-bg-slate-300 es-uic-leading-3' />}
 			</div>
 		);
 	}
