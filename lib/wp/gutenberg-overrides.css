@@ -78,7 +78,7 @@ button.components-toggle-group-control-option-base {
 
 /* Fix block appender alignment */
 .block-editor-block-list__block-crash-warning {
-	@apply !es-uic-rounded-lg !es-uic-border-red-400 !es-uic-shadow !es-uic-shadow-red-700/10;
+	@apply !es-uic-rounded-lg !es-uic-border-red-700/15 !es-uic-shadow !es-uic-shadow-red-700/10;
 
 	& .block-editor-warning__message {
 		@apply !es-uic-text-red-950;
