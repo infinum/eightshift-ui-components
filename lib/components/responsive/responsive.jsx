@@ -404,6 +404,8 @@ export const Responsive = (props) => {
 								.find((breakpoint) => typeof value?.[breakpoint] !== 'undefined')
 						: filterBreakpoints.slice(i + 2).find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
 
+					console.log({breakpoint, realBreakpointName, filterBreakpoints, aboveOverride, belowOverride });
+
 					return (
 						<div
 							className='es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2'
