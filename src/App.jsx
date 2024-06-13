@@ -815,6 +815,18 @@ function App() {
 							{ tooltip: 'Medium', value: 1, icon: icons.medium },
 							{ tooltip: 'Large', value: 2, icon: icons.large },
 						]}
+						vertical
+					/>
+
+					<OptionSelect
+						value={loremIpsum}
+						onChange={(v) => setLoremIpsum(v)}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+						vertical
 					/>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>

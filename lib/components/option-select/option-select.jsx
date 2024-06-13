@@ -134,6 +134,7 @@ export const OptionSelect = (props) => {
 					orientation={vertical ? 'vertical' : 'horizontal'}
 					onChange={(v) => onChange(v)}
 					design={type === 'radios' ? 'default' : 'segmented'}
+					aria-label={label}
 					{...wrapperProps}
 				>
 					{options.map(({ label: optionLabel, value: optionValue, icon: optionIcon, ariaLabel: optionAriaLabel }) => (

@@ -110,7 +110,10 @@ export const ToggleButton = (props) => {
 			isDisabled={disabled}
 			className={({ isSelected }) =>
 				clsx(
-					'es-uic-isolate es-uic-flex es-uic-items-center es-uic-justify-center es-uic-gap-1 es-uic-rounded-md es-uic-transition es-uic-duration-300 es-uic-relative',
+					'es-uic-relative es-uic-isolate es-uic-flex es-uic-items-center es-uic-gap-1 es-uic-rounded-md es-uic-transition es-uic-duration-300',
+					icon && children && 'es-uic-justify-start',
+					icon && !children && 'es-uic-justify-center',
+					!icon && children && 'es-uic-justify-center',
 					'after:es-uic-absolute after:es-uic-inset-0 after:-es-uic-z-10 after:es-uic-rounded-[0.3125rem] after:es-uic-bg-gradient-to-br after:es-uic-from-teal-100/40 after:es-uic-via-transparent after:es-uic-to-teal-200/50 after:es-uic-opacity-0 after:es-uic-transition-opacity after:es-uic-content-[""]',
 					'disabled:es-uic-shadow-none',
 					'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring',
@@ -129,11 +132,11 @@ export const ToggleButton = (props) => {
 					'[.es-uic-button-group-h_&:not(:first-child)]:es-uic-rounded-l-none [.es-uic-button-group-h_&:not(:last-child)]:-es-uic-mr-px [.es-uic-button-group-h_&:not(:last-child)]:es-uic-rounded-r-none',
 					'[.es-uic-button-group-h_&:not(:first-child)]:after:es-uic-rounded-l-none [.es-uic-button-group-h_&:not(:last-child)]:after:es-uic-rounded-r-none',
 					'[.es-uic-button-group-h_div:not(:first-child)_>_&]:es-uic-rounded-l-none [.es-uic-button-group-h_div:not(:last-child)_>_&]:-es-uic-mr-px [.es-uic-button-group-h_div:not(:last-child)_>_&]:es-uic-rounded-r-none',
-					'[.es-uic-button-group-h_div:not(:last-child)_>_&]:after:es-uic-rounded-r-none [.es-uic-button-group-h_div:not(:first-child)_>_&]:after:es-uic-rounded-l-none',
+					'[.es-uic-button-group-h_div:not(:first-child)_>_&]:after:es-uic-rounded-l-none [.es-uic-button-group-h_div:not(:last-child)_>_&]:after:es-uic-rounded-r-none',
 					'[.es-uic-button-group-v_&:not(:first-child)]:es-uic-rounded-t-none [.es-uic-button-group-v_&:not(:last-child)]:-es-uic-mb-px [.es-uic-button-group-v_&:not(:last-child)]:es-uic-rounded-b-none',
 					'[.es-uic-button-group-v_&:not(:first-child)]:after:es-uic-rounded-t-none [.es-uic-button-group-v_&:not(:last-child)]:after:es-uic-rounded-b-none',
 					'[.es-uic-button-group-v_div:not(:first-child)_>_&]:es-uic-rounded-t-none [.es-uic-button-group-v_div:not(:last-child)_>_&]:-es-uic-mb-px [.es-uic-button-group-v_div:not(:last-child)_>_&]:es-uic-rounded-b-none',
-					'[.es-uic-button-group-v_div:not(:last-child)_>_&]:after:es-uic-rounded-b-none [.es-uic-button-group-v_div:not(:first-child)_>_&]:after:es-uic-rounded-t-none',
+					'[.es-uic-button-group-v_div:not(:first-child)_>_&]:after:es-uic-rounded-t-none [.es-uic-button-group-v_div:not(:last-child)_>_&]:after:es-uic-rounded-b-none',
 					className,
 				)
 			}
