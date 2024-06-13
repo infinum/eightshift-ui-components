@@ -1,16 +1,8 @@
-import {
-	SearchField,
-	Label,
-	Button as ReactAriaButton,
-	Input,
-	Group,
-	Toolbar,
-} from 'react-aria-components';
+import { SearchField, Label, Button as ReactAriaButton, Input, Group, Toolbar } from 'react-aria-components';
 import { __ } from '@wordpress/i18n';
 import { icons } from '../../icons/icons';
 import { clsx } from 'clsx/lite';
-
-import { useCallback, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useAsyncList } from 'react-stately';
 import { Spacer } from '../spacer/spacer';
 import { Tooltip } from '../tooltip/tooltip';
@@ -87,6 +79,7 @@ export const LinkInput = (props) => {
 		getKey: ({ item }) => item.value,
 		async load({ signal }) {
 			const items = await fetchSuggestions(inputValue, signal);
+			console.log({ items });
 
 			return {
 				items: items ?? [],
@@ -111,19 +104,16 @@ export const LinkInput = (props) => {
 	};
 
 	const debounced = useDebouncedCallback(
-		useCallback(
-			(value) => {
-				onChange({ url: value, isAnchor: value?.includes('#') });
+		(value) => {
+			onChange({ url: value, isAnchor: value?.includes('#') });
 
-				if (shouldNotShowSuggestions(value)) {
-					setSuggestionsVisible(false);
-				} else {
-					suggestionList.setFilterText(value);
-					setSuggestionsVisible(value?.length > 3);
-				}
-			},
-			[onChange, suggestionList],
-		),
+			if (shouldNotShowSuggestions(value)) {
+				setSuggestionsVisible(false);
+			} else {
+				suggestionList.setFilterText(value);
+				setSuggestionsVisible(value?.length > 3);
+			}
+		},
 		inputDebounceDelay,
 		{ maxWait: 2000 },
 	);
