@@ -194,7 +194,7 @@ export const Responsive = (props) => {
 				</div>
 			}
 		>
-			<div className='es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-teal-50 es-uic-p-0.5 es-uic-text-teal-800 es-uic-border es-uic-border-teal-500/10 [&>svg]:es-uic-size-5 es-uic-shadow-sm es-uic-shadow-teal-600/25'>
+			<div className='es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-border-teal-500/10 es-uic-bg-teal-50 es-uic-p-0.5 es-uic-text-teal-800 es-uic-shadow-sm es-uic-shadow-teal-600/25 [&>svg]:es-uic-size-5'>
 				{icons[`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`]}
 			</div>
 		</DecorativeTooltip>
@@ -246,7 +246,7 @@ export const Responsive = (props) => {
 						<Menu
 							tooltip={__('Responsive options', 'eightshift-ui-components')}
 							popoverProps={{ placement: 'bottom right' }}
-							triggerProps={{ className: 'es-uic-w-5.5 es-uic-stroke-[1.25]'}}
+							triggerProps={{ className: 'es-uic-w-5.5 es-uic-stroke-[1.25]' }}
 							triggerIcon={icons.dropdownCaretAlt}
 						>
 							{!noModeSelect && (
@@ -404,7 +404,7 @@ export const Responsive = (props) => {
 								.find((breakpoint) => typeof value?.[breakpoint] !== 'undefined')
 						: filterBreakpoints.slice(i + 2).find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
 
-					console.log({breakpoint, realBreakpointName, filterBreakpoints, aboveOverride, belowOverride });
+					console.log({ breakpoint, realBreakpointName, filterBreakpoints, aboveOverride, belowOverride });
 
 					return (
 						<div
@@ -491,8 +491,8 @@ export const Responsive = (props) => {
 																typeof value?.[aboveOverride] !== 'undefined' && {
 																	breakpoint: aboveOverride,
 																	value:
-																		(options?.find((opt) => opt.value === value?.[aboveOverride])?.label ??
-																		upperFirst(value?.[aboveOverride])) + 'AAA',
+																		options?.find((opt) => opt.value === value?.[aboveOverride])?.label ??
+																		upperFirst(value?.[aboveOverride]),
 																	dotsStart: !belowOverride,
 																	alignEnd: !belowOverride,
 																},
@@ -535,8 +535,8 @@ export const Responsive = (props) => {
 															belowOverride && {
 																breakpoint: belowOverride?.replace('max-', ''),
 																value:
-																	options?.find((opt) => opt.value === value?.[belowOverride?.replace('max-', '')])
-																		?.label ?? upperFirst(value?.[belowOverride]),
+																	(options?.find((opt) => opt.value === value?.[belowOverride?.replace('max-', '')])
+																		?.label ?? upperFirst(value?.[belowOverride])) + 'BBB',
 															},
 															{
 																breakpoint: realBreakpointName,
@@ -571,8 +571,10 @@ export const Responsive = (props) => {
 							>
 								<div
 									className={clsx(
-										'es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-p-0.5 es-uic-border [&>svg]:es-uic-size-5 es-uic-shadow-sm es-uic-transition-colors',
-										typeof value[breakpoint] !== 'undefined' ? 'es-uic-bg-gray-50 es-uic-text-gray-700 es-uic-border-gray-200' : 'es-uic-bg-white es-uic-text-gray-500 es-uic-border-gray-100',
+										'es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-shadow-sm es-uic-transition-colors [&>svg]:es-uic-size-5',
+										typeof value[breakpoint] !== 'undefined'
+											? 'es-uic-border-gray-200 es-uic-bg-gray-50 es-uic-text-gray-700'
+											: 'es-uic-border-gray-100 es-uic-bg-white es-uic-text-gray-500',
 									)}
 								>
 									{icons?.[`screen${upperFirst(realBreakpointName)}`]}
@@ -636,7 +638,7 @@ export const Responsive = (props) => {
 
 			{isDesktopFirst && inline && (
 				<AnimatedVisibility
-					className='es-uic-pt-1 es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2'
+					className='es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2 es-uic-pt-1'
 					key='_default-desktop-first-inline'
 					visible={detailsVisible}
 				>
