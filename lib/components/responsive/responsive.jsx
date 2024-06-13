@@ -490,7 +490,7 @@ export const Responsive = (props) => {
 																	breakpoint: aboveOverride,
 																	value:
 																		options?.find((opt) => opt.value === value?.[aboveOverride])?.label ??
-																		upperFirst(value?.[aboveOverride]),
+																		upperFirst(value?.[aboveOverride]) + 'AAA',
 																	dotsStart: !belowOverride,
 																	alignEnd: !belowOverride,
 																},
