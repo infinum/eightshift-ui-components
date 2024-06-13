@@ -1,6 +1,5 @@
 import { clsx } from 'clsx/lite';
 
-
 /**
  * Component that displays a label, with an optional icon and subtitle.
  *
@@ -34,7 +33,9 @@ export const RichLabel = (props) => {
 			<>
 				{icon && <span className='es-uic-text-slate-500 [&>svg]:es-uic-size-5.5'>{icon}</span>}
 				{label && <span className='es-uic-text-balance'>{label}</span>}
-				{subtitle && <span className='es-uic-text-xs es-uic-text-gray-500 es-uic-text-balance'>{subtitle}</span>}
+				{subtitle && (
+					<span className='es-uic-text-balance es-uic-text-xs es-uic-text-gray-500 es-uic-opacity-60'>{subtitle}</span>
+				)}
 			</>
 		);
 	}
@@ -49,9 +50,9 @@ export const RichLabel = (props) => {
 		>
 			{icon && <span className='[&>svg]:es-uic-size-5.5'>{icon}</span>}
 			{(label || subtitle) && (
-				<div className='es-uic-flex es-uic-flex-col es-uic-items-start es-uic-text-start es-uic-text-balance'>
+				<div className='es-uic-flex es-uic-flex-col es-uic-items-start es-uic-text-balance es-uic-text-start'>
 					{label && <span>{label}</span>}
-					{subtitle && <span className='es-uic-text-xs'>{subtitle}</span>}
+					{subtitle && <span className='es-uic-text-xs es-uic-opacity-60'>{subtitle}</span>}
 				</div>
 			)}
 		</ComponentToRender>
