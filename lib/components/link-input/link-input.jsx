@@ -226,8 +226,10 @@ export const LinkInput = (props) => {
 							const {
 								label: title,
 								value: url,
-								metadata: { subtype },
+								metadata: { subtype:rawSubtype },
 							} = item;
+
+							const subtype = rawSubtype ?? 'page';
 
 							let typeIcon = icons.file;
 

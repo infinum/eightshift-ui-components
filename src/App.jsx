@@ -179,7 +179,7 @@ function App() {
 		},
 	];
 
-	const getLinkData = (searchTerm) => {
+	const getLinkData = async (searchTerm) => {
 		if (!searchTerm) {
 			return linkData;
 		}
@@ -189,6 +189,8 @@ function App() {
 				label.toLowerCase().includes(searchTerm.toLowerCase().trim()) ||
 				value.toLowerCase().includes(searchTerm.toLowerCase().trim()),
 		);
+
+		await new Promise((resolve) => setTimeout(resolve, 500));
 
 		if (filtered.length > 0) {
 			return filtered;
