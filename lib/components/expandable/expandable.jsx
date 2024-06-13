@@ -18,6 +18,7 @@ import { FocusScope } from 'react-aria';
  * @param {string} props.label - Label to display.
  * @param {string} [props.subtitle] - Subtitle to display.
  * @param {string} [props.className] - Classes to pass to the container.
+ * @param {string} [props.contentClassName] - Classes to pass to the inner content wrapper.
  * @param {string} [props.labelClassName] - Classes to pass to the label.
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display in the panel header, left of the expand button.
  * @param {boolean} [props.keepActionsOnExpand=false] - If `true`, the actions are not hidden when the panel is expanded.
@@ -43,6 +44,7 @@ export const Expandable = (props) => {
 
 		className,
 		labelClassName,
+		contentClassName,
 
 		actions,
 
@@ -97,9 +99,7 @@ export const Expandable = (props) => {
 					</AnimatedVisibility>
 				)}
 
-				{actions && keepActionsOnExpand && (
-					<div className='es-uic-ml-auto es-uic-flex es-uic-gap-2'>{actions}</div>
-				)}
+				{actions && keepActionsOnExpand && <div className='es-uic-ml-auto es-uic-flex es-uic-gap-2'>{actions}</div>}
 
 				<Button
 					type='ghost'
@@ -110,21 +110,16 @@ export const Expandable = (props) => {
 							onOpenChange(!isOpen);
 						}
 					}}
-					tooltip={
-						isOpen ? __('Close', 'eightshift-ui-components') : __('Open', 'eightshift-ui-components')
-					}
+					tooltip={isOpen ? __('Close', 'eightshift-ui-components') : __('Open', 'eightshift-ui-components')}
 					disabled={disabled}
-					className={clsx(
-						'[&>svg]:es-uic-transition-transform',
-						isOpen && '[&>svg]:-es-uic-scale-y-100',
-					)}
+					className={clsx('[&>svg]:es-uic-transition-transform', isOpen && '[&>svg]:-es-uic-scale-y-100')}
 					size='small'
 				/>
 			</div>
 
 			<AnimatedVisibility
 				visible={isOpen}
-				className='es-uic-space-y-2.5 es-uic-border-t es-uic-p-2'
+				className={clsx('es-uic-space-y-2.5 es-uic-border-t es-uic-p-2', contentClassName)}
 				transition='slideFade'
 				noInitial
 			>
