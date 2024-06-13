@@ -626,6 +626,35 @@ function App() {
 						className='es-uic-bg-violet-50'
 						border
 					/>
+
+					<Spacer border />
+
+					<Spacer icon={icons.componentGeneric} />
+					<Spacer
+						icon={icons.componentGeneric}
+						text='My divider'
+					/>
+					<Spacer
+						icon={icons.componentGeneric}
+						text='My divider'
+						subtitle='Lorem ipsum'
+					/>
+
+					<Spacer
+						icon={icons.componentGeneric}
+						border
+					/>
+					<Spacer
+						icon={icons.componentGeneric}
+						text='My divider'
+						border
+					/>
+					<Spacer
+						icon={icons.componentGeneric}
+						text='My divider'
+						subtitle='Lorem ipsum'
+						border
+					/>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<div className='es-uic-flex es-uic-min-h-56 es-uic-flex-col es-uic-gap-2 es-uic-rounded-md es-uic-border es-uic-border-dotted es-uic-border-gray-300 es-uic-p-2'>

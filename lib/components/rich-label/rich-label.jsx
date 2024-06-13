@@ -43,7 +43,7 @@ export const RichLabel = (props) => {
 	return (
 		<ComponentToRender
 			className={clsx(
-				'es-uic-flex es-uic-items-center es-uic-gap-1.5 es-uic-text-sm es-uic-leading-tight es-uic-text-gray-800 [&>span>svg]:es-uic-text-slate-500',
+				'es-uic-flex es-uic-items-center es-uic-gap-1.5 es-uic-text-sm es-uic-text-gray-800 [&>span>svg]:es-uic-text-slate-500',
 				fullWidth && 'es-uic-grow',
 				className,
 			)}
