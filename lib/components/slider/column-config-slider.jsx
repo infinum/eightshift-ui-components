@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import {
 	Slider as ReactAriaSlider,
 	SliderOutput as ReactAriaSliderOutput,
@@ -6,10 +7,9 @@ import {
 	Label,
 } from 'react-aria-components';
 import { BaseControl } from '../base-control/base-control';
-import { clsx } from 'clsx/lite';
-
-import { __, _n, sprintf } from '@wordpress/i18n';
 import { icons } from '../../icons/icons';
+import { getColumnConfigOutputText } from './utils';
+import { clsx } from 'clsx/lite';
 
 /**
  * A two-thumb slider for selecting a range of columns.
@@ -215,35 +215,7 @@ export const ColumnConfigSliderOutput = ({ showOuterAsGutter }) => (
 			const endOffset = parseInt(state.getThumbValueLabel(1));
 			const width = endOffset - offset + 1;
 
-			if (offset === 1 && endOffset === columns) {
-				return __('Full-width', 'eightshift-ui-components');
-			}
-
-			if (offset === 1 && endOffset < columns) {
-				return sprintf(__('To col %d', 'eightshift-ui-components'), showOuterAsGutter ? endOffset - 1 : endOffset);
-			}
-
-			if (offset > 1 && endOffset === columns) {
-				return sprintf(__('From col %d', 'eightshift-ui-components'), showOuterAsGutter ? offset - 1 : offset);
-			}
-
-			if (showOuterAsGutter && width === 1 && offset === 1) {
-				return __('Start gutter', 'eightshift-ui-components');
-			}
-
-			if (showOuterAsGutter && endOffset === columns) {
-				return __('Start gutter', 'eightshift-ui-components');
-			}
-
-			if (width === 1) {
-				return sprintf(__('Col %d', 'eightshift-ui-components'), offset);
-			}
-
-			return sprintf(
-				_n('%s col from %s', '%s cols from %s', width, 'eightshift-ui-components'),
-				width,
-				showOuterAsGutter ? offset - 1 : offset,
-			);
+			return getColumnConfigOutputText(columns, offset, width, showOuterAsGutter);
 		}}
 	</ReactAriaSliderOutput>
 );
