@@ -79,7 +79,6 @@ export const LinkInput = (props) => {
 		getKey: ({ item }) => item.value,
 		async load({ signal }) {
 			const items = await fetchSuggestions(inputValue, signal);
-			console.log({ items });
 
 			return {
 				items: items ?? [],
