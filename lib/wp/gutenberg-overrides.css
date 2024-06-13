@@ -84,3 +84,29 @@ button.components-toggle-group-control-option-base {
 		@apply !es-uic-text-red-950;
 	}
 }
+
+/* Round the (contextual) toolbar */
+.block-editor-block-contextual-toolbar {
+	@apply !es-uic-rounded-lg es-uic-shadow-sm;
+}
+
+/* Tweak inserter buttons */
+.block-editor-block-types-list .block-editor-block-types-list__item {
+	@apply !es-uic-rounded-lg after:!es-uic-rounded-lg [&_svg]:es-uic-scale-125;
+}
+
+/* Tweak list view block icons */
+.block-editor-list-view-tree {
+	.block-editor-block-icon {
+		@apply !es-uic-rounded;
+	}
+
+	.block-editor-list-view-leaf > * {
+		@apply first:!es-uic-rounded-l-lg last:!es-uic-rounded-r-lg;
+	}
+}
+
+/* Round off block icon in sidebar. */
+.block-editor-block-inspector .block-editor-block-card .block-editor-block-icon {
+	@apply !es-uic-rounded;
+}
