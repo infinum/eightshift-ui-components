@@ -1,8 +1,12 @@
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { Expandable } from '../expandable/expandable';
 import { icons } from '../../icons/icons';
 import { Switch } from '../toggle/switch';
 import { DecorativeTooltip } from '../tooltip/tooltip';
+import { TriggeredPopover } from '../popover/popover';
+import { ButtonGroup } from '../button/button';
+import { ToggleButton } from '../toggle-button/toggle-button';
+import { clsx } from 'clsx/lite';
 
 /**
  * A component that provides a nice way to toggle a component on and off, and display its content in an expandable panel.
@@ -18,8 +22,11 @@ import { DecorativeTooltip } from '../tooltip/tooltip';
  * @param {boolean} [props.expandButtonDisabled] - If `true`, the expand button is disabled.
  * @param {boolean} [props.controlOnly] - If `true`, only the control is displayed.
  * @param {string} [props.contentClassName] - Classes to pass to the content container.
+ * @param {ComponentToggleDesign} [props.design='default'] - Design of the component.
  *
  * @returns {JSX.Element} The ComponentToggle component.
+ *
+ * @typedef {'default' | 'compact' | 'compactLabel'} ComponentToggleDesign
  *
  * @example
  * <ComponentToggle
@@ -44,12 +51,37 @@ export const ComponentToggle = (props) => {
 		expandButtonDisabled,
 		controlOnly,
 		contentClassName = 'es-uic-space-y-2.5',
+		design = 'default',
 	} = props;
 
-	if (controlOnly && useComponent === false ) {
-		return null;
-	} else if (controlOnly) {
+	if (controlOnly) {
 		return children;
+	}
+
+	if (design.startsWith('compact')) {
+		return (
+			<ButtonGroup>
+				<ToggleButton
+					icon={design === 'compact' && (icon ?? icons.componentGeneric)}
+					tooltip={design === 'compact' && label}
+					selected={useComponent}
+					onChange={onChange}
+				>
+					{design === 'compactLabel' && label}
+				</ToggleButton>
+				<TriggeredPopover
+					triggerButtonProps={{
+						className: 'es-uic-w-5.5 es-uic-stroke-[1.25]',
+						tooltip: sprintf(__('%s options', 'eightshift-ui-components'), label),
+						disabled: !useComponent,
+					}}
+					triggerButtonIcon={icons.dropdownCaretAlt}
+					className={clsx('w-72', contentClassName)}
+				>
+					{children}
+				</TriggeredPopover>
+			</ButtonGroup>
+		);
 	}
 
 	return (
