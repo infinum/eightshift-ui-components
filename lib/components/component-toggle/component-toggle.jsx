@@ -82,7 +82,7 @@ export const ComponentToggle = (props) => {
 						disabled: !useComponent,
 					}}
 					triggerButtonIcon={icons.dropdownCaretAlt}
-					className={clsx('es-uic-max-w-[19rem] es-uic-p-2', contentClassName)}
+					className={clsx('es-uic-w-[19rem] es-uic-p-2', contentClassName)}
 				>
 					<Spacer text={optionsLabel} />
 					{children}
