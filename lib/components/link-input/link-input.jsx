@@ -33,6 +33,7 @@ import { useDebouncedCallback } from 'use-debounce';
  * @param {string} [props.className] - Classes to pass to the input field.
  * @param {number} [props.inputDebounceDelay=500] - The delay in milliseconds before the input value is considered final.
  * @param {Function} [props.suggestionTypeIconOverride] - Allows overriding the default icon for the suggestion type, e.g. when using CPTs. Should be in the format: `(type) => icon or React component`.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The LinkInput component.
  *
@@ -67,6 +68,8 @@ export const LinkInput = (props) => {
 		className,
 
 		inputDebounceDelay = 500,
+
+		hidden,
 	} = props;
 
 	const [inputValue, setInputValue] = useState(url ?? '');
@@ -116,6 +119,10 @@ export const LinkInput = (props) => {
 		inputDebounceDelay,
 		{ maxWait: 2000 },
 	);
+
+	if (hidden) {
+		return null;
+	}
 
 	return (
 		<>

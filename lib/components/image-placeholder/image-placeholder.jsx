@@ -12,6 +12,7 @@ import { icons } from '../../icons/icons';
  * @param {ImagePlaceholderSize} [props.size='default'] - Size of the image placeholder.
  * @param {boolean} [props.noImage] - If `true`, the image within the placeholder will not be displayed, even if `url` is provided.
  * @param {string} [props.className] - Classes to pass to the component.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The ImagePlaceholder component.
  *
@@ -24,7 +25,11 @@ import { icons } from '../../icons/icons';
  * @preserve
  */
 export const ImagePlaceholder = (props) => {
-	const { url, alt, style = 'default', size = 'default', noImage, className } = props;
+	const { url, alt, style = 'default', size = 'default', noImage, className, hidden } = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	const styleClassName = {
 		default:

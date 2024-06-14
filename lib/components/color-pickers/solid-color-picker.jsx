@@ -28,6 +28,7 @@ import { Spacer } from '../spacer/spacer';
  * @param {Function} [props.onChangeEnd] - The change end handler.
  * @param {boolean} [props.allowTransparency=false] - Whether the color picker allows transparency.
  * @param {import('react-aria-components').ColorFormat} [props.outputFormat] - The output format. Default is 'hex' (or 'hexa' if `allowTransparency` is true).
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The ButtonGroup component.
  *
@@ -37,14 +38,7 @@ import { Spacer } from '../spacer/spacer';
  * @preserve
  */
 export const SolidColorPicker = (props) => {
-	const {
-		value: rawValue,
-		onChange,
-		disabled,
-		onChangeEnd,
-		allowTransparency = false,
-		outputFormat,
-	} = props;
+	const { value: rawValue, onChange, disabled, onChangeEnd, allowTransparency = false, outputFormat, hidden } = props;
 
 	const value = rawValue?.replace('transparent', 'rgba(0, 0, 0, 0)');
 
@@ -53,6 +47,10 @@ export const SolidColorPicker = (props) => {
 	const modifiedValue = value && value?.length > 1 ? parseColor(value) : defaultColor;
 
 	const [color, setColor] = useState(modifiedValue.toFormat(allowTransparency ? 'hsla' : 'hsl'));
+
+	if (hidden) {
+		return null;
+	}
 
 	let handleChangeEnd;
 
@@ -166,7 +164,7 @@ export const SolidColorPicker = (props) => {
 				>
 					<Input
 						className={clsx(
-							'es-uic-h-9 es-uic-w-20 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-tabular-nums es-uic-text-sm es-uic-shadow-sm es-uic-transition',
+							'es-uic-h-9 es-uic-w-20 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-tabular-nums es-uic-shadow-sm es-uic-transition',
 							'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 						)}
 					/>
@@ -180,9 +178,7 @@ export const SolidColorPicker = (props) => {
 						tooltip: __('Advanced color options', 'eightshift-ui-components'),
 					}}
 				>
-					<Label className='es-uic-text-sm'>
-						{__('Advanced color options', 'eightshift-ui-components')}
-					</Label>
+					<Label className='es-uic-text-sm'>{__('Advanced color options', 'eightshift-ui-components')}</Label>
 
 					<Spacer
 						border

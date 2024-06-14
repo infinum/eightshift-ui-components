@@ -26,6 +26,7 @@ import { Button } from '../button/button';
  * @param {number} props.containerPadding - Space that should be left between the popover and the edge of the container (the default container is browser window).
  * @param {boolean} props.shouldFlip - If `true`, the popover should flip when there is not enough space.
  * @param {Function} [props.shouldCloseOnInteractOutside=() => true] - Allows ignoring close events for certain elements. `(element: HTMLElement) => boolean`.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Popover component.
  *
@@ -85,8 +86,14 @@ export const Popover = (props) => {
 		shouldFlip,
 		shouldCloseOnInteractOutside = () => true,
 
+		hidden,
+
 		...other
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	return (
 		<ReactAriaPopover

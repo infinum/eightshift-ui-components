@@ -18,6 +18,7 @@ import { RichLabel } from '../rich-label/rich-label';
  * @param {string} [props.controlContainerClassName] - Classes to pass to the control container.
  * @param {boolean} [props.fullWidthLabel] - If `true`, the label expands to fill up the whole width, instead of taking up only the space it needs.
  * @param {JSX.Element} [props.labelAs] - If provided, the label (includes icon and subtitle) will be rendered as this element.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The BaseControl component.
  *
@@ -48,9 +49,11 @@ export const BaseControl = (props) => {
 		fullWidthLabel,
 
 		labelAs,
+
+		hidden,
 	} = props;
 
-	if (!children) {
+	if (!children || hidden) {
 		return null;
 	}
 
@@ -60,12 +63,7 @@ export const BaseControl = (props) => {
 
 	return (
 		<div className={clsx('es-uic-space-y-1', className)}>
-			<div
-				className={clsx(
-					'es-uic-flex es-uic-items-center es-uic-gap-1',
-					!inline && !icon && 'es-uic-pb-0.5',
-				)}
-			>
+			<div className={clsx('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && !icon && 'es-uic-pb-0.5')}>
 				{(label || icon || subtitle) && (
 					<RichLabel
 						icon={icon}
@@ -78,10 +76,7 @@ export const BaseControl = (props) => {
 
 				{inline && (
 					<div
-						className={clsx(
-							'es-uic-ml-auto es-uic-flex es-uic-items-center es-uic-gap-1',
-							controlContainerClassName,
-						)}
+						className={clsx('es-uic-ml-auto es-uic-flex es-uic-items-center es-uic-gap-1', controlContainerClassName)}
 					>
 						{children}
 					</div>

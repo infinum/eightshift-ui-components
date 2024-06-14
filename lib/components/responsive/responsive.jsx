@@ -40,6 +40,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {Object<string, number>} [props.breakpointData] - Currently used breakpoint data. `{ [breakpoint: string]: number }`.
  * @param {boolean} [props.noModeSelect] - If `true`, the mode selection (desktop-first/mobile-first) is hidden.
  * @param {boolean} [props.inline] - If `true`, the default breakpoint is shown inline with the label. In the expanded state, all breakpoints are shown below the label.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Responsive component.
  *
@@ -91,6 +92,8 @@ export const Responsive = (props) => {
 		inline,
 
 		children,
+
+		hidden,
 	} = props;
 
 	const breakpoints = rawBreakpoints.slice(1);
@@ -108,6 +111,10 @@ export const Responsive = (props) => {
 		.find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
 
 	const breakpointsToMap = isDesktopFirst ? desktopFirstBreakpoints : breakpoints;
+
+	if (hidden) {
+		return null;
+	}
 
 	const DefaultTooltip = () => (
 		<DecorativeTooltip

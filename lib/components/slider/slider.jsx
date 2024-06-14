@@ -43,6 +43,7 @@ import { generateMarkers } from './utils';
  * @param {Function} [props.thumbContent] - If provided, the function will be called with the current value of the thumb, and the return value will be displayed within the thumb. `(currentIndex: number) => JSX.Element`.
  * @param {string} [props.labelClassName] - Additional classes to pass to the label.
  * @param {Object<string, any>} [props.trackStyle] - Additional style for the track.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Slider component.
  *
@@ -94,10 +95,16 @@ export const Slider = (props) => {
 		labelClassName,
 		trackStyle,
 
+		hidden,
+
 		...other
 	} = props;
 
 	const [currentThumbIndex, setCurrentThumbIndex] = useState(-1);
+
+	if (hidden) {
+		return null;
+	}
 
 	let generatedMarkers = {};
 
@@ -136,9 +143,7 @@ export const Slider = (props) => {
 						{actions}
 
 						{!inputField && (
-							<ReactAriaSliderOutput
-								className={clsx('es-uic-text-xs es-uic-tabular-nums es-uic-text-gray-600')}
-							>
+							<ReactAriaSliderOutput className={clsx('es-uic-text-xs es-uic-tabular-nums es-uic-text-gray-600')}>
 								{({ state }) => state.values.map((_, i) => state.getThumbValueLabel(i)).join(' – ')}
 							</ReactAriaSliderOutput>
 						)}
@@ -162,18 +167,12 @@ export const Slider = (props) => {
 					vertical && 'es-uic-flex-col',
 				)}
 			>
-				{before && (
-					<div className='es-uic-flex es-uic-shrink-0 es-uic-items-center es-uic-gap-1'>
-						{before}
-					</div>
-				)}
+				{before && <div className='es-uic-flex es-uic-shrink-0 es-uic-items-center es-uic-gap-1'>{before}</div>}
 
 				<ReactAriaSliderTrack
 					className={clsx(
 						'es-uic-isolate es-uic-grid es-uic-grid-cols-1 es-uic-grid-rows-1',
-						vertical
-							? 'es-uic-mx-auto es-uic-h-40 es-uic-w-4'
-							: 'es-uic-h-4 es-uic-w-full es-uic-grow',
+						vertical ? 'es-uic-mx-auto es-uic-h-40 es-uic-w-4' : 'es-uic-h-4 es-uic-w-full es-uic-grow',
 					)}
 				>
 					{({ state }) => {
@@ -240,8 +239,7 @@ export const Slider = (props) => {
 									className={clsx(
 										'es-uic-relative es-uic-col-start-1 es-uic-row-start-1 es-uic-rounded-full es-uic-border',
 										!vertical && 'es-uic-h-1.5 es-uic-w-full es-uic-self-center',
-										vertical &&
-											'es-uic-h-full es-uic-w-1.5 es-uic-flex-col es-uic-justify-self-center',
+										vertical && 'es-uic-h-full es-uic-w-1.5 es-uic-flex-col es-uic-justify-self-center',
 										disabled
 											? 'es-uic-border-gray-200 es-uic-bg-white'
 											: 'es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-shadow-sm',
@@ -254,8 +252,7 @@ export const Slider = (props) => {
 										className={clsx(
 											'es-uic-absolute es-uic-col-start-1 es-uic-row-start-1 es-uic-border',
 											!vertical && 'es-uic-h-1.5 es-uic-w-full es-uic-self-center',
-											vertical &&
-												'es-uic-h-full es-uic-w-1.5 es-uic-flex-col es-uic-justify-self-center',
+											vertical && 'es-uic-h-full es-uic-w-1.5 es-uic-flex-col es-uic-justify-self-center',
 											!vertical && shouldRoundStart && 'es-uic-rounded-l-full',
 											!vertical && shouldRoundEnd && 'es-uic-rounded-r-full',
 											vertical && shouldRoundStart && 'es-uic-rounded-t-full',
@@ -280,8 +277,7 @@ export const Slider = (props) => {
 										className={clsx(
 											'es-uic-relative es-uic-col-start-1 es-uic-row-start-1',
 											!vertical && 'es-uic-h-1 es-uic-w-full es-uic-self-center',
-											vertical &&
-												'es-uic-h-full es-uic-w-1 es-uic-flex-col es-uic-justify-self-center',
+											vertical && 'es-uic-h-full es-uic-w-1 es-uic-flex-col es-uic-justify-self-center',
 										)}
 									>
 										{markerData.map(([rawDotValue, labelData], index) => {
@@ -290,27 +286,17 @@ export const Slider = (props) => {
 											let isWithinActiveBar = false;
 
 											if (Array.isArray(value)) {
-												isWithinActiveBar =
-													value[0] <= dotValue && dotValue <= value[value.length - 1];
+												isWithinActiveBar = value[0] <= dotValue && dotValue <= value[value.length - 1];
 											} else if (startPoint && dotValue >= startPoint) {
-												isWithinActiveBar =
-													dotValue >= startPoint &&
-													dotValue <= currValue &&
-													dotValue !== startPoint;
+												isWithinActiveBar = dotValue >= startPoint && dotValue <= currValue && dotValue !== startPoint;
 											} else if (startPoint && dotValue < startPoint) {
-												isWithinActiveBar =
-													dotValue <= startPoint &&
-													dotValue >= currValue &&
-													dotValue !== startPoint;
+												isWithinActiveBar = dotValue <= startPoint && dotValue >= currValue && dotValue !== startPoint;
 											} else if (min < 0 && dotValue >= 0) {
-												isWithinActiveBar =
-													dotValue >= 0 && dotValue <= currValue && dotValue !== 0;
+												isWithinActiveBar = dotValue >= 0 && dotValue <= currValue && dotValue !== 0;
 											} else if (min < 0 && dotValue < 0) {
-												isWithinActiveBar =
-													dotValue <= 0 && dotValue >= currValue && dotValue !== 0;
+												isWithinActiveBar = dotValue <= 0 && dotValue >= currValue && dotValue !== 0;
 											} else {
-												isWithinActiveBar =
-													dotValue <= currValue && dotValue > min && dotValue < max;
+												isWithinActiveBar = dotValue <= currValue && dotValue > min && dotValue < max;
 											}
 
 											return (
@@ -318,9 +304,7 @@ export const Slider = (props) => {
 													key={index}
 													className={clsx(
 														'es-uic-absolute',
-														vertical
-															? 'es-uic-h-px es-uic-w-1'
-															: 'es-uic-h-1 es-uic-w-px es-uic-translate-x-1/2',
+														vertical ? 'es-uic-h-px es-uic-w-1' : 'es-uic-h-1 es-uic-w-px es-uic-translate-x-1/2',
 														!(
 															dotValue === min ||
 															dotValue === max ||
@@ -332,9 +316,7 @@ export const Slider = (props) => {
 													)}
 													style={{
 														left: vertical ? null : `${state.getValuePercent(dotValue) * 100}%`,
-														top: vertical
-															? `calc(${state.getValuePercent(dotValue) * 100}%)`
-															: null,
+														top: vertical ? `calc(${state.getValuePercent(dotValue) * 100}%)` : null,
 													}}
 												>
 													<span
@@ -396,11 +378,7 @@ export const Slider = (props) => {
 					}}
 				</ReactAriaSliderTrack>
 
-				{after && (
-					<div className='es-uic-flex es-uic-shrink-0 es-uic-items-center es-uic-gap-1'>
-						{after}
-					</div>
-				)}
+				{after && <div className='es-uic-flex es-uic-shrink-0 es-uic-items-center es-uic-gap-1'>{after}</div>}
 			</BaseControl>
 		</ReactAriaSlider>
 	);
@@ -436,9 +414,7 @@ const NumberInputField = (props) => {
 			/>
 
 			{fieldIndex === -1 && !isSingleValue && (
-				<ReactAriaSliderOutput
-					className={clsx('es-uic-text-xs es-uic-tabular-nums es-uic-text-gray-600')}
-				>
+				<ReactAriaSliderOutput className={clsx('es-uic-text-xs es-uic-tabular-nums es-uic-text-gray-600')}>
 					{({ state }) => state.values.map((_, i) => state.getThumbValueLabel(i)).join(' – ')}
 				</ReactAriaSliderOutput>
 			)}

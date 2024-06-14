@@ -17,7 +17,6 @@ import { Spacer } from '../spacer/spacer';
 import { Toggle } from '../toggle/toggle';
 import { clsx } from 'clsx/lite';
 
-
 const getGradientResult = (input, type) => {
 	if (!input || !type) {
 		return '';
@@ -145,6 +144,7 @@ const linearDirections = [
  * @param {Object} props - Component props.
  * @param {string} props.value - The gradient definition.
  * @param {Function} props.onChange - Function to run when the gradient changes.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The GradientEditor component.
  *
@@ -157,7 +157,8 @@ const linearDirections = [
  * @preserve
  */
 export const GradientEditor = (props) => {
-	const { value, onChange } = props;
+	const { value, onChange, hidden } = props;
+
 
 	const gradientData = useMemo(() => {
 		if (value?.startsWith('radial-gradient') || value?.startsWith('repeating-radial-gradient')) {
@@ -197,6 +198,10 @@ export const GradientEditor = (props) => {
 		() => getGradientResult(gradientData, gradientType),
 		[gradientData, gradientType],
 	);
+
+	if (hidden) {
+		return null;
+	}
 
 	return (
 		<div className='es-uic-w-full es-uic-space-y-2.5'>

@@ -12,6 +12,7 @@ import { clsx } from 'clsx/lite';
  * @param {string} [props.className] - Classes to pass to the label.
  * @param {boolean} [props.fullWidth=false] - If `true`, the component will take up as much space as it can.
  * @param {boolean} [props.contentsOnly] - If `true`, only the label (/icon/subtitle) will be rendered, without any wrapping elements. Useful if you want to provide your own layout.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The RichLabel component.
  *
@@ -24,7 +25,11 @@ import { clsx } from 'clsx/lite';
  * @preserve
  */
 export const RichLabel = (props) => {
-	const { icon, label, subtitle, as, className, fullWidth = false, contentsOnly } = props;
+	const { icon, label, subtitle, as, className, fullWidth = false, contentsOnly, hidden } = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	const ComponentToRender = as ?? 'div';
 

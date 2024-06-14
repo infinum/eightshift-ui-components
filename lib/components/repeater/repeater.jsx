@@ -30,6 +30,7 @@ import { ToggleButton } from '../toggle-button/toggle-button';
  * @param {Function} [props.onAfterItemAdd] - Function to run after an item is added.
  * @param {Function} [props.onAfterItemRemove] - Function to run after an item is removed.
  * @param {Number} [props.minItems] - The minimum number of items that must be present. If there are less items than this, deleting items will be disabled.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Repeater component.
  *
@@ -80,6 +81,8 @@ export const Repeater = (props) => {
 		onAfterItemAdd,
 		onAfterItemRemove,
 		minItems,
+
+		hidden,
 		...rest
 	} = props;
 
@@ -148,7 +151,6 @@ export const Repeater = (props) => {
 		},
 	});
 
-
 	// Update main value when items change.
 	useEffect(() => {
 		const items = list.items.map((item) => {
@@ -160,6 +162,10 @@ export const Repeater = (props) => {
 		onChange(items);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [list.items]);
+
+	if (hidden) {
+		return null;
+	}
 
 	return (
 		<BaseControl
@@ -177,9 +183,7 @@ export const Repeater = (props) => {
 					>
 						<Button
 							onPress={() => {
-								const removedItems = [
-									...(list?.selectedKeys.keys()?.map((key) => list.getItem(key)) ?? []),
-								];
+								const removedItems = [...(list?.selectedKeys.keys()?.map((key) => list.getItem(key)) ?? [])];
 
 								list.removeSelectedItems();
 								setSelectable(false);

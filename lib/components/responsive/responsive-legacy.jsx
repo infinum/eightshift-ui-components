@@ -44,6 +44,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {boolean} [props.inline] - If `true`, the default breakpoint is shown inline with the label. In the expanded state, all breakpoints are shown below the label.
  * @param {Object<string, number>} [props.breakpointData] - Breakpoints to use. `{ [breakpoint: string]: number }`.
  * @param {string[]} [props.breakpoints] - Breakpoints to use. `{ [breakpoint: string]: number }`.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The ResponsiveLegacy component.
  *
@@ -97,6 +98,8 @@ export const ResponsiveLegacy = (props) => {
 
 		breakpointData,
 		breakpoints: rawBreakpoints = Object.keys(breakpointData).toReversed(),
+
+		hidden,
 	} = props;
 
 	const inheritValue = allowUndefined ? undefined : rawInheritValue;
@@ -108,6 +111,10 @@ export const ResponsiveLegacy = (props) => {
 	const globalOverride = breakpoints.find((breakpoint) => value?.[attribute[breakpoint]] !== inheritValue);
 
 	const defaultBreakpoint = rawBreakpoints[0];
+
+	if (hidden) {
+		return null;
+	}
 
 	const DefaultTooltip = () => (
 		<DecorativeTooltip

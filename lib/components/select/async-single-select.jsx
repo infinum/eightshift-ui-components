@@ -1,7 +1,10 @@
 import { components } from 'react-select';
 import RSAsyncSelect from 'react-select/async';
 
-import { CustomSelectDefaultClearIndicator, CustomSelectDefaultDropdownIndicator } from './custom-select-default-components';
+import {
+	CustomSelectDefaultClearIndicator,
+	CustomSelectDefaultDropdownIndicator,
+} from './custom-select-default-components';
 import { BaseControl } from '../base-control/base-control';
 import { eightshiftSelectClasses } from './styles';
 
@@ -31,6 +34,7 @@ import { eightshiftSelectClasses } from './styles';
  * @param {JSX.Element} [props.customValueDisplay] - If provided, replaces the default current value display of each selected item (react-select's `components.SingleValue`).
  * @param {Function} [props.processLoadedOptions] - Allows modifying (filtering, grouping, ...) options output after the items have been dynamically fetched. Must include `label`, `value`, and `id` keys in the output, additional fields can be added as required.
  * @param {string} props.className - Classes to pass to the select menu.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The AsyncSelect component.
  *
@@ -86,8 +90,14 @@ export const AsyncSelect = (props) => {
 
 		processLoadedOptions = (options) => options,
 
+		hidden,
+
 		...additionalProps
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	const customLoadOptions = async (searchText) => {
 		const results = await loadOptions(searchText);
@@ -123,8 +133,6 @@ export const AsyncSelect = (props) => {
 					DropdownIndicator: customDropdownArrow ?? CustomSelectDefaultDropdownIndicator,
 					ClearIndicator: customClearIndicator ?? CustomSelectDefaultClearIndicator,
 				}}
-				// menuPortalTarget={document.body}
-				// menuPosition='fixed'
 				{...additionalProps}
 			/>
 		</BaseControl>

@@ -20,6 +20,7 @@ import { __ } from '@wordpress/i18n';
  * @param {React.Ref} [props.forwardedRef] - Ref to forward to the button. Use the same as the `ref` prop.
  * @param {string} [props.wrapperClassName] - Classes to pass to the tooltip wrapper.
  * @param {Object} [props.tooltipProps] - Props to pass to the tooltip.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Button component.
  *
@@ -47,10 +48,15 @@ export const Button = (props) => {
 		wrapperClassName,
 		tooltipProps,
 		'aria-label': ariaLabel = typeof children === 'string' ? children : __('Menu item', 'eightshift-ui-components'),
+		hidden,
 		...other
 	} = props;
 
 	const objRef = useObjectRef(forwardedRef);
+
+	if (hidden) {
+		return null;
+	}
 
 	const sizes = {
 		small: {
@@ -185,16 +191,22 @@ export const Button = (props) => {
  *
  * @preserve
  */
-export const ButtonGroup = ({ children, className, vertical, ...rest }) => (
-	<Toolbar
-		className={clsx(
-			'es-uic-flex',
-			vertical ? 'es-uic-button-group-v es-uic-flex-col' : 'es-uic-button-group-h',
-			className,
-		)}
-		orientation={vertical ? 'vertical' : 'horizontal'}
-		{...rest}
-	>
-		{children}
-	</Toolbar>
-);
+export const ButtonGroup = ({ children, className, vertical, hidden, ...rest }) => {
+	if (hidden) {
+		return null;
+	}
+
+	return (
+		<Toolbar
+			className={clsx(
+				'es-uic-flex',
+				vertical ? 'es-uic-button-group-v es-uic-flex-col' : 'es-uic-button-group-h',
+				className,
+			)}
+			orientation={vertical ? 'vertical' : 'horizontal'}
+			{...rest}
+		>
+			{children}
+		</Toolbar>
+	);
+};

@@ -13,6 +13,7 @@ import { icons } from '../../icons/icons';
  * @param {string} [props.className] - Classes to pass to the notice.
  * @param {NoticeType} [props.type='default'] - The type of the notice.
  * @param {boolean} [props.alignIconToTitle=false] - If `true`, the icon will be aligned to the first row of title, instead of vertically centered.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Notice component.
  *
@@ -24,7 +25,11 @@ import { icons } from '../../icons/icons';
  * @preserve
  */
 export const Notice = (props) => {
-	const { icon, label, subtitle, className, type = 'default', alignIconToTitle = false } = props;
+	const { icon, label, subtitle, className, type = 'default', alignIconToTitle = false, hidden } = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	const styles = {
 		info: {
@@ -76,7 +81,7 @@ export const Notice = (props) => {
 				className={clsx(
 					'es-uic-grid es-uic-grid-cols-[auto,_1fr] es-uic-grid-rows-[auto,_auto] es-uic-rounded-md es-uic-border es-uic-bg-gradient-to-tr es-uic-shadow-sm',
 					styles[type].className,
-					(icon || styles[type].icon) ? 'es-uic-gap-x-1.5 es-uic-p-1.5' : 'es-uic-py-1.5 es-uic-px-2',
+					icon || styles[type].icon ? 'es-uic-gap-x-1.5 es-uic-p-1.5' : 'es-uic-px-2 es-uic-py-1.5',
 					className,
 				)}
 			>

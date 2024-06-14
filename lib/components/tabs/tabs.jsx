@@ -17,6 +17,7 @@ import { Notice } from '../notice/notice';
  * @param {Object} props - Component props.
  * @param {boolean} [props.vertical=false] - Whether the tabs are vertical.
  * @param {string} [props.className] - Classes to pass to the tabs container.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Tabs component.
  *
@@ -33,9 +34,13 @@ import { Notice } from '../notice/notice';
  * @preserve
  */
 export const Tabs = (props) => {
-	const { children, vertical, className, ...rest } = props;
+	const { children, vertical, className, hidden, ...rest } = props;
 
 	const baseId = useId();
+
+	if (hidden) {
+		return null;
+	}
 
 	let tabPanelCounter = 1;
 	let tabCounter = 1;
@@ -146,8 +151,7 @@ export const TabList = (props) => {
 				clsx(
 					'es-uic-flex es-uic-gap-1',
 					orientation === 'vertical' && 'es-uic-h-full es-uic-flex-col es-uic-pr-1.5',
-					orientation === 'horizontal' &&
-						'es-uic-w-full es-uic-items-end es-uic-border-b es-uic-border-b-gray-300',
+					orientation === 'horizontal' && 'es-uic-w-full es-uic-items-end es-uic-border-b es-uic-border-b-gray-300',
 					className,
 				)
 			}
@@ -189,9 +193,7 @@ export const Tab = (props) => {
 					isSelected && 'es-uic-border-b-teal-600 es-uic-text-teal-900 after:es-uic-opacity-100',
 					isSelected && isParentVertical && 'after:es-uic-scale-y-100',
 					isSelected && !isParentVertical && 'after:es-uic-scale-x-100',
-					!isSelected &&
-						!isDisabled &&
-						'es-uic-text-gray-800 after:es-uic-opacity-0 hover:es-uic-bg-gray-100',
+					!isSelected && !isDisabled && 'es-uic-text-gray-800 after:es-uic-opacity-0 hover:es-uic-bg-gray-100',
 					!isSelected && !isDisabled && isParentVertical && 'after:es-uic-scale-y-75',
 					!isSelected && !isDisabled && !isParentVertical && 'after:es-uic-scale-x-75',
 					isDisabled && 'es-uic-text-gray-300 after:es-uic-hidden',
@@ -226,10 +228,7 @@ export const TabPanel = (props) => {
 	return (
 		<ReactAriaTabPanel
 			{...other}
-			className={clsx(
-				'es-uic-mt-1.5 es-uic-space-y-2.5 es-uic-text-sm focus:es-uic-outline-none',
-				className,
-			)}
+			className={clsx('es-uic-mt-1.5 es-uic-space-y-2.5 es-uic-text-sm focus:es-uic-outline-none', className)}
 		>
 			{children}
 		</ReactAriaTabPanel>

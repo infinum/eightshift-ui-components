@@ -18,6 +18,7 @@ import { Tooltip } from '../tooltip/tooltip';
  * @param {Function} [props.onChange] - Function to run when the toggle state changes.
  * @param {string} [props.wrapperClassName] - Classes to pass to the tooltip wrapper.
  * @param {Object} [props.tooltipProps] - Props to pass to the tooltip.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Button component.
  *
@@ -56,8 +57,13 @@ export const ToggleButton = (props) => {
 		onChange,
 		wrapperClassName,
 		tooltipProps,
+		hidden,
 		...other
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	const sizes = {
 		small: {

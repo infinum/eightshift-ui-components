@@ -1,7 +1,6 @@
 import { Switch as ReactAriaSwitch } from 'react-aria-components';
 import { clsx } from 'clsx/lite';
 
-
 /**
  * A toggle switch.
  *
@@ -13,6 +12,7 @@ import { clsx } from 'clsx/lite';
  * @param {string} [props.id] - The ID of the switch.
  * @param {string} [props.className] - Classes to pass to the switch.
  * @param {boolean} [props.isIndeterminate] - If `true`, the switch will render in an indeterminate state.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Switch component.
  *
@@ -27,7 +27,11 @@ import { clsx } from 'clsx/lite';
  * @preserve
  */
 export const Switch = (props) => {
-	const { checked, onChange, disabled, id, children, className, isIndeterminate } = props;
+	const { checked, onChange, disabled, id, children, className, isIndeterminate, hidden } = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	return (
 		<ReactAriaSwitch
@@ -38,7 +42,7 @@ export const Switch = (props) => {
 			className='es-uic-group es-uic-flex es-uic-items-center es-uic-justify-between es-uic-gap-2'
 		>
 			{children}
-			<div className={clsx('es-uic-flex es-uic-items-center es-uic-min-w-9 es-uic-justify-center', className)}>
+			<div className={clsx('es-uic-flex es-uic-min-w-9 es-uic-items-center es-uic-justify-center', className)}>
 				<div
 					className={clsx(
 						'es-uic-no-webkit-highlight es-uic-h-4 es-uic-w-7 es-uic-shrink-0 es-uic-cursor-pointer es-uic-rounded-full es-uic-border es-uic-border-gray-500 es-uic-bg-white es-uic-p-[0.1875rem] es-uic-shadow-sm es-uic-outline-none es-uic-transition',

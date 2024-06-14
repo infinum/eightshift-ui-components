@@ -23,6 +23,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {JSX.Element} [props.icon] - Icon to display within the button.
  * @param {string} [props.subtitle] - Subtitle to display.
  * @param {string} [props.popoverPosition='bottom'] - The position of the popover.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The MatrixAlign component.
  *
@@ -54,6 +55,8 @@ export const MatrixAlign = (props) => {
 		'aria-label': ariaLabel,
 
 		popoverPosition,
+
+		hidden,
 	} = props;
 
 	const [currentValue, setCurrentValue] = useState(value);
@@ -62,6 +65,10 @@ export const MatrixAlign = (props) => {
 
 	const ref = useRef(null);
 	const innerRef = useRef(null);
+
+	if (hidden) {
+		return null;
+	}
 
 	const allSizeOptions = [
 		{

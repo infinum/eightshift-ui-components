@@ -1,6 +1,9 @@
 import RSSelect, { components } from 'react-select';
 
-import { CustomSelectDefaultClearIndicator, CustomSelectDefaultDropdownIndicator } from './custom-select-default-components';
+import {
+	CustomSelectDefaultClearIndicator,
+	CustomSelectDefaultDropdownIndicator,
+} from './custom-select-default-components';
 import { customOnChange, getValue } from './shared';
 import { BaseControl } from '../base-control/base-control';
 import { eightshiftSelectClasses } from './styles';
@@ -30,6 +33,7 @@ import { eightshiftSelectClasses } from './styles';
  * @param {JSX.Element} [props.customDropdownArrow] - If provided, replaces the default dropdown arrow indicator.
  * @param {JSX.Element} [props.customClearIndicator] - If provided, replaces the default 'Clear all' button.
  * @param {string} [props.className] - Classes to pass to the select menu.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Select component.
  *
@@ -80,8 +84,14 @@ export const Select = (props) => {
 
 		className,
 
+		hidden,
+
 		...additionalProps
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	return (
 		<BaseControl
@@ -111,8 +121,6 @@ export const Select = (props) => {
 					DropdownIndicator: customDropdownArrow ?? CustomSelectDefaultDropdownIndicator,
 					ClearIndicator: customClearIndicator ?? CustomSelectDefaultClearIndicator,
 				}}
-				// menuPortalTarget={document.body}
-				// menuPosition='fixed'
 				{...additionalProps}
 			/>
 		</BaseControl>

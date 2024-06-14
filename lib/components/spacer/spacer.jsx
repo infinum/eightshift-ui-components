@@ -13,6 +13,7 @@ import { RichLabel } from '../rich-label/rich-label';
  * @param {string} [props.subtitle] - Subtitle to display.
  * @param {JSX.Element} [props.icon] - Icon to display.
  * @param {boolean} [props.vertical=false] - Whether the spacer is vertical.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Spacer component.
  *
@@ -31,7 +32,11 @@ import { RichLabel } from '../rich-label/rich-label';
  * @preserve
  */
 export const Spacer = (props) => {
-	const { size = 'px', border, className, text, subtitle, icon, vertical = false } = props;
+	const { size = 'px', border, className, text, subtitle, icon, vertical = false, hidden } = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	const sizes = {
 		px: {

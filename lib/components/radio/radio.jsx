@@ -18,6 +18,7 @@ import { cloneElement } from 'react';
  * @param {string} [props.className] - Additional classes to add to the checkbox container.
  * @param {string} [props.labelClassName] - Additional classes to add to the label container.
  * @param {boolean} [props.alignEnd] - Whether the label should be aligned to the end.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The RadioButton component.
  *
@@ -42,8 +43,14 @@ export const RadioButton = (props) => {
 
 		children,
 
+		hidden,
+
 		...rest
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	const styleClassName = {
 		segmented: clsx(
@@ -61,7 +68,11 @@ export const RadioButton = (props) => {
 	return (
 		<Radio
 			isDisabled={disabled}
-			className={clsx('es-uic-flex es-uic-items-center es-uic-gap-1.5 es-uic-text-sm', styleClassName[design], className)}
+			className={clsx(
+				'es-uic-flex es-uic-items-center es-uic-gap-1.5 es-uic-text-sm',
+				styleClassName[design],
+				className,
+			)}
 			{...rest}
 		>
 			{({ isSelected, isFocusVisible }) => (
@@ -79,7 +90,9 @@ export const RadioButton = (props) => {
 						className={clsx(
 							'es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded-full es-uic-border es-uic-text-gray-600 es-uic-shadow-sm es-uic-transition',
 							isSelected ? 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white' : 'es-uic-border-gray-300',
-							!design?.startsWith('segmented') && isFocusVisible && 'es-uic-ring es-uic-ring-teal-500 es-uic-ring-opacity-50',
+							!design?.startsWith('segmented') &&
+								isFocusVisible &&
+								'es-uic-ring es-uic-ring-teal-500 es-uic-ring-opacity-50',
 						)}
 					>
 						<AnimatedVisibility
@@ -129,6 +142,7 @@ RadioButton.displayName = 'RadioButton';
  * @param {Function} [props.onChange] - Function to call when the value of the selected radio button changes.
  * @param {string} [props.className] - Additional classes to add to the group container.
  * @param {string} [props.labelClassName] - Additional classes to add to the label container.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The RadioButtonGroup component.
  *
@@ -171,8 +185,14 @@ export const RadioButtonGroup = (props) => {
 		className,
 		labelClassName,
 
+		hidden,
+
 		...rest
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	let mappedChildren = children ?? [];
 

@@ -30,6 +30,7 @@ import { ToggleButton } from '../toggle-button/toggle-button';
  * @param {boolean} [props.noTriggerIcon] - Whether the trigger icon should be hidden. Applies only to the `menu` type.
  * @param {boolean} [props.noItemLabel] - Whether the option label should be hidden.
  * @param {boolean} [props.noItemIcon] - Whether the option icon should be hidden.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The OptionSelect component.
  *
@@ -82,8 +83,14 @@ export const OptionSelect = (props) => {
 
 		children,
 
+		hidden,
+
 		...rest
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	const currentItem = options?.find(({ value: optionValue }) => optionValue === value);
 

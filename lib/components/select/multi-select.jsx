@@ -39,6 +39,7 @@ import { eightshiftSelectClasses } from './styles';
  * @param {JSX.Element} [props.customValueRemove] - If provided, replaces the default item remove button (react-select's `components.MultiValueRemove`.
  * @param {JSX.Element} [props.customValueContainer] - If provided, replaces the default items container component (react-select's `components.MultiValueContainer`).
  * @param {string} [props.className] - Classes to pass to the select menu.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The MultiSelect component.
  *
@@ -91,8 +92,14 @@ export const MultiSelect = (props) => {
 
 		className,
 
+		hidden,
+
 		...additionalProps
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	return (
 		<BaseControl
@@ -124,9 +131,7 @@ export const MultiSelect = (props) => {
 						components={{
 							MultiValue: getMultiValue(customValueDisplay ?? components.MultiValue),
 							MultiValueContainer: customValueContainer ?? components.MultiValueContainer,
-							MultiValueRemove: getMultiValueRemove(
-								customValueRemove ?? CustomSelectDefaultMultiValueRemove,
-							),
+							MultiValueRemove: getMultiValueRemove(customValueRemove ?? CustomSelectDefaultMultiValueRemove),
 							Option: customMenuOption ?? components.Option,
 							IndicatorSeparator: null,
 							DropdownIndicator: customDropdownArrow ?? CustomSelectDefaultDropdownIndicator,

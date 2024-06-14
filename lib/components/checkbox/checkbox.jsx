@@ -21,6 +21,7 @@ import { RichLabel } from '../rich-label/rich-label';
  * @param {string} [props.className] - Additional classes to add to the checkbox container.
  * @param {string} [props.labelClassName] - Additional classes to add to the label container.
  * @param {boolean} [props.alignEnd] - Whether the label should be aligned to the end.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Checkbox component.
  *
@@ -52,8 +53,14 @@ export const Checkbox = (props) => {
 		alignEnd,
 
 		children,
+
+		hidden,
 		...other
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	return (
 		<ReactAriaCheckbox
@@ -62,15 +69,12 @@ export const Checkbox = (props) => {
 			isReadOnly={readOnly}
 			isSelected={checked ?? false}
 			onChange={onChange}
-			className={clsx(
-				'es-uic-flex es-uic-w-full es-uic-items-center es-uic-gap-1.5 es-uic-text-sm',
-				className,
-			)}
+			className={clsx('es-uic-flex es-uic-w-full es-uic-items-center es-uic-gap-1.5 es-uic-text-sm', className)}
 			{...other}
 		>
 			{({ isIndeterminate, isSelected }) => (
 				<>
-				{((icon || alignEnd) && (label || subtitle)) && (
+					{(icon || alignEnd) && (label || subtitle) && (
 						<RichLabel
 							icon={icon}
 							label={label}
@@ -82,9 +86,7 @@ export const Checkbox = (props) => {
 					<div
 						className={clsx(
 							'es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded-md es-uic-border es-uic-text-gray-600 es-uic-shadow-sm es-uic-transition',
-							isSelected
-								? 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white'
-								: 'es-uic-border-gray-300',
+							isSelected ? 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white' : 'es-uic-border-gray-300',
 						)}
 					>
 						<AnimatedVisibility
@@ -103,7 +105,7 @@ export const Checkbox = (props) => {
 							{icons.check}
 						</AnimatedVisibility>
 					</div>
-					{(!icon && !alignEnd && (label || subtitle)) && (
+					{!icon && !alignEnd && (label || subtitle) && (
 						<RichLabel
 							label={label}
 							subtitle={subtitle}

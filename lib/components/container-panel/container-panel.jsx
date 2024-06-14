@@ -30,16 +30,9 @@ import { RichLabel } from '../rich-label/rich-label';
  *
  * @preserve
  */
-export const ContainerPanel = ({
-	children,
-	className,
-	title,
-	icon,
-	subtitle,
-	withToggle,
-	closeable,
-	startOpen = false,
-}) => {
+export const ContainerPanel = (props) => {
+	const { children, className, title, icon, subtitle, withToggle, closeable, startOpen = false } = props;
+
 	const [open, setOpen] = useState(startOpen);
 
 	return (
@@ -48,7 +41,7 @@ export const ContainerPanel = ({
 				'es-uic-space-y-2.5 es-uic-border-t es-uic-border-t-gray-200 es-uic-px-4',
 				!(withToggle || closeable) && 'es-uic-py-4',
 				(withToggle || closeable) && !open && 'es-uic-py-2.5',
-				(withToggle || closeable) && open && 'es-uic-pt-2.5 es-uic-pb-4',
+				(withToggle || closeable) && open && 'es-uic-pb-4 es-uic-pt-2.5',
 				className,
 			)}
 		>

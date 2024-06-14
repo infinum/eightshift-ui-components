@@ -9,11 +9,7 @@ import {
 	CustomSelectDefaultDropdownIndicator,
 	CustomSelectDefaultMultiValueRemove,
 } from './custom-select-default-components';
-import {
-	getDragEndHandler,
-	getMultiValue,
-	getMultiValueRemove,
-} from './multi-select-components';
+import { getDragEndHandler, getMultiValue, getMultiValueRemove } from './multi-select-components';
 import { BaseControl } from '../base-control/base-control';
 import { eightshiftSelectClasses } from './styles';
 
@@ -45,6 +41,7 @@ import { eightshiftSelectClasses } from './styles';
  * @param {JSX.Element} [props.customValueContainer] - If provided, replaces the default items container component (react-select's `components.MultiValueContainer`).
  * @param {Function} [props.processLoadedOptions] - Allows modifying (filtering, grouping, ...) options output after the items have been dynamically fetched. Must include `label`, `value`, and `id` keys in the output, additional fields can be added as required.
  * @param {string} [props.className] - Classes to pass to the select menu.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The AsyncMultiSelect component.
  *
@@ -102,8 +99,14 @@ export const AsyncMultiSelect = (props) => {
 
 		processLoadedOptions = (options) => options,
 
+		hidden,
+
 		...additionalProps
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	const customLoadOptions = async (searchText) => {
 		const results = await loadOptions(searchText);
@@ -141,9 +144,7 @@ export const AsyncMultiSelect = (props) => {
 						components={{
 							MultiValue: getMultiValue(customValueDisplay ?? components.MultiValue),
 							MultiValueContainer: customValueContainer ?? components.MultiValueContainer,
-							MultiValueRemove: getMultiValueRemove(
-								customValueRemove ?? CustomSelectDefaultMultiValueRemove,
-							),
+							MultiValueRemove: getMultiValueRemove(customValueRemove ?? CustomSelectDefaultMultiValueRemove),
 
 							Option: customMenuOption ?? components.Option,
 
@@ -151,8 +152,6 @@ export const AsyncMultiSelect = (props) => {
 							DropdownIndicator: customDropdownArrow ?? CustomSelectDefaultDropdownIndicator,
 							ClearIndicator: customClearIndicator ?? CustomSelectDefaultClearIndicator,
 						}}
-						// menuPortalTarget={document.body}
-						// menuPosition='fixed'
 						{...additionalProps}
 					/>
 				</SortableContext>

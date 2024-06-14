@@ -30,6 +30,7 @@ import { clsx } from 'clsx/lite';
  * @param {Function} props.onChangeEnd - Function to run when the value change ends.
  * @param {boolean} [props.disabled] - If `true`, the slider is disabled.
  * @param {string} [props.labelClassName] - Additional classes to pass to the label.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The ColumnConfigSlider component.
  *
@@ -64,8 +65,14 @@ export const ColumnConfigSlider = (props) => {
 
 		labelClassName,
 
+		hidden,
+
 		...other
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	const markerData = [...Array(columns).keys()];
 

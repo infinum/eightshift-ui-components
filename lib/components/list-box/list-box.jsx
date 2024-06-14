@@ -32,6 +32,7 @@ import { RichLabel } from '../rich-label/rich-label';
  * @param {boolean} [props.canDeselect=false] - If `true`, the selected value can be deselected (`null` is set in that case).
  * @param {ListBoxOrientation} [props.orientation='horizontal'] - The orientation of the list. If all options have only an icon set, the orientation is forced to be horizontal.
  * @param {string} [props.className] - Classes to pass to the list.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The ListBox component.
  *
@@ -67,8 +68,13 @@ export const ListBox = (props) => {
 		canDeselect = false,
 		orientation: setOrientation = 'horizontal',
 		className,
+		hidden,
 		...rest
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	const mappedOptions = options.map((option) => ({
 		...option,

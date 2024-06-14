@@ -26,6 +26,7 @@ import { FocusScope } from 'react-aria';
  * @param {boolean} [props.noFocusHandling] - If `true`, the focus trapping when the item is expanded is disabled. Useful when part of another component that manages focus itself.
  * @param {boolean} [props.open] - Whether the expandable is open.
  * @param {Function} [props.onOpenChange] - Function is called when the panel is opened or closed.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Expandable component.
  *
@@ -59,10 +60,16 @@ export const Expandable = (props) => {
 		open = false,
 		onOpenChange,
 
+		hidden,
+
 		...other
 	} = props;
 
 	const [isOpen, setIsOpen] = React.useState(open);
+
+	if (hidden) {
+		return null;
+	}
 
 	const component = (
 		<div
@@ -76,7 +83,7 @@ export const Expandable = (props) => {
 			<div
 				className={clsx(
 					'es-uic-flex es-uic-h-10 es-uic-items-center es-uic-gap-1 es-uic-transition-[padding]',
-					isOpen && 'es-uic-pl-2 es-uic-pr-1 es-uic-py-1',
+					isOpen && 'es-uic-py-1 es-uic-pl-2 es-uic-pr-1',
 				)}
 			>
 				<RichLabel

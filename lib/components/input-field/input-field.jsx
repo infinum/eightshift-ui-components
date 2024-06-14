@@ -2,7 +2,6 @@ import { TextField, Label, Input as ReactAriaInput, TextArea } from 'react-aria-
 import { BaseControl } from '../base-control/base-control';
 import { clsx } from 'clsx/lite';
 
-
 /**
  * An input field.
  *
@@ -19,6 +18,7 @@ import { clsx } from 'clsx/lite';
  * @param {boolean} [props.disabled] - If `true`, the input is disabled.
  * @param {boolean} [props.readOnly] - If `true`, the input is read-only.
  * @param {string} [props.className] - Classes to pass to the input field.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The InputField component.
  *
@@ -46,8 +46,13 @@ export const InputField = (props) => {
 		disabled,
 		readOnly,
 		className,
+		hidden,
 		...other
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	return (
 		<TextField

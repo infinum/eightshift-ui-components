@@ -24,6 +24,7 @@ import { clsx } from 'clsx/lite';
  * @param {boolean} [props.controlOnly] - If `true`, only the control is displayed.
  * @param {string} [props.contentClassName] - Classes to pass to the content container.
  * @param {ComponentToggleDesign} [props.design='default'] - Design of the component.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The ComponentToggle component.
  *
@@ -53,7 +54,12 @@ export const ComponentToggle = (props) => {
 		controlOnly,
 		contentClassName = 'es-uic-space-y-2.5',
 		design = 'default',
+		hidden,
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	if (controlOnly) {
 		return children;

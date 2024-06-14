@@ -27,6 +27,7 @@ import { icons } from '../../icons/icons';
  * @param {ColorPickerType} props.type - Type of the color picker. Affects the icon and tooltip.
  * @param {boolean} [props.clearable] - If `true`, the color can be deselected.
  * @param {boolean} [props.stacked] - If `true`, the control is not rendered inline.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The ColorPicker component.
  *
@@ -69,8 +70,14 @@ export const ColorPicker = (props) => {
 
 		clearable,
 
+		hidden,
+
 		...rest
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	const currentColor = colors?.find(({ slug }) => slug === value)?.color;
 

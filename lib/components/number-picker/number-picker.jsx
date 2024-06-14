@@ -29,6 +29,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {boolean} [props.inline] - If `true`, the number picker is displayed inline.
  * @param {boolean} [props.noScrollToChange=false] - If `true`, the number picker does not change value when scrolling.
  * @param {NumberPickerSize} [props.size='default'] - Determines the input field size.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The NumberPicker component.
  *
@@ -62,9 +63,14 @@ export const NumberPicker = ({
 	inline,
 	noScrollToChange = false,
 	size = 'default',
+	hidden,
 	...props
 }) => {
 	const [isInputFocused, setIsInputFocused] = useState(false);
+
+	if (hidden) {
+		return null;
+	}
 
 	const sizes = {
 		compact: {
