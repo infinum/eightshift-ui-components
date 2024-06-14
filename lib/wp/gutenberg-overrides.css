@@ -86,7 +86,8 @@ button.components-toggle-group-control-option-base {
 }
 
 /* Round the (contextual) toolbar */
-.block-editor-block-contextual-toolbar {
+.block-editor-block-contextual-toolbar,
+.block-editor-block-parent-selector__button {
 	@apply !es-uic-rounded-lg es-uic-shadow-sm;
 }
 
