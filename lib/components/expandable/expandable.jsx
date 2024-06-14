@@ -119,7 +119,7 @@ export const Expandable = (props) => {
 					}}
 					tooltip={isOpen ? __('Close', 'eightshift-ui-components') : __('Open', 'eightshift-ui-components')}
 					disabled={disabled}
-					className={clsx('[&>svg]:es-uic-transition-transform', isOpen && '[&>svg]:-es-uic-scale-y-100')}
+					className={clsx('[&>svg]:es-uic-transition-transform [&>svg]:es-uic-size-5', isOpen && '[&>svg]:-es-uic-scale-y-100')}
 					size='small'
 				/>
 			</div>

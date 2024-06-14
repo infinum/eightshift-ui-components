@@ -96,7 +96,7 @@ export const BaseControl = (props) => {
 
 			{help && (
 				<Text
-					className='es-uic-text-sm es-uic-text-gray-400'
+					className='es-uic-inline-block es-uic-text-sm es-uic-text-gray-400'
 					slot='description'
 				>
 					{help}
