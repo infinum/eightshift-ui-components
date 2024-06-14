@@ -6,6 +6,7 @@ import { DecorativeTooltip } from '../tooltip/tooltip';
 import { TriggeredPopover } from '../popover/popover';
 import { ButtonGroup } from '../button/button';
 import { ToggleButton } from '../toggle-button/toggle-button';
+import { Spacer } from '../spacer/spacer';
 import { clsx } from 'clsx/lite';
 
 /**
@@ -59,6 +60,8 @@ export const ComponentToggle = (props) => {
 	}
 
 	if (design.startsWith('compact')) {
+		const optionsLabel = sprintf(__('%s options', 'eightshift-ui-components'), label);
+
 		return (
 			<ButtonGroup>
 				<ToggleButton
@@ -72,12 +75,13 @@ export const ComponentToggle = (props) => {
 				<TriggeredPopover
 					triggerButtonProps={{
 						className: 'es-uic-w-5.5 es-uic-stroke-[1.25]',
-						tooltip: sprintf(__('%s options', 'eightshift-ui-components'), label),
+						tooltip: optionsLabel,
 						disabled: !useComponent,
 					}}
 					triggerButtonIcon={icons.dropdownCaretAlt}
 					className={clsx('w-72', contentClassName)}
 				>
+					<Spacer text={optionsLabel} />
 					{children}
 				</TriggeredPopover>
 			</ButtonGroup>
