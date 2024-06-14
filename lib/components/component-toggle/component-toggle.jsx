@@ -27,7 +27,7 @@ import { clsx } from 'clsx/lite';
  *
  * @returns {JSX.Element} The ComponentToggle component.
  *
- * @typedef {'default' | 'compact' | 'compactLabel'} ComponentToggleDesign
+ * @typedef {'default' | 'compact' | 'compactLabel' | 'compactIcon'} ComponentToggleDesign
  *
  * @example
  * <ComponentToggle
@@ -62,15 +62,18 @@ export const ComponentToggle = (props) => {
 	if (design.startsWith('compact')) {
 		const optionsLabel = sprintf(__('%s options', 'eightshift-ui-components'), label);
 
+		const hasIcon = design === 'compact' || design === 'compactIcon';
+		const hasLabel = design === 'compact' || design === 'compactLabel';
+
 		return (
 			<ButtonGroup>
 				<ToggleButton
-					icon={design === 'compact' && (icon ?? icons.componentGeneric)}
-					tooltip={design === 'compact' && label}
+					icon={hasIcon && (icon ?? icons.componentGeneric)}
+					tooltip={hasIcon && label}
 					selected={useComponent}
 					onChange={onChange}
 				>
-					{design === 'compactLabel' && label}
+					{hasLabel && label}
 				</ToggleButton>
 				<TriggeredPopover
 					triggerButtonProps={{
@@ -79,7 +82,7 @@ export const ComponentToggle = (props) => {
 						disabled: !useComponent,
 					}}
 					triggerButtonIcon={icons.dropdownCaretAlt}
-					className={clsx('es-uic-w-72 es-uic-p-2', contentClassName)}
+					className={clsx('es-uic-max-w-[19rem] es-uic-p-2', contentClassName)}
 				>
 					<Spacer text={optionsLabel} />
 					{children}
