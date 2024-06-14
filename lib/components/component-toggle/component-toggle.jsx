@@ -46,7 +46,9 @@ export const ComponentToggle = (props) => {
 		contentClassName = 'es-uic-space-y-2.5',
 	} = props;
 
-	if (controlOnly) {
+	if (controlOnly && useComponent === false ) {
+		return null;
+	} else if (controlOnly) {
 		return children;
 	}
 
