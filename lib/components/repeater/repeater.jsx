@@ -21,7 +21,6 @@ import { ToggleButton } from '../toggle-button/toggle-button';
  * @param {string} [props.help] - Help text to display below the input.
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display to the right of the label.
  * @param {Object<string, any>[]} props.items - Data to display in the repeater.
- * @param {string} [props.itemLabelProp] - Property of an item to use as the label when re-ordering items.
  * @param {boolean} [props.hideEmptyState] - If `true`, the empty state will not be displayed when there are no items.
  * @param {Object<string, any>} [props.addDefaultItem] - Additional properties to add to a new item.
  * @param {boolean} [props.addDisabled] - If `true`, the add button is disabled.
@@ -69,7 +68,6 @@ export const Repeater = (props) => {
 		children,
 		onChange,
 		items,
-		itemLabelProp,
 		'aria-label': ariaLabel,
 		icon,
 		label,
@@ -100,11 +98,6 @@ export const Repeater = (props) => {
 
 	let { dragAndDropHooks } = useDragAndDrop({
 		isDisabled: selectable || !canReorder,
-
-		getItems: (keys) =>
-			[...keys].map((key) => ({
-				'text/plain': list.getItem(key)[itemLabelProp] ?? __('New item', 'eightshift-ui-components'),
-			})),
 		onReorder(e) {
 			if (e.target.dropPosition === 'before') {
 				list.moveBefore(e.target.key, e.keys);
@@ -123,19 +116,6 @@ export const Repeater = (props) => {
 						)
 					}
 				/>
-			);
-		},
-		renderDragPreview(items) {
-			let label = items[0]['text/plain'];
-
-			if (!label || label === '') {
-				label = __('New item', 'eightshift-ui-components');
-			}
-
-			return (
-				<div className='es-uic-rounded-md es-uic-bg-teal-500 es-uic-px-1.5 es-uic-py-1 es-uic-text-xs es-uic-text-white es-uic-shadow-lg es-uic-shadow-teal-500/30'>
-					{label}
-				</div>
 			);
 		},
 		async onInsert(e) {
