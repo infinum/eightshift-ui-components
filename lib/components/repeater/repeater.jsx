@@ -5,7 +5,6 @@ import { Button, ButtonGroup } from '../button/button';
 import { icons } from '../../icons/icons';
 import { useEffect, useId, useState } from 'react';
 import { clsx } from 'clsx/lite';
-
 import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
@@ -32,6 +31,7 @@ import { ToggleButton } from '../toggle-button/toggle-button';
  * @param {Number} [props.minItems] - The minimum number of items that must be present. If there are less items than this, deleting items will be disabled.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {JSX.Element} [props.addButton] - If provided, overrides the default add button. `(props: { addItem: (additional: Object<string, any>?) => void, disabled: Boolean }) => JSX.Element`.
+ * @param {string} [props.className] - Classes to pass to the item wrapper.
  *
  * @returns {JSX.Element} The Repeater component.
  *
@@ -83,6 +83,7 @@ export const Repeater = (props) => {
 		onAfterItemRemove,
 		minItems,
 		addButton,
+		className,
 
 		hidden,
 		...rest
@@ -278,7 +279,7 @@ export const Repeater = (props) => {
 							</div>
 						)
 					}
-					className='es-uic-space-y-1.5'
+					className={className}
 					{...rest}
 				>
 					{children}
