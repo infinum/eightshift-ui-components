@@ -31,7 +31,7 @@ import { icons } from '../../icons/icons';
  *
  * @returns {JSX.Element} The ColorPicker component.
  *
- * @typedef {'default' | 'fillColor' | 'textColor' | 'textHighlightColor'} ColorPickerType
+ * @typedef {'default' | 'fillColor' | 'textColor' | 'textHighlightColor' | 'listMarkerColor'} ColorPickerType
  *
  * @example
  * <ColorPicker
@@ -156,15 +156,22 @@ export const ColorPicker = (props) => {
 	);
 
 	let tooltipText;
+	let menuTriggerIcon;
 
 	if (type === 'default') {
 		tooltipText = __('Color', 'eightshift-ui-components');
 	} else if (type === 'fillColor') {
 		tooltipText = __('Fill color', 'eightshift-ui-components');
+		menuTriggerIcon = icons.colorPickerFill;
 	} else if (type === 'textColor') {
 		tooltipText = __('Text color', 'eightshift-ui-components');
+		menuTriggerIcon = icons.colorPickerText;
 	} else if (type === 'textHighlightColor') {
 		tooltipText = __('Text highlight color', 'eightshift-ui-components');
+		menuTriggerIcon = icons.colorPickerTextHighlight;
+	} else if (type === 'listMarkerColor') {
+		tooltipText = __('List marker color', 'eightshift-ui-components');
+		menuTriggerIcon = icons.colorPickerListMarker;
 	}
 
 	return (
@@ -184,29 +191,9 @@ export const ColorPicker = (props) => {
 								className='!es-uic-size-6 !es-uic-shadow-none'
 							/>
 						)}
-						{!icon && type === 'fillColor' && (
-							<div className='es-uic-relative es-uic-size-6 [&>svg]:es-uic-absolute [&>svg]:-es-uic-top-0.5 [&>svg]:es-uic-left-0.5 [&>svg]:es-uic-size-[1.125rem]'>
-								{icons.fillColor}
-								<ColorSwatch
-									color={currentColor}
-									className='es-uic-absolute -es-uic-bottom-0.5 es-uic-left-0 !es-uic-h-2 !es-uic-shadow-none'
-								/>
-							</div>
-						)}
-
-						{!icon && type === 'textColor' && (
-							<div className='es-uic-relative es-uic-size-6 [&>svg]:es-uic-absolute [&>svg]:-es-uic-top-[0.25rem] [&>svg]:es-uic-left-0 [&>svg]:es-uic-size-6'>
-								{icons.textAbc}
-								<ColorSwatch
-									color={currentColor}
-									className='es-uic-absolute -es-uic-bottom-0.5 es-uic-left-0 !es-uic-h-2 !es-uic-shadow-none'
-								/>
-							</div>
-						)}
-
-						{!icon && type === 'textHighlightColor' && (
-							<div className='es-uic-relative es-uic-size-6 [&>svg]:es-uic-absolute [&>svg]:-es-uic-top-[0.325rem] [&>svg]:es-uic-left-0 [&>svg]:es-uic-size-6'>
-								{icons.titleGeneric}
+						{!icon && type !== 'default' && (
+							<div className='es-uic-relative es-uic-size-6 [&>svg]:es-uic-absolute [&>svg]:es-uic-inset-0 [&>svg]:es-uic-size-full'>
+								{menuTriggerIcon}
 								<ColorSwatch
 									color={currentColor}
 									className='es-uic-absolute -es-uic-bottom-0.5 es-uic-left-0 !es-uic-h-2 !es-uic-shadow-none'

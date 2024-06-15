@@ -1957,6 +1957,13 @@ function App() {
 					/>
 
 					<ColorPicker
+						value={color2}
+						onChange={setColor2}
+						colors={groupedColors}
+						type='listMarkerColor'
+					/>
+
+					<ColorPicker
 						icon={icons.color}
 						label='Color'
 						value={color2}
