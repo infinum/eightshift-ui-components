@@ -119,7 +119,7 @@ export const NumberPicker = ({
 					{prefix && (
 						<span
 							slot='prefix'
-							className='es-uic-col-start-1 es-uic-row-span-2 es-uic-mr-0.5 es-uic-select-none es-uic-self-center es-uic-text-gray-500'
+							className='es-uic-col-start-1 es-uic-row-span-2 es-uic-mr-0.5 es-uic-select-none es-uic-self-center es-uic-text-gray-500 es-uic-text-xs'
 						>
 							{prefix}
 						</span>
@@ -138,7 +138,7 @@ export const NumberPicker = ({
 					{suffix && (
 						<span
 							slot='suffix'
-							className='es-uic-col-start-3 es-uic-row-span-2 es-uic-select-none es-uic-self-center es-uic-text-gray-500'
+							className='es-uic-col-start-3 es-uic-row-span-2 es-uic-select-none es-uic-self-center es-uic-text-gray-500 es-uic-text-xs'
 						>
 							{suffix}
 						</span>
