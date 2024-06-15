@@ -24,6 +24,7 @@ import { useCellEditMode } from '../../hooks/use-cell-edit-mode';
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display to the right of the label.
  * @param {string} [props.textValue] - The text value of the item.
  * @param {string} [props.className] - Classes to pass to the item.
+ * @param {bool} [props.expandDisabled] - If `true`, the item cannot be expanded.
  *
  * @returns {JSX.Element} The ButtonGroup component.
  *
@@ -41,6 +42,7 @@ export const RepeaterItem = (props) => {
 		className,
 		actions,
 		textValue,
+		expandDisabled,
 		...rest
 	} = props;
 
@@ -73,7 +75,7 @@ export const RepeaterItem = (props) => {
 					>
 						{({ selectionMode, allowsDragging, isDragging }) => (
 							<Expandable
-								disabled={selectionMode === 'multiple'}
+								disabled={expandDisabled || selectionMode === 'multiple'}
 								icon={
 									<>
 										{selectionMode === 'multiple' && <Checkbox slot='selection' />}
