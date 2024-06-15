@@ -21,7 +21,7 @@ import { ToggleButton } from '../toggle-button/toggle-button';
  * @param {string} [props.subtitle] - Subtitle to display.
  * @param {string} [props.help] - Help text to display below the input.
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display to the right of the label.
- * @param {Object[]<string, any>} props.items - Data to display in the repeater.
+ * @param {Object<string, any>[]} props.items - Data to display in the repeater.
  * @param {string} [props.itemLabelProp] - Property of an item to use as the label when re-ordering items.
  * @param {boolean} [props.hideEmptyState] - If `true`, the empty state will not be displayed when there are no items.
  * @param {Object<string, any>} [props.addDefaultItem] - Additional properties to add to a new item.
@@ -31,6 +31,7 @@ import { ToggleButton } from '../toggle-button/toggle-button';
  * @param {Function} [props.onAfterItemRemove] - Function to run after an item is removed.
  * @param {Number} [props.minItems] - The minimum number of items that must be present. If there are less items than this, deleting items will be disabled.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
+ * @param {JSX.Element} [props.addButton] - If provided, overrides the default add button. `(props: { addItem: (additional: Object<string, any>?) => void, disabled: Boolean }) => JSX.Element`.
  *
  * @returns {JSX.Element} The Repeater component.
  *
@@ -81,6 +82,7 @@ export const Repeater = (props) => {
 		onAfterItemAdd,
 		onAfterItemRemove,
 		minItems,
+		addButton,
 
 		hidden,
 		...rest
@@ -202,20 +204,35 @@ export const Repeater = (props) => {
 						/>
 					</AnimatedVisibility>
 					<ButtonGroup>
-						<Button
-							onPress={() => {
-								const newItem = { id: `${itemIdBase}${list.items.length + 1}`, ...addDefaultItem };
-								list.append(newItem);
+						{!addButton && (
+							<Button
+								onPress={() => {
+									const newItem = { id: `${itemIdBase}${list.items.length + 1}`, ...addDefaultItem };
+									list.append(newItem);
 
-								if (onAfterItemAdd) {
-									onAfterItemAdd(newItem);
-								}
-							}}
-							size='small'
-							icon={icons.add}
-							tooltip={__('Add item', 'eightshift-ui-components')}
-							disabled={addDisabled || selectable}
-						/>
+									if (onAfterItemAdd) {
+										onAfterItemAdd(newItem);
+									}
+								}}
+								size='small'
+								icon={icons.add}
+								tooltip={__('Add item', 'eightshift-ui-components')}
+								disabled={addDisabled || selectable}
+							/>
+						)}
+
+						{addButton &&
+							addButton({
+								addItem: (additional = {}) => {
+									const newItem = { id: `${itemIdBase}${list.items.length + 1}`, ...addDefaultItem, ...additional };
+									list.append(newItem);
+
+									if (onAfterItemAdd) {
+										onAfterItemAdd(newItem);
+									}
+								},
+								disabled: addDisabled || selectable,
+							})}
 
 						<ToggleButton
 							selected={selectable}
