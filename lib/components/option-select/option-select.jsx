@@ -3,6 +3,7 @@ import { BaseControl } from '../base-control/base-control';
 import { ButtonGroup } from '../button/button';
 import { Menu, MenuItem } from '../menu/menu';
 import { RadioButton, RadioButtonGroup } from '../radio/radio';
+import { RichLabel } from '../rich-label/rich-label';
 import { ToggleButton } from '../toggle-button/toggle-button';
 
 /**
@@ -18,7 +19,7 @@ import { ToggleButton } from '../toggle-button/toggle-button';
  * @param {boolean} [props.inline] - If `true`, the component is displayed inline - icon/label/subtitle are on the left, the passed content is on the right. **Note:** not compatible with `actions`.
  * @param {string} props.value - The currently selected value.
  * @param {Function} props.onChange - Function to run when the selected value changes.
- * @param {{label: string, value: any, tooltip: string|JSX.Element, icon: JSX.Element|string, ariaLabel: string }[]} props.options - The list of options to choose from.
+ * @param {{label: string, value: any, tooltip: string|JSX.Element, icon: JSX.Element|string, ariaLabel: string, subtitle:string|JSX.Element }[]} props.options - The list of options to choose from.
  * @param {string} [props.disabled] - If `true`, the option select component is disabled.
  * @param {boolean} [props.vertical] - If `true`, the options are displayed vertically. Not applicable to the `menu` type.
  * @param {OptionSelectType} [props.type='toggleButton'] - The type of the option select component.
@@ -118,6 +119,7 @@ export const OptionSelect = (props) => {
 							icon: optionIcon,
 							tooltip: optionTooltip,
 							ariaLabel: optionAriaLabel,
+							subtitle: optionSubtitle,
 						}) => (
 							<ToggleButton
 								key={optionValue}
@@ -130,7 +132,13 @@ export const OptionSelect = (props) => {
 								aria-label={optionAriaLabel ?? optionLabel ?? optionTooltip}
 								{...itemProps}
 							>
-								{!noItemLabel && optionLabel}
+								{!noItemLabel && !optionSubtitle && optionLabel}
+								{!noItemLabel && optionSubtitle && (
+									<RichLabel
+										label={optionLabel}
+										subtitle={optionSubtitle}
+									/>
+								)}
 							</ToggleButton>
 						),
 					)}
@@ -146,18 +154,27 @@ export const OptionSelect = (props) => {
 					value={value}
 					{...wrapperProps}
 				>
-					{options.map(({ label: optionLabel, value: optionValue, icon: optionIcon, ariaLabel: optionAriaLabel }) => (
-						<RadioButton
-							key={optionValue}
-							value={optionValue}
-							disabled={disabled}
-							className={itemClassName}
-							icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
-							aria-label={optionAriaLabel ?? optionLabel}
-							label={!noItemLabel && optionLabel}
-							{...itemProps}
-						/>
-					))}
+					{options.map(
+						({
+							label: optionLabel,
+							value: optionValue,
+							icon: optionIcon,
+							ariaLabel: optionAriaLabel,
+							subtitle: optionSubtitle,
+						}) => (
+							<RadioButton
+								key={optionValue}
+								value={optionValue}
+								disabled={disabled}
+								className={itemClassName}
+								subtitle={!noItemLabel && optionSubtitle}
+								icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
+								aria-label={optionAriaLabel ?? optionLabel}
+								label={!noItemLabel && optionLabel}
+								{...itemProps}
+							/>
+						),
+					)}
 				</RadioButtonGroup>
 			)}
 
@@ -172,20 +189,34 @@ export const OptionSelect = (props) => {
 					keepOpen
 					{...wrapperProps}
 				>
-					{options.map(({ label: optionLabel, value: optionValue, icon: optionIcon, ariaLabel: optionAriaLabel }) => (
-						<MenuItem
-							key={optionValue}
-							selected={value === optionValue}
-							disabled={disabled}
-							className={itemClassName}
-							icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
-							aria-label={optionAriaLabel ?? optionLabel}
-							onClick={() => onChange(optionValue)}
-							{...itemProps}
-						>
-							{!noItemLabel && optionLabel}
-						</MenuItem>
-					))}
+					{options.map(
+						({
+							label: optionLabel,
+							value: optionValue,
+							icon: optionIcon,
+							ariaLabel: optionAriaLabel,
+							subtitle: optionSubtitle,
+						}) => (
+							<MenuItem
+								key={optionValue}
+								selected={value === optionValue}
+								disabled={disabled}
+								className={itemClassName}
+								icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
+								aria-label={optionAriaLabel ?? optionLabel}
+								onClick={() => onChange(optionValue)}
+								{...itemProps}
+							>
+								{!noItemLabel && !optionSubtitle && optionLabel}
+								{!noItemLabel && optionSubtitle && (
+									<RichLabel
+										label={optionLabel}
+										subtitle={optionSubtitle}
+									/>
+								)}
+							</MenuItem>
+						),
+					)}
 					{children}
 				</Menu>
 			)}
