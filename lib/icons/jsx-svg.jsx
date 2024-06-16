@@ -19,6 +19,10 @@ import JsxParser from 'react-jsx-parser';
 export const JsxSvg = (props) => {
 	const { svg, className } = props;
 
+	if (!svg || typeof svg !== 'string') {
+		return null;
+	}
+
 	let jsxString = svgToJsxString(svg);
 
 	if (className?.length > 0) {
