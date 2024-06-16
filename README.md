@@ -22,6 +22,5 @@ Eightshift UI components are provided by [Team Eightshift](https://eightshift.co
 - BlockInserter
 - Responsive components (ResponsiveNumberPicker, ResponsiveSlider, ResponsiveToggleButton)
 - PresetPicker
-- ReOrderable - will deprecate
 - TileButton - will deprecate
 - WidthOffsetRangeSlider
