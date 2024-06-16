@@ -57,9 +57,12 @@ import {
 	HStack,
 	VStack,
 	ImagePlaceholder,
+	FilePlaceholder,
+	MediaPlaceholder,
 	OptionSelect,
 	DraggableList,
 	DraggableListItem,
+	RichLabel,
 } from '../lib';
 import { clsx } from 'clsx/lite';
 import '../lib/fonts/fonts.css';
@@ -615,7 +618,7 @@ function App() {
 					<Tab>ColumnConfigSlider</Tab>
 					<Tab>ContainerPanel</Tab>
 					<Tab>Layout components</Tab>
-					<Tab>ImagePlaceholder</Tab>
+					<Tab>ImagePlaceholder / MediaPlaceholder / FilePlaceholder</Tab>
 					<Tab>DraggableList</Tab>
 				</TabList>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
@@ -2265,6 +2268,55 @@ function App() {
 						</Button>
 					</HStack>
 					<ImagePlaceholder url={imgUrl} />
+
+					<Spacer />
+					<Spacer border />
+					<Spacer />
+
+					<FilePlaceholder
+						fileName='demo.json'
+						icon={icons.experiment}
+					/>
+
+					<Spacer />
+					<Spacer border />
+					<Spacer />
+
+					<MediaPlaceholder icon={icons.experiment} />
+
+					<MediaPlaceholder
+						icon={icons.experiment}
+						size='large'
+					/>
+
+					<MediaPlaceholder
+						icon={icons.experiment}
+						style='simple'
+					/>
+
+					<MediaPlaceholder
+						icon={icons.experiment}
+						style='simple'
+						size='large'
+					/>
+
+					<MediaPlaceholder
+						icon={icons.experiment}
+						style='simple'
+						size='large'
+						helpText='Lorem ipsum dolor.'
+					/>
+					<MediaPlaceholder
+						icon={icons.experiment}
+						style='simple'
+						size='large'
+						helpText={
+							<RichLabel
+								icon={icons.a11yWarning}
+								label='Lorem ipsum dolor.'
+							/>
+						}
+					/>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<DraggableList
@@ -2281,7 +2333,6 @@ function App() {
 									icon={icon ?? icons.emptyCircle}
 								>
 									<Switch
-
 										aria-label='Title'
 										checked={toggle}
 										onChange={(value) => updateData({ toggle: value })}
