@@ -18,7 +18,12 @@ import JsxParser from 'react-jsx-parser';
  */
 export const JsxSvg = (props) => {
 	const { svg, className } = props;
-	const jsxString = svgToJsxString(svg).replace('<svg ', `<svg className="${className}" `);
+
+	let jsxString = svgToJsxString(svg);
+
+	if (className?.length > 0) {
+		jsxString = jsxString.replace('<svg ', `<svg className="${className}" `);
+	}
 
 	return (
 		<JsxParser
