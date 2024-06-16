@@ -28,7 +28,7 @@
 /* Add rounded corners to make components look nicer and more uniform. */
 .edit-post-header__toolbar .components-button,
 .edit-post-header__settings .components-button,
-.edit-post-sidebar .components-button,
+.edit-post-sidebar .components-button:not(.components-panel__body-toggle, .editor-post-last-revision__title),
 .components-snackbar,
 .components-toggle-group-control {
 	@apply !es-uic-rounded-md;
