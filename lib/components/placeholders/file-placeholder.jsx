@@ -26,7 +26,8 @@ export const FilePlaceholder = (props) => {
 	const { icon, fileName, className, children } = props;
 
 	const commonClassName = clsx(
-		'es-uic-w-fit es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-p-2 es-uic-pr-3 es-uic-text-xs es-uic-text-gray-300 es-uic-shadow es-uic-font-mono',
+		'es-uic-w-fit es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-p-2 es-uic-pr-3 es-uic-text-xs es-uic-text-gray-300 es-uic-shadow',
+		fileName && 'es-uic-font-mono',
 		className,
 	);
 
