@@ -58,6 +58,8 @@ import {
 	VStack,
 	ImagePlaceholder,
 	OptionSelect,
+	DraggableList,
+	DraggableListItem,
 } from '../lib';
 import { clsx } from 'clsx/lite';
 import '../lib/fonts/fonts.css';
@@ -368,7 +370,25 @@ function App() {
 		{},
 	];
 
+	const draggableListDefaultItems = [
+		{
+			toggle: false,
+			title: 'Item 1',
+			icon: icons.num1Circle,
+		},
+		{
+			toggle: true,
+			title: 'Item 2',
+			icon: icons.num2Circle,
+		},
+		{
+			toggle: true,
+			icon: icons.num3Circle,
+		},
+	];
+
 	const [repeaterItems, setRepeaterItems] = useState(repeaterDefaultItems);
+	const [draggableListItems, setDraggableListItems] = useState(draggableListDefaultItems);
 
 	const [sliderValue, setSliderValue] = useState(0);
 	const [sliderValue2, setSliderValue2] = useState(0);
@@ -596,6 +616,7 @@ function App() {
 					<Tab>ContainerPanel</Tab>
 					<Tab>Layout components</Tab>
 					<Tab>ImagePlaceholder</Tab>
+					<Tab>DraggableList</Tab>
 				</TabList>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Toggle
@@ -2244,6 +2265,31 @@ function App() {
 						</Button>
 					</HStack>
 					<ImagePlaceholder url={imgUrl} />
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+					<DraggableList
+						label='My draggable list'
+						items={draggableListItems}
+						onChange={setDraggableListItems}
+					>
+						{(item) => {
+							const { toggle, title, icon, updateData } = item;
+
+							return (
+								<DraggableListItem
+									label={title ?? 'New item'}
+									icon={icon ?? icons.emptyCircle}
+								>
+									<Switch
+
+										aria-label='Title'
+										checked={toggle}
+										onChange={(value) => updateData({ toggle: value })}
+									/>
+								</DraggableListItem>
+							);
+						}}
+					</DraggableList>
 				</TabPanel>
 			</Tabs>
 		</div>

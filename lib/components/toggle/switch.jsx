@@ -42,7 +42,7 @@ export const Switch = (props) => {
 			className='es-uic-group es-uic-flex es-uic-items-center es-uic-justify-between es-uic-gap-2'
 		>
 			{children}
-			<div className={clsx('es-uic-flex es-uic-min-w-9 es-uic-items-center es-uic-justify-center', className)}>
+			<div className={clsx('es-uic-flex es-uic-shrink-0 es-uic-items-center es-uic-justify-center', className)}>
 				<div
 					className={clsx(
 						'es-uic-no-webkit-highlight es-uic-h-4 es-uic-w-7 es-uic-shrink-0 es-uic-cursor-pointer es-uic-rounded-full es-uic-border es-uic-border-gray-500 es-uic-bg-white es-uic-p-[0.1875rem] es-uic-shadow-sm es-uic-outline-none es-uic-transition',
