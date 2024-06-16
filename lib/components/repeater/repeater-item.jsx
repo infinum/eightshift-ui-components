@@ -26,7 +26,7 @@ import { useCellEditMode } from '../../hooks/use-cell-edit-mode';
  * @param {string} [props.className] - Classes to pass to the item.
  * @param {bool} [props.expandDisabled] - If `true`, the item cannot be expanded.
  *
- * @returns {JSX.Element} The ButtonGroup component.
+ * @returns {JSX.Element} The RepeaterItem component.
  *
  * @see {@link Repeater} for usage example.
  *

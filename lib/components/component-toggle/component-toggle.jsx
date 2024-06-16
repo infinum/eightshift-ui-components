@@ -2,7 +2,6 @@ import { __, sprintf } from '@wordpress/i18n';
 import { Expandable } from '../expandable/expandable';
 import { icons } from '../../icons/icons';
 import { Switch } from '../toggle/switch';
-import { DecorativeTooltip } from '../tooltip/tooltip';
 import { TriggeredPopover } from '../popover/popover';
 import { ButtonGroup } from '../button/button';
 import { ToggleButton } from '../toggle-button/toggle-button';
@@ -104,14 +103,10 @@ export const ComponentToggle = (props) => {
 			subtitle={subtitle}
 			actions={
 				!noUseToggle && (
-					<DecorativeTooltip text={__('Toggle component', 'eightshift-ui-components')}>
-						<div className='es-uic-mr-0.5 es-uic-flex es-uic-min-h-8 es-uic-items-center'>
-							<Switch
-								checked={useComponent}
-								onChange={onChange}
-							/>
-						</div>
-					</DecorativeTooltip>
+					<Switch
+						checked={useComponent}
+						onChange={onChange}
+					/>
 				)
 			}
 			disabled={!useComponent || expandButtonDisabled}
