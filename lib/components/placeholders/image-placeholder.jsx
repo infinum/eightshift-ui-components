@@ -17,7 +17,7 @@ import { icons } from '../../icons/icons';
  * @returns {JSX.Element} The ImagePlaceholder component.
  *
  * @typedef {'default'|'simple'} ImagePlaceholderStyle
- * @typedef {'default'|'large'} ImagePlaceholderSize
+ * @typedef @typedef {'auto' | 'default' | 'large' | 'fullWidth' | 'fullHeight' | 'full' | 'video'} ImagePlaceholderSize
  *
  * @example
  * <ImagePlaceholder url="https://example.com/image.jpg" alt="Image alt text" />
@@ -38,8 +38,13 @@ export const ImagePlaceholder = (props) => {
 	};
 
 	const sizeClassName = {
+		auto: '',
 		default: 'es-uic-size-20',
 		large: 'es-uic-size-40',
+		fullWidth: 'es-uic-w-full',
+		fullHeight: 'es-uic-h-full',
+		full: 'es-uic-size-full',
+		video: 'es-uic-w-full es-uic-aspect-video',
 	};
 
 	return (
