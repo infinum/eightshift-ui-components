@@ -1,14 +1,15 @@
 import { DropIndicator, GridListContext } from 'react-aria-components';
-import { useListData } from 'react-stately';
+import { __ } from '@wordpress/i18n';
+import { useListState } from 'react-stately';
 import { GridList, useDragAndDrop } from 'react-aria-components';
 import { Button, ButtonGroup } from '../button/button';
 import { icons } from '../../icons/icons';
-import { useEffect, useId, useState } from 'react';
-import { clsx } from 'clsx/lite';
-import { __ } from '@wordpress/i18n';
+import { useId, useState } from 'react';
 import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { ToggleButton } from '../toggle-button/toggle-button';
+import { arrayMoveMultiple } from '../../utilities/array-helpers';
+import { clsx } from 'clsx/lite';
 
 /**
  * A component that allows re-ordering a list of items with additional sub-options.
@@ -66,8 +67,8 @@ export const Repeater = (props) => {
 
 	const {
 		children,
-		onChange,
-		items,
+		onChange: rawOnChange,
+		items: rawItems,
 		'aria-label': ariaLabel,
 		icon,
 		label,
@@ -87,23 +88,71 @@ export const Repeater = (props) => {
 		...rest
 	} = props;
 
-	const list = useListData({
-		initialItems: items?.map((item, i) => ({ id: item.id ?? `${itemIdBase}${i}`, ...item })),
-		getKey: ({ id }) => id,
-	});
-
 	const [selectable, setSelectable] = useState(false);
 	const [canDelete, setCanDelete] = useState(false);
 	const [canReorder, setCanReorder] = useState(true);
+
+	const items = rawItems.map((item, i) => ({
+		key: item.key ?? `${itemIdBase}-${i}`,
+		...item,
+	}));
+
+	const rawList = useListState({
+		items: items,
+		selectionMode: selectable ? 'multiple' : 'none',
+	});
+
+	const onChange = (items) => {
+		const currentItems = [...items];
+		currentItems.forEach((item) => delete item.key);
+
+		console.log(items, currentItems);
+		rawOnChange(currentItems);
+	};
+
+	const list = {
+		items: items,
+		selectedKeys: rawList.selectionManager.selectedKeys,
+		setSelectedKeys: (keys) => rawList.selectionManager.setSelectedKeys(keys),
+		getKey: ({ key }) => items.find((item) => item.key === key),
+		getItem: (key) => items.find((item) => item.key === key),
+		update: (key, newValue) => {
+			const index = [...items].findIndex((item) => item.key === key);
+			items[index] = { ...items[index], ...newValue };
+
+			onChange(items);
+		},
+		move: (sourceKey, targetKeys) => {
+			const sourceIndex = items.findIndex((item) => item.key === sourceKey);
+			const targetIndices = [...targetKeys].map((key) => items.findIndex((item) => item.key === key));
+
+			onChange(arrayMoveMultiple(items, targetIndices, sourceIndex));
+		},
+		insert: (targetKey, ...newItems) => {
+			const targetIndex = items.findIndex((item) => item.key === targetKey);
+			const newItemsWithKeys = newItems.map((item) => ({ ...item, id: `${itemIdBase}${items.length + 1}` }));
+
+			onChange([...items.slice(0, targetIndex), ...newItemsWithKeys, ...items.slice(targetIndex)]);
+		},
+		removeSelectedItems: () => {
+			const keys = rawList.selectionManager.selectedKeys;
+
+			const newItems = items.filter((item) => !keys.has(item.key));
+			onChange(newItems);
+		},
+		append: (item) => {
+			onChange([...items, item]);
+		},
+	};
 
 	let { dragAndDropHooks } = useDragAndDrop({
 		isDisabled: selectable || !canReorder,
 		getItems: (keys) => [...keys].map((key) => ({ 'text/plain': list.getItem(key).id })),
 		onReorder(e) {
 			if (e.target.dropPosition === 'before') {
-				list.moveBefore(e.target.key, e.keys);
+				list.move(e.target.key, e.keys);
 			} else if (e.target.dropPosition === 'after') {
-				list.moveAfter(e.target.key, e.keys);
+				list.move(e.target.key, e.keys);
 			}
 		},
 		renderDropIndicator(target) {
@@ -119,33 +168,7 @@ export const Repeater = (props) => {
 				/>
 			);
 		},
-		async onInsert(e) {
-			let items = await Promise.all(
-				e.items.map(async (item) => {
-					let name = item.kind === 'text' ? await item.getText('text/plain') : item.name;
-					return { id: Math.random(), name };
-				}),
-			);
-
-			if (e.target.dropPosition === 'before') {
-				list.insertBefore(e.target.key, ...items);
-			} else if (e.target.dropPosition === 'after') {
-				list.insertAfter(e.target.key, ...items);
-			}
-		},
 	});
-
-	// Update main value when items change.
-	useEffect(() => {
-		const items = list.items.map((item) => {
-			// eslint-disable-next-line no-unused-vars
-			const { id, ...rest } = item;
-			return rest;
-		});
-
-		onChange(items);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [list.items]);
 
 	if (hidden) {
 		return null;
@@ -245,10 +268,10 @@ export const Repeater = (props) => {
 					items={list.items.map((item, index) => ({
 						...item,
 						updateData: (newValue) => {
-							list.update(item.id, { ...list.getItem(item.id), ...newValue });
+							list.update(item.key, { ...list.getItem(item.key), ...newValue });
 						},
 						itemIndex: index,
-						deleteItem: () => list.remove(item.id),
+						deleteItem: () => list.remove(item.key),
 						canReorder,
 						setCanReorder,
 					}))}

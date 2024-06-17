@@ -365,12 +365,20 @@ function App() {
 
 	const repeaterDefaultItems = [
 		{
-			title: '',
+			id: 'prvi',
+			title: 'Item 1',
+			icon: icons.num1Square,
 		},
 		{
-			title: 'Abc',
+			id: 'drugi',
+			title: 'Item 2',
+			icon: icons.num2Circle,
 		},
-		{},
+		{
+			id: 'treci',
+			title: 'Item 3',
+			icon: icons.num3Square,
+		},
 	];
 
 	const draggableListDefaultItems = [
@@ -1471,13 +1479,14 @@ function App() {
 						onAfterItemRemove={(items) => console.log('Removed', items)}
 					>
 						{(item) => {
-							const { title, subtitle, toggledThingy, link, updateData, itemIndex } = item;
+							const { title, subtitle, icon, toggledThingy, link, updateData, itemIndex } = item;
 
 							return (
 								<RepeaterItem
 									label={title ?? 'New item'}
 									className={clsx(!title && '!es-uic-text-gray-400')}
 									subtitle={itemIndex % 2 === 0 && 'Lorem'}
+									icon={icon}
 								>
 									<InputField
 										label='Title'
@@ -1509,6 +1518,21 @@ function App() {
 							);
 						}}
 					</Repeater>
+
+					<Spacer border />
+
+					{repeaterItems.map((item, index) => (
+						<InputField
+							label={`Title ${index}`}
+							key={index}
+							value={item.title}
+							onChange={(value) => {
+								const newItems = [...repeaterItems];
+								newItems[index].title = value;
+								setRepeaterItems(newItems);
+							}}
+						/>
+					))}
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Checkbox
