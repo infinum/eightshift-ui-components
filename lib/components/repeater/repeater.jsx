@@ -8,7 +8,7 @@ import { useId, useState } from 'react';
 import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { ToggleButton } from '../toggle-button/toggle-button';
-import { arrayMoveMultiple } from '../../utilities/array-helpers';
+import { arrayMoveMultiple } from '../../utilities';
 import { clsx } from 'clsx/lite';
 
 /**
@@ -105,8 +105,6 @@ export const Repeater = (props) => {
 	const onChange = (items) => {
 		const currentItems = [...items];
 		currentItems.forEach((item) => delete item.key);
-
-		console.log(items, currentItems);
 		rawOnChange(currentItems);
 	};
 
