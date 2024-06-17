@@ -13,10 +13,12 @@ import { icons } from '../../icons/icons';
  * @param {boolean} [props.noImage] - If `true`, the image within the placeholder will not be displayed, even if `url` is provided.
  * @param {string} [props.className] - Classes to pass to the component.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
+ * @param {ImagePlaceholderImageMode} [props.imageMode='cover'] - Determines inner image display mode.
  *
  * @returns {JSX.Element} The ImagePlaceholder component.
  *
- * @typedef {'default'|'simple'} ImagePlaceholderStyle
+ * @typedef {'default' | 'simple'} ImagePlaceholderStyle
+ * @typedef {'cover'|'contain' | 'fill'} ImagePlaceholderImageMode
  * @typedef @typedef {'auto' | 'default' | 'large' | 'fullWidth' | 'fullHeight' | 'full' | 'video'} ImagePlaceholderSize
  *
  * @example
@@ -25,7 +27,7 @@ import { icons } from '../../icons/icons';
  * @preserve
  */
 export const ImagePlaceholder = (props) => {
-	const { url, alt, style = 'default', size = 'default', noImage, className, hidden } = props;
+	const { url, alt, style = 'default', size = 'default', noImage, className, hidden, imageMode = 'cover' } = props;
 
 	if (hidden) {
 		return null;
@@ -60,7 +62,10 @@ export const ImagePlaceholder = (props) => {
 			{!noImage && (
 				<img
 					className={clsx(
-						'es-uic-size-full es-uic-select-none es-uic-object-cover es-uic-fill-mode-forwards',
+						'es-uic-size-full es-uic-select-none es-uic-fill-mode-forwards',
+						imageMode === 'cover' && 'es-uic-object-cover',
+						imageMode === 'contain' && 'es-uic-object-contain',
+						imageMode === 'fill' && 'es-uic-object-fill',
 						url?.length > 0
 							? 'es-uic-animate-in es-uic-fade-in-0 es-uic-zoom-in-95'
 							: 'es-uic-animate-out es-uic-fade-out-0 es-uic-zoom-out-95',
