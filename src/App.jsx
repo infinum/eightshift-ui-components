@@ -1458,6 +1458,57 @@ function App() {
 							);
 						}}
 					</Repeater>
+
+					<Repeater
+						items={repeaterItems}
+						onChange={setRepeaterItems}
+						itemLabelProp='title'
+						label='Hello'
+						addDefaultItem={{
+							title: 'Hello',
+						}}
+						onAfterItemAdd={(item) => console.log('Added', item)}
+						onAfterItemRemove={(items) => console.log('Removed', items)}
+					>
+						{(item) => {
+							const { title, subtitle, toggledThingy, link, updateData, itemIndex } = item;
+
+							return (
+								<RepeaterItem
+									label={title ?? 'New item'}
+									className={clsx(!title && '!es-uic-text-gray-400')}
+									subtitle={itemIndex % 2 === 0 && 'Lorem'}
+								>
+									<InputField
+										label='Title'
+										type='text'
+										value={title}
+										onChange={(value) => updateData({ title: value })}
+									/>
+									<InputField
+										label='Subtitle'
+										type='multiline'
+										value={subtitle}
+										onChange={(value) => updateData({ subtitle: value })}
+									/>
+
+									<Toggle
+										icon={icons.emptyCircle}
+										label='Toggle something'
+										checked={toggledThingy}
+										onChange={(value) => updateData({ toggledThingy: value })}
+									/>
+
+									<LinkInput
+										url={link}
+										help='Help, not sure how to input this'
+										onChange={({ url }) => updateData({ link: url })}
+										fetchSuggestions={getLinkData}
+									/>
+								</RepeaterItem>
+							);
+						}}
+					</Repeater>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
 					<Checkbox
