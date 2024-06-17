@@ -73,22 +73,25 @@ export const RepeaterItem = (props) => {
 						)}
 						{...rest}
 					>
-						{({ selectionMode, allowsDragging, isDragging }) => (
-							<Expandable
-								disabled={expandDisabled || selectionMode === 'multiple'}
-								icon={
-									<>
-										{selectionMode === 'multiple' && <Checkbox slot='selection' />}
-										{selectionMode === 'none' && icon}
-									</>
-								}
-								label={<div className='es-uic-flex es-uic-items-center es-uic-gap-1'>{label}</div>}
-								subtitle={subtitle}
-								labelClassName={className}
-								className={clsx(isDragging && 'es-uic-opacity-25')}
-								onOpenChange={(isOpen) => setCanReorder(!isOpen)}
-								actions={
-									<>
+						{({ selectionMode, allowsDragging, isDragging }) => {
+							let itemIcon = null;
+
+							if (selectionMode === 'multiple') {
+								itemIcon = <Checkbox slot='selection' />;
+							} else if (selectionMode === 'none') {
+								itemIcon = icon;
+							}
+
+							return (
+								<Expandable
+									disabled={expandDisabled || selectionMode === 'multiple'}
+									icon={itemIcon}
+									label={<div className='es-uic-flex es-uic-items-center es-uic-gap-1'>{label}</div>}
+									subtitle={subtitle}
+									labelClassName={className}
+									className={clsx(isDragging && 'es-uic-opacity-25')}
+									onOpenChange={(isOpen) => setCanReorder(!isOpen)}
+									actions={<>
 										{selectionMode === 'none' && allowsDragging && (
 											<Button
 												size='small'
@@ -96,19 +99,18 @@ export const RepeaterItem = (props) => {
 												slot='drag'
 												type='ghost'
 												icon={icons.reorderGrabberV}
-												tooltip={__('Re-order', 'eightshift-ui-components')}
-											/>
+												tooltip={__('Re-order', 'eightshift-ui-components')} />
 										)}
 
 										{actions}
-									</>
-								}
-								noFocusHandling
-								{...preventProps}
-							>
-								{children}
-							</Expandable>
-						)}
+									</>}
+									noFocusHandling
+									{...preventProps}
+								>
+									{children}
+								</Expandable>
+							);
+						}}
 					</GridListItem>
 				);
 			}}
