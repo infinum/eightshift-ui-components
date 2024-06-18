@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { Popover } from '../popover/popover';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
-import { camelCase, upperFirst } from '../../utilities/text-helpers';
+import { camelCase, upperFirst } from '../../utilities';
 import { clsx } from 'clsx/lite';
 
 import { Tooltip } from '../tooltip/tooltip';

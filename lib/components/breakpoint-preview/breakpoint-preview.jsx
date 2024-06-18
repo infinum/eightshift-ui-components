@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { clsx } from 'clsx/lite';
 
-import { upperFirst } from '../../utilities/text-helpers';
+import { upperFirst } from '../../utilities';
 
 /**
  * Component that renders a preview of the breakpoints to help users visualize the options they set.

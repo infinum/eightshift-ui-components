@@ -4,7 +4,7 @@ import { clsx } from 'clsx/lite';
 
 import { __, sprintf } from '@wordpress/i18n';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
-import { upperFirst } from '../../utilities/text-helpers';
+import { upperFirst } from '../../utilities';
 import { icons } from '../../icons/icons';
 import { Button } from '../button/button';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';

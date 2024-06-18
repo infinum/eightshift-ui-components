@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { upperFirst } from '../../utilities/text-helpers';
+import { upperFirst } from '../../utilities';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { icons } from '../../icons/icons';
 import { RichLabel } from '../rich-label/rich-label';
