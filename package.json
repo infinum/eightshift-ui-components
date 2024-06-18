@@ -19,6 +19,14 @@
 			"import": "./dist/index.js",
 			"require": "./dist/index.js"
 		},
+		"./dist/icons/index.js": {
+			"import": "./dist/icons/index.js",
+			"require": "./dist/icons/index.js"
+		},
+		"./dist/utilities/index.js": {
+			"import": "./dist/utilities/index.js",
+			"require": "./dist/utilities/index.js"
+		},
 		"./dist/assets/style.css": "./dist/assets/style.css",
 		"./dist/assets/fonts.css": "./dist/assets/fonts.css",
 		"./dist/assets/wp.css": "./dist/assets/wp.css"
