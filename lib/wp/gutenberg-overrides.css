@@ -21,7 +21,8 @@
 .editor-list-view-sidebar,
 .edit-post-layout__footer,
 .components-snackbar,
-.components-text-control__input {
+.components-text-control__input,
+body.wp-admin {
 	@apply es-uic-font-sans;
 }
 
