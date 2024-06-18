@@ -21,9 +21,12 @@
 .editor-list-view-sidebar,
 .edit-post-layout__footer,
 .components-snackbar,
-.components-text-control__input,
-body.wp-admin {
+.components-text-control__input {
 	@apply es-uic-font-sans;
+}
+
+body.wp-admin {
+	@apply !es-uic-font-sans;
 }
 
 /* Add rounded corners to make components look nicer and more uniform. */
@@ -31,7 +34,8 @@ body.wp-admin {
 .edit-post-header__settings .components-button,
 .edit-post-sidebar .components-button:not(.components-panel__body-toggle, .editor-post-last-revision__title),
 .components-snackbar,
-.components-toggle-group-control {
+.components-toggle-group-control,
+.editor-post-publish-panel .components-button {
 	@apply !es-uic-rounded-md;
 }
 
@@ -39,7 +43,8 @@ body.wp-admin {
 .components-combobox-control__suggestions-container,
 .components-checkbox-control__input,
 .components-tooltip,
-button.components-toggle-group-control-option-base {
+button.components-toggle-group-control-option-base,
+.editor-post-visibility__password-input {
 	@apply !es-uic-rounded;
 }
 
