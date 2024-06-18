@@ -6,9 +6,9 @@ import {
 } from 'react-aria-components';
 import { __, sprintf } from '@wordpress/i18n';
 import { clsx } from 'clsx/lite';
-
 import { cloneElement, useId } from 'react';
 import { Notice } from '../notice/notice';
+import { RichLabel } from '../rich-label/rich-label';
 
 /**
  * Main tab container.
@@ -171,6 +171,9 @@ TabList.displayName = 'TabList';
  * @param {Object} props - Component props.
  * @param {boolean} [props.disabled] - Whether the tab is disabled.
  * @param {string} [props.className] - Classes to pass to the tab.
+ * @param {JSX.Element} [props.icon] - Icon to show on the tab.
+ * @param {string} [props.label] - Tab label. **Note**: overrides inner items!
+ * @param {string} [props.subtitle] - Tab subtitle. **Note**: overrides inner items!
  *
  * @returns {JSX.Element} The Tab component.
  *
@@ -179,7 +182,7 @@ TabList.displayName = 'TabList';
  * @preserve
  */
 export const Tab = (props) => {
-	const { children, disabled, isParentVertical, className, ...other } = props;
+	const { children, disabled, isParentVertical, className, icon, label, subtitle, ...other } = props;
 	return (
 		<ReactAriaTab
 			{...other}
@@ -203,7 +206,22 @@ export const Tab = (props) => {
 				);
 			}}
 		>
-			{children}
+			{!label && children}
+			{!label && !icon && children}
+			{!label && icon && children && (
+				<RichLabel
+					icon={icon}
+					label={children}
+				/>
+			)}
+			{!icon && !subtitle && label}
+			{(icon || subtitle) && label && (
+				<RichLabel
+					icon={icon}
+					label={label}
+					subtitle={subtitle}
+				/>
+			)}
 		</ReactAriaTab>
 	);
 };
