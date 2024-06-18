@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import {
 	Toggle,
-	icons,
 	AnimatedVisibility,
 	Spacer,
 	Expandable,
@@ -63,7 +62,10 @@ import {
 	DraggableList,
 	DraggableListItem,
 	RichLabel,
+	OptionsPanel,
+	OptionsPanelSection,
 } from '../lib';
+import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
 import '../lib/fonts/fonts.css';
 
@@ -592,7 +594,7 @@ function App() {
 
 			<Tabs
 				vertical
-				className='es-uic-h-[90vh] es-uic-max-w-screen-sm es-uic-overflow-y-auto es-uic-rounded-lg es-uic-bg-white es-uic-shadow-sm'
+				className='es-uic-h-[90vh] es-uic-w-fit es-uic-overflow-y-auto es-uic-rounded-lg es-uic-bg-white es-uic-shadow-sm'
 			>
 				<TabList className='es-uic-sticky es-uic-top-0 es-uic-self-start es-uic-border-r-0 es-uic-p-5'>
 					<Tab>Toggle / Switch</Tab>
@@ -628,8 +630,9 @@ function App() {
 					<Tab>Layout components</Tab>
 					<Tab>ImagePlaceholder / MediaPlaceholder / FilePlaceholder</Tab>
 					<Tab>DraggableList</Tab>
+					<Tab>OptionsPanel</Tab>
 				</TabList>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Toggle
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
@@ -652,7 +655,7 @@ function App() {
 						isIndeterminate={toggled2 === null}
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Spacer
 						size='s'
 						className='es-uic-bg-violet-50'
@@ -688,7 +691,7 @@ function App() {
 						border
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<div className='es-uic-flex es-uic-min-h-56 es-uic-flex-col es-uic-gap-2 es-uic-rounded-md es-uic-border es-uic-border-dotted es-uic-border-gray-300 es-uic-p-2'>
 						<ToggleButton
 							className='mx-auto'
@@ -708,7 +711,7 @@ function App() {
 						</AnimatedVisibility>
 					</div>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Expandable
 						icon={icons.experiment}
 						label='Lorem ipsum dolor'
@@ -739,7 +742,7 @@ function App() {
 						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>lorem</div>
 					</Expandable>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<LinkInput
 						url={linkTxt}
 						help='Help, not sure how to input this'
@@ -747,7 +750,7 @@ function App() {
 						fetchSuggestions={getLinkData}
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Notice
 						label='Lorem ipsum dolor'
 						subtitle='Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
@@ -796,10 +799,10 @@ function App() {
 						type='placeholder'
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<TriggeredPopover className='es-uic-bg-purple-50 es-uic-p-5'>Hello</TriggeredPopover>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Button>Hello</Button>
 
 					<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>
@@ -890,7 +893,7 @@ function App() {
 						vertical
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<MatrixAlign
 						value={matrixVal}
 						onChange={(value) => setMatrixVal(value)}
@@ -904,7 +907,7 @@ function App() {
 						label='Position'
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Menu
 						aria-label='Bok i tebi'
 						keepOpen
@@ -997,7 +1000,7 @@ function App() {
 						<Button>Hover me</Button>
 					</Tooltip>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<NumberPicker
 						label='Pick a number'
 						value={num}
@@ -1076,7 +1079,7 @@ function App() {
 						/>
 					</NumberPicker>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Responsive
 						icon={icons.emptyRect}
 						label='Font family'
@@ -1117,7 +1120,7 @@ function App() {
 
 					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(resp, null, 2)}</pre>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<BaseControl>
 						<Button>Hi</Button>
 					</BaseControl>
@@ -1166,7 +1169,7 @@ function App() {
 						<Button>Hi</Button>
 					</BaseControl>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
@@ -1314,7 +1317,7 @@ function App() {
 						icon={icons.group}
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Tabs>
 						<TabList></TabList>
 						<TabPanel>Abc</TabPanel>
@@ -1331,7 +1334,7 @@ function App() {
 						<TabPanel>Alea jacta est.</TabPanel>
 					</Tabs>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<InputField
 						value={txt1}
 						onChange={setTxt1}
@@ -1346,7 +1349,7 @@ function App() {
 						label='Lorem'
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<ComponentToggle
 						icon={icons.paragraph}
 						label='Paragraph'
@@ -1388,7 +1391,7 @@ function App() {
 						</div>
 					</ComponentToggle>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<ListBox
 						icon={icons.emptyRect}
 						label='Font family'
@@ -1415,7 +1418,7 @@ function App() {
 						orientation='horizontal-tiles'
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Repeater
 						items={repeaterItems}
 						onChange={setRepeaterItems}
@@ -1534,7 +1537,7 @@ function App() {
 						/>
 					))}
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Checkbox
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
@@ -1572,7 +1575,7 @@ function App() {
 						Hello
 					</Checkbox>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<RadioButtonGroup
 						label='Hello'
 						value={radioValue}
@@ -1720,7 +1723,7 @@ function App() {
 						itemProps={{ alignEnd: true }}
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Slider
 						label='Slider'
 						value={sliderValue}
@@ -1954,7 +1957,7 @@ function App() {
 						markers
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<SolidColorPicker
 						value={currColor}
 						onChange={setCurrColor}
@@ -1992,7 +1995,7 @@ function App() {
 						disabled
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<GradientEditor
 						value={grad}
 						onChange={setGrad}
@@ -2002,7 +2005,7 @@ function App() {
 						{grad}
 					</code>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<ColorSwatch color='red' />
 					<ColorSwatch color='transparent' />
 					<ColorSwatch color='#4433EE80' />
@@ -2020,7 +2023,7 @@ function App() {
 						colorName='Conic gradient'
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<ColorPicker
 						value={color1}
 						onChange={setColor1}
@@ -2072,7 +2075,7 @@ function App() {
 						showColorCode
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<ResponsiveLegacy
 						icon={icons.help}
 						label='Lorem or ipsum?'
@@ -2181,7 +2184,7 @@ function App() {
 
 					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(responsiveState3, null, 2)}</pre>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<ColumnConfigSlider
 						icon={icons.columns}
 						label='Column configuration'
@@ -2242,7 +2245,7 @@ function App() {
 					/>
 				</TabPanel>
 
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<ContainerPanel>
 						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
 					</ContainerPanel>
@@ -2265,7 +2268,7 @@ function App() {
 						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
 					</ContainerPanel>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<HStack className='es-uic-max-w-72'>
 						<Button icon={icons.emptyCircle} />
 						<Button icon={icons.emptyCircle} />
@@ -2320,7 +2323,7 @@ function App() {
 						<Button icon={icons.emptyCircle} />
 					</VStack>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<ImagePlaceholder />
 					<ImagePlaceholder url='https://picsum.photos/200' />
 
@@ -2393,7 +2396,7 @@ function App() {
 						}
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<DraggableList
 						label='My draggable list'
 						items={draggableListItems}
@@ -2416,6 +2419,103 @@ function App() {
 							);
 						}}
 					</DraggableList>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-w-[50rem] es-uic-space-y-4 !es-uic-p-5'>
+					<OptionsPanel>
+						<OptionsPanelSection>
+							<Select
+								icon={icons.emptyCircle}
+								label='Pick an item'
+								onChange={(v) => setV(v)}
+								value={v}
+								options={data}
+							/>
+						</OptionsPanelSection>
+					</OptionsPanel>
+
+					<OptionsPanel title='Header & footer'>
+						<OptionsPanelSection>
+							<Select
+								icon={icons.emptyCircle}
+								label='Pick an item'
+								onChange={(v) => setV(v)}
+								value={v}
+								options={data}
+							/>
+						</OptionsPanelSection>
+					</OptionsPanel>
+
+					<OptionsPanel
+						title='Header & footer'
+						help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
+					>
+						<OptionsPanelSection>
+							<Select
+								icon={icons.emptyCircle}
+								label='Pick an item'
+								onChange={(v) => setV(v)}
+								value={v}
+								options={data}
+							/>
+						</OptionsPanelSection>
+					</OptionsPanel>
+
+					<OptionsPanel
+						title='Header & footer'
+						help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
+					>
+						<OptionsPanelSection>
+							<Select
+								icon={icons.emptyCircle}
+								label='Pick an item'
+								onChange={(v) => setV(v)}
+								value={v}
+								options={data}
+							/>
+						</OptionsPanelSection>
+						<OptionsPanelSection>
+							<Select
+								icon={icons.emptyCircle}
+								label='Pick an item'
+								onChange={(v) => setV(v)}
+								value={v}
+								options={data}
+							/>
+						</OptionsPanelSection>
+					</OptionsPanel>
+
+					<OptionsPanel
+						title='Header & footer'
+						help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
+					>
+						<OptionsPanelSection>
+							<Select
+								icon={icons.emptyCircle}
+								label='Pick an item'
+								onChange={(v) => setV(v)}
+								value={v}
+								options={data}
+							/>
+						</OptionsPanelSection>
+						<OptionsPanelSection>
+							<Select
+								icon={icons.emptyCircle}
+								label='Pick an item'
+								onChange={(v) => setV(v)}
+								value={v}
+								options={data}
+							/>
+						</OptionsPanelSection>
+						<OptionsPanelSection>
+							<Select
+								icon={icons.emptyCircle}
+								label='Pick an item'
+								onChange={(v) => setV(v)}
+								value={v}
+								options={data}
+							/>
+						</OptionsPanelSection>
+					</OptionsPanel>
 				</TabPanel>
 			</Tabs>
 		</div>

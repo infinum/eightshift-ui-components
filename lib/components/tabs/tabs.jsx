@@ -149,9 +149,9 @@ export const TabList = (props) => {
 			aria-label={ariaLabel ?? __('tabs', 'eightshift-ui-components')}
 			className={({ orientation }) =>
 				clsx(
-					'es-uic-flex es-uic-gap-1',
-					orientation === 'vertical' && 'es-uic-h-full es-uic-flex-col es-uic-pr-1.5',
-					orientation === 'horizontal' && 'es-uic-w-full es-uic-items-end es-uic-border-b es-uic-border-b-gray-300',
+					'es-uic-flex',
+					orientation === 'vertical' && 'es-uic-gap-px es-uic-h-full es-uic-flex-col es-uic-pr-1.5',
+					orientation === 'horizontal' && 'es-uic-gap-1 es-uic-w-full es-uic-items-end es-uic-border-b es-uic-border-b-gray-300',
 					className,
 				)
 			}
@@ -201,27 +201,20 @@ export const Tab = (props) => {
 					!isSelected && !isDisabled && !isParentVertical && 'after:es-uic-scale-x-75',
 					isDisabled && 'es-uic-text-gray-300 after:es-uic-hidden',
 					isParentVertical &&
-						'es-uic-pl-3 after:es-uic-inset-y-0 after:es-uic-left-px after:es-uic-right-auto after:es-uic-my-auto after:es-uic-h-7 after:es-uic-w-[0.1875rem]',
+						'es-uic-min-h-9 es-uic-pl-3 after:es-uic-inset-y-0 after:es-uic-left-px after:es-uic-right-auto after:es-uic-my-auto after:es-uic-h-7 after:es-uic-w-[0.1875rem]',
 					className,
 				);
 			}}
 		>
-			{!label && children}
-			{!label && !icon && children}
-			{!label && icon && children && (
+			{(icon || subtitle) && (
 				<RichLabel
 					icon={icon}
-					label={children}
-				/>
-			)}
-			{!icon && !subtitle && label}
-			{(icon || subtitle) && label && (
-				<RichLabel
-					icon={icon}
-					label={label}
+					label={label ?? children}
 					subtitle={subtitle}
 				/>
 			)}
+
+			{!(icon || subtitle) && (label ?? children)}
 		</ReactAriaTab>
 	);
 };
