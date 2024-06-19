@@ -88,7 +88,7 @@ export const ContainerPanel = (props) => {
 				</>
 			}
 			className={clsx(
-				'es-uic-border-t es-uic-border-t-gray-200',
+				'es-uic-border-t es-uic-border-t-gray-200 es-uic-space-y-2',
 				closable && open && 'es-uic-space-y-0',
 				justClosable && open && 'es-uic-pb-4',
 				justUse && use && 'es-uic-pb-4',
