@@ -1,7 +1,7 @@
 import { icons } from '../../icons/icons';
 import { BaseControl } from '../base-control/base-control';
 import { ButtonGroup } from '../button/button';
-import { Menu, MenuItem } from '../menu/menu';
+import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
 import { RadioButton, RadioButtonGroup } from '../radio/radio';
 import { RichLabel } from '../rich-label/rich-label';
 import { ToggleButton } from '../toggle-button/toggle-button';
@@ -196,25 +196,32 @@ export const OptionSelect = (props) => {
 							icon: optionIcon,
 							ariaLabel: optionAriaLabel,
 							subtitle: optionSubtitle,
+							separator: optionHasSeparator,
+							sectionTitle: optionSectionTitle,
 						}) => (
-							<MenuItem
-								key={optionValue}
-								selected={value === optionValue}
-								disabled={disabled}
-								className={itemClassName}
-								icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
-								aria-label={optionAriaLabel ?? optionLabel}
-								onClick={() => onChange(optionValue)}
-								{...itemProps}
-							>
-								{!noItemLabel && !optionSubtitle && optionLabel}
-								{!noItemLabel && optionSubtitle && (
-									<RichLabel
-										label={optionLabel}
-										subtitle={optionSubtitle}
-									/>
-								)}
-							</MenuItem>
+							<>
+								{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
+								{optionSectionTitle && <MenuItem disabled>{optionSectionTitle}</MenuItem>}
+								<MenuItem
+									key={optionValue}
+									selected={value === optionValue}
+									disabled={disabled}
+									className={itemClassName}
+									icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
+									aria-label={optionAriaLabel ?? optionLabel}
+									onClick={() => onChange(optionValue)}
+									{...itemProps}
+								>
+									{!noItemLabel && !optionSubtitle && optionLabel}
+									{!noItemLabel && optionSubtitle && (
+										<RichLabel
+											label={optionLabel}
+											subtitle={optionSubtitle}
+										/>
+									)}
+								</MenuItem>
+								{optionHasSeparator === 'below' && <MenuSeparator />}
+							</>
 						),
 					)}
 					{children}
