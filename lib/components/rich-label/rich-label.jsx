@@ -41,7 +41,7 @@ export const RichLabel = (props) => {
 				{label && <span className={clsx('es-uic-text-balance', !noColor && 'es-uic-text-gray-800')}>{label}</span>}
 				{subtitle && (
 					<span
-						className={clsx('es-uic-text-balance es-uic-text-xs es-uic-opacity-60', !noColor && 'es-uic-text-gray-800')}
+						className={clsx('es-uic-text-balance es-uic-text-xs es-uic-opacity-65', !noColor && 'es-uic-text-gray-800')}
 					>
 						{subtitle}
 					</span>
@@ -64,7 +64,7 @@ export const RichLabel = (props) => {
 			{(label || subtitle) && (
 				<div className='es-uic-flex es-uic-flex-col es-uic-items-start es-uic-text-balance es-uic-text-start'>
 					{label && <span>{label}</span>}
-					{subtitle && <span className='es-uic-text-xs es-uic-opacity-60'>{subtitle}</span>}
+					{subtitle && <span className='es-uic-text-xs es-uic-opacity-65'>{subtitle}</span>}
 				</div>
 			)}
 		</ComponentToRender>

@@ -138,7 +138,6 @@ export const ListBox = (props) => {
 									isSelected &&
 										!disabled &&
 										'es-uic-bg-teal-600 es-uic-text-white es-uic-border-teal-600 after:es-uic-opacity-45 es-uic-border es-uic-shadow-md es-uic-shadow-teal-500/25',
-										isSelected && !disabled && 'es-uic-text-white [&_svg]:es-uic-text-white [&_span]:es-uic-text-white [&_span_+_span]:es-uic-text-white/80',
 										isSelected && !disabled && 'es-uic-relative es-uic-isolate after:es-uic-absolute after:es-uic-inset-0 after:-es-uic-z-10 after:es-uic-rounded-[0.3125rem] after:es-uic-bg-gradient-to-br after:es-uic-from-teal-100/40 after:es-uic-via-transparent after:es-uic-to-teal-200/50 after:es-uic-opacity-0 after:es-uic-transition-opacity after:es-uic-content-[""]',
 									!isSelected && !disabled && 'es-uic-border-transparent hover:es-uic-bg-gray-100',
 									isDisabled && 'es-uic-border-transparent es-uic-opacity-30 es-uic-grayscale',
@@ -156,6 +155,7 @@ export const ListBox = (props) => {
 								subtitle={subtitle}
 								className={clsx(orientation === 'horizontal' && 'leading-none')}
 								contentsOnly={orientation === 'horizontal-tiles'}
+								noColor
 							/>
 						</ReactAriaListBoxItem>
 					);
