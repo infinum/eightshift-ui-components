@@ -210,10 +210,12 @@ export const OptionSelect = (props) => {
 							label: optionLabel,
 							value: optionValue,
 							icon: optionIcon,
+							endIcon: optionEndIcon,
 							ariaLabel: optionAriaLabel,
 							subtitle: optionSubtitle,
 							separator: optionHasSeparator,
 							sectionTitle: optionSectionTitle,
+							shortcut: optionShortcut,
 						}) => (
 							<Fragment key={optionValue}>
 								{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
@@ -223,8 +225,10 @@ export const OptionSelect = (props) => {
 									disabled={disabled}
 									className={itemClassName}
 									icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
+									endIcon={!noItemIcon && (typeof optionEndIcon === 'string' ? icons?.[optionEndIcon] : optionEndIcon)}
 									aria-label={optionAriaLabel ?? optionLabel}
 									onClick={() => onChange(optionValue)}
+									shortcut={optionShortcut}
 									{...itemProps}
 								>
 									{!noItemLabel && !optionSubtitle && optionLabel}
