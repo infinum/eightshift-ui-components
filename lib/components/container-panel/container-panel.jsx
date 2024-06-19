@@ -100,6 +100,7 @@ export const ContainerPanel = (props) => {
 			labelContainerClassName={clsx(
 				(closable || onUseChange) && 'es-uic-pl-4 es-uic-pr-3 es-uic-min-h-12',
 				!(closable || onUseChange) && 'es-uic-mt-3',
+				'!es-uic-pb-0',
 			)}
 			controlContainerClassName='es-uic-px-4'
 			labelClassName='!es-uic-text-gray-500'
