@@ -985,6 +985,71 @@ function App() {
 							{ label: 'Medium', value: 1, icon: icons.medium },
 							{ label: 'Large', value: 2, icon: icons.large },
 						]}
+						tooltip='Size'
+					/>
+
+					<OptionSelect
+						type='menu'
+						value={loremIpsum}
+						onChange={(v) => setLoremIpsum(v)}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+						noTriggerIcon
+						tooltip='Size'
+					/>
+
+					<OptionSelect
+						type='menu'
+						value={loremIpsum}
+						onChange={(v) => setLoremIpsum(v)}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+						noTriggerLabel
+						tooltip='Size'
+					/>
+
+					<OptionSelect
+						type='menu'
+						value={loremIpsum}
+						onChange={(v) => setLoremIpsum(v)}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+						label='Size'
+					/>
+
+					<OptionSelect
+						type='menu'
+						value={loremIpsum}
+						onChange={(v) => setLoremIpsum(v)}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+						noTriggerIcon
+						label='Size'
+					/>
+
+					<OptionSelect
+						type='menu'
+						value={loremIpsum}
+						onChange={(v) => setLoremIpsum(v)}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+						noTriggerLabel
+						label='Size'
 					/>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-flex es-uic-flex-col es-uic-items-center es-uic-space-y-4 !es-uic-p-5'>

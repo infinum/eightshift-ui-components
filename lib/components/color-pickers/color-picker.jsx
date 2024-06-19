@@ -28,6 +28,7 @@ import { icons } from '../../icons/icons';
  * @param {boolean} [props.clearable] - If `true`, the color can be deselected.
  * @param {boolean} [props.stacked] - If `true`, the control is not rendered inline.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
+ * @param {string} [props.tooltip] - If provided, overrides the default tooltip text. If there is no label, the value will still be shown within the tooltip.
  *
  * @returns {JSX.Element} The ColorPicker component.
  *
@@ -71,6 +72,8 @@ export const ColorPicker = (props) => {
 		clearable,
 
 		hidden,
+
+		tooltip,
 
 		...rest
 	} = props;
@@ -173,6 +176,28 @@ export const ColorPicker = (props) => {
 		menuTriggerIcon = icons.colorPickerListMarker;
 	}
 
+	const currentColorName = colors?.find((color) => color?.slug === value)?.name;
+
+	if (!label && tooltipText) {
+		tooltipText = (
+			<RichLabel
+				label={tooltipText}
+				subtitle={currentColorName}
+				noColor
+			/>
+		);
+	} else if (!label && tooltip) {
+		tooltipText = (
+			<RichLabel
+				label={tooltip}
+				subtitle={currentColorName}
+				noColor
+			/>
+		);
+	} else if (label) {
+		tooltipText = currentColorName;
+	}
+
 	return (
 		<BaseControl
 			icon={icon}
@@ -202,10 +227,10 @@ export const ColorPicker = (props) => {
 					</>
 				}
 				keepOpen
-				tooltip={!label && tooltipText}
+				tooltip={tooltipText}
 				triggerProps={{
 					...rest.triggerProps,
-					'aria-label': !label && props?.['aria-label'],
+					'aria-label': typeof label !== 'undefined' ? null : props?.['aria-label'],
 				}}
 				{...rest}
 			>

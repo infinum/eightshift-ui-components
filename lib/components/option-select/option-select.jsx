@@ -30,6 +30,7 @@ import { ToggleButton } from '../toggle-button/toggle-button';
  * @param {Object} [props.itemProps] - Props to pass to each item.
  * @param {boolean} [props.noTriggerLabel] - Whether the trigger label should be hidden. Applies only to the `menu` type.
  * @param {boolean} [props.noTriggerIcon] - Whether the trigger icon should be hidden. Applies only to the `menu` type.
+ * @param {string} [props.tooltip] - If provided, overrides the default tooltip text. If there is no label, the value will still be shown within the tooltip. Applies only to the `menu` type.
  * @param {boolean} [props.noItemLabel] - Whether the option label should be hidden.
  * @param {boolean} [props.noItemIcon] - Whether the option icon should be hidden.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
@@ -79,6 +80,7 @@ export const OptionSelect = (props) => {
 
 		noTriggerLabel,
 		noTriggerIcon,
+		tooltip,
 
 		noItemLabel,
 		noItemIcon,
@@ -110,7 +112,7 @@ export const OptionSelect = (props) => {
 			{type === 'toggleButtons' && (
 				<ButtonGroup
 					vertical={vertical}
-					aria-label={!label && props?.['aria-label']}
+					aria-label={typeof label !== 'undefined' ? null : props?.['aria-label']}
 					{...wrapperProps}
 				>
 					{options.map(
@@ -151,7 +153,7 @@ export const OptionSelect = (props) => {
 					orientation={vertical ? 'vertical' : 'horizontal'}
 					onChange={(v) => onChange(v)}
 					design={type === 'radios' ? 'default' : 'segmented'}
-					aria-label={!label && props?.['aria-label']}
+					aria-label={typeof label !== 'undefined' ? null : props?.['aria-label']}
 					value={value}
 					{...wrapperProps}
 				>
@@ -185,10 +187,20 @@ export const OptionSelect = (props) => {
 					triggerIcon={
 						!noTriggerIcon && (typeof currentItem?.icon === 'string' ? icons?.[currentItem?.icon] : currentItem?.icon)
 					}
-					tooltip={noTriggerLabel && (currentItem?.tooltip ?? currentItem?.label)}
+					tooltip={
+						noTriggerLabel ? (
+							<RichLabel
+								label={tooltip ? tooltip : currentItem?.tooltip ?? currentItem?.label}
+								subtitle={tooltip && (currentItem?.tooltip ?? currentItem?.label)}
+								noColor
+							/>
+						) : (
+							tooltip
+						)
+					}
 					triggerProps={{
 						...wrapperProps?.triggerProps,
-						'aria-label': !label && props?.['aria-label'],
+						'aria-label': typeof label !== 'undefined' ? null : props?.['aria-label'],
 					}}
 					keepOpen
 					{...wrapperProps}
