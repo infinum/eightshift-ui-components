@@ -16,6 +16,8 @@ import { RichLabel } from '../rich-label/rich-label';
  * @param {boolean} [props.inline] - If `true`, the component is displayed inline - icon/label/subtitle are on the left, the passed content is on the right. **Note:** not compatible with `actions`.
  * @param {string} [props.className] - Classes to pass to the main element wrapper.
  * @param {string} [props.controlContainerClassName] - Classes to pass to the control container.
+ * @param {string} [props.labelContainerClassName] - Classes to pass to the label container.
+ * @param {string} [props.labelClassName] - Classes to pass to the label.
  * @param {boolean} [props.fullWidthLabel] - If `true`, the label expands to fill up the whole width, instead of taking up only the space it needs.
  * @param {JSX.Element} [props.labelAs] - If provided, the label (includes icon and subtitle) will be rendered as this element.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
@@ -45,6 +47,8 @@ export const BaseControl = (props) => {
 
 		className,
 		controlContainerClassName,
+		labelContainerClassName,
+		labelClassName,
 
 		fullWidthLabel,
 
@@ -63,7 +67,7 @@ export const BaseControl = (props) => {
 
 	return (
 		<div className={clsx('es-uic-space-y-1', className)}>
-			<div className={clsx('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && !icon && 'es-uic-pb-0.5')}>
+			<div className={clsx('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && !icon && 'es-uic-pb-0.5', labelContainerClassName)}>
 				{(label || icon || subtitle) && (
 					<RichLabel
 						icon={icon}
@@ -71,6 +75,7 @@ export const BaseControl = (props) => {
 						subtitle={subtitle}
 						fullWidth={fullWidthLabel}
 						as={labelAs}
+						className={labelClassName}
 					/>
 				)}
 

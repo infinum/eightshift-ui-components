@@ -2245,7 +2245,7 @@ function App() {
 					/>
 				</TabPanel>
 
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-0 !es-uic-p-5'>
 					<ContainerPanel>
 						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
 					</ContainerPanel>
@@ -2256,16 +2256,63 @@ function App() {
 
 					<ContainerPanel
 						title='Component name'
-						withToggle
+						closable
 					>
 						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
 					</ContainerPanel>
 
 					<ContainerPanel
 						title='Component name'
-						closeable
+						closable
+						use={toggled}
+						onUseChange={setToggled}
 					>
 						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
+					</ContainerPanel>
+
+					<ContainerPanel
+						title='Component name'
+						use={toggled}
+						onUseChange={setToggled}
+					>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
+					</ContainerPanel>
+
+					<ContainerPanel>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
+					</ContainerPanel>
+
+					<ContainerPanel title='Component name'>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
+					</ContainerPanel>
+
+					<ContainerPanel
+						title='Component name'
+						closable
+					>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
+					</ContainerPanel>
+
+					<ContainerPanel
+						title='Component name'
+						closable
+						use={toggled}
+						onUseChange={setToggled}
+					>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
+					</ContainerPanel>
+
+					<ContainerPanel
+						title='Component name'
+						use={toggled}
+						onUseChange={setToggled}
+					>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
 					</ContainerPanel>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>

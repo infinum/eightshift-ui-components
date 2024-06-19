@@ -4,7 +4,8 @@ import { Switch } from '../toggle/switch';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
-import { RichLabel } from '../rich-label/rich-label';
+import { HStack } from '../layout/hstack';
+import { BaseControl } from '../base-control/base-control';
 
 /**
  * Component that provides a container panel for options, with an optional title.
@@ -17,9 +18,11 @@ import { RichLabel } from '../rich-label/rich-label';
  * @param {string} [props.title] - Title to display on the top of the panel.
  * @param {JSX.Element} [props.icon] - Icon to display on the top of the panel.
  * @param {string} [props.subtitle] - Subtitle to display on the top of the panel.
- * @param {boolean} [props.withToggle] - If `true`, the panel will have a toggle button to control the visibility of child items. Will not show if `title` is not set.
- * @param {boolean} [props.closeable] - If `true`, the panel will have a close button to control the visibility of child items. Will not show if `title` is not set.
- * @param {boolean} [props.startOpen] - If `true`, and panel has either a toggle or a close button, the panel will be open by default.
+ * @param {boolean} [props.use] - Controls the panel use toggle.
+ * @param {Function} [props.onUseChange] - Function to call when the use toggle is toggled. `(value: boolean) => void`.
+ * @param {boolean} [props.closable] - If `true`, the panel can be closed. Will not show if `title` is not set.
+ * @param {boolean} [props.startOpen=false] - Controls whether the panel is open by default.
+ * @param {JSX.Element} [props.actions] - Actions to show at the end
  *
  * @returns {JSX.Element} The ContainerPanel component.
  *
@@ -31,55 +34,90 @@ import { RichLabel } from '../rich-label/rich-label';
  * @preserve
  */
 export const ContainerPanel = (props) => {
-	const { children, className, title, icon, subtitle, withToggle, closeable, startOpen = false } = props;
+	const { children, className, title, icon, subtitle, use, onUseChange, closable, startOpen = false, actions } = props;
 
 	const [open, setOpen] = useState(startOpen);
 
+	if (!title) {
+		return <div className='es-uic-space-y-1 es-uic-border-t es-uic-border-t-gray-200 es-uic-p-4'>{children}</div>;
+	}
+
+	const justUse = !closable && typeof onUseChange !== 'undefined';
+	const justClosable = closable && typeof onUseChange === 'undefined';
+	const useAndClosable = closable && typeof onUseChange !== 'undefined';
+
 	return (
-		<div
+		<BaseControl
+			icon={icon}
+			label={title}
+			subtitle={subtitle}
+			actions={
+				<>
+					{actions}
+					<HStack
+						hidden={!closable && !onUseChange}
+						className='es-uic-ml-auto'
+					>
+						{onUseChange && (
+							<Switch
+								checked={use}
+								onChange={(value) => {
+									if (!value) {
+										setOpen(false);
+									}
+
+									onUseChange(value);
+								}}
+							/>
+						)}
+
+						{closable && (
+							<Button
+								onPress={() => setOpen(!open)}
+								icon={open ? icons.caretDownFill : icons.caretDown}
+								type='ghost'
+								size='small'
+								className={clsx(
+									'[&>svg]:es-uic-size-5 [&>svg]:es-uic-transition-transform',
+									open && '[&>svg]:-es-uic-scale-y-100',
+								)}
+								disabled={typeof use !== 'undefined' && !use}
+							/>
+						)}
+					</HStack>
+				</>
+			}
 			className={clsx(
-				'es-uic-space-y-2.5 es-uic-border-t es-uic-border-t-gray-200 es-uic-px-4',
-				!(withToggle || closeable) && 'es-uic-py-4',
-				(withToggle || closeable) && !open && 'es-uic-py-2.5',
-				(withToggle || closeable) && open && 'es-uic-pb-4 es-uic-pt-2.5',
+				'es-uic-border-t es-uic-border-t-gray-200',
+				closable && open && 'es-uic-space-y-0',
+				justClosable && open && 'es-uic-pb-4',
+				justUse && use && 'es-uic-pb-4',
+				useAndClosable && use && open && 'es-uic-pb-4',
+				!justClosable && !justUse && !useAndClosable && 'es-uic-pb-4',
+				!closable && !onUseChange && 'es-uic-px-4',
 				className,
 			)}
+			labelContainerClassName={clsx('es-uic-min-h-10', (closable || onUseChange) && 'es-uic-pl-4 es-uic-pr-3')}
+			controlContainerClassName='es-uic-px-4'
+			labelClassName='!es-uic-text-gray-500'
 		>
-			{title && (
-				<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>
-					<RichLabel
-						icon={icon}
-						label={title}
-						subtitle={subtitle}
-						className='es-uic-select-none es-uic-text-[0.8125rem] es-uic-font-medium !es-uic-text-gray-500'
-					/>
-
-					{(withToggle || closeable) && (
-						<div className='es-uic-ml-auto'>
-							{withToggle && (
-								<Switch
-									checked={open}
-									onChange={setOpen}
-								/>
-							)}
-							{closeable && (
-								<Button
-									onPress={() => setOpen(!open)}
-									icon={open ? icons.caretDownFill : icons.caretDown}
-									type='ghost'
-									size='small'
-									className={clsx(
-										'[&>svg]:es-uic-size-5 [&>svg]:es-uic-transition-transform',
-										open && '[&>svg]:-es-uic-scale-y-100',
-									)}
-								/>
-							)}
-						</div>
-					)}
-				</div>
+			{!closable && !onUseChange && children}
+			{closable && typeof use === 'undefined' && (
+				<AnimatedVisibility
+					visible={open}
+					className={clsx(open && 'es-uic-space-y-1 es-uic-px-4')}
+				>
+					{children}
+				</AnimatedVisibility>
 			)}
-			{!(withToggle || closeable) && children}
-			{(withToggle || closeable) && <AnimatedVisibility visible={open}>{children}</AnimatedVisibility>}
-		</div>
+			{typeof use !== 'undefined' && (
+				<AnimatedVisibility
+					visible={closable ? use && open : use}
+					className={clsx((closable ? use && open : use) && 'es-uic-space-y-1 es-uic-px-4')}
+				>
+					{children}
+				</AnimatedVisibility>
+			)}
+		</BaseControl>
 	);
 };
