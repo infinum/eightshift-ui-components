@@ -186,7 +186,10 @@ export const OptionSelect = (props) => {
 						!noTriggerIcon && (typeof currentItem?.icon === 'string' ? icons?.[currentItem?.icon] : currentItem?.icon)
 					}
 					tooltip={noTriggerLabel && (currentItem?.tooltip ?? currentItem?.label)}
-					aria-label={props?.['aria-label'] ?? label}
+					triggerProps={{
+						...wrapperProps?.triggerProps,
+						'aria-label': props?.['aria-label'] ?? label,
+					}}
 					keepOpen
 					{...wrapperProps}
 				>
