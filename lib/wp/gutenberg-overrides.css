@@ -52,7 +52,6 @@ button.components-toggle-group-control-option-base,
 	@apply first:!es-uic-rounded-l-md last:!es-uic-rounded-r-md;
 }
 
-
 .components-popover__content {
 	@apply !es-uic-rounded-lg;
 }
@@ -116,4 +115,13 @@ button.components-toggle-group-control-option-base,
 /* Round off block icon in sidebar. */
 .block-editor-block-inspector .block-editor-block-card .block-editor-block-icon {
 	@apply !es-uic-rounded;
+}
+
+/* Tweak default inserter position and spacing. */
+.block-list-appender.wp-block > .block-editor-default-block-appender {
+	@apply es-uic-w-fit;
+
+	.block-editor-inserter__toggle {
+		@apply !es-uic-size-9 !es-uic-rounded-md;
+	}
 }
