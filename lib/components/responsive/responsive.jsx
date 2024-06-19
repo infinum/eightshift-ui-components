@@ -251,6 +251,7 @@ export const Responsive = (props) => {
 						/>
 
 						<Menu
+							aria-label={__('Responsive options', 'eightshift-ui-components')}
 							tooltip={__('Responsive options', 'eightshift-ui-components')}
 							popoverProps={{ placement: 'bottom right' }}
 							triggerProps={{ className: 'es-uic-w-5.5 es-uic-stroke-[1.25]' }}

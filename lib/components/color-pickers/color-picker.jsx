@@ -81,8 +81,7 @@ export const ColorPicker = (props) => {
 
 	const currentColor = colors?.find(({ slug }) => slug === value)?.color;
 
-	const colorSuffixRegex =
-		/(?!^.+)(-?(?:50|100|200|300|400|500|600|700|800|900|950|10|20|30|40|50|60|70|80|90){1})$/gi;
+	const colorSuffixRegex = /(?!^.+)(-?(?:50|100|200|300|400|500|600|700|800|900|950|10|20|30|40|50|60|70|80|90){1})$/gi;
 
 	const hasColorGroups = !noColorGroups && colors?.some(({ slug }) => colorSuffixRegex.test(slug));
 
@@ -204,6 +203,10 @@ export const ColorPicker = (props) => {
 				}
 				keepOpen
 				tooltip={!label && tooltipText}
+				triggerProps={{
+					...rest.triggerProps,
+					'aria-label': !label && props?.['aria-label'],
+				}}
 				{...rest}
 			>
 				{(noColorGroups || !hasColorGroups) &&

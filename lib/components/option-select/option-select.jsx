@@ -110,7 +110,7 @@ export const OptionSelect = (props) => {
 			{type === 'toggleButtons' && (
 				<ButtonGroup
 					vertical={vertical}
-					aria-label={props?.['aria-label'] ?? label}
+					aria-label={!label && props?.['aria-label']}
 					{...wrapperProps}
 				>
 					{options.map(
@@ -151,7 +151,7 @@ export const OptionSelect = (props) => {
 					orientation={vertical ? 'vertical' : 'horizontal'}
 					onChange={(v) => onChange(v)}
 					design={type === 'radios' ? 'default' : 'segmented'}
-					aria-label={props?.['aria-label'] ?? label}
+					aria-label={!label && props?.['aria-label']}
 					value={value}
 					{...wrapperProps}
 				>
@@ -188,7 +188,7 @@ export const OptionSelect = (props) => {
 					tooltip={noTriggerLabel && (currentItem?.tooltip ?? currentItem?.label)}
 					triggerProps={{
 						...wrapperProps?.triggerProps,
-						'aria-label': props?.['aria-label'] ?? label,
+						'aria-label': !label && props?.['aria-label'],
 					}}
 					keepOpen
 					{...wrapperProps}
