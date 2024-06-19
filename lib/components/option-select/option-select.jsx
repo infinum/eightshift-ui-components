@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { icons } from '../../icons/icons';
 import { BaseControl } from '../base-control/base-control';
 import { ButtonGroup } from '../button/button';
@@ -199,11 +200,10 @@ export const OptionSelect = (props) => {
 							separator: optionHasSeparator,
 							sectionTitle: optionSectionTitle,
 						}) => (
-							<>
+							<Fragment key={optionValue}>
 								{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
 								{optionSectionTitle && <MenuItem disabled>{optionSectionTitle}</MenuItem>}
 								<MenuItem
-									key={optionValue}
 									selected={value === optionValue}
 									disabled={disabled}
 									className={itemClassName}
@@ -221,7 +221,7 @@ export const OptionSelect = (props) => {
 									)}
 								</MenuItem>
 								{optionHasSeparator === 'below' && <MenuSeparator />}
-							</>
+							</Fragment>
 						),
 					)}
 					{children}
