@@ -24,3 +24,10 @@ Eightshift UI components are provided by [Team Eightshift](https://eightshift.co
 - PresetPicker
 - TileButton - will deprecate
 - WidthOffsetRangeSlider
+
+## Font notice
+Includes the [Geist Sans and Geist Mono fonts](https://vercel.com/font).
+
+Copyright (c) 2023 Vercel, in collaboration with basement.studio.
+
+Read the [license](/font/OFL.txt).
