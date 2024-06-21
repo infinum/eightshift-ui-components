@@ -120,11 +120,11 @@ export const Repeater = (props) => {
 
 			onChange(items);
 		},
-		move: (sourceKey, targetKeys) => {
+		move: (sourceKey, targetKeys, direction = 'before') => {
 			const sourceIndex = items.findIndex((item) => item.key === sourceKey);
 			const targetIndices = [...targetKeys].map((key) => items.findIndex((item) => item.key === key));
 
-			onChange(arrayMoveMultiple(items, targetIndices, sourceIndex));
+			onChange(arrayMoveMultiple(items, targetIndices, sourceIndex, direction));
 		},
 		insert: (targetKey, ...newItems) => {
 			const targetIndex = items.findIndex((item) => item.key === targetKey);
@@ -150,7 +150,7 @@ export const Repeater = (props) => {
 			if (e.target.dropPosition === 'before') {
 				list.move(e.target.key, e.keys);
 			} else if (e.target.dropPosition === 'after') {
-				list.move(e.target.key, e.keys);
+				list.move(e.target.key, e.keys, 'after');
 			}
 		},
 		renderDropIndicator(target) {

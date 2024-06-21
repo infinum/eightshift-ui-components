@@ -379,7 +379,7 @@ function App() {
 		{
 			id: 'treci',
 			title: 'Item 3',
-			icon: icons.num3Square,
+			icon: icons.num3SquareAlt,
 		},
 	];
 
