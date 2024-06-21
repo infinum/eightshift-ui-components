@@ -8,7 +8,7 @@ import { useId, useState } from 'react';
 import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { ToggleButton } from '../toggle-button/toggle-button';
-import { arrayMoveMultiple } from '../../utilities';
+import { arrayMoveMultiple, fixIds } from '../../utilities';
 import { clsx } from 'clsx/lite';
 
 /**
@@ -68,8 +68,7 @@ export const Repeater = (props) => {
 
 	const {
 		children,
-		onChange: rawOnChange,
-		items: rawItems,
+		items,
 		'aria-label': ariaLabel,
 		icon,
 		label,
@@ -79,6 +78,7 @@ export const Repeater = (props) => {
 		hideEmptyState,
 		addDefaultItem = {},
 		addDisabled,
+		onChange,
 		onAfterItemAdd,
 		onAfterItemRemove,
 		minItems,
@@ -94,21 +94,13 @@ export const Repeater = (props) => {
 	const [canDelete, setCanDelete] = useState(false);
 	const [canReorder, setCanReorder] = useState(true);
 
-	const items = rawItems.map((item, i) => ({
-		key: item.key ?? `${itemIdBase}-${i}`,
-		...item,
-	}));
+	// Fix IDs if needed.
+	fixIds(items, onChange, 'key');
 
 	const rawList = useListState({
 		items: items,
 		selectionMode: selectable ? 'multiple' : 'none',
 	});
-
-	const onChange = (items) => {
-		const currentItems = [...items];
-		currentItems.forEach((item) => delete item.key);
-		rawOnChange(currentItems);
-	};
 
 	const list = {
 		items: items,
