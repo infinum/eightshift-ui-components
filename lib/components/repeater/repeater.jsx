@@ -32,6 +32,7 @@ import { clsx } from 'clsx/lite';
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {JSX.Element} [props.addButton] - If provided, overrides the default add button. `(props: { addItem: (additional: Object<string, any>?) => void, disabled: Boolean }) => JSX.Element`.
  * @param {string} [props.className] - Classes to pass to the item wrapper.
+ * @param {JSX.Element} [props.emptyState] - Allows overriding the default empty state.
  *
  * @returns {JSX.Element} The Repeater component.
  *
@@ -83,6 +84,7 @@ export const Repeater = (props) => {
 		minItems,
 		addButton,
 		className,
+		emptyState,
 
 		hidden,
 		...rest
@@ -275,11 +277,13 @@ export const Repeater = (props) => {
 					}))}
 					dragAndDropHooks={dragAndDropHooks}
 					renderEmptyState={() =>
-						hideEmptyState ? null : (
-							<div className='es-uic-rounded-md es-uic-border es-uic-border-dashed es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-text-gray-400'>
-								{__('No items', 'eightshift-ui-components')}
-							</div>
-						)
+						hideEmptyState
+							? null
+							: emptyState ?? (
+									<div className='es-uic-rounded-md es-uic-border es-uic-border-dashed es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-text-gray-400'>
+										{__('No items', 'eightshift-ui-components')}
+									</div>
+								)
 					}
 					className={className}
 					{...rest}
