@@ -95,7 +95,7 @@ export const RepeaterItem = (props) => {
 										{selectionMode === 'none' && allowsDragging && (
 											<Button
 												size='small'
-												className='es-uic-h-6 es-uic-w-4 !es-uic-text-gray-500 es-uic-opacity-5 focus:!es-uic-opacity-100'
+												className='es-uic-h-6 es-uic-w-4 !es-uic-text-gray-500 es-uic-opacity-50 focus:es-uic-opacity-100'
 												slot='drag'
 												type='ghost'
 												icon={icons.reorderGrabberV}
