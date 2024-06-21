@@ -12,6 +12,7 @@ import {
 import { getDragEndHandler, getMultiValue, getMultiValueRemove } from './multi-select-components';
 import { BaseControl } from '../base-control/base-control';
 import { eightshiftSelectClasses } from './styles';
+import { fixIds } from './shared';
 
 /**
  * Multi-select menu with async loading and re-ordering.
@@ -112,6 +113,8 @@ export const AsyncMultiSelect = (props) => {
 		const results = await loadOptions(searchText);
 		return processLoadedOptions(results?.map((item) => ({ id: item.value, ...item })) ?? []);
 	};
+
+	fixIds(value, onChange);
 
 	return (
 		<BaseControl

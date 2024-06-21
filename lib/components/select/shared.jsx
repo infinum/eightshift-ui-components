@@ -30,7 +30,7 @@ export const getValue = (simpleValue, value, options) => {
  *
  * @param {boolean} simpleValue - Whether `simpleValue` is set.
  * @param {string|{label: string, value: string, metadata: Object<string, any>[]}} newValue - The new value to be set.
- * @param {Function} - onChange The `onChange` callback passed to the component.
+ * @param {Function} onChange - The `onChange` callback passed to the component.
  * @returns {void}
  *
  * @preserve
@@ -47,4 +47,27 @@ export const customOnChange = (simpleValue, newValue, onChange) => {
 	}
 
 	onChange(newValue?.value);
+};
+
+/**
+ * Handles the `onChange` callback.
+ *
+ * @param {object[]} items - Current items.
+ * @param {Function} onChange - The `onChange` callback passed to the component.
+ * @returns {void}
+ *
+ * @preserve
+ */
+export const fixIds = (items, onChange) => {
+	const allIds = items?.map(({ id }) => id) ?? [];
+	const hasDuplicates = (input) => new Set(input)?.size !== input?.length;
+	const hasMissingIds = items?.some(({ id }) => typeof id === 'undefined' || id === null || id === '');
+
+	if ((hasDuplicates(allIds) && items?.length > 0) || hasMissingIds) {
+		const newItems = [...items].map((item, index) => ({
+			...item,
+			id: index + 1,
+		}));
+		onChange(newItems);
+	}
 };

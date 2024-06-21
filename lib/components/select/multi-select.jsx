@@ -8,7 +8,7 @@ import {
 	CustomSelectDefaultMultiValueRemove,
 } from './custom-select-default-components';
 import { getDragEndHandler, getMultiValue, getMultiValueRemove } from './multi-select-components';
-import { customOnChange, getValue } from './shared';
+import { customOnChange, fixIds, getValue } from './shared';
 import { BaseControl } from '../base-control/base-control';
 import { eightshiftSelectClasses } from './styles';
 
@@ -101,6 +101,8 @@ export const MultiSelect = (props) => {
 		return null;
 	}
 
+	fixIds(value, onChange);
+
 	return (
 		<BaseControl
 			label={label}
@@ -137,8 +139,6 @@ export const MultiSelect = (props) => {
 							DropdownIndicator: customDropdownArrow ?? CustomSelectDefaultDropdownIndicator,
 							ClearIndicator: customClearIndicator ?? CustomSelectDefaultClearIndicator,
 						}}
-						// menuPortalTarget={document.body}
-						// menuPosition='fixed'
 						{...additionalProps}
 					/>
 				</SortableContext>
