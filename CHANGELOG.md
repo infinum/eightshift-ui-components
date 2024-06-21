@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.0.3] - 2024-06-21
+- Replaced `key` with `id` as unique identifier in `Repeater` and re-added the functionality that deletes the `id` from output.
+
 ## [1.0.2] - 2024-06-21
 - Add key (ID) auto-fix to `Repeater` and removed the functionality that deletes the `key` from output.
 - Added a `fixIds` utility function

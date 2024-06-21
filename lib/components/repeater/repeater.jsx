@@ -8,7 +8,7 @@ import { useId, useState } from 'react';
 import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { ToggleButton } from '../toggle-button/toggle-button';
-import { arrayMoveMultiple, fixIds } from '../../utilities';
+import { arrayMoveMultiple } from '../../utilities';
 import { clsx } from 'clsx/lite';
 
 /**
@@ -68,7 +68,8 @@ export const Repeater = (props) => {
 
 	const {
 		children,
-		items,
+		onChange: rawOnChange,
+		items: rawItems,
 		'aria-label': ariaLabel,
 		icon,
 		label,
@@ -78,7 +79,6 @@ export const Repeater = (props) => {
 		hideEmptyState,
 		addDefaultItem = {},
 		addDisabled,
-		onChange,
 		onAfterItemAdd,
 		onAfterItemRemove,
 		minItems,
@@ -94,8 +94,16 @@ export const Repeater = (props) => {
 	const [canDelete, setCanDelete] = useState(false);
 	const [canReorder, setCanReorder] = useState(true);
 
-	// Fix IDs if needed.
-	fixIds(items, onChange, 'key');
+	const onChange = (items) => {
+		const currentItems = [...items];
+		currentItems.forEach((item) => delete item.id);
+		rawOnChange(currentItems);
+	};
+
+	const items = rawItems.map((item, i) => ({
+		id: item.id ?? `${itemIdBase}-${i}`,
+		...item,
+	}));
 
 	const rawList = useListState({
 		items: items,
@@ -105,31 +113,31 @@ export const Repeater = (props) => {
 	const list = {
 		items: items,
 		selectedKeys: rawList.selectionManager.selectedKeys,
-		setSelectedKeys: (keys) => rawList.selectionManager.setSelectedKeys(keys),
-		getKey: ({ key }) => items.find((item) => item.key === key),
-		getItem: (key) => items.find((item) => item.key === key),
-		update: (key, newValue) => {
-			const index = [...items].findIndex((item) => item.key === key);
+		setSelectedKeys: (ids) => rawList.selectionManager.setSelectedKeys(ids),
+		getKey: ({ id }) => items.find((item) => item.id === id),
+		getItem: (id) => items.find((item) => item.id === id),
+		update: (id, newValue) => {
+			const index = [...items].findIndex((item) => item.id === id);
 			items[index] = { ...items[index], ...newValue };
 
 			onChange(items);
 		},
 		move: (sourceKey, targetKeys, direction = 'before') => {
-			const sourceIndex = items.findIndex((item) => item.key === sourceKey);
-			const targetIndices = [...targetKeys].map((key) => items.findIndex((item) => item.key === key));
+			const sourceIndex = items.findIndex((item) => item.id === sourceKey);
+			const targetIndices = [...targetKeys].map((id) => items.findIndex((item) => item.id === id));
 
 			onChange(arrayMoveMultiple(items, targetIndices, sourceIndex, direction));
 		},
 		insert: (targetKey, ...newItems) => {
-			const targetIndex = items.findIndex((item) => item.key === targetKey);
+			const targetIndex = items.findIndex((item) => item.id === targetKey);
 			const newItemsWithKeys = newItems.map((item) => ({ ...item, id: `${itemIdBase}${items.length + 1}` }));
 
 			onChange([...items.slice(0, targetIndex), ...newItemsWithKeys, ...items.slice(targetIndex)]);
 		},
 		removeSelectedItems: () => {
-			const keys = rawList.selectionManager.selectedKeys;
+			const ids = rawList.selectionManager.selectedKeys;
 
-			const newItems = items.filter((item) => !keys.has(item.key));
+			const newItems = items.filter((item) => !ids.has(item.id));
 			onChange(newItems);
 		},
 		append: (item) => {
@@ -139,8 +147,9 @@ export const Repeater = (props) => {
 
 	let { dragAndDropHooks } = useDragAndDrop({
 		isDisabled: selectable || !canReorder,
-		getItems: (keys) => [...keys].map((key) => ({ 'text/plain': list.getItem(key).id })),
+		getItems: (ids) => [...ids].map((id) => ({ 'text/plain': list.getItem(id).id })),
 		onReorder(e) {
+			console.log(e);
 			if (e.target.dropPosition === 'before') {
 				list.move(e.target.key, e.keys);
 			} else if (e.target.dropPosition === 'after') {
@@ -182,7 +191,7 @@ export const Repeater = (props) => {
 					>
 						<Button
 							onPress={() => {
-								const removedItems = [...(list?.selectedKeys.keys()?.map((key) => list.getItem(key)) ?? [])];
+								const removedItems = [...(list?.selectedKeys.keys()?.map((id) => list.getItem(id)) ?? [])];
 
 								list.removeSelectedItems();
 								setSelectable(false);
@@ -260,10 +269,10 @@ export const Repeater = (props) => {
 					items={list.items.map((item, index) => ({
 						...item,
 						updateData: (newValue) => {
-							list.update(item.key, { ...list.getItem(item.key), ...newValue });
+							list.update(item.id, { ...list.getItem(item.id), ...newValue });
 						},
 						itemIndex: index,
-						deleteItem: () => list.remove(item.key),
+						deleteItem: () => list.remove(item.id),
 						canReorder,
 						setCanReorder,
 					}))}
