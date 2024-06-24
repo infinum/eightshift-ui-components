@@ -25,8 +25,6 @@
 		"./dist/assets/fonts.css": "./dist/assets/fonts.css",
 		"./dist/GeistVF.woff2": "./dist/GeistVF.woff2",
 		"./dist/GeistVFMono.woff2": "./dist/GeistVFMono.woff2",
-		"./dist/assets/wp-font-enhancements.css": "./dist/assets/wp-font-enhancements.css",
-		"./dist/assets/wp-ui-enhancements.css": "./dist/assets/wp-ui-enhancements.css",
 		"./styles": "./dist/assets/style.css",
 		"./fonts": "./dist/assets/fonts.css",
 		"./wp-overrides": "./dist/assets/wp.css"
