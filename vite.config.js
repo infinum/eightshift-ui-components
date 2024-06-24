@@ -15,11 +15,6 @@ export default defineConfig({
 			name: 'EightshiftUiComponents',
 			entry: {
 				index: resolve(__dirname, 'lib/index.js'),
-				styles: resolve(__dirname, 'lib/style.js'),
-				fonts: resolve(__dirname, 'lib/fonts.js'),
-				wp: resolve(__dirname, 'lib/wp.js'),
-				utilities: resolve(__dirname, 'lib/utilities/index.js'),
-				icons: resolve(__dirname, 'lib/icons/index.js'),
 			},
 			formats: ['es'],
 		},

@@ -1,0 +1,30 @@
+/* Override font family. */
+.edit-post-header,
+.components-popover,
+.edit-post-sidebar,
+.wp-block-post-title,
+.components-select-control__input,
+.components-base-control__field,
+.components-base-control__label,
+.components-combobox-control__suggestions-container,
+.components-input-control__label,
+.components-input-control__input,
+.components-checkbox-control__label,
+.components-menu-group__label,
+.components-menu-item__button,
+.components-notice .components-notice__content,
+.components-tooltip,
+.components-modal__header,
+.preferences-modal__section-title,
+.preferences-modal__section-description,
+.block-editor-inserter__tabs,
+.editor-list-view-sidebar,
+.edit-post-layout__footer,
+.components-snackbar,
+.components-text-control__input {
+	@apply es-uic-font-sans;
+}
+
+body.wp-admin {
+	@apply !es-uic-font-sans;
+}

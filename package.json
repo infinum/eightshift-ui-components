@@ -24,6 +24,7 @@
 		"./dist/assets/style.css": "./dist/assets/style.css",
 		"./dist/assets/fonts.css": "./dist/assets/fonts.css",
 		"./dist/assets/wp.css": "./dist/assets/wp.css",
+		"./dist/assets/wp-fonts.css": "./dist/assets/wp-fonts.css",
 		"./styles": "./dist/assets/style.css",
 		"./fonts": "./dist/assets/fonts.css",
 		"./wp-overrides": "./dist/assets/wp.css"
