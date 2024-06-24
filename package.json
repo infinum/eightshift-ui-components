@@ -27,6 +27,8 @@
 		"./dist/assets/wp-ui-enhancements.css": "./dist/assets/wp-ui-enhancements.css",
 		"./styles": "./dist/assets/style.css",
 		"./fonts": "./dist/assets/fonts.css",
+		"./wp-font-enhancements": "./dist/assets/wp-font-enhancements.css",
+		"./wp-ui-enhancements": "./dist/assets/wp-ui-enhancements.css",
 		"./wp-overrides": "./dist/assets/wp.css"
 	},
 	"scripts": {
