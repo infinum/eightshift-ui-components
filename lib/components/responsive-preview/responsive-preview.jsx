@@ -95,7 +95,7 @@ export const ResponsivePreview = (props) => {
 				...previewItems,
 				{
 					width: breakpointData[breakpoints[i - 1]],
-					breakpoint: breakpoint.replace('max-', ''),
+					breakpoint: breakpointUiData?.[breakpoint.replace('max-', '')]?.label ?? breakpoint.replace('max-', ''),
 					value:
 						options?.find((opt) => opt.value === value?.[breakpoint])?.label ??
 						upperFirst(value?.[breakpoint]),
