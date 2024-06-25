@@ -350,7 +350,7 @@ export const Responsive = (props) => {
 			{!isDesktopFirst && !inline && (
 				<div
 					className={clsx(
-						'es-uic-grid es-uic-items-center es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-end] es-uic-duration-150',
+						'es-uic-grid es-uic-items-center es-uic-justify-items-start es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-end] es-uic-duration-150',
 						detailsVisible
 							? 'es-uic-mb-2 es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
 							: 'es-uic-grid-cols-[minmax(0,_0rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]',
@@ -376,7 +376,7 @@ export const Responsive = (props) => {
 
 			{!isDesktopFirst && inline && (
 				<AnimatedVisibility
-					className='es-uic-mb-2 es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2'
+					className='es-uic-mb-2 es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-justify-items-start es-uic-gap-x-2'
 					key='_default-mobile-first-inline'
 					visible={detailsVisible}
 				>
@@ -425,7 +425,7 @@ export const Responsive = (props) => {
 
 					return (
 						<div
-							className='es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2'
+							className='es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-justify-items-start es-uic-gap-x-2'
 							key={realBreakpointName}
 						>
 							<DecorativeTooltip
@@ -637,7 +637,7 @@ export const Responsive = (props) => {
 			{isDesktopFirst && !inline && (
 				<div
 					className={clsx(
-						'es-uic-grid es-uic-items-center es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-start] es-uic-duration-150',
+						'es-uic-grid es-uic-items-center es-uic-justify-items-start es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-start] es-uic-duration-150',
 						detailsVisible
 							? '!es-uic-mt-2 es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
 							: 'es-uic-grid-cols-[minmax(0,_0rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]',
@@ -663,7 +663,7 @@ export const Responsive = (props) => {
 
 			{isDesktopFirst && inline && (
 				<AnimatedVisibility
-					className='es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2 es-uic-pt-1'
+					className='es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-justify-items-start es-uic-gap-x-2 es-uic-pt-1'
 					key='_default-desktop-first-inline'
 					visible={detailsVisible}
 				>
