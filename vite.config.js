@@ -1,6 +1,5 @@
-/* eslint-disable no-undef */
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc';
 import { extname, relative, resolve } from 'path';
 import { fileURLToPath } from 'node:url';
 import { glob } from 'glob';
@@ -18,6 +17,7 @@ export default defineConfig({
 			},
 			formats: ['es'],
 		},
+		cssMinify: 'lightningcss',
 		minify: 'keepNames',
 		rollupOptions: {
 			external: ['react', 'react/jsx-runtime'],
