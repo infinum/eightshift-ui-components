@@ -1445,7 +1445,7 @@ function App() {
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Tabs>
-						<TabList>Lorem</TabList>
+						<TabList />
 						<TabPanel>Abc</TabPanel>
 					</Tabs>
 
