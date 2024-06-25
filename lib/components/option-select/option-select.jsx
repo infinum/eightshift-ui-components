@@ -6,6 +6,7 @@ import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
 import { RadioButton, RadioButtonGroup } from '../radio/radio';
 import { RichLabel } from '../rich-label/rich-label';
 import { ToggleButton } from '../toggle-button/toggle-button';
+import { __ } from '@wordpress/i18n';
 
 /**
  * A component that allows the user to select an option from a list of options.
@@ -98,6 +99,10 @@ export const OptionSelect = (props) => {
 
 	const currentItem = options?.find(({ value: optionValue }) => optionValue === value);
 
+	const notSetLabel = (
+		<span className='es-uic-leading-3 es-uic-opacity-50'>{__('Not set', 'eightshift-ui-components')}</span>
+	);
+
 	return (
 		<BaseControl
 			icon={icon}
@@ -183,9 +188,14 @@ export const OptionSelect = (props) => {
 
 			{type === 'menu' && (
 				<Menu
-					triggerLabel={!noTriggerLabel && currentItem?.label}
+					triggerLabel={!noTriggerLabel && (currentItem ? currentItem?.label : notSetLabel)}
 					triggerIcon={
-						!noTriggerIcon && (typeof currentItem?.icon === 'string' ? icons?.[currentItem?.icon] : currentItem?.icon)
+						!noTriggerIcon &&
+						(currentItem
+							? typeof currentItem?.icon === 'string'
+								? icons?.[currentItem?.icon]
+								: currentItem?.icon
+							: (noTriggerLabel || noTriggerIcon) && notSetLabel)
 					}
 					tooltip={
 						noTriggerLabel ? (
