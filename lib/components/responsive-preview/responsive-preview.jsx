@@ -46,13 +46,11 @@ export const ResponsivePreview = (props) => {
 		breakpointUiData,
 	} = props;
 
-	const breakpoints = rawBreakpoints.slice(1);
+	const breakpoints = rawBreakpoints;
 	const desktopFirstBreakpoints = rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1);
 
 	const firstMobileFirstOverride = breakpoints.find((breakpoint) => value?.[breakpoint]);
-	const lastDesktopFirstOverride = desktopFirstBreakpoints
-		.toReversed()
-		.find((breakpoint) => value?.[breakpoint]);
+	const lastDesktopFirstOverride = desktopFirstBreakpoints.toReversed().find((breakpoint) => value?.[breakpoint]);
 
 	let previewItems = [];
 
@@ -61,9 +59,7 @@ export const ResponsivePreview = (props) => {
 			...previewItems,
 			{
 				breakpoint: __('Default', 'eightshift-ui-components'),
-				value:
-					options?.find((opt) => opt.value === value?.['_default'])?.label ??
-					upperFirst(value?.['_default']),
+				value: options?.find((opt) => opt.value === value?.['_default'])?.label ?? upperFirst(value?.['_default']),
 			},
 		];
 
@@ -86,7 +82,7 @@ export const ResponsivePreview = (props) => {
 	}
 
 	if (lastDesktopFirstOverride) {
-		desktopFirstBreakpoints.forEach((breakpoint, i) => {
+		desktopFirstBreakpoints.forEach((breakpoint) => {
 			if (!value?.[breakpoint]) {
 				return;
 			}
@@ -94,11 +90,9 @@ export const ResponsivePreview = (props) => {
 			previewItems = [
 				...previewItems,
 				{
-					width: breakpointData[breakpoints[i - 1]],
+					width: breakpointData[breakpoint],
 					breakpoint: breakpointUiData?.[breakpoint.replace('max-', '')]?.label ?? breakpoint.replace('max-', ''),
-					value:
-						options?.find((opt) => opt.value === value?.[breakpoint])?.label ??
-						upperFirst(value?.[breakpoint]),
+					value: options?.find((opt) => opt.value === value?.[breakpoint])?.label ?? upperFirst(value?.[breakpoint]),
 				},
 			];
 		});
@@ -108,9 +102,7 @@ export const ResponsivePreview = (props) => {
 			{
 				width: breakpointData[breakpoints.at(-1)],
 				breakpoint: __('Default', 'eightshift-ui-components'),
-				value:
-					options?.find((opt) => opt.value === value?.['_default'])?.label ??
-					upperFirst(value?.['_default']),
+				value: options?.find((opt) => opt.value === value?.['_default'])?.label ?? upperFirst(value?.['_default']),
 			},
 		];
 
@@ -133,7 +125,9 @@ export const ResponsivePreview = (props) => {
 			</div>
 
 			{previewItems.length === 0 && (
-				<span className='es-uic-text-gray-500 es-uic-text-sm es-uic-italic'>{__('No overrides applied', 'eightshift-ui-components')}</span>
+				<span className='es-uic-text-sm es-uic-italic es-uic-text-gray-500'>
+					{__('No overrides applied', 'eightshift-ui-components')}
+				</span>
 			)}
 			<BreakpointPreview
 				blocks={previewItems}
