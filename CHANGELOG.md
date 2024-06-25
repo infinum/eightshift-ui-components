@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.0.6] - 2024-06-25
+- Tweaked `Responsive` inner content positioning. (use `innerContentAlign` to adjust)
+
 ## [1.0.5] - 2024-06-25
 - Improved `OptionSelect` when `menu` type is selected and the value is `undefined`.
 - Added a way to set breakpoints and names to `Responsive` and `ResponsivePreview` (via the `breakpointUiData` prop).
@@ -39,6 +42,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
 
+[1.0.6]: https://github.com/infinum/eightshift-ui-components/compare/1.0.5...1.0.6
 [1.0.5]: https://github.com/infinum/eightshift-ui-components/compare/1.0.4...1.0.5
 [1.0.4]: https://github.com/infinum/eightshift-ui-components/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/infinum/eightshift-ui-components/compare/1.0.2...1.0.3
