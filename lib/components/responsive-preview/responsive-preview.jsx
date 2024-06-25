@@ -17,6 +17,7 @@ import { RichLabel } from '../rich-label/rich-label';
  * @param {string[]} [props.desktopFirstBreakpoints] - Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order.
  * @param {{label: string, value: string}[]} props.options - Options of the attribute the component is linked to. `{ value: string, label: string }[]`.
  * @param {Object} props.breakpointData - Breakpoints to use. `{ [breakpoint: string]: number }`.
+ * @param {Object<string, number>} [props.breakpointUiData] - Allows overriding breakpoint names and icons. `{ [breakpoint: string]: { label: string, icon: JSX.Element|string } }`.
  *
  * @returns {JSX.Element} The ResponsivePreview component.
  *
@@ -42,6 +43,7 @@ export const ResponsivePreview = (props) => {
 		options,
 
 		breakpointData,
+		breakpointUiData,
 	} = props;
 
 	const breakpoints = rawBreakpoints.slice(1);
@@ -74,7 +76,7 @@ export const ResponsivePreview = (props) => {
 				...previewItems,
 				{
 					width: breakpointData[breakpoint],
-					breakpoint: breakpoint,
+					breakpoint: breakpointUiData?.[breakpoint]?.label ?? breakpoint,
 					value:
 						options?.find((opt) => opt.value === value?.[firstMobileFirstOverride])?.label ??
 						upperFirst(value?.[firstMobileFirstOverride]),

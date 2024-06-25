@@ -38,6 +38,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {string[]} props.breakpoints - Breakpoints to use.
  * @param {string[]} [props.desktopFirstBreakpoints] - Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order.
  * @param {Object<string, number>} [props.breakpointData] - Currently used breakpoint data. `{ [breakpoint: string]: number }`.
+ * @param {Object<string, number>} [props.breakpointUiData] - Allows overriding breakpoint names and icons. `{ [breakpoint: string]: { label: string, icon: JSX.Element|string } }`.
  * @param {boolean} [props.noModeSelect] - If `true`, the mode selection (desktop-first/mobile-first) is hidden.
  * @param {boolean} [props.inline] - If `true`, the default breakpoint is shown inline with the label. In the expanded state, all breakpoints are shown below the label.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
@@ -86,6 +87,7 @@ export const Responsive = (props) => {
 		desktopFirstBreakpoints: rawDesktopFirstBreakpoints,
 
 		breakpointData,
+		breakpointUiData,
 
 		noModeSelect,
 
@@ -116,96 +118,101 @@ export const Responsive = (props) => {
 		return null;
 	}
 
-	const DefaultTooltip = () => (
-		<DecorativeTooltip
-			placement='left'
-			className='es-uic-p-3'
-			theme='light'
-			offset={7.5}
-			arrow
-			text={
-				<div className='es-uic-max-w-64 es-uic-p-1'>
-					<span className='es-uic-block es-uic-text-balance es-uic-font-semibold es-uic-tabular-nums'>
-						{__('Default', 'eightshift-ui-components')}
-					</span>
+	const DefaultTooltip = () => {
+		const overrideIcon = breakpointUiData?.[isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0)]?.icon;
+		return (
+			<DecorativeTooltip
+				placement='left'
+				className='es-uic-p-3'
+				theme='light'
+				offset={7.5}
+				arrow
+				text={
+					<div className='es-uic-max-w-64 es-uic-p-1'>
+						<span className='es-uic-block es-uic-text-balance es-uic-font-semibold es-uic-tabular-nums'>
+							{__('Default', 'eightshift-ui-components')}
+						</span>
 
-					<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
-						{!firstMobileFirstOverride &&
-							!lastDesktopFirstOverride &&
-							__('Always applied, regardless of browser width.', 'eightshift-ui-components')}
+						<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
+							{!firstMobileFirstOverride &&
+								!lastDesktopFirstOverride &&
+								__('Always applied, regardless of browser width.', 'eightshift-ui-components')}
 
-						{firstMobileFirstOverride &&
-							!isDesktopFirst &&
-							sprintf(
-								__('Applies when the browser width is %dpx or narrower.', 'eightshift-ui-components'),
-								breakpointData[firstMobileFirstOverride] - 1,
+							{firstMobileFirstOverride &&
+								!isDesktopFirst &&
+								sprintf(
+									__('Applies when the browser width is %dpx or narrower.', 'eightshift-ui-components'),
+									breakpointData[firstMobileFirstOverride] - 1,
+								)}
+
+							{lastDesktopFirstOverride &&
+								isDesktopFirst &&
+								sprintf(
+									__('Applies when the browser width is %dpx or more.', 'eightshift-ui-components'),
+									breakpointData[breakpoints.at(-1)],
+								)}
+						</span>
+
+						<div className='es-uic-mx-auto'>
+							{firstMobileFirstOverride && !isDesktopFirst && (
+								<BreakpointPreview
+									blocks={[
+										{
+											breakpoint: __('Default', 'eightshift-ui-components'),
+											widthEnd: breakpointData[firstMobileFirstOverride] - 1,
+											value:
+												options?.find((opt) => opt.value === value?.['_default'])?.label ??
+												upperFirst(value?.['_default']),
+											dotsStart: true,
+											alignEnd: true,
+											active: true,
+										},
+										{
+											breakpoint: firstMobileFirstOverride,
+											value:
+												options?.find((opt) => opt.value === value?.[firstMobileFirstOverride])?.label ??
+												upperFirst(value?.[firstMobileFirstOverride]),
+											dotsEnd: true,
+										},
+									]}
+								/>
 							)}
 
-						{lastDesktopFirstOverride &&
-							isDesktopFirst &&
-							sprintf(
-								__('Applies when the browser width is %dpx or more.', 'eightshift-ui-components'),
-								breakpointData[breakpoints.at(-1)],
+							{lastDesktopFirstOverride && isDesktopFirst && (
+								<BreakpointPreview
+									blocks={[
+										{
+											breakpoint: lastDesktopFirstOverride.replace('max-', ''),
+											value:
+												options?.find((opt) => opt.value === value?.[lastDesktopFirstOverride])?.label ??
+												upperFirst(value?.[lastDesktopFirstOverride]),
+											dotsStart: true,
+											alignEnd: true,
+										},
+										{
+											breakpoint: __('Default', 'eightshift-ui-components'),
+											value:
+												options?.find((opt) => opt.value === value?.['_default'])?.label ??
+												upperFirst(value?.['_default']),
+											width: breakpointData[breakpoints.at(-1)],
+											dotsEnd: true,
+											active: true,
+										},
+									]}
+								/>
 							)}
-					</span>
-
-					<div className='es-uic-mx-auto'>
-						{firstMobileFirstOverride && !isDesktopFirst && (
-							<BreakpointPreview
-								blocks={[
-									{
-										breakpoint: __('Default', 'eightshift-ui-components'),
-										widthEnd: breakpointData[firstMobileFirstOverride] - 1,
-										value:
-											options?.find((opt) => opt.value === value?.['_default'])?.label ??
-											upperFirst(value?.['_default']),
-										dotsStart: true,
-										alignEnd: true,
-										active: true,
-									},
-									{
-										breakpoint: firstMobileFirstOverride,
-										value:
-											options?.find((opt) => opt.value === value?.[firstMobileFirstOverride])?.label ??
-											upperFirst(value?.[firstMobileFirstOverride]),
-										dotsEnd: true,
-									},
-								]}
-							/>
-						)}
-
-						{lastDesktopFirstOverride && isDesktopFirst && (
-							<BreakpointPreview
-								blocks={[
-									{
-										breakpoint: lastDesktopFirstOverride.replace('max-', ''),
-										value:
-											options?.find((opt) => opt.value === value?.[lastDesktopFirstOverride])?.label ??
-											upperFirst(value?.[lastDesktopFirstOverride]),
-										dotsStart: true,
-										alignEnd: true,
-									},
-									{
-										breakpoint: __('Default', 'eightshift-ui-components'),
-										value:
-											options?.find((opt) => opt.value === value?.['_default'])?.label ??
-											upperFirst(value?.['_default']),
-										width: breakpointData[breakpoints.at(-1)],
-										dotsEnd: true,
-										active: true,
-									},
-								]}
-							/>
-						)}
+						</div>
 					</div>
+				}
+			>
+				<div className='es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-border-teal-500/10 es-uic-bg-teal-50 es-uic-p-0.5 es-uic-text-teal-800 es-uic-shadow-sm es-uic-shadow-teal-600/25 [&>svg]:es-uic-size-5'>
+					{overrideIcon ??
+						icons?.[overrideIcon] ??
+						icons[`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`]}
 				</div>
-			}
-		>
-			<div className='es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-border-teal-500/10 es-uic-bg-teal-50 es-uic-p-0.5 es-uic-text-teal-800 es-uic-shadow-sm es-uic-shadow-teal-600/25 [&>svg]:es-uic-size-5'>
-				{icons[`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`]}
-			</div>
-		</DecorativeTooltip>
-	);
+			</DecorativeTooltip>
+		);
+	};
 
 	return (
 		<BaseControl
@@ -310,6 +317,7 @@ export const Responsive = (props) => {
 											desktopFirstBreakpoints={desktopFirstBreakpoints}
 											options={options}
 											breakpointData={breakpointData}
+											breakpointUiData={breakpointUiData}
 										/>
 									</MenuItem>
 								</SubMenuItem>
@@ -424,7 +432,7 @@ export const Responsive = (props) => {
 								arrow
 								text={
 									<div className='es-uic-max-w-96 es-uic-p-1'>
-										<span className='es-uic-block es-uic-font-semibold'>{upperFirst(realBreakpointName)}</span>
+										<span className='es-uic-block es-uic-font-semibold'>{breakpointUiData?.[realBreakpointName]?.label ?? upperFirst(realBreakpointName)}</span>
 
 										<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
 											{!isDesktopFirst && (
@@ -495,7 +503,7 @@ export const Responsive = (props) => {
 														blocks={[
 															aboveOverride !== '_default' &&
 																typeof value?.[aboveOverride] !== 'undefined' && {
-																	breakpoint: aboveOverride,
+																	breakpoint: breakpointUiData?.[aboveOverride]?.label ?? aboveOverride,
 																	value:
 																		options?.find((opt) => opt.value === value?.[aboveOverride])?.label ??
 																		upperFirst(value?.[aboveOverride]),
@@ -512,7 +520,7 @@ export const Responsive = (props) => {
 																	alignEnd: !belowOverride,
 																},
 															{
-																breakpoint: realBreakpointName,
+																breakpoint: breakpointUiData?.[realBreakpointName]?.label ?? realBreakpointName,
 																value:
 																	options?.find((opt) => opt.value === value?.[breakpoint])?.label ??
 																	upperFirst(value?.[breakpoint]),
@@ -522,7 +530,7 @@ export const Responsive = (props) => {
 															},
 															belowOverride &&
 																typeof value?.[belowOverride] !== 'undefined' && {
-																	breakpoint: belowOverride,
+																	breakpoint: breakpointUiData?.[belowOverride]?.label ?? belowOverride,
 																	value:
 																		options?.find((opt) => opt.value === value?.[belowOverride])?.label ??
 																		upperFirst(value?.[belowOverride]),
@@ -539,13 +547,15 @@ export const Responsive = (props) => {
 														dotsEnd={aboveOverride !== '_default'}
 														blocks={[
 															belowOverride && {
-																breakpoint: belowOverride?.replace('max-', ''),
+																breakpoint:
+																	breakpointUiData?.[belowOverride?.replace('max-', '')]?.label ??
+																	belowOverride?.replace('max-', ''),
 																value:
 																	options?.find((opt) => opt.value === value?.[belowOverride])?.label ??
 																	upperFirst(value?.[belowOverride]),
 															},
 															{
-																breakpoint: realBreakpointName,
+																breakpoint: breakpointUiData?.[realBreakpointName]?.label ?? realBreakpointName,
 																value:
 																	options?.find((opt) => opt.value === value?.[breakpoint])?.label ??
 																	upperFirst(value?.[realBreakpointName]),
@@ -553,7 +563,9 @@ export const Responsive = (props) => {
 																active: true,
 															},
 															aboveOverride !== '_default' && {
-																breakpoint: aboveOverride?.replace('max-', ''),
+																breakpoint:
+																	breakpointUiData?.[aboveOverride?.replace('max-', '')]?.label ??
+																	aboveOverride?.replace('max-', ''),
 																value:
 																	options?.find((opt) => opt.value === value?.[aboveOverride])?.label ??
 																	upperFirst(value?.[aboveOverride]),
@@ -583,7 +595,9 @@ export const Responsive = (props) => {
 											: 'es-uic-border-gray-100 es-uic-bg-white es-uic-text-gray-500',
 									)}
 								>
-									{icons?.[`screen${upperFirst(realBreakpointName)}`]}
+									{breakpointUiData?.[realBreakpointName]?.icon ??
+										icons?.[breakpointUiData?.[realBreakpointName]?.icon] ??
+										icons?.[`screen${upperFirst(realBreakpointName)}`]}
 								</div>
 							</DecorativeTooltip>
 

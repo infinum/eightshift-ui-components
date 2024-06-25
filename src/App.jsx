@@ -93,6 +93,11 @@ function App() {
 		_mobileFirst: false,
 	});
 
+	const [resp2, setResp2] = useState({
+		_default: 'sans',
+		_mobileFirst: false,
+	});
+
 	const respOpt = [
 		{
 			label: 'Sans',
@@ -582,6 +587,17 @@ function App() {
 		},
 	};
 
+	const globalManifest2 = {
+		globalVariables: {
+			breakpoints: {
+				sm: 480,
+				md: 960,
+				lg: 1440,
+				xl: 1920,
+			},
+		},
+	};
+
 	const [colConfig, setColConfig] = useState([2, 4]);
 	const [colConfig2, setColConfig2] = useState([2, 4]);
 	const [colConfig3, setColConfig3] = useState([2, 4]);
@@ -1064,7 +1080,7 @@ function App() {
 						label='Not set demo'
 					/>
 
-						<OptionSelect
+					<OptionSelect
 						type='menu'
 						onChange={(v) => setLoremIpsum(v)}
 						options={[
@@ -1183,7 +1199,7 @@ function App() {
 						icon={icons.emptyRect}
 						label='Font family'
 						value={resp}
-						onChange={(newValue) => setResp(newValue)}
+						onChange={setResp}
 						options={respOpt}
 						breakpoints={['mobile', 'tablet', 'desktop', 'large']}
 						breakpointData={globalManifest.globalVariables.breakpoints}
@@ -1201,7 +1217,7 @@ function App() {
 						icon={icons.emptyRect}
 						label='Font family'
 						value={resp}
-						onChange={(newValue) => setResp(newValue)}
+						onChange={setResp}
 						options={respOpt}
 						breakpoints={['mobile', 'tablet', 'desktop', 'large']}
 						breakpointData={globalManifest.globalVariables.breakpoints}
@@ -1213,6 +1229,30 @@ function App() {
 								onChange={(value) => handleChange(value)}
 								value={currentValue}
 								type={isInlineCollapsedView ? 'menu' : 'toggleButtons'}
+							/>
+						)}
+					</Responsive>
+
+					<Responsive
+						icon={icons.emptyRect}
+						label='Font family'
+						value={resp2}
+						onChange={setResp2}
+						options={respOpt}
+						breakpoints={['sm', 'md', 'lg', 'xl']}
+						breakpointData={globalManifest2.globalVariables.breakpoints}
+						breakpointUiData={{
+							sm: { label: 'Mobile', icon: icons.screenMobile },
+							md: { label: 'Tablet', icon: icons.screenTablet },
+							lg: { label: 'Desktop', icon: icons.screenDesktop },
+							xl: { label: 'Large', icon: icons.screenLarge },
+						}}
+					>
+						{({ currentValue, handleChange, options }) => (
+							<OptionSelect
+								options={options}
+								onChange={(value) => handleChange(value)}
+								value={currentValue}
 							/>
 						)}
 					</Responsive>
