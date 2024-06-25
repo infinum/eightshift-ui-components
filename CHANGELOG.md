@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
 ## [1.0.6] - 2024-06-25
-- Tweaked `Responsive` inner content positioning. (use `innerContentAlign` to adjust)
+- Tweaked `Responsive` and `ResponsiveLegacy` inner content positioning (use `innerContentAlign` to adjust).
 
 ## [1.0.5] - 2024-06-25
 - Improved `OptionSelect` when `menu` type is selected and the value is `undefined`.

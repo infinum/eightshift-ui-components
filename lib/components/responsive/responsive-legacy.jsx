@@ -45,6 +45,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {Object<string, number>} [props.breakpointData] - Breakpoints to use. `{ [breakpoint: string]: number }`.
  * @param {string[]} [props.breakpoints] - Breakpoints to use. `{ [breakpoint: string]: number }`.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
+ * @param {'start' | 'center' | 'end' | 'stretch'} [props.innerContentAlign='start'] - Determines inner content alignment
  *
  * @returns {JSX.Element} The ResponsiveLegacy component.
  *
@@ -100,6 +101,8 @@ export const ResponsiveLegacy = (props) => {
 		breakpoints: rawBreakpoints = Object.keys(breakpointData).toReversed(),
 
 		hidden,
+
+		innerContentAlign = 'start',
 	} = props;
 
 	const inheritValue = allowUndefined ? undefined : rawInheritValue;
@@ -215,6 +218,10 @@ export const ResponsiveLegacy = (props) => {
 				<div
 					className={clsx(
 						'es-uic-grid es-uic-items-center es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-end] es-uic-duration-150',
+						innerContentAlign === 'start' && 'es-uic-justify-items-start',
+						innerContentAlign === 'center' && 'es-uic-justify-items-center',
+						innerContentAlign === 'end' && 'es-uic-justify-items-end',
+						innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
 						detailsVisible
 							? 'es-uic-mb-2 es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
 							: 'es-uic-grid-cols-[minmax(0,_0rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]',
@@ -234,7 +241,13 @@ export const ResponsiveLegacy = (props) => {
 			)}
 			{inline && (
 				<AnimatedVisibility
-					className='es-uic-mb-2 es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2'
+					className={clsx(
+						'es-uic-mb-2 es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2',
+						innerContentAlign === 'start' && 'es-uic-justify-items-start',
+						innerContentAlign === 'center' && 'es-uic-justify-items-center',
+						innerContentAlign === 'end' && 'es-uic-justify-items-end',
+						innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+					)}
 					key={defaultBreakpoint}
 					visible={detailsVisible}
 				>
@@ -269,7 +282,13 @@ export const ResponsiveLegacy = (props) => {
 
 					return (
 						<div
-							className='es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2'
+							className={clsx(
+								'es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2',
+								innerContentAlign === 'start' && 'es-uic-justify-items-start',
+								innerContentAlign === 'center' && 'es-uic-justify-items-center',
+								innerContentAlign === 'end' && 'es-uic-justify-items-end',
+								innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+							)}
 							key={breakpoint}
 						>
 							<DecorativeTooltip
