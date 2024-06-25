@@ -84,7 +84,7 @@ export const NumberPicker = ({
 		default: {
 			field: 'es-uic-min-h-10',
 			noPrefixPadding: 'es-uic-pl-2',
-		}
+		},
 	};
 
 	return (
@@ -119,7 +119,7 @@ export const NumberPicker = ({
 					{prefix && (
 						<span
 							slot='prefix'
-							className='es-uic-col-start-1 es-uic-row-span-2 es-uic-mr-0.5 es-uic-select-none es-uic-self-center es-uic-text-gray-500 es-uic-text-xs'
+							className='es-uic-col-start-1 es-uic-row-span-2 es-uic-mr-0.5 es-uic-select-none es-uic-self-center es-uic-text-xs es-uic-text-gray-500'
 						>
 							{prefix}
 						</span>
@@ -127,18 +127,16 @@ export const NumberPicker = ({
 					<Input
 						onFocus={() => setIsInputFocused(true)}
 						onBlur={() => setIsInputFocused(false)}
-						className='es-uic-col-start-2 es-uic-row-span-2 es-uic-bg-transparent es-uic-py-1 es-uic-tabular-nums focus:es-uic-outline-none es-uic-text-sm selection:es-uic-bg-teal-500/20 selection:es-uic-text-teal-950'
+						className='es-uic-col-start-2 es-uic-row-span-2 es-uic-bg-transparent es-uic-py-1 es-uic-text-sm es-uic-tabular-nums selection:es-uic-bg-teal-500/20 selection:es-uic-text-teal-950 focus:es-uic-outline-none'
 						placeholder={placeholder}
 						style={{
-							width: fixedWidth
-								? `${fixedWidth}ch`
-								: `calc(${min < 0 ? '0.75ch + ' : ''}${(max ?? 1000)?.toString()?.length} * 1ch)`,
+							width: fixedWidth ? `${fixedWidth}ch` : `calc(${min < 0 ? '0.75ch + ' : ''}${(max ?? 1000)?.toString()?.length} * 1ch)`,
 						}}
 					/>
 					{suffix && (
 						<span
 							slot='suffix'
-							className='es-uic-col-start-3 es-uic-row-span-2 es-uic-select-none es-uic-self-center es-uic-text-gray-500 es-uic-text-xs'
+							className='es-uic-col-start-3 es-uic-row-span-2 es-uic-select-none es-uic-self-center es-uic-text-xs es-uic-text-gray-500'
 						>
 							{suffix}
 						</span>
@@ -162,9 +160,7 @@ export const NumberPicker = ({
 						<>
 							<div className='es-uic-h-[2.375rem] es-uic-w-px es-uic-bg-gray-300' />
 							<div className='es-uic-pl-1 es-uic-pr-0.5'>
-								{Array.isArray(children)
-									? children.map((child) => cloneElement(child, { slot: null }))
-									: cloneElement(children, { slot: null })}
+								{Array.isArray(children) ? children.map((child) => cloneElement(child, { slot: null })) : cloneElement(children, { slot: null })}
 							</div>
 						</>
 					)}

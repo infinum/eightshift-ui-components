@@ -1,6 +1,6 @@
 /**
  * Utils for `simpleValue`-capable components.
-*/
+ */
 
 /**
  * Handles getting the current value.
@@ -19,10 +19,10 @@ export const getValue = (simpleValue, value, options) => {
 	}
 
 	if (Array.isArray(value)) {
-		return value.map((value) => options?.find(({value: itemValue}) => itemValue === value));
+		return value.map((value) => options?.find(({ value: itemValue }) => itemValue === value));
 	}
 
-	return options?.find(({value: itemValue}) => itemValue === value);
+	return options?.find(({ value: itemValue }) => itemValue === value);
 };
 
 /**

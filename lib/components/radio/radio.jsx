@@ -68,11 +68,7 @@ export const RadioButton = (props) => {
 	return (
 		<Radio
 			isDisabled={disabled}
-			className={clsx(
-				'es-uic-flex es-uic-items-center es-uic-gap-1.5 es-uic-text-sm',
-				styleClassName[design],
-				className,
-			)}
+			className={clsx('es-uic-flex es-uic-items-center es-uic-gap-1.5 es-uic-text-sm', styleClassName[design], className)}
 			{...rest}
 		>
 			{({ isSelected, isFocusVisible }) => (
@@ -90,9 +86,7 @@ export const RadioButton = (props) => {
 						className={clsx(
 							'es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded-full es-uic-border es-uic-text-gray-600 es-uic-shadow-sm es-uic-transition',
 							isSelected ? 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white' : 'es-uic-border-gray-300',
-							!design?.startsWith('segmented') &&
-								isFocusVisible &&
-								'es-uic-ring es-uic-ring-teal-500 es-uic-ring-opacity-50',
+							!design?.startsWith('segmented') && isFocusVisible && 'es-uic-ring es-uic-ring-teal-500 es-uic-ring-opacity-50',
 						)}
 					>
 						<AnimatedVisibility

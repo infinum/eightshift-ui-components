@@ -1,9 +1,4 @@
-import {
-	Tabs as ReactAriaTabs,
-	TabList as ReactAriaTabList,
-	Tab as ReactAriaTab,
-	TabPanel as ReactAriaTabPanel,
-} from 'react-aria-components';
+import { Tabs as ReactAriaTabs, TabList as ReactAriaTabList, Tab as ReactAriaTab, TabPanel as ReactAriaTabPanel } from 'react-aria-components';
 import { __, sprintf } from '@wordpress/i18n';
 import { clsx } from 'clsx/lite';
 import { cloneElement, useId } from 'react';
@@ -49,9 +44,7 @@ export const Tabs = (props) => {
 
 	const childrenWithIds = preparedChildren.reduce((acc, child, index) => {
 		if (child.type.displayName === 'TabList') {
-			const childItems = Array.isArray(child?.props?.children)
-				? child?.props?.children
-				: [child?.props?.children].filter(Boolean);
+			const childItems = Array.isArray(child?.props?.children) ? child?.props?.children : [child?.props?.children].filter(Boolean);
 
 			tabCounter = (childItems?.length ?? 0) + 1;
 
@@ -95,15 +88,9 @@ export const Tabs = (props) => {
 		return (
 			<Notice
 				type='error'
-				label={__(
-					'Component is not configured correctly. Skipping render to prevent errors.',
-					'eightshift-ui-components',
-				)}
+				label={__('Component is not configured correctly. Skipping render to prevent errors.', 'eightshift-ui-components')}
 				subtitle={sprintf(
-					__(
-						'Number of <Tab>s (%s) and <TabPanel>s (%s) should be the same. <Tab>s should be within a <TabList>.',
-						'eightshift-ui-components',
-					),
+					__('Number of <Tab>s (%s) and <TabPanel>s (%s) should be the same. <Tab>s should be within a <TabList>.', 'eightshift-ui-components'),
 					tabCounter - 1,
 					tabPanelCounter - 1,
 				)}
@@ -116,12 +103,7 @@ export const Tabs = (props) => {
 		<ReactAriaTabs
 			{...rest}
 			orientation={vertical ? 'vertical' : 'horizontal'}
-			className={clsx(
-				vertical
-					? 'es-uic-grid es-uic-size-full es-uic-min-h-40 es-uic-grid-cols-[minmax(0,_15rem),_2fr] es-uic-gap-4'
-					: 'es-uic-flex-col',
-				className,
-			)}
+			className={clsx(vertical ? 'es-uic-grid es-uic-size-full es-uic-min-h-40 es-uic-grid-cols-[minmax(0,_15rem),_2fr] es-uic-gap-4' : 'es-uic-flex-col', className)}
 		>
 			{childrenWithIds}
 		</ReactAriaTabs>
@@ -152,8 +134,8 @@ export const TabList = (props) => {
 			className={({ orientation }) =>
 				clsx(
 					'es-uic-flex',
-					orientation === 'vertical' && 'es-uic-gap-px es-uic-h-full es-uic-flex-col es-uic-pr-1.5',
-					orientation === 'horizontal' && 'es-uic-gap-1 es-uic-w-full es-uic-items-end es-uic-border-b es-uic-border-b-gray-300',
+					orientation === 'vertical' && 'es-uic-h-full es-uic-flex-col es-uic-gap-px es-uic-pr-1.5',
+					orientation === 'horizontal' && 'es-uic-w-full es-uic-items-end es-uic-gap-1 es-uic-border-b es-uic-border-b-gray-300',
 					className,
 				)
 			}

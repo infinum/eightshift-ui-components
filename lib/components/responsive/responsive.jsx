@@ -111,9 +111,7 @@ export const Responsive = (props) => {
 	const isDesktopFirst = value?.['_desktopFirst'] === true;
 
 	const firstMobileFirstOverride = breakpoints.find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
-	const lastDesktopFirstOverride = desktopFirstBreakpoints
-		.toReversed()
-		.find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
+	const lastDesktopFirstOverride = desktopFirstBreakpoints.toReversed().find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
 
 	const breakpointsToMap = isDesktopFirst ? desktopFirstBreakpoints : breakpoints;
 
@@ -133,28 +131,18 @@ export const Responsive = (props) => {
 				arrow
 				text={
 					<div className='es-uic-max-w-64 es-uic-p-1'>
-						<span className='es-uic-block es-uic-text-balance es-uic-font-semibold es-uic-tabular-nums'>
-							{__('Default', 'eightshift-ui-components')}
-						</span>
+						<span className='es-uic-block es-uic-text-balance es-uic-font-semibold es-uic-tabular-nums'>{__('Default', 'eightshift-ui-components')}</span>
 
 						<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
-							{!firstMobileFirstOverride &&
-								!lastDesktopFirstOverride &&
-								__('Always applied, regardless of browser width.', 'eightshift-ui-components')}
+							{!firstMobileFirstOverride && !lastDesktopFirstOverride && __('Always applied, regardless of browser width.', 'eightshift-ui-components')}
 
 							{firstMobileFirstOverride &&
 								!isDesktopFirst &&
-								sprintf(
-									__('Applies when the browser width is %dpx or narrower.', 'eightshift-ui-components'),
-									breakpointData[firstMobileFirstOverride] - 1,
-								)}
+								sprintf(__('Applies when the browser width is %dpx or narrower.', 'eightshift-ui-components'), breakpointData[firstMobileFirstOverride] - 1)}
 
 							{lastDesktopFirstOverride &&
 								isDesktopFirst &&
-								sprintf(
-									__('Applies when the browser width is %dpx or more.', 'eightshift-ui-components'),
-									breakpointData[lastDesktopFirstOverride.replace('max-', '')],
-								)}
+								sprintf(__('Applies when the browser width is %dpx or more.', 'eightshift-ui-components'), breakpointData[lastDesktopFirstOverride.replace('max-', '')])}
 						</span>
 
 						<div className='es-uic-mx-auto'>
@@ -164,18 +152,14 @@ export const Responsive = (props) => {
 										{
 											breakpoint: __('Default', 'eightshift-ui-components'),
 											widthEnd: breakpointData[firstMobileFirstOverride] - 1,
-											value:
-												options?.find((opt) => opt.value === value?.['_default'])?.label ??
-												upperFirst(value?.['_default']),
+											value: options?.find((opt) => opt.value === value?.['_default'])?.label ?? upperFirst(value?.['_default']),
 											dotsStart: true,
 											alignEnd: true,
 											active: true,
 										},
 										{
 											breakpoint: breakpointUiData?.[firstMobileFirstOverride]?.label ?? firstMobileFirstOverride,
-											value:
-												options?.find((opt) => opt.value === value?.[firstMobileFirstOverride])?.label ??
-												upperFirst(value?.[firstMobileFirstOverride]),
+											value: options?.find((opt) => opt.value === value?.[firstMobileFirstOverride])?.label ?? upperFirst(value?.[firstMobileFirstOverride]),
 											dotsEnd: true,
 										},
 									]}
@@ -186,20 +170,14 @@ export const Responsive = (props) => {
 								<BreakpointPreview
 									blocks={[
 										{
-											breakpoint:
-												breakpointUiData?.[lastDesktopFirstOverride.replace('max-', '')]?.label ??
-												lastDesktopFirstOverride.replace('max-', ''),
-											value:
-												options?.find((opt) => opt.value === value?.[lastDesktopFirstOverride])?.label ??
-												upperFirst(value?.[lastDesktopFirstOverride]),
+											breakpoint: breakpointUiData?.[lastDesktopFirstOverride.replace('max-', '')]?.label ?? lastDesktopFirstOverride.replace('max-', ''),
+											value: options?.find((opt) => opt.value === value?.[lastDesktopFirstOverride])?.label ?? upperFirst(value?.[lastDesktopFirstOverride]),
 											dotsStart: true,
 											alignEnd: true,
 										},
 										{
 											breakpoint: __('Default', 'eightshift-ui-components'),
-											value:
-												options?.find((opt) => opt.value === value?.['_default'])?.label ??
-												upperFirst(value?.['_default']),
+											value: options?.find((opt) => opt.value === value?.['_default'])?.label ?? upperFirst(value?.['_default']),
 											width: breakpointData[lastDesktopFirstOverride.replace('max-', '')],
 											dotsEnd: true,
 											active: true,
@@ -212,9 +190,7 @@ export const Responsive = (props) => {
 				}
 			>
 				<div className='es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-border-teal-500/10 es-uic-bg-teal-50 es-uic-p-0.5 es-uic-text-teal-800 es-uic-shadow-sm es-uic-shadow-teal-600/25 [&>svg]:es-uic-size-5'>
-					{icons?.[overrideIcon] ??
-						overrideIcon ??
-						icons[`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`]}
+					{icons?.[overrideIcon] ?? overrideIcon ?? icons[`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`]}
 				</div>
 			</DecorativeTooltip>
 		);
@@ -256,11 +232,7 @@ export const Responsive = (props) => {
 							icon={isDesktopFirst ? icons.responsiveOverridesAlt : icons.responsiveOverridesAlt2}
 							onChange={() => setDetailsVisible(!detailsVisible)}
 							selected={detailsVisible}
-							tooltip={
-								detailsVisible
-									? __('Hide responsive overrides', 'eightshift-ui-components')
-									: __('Show responsive overrides', 'eightshift-ui-components')
-							}
+							tooltip={detailsVisible ? __('Hide responsive overrides', 'eightshift-ui-components') : __('Show responsive overrides', 'eightshift-ui-components')}
 						/>
 
 						<Menu
@@ -309,13 +281,7 @@ export const Responsive = (props) => {
 							)}
 
 							{Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined') && (
-								<SubMenuItem
-									trigger={
-										<MenuItem icon={icons.previewResponsive}>
-											{__('Responsive preview', 'eightshift-ui-components')}
-										</MenuItem>
-									}
-								>
+								<SubMenuItem trigger={<MenuItem icon={icons.previewResponsive}>{__('Responsive preview', 'eightshift-ui-components')}</MenuItem>}>
 									<MenuItem disabled>
 										<ResponsivePreview
 											value={value}
@@ -329,9 +295,7 @@ export const Responsive = (props) => {
 									</MenuItem>
 								</SubMenuItem>
 							)}
-							{Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined') && (
-								<MenuSeparator />
-							)}
+							{Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined') && <MenuSeparator />}
 							<MenuItem
 								icon={icons.clearAlt}
 								onClick={() => {
@@ -419,9 +383,7 @@ export const Responsive = (props) => {
 				{breakpointsToMap.map((breakpoint, i) => {
 					const realBreakpointName = breakpoint.replace('max-', '');
 
-					const filterBreakpoints = isDesktopFirst
-						? [...breakpointsToMap, '_default']
-						: ['_default', ...breakpointsToMap];
+					const filterBreakpoints = isDesktopFirst ? [...breakpointsToMap, '_default'] : ['_default', ...breakpointsToMap];
 
 					const aboveOverride = isDesktopFirst
 						? filterBreakpoints.slice(i + 1).find((breakpoint) => typeof value?.[breakpoint] !== 'undefined')
@@ -455,33 +417,24 @@ export const Responsive = (props) => {
 								arrow
 								text={
 									<div className='es-uic-max-w-96 es-uic-p-1'>
-										<span className='es-uic-block es-uic-font-semibold'>
-											{breakpointUiData?.[realBreakpointName]?.label ?? upperFirst(realBreakpointName)}
-										</span>
+										<span className='es-uic-block es-uic-font-semibold'>{breakpointUiData?.[realBreakpointName]?.label ?? upperFirst(realBreakpointName)}</span>
 
 										<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
 											{!isDesktopFirst && (
 												<>
 													{!belowOverride &&
 														typeof value[breakpoint] !== 'undefined' &&
-														sprintf(
-															__('Applied when the browser width is %dpx or more.', 'eightshift-ui-components'),
-															breakpointData[realBreakpointName],
-														)}
+														sprintf(__('Applied when the browser width is %dpx or more.', 'eightshift-ui-components'), breakpointData[realBreakpointName])}
 
 													{belowOverride &&
 														typeof value[breakpoint] !== 'undefined' &&
 														sprintf(
-															__(
-																'Applied when the browser width is between %dpx and %dpx.',
-																'eightshift-ui-components',
-															),
+															__('Applied when the browser width is between %dpx and %dpx.', 'eightshift-ui-components'),
 															breakpointData[realBreakpointName],
 															breakpointData[belowOverride] - 1,
 														)}
 
-													{typeof value[breakpoint] === 'undefined' &&
-														sprintf(__('From %dpx', 'eightshift-ui-components'), breakpointData[realBreakpointName])}
+													{typeof value[breakpoint] === 'undefined' && sprintf(__('From %dpx', 'eightshift-ui-components'), breakpointData[realBreakpointName])}
 												</>
 											)}
 
@@ -489,35 +442,23 @@ export const Responsive = (props) => {
 												<>
 													{!belowOverride &&
 														typeof value[breakpoint] !== 'undefined' &&
-														sprintf(
-															__('Applied when the browser width is %dpx or less.', 'eightshift-ui-components'),
-															breakpointData[realBreakpointName] - 1,
-														)}
+														sprintf(__('Applied when the browser width is %dpx or less.', 'eightshift-ui-components'), breakpointData[realBreakpointName] - 1)}
 
 													{belowOverride &&
 														typeof value[breakpoint] !== 'undefined' &&
 														sprintf(
-															__(
-																'Applied when the browser width is between %dpx and %dpx.',
-																'eightshift-ui-components',
-															),
+															__('Applied when the browser width is between %dpx and %dpx.', 'eightshift-ui-components'),
 															breakpointData[belowOverride?.replace('max-', '')],
 															breakpointData[realBreakpointName] - 1,
 														)}
 
-													{typeof value[breakpoint] === 'undefined' &&
-														sprintf(
-															__('Up to %dpx', 'eightshift-ui-components'),
-															breakpointData[breakpoint?.replace('max-', '')],
-														)}
+													{typeof value[breakpoint] === 'undefined' && sprintf(__('Up to %dpx', 'eightshift-ui-components'), breakpointData[breakpoint?.replace('max-', '')])}
 												</>
 											)}
 										</span>
 
 										{typeof value[breakpoint] === 'undefined' && (
-											<span className='es-uic-mt-2 es-uic-block es-uic-font-medium es-uic-italic'>
-												{__('Not set', 'eightshift-ui-components')}
-											</span>
+											<span className='es-uic-mt-2 es-uic-block es-uic-font-medium es-uic-italic'>{__('Not set', 'eightshift-ui-components')}</span>
 										)}
 
 										{typeof value[breakpoint] !== 'undefined' && (
@@ -529,26 +470,20 @@ export const Responsive = (props) => {
 															aboveOverride !== '_default' &&
 																typeof value?.[aboveOverride] !== 'undefined' && {
 																	breakpoint: breakpointUiData?.[aboveOverride]?.label ?? aboveOverride,
-																	value:
-																		options?.find((opt) => opt.value === value?.[aboveOverride])?.label ??
-																		upperFirst(value?.[aboveOverride]),
+																	value: options?.find((opt) => opt.value === value?.[aboveOverride])?.label ?? upperFirst(value?.[aboveOverride]),
 																	dotsStart: !belowOverride,
 																	alignEnd: !belowOverride,
 																},
 															aboveOverride === '_default' &&
 																typeof value?.['_default'] !== 'undefined' && {
 																	breakpoint: __('Default', 'eightshift-ui-components'),
-																	value:
-																		options?.find((opt) => opt.value === value?.['_default'])?.label ??
-																		upperFirst(value?.['_default']),
+																	value: options?.find((opt) => opt.value === value?.['_default'])?.label ?? upperFirst(value?.['_default']),
 																	dotsStart: !belowOverride,
 																	alignEnd: !belowOverride,
 																},
 															{
 																breakpoint: breakpointUiData?.[realBreakpointName]?.label ?? realBreakpointName,
-																value:
-																	options?.find((opt) => opt.value === value?.[breakpoint])?.label ??
-																	upperFirst(value?.[breakpoint]),
+																value: options?.find((opt) => opt.value === value?.[breakpoint])?.label ?? upperFirst(value?.[breakpoint]),
 																width: breakpointData[realBreakpointName],
 																active: true,
 																dotsEnd: !belowOverride,
@@ -556,9 +491,7 @@ export const Responsive = (props) => {
 															belowOverride &&
 																typeof value?.[belowOverride] !== 'undefined' && {
 																	breakpoint: breakpointUiData?.[belowOverride]?.label ?? belowOverride,
-																	value:
-																		options?.find((opt) => opt.value === value?.[belowOverride])?.label ??
-																		upperFirst(value?.[belowOverride]),
+																	value: options?.find((opt) => opt.value === value?.[belowOverride])?.label ?? upperFirst(value?.[belowOverride]),
 																	width: breakpointData[belowOverride],
 																	dotsEnd: true,
 																},
@@ -572,35 +505,23 @@ export const Responsive = (props) => {
 														dotsEnd={aboveOverride !== '_default'}
 														blocks={[
 															belowOverride && {
-																breakpoint:
-																	breakpointUiData?.[belowOverride?.replace('max-', '')]?.label ??
-																	belowOverride?.replace('max-', ''),
-																value:
-																	options?.find((opt) => opt.value === value?.[belowOverride])?.label ??
-																	upperFirst(value?.[belowOverride]),
+																breakpoint: breakpointUiData?.[belowOverride?.replace('max-', '')]?.label ?? belowOverride?.replace('max-', ''),
+																value: options?.find((opt) => opt.value === value?.[belowOverride])?.label ?? upperFirst(value?.[belowOverride]),
 															},
 															{
 																breakpoint: breakpointUiData?.[realBreakpointName]?.label ?? realBreakpointName,
-																value:
-																	options?.find((opt) => opt.value === value?.[breakpoint])?.label ??
-																	upperFirst(value?.[realBreakpointName]),
+																value: options?.find((opt) => opt.value === value?.[breakpoint])?.label ?? upperFirst(value?.[realBreakpointName]),
 																width: breakpointData[filterBreakpoints[i - 1]?.replace('max-', '')],
 																active: true,
 															},
 															aboveOverride !== '_default' && {
-																breakpoint:
-																	breakpointUiData?.[aboveOverride?.replace('max-', '')]?.label ??
-																	aboveOverride?.replace('max-', ''),
-																value:
-																	options?.find((opt) => opt.value === value?.[aboveOverride])?.label ??
-																	upperFirst(value?.[aboveOverride]),
+																breakpoint: breakpointUiData?.[aboveOverride?.replace('max-', '')]?.label ?? aboveOverride?.replace('max-', ''),
+																value: options?.find((opt) => opt.value === value?.[aboveOverride])?.label ?? upperFirst(value?.[aboveOverride]),
 																width: breakpointData[breakpoint?.replace('max-', '')],
 															},
 															aboveOverride === '_default' && {
 																breakpoint: __('Default', 'eightshift-ui-components'),
-																value:
-																	options?.find((opt) => opt.value === value?.['_default'])?.label ??
-																	upperFirst(value?.['_default']),
+																value: options?.find((opt) => opt.value === value?.['_default'])?.label ?? upperFirst(value?.['_default']),
 																width: breakpointData[breakpoint?.replace('max-', '')],
 																dotsEnd: true,
 															},
@@ -620,9 +541,7 @@ export const Responsive = (props) => {
 											: 'es-uic-border-gray-100 es-uic-bg-white es-uic-text-gray-500',
 									)}
 								>
-									{icons?.[breakpointUiData?.[realBreakpointName]?.icon] ??
-										breakpointUiData?.[realBreakpointName]?.icon ??
-										icons?.[`screen${upperFirst(realBreakpointName)}`]}
+									{icons?.[breakpointUiData?.[realBreakpointName]?.icon] ?? breakpointUiData?.[realBreakpointName]?.icon ?? icons?.[`screen${upperFirst(realBreakpointName)}`]}
 								</div>
 							</DecorativeTooltip>
 

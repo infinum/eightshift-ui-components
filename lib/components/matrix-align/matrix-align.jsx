@@ -123,10 +123,7 @@ export const MatrixAlign = (props) => {
 		.filter(({ availableOn }) => availableOn.includes(size))
 		.map((item) => ({
 			...item,
-			icon:
-				item.value === currentValue
-					? icons.matrixAlignControlDotActive
-					: icons.matrixAlignControlDotInactive,
+			icon: item.value === currentValue ? icons.matrixAlignControlDotActive : icons.matrixAlignControlDotInactive,
 		}));
 
 	return (
@@ -167,11 +164,7 @@ export const MatrixAlign = (props) => {
 				>
 					<div
 						ref={innerRef}
-						className={clsx(
-							'es-uic-grid',
-							size === '3x3' && 'es-uic-grid-cols-3 es-uic-grid-rows-3',
-							size === '2x2' && 'es-uic-grid-cols-2 es-uic-grid-rows-2',
-						)}
+						className={clsx('es-uic-grid', size === '3x3' && 'es-uic-grid-cols-3 es-uic-grid-rows-3', size === '2x2' && 'es-uic-grid-cols-2 es-uic-grid-rows-2')}
 					>
 						{sizeOptions.map(({ value, label, icon }) => (
 							<Button

@@ -117,9 +117,7 @@ export const ColumnConfigSlider = (props) => {
 								<div
 									className={clsx(
 										'es-uic-col-span-full es-uic-row-span-1 es-uic-row-start-1 es-uic-h-full es-uic-w-full es-uic-grow es-uic-rounded-md es-uic-border',
-										disabled
-											? 'es-uic-border-gray-200 es-uic-bg-white'
-											: 'es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-shadow-sm',
+										disabled ? 'es-uic-border-gray-200 es-uic-bg-white' : 'es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-shadow-sm',
 									)}
 								/>
 
@@ -139,9 +137,7 @@ export const ColumnConfigSlider = (props) => {
 									className={clsx(
 										'es-uic-pointer-events-none es-uic-col-start-1 es-uic-row-start-1 es-uic-border',
 										'es-uic-h-full es-uic-w-full es-uic-self-center es-uic-rounded-md',
-										disabled
-											? 'es-uic-border-gray-200 es-uic-bg-gray-50'
-											: 'es-uic-border-teal-500 es-uic-bg-teal-500/30',
+										disabled ? 'es-uic-border-gray-200 es-uic-bg-gray-50' : 'es-uic-border-teal-500 es-uic-bg-teal-500/30',
 									)}
 									style={{
 										gridColumn: `${value[0]} / span ${value[1] - value[0] + 1}`,
@@ -176,10 +172,8 @@ export const ColumnConfigSlider = (props) => {
 										isDisabled={(i === 0 && disableOffset) || (i === 1 && disableWidth)}
 										className={clsx(
 											'!es-uic-static es-uic-row-span-1 es-uic-row-start-1 es-uic-h-6 es-uic-w-1.5 es-uic-rounded-full es-uic-border es-uic-transition es-uic-duration-300',
-											i === 0 &&
-												'!-es-uic-translate-x-1/2 !es-uic-translate-y-0 es-uic-self-center es-uic-justify-self-start',
-											i === 1 &&
-												'!es-uic-translate-x-1/2 !es-uic-translate-y-0 es-uic-self-center es-uic-justify-self-end',
+											i === 0 && '!-es-uic-translate-x-1/2 !es-uic-translate-y-0 es-uic-self-center es-uic-justify-self-start',
+											i === 1 && '!es-uic-translate-x-1/2 !es-uic-translate-y-0 es-uic-self-center es-uic-justify-self-end',
 											'es-uic-shadow dragging:es-uic-bg-teal-600 disabled:es-uic-opacity-0',
 											'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 											'es-uic-border-teal-600 es-uic-bg-teal-500 es-uic-shadow-teal-600/50',

@@ -3,7 +3,6 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { clsx } from 'clsx/lite';
 
-
 export const getDragEndHandler = (onChange, items) => {
 	return (event) => {
 		const { active, over } = event;
@@ -50,7 +49,7 @@ export const getMultiValue = (ComponentToRender) => {
 					CSS.Translate.toString(transform) && '[&_>_div]:es-uic-pointer-events-none',
 					// Make the currently grabbed item into a fancy holo-like thing.
 					isDragging &&
-						'es-uic-z-50 [&_>_div]:!es-uic-border [&_>_div]:es-uic-border-dotted [&_>_div]:!es-uic-border-teal-500 [&_>_div]:!es-uic-bg-teal-100/20 [&_>_div]:!es-uic-text-teal-900/15 [&_>_div_[role=button]]:es-uic-opacity-0 es-uic-blur-[0.5px]',
+						'es-uic-z-50 es-uic-blur-[0.5px] [&_>_div]:!es-uic-border [&_>_div]:es-uic-border-dotted [&_>_div]:!es-uic-border-teal-500 [&_>_div]:!es-uic-bg-teal-100/20 [&_>_div]:!es-uic-text-teal-900/15 [&_>_div_[role=button]]:es-uic-opacity-0',
 				)}
 				{...attributes}
 				{...listeners}

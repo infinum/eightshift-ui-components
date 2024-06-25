@@ -197,9 +197,7 @@ function App() {
 		}
 
 		const filtered = linkData.filter(
-			({ label, value }) =>
-				label.toLowerCase().includes(searchTerm.toLowerCase().trim()) ||
-				value.toLowerCase().includes(searchTerm.toLowerCase().trim()),
+			({ label, value }) => label.toLowerCase().includes(searchTerm.toLowerCase().trim()) || value.toLowerCase().includes(searchTerm.toLowerCase().trim()),
 		);
 
 		await new Promise((resolve) => setTimeout(resolve, 500));
@@ -264,30 +262,18 @@ function App() {
 	const CustomValueDisplay = (props) => {
 		return (
 			<RSSingleValue {...props}>
-				<span className='es-uic-rounded-sm es-uic-border es-uic-border-dotted es-uic-border-sky-400 es-uic-p-2'>
-					{props.children}
-				</span>
+				<span className='es-uic-rounded-sm es-uic-border es-uic-border-dotted es-uic-border-sky-400 es-uic-p-2'>{props.children}</span>
 			</RSSingleValue>
 		);
 	};
 
 	const CustomMultiValueDisplay = (props) => {
-		const colors = [
-			'es-uic-bg-red-500',
-			'es-uic-bg-blue-500',
-			'es-uic-bg-green-500',
-			'es-uic-bg-yellow-500',
-			'es-uic-bg-slate-900',
-		];
+		const colors = ['es-uic-bg-red-500', 'es-uic-bg-blue-500', 'es-uic-bg-green-500', 'es-uic-bg-yellow-500', 'es-uic-bg-slate-900'];
 		const colorIndex = props.options.findIndex((option) => option.value === props.data.value) % colors.length;
 
 		return (
 			<RSMultiValue {...props}>
-				<span
-					className={`${colors[colorIndex]} es-uic-rounded es-uic-p-1 es-uic-font-medium es-uic-leading-none es-uic-text-white`}
-				>
-					{props.children}
-				</span>
+				<span className={`${colors[colorIndex]} es-uic-rounded es-uic-p-1 es-uic-font-medium es-uic-leading-none es-uic-text-white`}>{props.children}</span>
 			</RSMultiValue>
 		);
 	};
@@ -295,9 +281,7 @@ function App() {
 	const CustomDropdownIndicator = (props) => {
 		return (
 			<RSDropdownIndicator {...props}>
-				<span className='[&>svg]:es-uic-text-lime-500'>
-					{props.selectProps.menuIsOpen ? icons.arrowUpSquareAlt : icons.arrowDownSquareAlt}
-				</span>
+				<span className='[&>svg]:es-uic-text-lime-500'>{props.selectProps.menuIsOpen ? icons.arrowUpSquareAlt : icons.arrowDownSquareAlt}</span>
 			</RSDropdownIndicator>
 		);
 	};
@@ -329,9 +313,7 @@ function App() {
 	const CustomClearIndicator = (props) => {
 		return (
 			<RSClearIndicator {...props}>
-				<span className='es-color-admin-accent es-hover-color-red-500 es-line-h-0 es-nested-size-6! -es-ml-1!'>
-					{icons.errorCircleFill}
-				</span>
+				<span className='es-color-admin-accent es-hover-color-red-500 es-line-h-0 es-nested-size-6! -es-ml-1!'>{icons.errorCircleFill}</span>
 			</RSClearIndicator>
 		);
 	};
@@ -724,9 +706,7 @@ function App() {
 							noInitial
 							transition='scaleFade'
 						>
-							<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 es-uic-p-4'>
-								Hi, I&apos;m content
-							</div>
+							<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 es-uic-p-4'>Hi, I&apos;m content</div>
 						</AnimatedVisibility>
 					</div>
 				</TabPanel>
@@ -2148,9 +2128,7 @@ function App() {
 						onChange={setGrad}
 					/>
 
-					<code className='es-uic-max-w-60 es-uic-rounded-md es-uic-border es-uic-bg-gray-50 es-uic-p-1 es-uic-font-mono es-uic-text-xs'>
-						{grad}
-					</code>
+					<code className='es-uic-max-w-60 es-uic-rounded-md es-uic-border es-uic-bg-gray-50 es-uic-p-1 es-uic-font-mono es-uic-text-xs'>{grad}</code>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<ColorSwatch color='red' />

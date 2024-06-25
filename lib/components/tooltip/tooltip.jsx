@@ -1,8 +1,4 @@
-import {
-	OverlayArrow as ReactAriaOverlayArrow,
-	Tooltip as ReactAriaTooltip,
-	TooltipTrigger as ReactAriaTooltipTrigger,
-} from 'react-aria-components';
+import { OverlayArrow as ReactAriaOverlayArrow, Tooltip as ReactAriaTooltip, TooltipTrigger as ReactAriaTooltipTrigger } from 'react-aria-components';
 import { useHover, useFocusWithin, mergeProps } from 'react-aria';
 import { clsx } from 'clsx/lite';
 import { useRef, useState } from 'react';

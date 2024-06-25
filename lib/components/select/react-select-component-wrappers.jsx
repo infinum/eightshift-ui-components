@@ -2,7 +2,7 @@ import { components } from 'react-select';
 
 /**
  * Wrappers for react-select components if you are having trouble importing directly from react-select.
-*/
+ */
 
 /**
  * Custom dropdown indicator for CustomSelect.
@@ -12,10 +12,8 @@ import { components } from 'react-select';
  * @param {import('react-select').DropdownIndicatorProps} props - components.DropdownIndicator props.
  *
  * @preserve
-*/
-export const RSDropdownIndicator = (props) => (
-	<components.DropdownIndicator {...props} />
-);
+ */
+export const RSDropdownIndicator = (props) => <components.DropdownIndicator {...props} />;
 
 /**
  * Custom value display for CustomSelect.
@@ -25,10 +23,8 @@ export const RSDropdownIndicator = (props) => (
  * @param {import('react-select').SingleValueProps} props - components.SingleValue props.
  *
  * @preserve
-*/
-export const RSSingleValue = (props) => (
-	<components.SingleValue {...props} />
-);
+ */
+export const RSSingleValue = (props) => <components.SingleValue {...props} />;
 
 /**
  * Custom value display for multi item select.
@@ -38,10 +34,8 @@ export const RSSingleValue = (props) => (
  * @param {import('react-select').MultiValueProps} props - components.SingleValue props.
  *
  * @preserve
-*/
-export const RSMultiValue = (props) => (
-	<components.MultiValue {...props} />
-);
+ */
+export const RSMultiValue = (props) => <components.MultiValue {...props} />;
 
 /**
  * Custom option for CustomSelect.
@@ -51,11 +45,8 @@ export const RSMultiValue = (props) => (
  * @param {import('react-select').OptionProps} props - components.Option props.
  *
  * @preserve
-*/
-export const RSOption = (props) => (
-	<components.Option {...props} />
-);
-
+ */
+export const RSOption = (props) => <components.Option {...props} />;
 
 /**
  * Custom multiple value remove button for CustomSelect.
@@ -65,11 +56,8 @@ export const RSOption = (props) => (
  * @param {import('react-select').MultiValueRemoveProps} props - components.MultiValueRemove props.
  *
  * @preserve
-*/
-export const RSMultiValueRemove = (props) => (
-	<components.MultiValueRemove {...props} />
-);
-
+ */
+export const RSMultiValueRemove = (props) => <components.MultiValueRemove {...props} />;
 
 /**
  * Custom multiple value display container for CustomSelect.
@@ -79,10 +67,8 @@ export const RSMultiValueRemove = (props) => (
  * @param {import('react-select').MultiValueGenericProps} props - components.MultiValueContainer props.
  *
  * @preserve
-*/
-export const RSMultiValueContainer = (props) => (
-	<components.MultiValueContainer {...props} />
-);
+ */
+export const RSMultiValueContainer = (props) => <components.MultiValueContainer {...props} />;
 
 /**
  * Custom multiple value display for CustomSelect.
@@ -92,10 +78,8 @@ export const RSMultiValueContainer = (props) => (
  * @param {import('react-select').MultiValueGenericProps} props - components.MultiValueLabel props.
  *
  * @preserve
-*/
-export const RSMultiValueLabel = (props) => (
-	<components.MultiValueLabel {...props} />
-);
+ */
+export const RSMultiValueLabel = (props) => <components.MultiValueLabel {...props} />;
 
 /**
  * Default clear indicator for CustomSelect.
@@ -103,7 +87,5 @@ export const RSMultiValueLabel = (props) => (
  * @param {import('react-select').ClearIndicatorProps} props - components.ClearIndicator props.
  *
  * @preserve
-*/
-export const RSClearIndicator = (props) => (
-	<components.ClearIndicator {...props} />
-);
+ */
+export const RSClearIndicator = (props) => <components.ClearIndicator {...props} />;

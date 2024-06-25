@@ -162,10 +162,7 @@ export const Slider = (props) => {
 				}
 				labelAs={Label}
 				className={labelClassName}
-				controlContainerClassName={clsx(
-					'es-uic-flex es-uic-items-center es-uic-gap-2.5 !es-uic-space-y-0',
-					vertical && 'es-uic-flex-col',
-				)}
+				controlContainerClassName={clsx('es-uic-flex es-uic-items-center es-uic-gap-2.5 !es-uic-space-y-0', vertical && 'es-uic-flex-col')}
 			>
 				{before && <div className='es-uic-flex es-uic-shrink-0 es-uic-items-center es-uic-gap-1'>{before}</div>}
 
@@ -240,9 +237,7 @@ export const Slider = (props) => {
 										'es-uic-relative es-uic-col-start-1 es-uic-row-start-1 es-uic-rounded-full es-uic-border',
 										!vertical && 'es-uic-h-1.5 es-uic-w-full es-uic-self-center',
 										vertical && 'es-uic-h-full es-uic-w-1.5 es-uic-flex-col es-uic-justify-self-center',
-										disabled
-											? 'es-uic-border-gray-200 es-uic-bg-white'
-											: 'es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-shadow-sm',
+										disabled ? 'es-uic-border-gray-200 es-uic-bg-white' : 'es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-shadow-sm',
 									)}
 									style={trackStyle}
 								/>
@@ -259,9 +254,7 @@ export const Slider = (props) => {
 											vertical && shouldRoundEnd && 'es-uic-rounded-b-full',
 											!vertical && activeBarOffset && '-es-uic-translate-x-px',
 											vertical && activeBarOffset && 'es-uic-translate-y-px',
-											disabled
-												? 'es-uic-border-gray-200 es-uic-bg-gray-50'
-												: 'es-uic-border-teal-500 es-uic-bg-teal-500/30',
+											disabled ? 'es-uic-border-gray-200 es-uic-bg-gray-50' : 'es-uic-border-teal-500 es-uic-bg-teal-500/30',
 										)}
 										style={{
 											bottom: vertical ? `${activeBarBottom}%` : null,
@@ -322,16 +315,8 @@ export const Slider = (props) => {
 													<span
 														className={clsx(
 															'es-uic-absolute es-uic-select-none es-uic-text-xs es-uic-transition-colors',
-															vertical
-																? 'es-uic-left-3.5 es-uic-top-0 -es-uic-translate-y-1/2'
-																: 'es-uic-left-0 es-uic-top-2.5 -es-uic-translate-x-1/2',
-															(
-																Array.isArray(value)
-																	? value.includes(Number(dotValue))
-																	: value === Number(dotValue) && !disabled
-															)
-																? 'es-uic-text-teal-700'
-																: 'es-uic-text-gray-300',
+															vertical ? 'es-uic-left-3.5 es-uic-top-0 -es-uic-translate-y-1/2' : 'es-uic-left-0 es-uic-top-2.5 -es-uic-translate-x-1/2',
+															(Array.isArray(value) ? value.includes(Number(dotValue)) : value === Number(dotValue) && !disabled) ? 'es-uic-text-teal-700' : 'es-uic-text-gray-300',
 														)}
 													>
 														{markers && markers !== 'dots' && labelData}
@@ -350,9 +335,7 @@ export const Slider = (props) => {
 											aria-label={thumbLabels?.[i]}
 											className={clsx(
 												'es-uic-absolute es-uic-size-3.5 es-uic-rounded-full es-uic-border es-uic-transition es-uic-duration-300',
-												vertical
-													? '!-es-uic-translate-y-1/2 !es-uic-translate-x-0'
-													: '!-es-uic-translate-x-1/2 !es-uic-translate-y-0',
+												vertical ? '!-es-uic-translate-y-1/2 !es-uic-translate-x-0' : '!-es-uic-translate-x-1/2 !es-uic-translate-y-0',
 												'es-uic-shadow dragging:es-uic-bg-teal-600 disabled:es-uic-border-gray-200 disabled:es-uic-bg-gray-100 disabled:es-uic-shadow-none',
 												'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 												'es-uic-border-teal-600 es-uic-bg-teal-500 es-uic-shadow-teal-600/50',
@@ -365,9 +348,7 @@ export const Slider = (props) => {
 												setCurrentThumbIndex(i);
 											}}
 										>
-											{inputField && state.values.length > 1 && currentThumbIndex === i && (
-												<div className='es-uic-m-0.5 es-uic-size-2 es-uic-rounded-full es-uic-bg-teal-100' />
-											)}
+											{inputField && state.values.length > 1 && currentThumbIndex === i && <div className='es-uic-m-0.5 es-uic-size-2 es-uic-rounded-full es-uic-bg-teal-100' />}
 
 											{thumbContent && thumbContent(i)}
 										</ReactAriaSliderThumb>

@@ -86,13 +86,11 @@ export const Button = (props) => {
 		default: {
 			regular: 'es-uic-text-gray-700 es-uic-shadow-sm es-uic-border es-uic-border-gray-300 es-uic-bg-white',
 			hover: 'hover:es-uic-border-gray-300 hover:es-uic-bg-gray-100',
-			disabled:
-				'disabled:es-uic-border-gray-300 disabled:es-uic-bg-gray-50/50 disabled:es-uic-text-gray-300 es-uic-border',
+			disabled: 'disabled:es-uic-border-gray-300 disabled:es-uic-bg-gray-50/50 disabled:es-uic-text-gray-300 es-uic-border',
 			focus: 'focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 		},
 		selected: {
-			regular:
-				'es-uic-bg-teal-600 es-uic-text-white es-uic-border-teal-600 after:es-uic-opacity-45 es-uic-border es-uic-shadow-md es-uic-shadow-teal-500/25',
+			regular: 'es-uic-bg-teal-600 es-uic-text-white es-uic-border-teal-600 after:es-uic-opacity-45 es-uic-border es-uic-shadow-md es-uic-shadow-teal-500/25',
 			hover: 'hover:es-uic-shadow-teal-600/50 hover:after:es-uic-opacity-60',
 		},
 		ghost: {
@@ -101,10 +99,8 @@ export const Button = (props) => {
 			disabled: 'disabled:es-uic-text-gray-300 disabled:es-uic-border-transparent',
 		},
 		danger: {
-			regular:
-				'es-uic-border-red-300 es-uic-text-gray-700 es-uic-text-gray-900 es-uic-shadow-red-300/30 [&>svg]:es-uic-text-red-500 es-uic-shadow-sm es-uic-border',
-			hover:
-				'hover:es-uic-border-red-400 hover:es-uic-bg-red-50 hover:es-uic-text-red-500 hover:es-uic-shadow-red-300/75',
+			regular: 'es-uic-border-red-300 es-uic-text-gray-700 es-uic-text-gray-900 es-uic-shadow-red-300/30 [&>svg]:es-uic-text-red-500 es-uic-shadow-sm es-uic-border',
+			hover: 'hover:es-uic-border-red-400 hover:es-uic-bg-red-50 hover:es-uic-text-red-500 hover:es-uic-shadow-red-300/75',
 			focus: 'focus-visible:es-uic-ring-red-500 focus-visible:es-uic-ring-opacity-50',
 		},
 	};
@@ -134,14 +130,12 @@ export const Button = (props) => {
 				sizes[size].iconSize,
 				type === 'selected' &&
 					'es-uic-relative es-uic-isolate after:es-uic-absolute after:es-uic-inset-0 after:-es-uic-z-10 after:es-uic-rounded-[0.3125rem] after:es-uic-bg-gradient-to-br after:es-uic-from-teal-100/40 after:es-uic-via-transparent after:es-uic-to-teal-200/50 after:es-uic-opacity-0 after:es-uic-transition-opacity after:es-uic-content-[""]',
-				type === 'selected' &&
-					'[.es-uic-button-group-h_&:not(:first-child)]:after:es-uic-rounded-l-none [.es-uic-button-group-h_&:not(:last-child)]:after:es-uic-rounded-r-none',
+				type === 'selected' && '[.es-uic-button-group-h_&:not(:first-child)]:after:es-uic-rounded-l-none [.es-uic-button-group-h_&:not(:last-child)]:after:es-uic-rounded-r-none',
 				type === 'selected' &&
 					'[.es-uic-button-group-h_div:not(:first-child)_>_&]:after:es-uic-rounded-l-none [.es-uic-button-group-h_div:not(:last-child)_>_&]:after:es-uic-rounded-r-none',
 				'[.es-uic-button-group-v_&:not(:first-child)]:es-uic-rounded-t-none [.es-uic-button-group-v_&:not(:last-child)]:-es-uic-mb-px [.es-uic-button-group-v_&:not(:last-child)]:es-uic-rounded-b-none',
 				'[.es-uic-button-group-v_div:not(:first-child)_>_&]:es-uic-rounded-t-none [.es-uic-button-group-v_div:not(:last-child)_>_&]:-es-uic-mb-px [.es-uic-button-group-v_div:not(:last-child)_>_&]:es-uic-rounded-b-none',
-				type === 'selected' &&
-					'[.es-uic-button-group-v_&:not(:first-child)]:after:es-uic-rounded-t-none [.es-uic-button-group-v_&:not(:last-child)]:after:es-uic-rounded-b-none',
+				type === 'selected' && '[.es-uic-button-group-v_&:not(:first-child)]:after:es-uic-rounded-t-none [.es-uic-button-group-v_&:not(:last-child)]:after:es-uic-rounded-b-none',
 				type === 'selected' &&
 					'[.es-uic-button-group-v_div:not(:first-child)_>_&]:after:es-uic-rounded-t-none [.es-uic-button-group-v_div:not(:last-child)_>_&]:after:es-uic-rounded-b-none',
 				className,
@@ -198,11 +192,7 @@ export const ButtonGroup = ({ children, className, vertical, hidden, ...rest }) 
 
 	return (
 		<Toolbar
-			className={clsx(
-				'es-uic-flex',
-				vertical ? 'es-uic-button-group-v es-uic-flex-col' : 'es-uic-button-group-h',
-				className,
-			)}
+			className={clsx('es-uic-flex', vertical ? 'es-uic-button-group-v es-uic-flex-col' : 'es-uic-button-group-h', className)}
 			orientation={vertical ? 'vertical' : 'horizontal'}
 			{...rest}
 		>

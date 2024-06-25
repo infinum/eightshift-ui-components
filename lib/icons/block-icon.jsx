@@ -1,4 +1,4 @@
-import { blockIcons } from "./icons";
+import { blockIcons } from './icons';
 
 /**
  * A component that displays a block icon.

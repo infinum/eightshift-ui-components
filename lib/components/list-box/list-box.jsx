@@ -1,7 +1,4 @@
-import {
-	ListBox as ReactAriaListBox,
-	ListBoxItem as ReactAriaListBoxItem,
-} from 'react-aria-components';
+import { ListBox as ReactAriaListBox, ListBoxItem as ReactAriaListBoxItem } from 'react-aria-components';
 import { clsx } from 'clsx/lite';
 
 import { BaseControl } from '../base-control/base-control';
@@ -107,8 +104,7 @@ export const ListBox = (props) => {
 				className={clsx(
 					'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-p-1 es-uic-text-sm es-uic-shadow-sm es-uic-transition',
 					'focus:es-uic-outline-none',
-					orientation === 'horizontal' &&
-						'es-uic-flex es-uic-w-fit es-uic-max-w-full es-uic-gap-0.5',
+					orientation === 'horizontal' && 'es-uic-flex es-uic-w-fit es-uic-max-w-full es-uic-gap-0.5',
 					orientation === 'vertical' && 'es-uic-flex es-uic-flex-col es-uic-gap-0.5',
 					orientation === 'horizontal-tiles' &&
 						'es-uic-grid es-uic-min-h-20 es-uic-w-fit es-uic-max-w-full es-uic-auto-cols-[fit-content(6rem)] es-uic-grid-rows-[1fr,_minmax(auto,_0.5fr),_auto] es-uic-gap-x-0.5',
@@ -137,8 +133,10 @@ export const ListBox = (props) => {
 									'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 									isSelected &&
 										!disabled &&
-										'es-uic-bg-teal-600 es-uic-text-white es-uic-border-teal-600 after:es-uic-opacity-45 es-uic-border es-uic-shadow-md es-uic-shadow-teal-500/25',
-										isSelected && !disabled && 'es-uic-relative es-uic-isolate after:es-uic-absolute after:es-uic-inset-0 after:-es-uic-z-10 after:es-uic-rounded-[0.3125rem] after:es-uic-bg-gradient-to-br after:es-uic-from-teal-100/40 after:es-uic-via-transparent after:es-uic-to-teal-200/50 after:es-uic-opacity-0 after:es-uic-transition-opacity after:es-uic-content-[""]',
+										'es-uic-border es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white es-uic-shadow-md es-uic-shadow-teal-500/25 after:es-uic-opacity-45',
+									isSelected &&
+										!disabled &&
+										'es-uic-relative es-uic-isolate after:es-uic-absolute after:es-uic-inset-0 after:-es-uic-z-10 after:es-uic-rounded-[0.3125rem] after:es-uic-bg-gradient-to-br after:es-uic-from-teal-100/40 after:es-uic-via-transparent after:es-uic-to-teal-200/50 after:es-uic-opacity-0 after:es-uic-transition-opacity after:es-uic-content-[""]',
 									!isSelected && !disabled && 'es-uic-border-transparent hover:es-uic-bg-gray-100',
 									isDisabled && 'es-uic-border-transparent es-uic-opacity-30 es-uic-grayscale',
 									orientation !== 'horizontal-tiles' && 'es-uic-px-2 es-uic-py-1.5',

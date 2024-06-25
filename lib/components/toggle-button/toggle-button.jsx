@@ -45,21 +45,7 @@ import { Tooltip } from '../tooltip/tooltip';
  * @preserve
  */
 export const ToggleButton = (props) => {
-	const {
-		children,
-		icon,
-		size = 'default',
-		type = 'default',
-		disabled,
-		className,
-		tooltip,
-		selected,
-		onChange,
-		wrapperClassName,
-		tooltipProps,
-		hidden,
-		...other
-	} = props;
+	const { children, icon, size = 'default', type = 'default', disabled, className, tooltip, selected, onChange, wrapperClassName, tooltipProps, hidden, ...other } = props;
 
 	if (hidden) {
 		return null;
@@ -93,8 +79,7 @@ export const ToggleButton = (props) => {
 		default: {
 			regular: 'es-uic-border-gray-300 es-uic-text-gray-700 es-uic-shadow-sm es-uic-border',
 			hover: 'hover:es-uic-border-gray-300 hover:es-uic-bg-gray-100',
-			selected:
-				'es-uic-bg-teal-600 es-uic-text-white es-uic-border-teal-600 after:es-uic-opacity-30 es-uic-border es-uic-shadow-md es-uic-shadow-teal-500/25',
+			selected: 'es-uic-bg-teal-600 es-uic-text-white es-uic-border-teal-600 after:es-uic-opacity-30 es-uic-border es-uic-shadow-md es-uic-shadow-teal-500/25',
 			selectedHover: 'hover:es-uic-shadow-teal-600/50 hover:after:es-uic-opacity-40',
 			focus: ' focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 			disabled: 'disabled:es-uic-border-gray-200 disabled:es-uic-text-gray-300 es-uic-border',
@@ -103,8 +88,7 @@ export const ToggleButton = (props) => {
 			regular: 'es-uic-border-transparent es-uic-text-gray-700',
 			hover: 'hover:es-uic-bg-gray-100',
 			disabled: 'disabled:es-uic-text-gray-300 disabled:es-uic-border-transparent',
-			selected:
-				'es-uic-bg-teal-600 es-uic-text-white es-uic-border-teal-600 after:es-uic-opacity-30 es-uic-shadow es-uic-shadow-teal-500/25',
+			selected: 'es-uic-bg-teal-600 es-uic-text-white es-uic-border-teal-600 after:es-uic-opacity-30 es-uic-shadow es-uic-shadow-teal-500/25',
 			selectedHover: 'hover:es-uic-shadow-teal-600/50 hover:after:es-uic-opacity-40',
 		},
 	};

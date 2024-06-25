@@ -1,10 +1,7 @@
 import { components } from 'react-select';
 import RSAsyncSelect from 'react-select/async';
 
-import {
-	CustomSelectDefaultClearIndicator,
-	CustomSelectDefaultDropdownIndicator,
-} from './custom-select-default-components';
+import { CustomSelectDefaultClearIndicator, CustomSelectDefaultDropdownIndicator } from './custom-select-default-components';
 import { BaseControl } from '../base-control/base-control';
 import { eightshiftSelectClasses } from './styles';
 

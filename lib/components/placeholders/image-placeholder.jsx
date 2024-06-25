@@ -34,8 +34,7 @@ export const ImagePlaceholder = (props) => {
 	}
 
 	const styleClassName = {
-		default:
-			'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-text-gray-300 es-uic-shadow',
+		default: 'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-text-gray-300 es-uic-shadow',
 		simple: 'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-border-dashed es-uic-text-gray-300',
 	};
 
@@ -66,9 +65,7 @@ export const ImagePlaceholder = (props) => {
 						imageMode === 'cover' && 'es-uic-object-cover',
 						imageMode === 'contain' && 'es-uic-object-contain',
 						imageMode === 'fill' && 'es-uic-object-fill',
-						url?.length > 0
-							? 'es-uic-animate-in es-uic-fade-in-0 es-uic-zoom-in-95'
-							: 'es-uic-animate-out es-uic-fade-out-0 es-uic-zoom-out-95',
+						url?.length > 0 ? 'es-uic-animate-in es-uic-fade-in-0 es-uic-zoom-in-95' : 'es-uic-animate-out es-uic-fade-out-0 es-uic-zoom-out-95',
 					)}
 					src={url}
 					alt={alt}
@@ -78,9 +75,7 @@ export const ImagePlaceholder = (props) => {
 			<div
 				className={clsx(
 					'es-uic-place-self-center es-uic-justify-self-center es-uic-transition es-uic-fill-mode-forwards [&>svg]:es-uic-size-7',
-					!url
-						? 'es-uic-animate-in es-uic-fade-in-0 es-uic-zoom-in-95'
-						: 'es-uic-animate-out es-uic-fade-out-0 es-uic-zoom-out-95',
+					!url ? 'es-uic-animate-in es-uic-fade-in-0 es-uic-zoom-in-95' : 'es-uic-animate-out es-uic-fade-out-0 es-uic-zoom-out-95',
 				)}
 			>
 				{icons.image}

@@ -77,10 +77,7 @@ export const ContainerPanel = (props) => {
 								icon={open ? icons.caretDownFill : icons.caretDown}
 								type='ghost'
 								size='small'
-								className={clsx(
-									'[&>svg]:es-uic-size-5 [&>svg]:es-uic-transition-transform',
-									open && '[&>svg]:-es-uic-scale-y-100',
-								)}
+								className={clsx('[&>svg]:es-uic-size-5 [&>svg]:es-uic-transition-transform', open && '[&>svg]:-es-uic-scale-y-100')}
 								disabled={typeof use !== 'undefined' && !use}
 							/>
 						)}
@@ -97,11 +94,7 @@ export const ContainerPanel = (props) => {
 				!closable && !onUseChange && 'es-uic-px-4',
 				className,
 			)}
-			labelContainerClassName={clsx(
-				(closable || onUseChange) && 'es-uic-pl-4 es-uic-pr-3 es-uic-min-h-12',
-				!(closable || onUseChange) && 'es-uic-mt-3',
-				'!es-uic-pb-0',
-			)}
+			labelContainerClassName={clsx((closable || onUseChange) && 'es-uic-pl-4 es-uic-pr-3 es-uic-min-h-12', !(closable || onUseChange) && 'es-uic-mt-3', '!es-uic-pb-0')}
 			controlContainerClassName='es-uic-px-4'
 			labelClassName='!es-uic-text-gray-500'
 		>

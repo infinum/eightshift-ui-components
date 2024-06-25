@@ -105,14 +105,10 @@ export const BreakpointPreview = (props) => {
 	};
 
 	return (
-		<div
-			className={clsx(
-				'es-uic-grid es-uic-w-fit es-uic-mx-auto es-uic-shrink-0 es-uic-auto-cols-auto es-uic-grid-rows-[auto,_auto] es-uic-gap-x-2 es-uic-gap-y-0.5',
-			)}
-		>
+		<div className={clsx('es-uic-mx-auto es-uic-grid es-uic-w-fit es-uic-shrink-0 es-uic-auto-cols-auto es-uic-grid-rows-[auto,_auto] es-uic-gap-x-2 es-uic-gap-y-0.5')}>
 			{dotsStart && (
 				<>
-					<div className='es-uic-row-start-1 es-uic-flex es-uic-shrink-0 es-uic-translate-x-1 es-uic-items-center es-uic-gap-1 es-uic-text-gray-400 es-uic-justify-self-end'>
+					<div className='es-uic-row-start-1 es-uic-flex es-uic-shrink-0 es-uic-translate-x-1 es-uic-items-center es-uic-gap-1 es-uic-justify-self-end es-uic-text-gray-400'>
 						<div className='es-uic-flex es-uic-gap-0.5 es-uic-text-gray-300'>
 							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
 							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
@@ -123,90 +119,49 @@ export const BreakpointPreview = (props) => {
 				</>
 			)}
 
-			{blocks.map(
-				(
-					{
-						width,
-						widthEnd,
-						breakpoint,
-						value,
-						dotsStart = false,
-						dotsEnd = false,
-						active = false,
-						alignEnd = false,
-						color,
-					},
-					i,
-				) => {
-					const activeTextColor = activeColors?.[color]?.text ?? activeColors.default.text;
-					const activeBgColor = activeColors?.[color]?.bg ?? activeColors.default.bg;
+			{blocks.map(({ width, widthEnd, breakpoint, value, dotsStart = false, dotsEnd = false, active = false, alignEnd = false, color }, i) => {
+				const activeTextColor = activeColors?.[color]?.text ?? activeColors.default.text;
+				const activeBgColor = activeColors?.[color]?.bg ?? activeColors.default.bg;
 
-					return (
-						<Fragment key={i}>
-							<div className='es-uic-row-start-1 es-uic-flex es-uic-min-w-28 es-uic-items-center es-uic-gap-1 es-uic-font-mono es-uic-font-medium es-uic-text-gray-400'>
-								{dotsStart && (
-									<div
-										className={clsx(
-											'es-uic-flex es-uic-gap-0.5',
-											active ? activeTextColor : 'text-gray-300',
-										)}
-									>
-										<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
-										<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
-										<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
-									</div>
+				return (
+					<Fragment key={i}>
+						<div className='es-uic-row-start-1 es-uic-flex es-uic-min-w-28 es-uic-items-center es-uic-gap-1 es-uic-font-mono es-uic-font-medium es-uic-text-gray-400'>
+							{dotsStart && (
+								<div className={clsx('es-uic-flex es-uic-gap-0.5', active ? activeTextColor : 'text-gray-300')}>
+									<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+									<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+									<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+								</div>
+							)}
+							{width && <span>{width}</span>}
+							<div className={clsx('es-uic-grow es-uic-rounded', active ? 'es-uic-h-0.5' : 'es-uic-h-px es-uic-bg-gray-300', active && activeBgColor)} />
+							{widthEnd && <span>{widthEnd}</span>}
+							{dotsEnd && (
+								<div className={clsx('es-uic-flex es-uic-gap-0.5', active ? activeTextColor : 'es-uic-text-gray-300')}>
+									<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+									<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+									<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+								</div>
+							)}
+						</div>
+						<div className='es-uic-row-start-2 es-uic-flex es-uic-w-full es-uic-min-w-28 es-uic-flex-col es-uic-items-start es-uic-gap-1'>
+							<span
+								className={clsx(
+									'es-uic-rounded es-uic-px-1 es-uic-py-0.5',
+									hasActive && active && 'es-uic-text-white',
+									hasActive && active && activeBgColor,
+									hasActive && !active && 'es-uic-bg-gray-200 es-uic-text-gray-500',
+									!hasActive && 'es-uic-bg-gray-600 es-uic-text-white',
+									alignEnd && 'es-uic-ml-auto',
 								)}
-								{width && <span>{width}</span>}
-								<div
-									className={clsx(
-										'es-uic-grow es-uic-rounded',
-										active ? 'es-uic-h-0.5' : 'es-uic-h-px es-uic-bg-gray-300',
-										active && activeBgColor,
-									)}
-								/>
-								{widthEnd && <span>{widthEnd}</span>}
-								{dotsEnd && (
-									<div
-										className={clsx(
-											'es-uic-flex es-uic-gap-0.5',
-											active ? activeTextColor : 'es-uic-text-gray-300',
-										)}
-									>
-										<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
-										<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
-										<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
-									</div>
-								)}
-							</div>
-							<div className='es-uic-row-start-2 es-uic-flex es-uic-w-full es-uic-min-w-28 es-uic-flex-col es-uic-items-start es-uic-gap-1'>
-								<span
-									className={clsx(
-										'es-uic-rounded es-uic-px-1 es-uic-py-0.5',
-										hasActive && active && 'es-uic-text-white',
-										hasActive && active && activeBgColor,
-										hasActive && !active && 'es-uic-bg-gray-200 es-uic-text-gray-500',
-										!hasActive && 'es-uic-bg-gray-600 es-uic-text-white',
-										alignEnd && 'es-uic-ml-auto',
-									)}
-								>
-									{upperFirst(breakpoint)}
-								</span>
-								{value && (
-									<span
-										className={clsx(
-											'-es-uic-mt-0.5 es-uic-px-1',
-											active ? 'es-uic-text-gray-400' : 'es-uic-text-gray-400',
-											alignEnd && 'es-uic-ml-auto',
-										)}
-									>
-										{value}
-									</span>
-								)}
-							</div>
-						</Fragment>
-					);
-				},
-			)}
+							>
+								{upperFirst(breakpoint)}
+							</span>
+							{value && <span className={clsx('-es-uic-mt-0.5 es-uic-px-1', active ? 'es-uic-text-gray-400' : 'es-uic-text-gray-400', alignEnd && 'es-uic-ml-auto')}>{value}</span>}
+						</div>
+					</Fragment>
+				);
+			})}
 
 			{dotsEnd && (
 				<>

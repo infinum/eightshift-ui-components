@@ -4,11 +4,7 @@ import { DndContext } from '@dnd-kit/core';
 import { restrictToParentElement } from '@dnd-kit/modifiers';
 import { SortableContext } from '@dnd-kit/sortable';
 
-import {
-	CustomSelectDefaultClearIndicator,
-	CustomSelectDefaultDropdownIndicator,
-	CustomSelectDefaultMultiValueRemove,
-} from './custom-select-default-components';
+import { CustomSelectDefaultClearIndicator, CustomSelectDefaultDropdownIndicator, CustomSelectDefaultMultiValueRemove } from './custom-select-default-components';
 import { getDragEndHandler, getMultiValue, getMultiValueRemove } from './multi-select-components';
 import { BaseControl } from '../base-control/base-control';
 import { eightshiftSelectClasses } from './styles';

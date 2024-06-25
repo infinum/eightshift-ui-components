@@ -79,24 +79,12 @@ export const BaseControl = (props) => {
 					/>
 				)}
 
-				{inline && (
-					<div
-						className={clsx('es-uic-ml-auto es-uic-flex es-uic-items-center es-uic-gap-1', controlContainerClassName)}
-					>
-						{children}
-					</div>
-				)}
+				{inline && <div className={clsx('es-uic-ml-auto es-uic-flex es-uic-items-center es-uic-gap-1', controlContainerClassName)}>{children}</div>}
 
-				{!inline && actions && (
-					<div className={clsx('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && 'es-uic-ml-auto')}>
-						{actions}
-					</div>
-				)}
+				{!inline && actions && <div className={clsx('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && 'es-uic-ml-auto')}>{actions}</div>}
 			</div>
 
-			{!inline && Array.isArray(children) && children.filter(Boolean).length > 1 && (
-				<div className={clsx('es-uic-space-y-1', controlContainerClassName)}>{children}</div>
-			)}
+			{!inline && Array.isArray(children) && children.filter(Boolean).length > 1 && <div className={clsx('es-uic-space-y-1', controlContainerClassName)}>{children}</div>}
 			{!inline && (!Array.isArray(children) || children.filter(Boolean).length < 2) && children}
 
 			{help && (

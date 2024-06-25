@@ -232,7 +232,7 @@ export const LinkInput = (props) => {
 							const {
 								label: title,
 								value: url,
-								metadata: { subtype:rawSubtype },
+								metadata: { subtype: rawSubtype },
 							} = item;
 
 							const subtype = rawSubtype ?? 'page';

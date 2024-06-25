@@ -34,21 +34,7 @@ import { clsx } from 'clsx/lite';
  * @preserve
  */
 export const InputField = (props) => {
-	const {
-		icon,
-		label,
-		subtitle,
-		help,
-		actions,
-		value,
-		onChange,
-		type = 'text',
-		disabled,
-		readOnly,
-		className,
-		hidden,
-		...other
-	} = props;
+	const { icon, label, subtitle, help, actions, value, onChange, type = 'text', disabled, readOnly, className, hidden, ...other } = props;
 
 	if (hidden) {
 		return null;

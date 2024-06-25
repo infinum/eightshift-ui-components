@@ -3,7 +3,6 @@ import { components } from 'react-select';
 import { icons } from '../../icons/icons';
 import { clsx } from 'clsx/lite';
 
-
 /**
  * Default dropdown indicator for CustomSelect.
  *
@@ -28,9 +27,7 @@ export const CustomSelectDefaultDropdownIndicator = (props) => {
  *
  * @preserve
  */
-export const CustomSelectDefaultClearIndicator = (props) => (
-	<components.ClearIndicator {...props}>{icons.clear}</components.ClearIndicator>
-);
+export const CustomSelectDefaultClearIndicator = (props) => <components.ClearIndicator {...props}>{icons.clear}</components.ClearIndicator>;
 
 /**
  * Default multiple value remove element for CustomSelect.
@@ -40,7 +37,5 @@ export const CustomSelectDefaultClearIndicator = (props) => (
  * @preserve
  */
 export const CustomSelectDefaultMultiValueRemove = (props) => (
-	<components.MultiValueRemove {...props}>
-		{React.cloneElement(icons.clear, { className: 'es-uic-size-4' })}
-	</components.MultiValueRemove>
+	<components.MultiValueRemove {...props}>{React.cloneElement(icons.clear, { className: 'es-uic-size-4' })}</components.MultiValueRemove>
 );

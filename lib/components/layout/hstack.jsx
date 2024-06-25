@@ -25,15 +25,5 @@ export const HStack = (props) => {
 		return null;
 	}
 
-	return (
-		<div
-			className={clsx(
-				'es-uic-flex es-uic-items-center es-uic-gap-x-1.5 es-uic-gap-y-2',
-				!noWrap && 'es-uic-flex-wrap',
-				className,
-			)}
-		>
-			{children}
-		</div>
-	);
+	return <div className={clsx('es-uic-flex es-uic-items-center es-uic-gap-x-1.5 es-uic-gap-y-2', !noWrap && 'es-uic-flex-wrap', className)}>{children}</div>;
 };

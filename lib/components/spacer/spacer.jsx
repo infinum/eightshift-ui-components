@@ -93,9 +93,7 @@ export const Spacer = (props) => {
 		return (
 			<div>
 				{size !== 'px' && <div className={spaceClass} />}
-				<div
-					className={clsx('es-uic-bg-gray-300', vertical ? 'es-uic-h-full es-uic-w-px' : 'es-uic-h-px es-uic-w-full')}
-				/>
+				<div className={clsx('es-uic-bg-gray-300', vertical ? 'es-uic-h-full es-uic-w-px' : 'es-uic-h-px es-uic-w-full')} />
 				{size !== 'px' && <div className={spaceClass} />}
 			</div>
 		);

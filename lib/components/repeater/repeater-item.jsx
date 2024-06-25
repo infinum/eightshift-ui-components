@@ -1,8 +1,4 @@
-import {
-	Checkbox as ReactAriaCheckbox,
-	GridListItem,
-	GridListContext,
-} from 'react-aria-components';
+import { Checkbox as ReactAriaCheckbox, GridListItem, GridListContext } from 'react-aria-components';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
 import { clsx } from 'clsx/lite';
@@ -33,18 +29,7 @@ import { useCellEditMode } from '../../hooks/use-cell-edit-mode';
  * @preserve
  */
 export const RepeaterItem = (props) => {
-	const {
-		children,
-		icon,
-		label,
-		subtitle,
-		'aria-label': ariaLabel,
-		className,
-		actions,
-		textValue,
-		expandDisabled,
-		...rest
-	} = props;
+	const { children, icon, label, subtitle, 'aria-label': ariaLabel, className, actions, textValue, expandDisabled, ...rest } = props;
 
 	let a11yLabel = textValue;
 
@@ -91,19 +76,22 @@ export const RepeaterItem = (props) => {
 									labelClassName={className}
 									className={clsx(isDragging && 'es-uic-opacity-25')}
 									onOpenChange={(isOpen) => setCanReorder(!isOpen)}
-									actions={<>
-										{selectionMode === 'none' && allowsDragging && (
-											<Button
-												size='small'
-												className='es-uic-h-6 es-uic-w-4 !es-uic-text-gray-500 es-uic-opacity-50 focus:es-uic-opacity-100'
-												slot='drag'
-												type='ghost'
-												icon={icons.reorderGrabberV}
-												tooltip={__('Re-order', 'eightshift-ui-components')} />
-										)}
+									actions={
+										<>
+											{selectionMode === 'none' && allowsDragging && (
+												<Button
+													size='small'
+													className='es-uic-h-6 es-uic-w-4 !es-uic-text-gray-500 es-uic-opacity-50 focus:es-uic-opacity-100'
+													slot='drag'
+													type='ghost'
+													icon={icons.reorderGrabberV}
+													tooltip={__('Re-order', 'eightshift-ui-components')}
+												/>
+											)}
 
-										{actions}
-									</>}
+											{actions}
+										</>
+									}
 									noFocusHandling
 									{...preventProps}
 								>

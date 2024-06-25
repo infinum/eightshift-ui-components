@@ -115,17 +115,11 @@ export const ResponsivePreview = (props) => {
 				/>
 
 				<span className='es-uic-ml-auto es-uic-select-none es-uic-rounded es-uic-bg-gray-100 es-uic-px-1 es-uic-py-0.5 es-uic-text-xs es-uic-text-gray-500'>
-					{isDesktopFirst
-						? __('Desktop-first', 'eightshift-ui-components')
-						: __('Mobile-first', 'eightshift-ui-components')}
+					{isDesktopFirst ? __('Desktop-first', 'eightshift-ui-components') : __('Mobile-first', 'eightshift-ui-components')}
 				</span>
 			</div>
 
-			{previewItems.length === 0 && (
-				<span className='es-uic-text-sm es-uic-italic es-uic-text-gray-500'>
-					{__('No overrides applied', 'eightshift-ui-components')}
-				</span>
-			)}
+			{previewItems.length === 0 && <span className='es-uic-text-sm es-uic-italic es-uic-text-gray-500'>{__('No overrides applied', 'eightshift-ui-components')}</span>}
 			<BreakpointPreview
 				blocks={previewItems}
 				dotsStart

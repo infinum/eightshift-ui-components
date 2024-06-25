@@ -24,14 +24,7 @@ import { motion, AnimatePresence } from 'framer-motion';
  * @preserve
  */
 export const AnimatedVisibility = (props) => {
-	const {
-		visible,
-		className,
-		children,
-		noInitial = false,
-		transition = 'slideFade',
-		...other
-	} = props;
+	const { visible, className, children, noInitial = false, transition = 'slideFade', ...other } = props;
 
 	const transitions = {
 		slideFade: {

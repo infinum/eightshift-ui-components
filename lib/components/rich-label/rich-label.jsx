@@ -39,13 +39,7 @@ export const RichLabel = (props) => {
 			<>
 				{icon && <span className={clsx('[&>svg]:es-uic-size-5.5', !noColor && 'es-uic-text-slate-500')}>{icon}</span>}
 				{label && <span className={clsx('es-uic-text-balance', !noColor && 'es-uic-text-gray-800')}>{label}</span>}
-				{subtitle && (
-					<span
-						className={clsx('es-uic-text-balance es-uic-text-xs es-uic-opacity-65', !noColor && 'es-uic-text-gray-800')}
-					>
-						{subtitle}
-					</span>
-				)}
+				{subtitle && <span className={clsx('es-uic-text-balance es-uic-text-xs es-uic-opacity-65', !noColor && 'es-uic-text-gray-800')}>{subtitle}</span>}
 			</>
 		);
 	}

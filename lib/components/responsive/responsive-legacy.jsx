@@ -128,17 +128,11 @@ export const ResponsiveLegacy = (props) => {
 			arrow
 			text={
 				<div className='es-uic-max-w-64 es-uic-p-1'>
-					<span className='es-uic-block es-uic-text-balance es-uic-font-semibold es-uic-tabular-nums'>
-						{__('Default', 'eightshift-ui-components')}
-					</span>
+					<span className='es-uic-block es-uic-text-balance es-uic-font-semibold es-uic-tabular-nums'>{__('Default', 'eightshift-ui-components')}</span>
 
 					<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
 						{!globalOverride && __('Always applied, regardless of browser width.', 'eightshift-ui-components')}
-						{globalOverride &&
-							sprintf(
-								__('Applied when the browser width is %dpx or wider.', 'eightshift-ui-components'),
-								breakpointData[globalOverride] + 1,
-							)}
+						{globalOverride && sprintf(__('Applied when the browser width is %dpx or wider.', 'eightshift-ui-components'), breakpointData[globalOverride] + 1)}
 					</span>
 
 					{globalOverride && (
@@ -147,17 +141,13 @@ export const ResponsiveLegacy = (props) => {
 								blocks={[
 									{
 										breakpoint: globalOverride,
-										value:
-											options?.find((opt) => opt.value === value?.[attribute[globalOverride]])?.label ??
-											upperFirst(value?.[globalOverride]),
+										value: options?.find((opt) => opt.value === value?.[attribute[globalOverride]])?.label ?? upperFirst(value?.[globalOverride]),
 										dotsStart: true,
 										alignEnd: true,
 									},
 									{
 										breakpoint: __('Default', 'eightshift-ui-components'),
-										value:
-											options?.find((opt) => opt.value === value?.[attribute[defaultBreakpoint]])?.label ??
-											upperFirst(value?.[defaultBreakpoint]),
+										value: options?.find((opt) => opt.value === value?.[attribute[defaultBreakpoint]])?.label ?? upperFirst(value?.[defaultBreakpoint]),
 										width: breakpointData[breakpoints.at(-1)],
 										dotsEnd: true,
 										active: true,
@@ -205,11 +195,7 @@ export const ResponsiveLegacy = (props) => {
 						icon={icons.responsiveOverridesAlt}
 						onChange={() => setDetailsVisible(!detailsVisible)}
 						selected={detailsVisible}
-						tooltip={
-							detailsVisible
-								? __('Hide responsive overrides', 'eightshift-ui-components')
-								: __('Show responsive overrides', 'eightshift-ui-components')
-						}
+						tooltip={detailsVisible ? __('Hide responsive overrides', 'eightshift-ui-components') : __('Show responsive overrides', 'eightshift-ui-components')}
 					/>
 				</>
 			}
@@ -276,9 +262,7 @@ export const ResponsiveLegacy = (props) => {
 						.toReversed()
 						.find((breakpoint) => value?.[attribute[breakpoint]] !== inheritValue);
 
-					const belowOverride = rawBreakpoints
-						.slice(i + 2)
-						.find((breakpoint) => value?.[attribute[breakpoint]] !== inheritValue);
+					const belowOverride = rawBreakpoints.slice(i + 2).find((breakpoint) => value?.[attribute[breakpoint]] !== inheritValue);
 
 					return (
 						<div
@@ -304,10 +288,7 @@ export const ResponsiveLegacy = (props) => {
 											{aboveOverride &&
 												aboveOverride === breakpoint &&
 												isOverrideSet &&
-												sprintf(
-													__('Applied when the browser width is %dpx or less.', 'eightshift-ui-components'),
-													breakpointData[breakpoint],
-												)}
+												sprintf(__('Applied when the browser width is %dpx or less.', 'eightshift-ui-components'), breakpointData[breakpoint])}
 
 											{aboveOverride &&
 												aboveOverride !== breakpoint &&
@@ -318,14 +299,11 @@ export const ResponsiveLegacy = (props) => {
 													breakpointData[breakpoint],
 												)}
 
-											{(!aboveOverride || !isOverrideSet) &&
-												sprintf(__('Up to %dpx', 'eightshift-ui-components'), breakpointData[breakpoint])}
+											{(!aboveOverride || !isOverrideSet) && sprintf(__('Up to %dpx', 'eightshift-ui-components'), breakpointData[breakpoint])}
 										</span>
 
 										{((aboveOverride && !isOverrideSet) || !aboveOverride) && (
-											<span className='es-uic-mt-2 es-uic-block es-uic-font-medium es-uic-italic'>
-												{__('Not set', 'eightshift-ui-components')}
-											</span>
+											<span className='es-uic-mt-2 es-uic-block es-uic-font-medium es-uic-italic'>{__('Not set', 'eightshift-ui-components')}</span>
 										)}
 
 										{aboveOverride && isOverrideSet && (
@@ -334,18 +312,14 @@ export const ResponsiveLegacy = (props) => {
 													blocks={[
 														belowOverride && {
 															breakpoint: belowOverride,
-															value:
-																options?.find((opt) => opt.value === value?.[attribute[belowOverride]])?.label ??
-																upperFirst(value?.[belowOverride]),
+															value: options?.find((opt) => opt.value === value?.[attribute[belowOverride]])?.label ?? upperFirst(value?.[belowOverride]),
 															widthEnd: breakpointData[belowOverride],
 															dotsStart: true,
 															alignEnd: true,
 														},
 														{
 															breakpoint: breakpoint,
-															value:
-																options?.find((opt) => opt.value === value?.[attribute[breakpoint]])?.label ??
-																upperFirst(value?.[breakpoint]),
+															value: options?.find((opt) => opt.value === value?.[attribute[breakpoint]])?.label ?? upperFirst(value?.[breakpoint]),
 															widthEnd: breakpointData[breakpoint],
 															active: true,
 															alignEnd: true,
@@ -353,16 +327,12 @@ export const ResponsiveLegacy = (props) => {
 														},
 														aboveOverride !== defaultBreakpoint && {
 															breakpoint: aboveOverride,
-															value:
-																options?.find((opt) => opt.value === value?.[attribute[aboveOverride]])?.label ??
-																upperFirst(value?.[aboveOverride]),
+															value: options?.find((opt) => opt.value === value?.[attribute[aboveOverride]])?.label ?? upperFirst(value?.[aboveOverride]),
 															dotsEnd: true,
 														},
 														aboveOverride === defaultBreakpoint && {
 															breakpoint: __('Default', 'eightshift-ui-components'),
-															value:
-																options?.find((opt) => opt.value === value?.[attribute[defaultBreakpoint]])?.label ??
-																upperFirst(value?.[defaultBreakpoint]),
+															value: options?.find((opt) => opt.value === value?.[attribute[defaultBreakpoint]])?.label ?? upperFirst(value?.[defaultBreakpoint]),
 															dotsEnd: true,
 														},
 													]}

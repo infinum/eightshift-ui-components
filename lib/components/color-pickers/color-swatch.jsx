@@ -26,8 +26,7 @@ import { __ } from '@wordpress/i18n';
 export const ColorSwatch = (props) => {
 	const { color: rawColor, gradient, className, colorName } = props;
 
-	const checkerPattern =
-		'repeating-conic-gradient(#CCC 0% 25%, white 0% 50%) 50% / 0.75rem 0.75rem';
+	const checkerPattern = 'repeating-conic-gradient(#CCC 0% 25%, white 0% 50%) 50% / 0.75rem 0.75rem';
 
 	let color;
 
@@ -43,9 +42,7 @@ export const ColorSwatch = (props) => {
 		}
 	}
 
-	const backgroundGradient = gradient
-		? `${gradient}, ${checkerPattern}`
-		: `linear-gradient(${color}, ${color}), ${checkerPattern}`;
+	const backgroundGradient = gradient ? `${gradient}, ${checkerPattern}` : `linear-gradient(${color}, ${color}), ${checkerPattern}`;
 
 	return (
 		<ReactAriaColorSwatch
@@ -53,19 +50,11 @@ export const ColorSwatch = (props) => {
 			style={{
 				background: (color || gradient) && backgroundGradient,
 			}}
-			className={() =>
-				clsx(
-					'es-uic-size-6 es-uic-rounded es-uic-border es-uic-border-gray-300 es-uic-shadow-sm',
-					!color && !gradient && 'es-uic-bg-white',
-					className,
-				)
-			}
+			className={() => clsx('es-uic-size-6 es-uic-rounded es-uic-border es-uic-border-gray-300 es-uic-shadow-sm', !color && !gradient && 'es-uic-bg-white', className)}
 			colorName={!color && !gradient ? __('No color', 'eightshift-ui-components') : colorName}
 			color={color}
 		>
-			{!color && !gradient && (
-				<div className='es-uic-m-auto es-uic-h-full es-uic-w-px es-uic-rotate-45 es-uic-rounded es-uic-bg-red-500' />
-			)}
+			{!color && !gradient && <div className='es-uic-m-auto es-uic-h-full es-uic-w-px es-uic-rotate-45 es-uic-rounded es-uic-bg-red-500' />}
 		</ReactAriaColorSwatch>
 	);
 };

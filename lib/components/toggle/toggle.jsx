@@ -33,8 +33,7 @@ import { RichLabel } from '../rich-label/rich-label';
  * @preserve
  */
 export const Toggle = (props) => {
-	const { checked, onChange, icon, label, subtitle, disabled, className, labelClassName, isIndeterminate, hidden } =
-		props;
+	const { checked, onChange, icon, label, subtitle, disabled, className, labelClassName, isIndeterminate, hidden } = props;
 
 	if (hidden) {
 		return null;

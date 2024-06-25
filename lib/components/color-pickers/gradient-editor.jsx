@@ -73,23 +73,17 @@ const gradientTypes = [
 	{
 		label: __('Linear'),
 		value: 'linear',
-		icon: (
-			<div className='es-uic-transparent es-uic-size-4 es-uic-rounded-full es-uic-bg-gradient-to-br es-uic-from-current' />
-		),
+		icon: <div className='es-uic-transparent es-uic-size-4 es-uic-rounded-full es-uic-bg-gradient-to-br es-uic-from-current' />,
 	},
 	{
 		label: __('Radial'),
 		value: 'radial',
-		icon: (
-			<div className='es-uic-transparent es-uic-size-4 es-uic-rounded-full es-uic-bg-[radial-gradient(var(--tw-gradient-stops))] es-uic-from-current' />
-		),
+		icon: <div className='es-uic-transparent es-uic-size-4 es-uic-rounded-full es-uic-bg-[radial-gradient(var(--tw-gradient-stops))] es-uic-from-current' />,
 	},
 	{
 		label: __('Conic'),
 		value: 'conic',
-		icon: (
-			<div className='es-uic-transparent es-uic-size-4 es-uic-rounded-full es-uic-bg-[conic-gradient(var(--tw-gradient-stops))] es-uic-from-current' />
-		),
+		icon: <div className='es-uic-transparent es-uic-size-4 es-uic-rounded-full es-uic-bg-[conic-gradient(var(--tw-gradient-stops))] es-uic-from-current' />,
 	},
 ];
 
@@ -159,7 +153,6 @@ const linearDirections = [
 export const GradientEditor = (props) => {
 	const { value, onChange, hidden } = props;
 
-
 	const gradientData = useMemo(() => {
 		if (value?.startsWith('radial-gradient') || value?.startsWith('repeating-radial-gradient')) {
 			return parseRadialGradient(value ?? '');
@@ -173,17 +166,11 @@ export const GradientEditor = (props) => {
 	}, [value]);
 
 	const gradientType = useMemo(() => {
-		if (
-			(typeof value === 'string' && value?.startsWith('radial-gradient')) ||
-			value?.startsWith('repeating-radial-gradient')
-		) {
+		if ((typeof value === 'string' && value?.startsWith('radial-gradient')) || value?.startsWith('repeating-radial-gradient')) {
 			return 'radial';
 		}
 
-		if (
-			(typeof value === 'string' && value?.startsWith('conic-gradient')) ||
-			value?.startsWith('repeating-conic-gradient')
-		) {
+		if ((typeof value === 'string' && value?.startsWith('conic-gradient')) || value?.startsWith('repeating-conic-gradient')) {
 			return 'conic';
 		}
 
@@ -194,10 +181,7 @@ export const GradientEditor = (props) => {
 		onChange(getGradientResult(data, gradientType));
 	};
 
-	const outputGradient = useMemo(
-		() => getGradientResult(gradientData, gradientType),
-		[gradientData, gradientType],
-	);
+	const outputGradient = useMemo(() => getGradientResult(gradientData, gradientType), [gradientData, gradientType]);
 
 	if (hidden) {
 		return null;
@@ -260,7 +244,7 @@ export const GradientEditor = (props) => {
 							return (
 								<MenuItem
 									key={value}
-									icon={<div className={clsx('es-uic-size-5 es-uic-from-gray-700 es-uic-to-gray-200 es-uic-rounded-sm', iconClass)} />}
+									icon={<div className={clsx('es-uic-size-5 es-uic-rounded-sm es-uic-from-gray-700 es-uic-to-gray-200', iconClass)} />}
 									onClick={() => {
 										setGradientData({
 											...gradientData,
@@ -457,10 +441,7 @@ export const GradientEditor = (props) => {
 					</div>
 				)}
 				trackStyle={{
-					backgroundImage: getGradientResult(
-						{ orientation: { type: 'directional', value: 'right' }, stops: gradientData.stops },
-						'linear',
-					),
+					backgroundImage: getGradientResult({ orientation: { type: 'directional', value: 'right' }, stops: gradientData.stops }, 'linear'),
 					height: '1.125rem',
 					borderRadius: '0.5rem',
 				}}

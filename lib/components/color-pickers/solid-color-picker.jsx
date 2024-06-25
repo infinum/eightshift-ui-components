@@ -1,14 +1,5 @@
 import { useState } from 'react';
-import {
-	ColorArea,
-	ColorField,
-	ColorSlider,
-	ColorThumb,
-	Input,
-	Label,
-	SliderTrack,
-	parseColor,
-} from 'react-aria-components';
+import { ColorArea, ColorField, ColorSlider, ColorThumb, Input, Label, SliderTrack, parseColor } from 'react-aria-components';
 import { clsx } from 'clsx/lite';
 
 import { BaseControl } from '../base-control/base-control';

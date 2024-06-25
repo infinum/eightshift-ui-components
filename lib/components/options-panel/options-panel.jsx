@@ -36,7 +36,7 @@ export const OptionsPanel = (props) => {
 					className='es-uic-mb-1 es-uic-text-[0.875rem] es-uic-tracking-[-0.01em] !es-uic-text-gray-500'
 				/>
 			)}
-			<div className='es-uic-bg-white es-uic-divide-y es-uic-rounded-lg es-uic-divide-gray-200 es-uic-shadow es-uic-border es-uic-border-gray-200'>{children}</div>
+			<div className='es-uic-divide-y es-uic-divide-gray-200 es-uic-rounded-lg es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-shadow'>{children}</div>
 			{help && <span className='text-sm es-uic-mt-1.5 es-uic-block es-uic-text-gray-400'>{help}</span>}
 		</div>
 	);
@@ -46,7 +46,7 @@ export const OptionsPanelSection = ({ children, className }) => {
 	return (
 		<div
 			className={clsx(
-				'es-uic-space-y-2.5 first:es-uic-rounded-t-lg last:rounded-b-lg only:es-uic-rounded-lg es-uic-px-3 es-uic-py-4 first:es-uic-pt-3.5 last:es-uic-pb-3.5',
+				'last:rounded-b-lg es-uic-space-y-2.5 es-uic-px-3 es-uic-py-4 first:es-uic-rounded-t-lg first:es-uic-pt-3.5 last:es-uic-pb-3.5 only:es-uic-rounded-lg',
 				className,
 			)}
 		>
