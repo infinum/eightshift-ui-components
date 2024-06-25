@@ -37,8 +37,7 @@
 		"build": "vite build",
 		"lint": "npx eslint",
 		"preview": "vite preview",
-		"prepare": "pnpm run build",
-		"preinstall": "npx only-allow pnpm"
+		"prepare": "pnpm run build"
 	},
 	"peerDependencies": {
 		"react": "^18.3.1",
