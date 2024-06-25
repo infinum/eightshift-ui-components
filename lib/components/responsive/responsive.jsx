@@ -206,8 +206,8 @@ export const Responsive = (props) => {
 				}
 			>
 				<div className='es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-border-teal-500/10 es-uic-bg-teal-50 es-uic-p-0.5 es-uic-text-teal-800 es-uic-shadow-sm es-uic-shadow-teal-600/25 [&>svg]:es-uic-size-5'>
-					{overrideIcon ??
-						icons?.[overrideIcon] ??
+					{icons?.[overrideIcon] ??
+						overrideIcon ??
 						icons[`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`]}
 				</div>
 			</DecorativeTooltip>
@@ -432,7 +432,9 @@ export const Responsive = (props) => {
 								arrow
 								text={
 									<div className='es-uic-max-w-96 es-uic-p-1'>
-										<span className='es-uic-block es-uic-font-semibold'>{breakpointUiData?.[realBreakpointName]?.label ?? upperFirst(realBreakpointName)}</span>
+										<span className='es-uic-block es-uic-font-semibold'>
+											{breakpointUiData?.[realBreakpointName]?.label ?? upperFirst(realBreakpointName)}
+										</span>
 
 										<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
 											{!isDesktopFirst && (
@@ -595,8 +597,8 @@ export const Responsive = (props) => {
 											: 'es-uic-border-gray-100 es-uic-bg-white es-uic-text-gray-500',
 									)}
 								>
-									{breakpointUiData?.[realBreakpointName]?.icon ??
-										icons?.[breakpointUiData?.[realBreakpointName]?.icon] ??
+									{icons?.[breakpointUiData?.[realBreakpointName]?.icon] ??
+										breakpointUiData?.[realBreakpointName]?.icon ??
 										icons?.[`screen${upperFirst(realBreakpointName)}`]}
 								</div>
 							</DecorativeTooltip>
