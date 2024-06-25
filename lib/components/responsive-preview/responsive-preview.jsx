@@ -64,7 +64,7 @@ export const ResponsivePreview = (props) => {
 		];
 
 		breakpoints.forEach((breakpoint) => {
-			if (!value?.[breakpoint]) {
+			if (typeof value?.[breakpoint] === 'undefined') {
 				return;
 			}
 
@@ -74,8 +74,8 @@ export const ResponsivePreview = (props) => {
 					width: breakpointData[breakpoint],
 					breakpoint: breakpointUiData?.[breakpoint]?.label ?? breakpoint,
 					value:
-						options?.find((opt) => opt.value === value?.[firstMobileFirstOverride])?.label ??
-						upperFirst(value?.[firstMobileFirstOverride]),
+						options?.find((opt) => opt.value === value?.[breakpoint])?.label ??
+						upperFirst(value?.[breakpoint]),
 				},
 			];
 		});
@@ -83,14 +83,14 @@ export const ResponsivePreview = (props) => {
 
 	if (lastDesktopFirstOverride) {
 		desktopFirstBreakpoints.forEach((breakpoint) => {
-			if (!value?.[breakpoint]) {
+			if (typeof value?.[breakpoint] === 'undefined') {
 				return;
 			}
 
 			previewItems = [
 				...previewItems,
 				{
-					width: breakpointData[breakpoint],
+					width: breakpointData[breakpoint.replace('max-', '')],
 					breakpoint: breakpointUiData?.[breakpoint.replace('max-', '')]?.label ?? breakpoint.replace('max-', ''),
 					value: options?.find((opt) => opt.value === value?.[breakpoint])?.label ?? upperFirst(value?.[breakpoint]),
 				},

@@ -1233,6 +1233,10 @@ function App() {
 						)}
 					</Responsive>
 
+					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(resp, null, 2)}</pre>
+
+					<Spacer border />
+
 					<Responsive
 						icon={icons.emptyRect}
 						label='Font family'
@@ -1257,7 +1261,7 @@ function App() {
 						)}
 					</Responsive>
 
-					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(resp, null, 2)}</pre>
+					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(resp2, null, 2)}</pre>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<BaseControl>
