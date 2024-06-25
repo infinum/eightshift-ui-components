@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.1.0] - 2024-06-25
+- Migrated to ESLint 9.
+- Updated dependencies.
+- Switched from Babel to SWC.
+- Cleaned up ESLint issues.
+
 ## [1.0.6] - 2024-06-25
 - Tweaked `Responsive` and `ResponsiveLegacy` inner content positioning (use `innerContentAlign` to adjust).
 
@@ -42,6 +48,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
 
+[1.1.0]: https://github.com/infinum/eightshift-ui-components/compare/1.0.6...1.1.0
 [1.0.6]: https://github.com/infinum/eightshift-ui-components/compare/1.0.5...1.0.6
 [1.0.5]: https://github.com/infinum/eightshift-ui-components/compare/1.0.4...1.0.5
 [1.0.4]: https://github.com/infinum/eightshift-ui-components/compare/1.0.3...1.0.4

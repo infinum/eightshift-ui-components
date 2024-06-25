@@ -4,6 +4,9 @@ A collection of commonly-used UI components, utilities and icons, meant to provi
 
 Built using [React Aria components](https://react-spectrum.adobe.com/react-aria/), styled using [TailwindCSS](https://tailwindcss.com/). Build process and library export is set up with [Vite](https://vitejs.dev/).
 
+> [!IMPORTANT]
+> Uses [`pnpm`](https://pnpm.io/) for package management.
+
 ## Who do I talk to?
 
 If you have any questions or problems, please [open an issue](https://github.com/infinum/eightshift-ui-components/issues) on GitHub and we will do our best to give you a timely answer.
