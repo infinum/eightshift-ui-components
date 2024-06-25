@@ -42,6 +42,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {boolean} [props.noModeSelect] - If `true`, the mode selection (desktop-first/mobile-first) is hidden.
  * @param {boolean} [props.inline] - If `true`, the default breakpoint is shown inline with the label. In the expanded state, all breakpoints are shown below the label.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
+ * @param {'start' | 'center' | 'end' | 'stretch'} [props.innerContentAlign='start'] - Determines inner content alignment
  *
  * @returns {JSX.Element} The Responsive component.
  *
@@ -96,6 +97,8 @@ export const Responsive = (props) => {
 		children,
 
 		hidden,
+
+		innerContentAlign,
 	} = props;
 
 	const breakpoints = rawBreakpoints.slice(1);
@@ -350,7 +353,11 @@ export const Responsive = (props) => {
 			{!isDesktopFirst && !inline && (
 				<div
 					className={clsx(
-						'es-uic-grid es-uic-items-center es-uic-justify-items-start es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-end] es-uic-duration-150',
+						'es-uic-grid es-uic-items-center es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-end] es-uic-duration-150',
+						innerContentAlign === 'start' && 'es-uic-justify-items-start',
+						innerContentAlign === 'center' && 'es-uic-justify-items-center',
+						innerContentAlign === 'end' && 'es-uic-justify-items-end',
+						innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
 						detailsVisible
 							? 'es-uic-mb-2 es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
 							: 'es-uic-grid-cols-[minmax(0,_0rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]',
@@ -376,7 +383,13 @@ export const Responsive = (props) => {
 
 			{!isDesktopFirst && inline && (
 				<AnimatedVisibility
-					className='es-uic-mb-2 es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-justify-items-start es-uic-gap-x-2'
+					className={clsx(
+						'es-uic-mb-2 es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2',
+						innerContentAlign === 'start' && 'es-uic-justify-items-start',
+						innerContentAlign === 'center' && 'es-uic-justify-items-center',
+						innerContentAlign === 'end' && 'es-uic-justify-items-end',
+						innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+					)}
 					key='_default-mobile-first-inline'
 					visible={detailsVisible}
 				>
@@ -425,7 +438,13 @@ export const Responsive = (props) => {
 
 					return (
 						<div
-							className='es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-justify-items-start es-uic-gap-x-2'
+							className={clsx(
+								'es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2',
+								innerContentAlign === 'start' && 'es-uic-justify-items-start',
+								innerContentAlign === 'center' && 'es-uic-justify-items-center',
+								innerContentAlign === 'end' && 'es-uic-justify-items-end',
+								innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+							)}
 							key={realBreakpointName}
 						>
 							<DecorativeTooltip
@@ -637,7 +656,11 @@ export const Responsive = (props) => {
 			{isDesktopFirst && !inline && (
 				<div
 					className={clsx(
-						'es-uic-grid es-uic-items-center es-uic-justify-items-start es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-start] es-uic-duration-150',
+						'es-uic-grid es-uic-items-center es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-start] es-uic-duration-150',
+						innerContentAlign === 'start' && 'es-uic-justify-items-start',
+						innerContentAlign === 'center' && 'es-uic-justify-items-center',
+						innerContentAlign === 'end' && 'es-uic-justify-items-end',
+						innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
 						detailsVisible
 							? '!es-uic-mt-2 es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
 							: 'es-uic-grid-cols-[minmax(0,_0rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]',
@@ -663,7 +686,13 @@ export const Responsive = (props) => {
 
 			{isDesktopFirst && inline && (
 				<AnimatedVisibility
-					className='es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-justify-items-start es-uic-gap-x-2 es-uic-pt-1'
+					className={clsx(
+						'es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2 es-uic-pt-1',
+						innerContentAlign === 'start' && 'es-uic-justify-items-start',
+						innerContentAlign === 'center' && 'es-uic-justify-items-center',
+						innerContentAlign === 'end' && 'es-uic-justify-items-end',
+						innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+					)}
 					key='_default-desktop-first-inline'
 					visible={detailsVisible}
 				>
