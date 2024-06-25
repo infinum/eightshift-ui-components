@@ -212,7 +212,7 @@ export const OptionSelect = (props) => {
 					triggerProps={{
 						...wrapperProps?.triggerProps,
 						'aria-label': typeof label !== 'undefined' ? null : props?.['aria-label'],
-						className: clsx(wrapperProps?.triggerProps?.className, 'es-uic-w-fit'),
+						className: clsx(wrapperProps?.triggerProps?.className, 'es-uic-mr-auto'),
 					}}
 					keepOpen
 					{...wrapperProps}
