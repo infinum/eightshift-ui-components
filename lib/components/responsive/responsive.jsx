@@ -105,7 +105,7 @@ export const Responsive = (props) => {
 
 	const [detailsVisible, setDetailsVisible] = useState(false);
 
-	const isDesktopFirst = value?.['_mobileFirst'] === true;
+	const isDesktopFirst = value?.['_desktopFirst'] === true;
 
 	const firstMobileFirstOverride = breakpoints.find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
 	const lastDesktopFirstOverride = desktopFirstBreakpoints
@@ -149,7 +149,7 @@ export const Responsive = (props) => {
 								isDesktopFirst &&
 								sprintf(
 									__('Applies when the browser width is %dpx or more.', 'eightshift-ui-components'),
-									breakpointData[breakpoints.at(-1)],
+									breakpointData[lastDesktopFirstOverride.replace('max-', '')],
 								)}
 						</span>
 
@@ -182,7 +182,9 @@ export const Responsive = (props) => {
 								<BreakpointPreview
 									blocks={[
 										{
-											breakpoint: breakpointUiData?.[lastDesktopFirstOverride.replace('max-', '')]?.label ?? lastDesktopFirstOverride.replace('max-', ''),
+											breakpoint:
+												breakpointUiData?.[lastDesktopFirstOverride.replace('max-', '')]?.label ??
+												lastDesktopFirstOverride.replace('max-', ''),
 											value:
 												options?.find((opt) => opt.value === value?.[lastDesktopFirstOverride])?.label ??
 												upperFirst(value?.[lastDesktopFirstOverride]),
@@ -194,7 +196,7 @@ export const Responsive = (props) => {
 											value:
 												options?.find((opt) => opt.value === value?.['_default'])?.label ??
 												upperFirst(value?.['_default']),
-											width: breakpointData[breakpoints.at(-1)],
+											width: breakpointData[lastDesktopFirstOverride.replace('max-', '')],
 											dotsEnd: true,
 											active: true,
 										},
@@ -277,13 +279,14 @@ export const Responsive = (props) => {
 										onClick={() => {
 											onChange({
 												_default: value['_default'],
-												_mobileFirst: false,
+												_desktopFirst: false,
 											});
 										}}
 									>
 										<RichLabel
 											label={__('Mobile-first', 'eightshift-ui-components')}
-											subtitle={__('Recommended', 'eightshift-ui-components')}
+											subtitle={__('Default', 'eightshift-ui-components')}
+											noColor
 										/>
 									</MenuItem>
 									<MenuItem
@@ -291,7 +294,7 @@ export const Responsive = (props) => {
 										onClick={() => {
 											onChange({
 												_default: value['_default'],
-												_mobileFirst: true,
+												_desktopFirst: true,
 											});
 										}}
 									>

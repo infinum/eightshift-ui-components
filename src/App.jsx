@@ -90,12 +90,12 @@ function App() {
 
 	const [resp, setResp] = useState({
 		_default: 'sans',
-		_mobileFirst: false,
+		_desktopFirst: false,
 	});
 
 	const [resp2, setResp2] = useState({
 		_default: 'sans',
-		_mobileFirst: false,
+		_desktopFirst: false,
 	});
 
 	const respOpt = [

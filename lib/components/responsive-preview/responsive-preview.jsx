@@ -73,9 +73,7 @@ export const ResponsivePreview = (props) => {
 				{
 					width: breakpointData[breakpoint],
 					breakpoint: breakpointUiData?.[breakpoint]?.label ?? breakpoint,
-					value:
-						options?.find((opt) => opt.value === value?.[breakpoint])?.label ??
-						upperFirst(value?.[breakpoint]),
+					value: options?.find((opt) => opt.value === value?.[breakpoint])?.label ?? upperFirst(value?.[breakpoint]),
 				},
 			];
 		});
@@ -90,7 +88,8 @@ export const ResponsivePreview = (props) => {
 			previewItems = [
 				...previewItems,
 				{
-					width: breakpointData[breakpoint.replace('max-', '')],
+					alignEnd: true,
+					widthEnd: breakpointData[breakpoint.replace('max-', '')],
 					breakpoint: breakpointUiData?.[breakpoint.replace('max-', '')]?.label ?? breakpoint.replace('max-', ''),
 					value: options?.find((opt) => opt.value === value?.[breakpoint])?.label ?? upperFirst(value?.[breakpoint]),
 				},
@@ -100,13 +99,11 @@ export const ResponsivePreview = (props) => {
 		previewItems = [
 			...previewItems,
 			{
-				width: breakpointData[breakpoints.at(-1)],
+				alignEnd: true,
 				breakpoint: __('Default', 'eightshift-ui-components'),
 				value: options?.find((opt) => opt.value === value?.['_default'])?.label ?? upperFirst(value?.['_default']),
 			},
 		];
-
-		previewItems.at(0).width = null;
 	}
 
 	return (
