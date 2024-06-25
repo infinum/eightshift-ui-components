@@ -38,11 +38,13 @@ export const getValue = (simpleValue, value, options) => {
 export const customOnChange = (simpleValue, newValue, onChange) => {
 	if (!simpleValue) {
 		onChange(newValue);
+
 		return;
 	}
 
 	if (Array.isArray(newValue)) {
 		onChange(newValue.map((item) => item?.value));
+
 		return;
 	}
 

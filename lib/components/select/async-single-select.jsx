@@ -101,6 +101,7 @@ export const AsyncSelect = (props) => {
 
 	const customLoadOptions = async (searchText) => {
 		const results = await loadOptions(searchText);
+
 		return processLoadedOptions(results?.map((item) => ({ id: item.value, ...item })) ?? []);
 	};
 

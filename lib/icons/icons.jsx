@@ -1,11 +1,8 @@
-/* eslint-disable max-len */
 //---------------------------------------------------------------
 // Private methods
 
-import { GenericColorSwatch } from "./generic-color-swatch";
-
 // Generic color swatch icon - separated because a random ID needs to be generated every time to ensure clip path works properly.
-
+import { GenericColorSwatch } from './generic-color-swatch';
 
 /**
  * UI icons.

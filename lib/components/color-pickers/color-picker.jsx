@@ -139,6 +139,7 @@ export const ColorPicker = (props) => {
 			onClick={() => {
 				if (clearable && value === slug) {
 					onChange(undefined);
+
 					return;
 				}
 

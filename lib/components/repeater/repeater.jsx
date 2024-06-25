@@ -149,7 +149,6 @@ export const Repeater = (props) => {
 		isDisabled: selectable || !canReorder,
 		getItems: (ids) => [...ids].map((id) => ({ 'text/plain': list.getItem(id).id })),
 		onReorder(e) {
-			console.log(e);
 			if (e.target.dropPosition === 'before') {
 				list.move(e.target.key, e.keys);
 			} else if (e.target.dropPosition === 'after') {

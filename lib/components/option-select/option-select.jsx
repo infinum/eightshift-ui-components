@@ -99,9 +99,7 @@ export const OptionSelect = (props) => {
 
 	const currentItem = options?.find(({ value: optionValue }) => optionValue === value);
 
-	const notSetLabel = (
-		<span className='es-uic-leading-3 es-uic-opacity-50'>{__('Not set', 'eightshift-ui-components')}</span>
-	);
+	const notSetLabel = <span className='es-uic-leading-3 es-uic-opacity-50'>{__('Not set', 'eightshift-ui-components')}</span>;
 
 	return (
 		<BaseControl
@@ -120,36 +118,27 @@ export const OptionSelect = (props) => {
 					aria-label={typeof label !== 'undefined' ? null : props?.['aria-label']}
 					{...wrapperProps}
 				>
-					{options.map(
-						({
-							label: optionLabel,
-							value: optionValue,
-							icon: optionIcon,
-							tooltip: optionTooltip,
-							ariaLabel: optionAriaLabel,
-							subtitle: optionSubtitle,
-						}) => (
-							<ToggleButton
-								key={optionValue}
-								selected={optionValue === value}
-								onChange={() => onChange(optionValue)}
-								disabled={disabled}
-								className={itemClassName}
-								icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
-								tooltip={optionTooltip ?? optionAriaLabel ?? (noItemLabel && optionLabel)}
-								aria-label={optionAriaLabel ?? optionLabel ?? optionTooltip}
-								{...itemProps}
-							>
-								{!noItemLabel && !optionSubtitle && optionLabel}
-								{!noItemLabel && optionSubtitle && (
-									<RichLabel
-										label={optionLabel}
-										subtitle={optionSubtitle}
-									/>
-								)}
-							</ToggleButton>
-						),
-					)}
+					{options.map(({ label: optionLabel, value: optionValue, icon: optionIcon, tooltip: optionTooltip, ariaLabel: optionAriaLabel, subtitle: optionSubtitle }) => (
+						<ToggleButton
+							key={optionValue}
+							selected={optionValue === value}
+							onChange={() => onChange(optionValue)}
+							disabled={disabled}
+							className={itemClassName}
+							icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
+							tooltip={optionTooltip ?? optionAriaLabel ?? (noItemLabel && optionLabel)}
+							aria-label={optionAriaLabel ?? optionLabel ?? optionTooltip}
+							{...itemProps}
+						>
+							{!noItemLabel && !optionSubtitle && optionLabel}
+							{!noItemLabel && optionSubtitle && (
+								<RichLabel
+									label={optionLabel}
+									subtitle={optionSubtitle}
+								/>
+							)}
+						</ToggleButton>
+					))}
 				</ButtonGroup>
 			)}
 
@@ -162,27 +151,19 @@ export const OptionSelect = (props) => {
 					value={value}
 					{...wrapperProps}
 				>
-					{options.map(
-						({
-							label: optionLabel,
-							value: optionValue,
-							icon: optionIcon,
-							ariaLabel: optionAriaLabel,
-							subtitle: optionSubtitle,
-						}) => (
-							<RadioButton
-								key={optionValue}
-								value={optionValue}
-								disabled={disabled}
-								className={itemClassName}
-								subtitle={!noItemLabel && optionSubtitle}
-								icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
-								aria-label={optionAriaLabel ?? optionLabel}
-								label={!noItemLabel && optionLabel}
-								{...itemProps}
-							/>
-						),
-					)}
+					{options.map(({ label: optionLabel, value: optionValue, icon: optionIcon, ariaLabel: optionAriaLabel, subtitle: optionSubtitle }) => (
+						<RadioButton
+							key={optionValue}
+							value={optionValue}
+							disabled={disabled}
+							className={itemClassName}
+							subtitle={!noItemLabel && optionSubtitle}
+							icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
+							aria-label={optionAriaLabel ?? optionLabel}
+							label={!noItemLabel && optionLabel}
+							{...itemProps}
+						/>
+					))}
 				</RadioButtonGroup>
 			)}
 
@@ -191,11 +172,8 @@ export const OptionSelect = (props) => {
 					triggerLabel={!noTriggerLabel && (currentItem ? currentItem?.label : notSetLabel)}
 					triggerIcon={
 						!noTriggerIcon &&
-						(currentItem
-							? typeof currentItem?.icon === 'string'
-								? icons?.[currentItem?.icon]
-								: currentItem?.icon
-							: (noTriggerLabel || noTriggerIcon) && notSetLabel)
+						// eslint-disable-next-line no-nested-ternary
+						(currentItem ? (typeof currentItem?.icon === 'string' ? icons?.[currentItem?.icon] : currentItem?.icon) : (noTriggerLabel || noTriggerIcon) && notSetLabel)
 					}
 					tooltip={
 						noTriggerLabel ? (

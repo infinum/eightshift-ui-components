@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Label } from 'react-aria-components';
 import { Switch } from './switch';
 import { RichLabel } from '../rich-label/rich-label';

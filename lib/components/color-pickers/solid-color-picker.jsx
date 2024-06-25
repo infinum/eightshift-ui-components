@@ -137,6 +137,7 @@ export const SolidColorPicker = (props) => {
 						style={() => {
 							const startColor = color.clone().withChannelValue('alpha', 0).toString('hsla');
 							const endColor = color.clone().withChannelValue('alpha', 1).toString('hsla');
+
 							return {
 								background: `linear-gradient(to right, ${startColor}, ${endColor}), repeating-conic-gradient(rgb(204, 204, 204) 0%, rgb(204, 204, 204) 25%, white 0%, white 50%) 50% center / 14px 14px`,
 							};

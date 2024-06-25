@@ -240,6 +240,7 @@ function App() {
 
 	const getData = (inputValue) => {
 		const filterData = ({ label }) => label.toLowerCase().includes(inputValue.toLowerCase());
+
 		return new Promise((resolve) => {
 			setTimeout(() => {
 				if (!inputValue) {
@@ -315,11 +316,13 @@ function App() {
 				},
 			},
 		};
+
 		return <RSMultiValueContainer {...customProps} />;
 	};
 
 	const CustomMultiValueRemoveButton = (props) => {
 		props.innerProps.className = 'es-color-admin-accent es-hover-nested-color-red-500 es-line-h-0';
+
 		return <RSMultiValueRemove {...props}>{icons.trashAlt}</RSMultiValueRemove>;
 	};
 
@@ -606,7 +609,7 @@ function App() {
 
 	return (
 		<div className='font-geist es-uic-flex es-uic-min-h-screen es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-overscroll-contain es-uic-bg-neutral-100 es-uic-p-2'>
-			<div className='es-uic-mx-auto es-uic-flex es-uic-w-96 es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-gap-2.5 es-uic-p-10 empty:es-uic-hidden'></div>
+			<div className='es-uic-mx-auto es-uic-flex es-uic-w-96 es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-gap-2.5 es-uic-p-10 empty:es-uic-hidden' />
 
 			<Tabs
 				vertical
@@ -752,7 +755,7 @@ function App() {
 								onClick={() => console.log('hi')}
 								icon={icons.emptyRect}
 								type='ghost'
-							></Button>
+							/>
 						}
 					>
 						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>lorem</div>
@@ -1462,7 +1465,7 @@ function App() {
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Tabs>
-						<TabList></TabList>
+						<TabList>Lorem</TabList>
 						<TabPanel>Abc</TabPanel>
 					</Tabs>
 
@@ -1675,6 +1678,7 @@ function App() {
 							onChange={(value) => {
 								const newItems = [...repeaterItems];
 								newItems[index].title = value;
+
 								setRepeaterItems(newItems);
 							}}
 						/>

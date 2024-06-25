@@ -54,6 +54,7 @@ export const Tabs = (props) => {
 				: [child?.props?.children].filter(Boolean);
 
 			tabCounter = (childItems?.length ?? 0) + 1;
+
 			if (childItems.length < 1) {
 				return acc;
 			}
@@ -144,6 +145,7 @@ Tabs.displayName = 'Tabs';
  */
 export const TabList = (props) => {
 	const { children, 'aria-label': ariaLabel, className, ...other } = props;
+
 	return (
 		<ReactAriaTabList
 			aria-label={ariaLabel ?? __('tabs', 'eightshift-ui-components')}
@@ -183,6 +185,7 @@ TabList.displayName = 'TabList';
  */
 export const Tab = (props) => {
 	const { children, disabled, isParentVertical, className, icon, label, subtitle, ...other } = props;
+
 	return (
 		<ReactAriaTab
 			{...other}
@@ -236,6 +239,7 @@ Tab.displayName = 'Tab';
  */
 export const TabPanel = (props) => {
 	const { children, className, ...other } = props;
+
 	return (
 		<ReactAriaTabPanel
 			{...other}

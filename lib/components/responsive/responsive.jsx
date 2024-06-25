@@ -123,6 +123,7 @@ export const Responsive = (props) => {
 
 	const DefaultTooltip = () => {
 		const overrideIcon = breakpointUiData?.[isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0)]?.icon;
+
 		return (
 			<DecorativeTooltip
 				placement='left'

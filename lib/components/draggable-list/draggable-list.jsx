@@ -105,6 +105,7 @@ export const DraggableList = (props) => {
 			let items = await Promise.all(
 				e.items.map(async (item) => {
 					let name = item.kind === 'text' ? await item.getText('text/plain') : item.name;
+
 					return { id: Math.random(), name };
 				}),
 			);
@@ -120,13 +121,12 @@ export const DraggableList = (props) => {
 	// Update main value when items change.
 	useEffect(() => {
 		const items = list.items.map((item) => {
-			// eslint-disable-next-line no-unused-vars
 			const { id, ...rest } = item;
+
 			return rest;
 		});
 
 		onChange(items);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [list.items]);
 
 	if (hidden) {
@@ -142,30 +142,30 @@ export const DraggableList = (props) => {
 			actions={actions}
 			className='es-uic-w-full'
 		>
-				<GridList
-					aria-label={ariaLabel ?? __('Draggable list', 'eightshift-ui-components')}
-					selectionMode='none'
-					items={list.items.map((item, index) => ({
-						...item,
-						updateData: (newValue) => {
-							list.update(item.id, { ...list.getItem(item.id), ...newValue });
-						},
-						itemIndex: index,
-						deleteItem: () => list.remove(item.id),
-					}))}
-					dragAndDropHooks={dragAndDropHooks}
-					renderEmptyState={() =>
-						hideEmptyState ? null : (
-							<div className='es-uic-rounded-md es-uic-border es-uic-border-dashed es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-text-gray-400'>
-								{__('No items', 'eightshift-ui-components')}
-							</div>
-						)
-					}
-					className={className}
-					{...rest}
-				>
-					{children}
-				</GridList>
+			<GridList
+				aria-label={ariaLabel ?? __('Draggable list', 'eightshift-ui-components')}
+				selectionMode='none'
+				items={list.items.map((item, index) => ({
+					...item,
+					updateData: (newValue) => {
+						list.update(item.id, { ...list.getItem(item.id), ...newValue });
+					},
+					itemIndex: index,
+					deleteItem: () => list.remove(item.id),
+				}))}
+				dragAndDropHooks={dragAndDropHooks}
+				renderEmptyState={() =>
+					hideEmptyState ? null : (
+						<div className='es-uic-rounded-md es-uic-border es-uic-border-dashed es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-text-gray-400'>
+							{__('No items', 'eightshift-ui-components')}
+						</div>
+					)
+				}
+				className={className}
+				{...rest}
+			>
+				{children}
+			</GridList>
 		</BaseControl>
 	);
 };

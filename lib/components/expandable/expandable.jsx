@@ -80,12 +80,7 @@ export const Expandable = (props) => {
 			)}
 			{...other}
 		>
-			<div
-				className={clsx(
-					'es-uic-flex es-uic-h-10 es-uic-items-center es-uic-gap-1 es-uic-transition-[padding]',
-					isOpen && 'es-uic-py-1 es-uic-pl-2 es-uic-pr-1',
-				)}
-			>
+			<div className={clsx('es-uic-flex es-uic-h-10 es-uic-items-center es-uic-gap-1 es-uic-transition-[padding]', isOpen && 'es-uic-py-1 es-uic-pl-2 es-uic-pr-1')}>
 				<RichLabel
 					icon={icon}
 					label={label}
@@ -113,16 +108,14 @@ export const Expandable = (props) => {
 					icon={isOpen ? icons.caretDownFill : icons.caretDown}
 					onPress={() => {
 						setIsOpen(!isOpen);
+
 						if (onOpenChange) {
 							onOpenChange(!isOpen);
 						}
 					}}
 					tooltip={isOpen ? __('Close', 'eightshift-ui-components') : __('Open', 'eightshift-ui-components')}
 					disabled={disabled}
-					className={clsx(
-						'[&>svg]:es-uic-size-5 [&>svg]:es-uic-transition-transform',
-						isOpen && '[&>svg]:-es-uic-scale-y-100',
-					)}
+					className={clsx('[&>svg]:es-uic-size-5 [&>svg]:es-uic-transition-transform', isOpen && '[&>svg]:-es-uic-scale-y-100')}
 					size='small'
 				/>
 			</div>

@@ -1,12 +1,4 @@
-import {
-	Menu as ReactAriaMenu,
-	MenuItem as ReactAriaMenuItem,
-	MenuTrigger,
-	Separator as ReactAriaSeparator,
-	Section,
-	Header,
-	SubmenuTrigger,
-} from 'react-aria-components';
+import { Menu as ReactAriaMenu, MenuItem as ReactAriaMenuItem, MenuTrigger, Separator as ReactAriaSeparator, Section, Header, SubmenuTrigger } from 'react-aria-components';
 import { icons } from '../../icons/icons';
 import { Button } from '../button/button';
 import { Popover } from '../popover/popover';
@@ -108,9 +100,7 @@ export const Menu = (props) => {
 		additionalProps.trigger = 'longPress';
 	}
 
-	const hasSubmenuItems = Array.isArray(children)
-		? children.some((child) => child?.type?.displayName === 'SubMenuItem')
-		: children?.type?.displayName === 'SubMenuItem';
+	const hasSubmenuItems = Array.isArray(children) ? children.some((child) => child?.type?.displayName === 'SubMenuItem') : children?.type?.displayName === 'SubMenuItem';
 
 	return (
 		<MenuTrigger
@@ -160,17 +150,10 @@ export const Menu = (props) => {
  */
 export const MenuSection = (props) => {
 	const { children, label } = props;
+
 	return (
-		<Section
-			className={clsx(
-				'es-uic-space-y-1 es-uic-border-b es-uic-pb-1 last:es-uic-border-b-0',
-				label && 'es-uic-pt-2 first:es-uic-pt-1.5',
-				!label && 'last:es-uic-pb-1',
-			)}
-		>
-			{label && (
-				<Header className='es-uic-ml-1.5 es-uic-text-xs es-uic-font-medium es-uic-text-gray-400'>{label}</Header>
-			)}
+		<Section className={clsx('es-uic-space-y-1 es-uic-border-b es-uic-pb-1 last:es-uic-border-b-0', label && 'es-uic-pt-2 first:es-uic-pt-1.5', !label && 'last:es-uic-pb-1')}>
+			{label && <Header className='es-uic-ml-1.5 es-uic-text-xs es-uic-font-medium es-uic-text-gray-400'>{label}</Header>}
 			{children}
 		</Section>
 	);
@@ -244,11 +227,7 @@ export const MenuItem = (props) => {
 			{(selected === false || checked === false) && icons.dummySpacer}
 			{icon}
 			{children}
-			{shortcut && (
-				<div className='es-uic-ml-auto es-uic-text-[0.6875rem] es-uic-tracking-tight es-uic-text-gray-400'>
-					{shortcut}
-				</div>
-			)}
+			{shortcut && <div className='es-uic-ml-auto es-uic-text-[0.6875rem] es-uic-tracking-tight es-uic-text-gray-400'>{shortcut}</div>}
 			{endIcon && <div className={clsx(!shortcut && 'es-uic-ml-auto')}>{endIcon}</div>}
 		</ReactAriaMenuItem>
 	);
