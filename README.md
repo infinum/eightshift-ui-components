@@ -4,8 +4,14 @@ A collection of commonly-used UI components, utilities and icons, meant to provi
 
 Built using [React Aria components](https://react-spectrum.adobe.com/react-aria/), styled using [TailwindCSS](https://tailwindcss.com/). Build process and library export is set up with [Vite](https://vitejs.dev/).
 
+## Local setup
+
 > [!IMPORTANT]
 > Uses [`pnpm`](https://pnpm.io/) for package management.
+
+1. Clone the repository
+2. `pnpm install`
+3. `pnpm start` to run the example
 
 ## Who do I talk to?
 
