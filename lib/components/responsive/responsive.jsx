@@ -168,7 +168,7 @@ export const Responsive = (props) => {
 											active: true,
 										},
 										{
-											breakpoint: firstMobileFirstOverride,
+											breakpoint: breakpointUiData?.[firstMobileFirstOverride]?.label ?? firstMobileFirstOverride,
 											value:
 												options?.find((opt) => opt.value === value?.[firstMobileFirstOverride])?.label ??
 												upperFirst(value?.[firstMobileFirstOverride]),
@@ -182,7 +182,7 @@ export const Responsive = (props) => {
 								<BreakpointPreview
 									blocks={[
 										{
-											breakpoint: lastDesktopFirstOverride.replace('max-', ''),
+											breakpoint: breakpointUiData?.[lastDesktopFirstOverride.replace('max-', '')]?.label ?? lastDesktopFirstOverride.replace('max-', ''),
 											value:
 												options?.find((opt) => opt.value === value?.[lastDesktopFirstOverride])?.label ??
 												upperFirst(value?.[lastDesktopFirstOverride]),
