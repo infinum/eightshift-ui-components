@@ -7,6 +7,7 @@ import { RadioButton, RadioButtonGroup } from '../radio/radio';
 import { RichLabel } from '../rich-label/rich-label';
 import { ToggleButton } from '../toggle-button/toggle-button';
 import { __ } from '@wordpress/i18n';
+import { clsx } from 'clsx/lite';
 
 /**
  * A component that allows the user to select an option from a list of options.
@@ -211,6 +212,7 @@ export const OptionSelect = (props) => {
 					triggerProps={{
 						...wrapperProps?.triggerProps,
 						'aria-label': typeof label !== 'undefined' ? null : props?.['aria-label'],
+						className: clsx(wrapperProps?.triggerProps?.className, 'es-uic-w-fit'),
 					}}
 					keepOpen
 					{...wrapperProps}
