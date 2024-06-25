@@ -98,7 +98,7 @@ export const Responsive = (props) => {
 
 		hidden,
 
-		innerContentAlign,
+		innerContentAlign = 'start',
 	} = props;
 
 	const breakpoints = rawBreakpoints.slice(1);
