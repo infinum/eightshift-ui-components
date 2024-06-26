@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.1.1] - 2024-06-26
+- Removed `prepare` step from `package.json`.
+
 ## [1.1.0] - 2024-06-25
 - Migrated to ESLint 9.
 - Updated dependencies.
@@ -48,6 +51,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
 
+[1.1.1]: https://github.com/infinum/eightshift-ui-components/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/infinum/eightshift-ui-components/compare/1.0.6...1.1.0
 [1.0.6]: https://github.com/infinum/eightshift-ui-components/compare/1.0.5...1.0.6
 [1.0.5]: https://github.com/infinum/eightshift-ui-components/compare/1.0.4...1.0.5
