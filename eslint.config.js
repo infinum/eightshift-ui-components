@@ -1,5 +1,5 @@
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
+// import react from 'eslint-plugin-react';
+// import reactHooks from 'eslint-plugin-react-hooks';
 import stylistic from '@stylistic/eslint-plugin-js';
 import jsdoc from 'eslint-plugin-jsdoc';
 
@@ -31,8 +31,6 @@ export default [
 			},
 		},
 		plugins: {
-			react,
-			'react-hooks': reactHooks,
 			jsdoc,
 			'@stylistic/js': stylistic,
 		},
@@ -70,14 +68,15 @@ export default [
 				},
 			],
 			// React-specific.
-			'consistent-return': 'warn',
-			'no-param-reassign': 'warn',
-			'react-hooks/rules-of-hooks': 'error',
-			// 'react-hooks/exhaustive-deps': ['error', { additionalHooks: '(useSafeLayoutEffect|useUpdateEffect)' }],
-			'react/prop-types': ['error', { skipUndeclared: true }],
-			'react/react-in-jsx-scope': 'off',
-			'react/self-closing-comp': ['warn', { component: true, html: true }],
-			'react/no-unknown-property': ['error', { ignore: ['css'] }],
+			// NOTE: Temporarily disabled because of compatibility of 'react-hooks' with ESLint 9.
+			// 'consistent-return': 'warn',
+			// 'no-param-reassign': 'warn',
+			// 'react-hooks/rules-of-hooks': 'error',
+			// // 'react-hooks/exhaustive-deps': ['error', { additionalHooks: '(useSafeLayoutEffect|useUpdateEffect)' }],
+			// 'react/prop-types': ['error', { skipUndeclared: true }],
+			// 'react/react-in-jsx-scope': 'off',
+			// 'react/self-closing-comp': ['warn', { component: true, html: true }],
+			// 'react/no-unknown-property': ['error', { ignore: ['css'] }],
 			// JSDoc.
 			'jsdoc/require-description': 'error',
 			'jsdoc/check-values': 'error',
