@@ -85,14 +85,16 @@ export const RadioButton = (props) => {
 					<div
 						className={clsx(
 							'es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded-full es-uic-border es-uic-text-gray-600 es-uic-shadow-sm es-uic-transition',
-							isSelected ? 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white' : 'es-uic-border-gray-300',
+							isSelected && !disabled && 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white',
+							isSelected && disabled && 'es-uic-border-gray-400 es-uic-bg-gray-400 es-uic-text-white',
+							!isSelected && 'es-uic-border-gray-300',
 							!design?.startsWith('segmented') && isFocusVisible && 'es-uic-ring es-uic-ring-teal-500 es-uic-ring-opacity-50',
 						)}
 					>
 						<AnimatedVisibility
 							transition='scaleFade'
 							visible={isSelected}
-							className='[&>svg]:es-uic-size-3 [&>svg]:es-uic-stroke-2'
+							className={clsx('[&>svg]:es-uic-size-3 [&>svg]:es-uic-stroke-2', disabled && 'es-uic-opacity-55')}
 							noInitial
 						>
 							<div className='es-uic-size-2.5 es-uic-rounded-full es-uic-bg-white es-uic-shadow-sm' />
@@ -103,7 +105,7 @@ export const RadioButton = (props) => {
 							icon={icon}
 							label={label}
 							subtitle={subtitle}
-							className={clsx(labelClassName, '[&_>_span_>_svg]:!es-uic-size-5')}
+							className={clsx(labelClassName, '[&_>_span_>_svg]:!es-uic-size-5', disabled && 'es-uic-opacity-55')}
 						/>
 					)}
 					{!(icon || label || subtitle) && children}

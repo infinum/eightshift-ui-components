@@ -118,27 +118,37 @@ export const OptionSelect = (props) => {
 					aria-label={typeof label !== 'undefined' ? null : props?.['aria-label']}
 					{...wrapperProps}
 				>
-					{options.map(({ label: optionLabel, value: optionValue, icon: optionIcon, tooltip: optionTooltip, ariaLabel: optionAriaLabel, subtitle: optionSubtitle }) => (
-						<ToggleButton
-							key={optionValue}
-							selected={optionValue === value}
-							onChange={() => onChange(optionValue)}
-							disabled={disabled}
-							className={itemClassName}
-							icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
-							tooltip={optionTooltip ?? optionAriaLabel ?? (noItemLabel && optionLabel)}
-							aria-label={optionAriaLabel ?? optionLabel ?? optionTooltip}
-							{...itemProps}
-						>
-							{!noItemLabel && !optionSubtitle && optionLabel}
-							{!noItemLabel && optionSubtitle && (
-								<RichLabel
-									label={optionLabel}
-									subtitle={optionSubtitle}
-								/>
-							)}
-						</ToggleButton>
-					))}
+					{options.map(
+						({
+							label: optionLabel,
+							value: optionValue,
+							icon: optionIcon,
+							tooltip: optionTooltip,
+							ariaLabel: optionAriaLabel,
+							subtitle: optionSubtitle,
+							disabled: optionDisabled,
+						}) => (
+							<ToggleButton
+								key={optionValue}
+								selected={optionValue === value}
+								onChange={() => onChange(optionValue)}
+								disabled={optionDisabled || disabled}
+								className={itemClassName}
+								icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
+								tooltip={optionTooltip ?? optionAriaLabel ?? (noItemLabel && optionLabel)}
+								aria-label={optionAriaLabel ?? optionLabel ?? optionTooltip}
+								{...itemProps}
+							>
+								{!noItemLabel && !optionSubtitle && optionLabel}
+								{!noItemLabel && optionSubtitle && (
+									<RichLabel
+										label={optionLabel}
+										subtitle={optionSubtitle}
+									/>
+								)}
+							</ToggleButton>
+						),
+					)}
 				</ButtonGroup>
 			)}
 
@@ -151,11 +161,11 @@ export const OptionSelect = (props) => {
 					value={value}
 					{...wrapperProps}
 				>
-					{options.map(({ label: optionLabel, value: optionValue, icon: optionIcon, ariaLabel: optionAriaLabel, subtitle: optionSubtitle }) => (
+					{options.map(({ label: optionLabel, value: optionValue, icon: optionIcon, ariaLabel: optionAriaLabel, subtitle: optionSubtitle, disabled: optionDisabled }) => (
 						<RadioButton
 							key={optionValue}
 							value={optionValue}
-							disabled={disabled}
+							disabled={optionDisabled || disabled}
 							className={itemClassName}
 							subtitle={!noItemLabel && optionSubtitle}
 							icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
@@ -204,13 +214,14 @@ export const OptionSelect = (props) => {
 							separator: optionHasSeparator,
 							sectionTitle: optionSectionTitle,
 							shortcut: optionShortcut,
+							disabled: optionDisabled,
 						}) => (
 							<Fragment key={optionValue}>
 								{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
 								{optionSectionTitle && <MenuItem disabled>{optionSectionTitle}</MenuItem>}
 								<MenuItem
 									selected={value === optionValue}
-									disabled={disabled}
+									disabled={optionDisabled || disabled}
 									className={itemClassName}
 									icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
 									endIcon={!noItemIcon && (typeof optionEndIcon === 'string' ? icons?.[optionEndIcon] : optionEndIcon)}
