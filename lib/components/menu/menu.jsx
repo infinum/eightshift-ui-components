@@ -227,8 +227,8 @@ export const MenuItem = (props) => {
 			{(selected === false || checked === false) && icons.dummySpacer}
 			{icon}
 			{children}
-			{shortcut && <div className='es-uic-ml-auto es-uic-text-[0.6875rem] es-uic-tracking-tight es-uic-text-gray-400'>{shortcut}</div>}
-			{endIcon && <div className={clsx(!shortcut && 'es-uic-ml-auto')}>{endIcon}</div>}
+			{shortcut && <div className='es-uic-ml-auto es-uic-pl-2 es-uic-text-[0.6875rem] es-uic-tracking-tight es-uic-text-gray-400'>{shortcut}</div>}
+			{endIcon && <div className={clsx(!shortcut && 'es-uic-ml-auto es-uic-pl-2')}>{endIcon}</div>}
 		</ReactAriaMenuItem>
 	);
 };
