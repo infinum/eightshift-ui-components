@@ -98,7 +98,10 @@ export const ResponsiveLegacy = (props) => {
 		inline,
 
 		breakpointData,
-		breakpoints: rawBreakpoints = Object.keys(breakpointData).toReversed(),
+		breakpoints: rawBreakpoints = Object.entries(breakpointData)
+			.toSorted((a, b) => a[1] - b[1])
+			.map(([breakpoint]) => breakpoint)
+			.toReversed(),
 
 		hidden,
 
@@ -148,7 +151,7 @@ export const ResponsiveLegacy = (props) => {
 									{
 										breakpoint: __('Default', 'eightshift-ui-components'),
 										value: options?.find((opt) => opt.value === value?.[attribute[defaultBreakpoint]])?.label ?? upperFirst(value?.[defaultBreakpoint]),
-										width: breakpointData[breakpoints.at(-1)],
+										width: breakpointData[globalOverride] + 1,
 										dotsEnd: true,
 										active: true,
 									},
@@ -286,16 +289,17 @@ export const ResponsiveLegacy = (props) => {
 
 										<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
 											{aboveOverride &&
-												aboveOverride === breakpoint &&
+												(aboveOverride !== rawBreakpoints[0] || !belowOverride) &&
 												isOverrideSet &&
 												sprintf(__('Applied when the browser width is %dpx or less.', 'eightshift-ui-components'), breakpointData[breakpoint])}
 
 											{aboveOverride &&
-												aboveOverride !== breakpoint &&
+												aboveOverride === rawBreakpoints[0] &&
+												belowOverride &&
 												isOverrideSet &&
 												sprintf(
 													__('Applied when the browser width is between %dpx and %dpx.', 'eightshift-ui-components'),
-													breakpointData[aboveOverride] + 1,
+													breakpointData[belowOverride] + 1,
 													breakpointData[breakpoint],
 												)}
 
