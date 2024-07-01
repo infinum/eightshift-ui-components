@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import Select, { components } from 'react-select';
 import { DndContext } from '@dnd-kit/core';
 import { restrictToParentElement } from '@dnd-kit/modifiers';
@@ -66,7 +67,7 @@ export const MultiSelect = (props) => {
 		actions,
 		inline,
 
-		value,
+		value: rawValue,
 		onChange,
 
 		options,
@@ -93,11 +94,16 @@ export const MultiSelect = (props) => {
 		...additionalProps
 	} = props;
 
+	const idBase = useId();
+
+	const value = rawValue.map((item, index) => ({
+		...item,
+		id: `${idBase}-${index}`,
+	}));
+
 	if (hidden) {
 		return null;
 	}
-
-	fixIds(value, onChange);
 
 	return (
 		<BaseControl

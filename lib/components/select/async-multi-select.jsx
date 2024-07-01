@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { components } from 'react-select';
 import AsyncSelect from 'react-select/async';
 import { DndContext } from '@dnd-kit/core';
@@ -76,7 +77,7 @@ export const AsyncMultiSelect = (props) => {
 		loadOptions,
 		preloadOptions = true,
 
-		value,
+		value: rawValue,
 		onChange,
 
 		disabled = false,
@@ -101,6 +102,13 @@ export const AsyncMultiSelect = (props) => {
 		...additionalProps
 	} = props;
 
+	const idBase = useId();
+
+	const value = rawValue.map((item, index) => ({
+		...item,
+		id: `${idBase}-${index}`,
+	}));
+
 	if (hidden) {
 		return null;
 	}
@@ -111,7 +119,7 @@ export const AsyncMultiSelect = (props) => {
 		return processLoadedOptions(results?.map((item) => ({ id: item.value, ...item })) ?? []);
 	};
 
-	fixIds(value, onChange);
+	// fixIds(value, onChange);
 
 	return (
 		<BaseControl

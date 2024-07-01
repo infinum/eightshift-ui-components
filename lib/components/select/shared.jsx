@@ -36,7 +36,10 @@ export const getValue = (simpleValue, value, options) => {
  * @preserve
  */
 export const customOnChange = (simpleValue, newValue, onChange) => {
+	delete newValue.id;
+
 	if (!simpleValue) {
+
 		onChange(newValue);
 
 		return;
