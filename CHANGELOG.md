@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.1.3] - 2024-07-01
+- Added spacing to `endIcon`s in Menu items.
+- Tweaked auto-fix of Select components, now they don't need explicit `id`s in items.
+- Fixed small tooltip bugs in `ResponsiveLegacy`.
+- Tweaked tooltip opacity and blur amount.
+- Updated dependencies.
+
 ## [1.1.2] - 2024-06-29
 - Added missing margin in Select components.
 - Removed ESLint React (Hooks) temporarily, as they're not fully compatible with ESLint 9.
@@ -56,6 +63,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
 
+[1.1.3]: https://github.com/infinum/eightshift-ui-components/compare/1.1.2...1.1.3
 [1.1.2]: https://github.com/infinum/eightshift-ui-components/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/infinum/eightshift-ui-components/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/infinum/eightshift-ui-components/compare/1.0.6...1.1.0
