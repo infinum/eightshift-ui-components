@@ -18,8 +18,11 @@ import { Spacer } from '../spacer/spacer';
  * @param {boolean} [props.disabled] - Whether the color picker is disabled.
  * @param {Function} [props.onChangeEnd] - The change end handler.
  * @param {boolean} [props.allowTransparency=false] - Whether the color picker allows transparency.
- * @param {import('react-aria-components').ColorFormat} [props.outputFormat] - The output format. Default is 'hex' (or 'hexa' if `allowTransparency` is true).
+ * @param {OutputColorFormat} [props.outputFormat] - The output format. Default is 'hex' (or 'hexa' if `allowTransparency` is true).
+ * @param {boolean} [props.noAdvancedOptions] - If `true`, the advanced options are hidden.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
+ *
+ * @typedef {'hex' | 'hexa' | 'rgb' | 'rgba' | 'hsl' | 'hsla' | 'hsb' | 'hsba'} OutputColorFormat
  *
  * @returns {JSX.Element} The ButtonGroup component.
  *
@@ -29,7 +32,7 @@ import { Spacer } from '../spacer/spacer';
  * @preserve
  */
 export const SolidColorPicker = (props) => {
-	const { value: rawValue, onChange, disabled, onChangeEnd, allowTransparency = false, outputFormat, hidden } = props;
+	const { value: rawValue, onChange, disabled, onChangeEnd, allowTransparency = false, outputFormat, hidden, noAdvancedOptions } = props;
 
 	const value = rawValue?.replace('transparent', 'rgba(0, 0, 0, 0)');
 
@@ -169,6 +172,7 @@ export const SolidColorPicker = (props) => {
 						disabled: disabled,
 						tooltip: __('Advanced color options', 'eightshift-ui-components'),
 					}}
+					hidden={noAdvancedOptions}
 				>
 					<Label className='es-uic-text-sm'>{__('Advanced color options', 'eightshift-ui-components')}</Label>
 
