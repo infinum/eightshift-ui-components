@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.2.0] - 2024-07-04
+- Fixed bug with clearing `Select` components
+- Fixed loading state padding in `Select` components
+- Fixed JSDoc blocks in couple of components
+- Fixed border colors in `Expandable`, `MenuSection`, segmented `RadioButtonGroup`, and `Select` components
+- Fixed `InputField` not passing `type`
+- Fixed style of indeterminate `Checkbox`
+- Tweaked spacing of `Slider`s without markers
+- Added an option to disable advanced options in `SolidColorPicker`
+- Added a placeholder in the Angle input within the `GradientEditor` when the default direction presets are used.
+- Improved `ContainerPanel` behavior when toggling `use` externally.
+- Fixed font size of `OptionPanel` help text.
+- Improved `ResponsivePreview` behavior and added auto-detect for desktop-first from value.
+
 ## [1.1.4] - 2024-07-01
 - Same as `1.1.3`, just resolving some publishing issues
 
@@ -66,6 +80,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
 
+[1.2.0]: https://github.com/infinum/eightshift-ui-components/compare/1.1.4...1.2.0
 [1.1.4]: https://github.com/infinum/eightshift-ui-components/compare/1.1.3...1.1.4
 [1.1.3]: https://github.com/infinum/eightshift-ui-components/compare/1.1.2...1.1.3
 [1.1.2]: https://github.com/infinum/eightshift-ui-components/compare/1.1.1...1.1.2
