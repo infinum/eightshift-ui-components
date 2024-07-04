@@ -36,10 +36,15 @@ export const getValue = (simpleValue, value, options) => {
  * @preserve
  */
 export const customOnChange = (simpleValue, newValue, onChange) => {
+	if (typeof newValue === 'undefined' || newValue === null || newValue === '') {
+		onChange(undefined);
+
+		return;
+	}
+
 	delete newValue.id;
 
 	if (!simpleValue) {
-
 		onChange(newValue);
 
 		return;
