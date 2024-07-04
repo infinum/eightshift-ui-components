@@ -115,7 +115,7 @@ export const Repeater = (props) => {
 		selectedKeys: rawList.selectionManager.selectedKeys,
 		setSelectedKeys: (ids) => rawList.selectionManager.setSelectedKeys(ids),
 		getKey: ({ id }) => items.find((item) => item.id === id),
-		getItem: (id) => items.find((item) => item.id === id),
+		getItem: (id) => items?.find((item) => item.id === id),
 		update: (id, newValue) => {
 			const index = [...items].findIndex((item) => item.id === id);
 			items[index] = { ...items[index], ...newValue };
@@ -147,7 +147,7 @@ export const Repeater = (props) => {
 
 	let { dragAndDropHooks } = useDragAndDrop({
 		isDisabled: selectable || !canReorder,
-		getItems: (ids) => [...ids].map((id) => ({ 'text/plain': list.getItem(id).id })),
+		getItems: (ids) => [...ids].map((id) => ({ 'text/plain': list?.getItem(id)?.id })),
 		onReorder(e) {
 			if (e.target.dropPosition === 'before') {
 				list.move(e.target.key, e.keys);
@@ -190,7 +190,7 @@ export const Repeater = (props) => {
 					>
 						<Button
 							onPress={() => {
-								const removedItems = [...(list?.selectedKeys.keys()?.map((id) => list.getItem(id)) ?? [])];
+								const removedItems = [...(list?.selectedKeys.keys()?.map((id) => list?.getItem(id)) ?? [])];
 
 								list.removeSelectedItems();
 								setSelectable(false);
