@@ -92,41 +92,49 @@ const linearDirections = [
 		label: __('Right'),
 		value: 'right',
 		iconClass: 'es-uic-bg-gradient-to-r',
+		valueDegrees: 90,
 	},
 	{
 		label: __('Left'),
 		value: 'left',
 		iconClass: 'es-uic-bg-gradient-to-l',
+		valueDegrees: 180,
 	},
 	{
 		label: __('Top'),
 		value: 'top',
 		iconClass: 'es-uic-bg-gradient-to-t',
+		valueDegrees: 270,
 	},
 	{
 		label: __('Bottom'),
 		value: 'bottom',
 		iconClass: 'es-uic-bg-gradient-to-b',
+		valueDegrees: 90,
 	},
 	{
 		label: __('Top-right'),
 		value: 'top right',
 		iconClass: 'es-uic-bg-gradient-to-tr',
+		valueDegrees: 45,
 	},
 	{
 		label: __('Top-left'),
 		value: 'top left',
 		iconClass: 'es-uic-bg-gradient-to-tl',
+		valueDegrees: 315,
 	},
 	{
 		label: __('Bottom-right'),
 		value: 'bottom right',
 		iconClass: 'es-uic-bg-gradient-to-br',
+		valueDegrees: 135,
 	},
 	{
 		label: __('Bottom-left'),
 		value: 'bottom left',
 		iconClass: 'es-uic-bg-gradient-to-bl',
+		valueDegrees: 225,
 	},
 ];
 
@@ -231,6 +239,7 @@ export const GradientEditor = (props) => {
 						suffix='°'
 						size='small'
 						className='es-uic-grow'
+						placeholder={linearDirections.find(({ value }) => value === gradientData?.orientation?.value)?.valueDegrees ?? ''}
 					/>
 
 					<Menu
