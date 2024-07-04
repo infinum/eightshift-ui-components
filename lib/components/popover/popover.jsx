@@ -147,6 +147,7 @@ export const Popover = (props) => {
  * @param {number} props.offset - Offset from the trigger element, on the same axis as the placement of the popover (e.g. if `placement` is `left`, this controls the horizontal spacing from the element).
  * @param {number} props.crossOffset - Offset from the trigger element, on the opposite axis as the placement of the popover (e.g. if `placement` is `left`, this controls the vertical spacing from the element).
  * @param {number} props.containerPadding - Space that should be left between the popover and the edge of the container (the default container is browser window).
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The TriggeredPopover component.
  *
@@ -181,8 +182,14 @@ export const TriggeredPopover = (props) => {
 		crossOffset,
 		containerPadding,
 
+		hidden,
+
 		...rest
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	return (
 		<DialogTrigger onOpenChange={onOpenChange}>
