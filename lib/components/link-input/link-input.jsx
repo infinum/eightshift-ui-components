@@ -28,7 +28,6 @@ import { useDebouncedCallback } from 'use-debounce';
  * @param {JSX.Element} [props.icon=icons.globe] - Icon to display in the label.
  * @param {JSX.Element} [props.removeIcon=icons.clearAlt] - Icon to display in the input's clear button.
  * @param {boolean} [props.disabled=false] - If `true`, the input is disabled.
- * @param {Function} [props.suggestionTypeIconOverride] - Function
  * @param {Function} [props.fetchSuggestions] - A function that fetches suggestions based on the input value.
  * @param {string} [props.className] - Classes to pass to the input field.
  * @param {number} [props.inputDebounceDelay=500] - The delay in milliseconds before the input value is considered final.
