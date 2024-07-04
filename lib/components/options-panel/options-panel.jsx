@@ -37,7 +37,7 @@ export const OptionsPanel = (props) => {
 				/>
 			)}
 			<div className='es-uic-divide-y es-uic-divide-gray-200 es-uic-rounded-lg es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-shadow'>{children}</div>
-			{help && <span className='text-sm es-uic-mt-1.5 es-uic-block es-uic-text-gray-400'>{help}</span>}
+			{help && <span className='es-uic-mt-1.5 es-uic-block es-uic-text-sm es-uic-text-gray-400'>{help}</span>}
 		</div>
 	);
 };
