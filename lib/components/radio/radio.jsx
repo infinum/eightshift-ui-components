@@ -54,12 +54,12 @@ export const RadioButton = (props) => {
 
 	const styleClassName = {
 		segmented: clsx(
-			'es-uic-py-1 es-uic-px-1.5 es-uic-border hover:es-uic-bg-gray-50 es-uic-transition es-uic-min-h-10',
+			'es-uic-py-1 es-uic-px-1.5 es-uic-border es-uic-border-gray-300 hover:es-uic-bg-gray-50 es-uic-transition es-uic-min-h-10',
 			'first:es-uic-rounded-t-lg last:es-uic-rounded-b-lg',
 			'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50 focus-visible:es-uic-z-10',
 		),
 		segmentedHorizontal: clsx(
-			'es-uic-py-1 es-uic-px-1.5 es-uic-border hover:es-uic-bg-gray-50 es-uic-transition es-uic-grow es-uic-min-h-10',
+			'es-uic-py-1 es-uic-px-1.5 es-uic-border es-uic-border-gray-300 hover:es-uic-bg-gray-50 es-uic-transition es-uic-grow es-uic-min-h-10',
 			'first:es-uic-rounded-l-lg last:es-uic-rounded-r-lg',
 			'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50 focus-visible:es-uic-z-10',
 		),
