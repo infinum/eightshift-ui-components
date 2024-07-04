@@ -321,6 +321,8 @@ function App() {
 	const [v6, setV6] = useState([]);
 	const [v7, setV7] = useState();
 
+	const [cpOpen, setCpOpen] = useState(false);
+
 	const groupedOptions = [
 		{
 			label: 'Group 1',
@@ -2441,6 +2443,23 @@ function App() {
 						onUseChange={setToggled}
 					>
 						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
+					</ContainerPanel>
+
+					<Checkbox
+						checked={cpOpen}
+						onChange={setCpOpen}
+						label='Use'
+					/>
+
+					<ContainerPanel use={cpOpen}>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
+					</ContainerPanel>
+
+					<ContainerPanel
+						title='Demo'
+						use={cpOpen}
+					>
 						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
 					</ContainerPanel>
 				</TabPanel>
