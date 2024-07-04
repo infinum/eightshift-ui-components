@@ -38,7 +38,7 @@ export const ContainerPanel = (props) => {
 
 	const [open, setOpen] = useState(startOpen);
 
-	if (!title) {
+	if (!title && typeof use === 'undefined') {
 		return <div className='es-uic-space-y-2 es-uic-border-t es-uic-border-t-gray-200 es-uic-p-4'>{children}</div>;
 	}
 
@@ -91,14 +91,14 @@ export const ContainerPanel = (props) => {
 				justUse && use && 'es-uic-pb-4',
 				useAndClosable && use && open && 'es-uic-pb-4',
 				!justClosable && !justUse && !useAndClosable && 'es-uic-pb-4',
-				!closable && !onUseChange && 'es-uic-px-4',
+				!closable && !onUseChange && typeof use === 'undefined' && 'es-uic-px-4',
 				className,
 			)}
 			labelContainerClassName={clsx((closable || onUseChange) && 'es-uic-pl-4 es-uic-pr-3 es-uic-min-h-12', !(closable || onUseChange) && 'es-uic-mt-3', '!es-uic-pb-0')}
 			controlContainerClassName='es-uic-px-4'
 			labelClassName='!es-uic-text-gray-500'
 		>
-			{!closable && !onUseChange && children}
+			{!closable && !onUseChange && typeof use === 'undefined' && children}
 			{closable && typeof use === 'undefined' && (
 				<AnimatedVisibility
 					visible={open}
@@ -107,7 +107,7 @@ export const ContainerPanel = (props) => {
 					{children}
 				</AnimatedVisibility>
 			)}
-			{typeof use !== 'undefined' && (
+			{typeof use !== 'undefined' && !closable && (
 				<AnimatedVisibility
 					visible={closable ? use && open : use}
 					className={clsx((closable ? use && open : use) && 'es-uic-space-y-2 es-uic-px-4')}
