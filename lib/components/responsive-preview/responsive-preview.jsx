@@ -35,7 +35,7 @@ import { RichLabel } from '../rich-label/rich-label';
 export const ResponsivePreview = (props) => {
 	const {
 		value,
-		isDesktopFirst,
+		isDesktopFirst: rawIsDesktopFirst,
 
 		breakpoints: rawBreakpoints,
 		desktopFirstBreakpoints: rawDesktopFirstBreakpoints,
@@ -46,6 +46,8 @@ export const ResponsivePreview = (props) => {
 		breakpointUiData,
 	} = props;
 
+	const isDesktopFirst = rawIsDesktopFirst ?? value?.['_desktopFirst'] ?? false;
+
 	const breakpoints = rawBreakpoints;
 	const desktopFirstBreakpoints = rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1);
 
@@ -54,7 +56,7 @@ export const ResponsivePreview = (props) => {
 
 	let previewItems = [];
 
-	if (firstMobileFirstOverride) {
+	if (firstMobileFirstOverride && !isDesktopFirst) {
 		previewItems = [
 			...previewItems,
 			{
@@ -79,7 +81,7 @@ export const ResponsivePreview = (props) => {
 		});
 	}
 
-	if (lastDesktopFirstOverride) {
+	if (lastDesktopFirstOverride && isDesktopFirst) {
 		desktopFirstBreakpoints.forEach((breakpoint) => {
 			if (typeof value?.[breakpoint] === 'undefined') {
 				return;
@@ -99,7 +101,6 @@ export const ResponsivePreview = (props) => {
 		previewItems = [
 			...previewItems,
 			{
-				alignEnd: true,
 				breakpoint: __('Default', 'eightshift-ui-components'),
 				value: options?.find((opt) => opt.value === value?.['_default'])?.label ?? upperFirst(value?.['_default']),
 			},
@@ -107,7 +108,7 @@ export const ResponsivePreview = (props) => {
 	}
 
 	return (
-		<div className='es-uic-flex es-uic-min-w-72 es-uic-flex-col es-uic-items-start es-uic-gap-4 es-uic-p-2'>
+		<div className='es-uic-flex es-uic-min-w-72 es-uic-flex-col es-uic-items-start es-uic-gap-4 es-uic-p-2 es-uic-text-sm'>
 			<div className='es-uic-flex es-uic-w-full es-uic-items-center es-uic-gap-2.5'>
 				<RichLabel
 					icon={icons.previewResponsive}
