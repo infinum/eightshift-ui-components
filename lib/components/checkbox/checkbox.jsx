@@ -86,11 +86,11 @@ export const Checkbox = (props) => {
 					<div
 						className={clsx(
 							'es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded-md es-uic-border es-uic-text-gray-600 es-uic-shadow-sm es-uic-transition',
-							isSelected ? 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white' : 'es-uic-border-gray-300',
+							isSelected || indeterminate ? 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white' : 'es-uic-border-gray-300',
 						)}
 					>
 						<AnimatedVisibility
-							transition='scaleRotateFade'
+							transition='scaleFade'
 							visible={isIndeterminate}
 						>
 							<div className='es-uic-h-[1.5px] es-uic-w-3 es-uic-rounded es-uic-bg-white' />
