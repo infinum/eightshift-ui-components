@@ -76,7 +76,7 @@ export const Tabs = (props) => {
 				cloneElement(child, {
 					id: `tab-${baseId}-${tabPanelCounter++}`,
 					key: index,
-					className: clsx(child.props.className, vertical && 'es-uic-border-l es-uic-border-l-300 es-uic-pl-3'),
+					className: clsx(child.props.className, vertical && 'es-uic-border-l es-uic-border-l-gray-300 es-uic-pl-3'),
 				}),
 			];
 		}
