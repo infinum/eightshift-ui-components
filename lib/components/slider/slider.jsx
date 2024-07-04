@@ -129,7 +129,7 @@ export const Slider = (props) => {
 			step={step}
 			isDisabled={disabled}
 			orientation={vertical ? 'vertical' : 'horizontal'}
-			className='es-uic-w-full es-uic-pb-3.5'
+			className={clsx('es-uic-w-full', markerEntries?.some(([_, value]) => value?.length > 0) && 'es-uic-pb-3.5')}
 			onChangeEnd={onChangeEnd}
 			{...other}
 		>
