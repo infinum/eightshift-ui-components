@@ -311,11 +311,7 @@ function App() {
 	};
 
 	const CustomClearIndicator = (props) => {
-		return (
-			<RSClearIndicator {...props}>
-				<span className='es-color-admin-accent es-hover-color-red-500 es-line-h-0 es-nested-size-6! -es-ml-1!'>{icons.errorCircleFill}</span>
-			</RSClearIndicator>
-		);
+		return <RSClearIndicator {...props}>{icons.errorCircleFill}</RSClearIndicator>;
 	};
 
 	const [v, setV] = useState();
@@ -1466,6 +1462,14 @@ function App() {
 						onChange={setTxt1}
 						label='Lorem'
 					/>
+
+					<InputField
+						value={txt1}
+						onChange={setTxt1}
+						label='Lorem'
+						type='password'
+					/>
+
 					<InputField
 						type='multiline'
 						value={txt2}
