@@ -152,7 +152,13 @@ export const MenuSection = (props) => {
 	const { children, label } = props;
 
 	return (
-		<Section className={clsx('es-uic-space-y-1 es-uic-border-b es-uic-pb-1 last:es-uic-border-b-0', label && 'es-uic-pt-2 first:es-uic-pt-1.5', !label && 'last:es-uic-pb-1')}>
+		<Section
+			className={clsx(
+				'es-uic-space-y-1 es-uic-border-b es-uic-border-b-gray-200 es-uic-pb-1 last:es-uic-border-b-0',
+				label && 'es-uic-pt-2 first:es-uic-pt-1.5',
+				!label && 'last:es-uic-pb-1',
+			)}
+		>
 			{label && <Header className='es-uic-ml-1.5 es-uic-text-xs es-uic-font-medium es-uic-text-gray-400'>{label}</Header>}
 			{children}
 		</Section>

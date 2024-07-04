@@ -122,7 +122,7 @@ export const Expandable = (props) => {
 
 			<AnimatedVisibility
 				visible={isOpen}
-				className={clsx('es-uic-space-y-2.5 es-uic-border-t es-uic-p-2', contentClassName)}
+				className={clsx('es-uic-space-y-2.5 es-uic-border-t es-uic-border-t-gray-200 es-uic-p-2', contentClassName)}
 				transition='slideFade'
 				noInitial
 			>
