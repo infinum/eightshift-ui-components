@@ -4,12 +4,10 @@ import AsyncSelect from 'react-select/async';
 import { DndContext } from '@dnd-kit/core';
 import { restrictToParentElement } from '@dnd-kit/modifiers';
 import { SortableContext } from '@dnd-kit/sortable';
-
 import { CustomSelectDefaultClearIndicator, CustomSelectDefaultDropdownIndicator, CustomSelectDefaultMultiValueRemove } from './custom-select-default-components';
 import { getDragEndHandler, getMultiValue, getMultiValueRemove } from './multi-select-components';
 import { BaseControl } from '../base-control/base-control';
 import { eightshiftSelectClasses } from './styles';
-import { fixIds } from './shared';
 
 /**
  * Multi-select menu with async loading and re-ordering.
@@ -22,7 +20,7 @@ import { fixIds } from './shared';
  * @param {string} [props.subtitle] - Subtitle of the component.
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to show to the right of the label.
  * @param {boolean} [props.inline] - Whether the Select menu is displayed inline with the label, to the right.
- * @param {boolean|{label: string, value: string, metadata: Object<string, any>?}[]>} [props.preloadOptions=true] - If `true`, the initial loading is done as soon as the component is loaded. If an array of `{label: '', value: ''}` option is provided, that is loaded immediately, dynamic fetching only happens in search. If `false`, nothing is loaded immediately, fetching only happens when an user types to search.
+ * @param {boolean|{label: string, value: string, metadata: Object<string, any>?}[]} [props.preloadOptions=true] - If `true`, the initial loading is done as soon as the component is loaded. If an array of `{label: '', value: ''}` option is provided, that is loaded immediately, dynamic fetching only happens in search. If `false`, nothing is loaded immediately, fetching only happens when an user types to search.
  * @param {Function<Promise>} props.loadOptions - Async function that returns an array of `{label: '', value: ''}`-formatted items. `loadOptions(searchText: string): Promise<{label: string, value: string, [metadata]: Array}[]>`.
  * @param {{label: string, value: string, metadata: Object<string, any>?}[]} props.value - Current value of the select.
  * @param {Function} props.onChange - Function to call when the value changes.

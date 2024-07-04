@@ -1,6 +1,5 @@
 import { components } from 'react-select';
 import RSAsyncSelect from 'react-select/async';
-
 import { CustomSelectDefaultClearIndicator, CustomSelectDefaultDropdownIndicator } from './custom-select-default-components';
 import { BaseControl } from '../base-control/base-control';
 import { eightshiftSelectClasses } from './styles';
@@ -16,8 +15,8 @@ import { eightshiftSelectClasses } from './styles';
  * @param {string} [props.subtitle] - Subtitle of the component.
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to show to the right of the label.
  * @param {boolean} [props.inline] - Whether the Select menu is displayed inline with the label, to the right.
- * @param {boolean|{label: string, value: string, metadata: Object<string, any>?}[]>} [props.preloadOptions=true] - If `true`, the initial loading is done as soon as the component is loaded. If an array of `{label: '', value: ''}` option is provided, that is loaded immediately, dynamic fetching only happens in search. If `false`, nothing is loaded immediately, fetching only happens when an user types to search.
- * @param {Function<Promise>} props.loadOptions - Async function that returns an array of `{label: '', value: ''}`-formatted items. `loadOptions(searchText: string): Promise<{label: string, value: string, metadata: Object<string, any>?}[]>`.
+ * @param {boolean|{label: string, value: string, metadata: Object<string, any>?}[]} [props.preloadOptions=true] - If `true`, the initial loading is done as soon as the component is loaded. If an array of `{label: '', value: ''}` option is provided, that is loaded immediately, dynamic fetching only happens in search. If `false`, nothing is loaded immediately, fetching only happens when an user types to search.
+ * @param {Function} props.loadOptions - Async function that returns an array of `{label: '', value: ''}`-formatted items. `loadOptions(searchText: string): Promise<{label: string, value: string, metadata: Object<string, any>?}[]>`.
  * @param {{label: string, value: string, metadata: Object<string, any>?}} props.value - Current value of the select.
  * @param {Function} props.onChange - Function to call when the value changes.
  * @param {boolean} [props.clearable=false] - Whether the select is clearable.

@@ -1,5 +1,4 @@
 import RSSelect, { components } from 'react-select';
-
 import { CustomSelectDefaultClearIndicator, CustomSelectDefaultDropdownIndicator } from './custom-select-default-components';
 import { customOnChange, getValue } from './shared';
 import { BaseControl } from '../base-control/base-control';
