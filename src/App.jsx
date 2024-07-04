@@ -64,6 +64,7 @@ import {
 	RichLabel,
 	OptionsPanel,
 	OptionsPanelSection,
+	ResponsivePreview,
 } from '../lib';
 import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
@@ -589,7 +590,7 @@ function App() {
 
 	return (
 		<div className='font-geist es-uic-flex es-uic-min-h-screen es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-overscroll-contain es-uic-bg-neutral-100 es-uic-p-2'>
-			<div className='es-uic-mx-auto es-uic-flex es-uic-w-96 es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-gap-2.5 es-uic-p-10 empty:es-uic-hidden' />
+			<div className='es-uic-mx-auto es-uic-flex es-uic-w-96 es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-gap-2.5 es-uic-p-10 empty:es-uic-hidden'></div>
 
 			<Tabs
 				vertical
@@ -630,6 +631,7 @@ function App() {
 					<Tab>ImagePlaceholder / MediaPlaceholder / FilePlaceholder</Tab>
 					<Tab>DraggableList</Tab>
 					<Tab>OptionsPanel</Tab>
+					<Tab>ResponsivePreview</Tab>
 				</TabList>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Toggle
@@ -2711,6 +2713,29 @@ function App() {
 							/>
 						</OptionsPanelSection>
 					</OptionsPanel>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+					<ResponsivePreview
+						value={{
+							_default: 'sans',
+							_desktopFirst: false,
+							desktop: 'serif',
+						}}
+						options={respOpt}
+						breakpoints={['mobile', 'tablet', 'desktop', 'large']}
+						breakpointData={globalManifest.globalVariables.breakpoints}
+					/>
+
+					<ResponsivePreview
+						value={{
+							_default: 'sans',
+							_desktopFirst: true,
+							desktop: 'serif',
+						}}
+						options={respOpt}
+						breakpoints={['mobile', 'tablet', 'desktop', 'large']}
+						breakpointData={globalManifest.globalVariables.breakpoints}
+					/>
 				</TabPanel>
 			</Tabs>
 		</div>
