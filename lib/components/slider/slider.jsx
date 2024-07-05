@@ -10,7 +10,6 @@ import {
 } from 'react-aria-components';
 import { BaseControl } from '../base-control/base-control';
 import { clsx } from 'clsx/lite';
-
 import { NumberPicker } from '../number-picker/number-picker';
 import { useContext, useState } from 'react';
 import { generateMarkers } from './utils';
@@ -341,6 +340,7 @@ export const Slider = (props) => {
 													'es-uic-shadow dragging:es-uic-bg-teal-600 disabled:es-uic-border-gray-200 disabled:es-uic-bg-gray-100 disabled:es-uic-shadow-none',
 													'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 													'es-uic-border-teal-600 es-uic-bg-teal-500 es-uic-shadow-teal-600/50',
+													'hover:es-uic-cursor-grab dragging:es-uic-cursor-grabbing',
 												)}
 												onFocus={() => {
 													if (state.values.length < 2) {

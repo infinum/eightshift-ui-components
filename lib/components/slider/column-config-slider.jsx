@@ -177,6 +177,7 @@ export const ColumnConfigSlider = (props) => {
 											'es-uic-shadow dragging:es-uic-bg-teal-600 disabled:es-uic-opacity-0',
 											'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
 											'es-uic-border-teal-600 es-uic-bg-teal-500 es-uic-shadow-teal-600/50',
+											'hover:es-uic-cursor-grab dragging:es-uic-cursor-grabbing',
 										)}
 										style={{
 											gridColumn: `${state.values[i]} / span 1`,
