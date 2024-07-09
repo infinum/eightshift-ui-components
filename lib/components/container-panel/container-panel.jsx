@@ -74,10 +74,10 @@ export const ContainerPanel = (props) => {
 						{closable && (
 							<Button
 								onPress={() => setOpen(!open)}
-								icon={open ? icons.caretDownFill : icons.caretDown}
+								icon={(typeof use !== 'undefined' ? open && use : open) ? icons.caretDownFill : icons.caretDown}
 								type='ghost'
 								size='small'
-								className={clsx('[&>svg]:es-uic-size-5 [&>svg]:es-uic-transition-transform', open && '[&>svg]:-es-uic-scale-y-100')}
+								className={clsx('[&>svg]:es-uic-size-5 [&>svg]:es-uic-transition-transform', (typeof use !== 'undefined' ? open && use : open) && '[&>svg]:-es-uic-scale-y-100')}
 								disabled={typeof use !== 'undefined' && !use}
 							/>
 						)}
@@ -107,7 +107,7 @@ export const ContainerPanel = (props) => {
 					{children}
 				</AnimatedVisibility>
 			)}
-			{typeof use !== 'undefined' && !closable && (
+			{typeof use !== 'undefined' && (
 				<AnimatedVisibility
 					visible={closable ? use && open : use}
 					className={clsx((closable ? use && open : use) && 'es-uic-space-y-2 es-uic-px-4')}
