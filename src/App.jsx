@@ -2464,6 +2464,14 @@ function App() {
 					>
 						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
 					</ContainerPanel>
+
+					<ContainerPanel
+						title='Demo'
+						use={cpOpen}
+						closable
+					>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
+					</ContainerPanel>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<HStack className='es-uic-max-w-72'>
