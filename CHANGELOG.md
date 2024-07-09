@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.2.2] - 2024-07-09
+- Fixed bug with `ContainerPanel`
+
 ## [1.2.1] - 2024-07-05
 - Added grab cursors for slider component thumbs to improve visual feedback.
 - Improved `ColumnConfigSlider` label generator.
@@ -84,6 +87,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
 
+[1.2.2]: https://github.com/infinum/eightshift-ui-components/compare/1.2.1...1.2.2
 [1.2.1]: https://github.com/infinum/eightshift-ui-components/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/infinum/eightshift-ui-components/compare/1.1.4...1.2.0
 [1.1.4]: https://github.com/infinum/eightshift-ui-components/compare/1.1.3...1.1.4
