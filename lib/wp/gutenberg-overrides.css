@@ -109,5 +109,5 @@ button.components-toggle-group-control-option-base,
 
 /* Nicer-looking Gutenberg tooltip. */
 .components-tooltip {
-	@apply es-uic-px-4 es-uic-py-2 es-uic-text-black es-uic-backdrop-blur-xl es-uic-backdrop-brightness-105 es-uic-backdrop-saturate-150 es-uic-bg-gray-950/70 es-uic-border es-uic-border-gray-800 es-uic-shadow-md es-uic-rounded-md has-[ > _:first-child]:es-uic-px-2 has-[ > _:first-child]:es-uic-text-gray-700 has-[ > _:first-child]:es-uic-bg-white/80 has-[ > _:first-child]:es-uic-border-gray-200;
+	@apply es-uic-px-4 es-uic-py-2 es-uic-text-black es-uic-backdrop-blur-xl es-uic-backdrop-brightness-105 es-uic-backdrop-saturate-150 es-uic-bg-gray-950/70 es-uic-border es-uic-border-gray-800 es-uic-shadow-md es-uic-rounded-md has-[>_:first-child]:es-uic-px-2 has-[>_:first-child]:es-uic-text-gray-700 has-[>_:first-child]:es-uic-bg-white/80 has-[>_:first-child]:es-uic-border-gray-200;
 }
