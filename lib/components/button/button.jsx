@@ -173,6 +173,7 @@ export const Button = (props) => {
  * @param {Object} props - Component props.
  * @param {string} [props.className] - Classes to pass to the button group container.
  * @param {boolean} [props.vertical] - If `true`, the buttons are displayed vertically.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The ButtonGroup component.
  *
