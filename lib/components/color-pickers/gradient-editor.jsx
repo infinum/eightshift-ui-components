@@ -1,20 +1,20 @@
 import { __, sprintf } from '@wordpress/i18n';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { parseConicGradient, parseLinearGradient, parseRadialGradient } from 'css-gradient-parser';
-import { ButtonGroup } from '../button/button';
-import { ToggleButton } from '../toggle-button/toggle-button';
-import { Repeater } from '../repeater/repeater';
-import { RepeaterItem } from '../repeater/repeater-item';
+import { Button, ButtonGroup } from '../button/button';
 import { icons } from '../../icons/icons';
 import { SolidColorPicker } from './solid-color-picker';
 import { Slider } from '../slider/slider';
 import { NumberPicker } from '../number-picker/number-picker';
 import { ColorSwatch } from 'react-aria-components';
 import { Menu, MenuItem } from '../menu/menu';
-import { BaseControl } from '../base-control/base-control';
 import { MatrixAlign } from '../matrix-align/matrix-align';
 import { Spacer } from '../spacer/spacer';
 import { Toggle } from '../toggle/toggle';
+import { OptionSelect } from '../option-select/option-select';
+import { DraggableList } from '../draggable-list/draggable-list';
+import { DraggableListItem } from '../draggable-list/draggable-list-item';
+import { TriggeredPopover } from '../popover/popover';
 import { clsx } from 'clsx/lite';
 
 const getGradientResult = (input, type) => {
@@ -191,34 +191,31 @@ export const GradientEditor = (props) => {
 
 	const outputGradient = useMemo(() => getGradientResult(gradientData, gradientType), [gradientData, gradientType]);
 
+	const [squarePreview, setSquarePreview] = useState(false);
+
 	if (hidden) {
 		return null;
 	}
 
 	return (
 		<div className='es-uic-w-full es-uic-space-y-2.5'>
-			<div
-				className='es-uic-h-40 es-uic-w-full es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-shadow-sm'
+			<button
+				className={clsx(
+					'es-uic-shadow-sm, es-uic-mx-auto es-uic-block es-uic-h-40 es-uic-cursor-pointer es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-transition-[width]',
+					squarePreview ? 'es-uic-w-40' : 'es-uic-w-full',
+				)}
 				style={{ backgroundImage: outputGradient }}
+				onClick={() => setSquarePreview((prev) => !prev)}
+				aria-label={__('Toggle preview size', 'eightshift-ui-components')}
 			/>
 
-			<ButtonGroup className='es-uic-w-full'>
-				{gradientTypes.map(({ label, value, icon }) => {
-					return (
-						<ToggleButton
-							key={value}
-							selected={gradientType === value}
-							onChange={() => onChange(getGradientResult({ stops: gradientData.stops }, value))}
-							icon={icon}
-							className='es-uic-grow'
-						>
-							{label}
-						</ToggleButton>
-					);
-				})}
-			</ButtonGroup>
-
-			<Spacer size='xs' />
+			<OptionSelect
+				aria-label={__('Gradient type', 'eightshift-ui-components')}
+				value={gradientType}
+				onChange={(value) => onChange(getGradientResult({ stops: gradientData.stops }, value))}
+				options={gradientTypes}
+				wrapperProps={{ className: 'es-uic-mx-auto es-uic-w-fit' }}
+			/>
 
 			{gradientType === 'linear' && (
 				<div className='es-uic-flex es-uic-items-center es-uic-gap-1'>
@@ -271,38 +268,22 @@ export const GradientEditor = (props) => {
 
 			{gradientType === 'radial' && (
 				<div className='es-uic-space-y-2'>
-					<BaseControl
+					<OptionSelect
 						label={__('Shape', 'eightshift-ui-components')}
 						icon={icons.genericShapesAlt}
 						inline
-					>
-						<ButtonGroup>
-							<ToggleButton
-								selected={gradientData.shape === 'circle'}
-								onChange={() => {
-									setGradientData({
-										...gradientData,
-										shape: 'circle',
-									});
-								}}
-								size='large'
-							>
-								{__('Circle', 'eightshift-ui-components')}
-							</ToggleButton>
-							<ToggleButton
-								selected={gradientData.shape === 'ellipse'}
-								onChange={() => {
-									setGradientData({
-										...gradientData,
-										shape: 'ellipse',
-									});
-								}}
-								size='large'
-							>
-								{__('Ellipse', 'eightshift-ui-components')}
-							</ToggleButton>
-						</ButtonGroup>
-					</BaseControl>
+						options={[
+							{ label: __('Circle', 'eightshift-ui-components'), value: 'circle' },
+							{ label: __('Ellipse', 'eightshift-ui-components'), value: 'ellipse' },
+						]}
+						value={gradientData.shape}
+						onChange={(value) => {
+							setGradientData({
+								...gradientData,
+								shape: value,
+							});
+						}}
+					/>
 
 					<MatrixAlign
 						icon={icons.centerPoint}
@@ -339,6 +320,7 @@ export const GradientEditor = (props) => {
 								angle: `${value}deg`,
 							});
 						}}
+						size='small'
 						suffix='°'
 						className='es-uic-grow'
 					/>
@@ -371,7 +353,7 @@ export const GradientEditor = (props) => {
 
 			<Spacer border />
 
-			<Repeater
+			<DraggableList
 				items={gradientData?.stops}
 				onChange={(items) => {
 					setGradientData({
@@ -382,24 +364,30 @@ export const GradientEditor = (props) => {
 						})),
 					});
 				}}
-				itemLabelProp='title'
 				icon={icons.gradientStop}
 				label={__('Gradient stops', 'eightshift-ui-components')}
-				addDefaultItem={{
-					color: '#000000',
-				}}
-				minItems={2}
+				key={gradientData?.stops?.length}
+				actions={
+					<Button
+						icon={icons.add}
+						size='small'
+						onPress={() => {
+							setGradientData({
+								...gradientData,
+								stops: [...gradientData.stops, { color: '#000000FF' }],
+							});
+						}}
+						aria-label={__('Add stop', 'eightshift-ui-components')}
+					/>
+				}
 			>
 				{(item) => {
 					const { color, updateData, itemIndex } = item;
 
-					const defaultOffset = (itemIndex * 100) / (gradientData.stops.length - 1);
-					const offset = `${gradientData.stops[itemIndex]?.offset?.value ?? defaultOffset}%`;
-
 					return (
-						<RepeaterItem
+						<DraggableListItem
 							label={sprintf(__('Stop %s', 'eightshift-ui-components'), itemIndex + 1)}
-							subtitle={`${color} / ${offset ?? defaultOffset}`}
+							subtitle={color}
 							icon={
 								<ColorSwatch
 									className='es-uic-size-5 es-uic-rounded-full es-uic-border es-uic-border-white es-uic-ring-1 es-uic-ring-black'
@@ -408,18 +396,37 @@ export const GradientEditor = (props) => {
 							}
 							textValue={sprintf(__('Stop %s', 'eightshift-ui-components'), itemIndex + 1)}
 						>
-							<SolidColorPicker
-								value={color}
-								onChange={(color) => {
-									updateData({ color });
-								}}
-								allowTransparency
-								outputFormat='rgba'
-							/>
-						</RepeaterItem>
+							<ButtonGroup>
+								<TriggeredPopover
+									triggerButtonIcon={icons.color}
+									triggerButtonProps={{ size: 'small' }}
+								>
+									<SolidColorPicker
+										value={color}
+										onChange={(color) => {
+											updateData({ color });
+										}}
+										allowTransparency
+										outputFormat='rgba'
+									/>
+								</TriggeredPopover>
+								<Button
+									onPress={() => {
+										setGradientData({
+											...gradientData,
+											stops: gradientData.stops.filter((_, i) => i !== itemIndex),
+										});
+									}}
+									icon={icons.trash}
+									size='small'
+									aria-label={__('Delete stop', 'eightshift-ui-components')}
+									disabled={gradientData.stops.length <= 2}
+								/>
+							</ButtonGroup>
+						</DraggableListItem>
 					);
 				}}
-			</Repeater>
+			</DraggableList>
 
 			<Slider
 				aria-label={__('Stop positions', 'eightshift-ui-components')}
