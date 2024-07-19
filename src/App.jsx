@@ -65,6 +65,7 @@ import {
 	OptionsPanel,
 	OptionsPanelSection,
 	ResponsivePreview,
+	Modal,
 } from '../lib';
 import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
@@ -632,6 +633,7 @@ function App() {
 					<Tab>DraggableList</Tab>
 					<Tab>OptionsPanel</Tab>
 					<Tab>ResponsivePreview</Tab>
+					<Tab>Modal</Tab>
 				</TabList>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Toggle
@@ -2744,6 +2746,9 @@ function App() {
 						breakpoints={['mobile', 'tablet', 'desktop', 'large']}
 						breakpointData={globalManifest.globalVariables.breakpoints}
 					/>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+					<Modal title='My modal'>Lorem ipsum modal sit amet.</Modal>
 				</TabPanel>
 			</Tabs>
 		</div>
