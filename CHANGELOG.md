@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.3.2] - 2024-07-23
+- Tweaked `OptionSelect` rich label style.
+
 ## [1.3.1] - 2024-07-19
 - Tweaked Gradient editor layout.
 - Tweaked Gutenberg tooltip style.
@@ -99,6 +102,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
 
+[1.3.2]: https://github.com/infinum/eightshift-ui-components/compare/1.3.1...1.3.2
 [1.3.1]: https://github.com/infinum/eightshift-ui-components/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/infinum/eightshift-ui-components/compare/1.2.3...1.3.0
 [1.2.3]: https://github.com/infinum/eightshift-ui-components/compare/1.2.2...1.2.3
