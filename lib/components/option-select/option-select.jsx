@@ -144,6 +144,7 @@ export const OptionSelect = (props) => {
 									<RichLabel
 										label={optionLabel}
 										subtitle={optionSubtitle}
+										noColor
 									/>
 								)}
 							</ToggleButton>
@@ -235,6 +236,7 @@ export const OptionSelect = (props) => {
 										<RichLabel
 											label={optionLabel}
 											subtitle={optionSubtitle}
+											noColor
 										/>
 									)}
 								</MenuItem>
