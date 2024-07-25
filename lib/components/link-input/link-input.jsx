@@ -100,7 +100,8 @@ export const LinkInput = (props) => {
 			url?.startsWith('mailto:') ||
 			url?.startsWith('tel:') ||
 			url?.startsWith('http://') ||
-			url?.startsWith('https://')
+			url?.startsWith('https://') ||
+			url?.startsWith('www.')
 		);
 	};
 
