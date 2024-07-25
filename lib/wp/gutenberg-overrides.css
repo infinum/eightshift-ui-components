@@ -4,14 +4,15 @@
 .edit-post-sidebar .components-button:not(.components-panel__body-toggle, .editor-post-last-revision__title),
 .components-snackbar,
 .components-toggle-group-control,
-.editor-post-publish-panel .components-button {
+.editor-post-publish-panel .components-button,
+.edit-post-text-editor__toolbar .components-button,
+.edit-post-text-editor__body .components-textarea-control__input {
 	@apply !es-uic-rounded-md;
 }
 
 .components-input-control__container,
 .components-combobox-control__suggestions-container,
 .components-checkbox-control__input,
-.components-tooltip,
 button.components-toggle-group-control-option-base,
 .editor-post-visibility__password-input {
 	@apply !es-uic-rounded;
@@ -98,7 +99,7 @@ button.components-toggle-group-control-option-base,
 /* Unify buttons in top toolbar */
 .edit-post-header__toolbar {
 	.components-button {
-		@apply es-uic-min-h-9 es-uic-min-w-9;
+		@apply !es-uic-min-h-9 !es-uic-min-w-9;
 	}
 }
 
@@ -109,5 +110,5 @@ button.components-toggle-group-control-option-base,
 
 /* Nicer-looking Gutenberg tooltip. */
 .components-tooltip {
-	@apply es-uic-px-1.5 es-uic-py-1 es-uic-text-white es-uic-backdrop-blur-xl es-uic-backdrop-brightness-105 es-uic-backdrop-saturate-150 es-uic-bg-gray-950/70 es-uic-border es-uic-border-gray-800 es-uic-shadow-md es-uic-rounded-md has-[>_:first-child]:es-uic-text-gray-700 has-[>_:first-child]:es-uic-bg-white/80 has-[>_:first-child]:es-uic-border-gray-200;
+	@apply es-uic-px-1 es-uic-py-0.5 es-uic-text-white es-uic-backdrop-blur-xl es-uic-backdrop-brightness-105 es-uic-backdrop-saturate-150 es-uic-bg-gray-950/70 es-uic-border es-uic-border-gray-800 es-uic-shadow-md !es-uic-rounded-md has-[>_:first-child]:es-uic-text-gray-700 has-[>_:first-child]:es-uic-bg-white/80 has-[>_:first-child]:es-uic-border-gray-200;
 }
