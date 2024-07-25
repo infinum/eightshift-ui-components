@@ -37,4 +37,5 @@ export default {
 		require('tailwindcss-animate'),
 		require('tailwindcss-react-aria-components'),
 	],
+	safelist: ['es-uic-shrink', 'es-uic-shrink-0', 'es-uic-grow', 'es-uic-grow-0', 'es-uic-flex-1', 'es-uic-flex-auto', 'es-uic-flex-initial', 'es-uic-flex-none'],
 };
