@@ -76,14 +76,17 @@ export const NumberPicker = ({
 		compact: {
 			field: 'es-uic-min-h-5',
 			noPrefixPadding: 'es-uic-pl-1.5',
+			extraContentSeparator: 'es-uic-h-[1.875rem]',
 		},
 		small: {
 			field: 'es-uic-min-h-9',
 			noPrefixPadding: 'es-uic-pl-2',
+			extraContentSeparator: 'es-uic-h-[2.125rem]',
 		},
 		default: {
 			field: 'es-uic-min-h-10',
 			noPrefixPadding: 'es-uic-pl-2',
+			extraContentSeparator: 'es-uic-h-[2.375rem]',
 		},
 	};
 
@@ -158,8 +161,8 @@ export const NumberPicker = ({
 
 					{children && (
 						<>
-							<div className='es-uic-h-[2.375rem] es-uic-w-px es-uic-bg-gray-300' />
-							<div className='es-uic-pl-1 es-uic-pr-0.5'>
+							<div className={clsx('es-uic-w-px es-uic-bg-gray-300', sizes?.[size]?.extraContentSeparator ?? sizes.default.extraContentSeparator)} />
+							<div className='es-uic-p-0.5 es-uic-pr-0'>
 								{Array.isArray(children) ? children.map((child) => cloneElement(child, { slot: null })) : cloneElement(children, { slot: null })}
 							</div>
 						</>
