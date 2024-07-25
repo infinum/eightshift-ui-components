@@ -96,7 +96,7 @@ export const MultiSelect = (props) => {
 
 	const idBase = useId();
 
-	const value = rawValue.map((item, index) => ({
+	const value = getValue(simpleValue, rawValue, options).map((item, index) => ({
 		...item,
 		id: `${idBase}-${index}`,
 	}));
@@ -123,7 +123,7 @@ export const MultiSelect = (props) => {
 						isMulti
 						unstyled
 						options={options.map((item) => ({ id: item.value, ...item }))}
-						value={getValue(simpleValue, value, options)}
+						value={value}
 						onChange={(v) => customOnChange(simpleValue, v, onChange)}
 						closeMenuOnSelect={!keepMenuOpenAfterSelect}
 						isClearable={clearable}
