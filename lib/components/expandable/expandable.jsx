@@ -78,7 +78,7 @@ export const Expandable = (props) => {
 	const component = (
 		<div
 			className={clsx(
-				'es-uic-w-full es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-border-opacity-0 es-uic-text-sm es-uic-transition',
+				'es-uic-w-full es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-border-opacity-0 es-uic-text-sm es-uic-transition focus:es-uic-outline-none',
 				isOpen && 'es-uic-border-opacity-100 es-uic-shadow-lg',
 				className,
 			)}
