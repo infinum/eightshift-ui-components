@@ -164,25 +164,28 @@ export const Repeater = (props) => {
 							}}
 							size='small'
 							icon={icons.add}
-							className='[&>svg]:es-uic-size-4'
+							className={clsx('[&>svg]:es-uic-size-4', !hideEmptyState && items.length < 1 && 'es-uic-invisible')}
 							tooltip={__('Add item', 'eightshift-ui-components')}
 							disabled={addDisabled || canDelete}
 						/>
 					)}
 
-					{addButton &&
-						addButton({
-							addItem: (additional = {}) => {
-								const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem, ...additional };
-								setItems((items) => [...items, newItem]);
-								onChange(items);
+					{addButton && (
+						<div className={clsx(!hideEmptyState && items.length < 1 && 'es-uic-invisible')}>
+							{addButton({
+								addItem: (additional = {}) => {
+									const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem, ...additional };
+									setItems((items) => [...items, newItem]);
+									onChange(items);
 
-								if (onAfterItemAdd) {
-									onAfterItemAdd(newItem);
-								}
-							},
-							disabled: addDisabled || canDelete,
-						})}
+									if (onAfterItemAdd) {
+										onAfterItemAdd(newItem);
+									}
+								},
+								disabled: addDisabled || canDelete,
+							})}
+						</div>
+					)}
 				</>
 			}
 			className='es-uic-w-full'
@@ -246,20 +249,31 @@ export const Repeater = (props) => {
 									value={{
 										...item,
 										index,
-										handleRef,
 										canDelete,
 										deleteItem: () => {
 											setItems([...items].filter((i) => i.id !== item.id));
 											onChange([...items].filter((i) => i.id !== item.id));
-											onAfterItemRemove(item);
+
+											if (onAfterItemRemove) {
+												onAfterItemRemove(item);
+											}
 										},
-										isPanelOpen: isPanelOpen?.[item.id] ?? false,
-										isAnyPanelOpen,
 										handleOpenChange: (isOpen) => setIsPanelOpen((data) => ({ ...data, [item.id]: isOpen })),
 										isDragSource,
 									}}
 								>
-									<div>
+									<div className='es-uic-relative'>
+										<Button
+											size='small'
+											className={clsx(
+												'es-uic-absolute es-uic-bottom-0 es-uic-left-0 es-uic-top-0 es-uic-my-auto es-uic-h-6 es-uic-w-4 -es-uic-translate-x-full !es-uic-text-gray-500 es-uic-opacity-50 focus:es-uic-opacity-100',
+												(isAnyPanelOpen || canDelete) && 'es-uic-pointer-events-none es-uic-invisible !es-uic-cursor-default',
+											)}
+											type='ghost'
+											icon={icons.reorderGrabberV}
+											tooltip={!isDragSource && __('Re-order', 'eightshift-ui-components')}
+											forwardedRef={handleRef}
+										/>
 										{children({
 											...item,
 											updateData: (newValue) => {
@@ -270,7 +284,10 @@ export const Repeater = (props) => {
 											deleteItem: () => {
 												setItems([...items].filter((i) => i.id !== item.id));
 												onChange([...items].filter((i) => i.id !== item.id));
-												onAfterItemRemove(item);
+
+												if (onAfterItemRemove) {
+													onAfterItemRemove(item);
+												}
 											},
 										})}
 									</div>
@@ -284,7 +301,44 @@ export const Repeater = (props) => {
 			<AnimatedVisibility visible={items.length < 1}>
 				{emptyState}
 
-				{!hideEmptyState && <div></div>}
+				{!hideEmptyState && (
+					<div className='es-uic-flex es-uic-flex-col es-uic-items-center es-uic-gap-2 es-uic-rounded-md es-uic-border es-uic-border-dashed es-uic-border-gray-300 es-uic-p-4 es-uic-text-center es-uic-text-sm es-uic-text-gray-400'>
+						{!addButton && (
+							<Button
+								onPress={() => {
+									const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem };
+									setItems((items) => [...items, newItem]);
+									onChange(items);
+
+									if (onAfterItemAdd) {
+										onAfterItemAdd(newItem);
+									}
+								}}
+								size='small'
+								icon={icons.add}
+								className='[&>svg]:es-uic-size-4'
+								disabled={addDisabled}
+							>
+								{__('Add item', 'eightshift-ui-components')}
+							</Button>
+						)}
+
+						{addButton &&
+							!hideEmptyState &&
+							addButton({
+								addItem: (additional = {}) => {
+									const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem, ...additional };
+									setItems((items) => [...items, newItem]);
+									onChange(items);
+
+									if (onAfterItemAdd) {
+										onAfterItemAdd(newItem);
+									}
+								},
+								disabled: addDisabled || canDelete,
+							})}
+					</div>
+				)}
 			</AnimatedVisibility>
 		</BaseControl>
 	);

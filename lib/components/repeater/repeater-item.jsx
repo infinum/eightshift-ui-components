@@ -30,48 +30,37 @@ import { useRef } from 'react';
 export const RepeaterItem = (props) => {
 	const { children, icon, label, subtitle, 'aria-label': ariaLabel, className, actions, textValue, expandDisabled, ...rest } = props;
 
-	const { canDelete, handleOpenChange, isPanelOpen, handleRef, deleteItem, isAnyPanelOpen, isDragSource } = useContext(RepeaterContext);
+	const { canDelete, handleOpenChange, deleteItem, isDragSource } = useContext(RepeaterContext);
 
 	return (
-		<Expandable
-			disabled={canDelete}
-			icon={icon}
-			label={label}
-			subtitle={subtitle}
-			className={clsx(isDragSource && 'es-uic-border es-uic-border-gray-100 es-uic-bg-white/50 es-uic-shadow-md es-uic-backdrop-blur-lg')}
-			labelClassName={className}
-			onOpenChange={(isOpen) => handleOpenChange(isOpen)}
-			actions={
-				<>
-					<Button
-						size='small'
-						className={clsx(
-							'es-uic-h-6 es-uic-w-4 !es-uic-text-gray-500 es-uic-opacity-50 focus:es-uic-opacity-100',
-							(isAnyPanelOpen || canDelete) && 'es-uic-pointer-events-none es-uic-invisible !es-uic-cursor-default',
-						)}
-						type='ghost'
-						icon={icons.reorderGrabberV}
-						tooltip={!isDragSource && __('Re-order', 'eightshift-ui-components')}
-						forwardedRef={handleRef}
-						disabled={isPanelOpen}
-					/>
+		<>
+			<Expandable
+				disabled={canDelete}
+				icon={icon}
+				label={label}
+				subtitle={subtitle}
+				className={clsx(isDragSource && 'es-uic-border es-uic-border-gray-100 es-uic-bg-white/50 es-uic-shadow-md es-uic-backdrop-blur-lg')}
+				labelClassName={className}
+				onOpenChange={(isOpen) => handleOpenChange(isOpen)}
+				actions={
+					<>
+						{actions}
 
-					<Button
-						hidden={!canDelete}
-						ariaLabel={__('Remove item', 'eightshift-ui-components')}
-						size='small'
-						type='ghost'
-						icon={icons.trash}
-						onPress={() => deleteItem()}
-						className='es-uic-translate-x-px'
-					/>
-
-					{actions}
-				</>
-			}
-			noFocusHandling
-		>
-			{children}
-		</Expandable>
+						<Button
+							hidden={!canDelete}
+							ariaLabel={__('Remove item', 'eightshift-ui-components')}
+							size='small'
+							type='ghost'
+							icon={icons.trash}
+							onPress={() => deleteItem()}
+							className='es-uic-translate-x-px'
+						/>
+					</>
+				}
+				noFocusHandling
+			>
+				{children}
+			</Expandable>
+		</>
 	);
 };
