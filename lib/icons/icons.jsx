@@ -22002,6 +22002,157 @@ export const icons = {
 			/>
 		</svg>
 	),
+	verticalAlignAlt: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<rect
+				width='8'
+				height='15'
+				rx='1.5'
+				transform='matrix(0 1 1 0 2.5 6)'
+				stroke='currentColor'
+				fill='none'
+			/>
+			<path
+				d='M19 1H1m18 18H1'
+				stroke='currentColor'
+				strokeLinecap='round'
+				strokeLinejoin='round'
+				fill='none'
+			/>
+		</svg>
+	),
+	horizontalAlignAlt: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<rect
+				width='8'
+				height='15'
+				rx='1.5'
+				transform='matrix(1 0 0 -1 6 17.5)'
+				stroke='currentColor'
+				fill='none'
+			/>
+			<path
+				d='M1 1v18M19 1v18'
+				stroke='currentColor'
+				strokeLinecap='round'
+				strokeLinejoin='round'
+				fill='none'
+			/>
+		</svg>
+	),
+	tagAlt: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<path
+				d='M14.75 6.063C14.75 3.267 12.498 1 9.72 1 8.246 1 6.92 1.64 6 2.658a1.413 1.413 0 0 0 0 1.988c.545.55 1.43.55 1.975 0l.245-.25a2.219 2.219 0 0 1 1.502-.583 2.243 2.243 0 0 1 2.235 2.25c0 1.242-1 2.25-2.235 2.25H6.75a1.5 1.5 0 0 0-1.5 1.5V17.5a1.5 1.5 0 0 0 1.5 1.5h6.5a1.5 1.5 0 0 0 1.5-1.5V6.062Z'
+				stroke='currentColor'
+				fill='none'
+			/>
+			<path
+				d='M7.25 17h5.5'
+				stroke='currentColor'
+				strokeOpacity='0.5'
+				strokeLinecap='round'
+				fill='none'
+			/>
+		</svg>
+	),
+	door: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<rect
+				x='5'
+				y='2'
+				width='10'
+				height='16'
+				rx='1.5'
+				stroke='currentColor'
+				fill='none'
+			/>
+			<circle
+				cx='7.5'
+				cy='10'
+				r='1'
+				fill='currentColor'
+			/>
+		</svg>
+	),
+	doorOut: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<path
+				d='M14 10.5V3a1.5 1.5 0 0 0-1.5-1.5h-7A1.5 1.5 0 0 0 4 3v13a1.5 1.5 0 0 0 1.5 1.5H8'
+				stroke='currentColor'
+				fill='none'
+			/>
+			<path
+				clip-rule='evenodd'
+				fillRule='evenodd'
+				d='M17 18a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 9 18v-5a1.5 1.5 0 0 1 1.5-1.5h5A1.5 1.5 0 0 1 17 13v5Zm-1.646-2.146a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708.708L13.793 15H11a.5.5 0 0 0 0 1h2.793l-1.147 1.146a.5.5 0 0 0 .708.708l2-2Z'
+				fill='currentColor'
+			/>
+			<circle
+				cx='6.5'
+				cy='9.5'
+				r='1'
+				fill='currentColor'
+			/>
+		</svg>
+	),
+	doorIn: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<path
+				d='M6 10.5V3a1.5 1.5 0 0 1 1.5-1.5h7A1.5 1.5 0 0 1 16 3v13a1.5 1.5 0 0 1-1.5 1.5H12'
+				stroke='currentColor'
+				fill='none'
+			/>
+			<path
+				clip-rule='evenodd'
+				fillRule='evenodd'
+				d='M11 18a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 3 18v-5a1.5 1.5 0 0 1 1.5-1.5h5A1.5 1.5 0 0 1 11 13v5Zm-1.646-2.146a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708.708L7.793 15H5a.5.5 0 0 0 0 1h2.793l-1.147 1.146a.5.5 0 0 0 .708.708l2-2Z'
+				fill='currentColor'
+			/>
+			<circle
+				cx='13.5'
+				cy='9.5'
+				r='1'
+				fill='currentColor'
+			/>
+		</svg>
+	),
 };
 
 /**
