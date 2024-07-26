@@ -1,14 +1,13 @@
 import { __ } from '@wordpress/i18n';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
-import { useId, useState } from 'react';
+import { useId, useState, useEffect, useRef } from 'react';
 import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { ToggleButton } from '../toggle-button/toggle-button';
 import { useSortable } from '@dnd-kit/react/sortable';
 import { RepeaterContext } from './repeater-context';
 import { RestrictToVerticalAxis } from '@dnd-kit/abstract/modifiers';
-import { useRef } from 'react';
 import { move } from '@dnd-kit/helpers';
 import { DragDropProvider } from '@dnd-kit/react';
 import { clsx } from 'clsx/lite';
@@ -126,6 +125,11 @@ export const Repeater = (props) => {
 		setCanDelete(false);
 	}
 
+	// Ensure the internal state is updated if items are updated externally.
+	useEffect(() => {
+		setItems(fixIds(rawItems));
+	}, [rawItems]);
+
 	if (hidden) {
 		return null;
 	}
@@ -155,8 +159,7 @@ export const Repeater = (props) => {
 						<Button
 							onPress={() => {
 								const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem };
-								setItems((items) => [...items, newItem]);
-								onChange(items);
+								onChange([...items, newItem]);
 
 								if (onAfterItemAdd) {
 									onAfterItemAdd(newItem);
@@ -175,8 +178,7 @@ export const Repeater = (props) => {
 							{addButton({
 								addItem: (additional = {}) => {
 									const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem, ...additional };
-									setItems((items) => [...items, newItem]);
-									onChange(items);
+									onChange([...items, newItem]);
 
 									if (onAfterItemAdd) {
 										onAfterItemAdd(newItem);
@@ -231,8 +233,7 @@ export const Repeater = (props) => {
 							return;
 						}
 
-						setItems((items) => move(items, source, target));
-						onChange(items);
+						onChange(move([...items], source, target));
 					}}
 				>
 					{items.map((item, index) => (
@@ -251,7 +252,6 @@ export const Repeater = (props) => {
 										index,
 										canDelete,
 										deleteItem: () => {
-											setItems([...items].filter((i) => i.id !== item.id));
 											onChange([...items].filter((i) => i.id !== item.id));
 
 											if (onAfterItemRemove) {
@@ -277,12 +277,12 @@ export const Repeater = (props) => {
 										{children({
 											...item,
 											updateData: (newValue) => {
-												setItems((items) => items.map((i) => (i.id === item.id ? { ...i, ...newValue } : i)));
-												onChange(items);
+												const updated = [...items].map((i) => (i.id === item.id ? { ...i, ...newValue } : i));
+
+												onChange(updated);
 											},
 											itemIndex: index,
 											deleteItem: () => {
-												setItems([...items].filter((i) => i.id !== item.id));
 												onChange([...items].filter((i) => i.id !== item.id));
 
 												if (onAfterItemRemove) {
@@ -307,8 +307,7 @@ export const Repeater = (props) => {
 							<Button
 								onPress={() => {
 									const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem };
-									setItems((items) => [...items, newItem]);
-									onChange(items);
+									onChange([...items, newItem]);
 
 									if (onAfterItemAdd) {
 										onAfterItemAdd(newItem);
@@ -328,8 +327,7 @@ export const Repeater = (props) => {
 							addButton({
 								addItem: (additional = {}) => {
 									const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem, ...additional };
-									setItems((items) => [...items, newItem]);
-									onChange(items);
+									onChange([...items, newItem]);
 
 									if (onAfterItemAdd) {
 										onAfterItemAdd(newItem);
