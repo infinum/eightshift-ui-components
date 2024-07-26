@@ -67,6 +67,10 @@ export const Expandable = (props) => {
 
 	const [isOpen, setIsOpen] = React.useState(open);
 
+	if (isOpen && disabled) {
+		setIsOpen(false);
+	}
+
 	if (hidden) {
 		return null;
 	}
