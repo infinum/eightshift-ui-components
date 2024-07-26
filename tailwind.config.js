@@ -1,5 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
+import { scopedPreflightStyles, isolateOutsideOfContainer } from 'tailwindcss-scoped-preflight';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -36,6 +37,11 @@ export default {
 		}),
 		require('tailwindcss-animate'),
 		require('tailwindcss-react-aria-components'),
+		scopedPreflightStyles({
+			isolationStrategy: isolateOutsideOfContainer(['.es-uic-no-css-reset', '.wp-list-table'], {
+				plus: '.es-uic-has-css-reset',
+			}),
+		}),
 	],
 	safelist: ['es-uic-shrink', 'es-uic-shrink-0', 'es-uic-grow', 'es-uic-grow-0', 'es-uic-flex-1', 'es-uic-flex-auto', 'es-uic-flex-initial', 'es-uic-flex-none'],
 };
