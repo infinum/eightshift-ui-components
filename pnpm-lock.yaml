@@ -150,6 +150,9 @@ importers:
       tailwindcss-react-aria-components:
         specifier: ^1.1.4
         version: 1.1.4(tailwindcss@3.4.7)
+      tailwindcss-scoped-preflight:
+        specifier: ^3.4.3
+        version: 3.4.3(postcss@8.4.40)(tailwindcss@3.4.7)
       vite:
         specifier: ^5.3.5
         version: 5.3.5(lightningcss@1.25.1)
@@ -2842,6 +2845,12 @@ packages:
     resolution: {integrity: sha512-Nu425m0jUJ8yFpM29YpJSTEsEZCo5LNKPmOqEoc5bSqu3Y9vT2oEEXALKkaXu4Ay4y1MQxX6EVdCzPcstg6S7A==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
+
+  tailwindcss-scoped-preflight@3.4.3:
+    resolution: {integrity: sha512-4mtCR3qVdHJK0fikwleAaVPV2cl05r/ISQ0cceUowVBQSiHhHwRBqaB5zk97OXVeL7mgb/T44gVCBncuZROCNA==}
+    peerDependencies:
+      postcss: ^8
+      tailwindcss: ^3
 
   tailwindcss@3.4.7:
     resolution: {integrity: sha512-rxWZbe87YJb4OcSopb7up2Ba4U82BoiSGUdoDr3Ydrg9ckxFS/YWsvhN323GMcddgU65QRy7JndC7ahhInhvlQ==}
@@ -6614,6 +6623,11 @@ snapshots:
 
   tailwindcss-react-aria-components@1.1.4(tailwindcss@3.4.7):
     dependencies:
+      tailwindcss: 3.4.7
+
+  tailwindcss-scoped-preflight@3.4.3(postcss@8.4.40)(tailwindcss@3.4.7):
+    dependencies:
+      postcss: 8.4.40
       tailwindcss: 3.4.7
 
   tailwindcss@3.4.7:
