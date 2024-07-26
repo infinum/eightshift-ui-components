@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.4.4] - 2024-07-26
+- Reduced update rate in `Repeater` to reduce re-renders.
+
 ## [1.4.3] - 2024-07-26
 - Fixed `updateData` in `Repeater` that gets passed to child items.
 - Tailwind's CSS reset will now be ignored with in containers that have a `es-uic-no-css-reset` class applied. Also, the reset is disabled for WP admin tables (`.wp-list-table`). If you need to include a reset "island" within a container that had `es-uic-no-css-reset` applied, you can add a `es-uic-has-css-reset` to re-enable it for that container.
@@ -129,6 +132,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
 
+[1.4.4]: https://github.com/infinum/eightshift-ui-components/compare/1.4.3...1.4.4
 [1.4.3]: https://github.com/infinum/eightshift-ui-components/compare/1.4.2...1.4.3
 [1.4.2]: https://github.com/infinum/eightshift-ui-components/compare/1.4.1...1.4.2
 [1.4.1]: https://github.com/infinum/eightshift-ui-components/compare/1.4.0...1.4.1

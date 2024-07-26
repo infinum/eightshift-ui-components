@@ -159,7 +159,8 @@ export const Repeater = (props) => {
 						<Button
 							onPress={() => {
 								const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem };
-								onChange([...items, newItem]);
+								setItems((items) => [...items, newItem]);
+								onChange(items);
 
 								if (onAfterItemAdd) {
 									onAfterItemAdd(newItem);
@@ -178,7 +179,8 @@ export const Repeater = (props) => {
 							{addButton({
 								addItem: (additional = {}) => {
 									const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem, ...additional };
-									onChange([...items, newItem]);
+									setItems((items) => [...items, newItem]);
+									onChange(items);
 
 									if (onAfterItemAdd) {
 										onAfterItemAdd(newItem);
@@ -233,7 +235,8 @@ export const Repeater = (props) => {
 							return;
 						}
 
-						onChange(move([...items], source, target));
+						setItems((items) => move(items, source, target));
+						onChange(items);
 					}}
 				>
 					{items.map((item, index) => (
@@ -252,6 +255,7 @@ export const Repeater = (props) => {
 										index,
 										canDelete,
 										deleteItem: () => {
+											setItems([...items].filter((i) => i.id !== item.id));
 											onChange([...items].filter((i) => i.id !== item.id));
 
 											if (onAfterItemRemove) {
@@ -280,9 +284,11 @@ export const Repeater = (props) => {
 												const updated = [...items].map((i) => (i.id === item.id ? { ...i, ...newValue } : i));
 
 												onChange(updated);
+												setItems(updated);
 											},
 											itemIndex: index,
 											deleteItem: () => {
+												setItems([...items].filter((i) => i.id !== item.id));
 												onChange([...items].filter((i) => i.id !== item.id));
 
 												if (onAfterItemRemove) {
@@ -307,7 +313,8 @@ export const Repeater = (props) => {
 							<Button
 								onPress={() => {
 									const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem };
-									onChange([...items, newItem]);
+									setItems((items) => [...items, newItem]);
+									onChange(items);
 
 									if (onAfterItemAdd) {
 										onAfterItemAdd(newItem);
@@ -327,7 +334,8 @@ export const Repeater = (props) => {
 							addButton({
 								addItem: (additional = {}) => {
 									const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem, ...additional };
-									onChange([...items, newItem]);
+									setItems((items) => [...items, newItem]);
+									onChange(items);
 
 									if (onAfterItemAdd) {
 										onAfterItemAdd(newItem);
