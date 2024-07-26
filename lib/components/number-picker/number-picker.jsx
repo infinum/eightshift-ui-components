@@ -63,6 +63,7 @@ export const NumberPicker = ({
 	inline,
 	noScrollToChange = false,
 	size = 'default',
+	'aria-label': ariaLabel,
 	hidden,
 	...props
 }) => {
@@ -135,6 +136,7 @@ export const NumberPicker = ({
 						style={{
 							width: fixedWidth ? `${fixedWidth}ch` : `calc(${min < 0 ? '0.75ch + ' : ''}${(max ?? 1000)?.toString()?.length} * 1ch)`,
 						}}
+						aria-label={ariaLabel ?? __('Enter a number', 'eightshift-ui-components')}
 					/>
 					{suffix && (
 						<span
