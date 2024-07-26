@@ -1,13 +1,12 @@
-import { Checkbox as ReactAriaCheckbox, GridListItem, GridListContext } from 'react-aria-components';
+import { GridListItem, GridListContext } from 'react-aria-components';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
 import { clsx } from 'clsx/lite';
-
+import { useContext } from 'react';
 import { Expandable } from '../expandable/expandable';
 import { __ } from '@wordpress/i18n';
-import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
+import { RepeaterContext } from './repeater-context';
 import { useRef } from 'react';
-import { useCellEditMode } from '../../hooks/use-cell-edit-mode';
 
 /**
  * A Repeater item.
@@ -31,106 +30,48 @@ import { useCellEditMode } from '../../hooks/use-cell-edit-mode';
 export const RepeaterItem = (props) => {
 	const { children, icon, label, subtitle, 'aria-label': ariaLabel, className, actions, textValue, expandDisabled, ...rest } = props;
 
-	let a11yLabel = textValue;
-
-	if (label?.length > 0) {
-		a11yLabel = label;
-	}
-
-	if (a11yLabel === '' || !a11yLabel) {
-		a11yLabel = __('New item', 'eightshift-ui-components');
-	}
-
-	const itemRef = useRef(null);
-
-	const preventProps = useCellEditMode(itemRef);
+	const { canDelete, handleOpenChange, isPanelOpen, handleRef, deleteItem, isAnyPanelOpen, isDragSource } = useContext(RepeaterContext);
 
 	return (
-		<GridListContext.Consumer>
-			{({ setCanReorder }) => {
-				return (
-					<GridListItem
-						aria-label={ariaLabel ?? a11yLabel}
-						textValue={a11yLabel}
-						className={clsx(
-							'es-uic-rounded-lg es-uic-transition',
-							'focus:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-						)}
-						{...rest}
-					>
-						{({ selectionMode, allowsDragging, isDragging }) => {
-							let itemIcon = null;
-
-							if (selectionMode === 'multiple') {
-								itemIcon = <Checkbox slot='selection' />;
-							} else if (selectionMode === 'none') {
-								itemIcon = icon;
-							}
-
-							return (
-								<Expandable
-									disabled={expandDisabled || selectionMode === 'multiple'}
-									icon={itemIcon}
-									label={<div className='es-uic-flex es-uic-items-center es-uic-gap-1'>{label}</div>}
-									subtitle={subtitle}
-									labelClassName={className}
-									className={clsx(isDragging && 'es-uic-opacity-25')}
-									onOpenChange={(isOpen) => setCanReorder(!isOpen)}
-									actions={
-										<>
-											{selectionMode === 'none' && allowsDragging && (
-												<Button
-													size='small'
-													className='es-uic-h-6 es-uic-w-4 !es-uic-text-gray-500 es-uic-opacity-50 focus:es-uic-opacity-100'
-													slot='drag'
-													type='ghost'
-													icon={icons.reorderGrabberV}
-													tooltip={__('Re-order', 'eightshift-ui-components')}
-												/>
-											)}
-
-											{actions}
-										</>
-									}
-									noFocusHandling
-									{...preventProps}
-								>
-									{children}
-								</Expandable>
-							);
-						}}
-					</GridListItem>
-				);
-			}}
-		</GridListContext.Consumer>
-	);
-};
-
-const Checkbox = (props) => {
-	return (
-		<ReactAriaCheckbox {...props}>
-			{({ isIndeterminate, isSelected }) => (
+		<Expandable
+			disabled={canDelete}
+			icon={icon}
+			label={label}
+			subtitle={subtitle}
+			className={clsx(isDragSource && 'es-uic-border es-uic-border-gray-100 es-uic-bg-white/50 es-uic-shadow-md es-uic-backdrop-blur-lg')}
+			labelClassName={className}
+			onOpenChange={(isOpen) => handleOpenChange(isOpen)}
+			actions={
 				<>
-					<div
+					<Button
+						size='small'
 						className={clsx(
-							'es-uic-flex es-uic-size-5.5 es-uic-items-center es-uic-justify-center es-uic-rounded-md es-uic-border es-uic-text-gray-600 es-uic-shadow-sm es-uic-transition',
-							isSelected && 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white',
+							'es-uic-h-6 es-uic-w-4 !es-uic-text-gray-500 es-uic-opacity-50 focus:es-uic-opacity-100',
+							(isAnyPanelOpen || canDelete) && 'es-uic-pointer-events-none es-uic-invisible !es-uic-cursor-default',
 						)}
-					>
-						{isIndeterminate && icons.solidRectFilled}
+						type='ghost'
+						icon={icons.reorderGrabberV}
+						tooltip={!isDragSource && __('Re-order', 'eightshift-ui-components')}
+						forwardedRef={handleRef}
+						disabled={isPanelOpen}
+					/>
 
-						<AnimatedVisibility
-							transition='scaleRotateFade'
-							visible={!isIndeterminate && isSelected}
-							className='[&>svg]:es-uic-size-3 [&>svg]:es-uic-stroke-2'
-							noInitial
-						>
-							{icons.check}
-						</AnimatedVisibility>
-					</div>
-					{props.children}
+					<Button
+						hidden={!canDelete}
+						ariaLabel={__('Remove item', 'eightshift-ui-components')}
+						size='small'
+						type='ghost'
+						icon={icons.trash}
+						onPress={() => deleteItem()}
+						className='es-uic-translate-x-px'
+					/>
+
+					{actions}
 				</>
-			)}
-		</ReactAriaCheckbox>
+			}
+			noFocusHandling
+		>
+			{children}
+		</Expandable>
 	);
 };

@@ -1,15 +1,35 @@
-import { DropIndicator, GridListContext } from 'react-aria-components';
 import { __ } from '@wordpress/i18n';
-import { useListState } from 'react-stately';
-import { GridList, useDragAndDrop } from 'react-aria-components';
-import { Button, ButtonGroup } from '../button/button';
+import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
 import { useId, useState } from 'react';
 import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { ToggleButton } from '../toggle-button/toggle-button';
-import { arrayMoveMultiple } from '../../utilities';
+import { useSortable } from '@dnd-kit/react/sortable';
+import { RepeaterContext } from './repeater-context';
+import { RestrictToVerticalAxis } from '@dnd-kit/abstract/modifiers';
+import { useRef } from 'react';
+import { move } from '@dnd-kit/helpers';
+import { DragDropProvider } from '@dnd-kit/react';
 import { clsx } from 'clsx/lite';
+
+const SortableItem = ({ id, index, disabled, children }) => {
+	const [element, setElement] = useState(null);
+	const handleRef = useRef(null);
+
+	const { isDragSource } = useSortable({
+		id,
+		index,
+		element,
+		type: 'item',
+		modifiers: [RestrictToVerticalAxis],
+		transition: { idle: true, duration: 400, easing: 'cubic-bezier(0, 0.55, 0.45, 1)' }, // 'easeOutCirc'
+		handle: handleRef,
+		disabled,
+	});
+
+	return <div ref={setElement}>{children(handleRef, isDragSource)}</div>;
+};
 
 /**
  * A component that allows re-ordering a list of items with additional sub-options.
@@ -64,13 +84,12 @@ import { clsx } from 'clsx/lite';
  * @preserve
  */
 export const Repeater = (props) => {
-	const itemIdBase = useId('repeater-item-');
+	const itemIdBase = `item-${useId().replaceAll(':', '')}`;
 
 	const {
 		children,
-		onChange: rawOnChange,
+		onChange,
 		items: rawItems,
-		'aria-label': ariaLabel,
 		icon,
 		label,
 		subtitle,
@@ -87,88 +106,25 @@ export const Repeater = (props) => {
 		emptyState,
 
 		hidden,
-		...rest
 	} = props;
 
-	const [selectable, setSelectable] = useState(false);
+	const fixIds = (items) => {
+		return items.map((item, i) => ({
+			...item,
+			id: item?.id ?? `${itemIdBase}-${i}`,
+		}));
+	};
+
+	const [items, setItems] = useState(fixIds(rawItems));
+
 	const [canDelete, setCanDelete] = useState(false);
-	const [canReorder, setCanReorder] = useState(true);
+	const [isPanelOpen, setIsPanelOpen] = useState({});
 
-	const onChange = (items) => {
-		const currentItems = [...items];
-		currentItems.forEach((item) => delete item.id);
-		rawOnChange(currentItems);
-	};
+	const isAnyPanelOpen = Object.keys(isPanelOpen)?.length < 1 ? false : Object.entries(isPanelOpen).every(([_, v]) => v === true);
 
-	const items = rawItems.map((item, i) => ({
-		id: item.id ?? `${itemIdBase}-${i}`,
-		...item,
-	}));
-
-	const rawList = useListState({
-		items: items,
-		selectionMode: selectable ? 'multiple' : 'none',
-	});
-
-	const list = {
-		items: items,
-		selectedKeys: rawList.selectionManager.selectedKeys,
-		setSelectedKeys: (ids) => rawList.selectionManager.setSelectedKeys(ids),
-		getKey: ({ id }) => items.find((item) => item.id === id),
-		getItem: (id) => items?.find((item) => item.id === id),
-		update: (id, newValue) => {
-			const index = [...items].findIndex((item) => item.id === id);
-			items[index] = { ...items[index], ...newValue };
-
-			onChange(items);
-		},
-		move: (sourceKey, targetKeys, direction = 'before') => {
-			const sourceIndex = items.findIndex((item) => item.id === sourceKey);
-			const targetIndices = [...targetKeys].map((id) => items.findIndex((item) => item.id === id));
-
-			onChange(arrayMoveMultiple(items, targetIndices, sourceIndex, direction));
-		},
-		insert: (targetKey, ...newItems) => {
-			const targetIndex = items.findIndex((item) => item.id === targetKey);
-			const newItemsWithKeys = newItems.map((item) => ({ ...item, id: `${itemIdBase}${items.length + 1}` }));
-
-			onChange([...items.slice(0, targetIndex), ...newItemsWithKeys, ...items.slice(targetIndex)]);
-		},
-		removeSelectedItems: () => {
-			const ids = rawList.selectionManager.selectedKeys;
-
-			const newItems = items.filter((item) => !ids.has(item.id));
-			onChange(newItems);
-		},
-		append: (item) => {
-			onChange([...items, item]);
-		},
-	};
-
-	let { dragAndDropHooks } = useDragAndDrop({
-		isDisabled: selectable || !canReorder,
-		getItems: (ids) => [...ids].map((id) => ({ 'text/plain': list?.getItem(id)?.id })),
-		onReorder(e) {
-			if (e.target.dropPosition === 'before') {
-				list.move(e.target.key, e.keys);
-			} else if (e.target.dropPosition === 'after') {
-				list.move(e.target.key, e.keys, 'after');
-			}
-		},
-		renderDropIndicator(target) {
-			return (
-				<DropIndicator
-					target={target}
-					className={({ isDropTarget }) =>
-						clsx(
-							'es-uic-h-10 es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-transition',
-							isDropTarget ? 'es-uic-border-teal-500 es-uic-bg-teal-500/5' : 'es-uic-border-dashed',
-						)
-					}
-				/>
-			);
-		},
-	});
+	if (canDelete && items.length < (minItems ?? 1)) {
+		setCanDelete(false);
+	}
 
 	if (hidden) {
 		return null;
@@ -184,113 +140,152 @@ export const Repeater = (props) => {
 				<>
 					{actions}
 
-					<AnimatedVisibility
-						visible={selectable}
-						transition='scaleFade'
-					>
+					<AnimatedVisibility visible={items.length > 0}>
+						<ToggleButton
+							selected={canDelete}
+							onChange={setCanDelete}
+							size='small'
+							icon={icons.trash}
+							tooltip={__('Delete items', 'eightshift-ui-components')}
+							disabled={minItems && items.length <= minItems}
+						/>
+					</AnimatedVisibility>
+
+					{!addButton && (
 						<Button
 							onPress={() => {
-								const removedItems = [...(list?.selectedKeys.keys()?.map((id) => list?.getItem(id)) ?? [])];
+								const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem };
+								setItems((items) => [...items, newItem]);
+								onChange(items);
 
-								list.removeSelectedItems();
-								setSelectable(false);
-								setCanDelete(false);
-
-								if (onAfterItemRemove) {
-									onAfterItemRemove(removedItems);
+								if (onAfterItemAdd) {
+									onAfterItemAdd(newItem);
 								}
 							}}
 							size='small'
-							icon={icons.trash}
-							tooltip={__('Remove selected', 'eightshift-ui-components')}
-							disabled={!canDelete}
-							aria-label={__('Remove selected', 'eightshift-ui-components')}
-							type='danger'
+							icon={icons.add}
+							className='[&>svg]:es-uic-size-4'
+							tooltip={__('Add item', 'eightshift-ui-components')}
+							disabled={addDisabled || canDelete}
 						/>
-					</AnimatedVisibility>
-					<ButtonGroup>
-						{!addButton && (
-							<Button
-								onPress={() => {
-									const newItem = { id: `${itemIdBase}${list.items.length + 1}`, ...addDefaultItem };
-									list.append(newItem);
+					)}
 
-									if (onAfterItemAdd) {
-										onAfterItemAdd(newItem);
-									}
-								}}
-								size='small'
-								icon={icons.add}
-								tooltip={__('Add item', 'eightshift-ui-components')}
-								disabled={addDisabled || selectable}
-							/>
-						)}
+					{addButton &&
+						addButton({
+							addItem: (additional = {}) => {
+								const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem, ...additional };
+								setItems((items) => [...items, newItem]);
+								onChange(items);
 
-						{addButton &&
-							addButton({
-								addItem: (additional = {}) => {
-									const newItem = { id: `${itemIdBase}${list.items.length + 1}`, ...addDefaultItem, ...additional };
-									list.append(newItem);
-
-									if (onAfterItemAdd) {
-										onAfterItemAdd(newItem);
-									}
-								},
-								disabled: addDisabled || selectable,
-							})}
-
-						<ToggleButton
-							selected={selectable}
-							onChange={() => {
-								list.setSelectedKeys([]);
-								setSelectable(!selectable);
-							}}
-							size='small'
-							icon={icons.checkSquare}
-							tooltip={__('Select items', 'eightshift-ui-components')}
-							disabled={minItems && items.length <= minItems}
-						/>
-					</ButtonGroup>
+								if (onAfterItemAdd) {
+									onAfterItemAdd(newItem);
+								}
+							},
+							disabled: addDisabled || canDelete,
+						})}
 				</>
 			}
 			className='es-uic-w-full'
 		>
-			<GridListContext.Provider value={{ setCanReorder: setCanReorder }}>
-				<GridList
-					aria-label={ariaLabel ?? __('Repeater', 'eightshift-ui-components')}
-					selectionMode={selectable ? 'multiple' : 'none'}
-					selectionBehavior='toggle'
-					selectedKeys={list.selectedKeys}
-					onSelectionChange={(selected) => {
-						list.setSelectedKeys(selected);
-						setCanDelete((selected.size ?? 0) > 0);
+			<div className={className}>
+				<DragDropProvider
+					onDragStart={(event) => {
+						if (isAnyPanelOpen) {
+							event.preventDefault();
+
+							return;
+						}
 					}}
-					items={list.items.map((item, index) => ({
-						...item,
-						updateData: (newValue) => {
-							list.update(item.id, { ...list.getItem(item.id), ...newValue });
-						},
-						itemIndex: index,
-						deleteItem: () => list.remove(item.id),
-						canReorder,
-						setCanReorder,
-					}))}
-					dragAndDropHooks={dragAndDropHooks}
-					renderEmptyState={() =>
-						hideEmptyState
-							? null
-							: emptyState ?? (
-									<div className='es-uic-rounded-md es-uic-border es-uic-border-dashed es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-text-gray-400'>
-										{__('No items', 'eightshift-ui-components')}
-									</div>
-								)
-					}
-					className={className}
-					{...rest}
+					onDragOver={(event) => {
+						if (isAnyPanelOpen) {
+							event.preventDefault();
+
+							return;
+						}
+
+						const { source, target } = event.operation;
+
+						if (!source || !target) {
+							return;
+						}
+
+						setItems((items) => move(items, source, target));
+					}}
+					onDragEnd={(event) => {
+						if (isAnyPanelOpen) {
+							event.preventDefault();
+
+							return;
+						}
+
+						const { source, target } = event.operation;
+
+						if (!source || !target) {
+							return;
+						}
+
+						if (event.canceled) {
+							return;
+						}
+
+						setItems((items) => move(items, source, target));
+						onChange(items);
+					}}
 				>
-					{children}
-				</GridList>
-			</GridListContext.Provider>
+					{items.map((item, index) => (
+						<SortableItem
+							key={item.id}
+							id={item.id}
+							index={index}
+							item={item}
+							disabled={canDelete || isAnyPanelOpen}
+						>
+							{(handleRef, isDragSource) => (
+								<RepeaterContext.Provider
+									key={item.id}
+									value={{
+										...item,
+										index,
+										handleRef,
+										canDelete,
+										deleteItem: () => {
+											setItems([...items].filter((i) => i.id !== item.id));
+											onChange([...items].filter((i) => i.id !== item.id));
+											onAfterItemRemove(item);
+										},
+										isPanelOpen: isPanelOpen?.[item.id] ?? false,
+										isAnyPanelOpen,
+										handleOpenChange: (isOpen) => setIsPanelOpen((data) => ({ ...data, [item.id]: isOpen })),
+										isDragSource,
+									}}
+								>
+									<div>
+										{children({
+											...item,
+											updateData: (newValue) => {
+												setItems((items) => items.map((i) => (i.id === item.id ? { ...i, ...newValue } : i)));
+												onChange(items);
+											},
+											itemIndex: index,
+											deleteItem: () => {
+												setItems([...items].filter((i) => i.id !== item.id));
+												onChange([...items].filter((i) => i.id !== item.id));
+												onAfterItemRemove(item);
+											},
+										})}
+									</div>
+								</RepeaterContext.Provider>
+							)}
+						</SortableItem>
+					))}
+				</DragDropProvider>
+			</div>
+
+			<AnimatedVisibility visible={items.length < 1}>
+				{emptyState}
+
+				{!hideEmptyState && <div></div>}
+			</AnimatedVisibility>
 		</BaseControl>
 	);
 };
