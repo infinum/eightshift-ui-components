@@ -2416,6 +2416,13 @@ function App() {
 
 					<ContainerPanel
 						title='Component name'
+						icon={icons.emptyCircle}
+					>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
+					</ContainerPanel>
+
+					<ContainerPanel
+						title='Component name'
 						closable
 					>
 						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
