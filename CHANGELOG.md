@@ -3,6 +3,19 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.4.0] - 2024-07-26
+- Updated dependencies.
+- Fixed `MultiSelect` item bug when using `simpleValue`.
+- Updated Gutenberg overrides.
+- Tweaked `Button` icon size when size is set to `small`.
+- Fixed height of separator when using extra controls with `NumberPicker` and a custom size is set.
+- `es-uic-shrink`, `es-uic-shrink-0`, `es-uic-grow`, `es-uic-grow-0`, `es-uic-flex-1`, `es-uic-flex-auto`, `es-uic-flex-initial`, and `es-uic-flex-none` will always be available.
+- `MultiSelect` and `AsyncMultiSelect` multi-value item containers now have a maximum width set to prevent overflows with long titles.
+- Rewrote `LinkInput` so it is less in the way when entering URLs.
+- Rewrote `Repeater` to use React DNDKit until React Aria fixes issues with interactive elements inside `GridList`s.
+- `Expandable` will now close if disabled while open.
+- A new transition has been added to `AnimatedVisibility` - `fade`.
+
 ## [1.3.2] - 2024-07-23
 - Tweaked `OptionSelect` rich label style.
 
@@ -102,6 +115,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
 
+[1.4.0]: https://github.com/infinum/eightshift-ui-components/compare/1.3.2...1.4.0
 [1.3.2]: https://github.com/infinum/eightshift-ui-components/compare/1.3.1...1.3.2
 [1.3.1]: https://github.com/infinum/eightshift-ui-components/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/infinum/eightshift-ui-components/compare/1.2.3...1.3.0
