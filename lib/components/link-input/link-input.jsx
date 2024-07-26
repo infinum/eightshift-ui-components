@@ -177,7 +177,7 @@ export const LinkInput = (props) => {
 					width: `${triggerRef.current?.offsetWidth}px`,
 				}}
 			>
-				{suggestionList.isLoading && (
+				{shouldShowSuggestions && suggestionList.isLoading && (
 					<RichLabel
 						icon={cloneElement(icons.emptyCircle, { className: 'es-uic-animate-spin' })}
 						label={__('Loading suggestions', 'eightshift-ui-components')}
@@ -185,7 +185,7 @@ export const LinkInput = (props) => {
 					/>
 				)}
 
-				{!suggestionList.isLoading && suggestionList.items.length === 0 && (
+				{shouldShowSuggestions && !suggestionList.isLoading && suggestionList.items.length === 0 && (
 					<RichLabel
 						icon={icons.searchEmpty}
 						label={__('No results', 'eightshift-ui-components')}
