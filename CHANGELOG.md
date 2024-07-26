@@ -15,6 +15,8 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Rewrote `Repeater` to use React DNDKit until React Aria fixes issues with interactive elements inside `GridList`s.
 - `Expandable` will now close if disabled while open.
 - A new transition has been added to `AnimatedVisibility` - `fade`.
+- Added 6 new UI icons.
+- Increased contrast of `ContainerPanel` title and icon.
 
 ## [1.3.2] - 2024-07-23
 - Tweaked `OptionSelect` rich label style.
