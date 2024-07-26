@@ -391,6 +391,7 @@ function App() {
 	];
 
 	const [repeaterItems, setRepeaterItems] = useState(repeaterDefaultItems);
+	const [repeaterItems2, setRepeaterItems2] = useState(repeaterDefaultItems);
 	const [draggableListItems, setDraggableListItems] = useState(draggableListDefaultItems);
 
 	const [sliderValue, setSliderValue] = useState(0);
@@ -750,6 +751,8 @@ function App() {
 						onChange={({ url }) => setLinkTxt(url)}
 						fetchSuggestions={getLinkData}
 					/>
+
+					<pre>{JSON.stringify(linkTxt)}</pre>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Notice
@@ -1607,10 +1610,11 @@ function App() {
 					</Repeater>
 
 					<Repeater
-						items={repeaterItems}
-						onChange={setRepeaterItems}
+						items={repeaterItems2}
+						onChange={setRepeaterItems2}
 						itemLabelProp='title'
-						label='Hello'
+						icon={icons.magicAlt}
+						label='Other repeater'
 						addDefaultItem={{
 							title: 'Hello',
 						}}
@@ -1633,12 +1637,6 @@ function App() {
 										value={title}
 										onChange={(value) => updateData({ title: value })}
 									/>
-									<InputField
-										label='Subtitle'
-										type='multiline'
-										value={subtitle}
-										onChange={(value) => updateData({ subtitle: value })}
-									/>
 
 									<Toggle
 										icon={icons.emptyCircle}
@@ -1652,6 +1650,13 @@ function App() {
 										help='Help, not sure how to input this'
 										onChange={({ url }) => updateData({ link: url })}
 										fetchSuggestions={getLinkData}
+									/>
+
+									<InputField
+										label='Subtitle'
+										type='multiline'
+										value={subtitle}
+										onChange={(value) => updateData({ subtitle: value })}
 									/>
 								</RepeaterItem>
 							);
@@ -1673,6 +1678,26 @@ function App() {
 							}}
 						/>
 					))}
+
+					<Spacer border />
+
+					<pre>
+						{JSON.stringify(
+							repeaterItems.map((i) => ({ ...i, icon: undefined })),
+							null,
+							2,
+						)}
+					</pre>
+
+					<Spacer border />
+
+					<pre>
+						{JSON.stringify(
+							repeaterItems2.map((i) => ({ ...i, icon: undefined })),
+							null,
+							2,
+						)}
+					</pre>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Checkbox
