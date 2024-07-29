@@ -18,6 +18,7 @@ import { clsx } from 'clsx/lite';
  * @param {boolean} [props.disabled] - If `true`, the input is disabled.
  * @param {boolean} [props.readOnly] - If `true`, the input is read-only.
  * @param {string} [props.className] - Classes to pass to the input field.
+ * @param {string} [props.wrapperClassName] - Classes to pass to the input field wrapping element.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The InputField component.
@@ -34,7 +35,7 @@ import { clsx } from 'clsx/lite';
  * @preserve
  */
 export const InputField = (props) => {
-	const { icon, label, subtitle, help, actions, value, onChange, type = 'text', disabled, readOnly, className, hidden, ...other } = props;
+	const { icon, label, subtitle, help, actions, value, onChange, type = 'text', disabled, readOnly, className, wrapperClassName, hidden, ...other } = props;
 
 	if (hidden) {
 		return null;
@@ -46,6 +47,7 @@ export const InputField = (props) => {
 			onChange={onChange}
 			isDisabled={disabled}
 			isReadOnly={readOnly}
+			className={wrapperClassName}
 			{...other}
 		>
 			<BaseControl
