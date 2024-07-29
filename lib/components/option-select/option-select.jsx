@@ -31,7 +31,7 @@ import { __ } from '@wordpress/i18n';
  * @param {Object} [props.itemProps] - Props to pass to each item.
  * @param {boolean} [props.noTriggerLabel] - Whether the trigger label should be hidden. Applies only to the `menu` type.
  * @param {boolean} [props.noTriggerIcon] - Whether the trigger icon should be hidden. Applies only to the `menu` type.
- * @param {string} [props.tooltip] - If provided, overrides the default tooltip text. If there is no label, the value will still be shown within the tooltip. Applies only to the `menu` type.
+ * @param {string|boolean} [props.tooltip] - If provided, overrides the default tooltip text. If there is no label, the value will still be shown within the tooltip. Applies only to the `menu` type. If `true` is set and an `aria-label` is provided, the tooltip will show the same text as the `aria-label`.
  * @param {boolean} [props.noItemLabel] - Whether the option label should be hidden.
  * @param {boolean} [props.noItemIcon] - Whether the option icon should be hidden.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
@@ -81,7 +81,7 @@ export const OptionSelect = (props) => {
 
 		noTriggerLabel,
 		noTriggerIcon,
-		tooltip,
+		tooltip: rawTooltip,
 
 		noItemLabel,
 		noItemIcon,
@@ -90,11 +90,19 @@ export const OptionSelect = (props) => {
 
 		hidden,
 
+		'aria-label': ariaLabel,
+
 		...rest
 	} = props;
 
 	if (hidden) {
 		return null;
+	}
+
+	let tooltip = rawTooltip;
+
+	if (rawTooltip === true && ariaLabel?.length > 0) {
+		tooltip = ariaLabel;
 	}
 
 	const currentItem = options?.find(({ value: optionValue }) => optionValue === value);
@@ -115,7 +123,7 @@ export const OptionSelect = (props) => {
 			{type === 'toggleButtons' && (
 				<ButtonGroup
 					vertical={vertical}
-					aria-label={typeof label !== 'undefined' ? null : props?.['aria-label']}
+					aria-label={typeof label !== 'undefined' ? null : ariaLabel}
 					{...wrapperProps}
 				>
 					{options.map(
@@ -158,7 +166,7 @@ export const OptionSelect = (props) => {
 					orientation={vertical ? 'vertical' : 'horizontal'}
 					onChange={(v) => onChange(v)}
 					design={type === 'radios' ? 'default' : 'segmented'}
-					aria-label={typeof label !== 'undefined' ? null : props?.['aria-label']}
+					aria-label={typeof label !== 'undefined' ? null : ariaLabel}
 					value={value}
 					{...wrapperProps}
 				>
@@ -189,7 +197,7 @@ export const OptionSelect = (props) => {
 					tooltip={
 						noTriggerLabel ? (
 							<RichLabel
-								label={tooltip ? tooltip : currentItem?.tooltip ?? currentItem?.label}
+								label={tooltip ? tooltip : (currentItem?.tooltip ?? currentItem?.label)}
 								subtitle={tooltip && (currentItem?.tooltip ?? currentItem?.label)}
 								noColor
 							/>
@@ -199,7 +207,7 @@ export const OptionSelect = (props) => {
 					}
 					triggerProps={{
 						...wrapperProps?.triggerProps,
-						'aria-label': typeof label !== 'undefined' ? null : props?.['aria-label'],
+						'aria-label': typeof label !== 'undefined' ? null : ariaLabel,
 					}}
 					keepOpen
 					{...wrapperProps}

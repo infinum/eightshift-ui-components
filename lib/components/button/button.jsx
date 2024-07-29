@@ -15,7 +15,7 @@ import { __ } from '@wordpress/i18n';
  * @param {ButtonType} [props.type='default'] - The type of the button.
  * @param {boolean} [props.disabled] - If `true`, the button is disabled.
  * @param {string} [props.className] - Classes to pass to the button.
- * @param {string} [props.tooltip] - Tooltip text to display on hover.
+ * @param {string|boolean} [props.tooltip] - Tooltip text to display on hover. If set to `true` and an `aria-label` is not provided, the tooltip text will be used as the `aria-label`.
  * @param {Function} [props.onPress] - Function to run when the button is pressed.
  * @param {React.Ref} [props.forwardedRef] - Ref to forward to the button. Use the same as the `ref` prop.
  * @param {string} [props.wrapperClassName] - Classes to pass to the tooltip wrapper.
@@ -42,7 +42,7 @@ export const Button = (props) => {
 		type = 'default',
 		disabled,
 		className,
-		tooltip,
+		tooltip: rawTooltip,
 		onPress,
 		forwardedRef,
 		wrapperClassName,
@@ -51,6 +51,12 @@ export const Button = (props) => {
 		hidden,
 		...other
 	} = props;
+
+	let tooltip = rawTooltip;
+
+	if (rawTooltip === true && ariaLabel?.length > 0) {
+		tooltip = ariaLabel;
+	}
 
 	const objRef = useObjectRef(forwardedRef);
 
