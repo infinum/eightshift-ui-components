@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.4.5] - 2024-07-30
+- Added a couple of WP6.6-specific Gutenberg overrides.
+- Improved `Repeater` add button reliability.
+- Added boolean `tooltip` value to `Button` and `OptionSelect` that will match `aria-label` if set.
+- `InputField` can have classes passed to the component wrapper with `wrapperClassName`.
+
 ## [1.4.4] - 2024-07-26
 - Reduced update rate in `Repeater` to reduce re-renders.
 
@@ -132,6 +138,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
 
+[1.4.5]: https://github.com/infinum/eightshift-ui-components/compare/1.4.4...1.4.5
 [1.4.4]: https://github.com/infinum/eightshift-ui-components/compare/1.4.3...1.4.4
 [1.4.3]: https://github.com/infinum/eightshift-ui-components/compare/1.4.2...1.4.3
 [1.4.2]: https://github.com/infinum/eightshift-ui-components/compare/1.4.1...1.4.2
