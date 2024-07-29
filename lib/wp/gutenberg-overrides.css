@@ -1,12 +1,17 @@
 /* Add rounded corners to make components look nicer and more uniform. */
 .edit-post-header__toolbar .components-button,
 .edit-post-header__settings .components-button,
+.editor-header__center .components-button,
+.editor-header__settings .components-button,
+.edit-post-header__settings .components-button,
 .edit-post-sidebar .components-button:not(.components-panel__body-toggle, .editor-post-last-revision__title),
 .components-snackbar,
 .components-toggle-group-control,
 .editor-post-publish-panel .components-button,
 .edit-post-text-editor__toolbar .components-button,
-.edit-post-text-editor__body .components-textarea-control__input {
+.edit-post-text-editor__body .components-textarea-control__input,
+.media-modal-content,
+.media-modal-content .components-button {
 	@apply !es-uic-rounded-md;
 }
 
@@ -30,6 +35,10 @@ button.components-toggle-group-control-option-base,
 	@apply !es-uic-rounded-t-lg;
 }
 
+.media-menu-item.active {
+	@apply !es-uic-rounded-t-md;
+}
+
 /* Fix weird label casings */
 .components-base-control__label,
 .components-input-control__label,
@@ -38,7 +47,8 @@ button.components-toggle-group-control-option-base,
 }
 
 /* Increase sidebar width */
-.edit-post-sidebar {
+.edit-post-sidebar,
+.interface-complementary-area.editor-sidebar {
 	@apply !es-uic-w-80;
 }
 
