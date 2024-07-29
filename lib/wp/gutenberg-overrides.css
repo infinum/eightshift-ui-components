@@ -1,9 +1,9 @@
 /* Add rounded corners to make components look nicer and more uniform. */
 .edit-post-header__toolbar .components-button,
 .edit-post-header__settings .components-button,
+.editor-document-tools__left .components-button,
 .editor-header__center .components-button,
 .editor-header__settings .components-button,
-.edit-post-header__settings .components-button,
 .edit-post-sidebar .components-button:not(.components-panel__body-toggle, .editor-post-last-revision__title),
 .components-snackbar,
 .components-toggle-group-control,
@@ -11,7 +11,10 @@
 .edit-post-text-editor__toolbar .components-button,
 .edit-post-text-editor__body .components-textarea-control__input,
 .media-modal-content,
-.media-modal-content .components-button {
+.media-modal-content .components-button,
+.components-guide__container .components-button,
+.components-notice__content .components-button,
+.editor-post-featured-image__toggle.components-button {
 	@apply !es-uic-rounded-md;
 }
 
@@ -27,7 +30,8 @@ button.components-toggle-group-control-option-base,
 	@apply first:!es-uic-rounded-l-md last:!es-uic-rounded-r-md;
 }
 
-.components-popover__content {
+.components-popover__content,
+.components-guide {
 	@apply !es-uic-rounded-lg;
 }
 
@@ -48,6 +52,7 @@ button.components-toggle-group-control-option-base,
 
 /* Increase sidebar width */
 .edit-post-sidebar,
+.interface-interface-skeleton__sidebar:not(:empty) > .interface-complementary-area__fill[style='width: 280px;'], /* WP6.6 is weird. */
 .interface-complementary-area.editor-sidebar {
 	@apply !es-uic-w-80;
 }
@@ -107,7 +112,11 @@ button.components-toggle-group-control-option-base,
 }
 
 /* Unify buttons in top toolbar */
-.edit-post-header__toolbar {
+.edit-post-header__toolbar,
+.edit-post-header__settings,
+.editor-document-tools__left,
+.editor-header__center,
+.editor-header__settings {
 	.components-button {
 		@apply !es-uic-min-h-9 !es-uic-min-w-9;
 	}
