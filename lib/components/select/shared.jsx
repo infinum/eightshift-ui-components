@@ -14,70 +14,17 @@
  * @preserve
  */
 export const getValue = (simpleValue, value, options) => {
-	if (!simpleValue) {
+	if (Array.isArray(value)) {
+		if (simpleValue) {
+			return value.map((value) => options?.find(({ value: itemValue }) => itemValue === value));
+		}
+
 		return value;
 	}
 
-	if (Array.isArray(value)) {
-		return value.map((value) => options?.find(({ value: itemValue }) => itemValue === value));
+	if (simpleValue) {
+		return options?.find(({ value: itemValue }) => itemValue === value);
 	}
 
-	return options?.find(({ value: itemValue }) => itemValue === value);
-};
-
-/**
- * Handles the `onChange` callback.
- *
- * @param {boolean} simpleValue - Whether `simpleValue` is set.
- * @param {string|{label: string, value: string, metadata: Object<string, any>[]}} newValue - The new value to be set.
- * @param {Function} onChange - The `onChange` callback passed to the component.
- * @returns {void}
- *
- * @preserve
- */
-export const customOnChange = (simpleValue, newValue, onChange) => {
-	if (typeof newValue === 'undefined' || newValue === null || newValue === '') {
-		onChange(undefined);
-
-		return;
-	}
-
-	delete newValue.id;
-
-	if (!simpleValue) {
-		onChange(newValue);
-
-		return;
-	}
-
-	if (Array.isArray(newValue)) {
-		onChange(newValue.map((item) => item?.value));
-
-		return;
-	}
-
-	onChange(newValue?.value);
-};
-
-/**
- * Handles the `onChange` callback.
- *
- * @param {object[]} items - Current items.
- * @param {Function} onChange - The `onChange` callback passed to the component.
- * @returns {void}
- *
- * @preserve
- */
-export const fixIds = (items, onChange) => {
-	const allIds = items?.map(({ id }) => id) ?? [];
-	const hasDuplicates = (input) => new Set(input)?.size !== input?.length;
-	const hasMissingIds = items?.some(({ id }) => typeof id === 'undefined' || id === null || id === '');
-
-	if ((hasDuplicates(allIds) && items?.length > 0) || hasMissingIds) {
-		const newItems = [...items].map((item, index) => ({
-			...item,
-			id: index + 1,
-		}));
-		onChange(newItems);
-	}
+	return value;
 };

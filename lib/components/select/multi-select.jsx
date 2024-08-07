@@ -5,7 +5,7 @@ import { restrictToParentElement } from '@dnd-kit/modifiers';
 import { SortableContext } from '@dnd-kit/sortable';
 import { CustomSelectDefaultClearIndicator, CustomSelectDefaultDropdownIndicator, CustomSelectDefaultMultiValueRemove } from './custom-select-default-components';
 import { getDragEndHandler, getMultiValue, getMultiValueRemove } from './multi-select-components';
-import { customOnChange, getValue } from './shared';
+import { getValue } from './shared';
 import { BaseControl } from '../base-control/base-control';
 import { eightshiftSelectClasses } from './styles';
 
@@ -93,13 +93,22 @@ export const MultiSelect = (props) => {
 
 		...additionalProps
 	} = props;
-
 	const idBase = useId();
 
 	const value = getValue(simpleValue, rawValue, options).map((item, index) => ({
 		...item,
-		id: `${idBase}-${index}`,
+		id: (simpleValue ? item : item?.value) ?? `${idBase}-${index}`,
 	}));
+
+	const modifiedOnChange = (v) => {
+		if (simpleValue) {
+			onChange(v?.map(({ value }) => value));
+
+			return;
+		}
+
+		onChange(v?.map((item) => ({ ...item, id: undefined })));
+	};
 
 	if (hidden) {
 		return null;
@@ -116,7 +125,7 @@ export const MultiSelect = (props) => {
 		>
 			<DndContext
 				modifiers={[restrictToParentElement]}
-				onDragEnd={getDragEndHandler(onChange, value)}
+				onDragEnd={getDragEndHandler(modifiedOnChange, value)}
 			>
 				<SortableContext items={value.map(({ id }) => id)}>
 					<Select
@@ -124,7 +133,7 @@ export const MultiSelect = (props) => {
 						unstyled
 						options={options.map((item) => ({ id: item.value, ...item }))}
 						value={value}
-						onChange={(v) => customOnChange(simpleValue, v, onChange)}
+						onChange={modifiedOnChange}
 						closeMenuOnSelect={!keepMenuOpenAfterSelect}
 						isClearable={clearable}
 						isSearchable={!noSearch}

@@ -115,7 +115,10 @@ export const AsyncSelect = (props) => {
 				loadOptions={customLoadOptions}
 				defaultOptions={preloadOptions}
 				value={value}
-				onChange={onChange}
+				onChange={(value) => {
+					delete value.id;
+					onChange(value);
+				}}
 				closeMenuOnSelect={!keepMenuOpenAfterSelect}
 				isClearable={clearable}
 				isSearchable={!noSearch}

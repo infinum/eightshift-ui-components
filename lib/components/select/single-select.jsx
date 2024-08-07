@@ -1,6 +1,6 @@
 import RSSelect, { components } from 'react-select';
 import { CustomSelectDefaultClearIndicator, CustomSelectDefaultDropdownIndicator } from './custom-select-default-components';
-import { customOnChange, getValue } from './shared';
+import { getValue } from './shared';
 import { BaseControl } from '../base-control/base-control';
 import { eightshiftSelectClasses } from './styles';
 
@@ -102,7 +102,16 @@ export const Select = (props) => {
 				unstyled
 				options={options}
 				value={getValue(simpleValue, value, options)}
-				onChange={(v) => customOnChange(simpleValue, v, onChange)}
+				onChange={(v) => {
+					if (simpleValue) {
+						onChange(v?.value);
+
+						return;
+					}
+
+					delete v.id;
+					onChange(v);
+				}}
 				closeMenuOnSelect={!keepMenuOpenAfterSelect}
 				isClearable={clearable}
 				isSearchable={!noSearch}

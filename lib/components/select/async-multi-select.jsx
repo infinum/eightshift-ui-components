@@ -104,8 +104,12 @@ export const AsyncMultiSelect = (props) => {
 
 	const value = rawValue.map((item, index) => ({
 		...item,
-		id: `${idBase}-${index}`,
+		id: item?.value ?? `${idBase}-${index}`,
 	}));
+
+	const modifiedOnChange = (v) => {
+		onChange(v?.map((item) => ({ ...item, id: undefined })));
+	};
 
 	if (hidden) {
 		return null;
@@ -116,8 +120,6 @@ export const AsyncMultiSelect = (props) => {
 
 		return processLoadedOptions(results?.map((item) => ({ id: item.value, ...item })) ?? []);
 	};
-
-	// fixIds(value, onChange);
 
 	return (
 		<BaseControl
@@ -130,7 +132,7 @@ export const AsyncMultiSelect = (props) => {
 		>
 			<DndContext
 				modifiers={[restrictToParentElement]}
-				onDragEnd={getDragEndHandler(onChange, value)}
+				onDragEnd={getDragEndHandler(modifiedOnChange, value)}
 			>
 				<SortableContext items={value.map(({ id }) => id)}>
 					<AsyncSelect
@@ -139,7 +141,7 @@ export const AsyncMultiSelect = (props) => {
 						loadOptions={customLoadOptions}
 						defaultOptions={preloadOptions}
 						value={value}
-						onChange={onChange}
+						onChange={modifiedOnChange}
 						closeMenuOnSelect={!keepMenuOpenAfterSelect}
 						isClearable={clearable}
 						isSearchable={!noSearch}
