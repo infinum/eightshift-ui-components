@@ -122,7 +122,7 @@ export const Menu = (props) => {
 			>
 				<ReactAriaMenu
 					aria-label={ariaLabel}
-					className='focus:es-uic-outline-none'
+					className='es-uic-outline-none'
 					{...props}
 					{...additionalProps}
 				>

@@ -86,6 +86,8 @@ export const Popover = (props) => {
 		shouldFlip,
 		shouldCloseOnInteractOutside = () => true,
 
+		'aria-label': ariaLabel,
+
 		hidden,
 
 		...other
@@ -110,8 +112,8 @@ export const Popover = (props) => {
 			className={({ isEntering, isExiting }) =>
 				clsx(
 					'es-uic-rounded-md es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-shadow-lg es-uic-outline-none',
-					isEntering && 'es-uic-outline es-uic-animate-in es-uic-fade-in-0 es-uic-slide-in-from-top-2 es-uic-fill-mode-forwards',
-					isExiting && 'es-uic-outline es-uic-animate-out es-uic-fade-out-0 es-uic-slide-out-to-top-2 es-uic-fill-mode-forwards',
+					isEntering && 'es-uic-animate-in es-uic-fade-in-0 es-uic-slide-in-from-top-3 es-uic-fill-mode-forwards',
+					isExiting && 'es-uic-animate-out es-uic-fade-out-0 es-uic-slide-out-to-top-2 es-uic-fill-mode-forwards',
 					wrapperClassName,
 				)
 			}
@@ -119,6 +121,7 @@ export const Popover = (props) => {
 		>
 			<Dialog
 				className={clsx('es-uic-p-1 es-uic-text-sm es-uic-outline-none', className)}
+				aria-label={ariaLabel}
 				{...other}
 			>
 				{children}
