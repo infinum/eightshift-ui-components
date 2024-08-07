@@ -88,6 +88,13 @@ function App() {
 	let [loremIpsum, setLoremIpsum] = useState(0);
 	let [radioValue, setRadioValue] = useState(null);
 
+	let [sinSel, setSinSel] = useState(null);
+	let [sinSelSimple, setSinSelSimple] = useState(null);
+	let [mulSel, setMulSel] = useState([]);
+	let [mulSelSimple, setMulSelSimple] = useState([]);
+	let [sinASel, setSinASel] = useState(null);
+	let [mulASel, setMulASel] = useState([]);
+
 	let [imgUrl, setImgUrl] = useState(null);
 
 	const [resp, setResp] = useState({
@@ -1302,13 +1309,57 @@ function App() {
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Select
+						label='Single basic'
+						value={sinSel}
+						onChange={setSinSel}
+						options={data}
+					/>
+					<pre>{JSON.stringify(sinSel, null, 2)}</pre>
+					<Select
+						label='Single basic - simpleValue'
+						value={sinSelSimple}
+						onChange={setSinSelSimple}
+						options={data}
+						simpleValue
+					/>
+					<pre>{JSON.stringify(sinSelSimple, null, 2)}</pre>
+					<MultiSelect
+						label='Multi basic'
+						value={mulSel}
+						onChange={setMulSel}
+						options={data}
+					/>
+					<pre>{JSON.stringify(mulSel, null, 2)}</pre>
+					<MultiSelect
+						label='Multi basic - simpleValue'
+						value={mulSelSimple}
+						onChange={setMulSelSimple}
+						options={data}
+						simpleValue
+					/>
+					<pre>{JSON.stringify(mulSelSimple, null, 2)}</pre>
+					<AsyncSelect
+						label='Single async'
+						value={sinASel}
+						onChange={setSinASel}
+						loadOptions={getData}
+					/>
+					<pre>{JSON.stringify(sinASel, null, 2)}</pre>
+					<AsyncMultiSelect
+						label='Multi async'
+						value={mulASel}
+						onChange={setMulASel}
+						loadOptions={getData}
+					/>
+					<pre>{JSON.stringify(mulASel, null, 2)}</pre>
+					<Spacer border />
+					<Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
 						onChange={(v) => setV(v)}
 						value={v}
 						options={data}
 					/>
-
 					<Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
@@ -1317,7 +1368,6 @@ function App() {
 						options={data}
 						noSearch
 					/>
-
 					<Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
@@ -1326,7 +1376,6 @@ function App() {
 						options={data}
 						placeholder='Pick me!'
 					/>
-
 					<Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
@@ -1335,7 +1384,6 @@ function App() {
 						options={data}
 						clearable
 					/>
-
 					<Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
@@ -1344,7 +1392,6 @@ function App() {
 						options={data}
 						closeMenuAfterSelect
 					/>
-
 					<Select
 						icon={icons.emptyCircle}
 						label='Default'
@@ -1352,7 +1399,6 @@ function App() {
 						value={v}
 						options={data}
 					/>
-
 					<AsyncSelect
 						icon={icons.emptyCircle}
 						label='Pick an item'
@@ -1360,7 +1406,6 @@ function App() {
 						value={v3}
 						loadOptions={getData}
 					/>
-
 					<MultiSelect
 						icon={icons.emptyCircle}
 						label='Select items'
@@ -1368,7 +1413,6 @@ function App() {
 						value={v4}
 						options={data}
 					/>
-
 					<AsyncMultiSelect
 						icon={icons.emptyCircle}
 						label='Select items'
@@ -1376,7 +1420,6 @@ function App() {
 						value={v5}
 						loadOptions={getData}
 					/>
-
 					<Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
@@ -1385,7 +1428,6 @@ function App() {
 						options={data}
 						customDropdownArrow={CustomDropdownIndicator}
 					/>
-
 					<Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
@@ -1394,7 +1436,6 @@ function App() {
 						options={data}
 						customMenuOption={CustomMenuOption}
 					/>
-
 					<Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
@@ -1404,7 +1445,6 @@ function App() {
 						clearable
 						customClearIndicator={CustomClearIndicator}
 					/>
-
 					<Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
@@ -1413,7 +1453,6 @@ function App() {
 						options={data}
 						customValueDisplay={CustomValueDisplay}
 					/>
-
 					<MultiSelect
 						icon={icons.emptyCircle}
 						label='Pick an item'
@@ -1422,7 +1461,6 @@ function App() {
 						options={data}
 						customValueRemove={CustomMultiValueRemoveButton}
 					/>
-
 					<MultiSelect
 						icon={icons.emptyCircle}
 						label='Pick an item'
@@ -1439,7 +1477,6 @@ function App() {
 						options={data}
 						customValueContainer={CustomMultiValueContainer}
 					/>
-
 					<Select
 						onChange={(v) => setV7(v)}
 						value={v7}
