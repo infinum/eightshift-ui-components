@@ -188,7 +188,7 @@ export const OptionSelect = (props) => {
 
 			{type === 'menu' && (
 				<Menu
-					triggerLabel={!noTriggerLabel && (currentItem ? currentItem?.label : notSetLabel)}
+					triggerLabel={noTriggerLabel ? null : (currentItem?.label ?? notSetLabel)}
 					triggerIcon={
 						!noTriggerIcon &&
 						// eslint-disable-next-line no-nested-ternary
@@ -207,9 +207,10 @@ export const OptionSelect = (props) => {
 					}
 					triggerProps={{
 						...wrapperProps?.triggerProps,
-						'aria-label': typeof label !== 'undefined' ? null : ariaLabel,
+						'aria-label': typeof label !== 'undefined' ? null : (ariaLabel ?? label ?? tooltip),
 					}}
 					keepOpen
+					aria-label={ariaLabel ?? label ?? tooltip ?? __('Menu', 'eightshift-ui-components')}
 					{...wrapperProps}
 				>
 					{options.map(

@@ -86,12 +86,18 @@ export const Popover = (props) => {
 		shouldFlip,
 		shouldCloseOnInteractOutside = () => true,
 
-		'aria-label': ariaLabel,
+		'aria-label': rawAriaLabel,
 
 		hidden,
 
 		...other
 	} = props;
+
+	let ariaLabel = rawAriaLabel;
+
+	if (ariaLabel === false) {
+		ariaLabel = undefined;
+	}
 
 	if (hidden) {
 		return null;

@@ -121,7 +121,6 @@ export const Menu = (props) => {
 				{...popoverProps}
 			>
 				<ReactAriaMenu
-					aria-label={ariaLabel}
 					className='es-uic-outline-none'
 					{...props}
 					{...additionalProps}
