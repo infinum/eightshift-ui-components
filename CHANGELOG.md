@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.4.6] - 2024-08-08
+- Fixed an issue with item saving within some variants of `Select` components.
+- Slightly tweaked menu and popover entry animations.
+- Removed erroneous outline when Menu is open.
+- Fixed `aria-label` passthrough in `OptionSelect` when variant is set to `menu`.
+- Updated dependencies.
+
 ## [1.4.5] - 2024-07-30
 - Added a couple of WP6.6-specific Gutenberg overrides.
 - Improved `Repeater` add button reliability.
@@ -138,6 +145,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
 
+[1.4.6]: https://github.com/infinum/eightshift-ui-components/compare/1.4.5...1.4.6
 [1.4.5]: https://github.com/infinum/eightshift-ui-components/compare/1.4.4...1.4.5
 [1.4.4]: https://github.com/infinum/eightshift-ui-components/compare/1.4.3...1.4.4
 [1.4.3]: https://github.com/infinum/eightshift-ui-components/compare/1.4.2...1.4.3
