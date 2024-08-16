@@ -110,6 +110,7 @@ export const ComponentToggle = (props) => {
 				)
 			}
 			disabled={!useComponent || expandButtonDisabled}
+			noFocusHandling
 		>
 			{!expandButtonDisabled && <div className={contentClassName}>{children}</div>}
 		</Expandable>
