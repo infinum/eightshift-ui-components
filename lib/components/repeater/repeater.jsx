@@ -119,7 +119,7 @@ export const Repeater = (props) => {
 	const [canDelete, setCanDelete] = useState(false);
 	const [isPanelOpen, setIsPanelOpen] = useState({});
 
-	const isAnyPanelOpen = Object.keys(isPanelOpen)?.length < 1 ? false : Object.entries(isPanelOpen).every(([_, v]) => v === true);
+	const isAnyPanelOpen = Object.keys(isPanelOpen)?.length < 1 ? false : Object.entries(isPanelOpen).some(([_, v]) => v === true);
 
 	if (canDelete && items.length < (minItems ?? 1)) {
 		setCanDelete(false);
