@@ -70,6 +70,7 @@ export const LinkInput = (props) => {
 	const triggerRef = useRef(null);
 
 	const suggestionList = useAsyncList({
+		initialFilterText: url,
 		async load({ signal, filterText }) {
 			// const items = await fetchSuggestions(inputValue, signal);
 			const items = await fetchSuggestions(filterText, signal);
