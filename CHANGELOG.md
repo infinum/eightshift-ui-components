@@ -8,7 +8,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Fixed `LinkInput` external value not previewing.
 - Added `truncateEnd` text helper.
 - Fixed drag markers not disappearing in `Repeater` when an item is expanded.
-- Tweaked `NumberPicker` to make sure it always look OK (thanks WPML).
+- Tweaked `NumberPicker` to make sure it always looks OK (thanks WPML).
 
 ## [1.4.6] - 2024-08-08
 - Fixed an issue with item saving within some variants of `Select` components.
