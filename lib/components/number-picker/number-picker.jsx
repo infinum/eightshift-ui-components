@@ -131,7 +131,7 @@ export const NumberPicker = ({
 					<Input
 						onFocus={() => setIsInputFocused(true)}
 						onBlur={() => setIsInputFocused(false)}
-						className='es-uic-col-start-2 es-uic-row-span-2 es-uic-bg-transparent es-uic-py-1 es-uic-text-sm es-uic-tabular-nums selection:es-uic-bg-teal-500/20 selection:es-uic-text-teal-950 focus:es-uic-outline-none'
+						className='es-uic-col-start-2 es-uic-row-span-2 !es-uic-border-none es-uic-bg-transparent !es-uic-px-0 !es-uic-py-1 es-uic-text-sm es-uic-tabular-nums !es-uic-shadow-none !es-uic-outline-none selection:es-uic-bg-teal-500/20 selection:es-uic-text-teal-950 focus:!es-uic-shadow-none focus:es-uic-outline-none'
 						placeholder={placeholder}
 						style={{
 							width: fixedWidth ? `${fixedWidth}ch` : `calc(${min < 0 ? '0.75ch + ' : ''}${(max ?? 1000)?.toString()?.length} * 1ch)`,

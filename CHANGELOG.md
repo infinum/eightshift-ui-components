@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.4.7] - 2024-08-16
+- Disabled focus handling in `Expandable` due to Gutenberg conflicts.
+- Fixed `LinkInput` external value not previewing.
+- Added `truncateEnd` text helper.
+- Fixed drag markers not disappearing in `Repeater` when an item is expanded.
+- Tweaked `NumberPicker` to make sure it always looks OK (thanks WPML).
+
 ## [1.4.6] - 2024-08-08
 - Fixed an issue with item saving within some variants of `Select` components.
 - Slightly tweaked menu and popover entry animations.
@@ -145,6 +152,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
 
+[1.4.7]: https://github.com/infinum/eightshift-ui-components/compare/1.4.6...1.4.7
 [1.4.6]: https://github.com/infinum/eightshift-ui-components/compare/1.4.5...1.4.6
 [1.4.5]: https://github.com/infinum/eightshift-ui-components/compare/1.4.4...1.4.5
 [1.4.4]: https://github.com/infinum/eightshift-ui-components/compare/1.4.3...1.4.4
