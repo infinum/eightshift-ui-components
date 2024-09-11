@@ -57,6 +57,20 @@ export const DraggableListItem = (props) => {
 	);
 };
 
+/**
+ * A Draggable item handle.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string} [props.className] - Classes to pass to the handle.
+ *
+ * @returns {JSX.Element} The DraggableListItemHandle component.
+ *
+ * @example
+ * <DraggableListItemHandle />
+ *
+ * @preserve
+ */
 export const DraggableListItemHandle = (props) => {
 	const { className, children, ...rest } = props;
 
