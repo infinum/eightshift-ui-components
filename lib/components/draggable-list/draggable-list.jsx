@@ -1,10 +1,16 @@
-import { DropIndicator } from 'react-aria-components';
-import { useListData } from 'react-stately';
-import { GridList, useDragAndDrop } from 'react-aria-components';
-import { useEffect, useId } from 'react';
-import { clsx } from 'clsx/lite';
+import { useEffect, useId, useRef, useState, useMemo } from 'react';
 import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
+import { createSwapy } from 'swapy';
+import { DraggableListContext } from './draggable-list-context';
+import { clsx } from 'clsx/lite';
+
+const fixIds = (items, itemIdBase) => {
+	return items.map((item, i) => ({
+		...item,
+		id: item?.id ?? `${itemIdBase}-${i}`,
+	}));
+};
 
 /**
  * A component that allows re-ordering a list of items.
@@ -17,11 +23,11 @@ import { BaseControl } from '../base-control/base-control';
  * @param {string} [props.help] - Help text to display below the input.
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display to the right of the label.
  * @param {Object<string, any>[]} props.items - Data to display in the list.
- * @param {boolean} [props.hideEmptyState] - If `true`, the empty state will not be displayed when there are no items.
  * @param {Function} props.onChange - Function to run when the items change.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {boolean} [props.disabled] - If `true`, item reordering is disabled.
  * @param {string} [props.className] - Classes to pass to the item wrapper.
+ * @param {boolean} [props.labelAsHandle=false] - If `true`, the label will be used as the handle for dragging.
  *
  * @returns {JSX.Element} The DraggableList component.
  *
@@ -57,77 +63,87 @@ export const DraggableList = (props) => {
 
 	const {
 		children,
+
+		items: rawItems,
 		onChange,
-		items,
-		'aria-label': ariaLabel,
+
 		icon,
 		label,
 		subtitle,
 		help,
 		actions,
-		hideEmptyState,
+
 		disabled,
 		className,
+
+		labelAsHandle,
 
 		hidden,
 		...rest
 	} = props;
 
-	const list = useListData({
-		initialItems: items?.map((item, i) => ({ id: item.id ?? `${itemIdBase}${i}`, ...item })),
-		getKey: ({ id }) => id,
-	});
+	const items = useMemo(() => fixIds(rawItems, itemIdBase), [rawItems]);
 
-	let { dragAndDropHooks } = useDragAndDrop({
-		isDisabled: disabled,
-		getItems: (keys) => [...keys].map((key) => ({ 'text/plain': list.getItem(key).id })),
-		onReorder(e) {
-			if (e.target.dropPosition === 'before') {
-				list.moveBefore(e.target.key, e.keys);
-			} else if (e.target.dropPosition === 'after') {
-				list.moveAfter(e.target.key, e.keys);
-			}
-		},
-		renderDropIndicator(target) {
-			return (
-				<DropIndicator
-					target={target}
-					className={({ isDropTarget }) =>
-						clsx(
-							'es-uic-h-10 es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-transition',
-							isDropTarget ? 'es-uic-border-teal-500 es-uic-bg-teal-500/5' : 'es-uic-border-dashed',
-						)
-					}
-				/>
-			);
-		},
-		async onInsert(e) {
-			let items = await Promise.all(
-				e.items.map(async (item) => {
-					let name = item.kind === 'text' ? await item.getText('text/plain') : item.name;
+	const ref = useRef(null);
+	const swapyRef = useRef(null);
 
-					return { id: Math.random(), name };
-				}),
-			);
+	const [slotItemsMap, setSlotItemsMap] = useState([
+		...items.map((item) => ({
+			slotId: item.id,
+			itemId: item.id,
+		})),
+		{ slotId: `${Math.round(Math.random() * 99999)}`, itemId: null },
+	]);
 
-			if (e.target.dropPosition === 'before') {
-				list.insertBefore(e.target.key, ...items);
-			} else if (e.target.dropPosition === 'after') {
-				list.insertAfter(e.target.key, ...items);
-			}
-		},
-	});
+	const slottedItems = useMemo(
+		() =>
+			slotItemsMap.map(({ slotId, itemId }) => ({
+				slotId,
+				itemId,
+				item: items.find((item) => item.id === itemId),
+			})),
+		[items, slotItemsMap],
+	);
 
-	// Update main value when items change.
+	// Keep Swapy slots in sync with items.
 	useEffect(() => {
-		const items = list.items.map((item) => {
-			const { id, ...rest } = item;
+		const newItems = items
+			.filter((item) => !slotItemsMap.some((slotItem) => slotItem.itemId === item.id))
+			.map((item) => ({
+				slotId: item.id,
+				itemId: item.id,
+			}));
 
-			return rest;
+		// Remove items from slotItemsMap if they no longer exist in items
+		const withoutRemovedItems = slotItemsMap.filter((slotItem) => items.some((item) => item.id === slotItem.itemId) || !slotItem.itemId);
+
+		const updatedSlotItemsMap = [...withoutRemovedItems, ...newItems];
+
+		setSlotItemsMap(updatedSlotItemsMap);
+		swapyRef.current?.setData({ array: updatedSlotItemsMap });
+	}, [items]);
+
+	// Initialize Swapy.
+	useEffect(() => {
+		const container = ref?.current;
+
+		swapyRef.current = createSwapy(container, {
+			manualSwap: true,
 		});
 
-		onChange(items);
-	}, [list.items]);
+		swapyRef.current.onSwap(({ data }) => {
+			const tweakedItems = data.array.filter(({ itemId }) => itemId !== null).map(({ itemId }) => items.find((item) => item?.id === itemId));
+			onChange(tweakedItems);
+
+			// Set data manually.
+			swapyRef.current?.setData({ array: data.array });
+			setSlotItemsMap(data.array);
+		});
+
+		return () => {
+			swapyRef.current?.destroy();
+		};
+	}, []);
 
 	if (hidden) {
 		return null;
@@ -142,30 +158,46 @@ export const DraggableList = (props) => {
 			actions={actions}
 			className='es-uic-w-full'
 		>
-			<GridList
-				aria-label={ariaLabel ?? __('Draggable list', 'eightshift-ui-components')}
-				selectionMode='none'
-				items={list.items.map((item, index) => ({
-					...item,
-					updateData: (newValue) => {
-						list.update(item.id, { ...list.getItem(item.id), ...newValue });
-					},
-					itemIndex: index,
-					deleteItem: () => list.remove(item.id),
-				}))}
-				dragAndDropHooks={dragAndDropHooks}
-				renderEmptyState={() =>
-					hideEmptyState ? null : (
-						<div className='es-uic-rounded-md es-uic-border es-uic-border-dashed es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-text-gray-400'>
-							{__('No items', 'eightshift-ui-components')}
+			<DraggableListContext.Provider value={{ labelAsHandle: labelAsHandle }}>
+				<div
+					ref={ref}
+					{...rest}
+				>
+					{slottedItems.map(({ itemId, slotId, item }, index) => (
+						<div
+							className='es-uic-group es-uic-transition-colors data-[swapy-highlighted]:es-uic-rounded-md data-[swapy-highlighted]:es-uic-outline-dashed data-[swapy-highlighted]:es-uic-outline-1 data-[swapy-highlighted]:es-uic-outline-teal-500/50'
+							data-swapy-slot={slotId}
+							key={slotId}
+						>
+							{item && (
+								<div
+									className={clsx(
+										'es-uic-transition-[background-color,_box-shadow,_border-radius,_border]',
+										'group-data-[swapy-highlighted]:es-uic-rounded-md group-data-[swapy-highlighted]:es-uic-bg-white group-data-[swapy-highlighted]:es-uic-shadow',
+									)}
+									data-swapy-item={itemId}
+									key={itemId}
+								>
+									{children({
+										...item,
+										updateData: (newValue) => {
+											onChange(items.map((i) => (i.id === itemId ? { ...i, ...newValue } : i)));
+										},
+										itemIndex: index,
+										deleteItem: () => {
+											onChange(items.filter((i) => i.id !== item.id));
+
+											if (item.onAfterItemRemove) {
+												onAfterItemRemove(item);
+											}
+										},
+									})}
+								</div>
+							)}
 						</div>
-					)
-				}
-				className={className}
-				{...rest}
-			>
-				{children}
-			</GridList>
+					))}
+				</div>
+			</DraggableListContext.Provider>
 		</BaseControl>
 	);
 };
