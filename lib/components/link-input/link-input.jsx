@@ -2,7 +2,7 @@ import { Label, Button as ReactAriaButton, Input, Group, ListBox, ListBoxItem, P
 import { __ } from '@wordpress/i18n';
 import { icons } from '../../icons/icons';
 import { clsx } from 'clsx/lite';
-import { useRef, cloneElement } from 'react';
+import { useRef, cloneElement, useState, useEffect } from 'react';
 import { useAsyncList } from 'react-stately';
 import { Spacer } from '../spacer/spacer';
 import { Tooltip } from '../tooltip/tooltip';
@@ -30,6 +30,7 @@ import { ComboBox } from 'react-aria-components';
  * @param {string} [props.className] - Classes to pass to the input field.
  * @param {number} [props.inputDebounceDelay=500] - The delay in milliseconds before the input value is considered final.
  * @param {Function} [props.suggestionTypeIconOverride] - Allows overriding the default icon for the suggestion type, e.g. when using CPTs. Should be in the format: `(type) => icon or React component`.
+ * @param {boolean} [props.showSuggestionsWhenEmpty] - If `true`, the suggestion list will be shown when down arrow is pressed even the input is empty.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The LinkInput component.
@@ -44,7 +45,7 @@ import { ComboBox } from 'react-aria-components';
  */
 export const LinkInput = (props) => {
 	const {
-		url,
+		url = '',
 		onChange,
 
 		label = __('Link', 'eightshift-ui-components'),
@@ -61,18 +62,27 @@ export const LinkInput = (props) => {
 
 		suggestionTypeIconOverride,
 
+		showSuggestionsWhenEmpty,
+
 		fetchSuggestions,
 		className,
 
 		hidden,
 	} = props;
 
+	const canShowSuggestions = typeof fetchSuggestions !== 'undefined';
+
 	const triggerRef = useRef(null);
 
 	const suggestionList = useAsyncList({
 		initialFilterText: url,
 		async load({ signal, filterText }) {
-			// const items = await fetchSuggestions(inputValue, signal);
+			if (!canShowSuggestions) {
+				return {
+					items: [],
+				};
+			}
+
 			const items = await fetchSuggestions(filterText, signal);
 
 			return {
@@ -81,21 +91,35 @@ export const LinkInput = (props) => {
 		},
 	});
 
-	const shouldShowSuggestions = (() => {
-		if (!url) {
-			return false;
+	const [shouldShowSuggestions, setShouldShowSuggestions] = useState(false);
+
+	useEffect(() => {
+		suggestionList.setFilterText(url);
+
+		if (!canShowSuggestions) {
+			setShouldShowSuggestions(false);
+
+			return;
 		}
 
-		return !(
-			url?.trim()?.length < 4 ||
-			url?.startsWith('#') ||
-			url?.startsWith(':') ||
-			url?.startsWith('mailto') ||
-			url?.startsWith('tel') ||
-			url?.startsWith('http') ||
-			url?.startsWith('www')
+		if (!showSuggestionsWhenEmpty && url.length < 1) {
+			setShouldShowSuggestions(false);
+
+			return;
+		}
+
+		setShouldShowSuggestions(
+			!(
+				(showSuggestionsWhenEmpty !== true && url.trim().length < 4) ||
+				url.startsWith('#') ||
+				url.startsWith(':') ||
+				url.startsWith('mailto') ||
+				url.startsWith('tel') ||
+				url.startsWith('http') ||
+				url.startsWith('www')
+			),
 		);
-	})();
+	}, [url]);
 
 	if (hidden) {
 		return null;
@@ -107,10 +131,11 @@ export const LinkInput = (props) => {
 			inputValue={suggestionList.filterText}
 			onInputChange={(value) => {
 				onChange({ url: value, isAnchor: value?.includes('#') });
+
 				suggestionList.setFilterText(value);
 			}}
 			allowsCustomValue
-			allowsEmptyCollection={shouldShowSuggestions}
+			allowsEmptyCollection={canShowSuggestions && shouldShowSuggestions}
 			isDisabled={disabled}
 		>
 			<BaseControl
@@ -165,120 +190,122 @@ export const LinkInput = (props) => {
 				</Group>
 			</BaseControl>
 
-			<Popover
-				aria-label={__('URL suggestions', 'eightshift-ui-components')}
-				className={({ isEntering, isExiting }) =>
-					clsx(
-						'es-uic-rounded-md es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-shadow-lg es-uic-outline-none',
-						isEntering && 'es-uic-animate-in es-uic-fade-in-0 es-uic-slide-in-from-top-3 es-uic-fill-mode-forwards',
-						isExiting && 'es-uic-animate-out es-uic-fade-out-0 es-uic-slide-out-to-top-2 es-uic-fill-mode-forwards',
-						!shouldShowSuggestions && suggestionList.items.length < 1 && 'es-uic-invisible',
-					)
-				}
-				style={{
-					width: `${triggerRef.current?.offsetWidth}px`,
-				}}
-			>
-				{shouldShowSuggestions && suggestionList.isLoading && (
-					<RichLabel
-						icon={cloneElement(icons.emptyCircle, { className: 'es-uic-animate-spin' })}
-						label={__('Loading suggestions', 'eightshift-ui-components')}
-						className='es-uic-min-h-12 es-uic-p-2'
-					/>
-				)}
+			{canShowSuggestions && shouldShowSuggestions && (
+				<Popover
+					aria-label={__('URL suggestions', 'eightshift-ui-components')}
+					className={({ isEntering, isExiting }) =>
+						clsx(
+							'es-uic-rounded-md es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-shadow-lg es-uic-outline-none',
+							isEntering && 'es-uic-animate-in es-uic-fade-in-0 es-uic-slide-in-from-top-3 es-uic-fill-mode-forwards',
+							isExiting && 'es-uic-animate-out es-uic-fade-out-0 es-uic-slide-out-to-top-2 es-uic-fill-mode-forwards',
+							!shouldShowSuggestions && suggestionList.items.length < 1 && 'es-uic-invisible',
+						)
+					}
+					style={{
+						width: `${triggerRef.current?.offsetWidth}px`,
+					}}
+				>
+					{shouldShowSuggestions && suggestionList.isLoading && (
+						<RichLabel
+							icon={cloneElement(icons.emptyCircle, { className: 'es-uic-animate-spin' })}
+							label={__('Loading suggestions', 'eightshift-ui-components')}
+							className='es-uic-min-h-12 es-uic-p-2'
+						/>
+					)}
 
-				{shouldShowSuggestions && !suggestionList.isLoading && suggestionList.items.length === 0 && (
-					<RichLabel
-						icon={icons.searchEmpty}
-						label={__('No results', 'eightshift-ui-components')}
-						subtitle={__('Try a different search term.', 'eightshift-ui-components')}
-						className='es-uic-min-h-12 es-uic-p-2'
-					/>
-				)}
+					{shouldShowSuggestions && !suggestionList.isLoading && suggestionList.items.length === 0 && (
+						<RichLabel
+							icon={icons.searchEmpty}
+							label={__('No results', 'eightshift-ui-components')}
+							subtitle={__('Try a different search term.', 'eightshift-ui-components')}
+							className='es-uic-min-h-12 es-uic-p-2'
+						/>
+					)}
 
-				{!suggestionList.isLoading && suggestionList.items.length > 0 && (
-					<>
-						<ListBox className='es-uic-space-y-1 es-uic-p-1'>
-							{(item) => {
-								const {
-									label: title,
-									value: url,
-									metadata: { subtype: rawSubtype },
-								} = item;
+					{!suggestionList.isLoading && suggestionList.items.length > 0 && (
+						<>
+							<ListBox className='es-uic-space-y-1 es-uic-p-1'>
+								{(item) => {
+									const {
+										label: title,
+										value: url,
+										metadata: { subtype: rawSubtype },
+									} = item;
 
-								const subtype = rawSubtype ?? 'page';
+									const subtype = rawSubtype ?? 'page';
 
-								let typeIcon = icons.file;
+									let typeIcon = icons.file;
 
-								if (subtype.toLowerCase() === 'url') {
-									typeIcon = icons.externalLink;
-								} else if (subtype.toLowerCase() === 'attachment') {
-									typeIcon = icons.file;
-								} else if (subtype.toLowerCase() === 'category') {
-									typeIcon = icons.layoutAlt;
-								} else if (subtype.toLowerCase() === 'internal') {
-									typeIcon = icons.anchor;
-								} else if (subtype.toLowerCase() === 'eightshift-forms') {
-									typeIcon = icons.formAlt;
-								}
-
-								if (suggestionTypeIconOverride) {
-									const overrideIcon = suggestionTypeIconOverride(subtype);
-
-									if (overrideIcon) {
-										typeIcon = overrideIcon;
+									if (subtype.toLowerCase() === 'url') {
+										typeIcon = icons.externalLink;
+									} else if (subtype.toLowerCase() === 'attachment') {
+										typeIcon = icons.file;
+									} else if (subtype.toLowerCase() === 'category') {
+										typeIcon = icons.layoutAlt;
+									} else if (subtype.toLowerCase() === 'internal') {
+										typeIcon = icons.anchor;
+									} else if (subtype.toLowerCase() === 'eightshift-forms') {
+										typeIcon = icons.formAlt;
 									}
-								}
 
-								return (
-									<ListBoxItem
-										id={item.value}
-										className={clsx(
-											'es-uic-rounded es-uic-p-1 es-uic-text-sm es-uic-transition',
-											'hover:es-uic-border-gray-300 hover:es-uic-bg-gray-100',
-											'focus-visible:es-uic-border-gray-300 focus-visible:es-uic-bg-gray-100',
-											'selected:es-uic-bg-teal-600/10 selected:es-uic-text-teal-900 selected:focus-visible:es-uic-bg-teal-600/15',
-										)}
-										textValue={url}
-									>
-										<RichLabel
-											icon={typeIcon}
-											label={title}
-											subtitle={url?.replace(location.origin, '').replace(/\/$/, '')}
-											noColor
-										/>
-									</ListBoxItem>
-								);
-							}}
-						</ListBox>
+									if (suggestionTypeIconOverride) {
+										const overrideIcon = suggestionTypeIconOverride(subtype);
 
-						<Spacer border />
+										if (overrideIcon) {
+											typeIcon = overrideIcon;
+										}
+									}
 
-						<div className='es-uic-grid es-uic-select-none es-uic-grid-cols-[auto,_1fr] es-uic-items-center es-uic-gap-x-1.5 es-uic-gap-y-1 es-uic-p-2 es-uic-text-sm es-uic-text-gray-500'>
-							<div className='es-uic-flex es-uic-gap-0.5 es-uic-justify-self-center'>
-								<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
-									&darr;
-								</kbd>
+									return (
+										<ListBoxItem
+											id={item.value}
+											className={clsx(
+												'es-uic-rounded es-uic-p-1 es-uic-text-sm es-uic-transition',
+												'hover:es-uic-border-gray-300 hover:es-uic-bg-gray-100',
+												'focus-visible:es-uic-border-gray-300 focus-visible:es-uic-bg-gray-100',
+												'selected:es-uic-bg-teal-600/10 selected:es-uic-text-teal-900 selected:focus-visible:es-uic-bg-teal-600/15',
+											)}
+											textValue={url}
+										>
+											<RichLabel
+												icon={typeIcon}
+												label={title}
+												subtitle={url?.replace(location.origin, '').replace(/\/$/, '')}
+												noColor
+											/>
+										</ListBoxItem>
+									);
+								}}
+							</ListBox>
 
-								<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
-									&uarr;
-								</kbd>
+							<Spacer border />
+
+							<div className='es-uic-grid es-uic-select-none es-uic-grid-cols-[auto,_1fr] es-uic-items-center es-uic-gap-x-1.5 es-uic-gap-y-1 es-uic-p-2 es-uic-text-sm es-uic-text-gray-500'>
+								<div className='es-uic-flex es-uic-gap-0.5 es-uic-justify-self-center'>
+									<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
+										&darr;
+									</kbd>
+
+									<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
+										&uarr;
+									</kbd>
+								</div>
+								{__('Navigate', 'eightshift-ui-components')}
+								<div className='es-uic-flex es-uic-gap-0.5 es-uic-justify-self-center'>
+									<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
+										&crarr;
+									</kbd>
+								</div>
+								{__('Select', 'eightshift-ui-components')}
+								<kbd className='es-uic-flex es-uic-h-5 es-uic-min-w-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
+									Esc
+								</kbd>{' '}
+								{__('Hide suggestions', 'eightshift-ui-components')}
 							</div>
-							{__('Navigate', 'eightshift-ui-components')}
-							<div className='es-uic-flex es-uic-gap-0.5 es-uic-justify-self-center'>
-								<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
-									&crarr;
-								</kbd>
-							</div>
-							{__('Select', 'eightshift-ui-components')}
-							<kbd className='es-uic-flex es-uic-h-5 es-uic-min-w-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
-								Esc
-							</kbd>{' '}
-							{__('Hide suggestions', 'eightshift-ui-components')}
-						</div>
-					</>
-				)}
-			</Popover>
+						</>
+					)}
+				</Popover>
+			)}
 		</ComboBox>
 	);
 };
