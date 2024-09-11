@@ -38,7 +38,7 @@ export default {
 		require('tailwindcss-animate'),
 		require('tailwindcss-react-aria-components'),
 		scopedPreflightStyles({
-			isolationStrategy: isolateOutsideOfContainer(['.es-uic-no-css-reset', '.wp-list-table'], {
+			isolationStrategy: isolateOutsideOfContainer(['.es-uic-no-css-reset', '.wp-admin'], {
 				plus: '.es-uic-has-css-reset',
 			}),
 		}),
