@@ -16,7 +16,7 @@ const SortableItem = ({ id, index, disabled, children }) => {
 	const [element, setElement] = useState(null);
 	const handleRef = useRef(null);
 
-	const { isDragSource } = useSortable({
+	const { isDragSource, status } = useSortable({
 		id,
 		index,
 		element,
@@ -27,7 +27,7 @@ const SortableItem = ({ id, index, disabled, children }) => {
 		disabled,
 	});
 
-	return <div ref={setElement}>{children(handleRef, isDragSource)}</div>;
+	return <div ref={setElement}>{children(handleRef, isDragSource, status)}</div>;
 };
 
 /**
@@ -118,6 +118,7 @@ export const Repeater = (props) => {
 
 	const [canDelete, setCanDelete] = useState(false);
 	const [isPanelOpen, setIsPanelOpen] = useState({});
+	const [isDragging, setIsDragging] = useState(false);
 
 	const isAnyPanelOpen = Object.keys(isPanelOpen)?.length < 1 ? false : Object.entries(isPanelOpen).some(([_, v]) => v === true);
 
@@ -200,6 +201,8 @@ export const Repeater = (props) => {
 
 							return;
 						}
+
+						setIsDragging(true);
 					}}
 					onDragOver={(event) => {
 						if (isAnyPanelOpen) {
@@ -233,6 +236,8 @@ export const Repeater = (props) => {
 							return;
 						}
 
+						setIsDragging(false);
+
 						setItems((items) => move(items, source, target));
 						onChange(items);
 					}}
@@ -245,46 +250,14 @@ export const Repeater = (props) => {
 							item={item}
 							disabled={canDelete || isAnyPanelOpen}
 						>
-							{(handleRef, isDragSource) => (
-								<RepeaterContext.Provider
-									key={item.id}
-									value={{
-										...item,
-										index,
-										canDelete,
-										deleteItem: () => {
-											setItems([...items].filter((i) => i.id !== item.id));
-											onChange([...items].filter((i) => i.id !== item.id));
-
-											if (onAfterItemRemove) {
-												onAfterItemRemove(item);
-											}
-										},
-										handleOpenChange: (isOpen) => setIsPanelOpen((data) => ({ ...data, [item.id]: isOpen })),
-										isDragSource,
-									}}
-								>
-									<div className='es-uic-relative'>
-										<Button
-											size='small'
-											className={clsx(
-												'es-uic-absolute es-uic-bottom-0 es-uic-left-0 es-uic-top-0 es-uic-my-auto es-uic-h-6 es-uic-w-4 -es-uic-translate-x-full !es-uic-text-gray-500 es-uic-opacity-50 focus:es-uic-opacity-100',
-												(isAnyPanelOpen || canDelete) && 'es-uic-pointer-events-none es-uic-invisible !es-uic-cursor-default',
-											)}
-											type='ghost'
-											icon={icons.reorderGrabberV}
-											tooltip={!isDragSource && __('Re-order', 'eightshift-ui-components')}
-											forwardedRef={handleRef}
-										/>
-										{children({
+							{(handleRef, isDragSource, status) => {
+								return (
+									<RepeaterContext.Provider
+										key={item.id}
+										value={{
 											...item,
-											updateData: (newValue) => {
-												const updated = [...items].map((i) => (i.id === item.id ? { ...i, ...newValue } : i));
-
-												onChange(updated);
-												setItems(updated);
-											},
-											itemIndex: index,
+											index,
+											canDelete,
 											deleteItem: () => {
 												setItems([...items].filter((i) => i.id !== item.id));
 												onChange([...items].filter((i) => i.id !== item.id));
@@ -293,10 +266,46 @@ export const Repeater = (props) => {
 													onAfterItemRemove(item);
 												}
 											},
-										})}
-									</div>
-								</RepeaterContext.Provider>
-							)}
+											handleOpenChange: (isOpen) => setIsPanelOpen((data) => ({ ...data, [item.id]: isOpen })),
+											isDragSource,
+										}}
+									>
+										<div className='es-uic-relative'>
+											<Button
+												size='small'
+												className={clsx(
+													'es-uic-absolute es-uic-bottom-0 es-uic-left-1 es-uic-top-0 es-uic-z-20 es-uic-my-auto es-uic-h-6 es-uic-w-4 -es-uic-translate-x-full !es-uic-text-gray-500 es-uic-opacity-50 focus:es-uic-opacity-100 [&_svg]:es-uic-shrink-0',
+													(isAnyPanelOpen || canDelete) && 'es-uic-pointer-events-none es-uic-invisible !es-uic-cursor-default',
+												)}
+												type='ghost'
+												icon='⋮'
+												// Temporarily commented out.
+												// tooltip={!isDragSource && status === 'idle' && __('Re-order', 'eightshift-ui-components')}
+												forwardedRef={handleRef}
+											/>
+
+											{children({
+												...item,
+												updateData: (newValue) => {
+													const updated = [...items].map((i) => (i.id === item.id ? { ...i, ...newValue } : i));
+
+													onChange(updated);
+													setItems(updated);
+												},
+												itemIndex: index,
+												deleteItem: () => {
+													setItems([...items].filter((i) => i.id !== item.id));
+													onChange([...items].filter((i) => i.id !== item.id));
+
+													if (onAfterItemRemove) {
+														onAfterItemRemove(item);
+													}
+												},
+											})}
+										</div>
+									</RepeaterContext.Provider>
+								);
+							}}
 						</SortableItem>
 					))}
 				</DragDropProvider>
