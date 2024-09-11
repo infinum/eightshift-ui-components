@@ -15,6 +15,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - `LinkInput` should work properly now if `fetchSuggestions` is not passed.
 - `LinkInput` will not show suggestions when the field is empty. You can opt out into that with `showSuggestionsWhenEmpty` (could be useful if you have a default list of suggestions).
 - Added `Draggable` component for more random layouts.
+- Added `ItemCollection` component to get rid of those pesky `.map`s in the editor.
 
 ## [1.4.7] - 2024-08-16
 - Disabled focus handling in `Expandable` due to Gutenberg conflicts.

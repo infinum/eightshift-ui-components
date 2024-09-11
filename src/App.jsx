@@ -69,6 +69,7 @@ import {
 	Draggable,
 	DraggableItem,
 	DraggableItemHandle,
+	ItemCollection,
 } from '../lib';
 import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
@@ -669,6 +670,7 @@ function App() {
 					<Tab>OptionsPanel</Tab>
 					<Tab>ResponsivePreview</Tab>
 					<Tab>Modal</Tab>
+					<Tab>ItemCollection</Tab>
 				</TabList>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Toggle
@@ -2701,7 +2703,6 @@ function App() {
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Draggable
-						label='My draggable'
 						items={draggableItems}
 						onChange={setDraggableItems}
 						className='es-uic-grid es-uic-auto-rows-auto es-uic-grid-cols-3 es-uic-gap-1'
@@ -2870,6 +2871,35 @@ function App() {
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Modal title='My modal'>Lorem ipsum modal sit amet.</Modal>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+					<ItemCollection
+						items={draggableItems}
+						onChange={setDraggableItems}
+					>
+						{(item) => {
+							const { toggle, title, updateData, itemIndex, deleteItem } = item;
+
+							return (
+								<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>
+									<p>
+										{itemIndex} {title}
+									</p>
+									<Switch
+										aria-label='Title'
+										checked={toggle}
+										onChange={(value) => updateData({ toggle: value })}
+									/>
+									<Button
+										size='small'
+										type='danger'
+										icon={icons.trash}
+										onPress={() => deleteItem()}
+									/>
+								</div>
+							);
+						}}
+					</ItemCollection>
 				</TabPanel>
 			</Tabs>
 		</div>
