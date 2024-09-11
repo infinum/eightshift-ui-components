@@ -66,6 +66,10 @@ import {
 	OptionsPanelSection,
 	ResponsivePreview,
 	Modal,
+	Draggable,
+	DraggableItem,
+	DraggableItemHandle,
+	ItemCollection,
 } from '../lib';
 import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
@@ -397,9 +401,32 @@ function App() {
 		},
 	];
 
+	const draggableDefaultItems = [
+		{
+			toggle: false,
+			title: 'Item 1',
+		},
+		{
+			toggle: true,
+			title: 'Item 2',
+		},
+		{
+			toggle: true,
+		},
+		{
+			toggle: true,
+			title: 'Item 4 lorem ipsum dolor sit amet lorem ipsum dolor sit amet',
+		},
+		{
+			toggle: true,
+			title: 'Item 5',
+		},
+	];
+
 	const [repeaterItems, setRepeaterItems] = useState(repeaterDefaultItems);
 	const [repeaterItems2, setRepeaterItems2] = useState(repeaterDefaultItems);
 	const [draggableListItems, setDraggableListItems] = useState(draggableListDefaultItems);
+	const [draggableItems, setDraggableItems] = useState(draggableDefaultItems);
 
 	const [sliderValue, setSliderValue] = useState(0);
 	const [sliderValue2, setSliderValue2] = useState(0);
@@ -638,10 +665,12 @@ function App() {
 					<Tab>ContainerPanel</Tab>
 					<Tab>Layout components</Tab>
 					<Tab>ImagePlaceholder / MediaPlaceholder / FilePlaceholder</Tab>
+					<Tab>Draggable</Tab>
 					<Tab>DraggableList</Tab>
 					<Tab>OptionsPanel</Tab>
 					<Tab>ResponsivePreview</Tab>
 					<Tab>Modal</Tab>
+					<Tab>ItemCollection</Tab>
 				</TabList>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Toggle
@@ -2673,6 +2702,30 @@ function App() {
 					/>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+					<Draggable
+						items={draggableItems}
+						onChange={setDraggableItems}
+						className='es-uic-grid es-uic-auto-rows-auto es-uic-grid-cols-3 es-uic-gap-1'
+						slotClassName='es-uic-border es-uic-border-dashed es-uic-p-1 es-uic-rounded-md'
+					>
+						{(item) => {
+							const { toggle, title, updateData } = item;
+
+							return (
+								<DraggableItem className='es-uic-size-full es-uic-rounded es-uic-border es-uic-bg-gray-50 es-uic-p-2'>
+									<DraggableItemHandle />
+									<p>{title}</p>
+									<Switch
+										aria-label='Title'
+										checked={toggle}
+										onChange={(value) => updateData({ toggle: value })}
+									/>
+								</DraggableItem>
+							);
+						}}
+					</Draggable>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<DraggableList
 						label='My draggable list'
 						items={draggableListItems}
@@ -2818,6 +2871,35 @@ function App() {
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Modal title='My modal'>Lorem ipsum modal sit amet.</Modal>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+					<ItemCollection
+						items={draggableItems}
+						onChange={setDraggableItems}
+					>
+						{(item) => {
+							const { toggle, title, updateData, itemIndex, deleteItem } = item;
+
+							return (
+								<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>
+									<p>
+										{itemIndex} {title}
+									</p>
+									<Switch
+										aria-label='Title'
+										checked={toggle}
+										onChange={(value) => updateData({ toggle: value })}
+									/>
+									<Button
+										size='small'
+										type='danger'
+										icon={icons.trash}
+										onPress={() => deleteItem()}
+									/>
+								</div>
+							);
+						}}
+					</ItemCollection>
 				</TabPanel>
 			</Tabs>
 		</div>

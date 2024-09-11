@@ -1,8 +1,7 @@
 import { useEffect, useId, useRef, useState, useMemo } from 'react';
 import { __ } from '@wordpress/i18n';
-import { BaseControl } from '../base-control/base-control';
 import { createSwapy } from 'swapy';
-import { DraggableListContext } from './draggable-list-context';
+import { DraggableContext } from './draggable-context';
 import { clsx } from 'clsx/lite';
 
 const fixIds = (items, itemIdBase) => {
@@ -13,27 +12,21 @@ const fixIds = (items, itemIdBase) => {
 };
 
 /**
- * A component that allows re-ordering a list of items.
+ * A component that allows re-ordering items freely.
  *
  * @component
  * @param {Object} props - Component props.
- * @param {JSX.Element} [props.icon] - Icon to display in the label.
- * @param {string} [props.label] - Label to display.
- * @param {string} [props.subtitle] - Subtitle to display.
- * @param {string} [props.help] - Help text to display below the input.
- * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display to the right of the label.
  * @param {Object<string, any>[]} props.items - Data to display in the list.
  * @param {Function} props.onChange - Function to run when the items change.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- * @param {boolean} [props.disabled] - If `true`, item reordering is disabled.
- * @param {string} [props.className] - Classes to pass to the item wrapper.
- * @param {boolean} [props.labelAsHandle=false] - If `true`, the label will be used as the handle for dragging.
+ * @param {boolean} [props.noReorder] - If `true`, item reordering is disabled.
+ * @param {string} [props.className] - Classes to pass to the component.
+ * @param {string} [props.slotClassName] - Classes to pass to the item container slot.
  *
- * @returns {JSX.Element} The DraggableList component.
+ * @returns {JSX.Element} The Draggable component.
  *
  * @example
- * <DraggableList
- * 	label='My draggable list'
+ * <Draggable
  * 	items={items}
  * 	onChange={setItems}
  * >
@@ -41,7 +34,7 @@ const fixIds = (items, itemIdBase) => {
  * 		const { title, updateData } = item;
  *
  * 		return (
- * 			<DraggableListItem
+ * 			<DraggableItem
  * 				label={title ?? 'New item'}
  * 				icon={icons.myIcon}
  * 			>
@@ -51,14 +44,14 @@ const fixIds = (items, itemIdBase) => {
  * 					value={title}
  * 					onChange={(value) => updateData({ title: value })}
  * 				/>
- * 			</DraggableListItem>
+ * 			</DraggableItem>
  * 		);
  * 	}}
- * </DraggableList>
+ * </Draggable>
  *
  * @preserve
  */
-export const DraggableList = (props) => {
+export const Draggable = (props) => {
 	const itemIdBase = useId('draggable-list-item-');
 
 	const {
@@ -67,16 +60,10 @@ export const DraggableList = (props) => {
 		items: rawItems,
 		onChange,
 
-		icon,
-		label,
-		subtitle,
-		help,
-		actions,
+		noReorder,
 
-		disabled,
 		className,
-
-		labelAsHandle,
+		slotClassName,
 
 		hidden,
 		...rest
@@ -92,7 +79,6 @@ export const DraggableList = (props) => {
 			slotId: item.id,
 			itemId: item.id,
 		})),
-		{ slotId: `${Math.round(Math.random() * 99999)}`, itemId: null },
 	]);
 
 	const slottedItems = useMemo(
@@ -145,59 +131,52 @@ export const DraggableList = (props) => {
 		};
 	}, []);
 
+	useEffect(() => {
+		swapyRef?.current?.enable(!noReorder);
+	}, [noReorder]);
+
 	if (hidden) {
 		return null;
 	}
 
 	return (
-		<BaseControl
-			icon={icon}
-			label={label}
-			subtitle={subtitle}
-			help={help}
-			actions={actions}
-			className='es-uic-w-full'
+		<div
+			className={className}
+			ref={ref}
+			{...rest}
 		>
-			<DraggableListContext.Provider value={{ labelAsHandle: labelAsHandle }}>
+			{slottedItems.map(({ itemId, slotId, item }, index) => (
 				<div
-					ref={ref}
-					{...rest}
+					className={clsx(
+						'es-uic-transition-colors data-[swapy-highlighted]:es-uic-rounded-md data-[swapy-highlighted]:es-uic-outline-dashed data-[swapy-highlighted]:es-uic-outline-1 data-[swapy-highlighted]:es-uic-outline-teal-500/50',
+						slotClassName,
+					)}
+					data-swapy-slot={slotId}
+					key={slotId}
 				>
-					{slottedItems.map(({ itemId, slotId, item }, index) => (
-						<div
-							className='es-uic-group es-uic-transition-colors data-[swapy-highlighted]:es-uic-rounded-md data-[swapy-highlighted]:es-uic-outline-dashed data-[swapy-highlighted]:es-uic-outline-1 data-[swapy-highlighted]:es-uic-outline-teal-500/50'
-							data-swapy-slot={slotId}
-							key={slotId}
+					{item && (
+						<DraggableContext.Provider
+							value={{ itemId }}
+							key={itemId}
 						>
-							{item && (
-								<div
-									className={clsx(
-										'es-uic-transition-[background-color,_box-shadow,_border-radius,_border]',
-										'group-data-[swapy-highlighted]:es-uic-rounded-md group-data-[swapy-highlighted]:es-uic-bg-white group-data-[swapy-highlighted]:es-uic-shadow',
-									)}
-									data-swapy-item={itemId}
-									key={itemId}
-								>
-									{children({
-										...item,
-										updateData: (newValue) => {
-											onChange(items.map((i) => (i.id === itemId ? { ...i, ...newValue } : i)));
-										},
-										itemIndex: index,
-										deleteItem: () => {
-											onChange(items.filter((i) => i.id !== item.id));
+							{children({
+								...item,
+								updateData: (newValue) => {
+									onChange(items.map((i) => (i.id === itemId ? { ...i, ...newValue } : i)));
+								},
+								itemIndex: index,
+								deleteItem: () => {
+									onChange(items.filter((i) => i.id !== item.id));
 
-											if (item.onAfterItemRemove) {
-												onAfterItemRemove(item);
-											}
-										},
-									})}
-								</div>
-							)}
-						</div>
-					))}
+									if (item.onAfterItemRemove) {
+										onAfterItemRemove(item);
+									}
+								},
+							})}
+						</DraggableContext.Provider>
+					)}
 				</div>
-			</DraggableListContext.Provider>
-		</BaseControl>
+			))}
+		</div>
 	);
 };

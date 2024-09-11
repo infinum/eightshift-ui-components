@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.5.0] - 2024-09-11
+- Updated dependencies.
+- (**breaking-ish**) Tweaked CSS reset to ignore whole WP admin by default. You'll need to add `es-uic-has-css-reset` to enable it where needed.
+- Reworked `DraggableList`, now using a new animation library for a more fluid experience.
+- There's now also a `DraggableListItemHandle` that can be placed anywhere within `DraggableListItem` to mark the drag area.
+- `DraggableListItem` will now hide the label properly if `title`, `icon` and `subtitle` are not sent
+- `DraggableList` now supports a `labelAsHandle` prop to constrain dragging just to the label, instead of the whole item (not compatible with a custom handle!)
+- Made `Switch` transforms harder to override by accident from an external source.
+- Slightly tweaked `Repeater` styling.
+- `LinkInput` should work properly now if `fetchSuggestions` is not passed.
+- `LinkInput` will not show suggestions when the field is empty. You can opt out into that with `showSuggestionsWhenEmpty` (could be useful if you have a default list of suggestions).
+- Added `Draggable` component for more random layouts.
+- Added `ItemCollection` component to get rid of those pesky `.map`s in the editor.
+
 ## [1.4.7] - 2024-08-16
 - Disabled focus handling in `Expandable` due to Gutenberg conflicts.
 - Fixed `LinkInput` external value not previewing.
@@ -152,6 +166,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
 
+[1.5.0]: https://github.com/infinum/eightshift-ui-components/compare/1.4.7...1.5.0
 [1.4.7]: https://github.com/infinum/eightshift-ui-components/compare/1.4.6...1.4.7
 [1.4.6]: https://github.com/infinum/eightshift-ui-components/compare/1.4.5...1.4.6
 [1.4.5]: https://github.com/infinum/eightshift-ui-components/compare/1.4.4...1.4.5
