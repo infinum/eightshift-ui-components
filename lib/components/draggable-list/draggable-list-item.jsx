@@ -24,7 +24,7 @@ import { useContext } from 'react';
  * @preserve
  */
 export const DraggableListItem = (props) => {
-	const { children, icon, label, subtitle, className, containerClassName, textValue, itemIndex, ...rest } = props;
+	const { children, icon, label, subtitle, className, containerClassName, ...rest } = props;
 
 	const { labelAsHandle } = useContext(DraggableListContext);
 
