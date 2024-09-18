@@ -1595,6 +1595,35 @@ function App() {
 							<InputField label='Hi' />
 						</div>
 					</ComponentToggle>
+
+					<ComponentToggle
+						icon={icons.video}
+						label='Video'
+						useComponent={useComp}
+						onChange={setUseComp}
+						noExpandButton
+					>
+						<div className='bg-slate-200 es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-p-2'>
+							Lorem options noExpandButton
+							<Button>Hello</Button>
+							<InputField label='Hi' />
+						</div>
+					</ComponentToggle>
+
+					<ComponentToggle
+						icon={icons.componentGeneric}
+						label='Generic'
+						useComponent={useComp}
+						onChange={setUseComp}
+						noExpandButton
+						noUseToggle
+					>
+						<div className='bg-slate-200 es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-p-2'>
+							Lorem options noExpandButton noUseToggle
+							<Button>Hello</Button>
+							<InputField label='Hi' />
+						</div>
+					</ComponentToggle>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<ListBox
