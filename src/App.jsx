@@ -67,8 +67,7 @@ import {
 	ResponsivePreview,
 	Modal,
 	Draggable,
-	DraggableItem,
-	DraggableItemHandle,
+	DraggableHandle,
 	ItemCollection,
 } from '../lib';
 import { icons } from '../lib/icons';
@@ -2755,21 +2754,20 @@ function App() {
 						items={draggableItems}
 						onChange={setDraggableItems}
 						className='es-uic-grid es-uic-auto-rows-auto es-uic-grid-cols-3 es-uic-gap-1'
-						slotClassName='es-uic-border es-uic-border-dashed es-uic-p-1 es-uic-rounded-md'
 					>
 						{(item) => {
 							const { toggle, title, updateData } = item;
 
 							return (
-								<DraggableItem className='es-uic-size-full es-uic-rounded es-uic-border es-uic-bg-gray-50 es-uic-p-2'>
-									<DraggableItemHandle />
+								<div className='es-uic-relative es-uic-size-full es-uic-rounded es-uic-border es-uic-bg-white es-uic-p-2'>
+									<DraggableHandle className='es-uic-absolute es-uic-right-1 es-uic-top-1' />
 									<p>{title}</p>
 									<Switch
 										aria-label='Title'
 										checked={toggle}
 										onChange={(value) => updateData({ toggle: value })}
 									/>
-								</DraggableItem>
+								</div>
 							);
 						}}
 					</Draggable>
