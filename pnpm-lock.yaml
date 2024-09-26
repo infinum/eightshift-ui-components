@@ -29,12 +29,12 @@ importers:
       react-jsx-parser:
         specifier: ^2.1.0
         version: 2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-movable:
+        specifier: ^3.3.1
+        version: 3.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       svg-to-jsx-string:
         specifier: ^0.1.1
         version: 0.1.1
-      swapy:
-        specifier: ^0.3.1
-        version: 0.3.1
     devDependencies:
       '@adobe/react-spectrum':
         specifier: ^3.36.3
@@ -88,14 +88,14 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0(eslint@9.11.1(jiti@1.21.6))
       eslint-plugin-jsdoc:
-        specifier: ^50.2.5
-        version: 50.2.5(eslint@9.11.1(jiti@1.21.6))
+        specifier: ^50.3.0
+        version: 50.3.0(eslint@9.11.1(jiti@1.21.6))
       eslint-plugin-prettier:
         specifier: ^5.2.1
         version: 5.2.1(eslint-config-prettier@9.1.0(eslint@9.11.1(jiti@1.21.6)))(eslint@9.11.1(jiti@1.21.6))(prettier@3.3.3)
       framer-motion:
-        specifier: ^11.7.0
-        version: 11.7.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^11.8.0
+        version: 11.8.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       glob:
         specifier: ^11.0.0
         version: 11.0.0
@@ -2031,8 +2031,8 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
-  eslint-plugin-jsdoc@50.2.5:
-    resolution: {integrity: sha512-o3pVL19dSO3et+env3uV2WjrMX8oEqZjBF8lZBpLl9/CgqaRAIx5UaSPfrbHKB/JlHldWOFFGrUeZWmpWUds6g==}
+  eslint-plugin-jsdoc@50.3.0:
+    resolution: {integrity: sha512-P7qDB/RckdKETpBM4CtjHRQ5qXByPmFhRi86sN3E+J+tySchq+RSOGGhI2hDIefmmKFuTi/1ACjqsnDJDDDfzg==}
     engines: {node: '>=18'}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -2141,8 +2141,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  framer-motion@11.7.0:
-    resolution: {integrity: sha512-m+1E3mMzDIQ5DsVghMvXyC+jSkZSm5RHBLA2gHa/LczcXwW6JbQK4Uz48LsuCTGV8bZFVUezcauHj3M33tY/5w==}
+  framer-motion@11.8.0:
+    resolution: {integrity: sha512-q/axN/PFRdKmzPK6PO2OhbLUMWXXZuiejdM1/3FhC2hm4YIetc+qeco2EvWm4u1/UTFmevclE492wGFNfSZ4eQ==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0
@@ -2696,6 +2696,12 @@ packages:
       react: '>=18'
       react-dom: '>=18'
 
+  react-movable@3.3.1:
+    resolution: {integrity: sha512-dfX15ZlyoefoFs1kqVeLrJoso4eaTEBwP2pyUanDUyNg1Uy+lzxOv0GyNcmHJTZUtLSaNbim8DdekpKALSLKkA==}
+    peerDependencies:
+      react: '*'
+      react-dom: '*'
+
   react-select@5.8.1:
     resolution: {integrity: sha512-RT1CJmuc+ejqm5MPgzyZujqDskdvB9a9ZqrdnVLsvAHjJ3Tj0hELnLeVPQlmYdVKCdCpxanepl6z7R5KhXhWzg==}
     peerDependencies:
@@ -2838,9 +2844,6 @@ packages:
 
   svg-to-jsx-string@0.1.1:
     resolution: {integrity: sha512-iZ6vpKQkZxX2TPnlWmb/GuSV9Msjfp7YVgyUnmMOEl9IUw8ilNqNBny/T/2tt6ctV1EqaDvOs5f7X0LrTIkqtA==}
-
-  swapy@0.3.1:
-    resolution: {integrity: sha512-8Gf2rpoDLsts1SdTWsmB38SpItCWOe8cnKGdw11cEAOJj2r83kPUdWyCp9UjWh7K3/rVhzOGIxnz5drOcQJlug==}
 
   synckit@0.9.1:
     resolution: {integrity: sha512-7gr8p9TQP6RAHusBOSLs46F4564ZrjV8xFmw5zCmgmhGUcw2hxsShhJ6CEiHQMgPDwAQ1fWHPM0ypc4RMAig4A==}
@@ -5794,7 +5797,7 @@ snapshots:
     dependencies:
       eslint: 9.11.1(jiti@1.21.6)
 
-  eslint-plugin-jsdoc@50.2.5(eslint@9.11.1(jiti@1.21.6)):
+  eslint-plugin-jsdoc@50.3.0(eslint@9.11.1(jiti@1.21.6)):
     dependencies:
       '@es-joy/jsdoccomment': 0.48.0
       are-docs-informative: 0.0.2
@@ -5940,7 +5943,7 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@11.7.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  framer-motion@11.8.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       tslib: 2.7.0
     optionalDependencies:
@@ -6427,6 +6430,11 @@ snapshots:
       '@types/react': 18.3.9
       '@types/react-dom': 18.3.0
 
+  react-movable@3.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   react-select@5.8.1(@types/react@18.3.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.25.6
@@ -6610,8 +6618,6 @@ snapshots:
   supports-preserve-symlinks-flag@1.0.0: {}
 
   svg-to-jsx-string@0.1.1: {}
-
-  swapy@0.3.1: {}
 
   synckit@0.9.1:
     dependencies:

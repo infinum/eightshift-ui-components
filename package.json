@@ -1,6 +1,6 @@
 {
 	"name": "@eightshift/ui-components",
-	"version": "1.5.2",
+	"version": "1.6.0",
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
@@ -50,8 +50,8 @@
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"react-jsx-parser": "^2.1.0",
-		"svg-to-jsx-string": "^0.1.1",
-		"swapy": "^0.3.1"
+		"react-movable": "^3.3.1",
+		"svg-to-jsx-string": "^0.1.1"
 	},
 	"devDependencies": {
 		"@adobe/react-spectrum": "^3.36.3",
@@ -71,9 +71,9 @@
 		"css-gradient-parser": "^0.0.16",
 		"eslint": "^9.11.1",
 		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-jsdoc": "^50.2.5",
+		"eslint-plugin-jsdoc": "^50.3.0",
 		"eslint-plugin-prettier": "^5.2.1",
-		"framer-motion": "^11.7.0",
+		"framer-motion": "^11.8.0",
 		"glob": "^11.0.0",
 		"globals": "^15.9.0",
 		"just-camel-case": "^6.2.0",

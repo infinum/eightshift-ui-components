@@ -3,9 +3,14 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [1.5.2] - 2024-09-18
+## [1.6.0] - 2024-09-27
 - Updated dependencies.
 - Made `clearable` variant of `ColorPicker` less confusing.
+- Reworked `Draggable`, `DraggableList`, and `Repeater` to improve user experience.
+- `Draggable` is now much easier to use.
+- `Repeater` now supports "drag outside to delete item", custom menu items for each item, and there's a *Duplicate* option now on items.
+- Fixed `Draggable` not working.
+- Removed `swapy` dependency.
 
 ## [1.5.1] - 2024-09-18
 - Fixed select components overlaps in some cases (by @piqusy).
@@ -173,7 +178,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
-[1.5.2]: https://github.com/infinum/eightshift-ui-components/compare/1.5.1...1.5.2
+[1.6.0]: https://github.com/infinum/eightshift-ui-components/compare/1.5.1...1.6.0
 [1.5.1]: https://github.com/infinum/eightshift-ui-components/compare/1.5.0...1.5.1
 [1.5.0]: https://github.com/infinum/eightshift-ui-components/compare/1.4.7...1.5.0
 [1.4.7]: https://github.com/infinum/eightshift-ui-components/compare/1.4.6...1.4.7
