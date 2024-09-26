@@ -69,6 +69,7 @@ import {
 	Draggable,
 	DraggableHandle,
 	ItemCollection,
+	OptionsPanelHeader,
 } from '../lib';
 import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
@@ -2820,6 +2821,18 @@ function App() {
 					</DraggableList>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-[50rem] es-uic-space-y-4 es-uic-bg-gray-100 !es-uic-p-5'>
+					<OptionsPanelHeader
+						title='Theme options'
+						actions={
+							<>
+								<Button type='ghost'>Test</Button>
+								<Button type='selected'>Save</Button>
+							</>
+						}
+					>
+						<Button>Demo</Button>
+					</OptionsPanelHeader>
+
 					<OptionsPanel>
 						<OptionsPanelSection>
 							<Select

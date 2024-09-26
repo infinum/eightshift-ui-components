@@ -13,6 +13,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Fixed `Draggable` not working.
 - Removed `swapy` dependency.
 - Made `OptionsPanel` a bit wider.
+- Added `OptionsPanelHeader`.
 
 ## [1.5.1] - 2024-09-18
 - Fixed select components overlaps in some cases (by @piqusy).
