@@ -1,9 +1,8 @@
-import { useEffect, useId, useRef, useState, useMemo } from 'react';
+import { useId, useMemo } from 'react';
 import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
-import { createSwapy } from 'swapy';
-import { DraggableListContext } from './draggable-list-context';
 import { clsx } from 'clsx/lite';
+import { List, arrayMove, arrayRemove } from 'react-movable';
 
 const fixIds = (items, itemIdBase) => {
 	return items.map((item, i) => ({
@@ -27,7 +26,6 @@ const fixIds = (items, itemIdBase) => {
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {boolean} [props.disabled] - If `true`, item reordering is disabled.
  * @param {string} [props.className] - Classes to pass to the item wrapper.
- * @param {boolean} [props.labelAsHandle=false] - If `true`, the label will be used as the handle for dragging.
  *
  * @returns {JSX.Element} The DraggableList component.
  *
@@ -79,71 +77,11 @@ export const DraggableList = (props) => {
 		labelAsHandle,
 
 		hidden,
+
 		...rest
 	} = props;
 
 	const items = useMemo(() => fixIds(rawItems, itemIdBase), [rawItems]);
-
-	const ref = useRef(null);
-	const swapyRef = useRef(null);
-
-	const [slotItemsMap, setSlotItemsMap] = useState([
-		...items.map((item) => ({
-			slotId: item.id,
-			itemId: item.id,
-		})),
-		{ slotId: `${Math.round(Math.random() * 99999)}`, itemId: null },
-	]);
-
-	const slottedItems = useMemo(
-		() =>
-			slotItemsMap.map(({ slotId, itemId }) => ({
-				slotId,
-				itemId,
-				item: items.find((item) => item.id === itemId),
-			})),
-		[items, slotItemsMap],
-	);
-
-	// Keep Swapy slots in sync with items.
-	useEffect(() => {
-		const newItems = items
-			.filter((item) => !slotItemsMap.some((slotItem) => slotItem.itemId === item.id))
-			.map((item) => ({
-				slotId: item.id,
-				itemId: item.id,
-			}));
-
-		// Remove items from slotItemsMap if they no longer exist in items
-		const withoutRemovedItems = slotItemsMap.filter((slotItem) => items.some((item) => item.id === slotItem.itemId) || !slotItem.itemId);
-
-		const updatedSlotItemsMap = [...withoutRemovedItems, ...newItems];
-
-		setSlotItemsMap(updatedSlotItemsMap);
-		swapyRef.current?.setData({ array: updatedSlotItemsMap });
-	}, [items]);
-
-	// Initialize Swapy.
-	useEffect(() => {
-		const container = ref?.current;
-
-		swapyRef.current = createSwapy(container, {
-			manualSwap: true,
-		});
-
-		swapyRef.current.onSwap(({ data }) => {
-			const tweakedItems = data.array.filter(({ itemId }) => itemId !== null).map(({ itemId }) => items.find((item) => item?.id === itemId));
-			onChange(tweakedItems);
-
-			// Set data manually.
-			swapyRef.current?.setData({ array: data.array });
-			setSlotItemsMap(data.array);
-		});
-
-		return () => {
-			swapyRef.current?.destroy();
-		};
-	}, []);
 
 	if (hidden) {
 		return null;
@@ -157,47 +95,61 @@ export const DraggableList = (props) => {
 			help={help}
 			actions={actions}
 			className='es-uic-w-full'
+			{...rest}
 		>
-			<DraggableListContext.Provider value={{ labelAsHandle: labelAsHandle }}>
-				<div
-					ref={ref}
-					{...rest}
-				>
-					{slottedItems.map(({ itemId, slotId, item }, index) => (
-						<div
-							className='es-uic-group es-uic-transition-colors data-[swapy-highlighted]:es-uic-rounded-md data-[swapy-highlighted]:es-uic-outline-dashed data-[swapy-highlighted]:es-uic-outline-1 data-[swapy-highlighted]:es-uic-outline-teal-500/50'
-							data-swapy-slot={slotId}
-							key={slotId}
-						>
-							{item && (
-								<div
-									className={clsx(
-										'es-uic-transition-[background-color,_box-shadow,_border-radius,_border]',
-										'group-data-[swapy-highlighted]:es-uic-rounded-md group-data-[swapy-highlighted]:es-uic-bg-white group-data-[swapy-highlighted]:es-uic-shadow',
-									)}
-									data-swapy-item={itemId}
-									key={itemId}
-								>
-									{children({
-										...item,
-										updateData: (newValue) => {
-											onChange(items.map((i) => (i.id === itemId ? { ...i, ...newValue } : i)));
-										},
-										itemIndex: index,
-										deleteItem: () => {
-											onChange(items.filter((i) => i.id !== item.id));
+			<List
+				values={items}
+				onChange={({ oldIndex, newIndex }) => onChange(newIndex === -1 ? arrayRemove(items, oldIndex) : arrayMove(items, oldIndex, newIndex))}
+				renderList={({ children, props }) => {
+					const { key, ...rest } = props;
 
-											if (item.onAfterItemRemove) {
-												onAfterItemRemove(item);
-											}
-										},
-									})}
-								</div>
+					return (
+						<ul
+							key={key}
+							className='es-uic-w-full es-uic-list-none'
+							{...rest}
+						>
+							{children}
+						</ul>
+					);
+				}}
+				renderItem={({ value, index, isDisabled, isDragged, isSelected, isOutOfBounds, props }) => {
+					const { key, ...rest } = props;
+
+					return (
+						<li
+							className={clsx(
+								'es-uic-group',
+								'es-uic-min-h-8 es-uic-w-full',
+								'es-uic-flex es-uic-items-center es-uic-gap-1 es-uic-rounded-lg',
+								'es-uic-transition-[box-shadow,_background-color,_filter,_opacity,_border-color]',
+								'focus:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+								isDisabled && 'es-uic-grayscale',
+								isDragged && 'es-uic-bg-white es-uic-opacity-50',
+								isSelected && 'es-uic-bg-teal-50',
+								isDragged ? 'es-uic-cursor-grabbing' : 'es-uic-cursor-grab',
 							)}
-						</div>
-					))}
-				</div>
-			</DraggableListContext.Provider>
+							key={value?.id ?? key}
+							{...rest}
+						>
+							{children({
+								...value,
+								updateData: (newValue) => {
+									onChange(items.map((i) => (i.id === value.id ? { ...i, ...newValue } : i)));
+								},
+								itemIndex: index,
+								deleteItem: () => {
+									onChange(items.filter((i) => i.id !== value.id));
+
+									if (value.onAfterItemRemove) {
+										onAfterItemRemove(value);
+									}
+								},
+							})}
+						</li>
+					);
+				}}
+			/>
 		</BaseControl>
 	);
 };
