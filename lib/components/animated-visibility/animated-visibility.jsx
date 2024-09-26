@@ -43,9 +43,9 @@ export const AnimatedVisibility = (props) => {
 			exit: { opacity: 0, scale: 0.9 },
 		},
 		scaleRotateFade: {
-			initial: { opacity: 0, scale: 0.95, rotate: '-25deg' },
+			initial: { opacity: 0, scale: 0.95, rotate: '-10deg' },
 			animate: { opacity: 1, scale: 1, rotate: '0deg' },
-			exit: { opacity: 0, scale: 0.95, rotate: '-25deg' },
+			exit: { opacity: 0, scale: 0.95, rotate: '-10deg' },
 		},
 	};
 
@@ -56,6 +56,7 @@ export const AnimatedVisibility = (props) => {
 					initial={transitions[transition].initial}
 					animate={transitions[transition].animate}
 					exit={transitions[transition].exit}
+					transition={{ type: 'spring', damping: 15, stiffness: 225 }}
 					className={className}
 					{...other}
 				>
