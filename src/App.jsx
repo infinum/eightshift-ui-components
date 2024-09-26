@@ -384,6 +384,25 @@ function App() {
 		},
 	];
 
+	const repeaterDefaultItems2 = [
+		{
+			id: 'prvi',
+			title: 'Item 1',
+			icon: icons.num1Square,
+		},
+		{
+			id: 'drugi',
+			title: 'Item 2',
+			subtitle: 'Lorem',
+			icon: icons.num2Circle,
+		},
+		{
+			id: 'treci',
+			title: 'Item 3',
+			icon: icons.num3SquareAlt,
+		},
+	];
+
 	const draggableListDefaultItems = [
 		{
 			toggle: false,
@@ -424,7 +443,7 @@ function App() {
 	];
 
 	const [repeaterItems, setRepeaterItems] = useState(repeaterDefaultItems);
-	const [repeaterItems2, setRepeaterItems2] = useState(repeaterDefaultItems);
+	const [repeaterItems2, setRepeaterItems2] = useState(repeaterDefaultItems2);
 	const [draggableListItems, setDraggableListItems] = useState(draggableListDefaultItems);
 	const [draggableListItems2, setDraggableListItems2] = useState(draggableListDefaultItems);
 	const [draggableItems, setDraggableItems] = useState(draggableDefaultItems);
@@ -1724,7 +1743,7 @@ function App() {
 								<RepeaterItem
 									label={title ?? 'New item'}
 									className={clsx(!title && '!es-uic-text-gray-400')}
-									subtitle={itemIndex % 2 === 0 && 'Lorem'}
+									subtitle={subtitle}
 									icon={icon}
 								>
 									<InputField
