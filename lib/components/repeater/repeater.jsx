@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
-import { useId, useMemo } from 'react';
+import { useId } from 'react';
 import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { RepeaterContext } from './repeater-context';
@@ -94,7 +94,7 @@ export const Repeater = (props) => {
 		hidden,
 	} = props;
 
-	const items = useMemo(() => fixIds(rawItems, itemIdBase), [rawItems]);
+	const items = fixIds(rawItems, itemIdBase);
 
 	const canDelete = items.length > (minItems ?? 0);
 	const canAdd = items.length < (maxItems ?? Number.MAX_SAFE_INTEGER);
@@ -127,7 +127,7 @@ export const Repeater = (props) => {
 							icon={icons.add}
 							className={clsx('[&>svg]:es-uic-size-4', !hideEmptyState && items.length < 1 && 'es-uic-invisible')}
 							tooltip={__('Add item', 'eightshift-ui-components')}
-							disabled={addDisabled}
+							disabled={addDisabled || !canAdd}
 						/>
 					)}
 

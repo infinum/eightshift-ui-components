@@ -1,4 +1,4 @@
-import { useId, useMemo } from 'react';
+import { useId } from 'react';
 import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
 import { clsx } from 'clsx/lite';
@@ -81,7 +81,7 @@ export const DraggableList = (props) => {
 		...rest
 	} = props;
 
-	const items = useMemo(() => fixIds(rawItems, itemIdBase), [rawItems]);
+	const items = fixIds(rawItems, itemIdBase);
 
 	if (hidden) {
 		return null;

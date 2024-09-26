@@ -5,6 +5,7 @@ import { useSortable } from '@dnd-kit/react/sortable';
 import { RestrictToHorizontalAxis, RestrictToVerticalAxis } from '@dnd-kit/abstract/modifiers';
 import { RestrictToElement } from '@dnd-kit/dom/modifiers';
 import { DragDropProvider } from '@dnd-kit/react';
+import { move } from '@dnd-kit/helpers';
 
 const fixIds = (items, itemIdBase) => {
 	return items.map((item, i) => ({
@@ -108,7 +109,27 @@ export const Draggable = (props) => {
 			className={className}
 			{...rest}
 		>
-			<DragDropProvider>
+			<DragDropProvider
+				onDragOver={({ operation: { source, target } }) => {
+					if (!source || !target) {
+						return;
+					}
+
+					setItems((items) => move(items, source, target));
+				}}
+				onDragEnd={({ operation: { source, target }, canceled }) => {
+					if (canceled) {
+						return;
+					}
+
+					if (!source || !target) {
+						return;
+					}
+
+					setItems((items) => move(items, source, target));
+					onChange(items);
+				}}
+			>
 				{items.map((item, index) => (
 					<SortableItem
 						key={item.id}

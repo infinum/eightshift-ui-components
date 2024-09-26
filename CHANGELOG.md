@@ -9,7 +9,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Made `clearable` variant of `ColorPicker` less confusing.
 - Reworked `Draggable`, `DraggableList`, and `Repeater` to improve user experience.
 - `Draggable` is now much easier to use.
-- `Repeater` now supports "drag outside to delete item", custom menu items for each item, and there's a *Duplicate* option now on items.
+- `Repeater` now supports "drag outside to delete item", custom menu items for each item, a settable max number of items, and there's a *Duplicate* option now on items.
 - Fixed `Draggable` not working.
 - Removed `swapy` dependency.
 - Made `OptionsPanel` a bit wider.
