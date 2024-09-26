@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.5.2] - 2024-09-18
+- Updated dependencies.
+- Made `clearable` variant of `ColorPicker` less confusing.
+
 ## [1.5.1] - 2024-09-18
 - Fixed select components overlaps in some cases (by @piqusy).
 - Added `noExpandButton`, `noLabel`, `noUseToggle`, and `hideUseToggleOnExpand` to `ComponentToggle`.
@@ -169,6 +173,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[1.5.2]: https://github.com/infinum/eightshift-ui-components/compare/1.5.1...1.5.2
 [1.5.1]: https://github.com/infinum/eightshift-ui-components/compare/1.5.0...1.5.1
 [1.5.0]: https://github.com/infinum/eightshift-ui-components/compare/1.4.7...1.5.0
 [1.4.7]: https://github.com/infinum/eightshift-ui-components/compare/1.4.6...1.4.7
