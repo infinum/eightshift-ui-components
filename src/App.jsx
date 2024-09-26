@@ -426,6 +426,7 @@ function App() {
 	const [repeaterItems, setRepeaterItems] = useState(repeaterDefaultItems);
 	const [repeaterItems2, setRepeaterItems2] = useState(repeaterDefaultItems);
 	const [draggableListItems, setDraggableListItems] = useState(draggableListDefaultItems);
+	const [draggableListItems2, setDraggableListItems2] = useState(draggableListDefaultItems);
 	const [draggableItems, setDraggableItems] = useState(draggableDefaultItems);
 
 	const [sliderValue, setSliderValue] = useState(0);
@@ -2759,6 +2760,29 @@ function App() {
 						label='My draggable list'
 						items={draggableListItems}
 						onChange={setDraggableListItems}
+					>
+						{(item) => {
+							const { toggle, title, icon, updateData } = item;
+
+							return (
+								<DraggableListItem
+									label={title ?? 'New item'}
+									icon={icon ?? icons.emptyCircle}
+								>
+									<Switch
+										aria-label='Title'
+										checked={toggle}
+										onChange={(value) => updateData({ toggle: value })}
+									/>
+								</DraggableListItem>
+							);
+						}}
+					</DraggableList>
+
+					<DraggableList
+						label='My draggable list 2'
+						items={draggableListItems2}
+						onChange={setDraggableListItems2}
 					>
 						{(item) => {
 							const { toggle, title, icon, updateData } = item;
