@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { Menu, MenuItem, MenuSection } from '../menu/menu';
+import { Menu, MenuItem, MenuSection, MenuSeparator } from '../menu/menu';
 import { ColorSwatch } from './color-swatch';
 import { RichLabel } from '../rich-label/rich-label';
 import { BaseControl } from '../base-control/base-control';
@@ -25,10 +25,11 @@ import { icons } from '../../icons/icons';
  * @param {boolean} [props.showColorCode] - If `true`, the HEX color code is shown below the color name.
  * @param {boolean} [props.noColorGroups] - If `true`, colors won't be grouped by shades.
  * @param {ColorPickerType} props.type - Type of the color picker. Affects the icon and tooltip.
- * @param {boolean} [props.clearable] - If `true`, the color can be deselected.
+ * @param {boolean} [props.clearable] - If `true`, the picked color can be removed.
  * @param {boolean} [props.stacked] - If `true`, the control is not rendered inline.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {string} [props.tooltip] - If provided, overrides the default tooltip text. If there is no label, the value will still be shown within the tooltip.
+ * @param {string} [props.clearItemLabel] - Label for the "None" item, if `clearable` is enabled.
  *
  * @returns {JSX.Element} The ColorPicker component.
  *
@@ -70,6 +71,7 @@ export const ColorPicker = (props) => {
 		stacked,
 
 		clearable,
+		clearItemLabel = __('None', 'eightshift-ui-components'),
 
 		hidden,
 
@@ -136,17 +138,8 @@ export const ColorPicker = (props) => {
 					color={color}
 				/>
 			}
-			onClick={() => {
-				if (clearable && value === slug) {
-					onChange(undefined);
-
-					return;
-				}
-
-				onChange(slug);
-			}}
-			checked={clearable ? value === slug : null}
-			selected={!clearable ? value === slug : null}
+			onClick={() => onChange(slug)}
+			selected={value === slug}
 		>
 			{!showColorCode && name}
 			{showColorCode && (
@@ -235,6 +228,19 @@ export const ColorPicker = (props) => {
 				}}
 				{...rest}
 			>
+				{clearable && (
+					<>
+						<MenuItem
+							onClick={() => onChange(undefined)}
+							selected={typeof value === 'undefined'}
+							endIcon={<ColorSwatch className='!es-uic-size-5.5' />}
+						>
+							{clearItemLabel}
+						</MenuItem>
+						<MenuSeparator />
+					</>
+				)}
+
 				{(noColorGroups || !hasColorGroups) &&
 					colors.map((color) => (
 						<SingleItem
