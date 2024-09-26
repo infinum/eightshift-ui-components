@@ -27,7 +27,7 @@ export const OptionsPanel = (props) => {
 	const { children, className, title, icon, subtitle, help } = props;
 
 	return (
-		<div className={clsx('es-uic-max-w-96', className)}>
+		<div className={clsx('es-uic-max-w-md', className)}>
 			{title && (
 				<RichLabel
 					icon={icon}

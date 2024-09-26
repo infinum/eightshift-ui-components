@@ -5,12 +5,14 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 ## [1.6.0] - 2024-09-27
 - Updated dependencies.
+- `ColorPicker` now has better UX when set to `clearable`.
 - Made `clearable` variant of `ColorPicker` less confusing.
 - Reworked `Draggable`, `DraggableList`, and `Repeater` to improve user experience.
 - `Draggable` is now much easier to use.
 - `Repeater` now supports "drag outside to delete item", custom menu items for each item, and there's a *Duplicate* option now on items.
 - Fixed `Draggable` not working.
 - Removed `swapy` dependency.
+- Made `OptionsPanel` a bit wider.
 
 ## [1.5.1] - 2024-09-18
 - Fixed select components overlaps in some cases (by @piqusy).

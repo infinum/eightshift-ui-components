@@ -2819,7 +2819,7 @@ function App() {
 						}}
 					</DraggableList>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-[50rem] es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-[50rem] es-uic-space-y-4 es-uic-bg-gray-100 !es-uic-p-5'>
 					<OptionsPanel>
 						<OptionsPanelSection>
 							<Select
