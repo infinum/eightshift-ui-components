@@ -1,5 +1,6 @@
 import { clsx } from 'clsx/lite';
 import { RichLabel } from '../rich-label/rich-label';
+import { Heading } from 'react-aria-components';
 
 /**
  * Component that provides a container panel for options, with an optional title.
@@ -27,7 +28,7 @@ export const OptionsPanel = (props) => {
 	const { children, className, title, icon, subtitle, help } = props;
 
 	return (
-		<div className={clsx('es-uic-max-w-96', className)}>
+		<div className={clsx('es-uic-max-w-md', className)}>
 			{title && (
 				<RichLabel
 					icon={icon}
@@ -42,6 +43,22 @@ export const OptionsPanel = (props) => {
 	);
 };
 
+/**
+ * Component that provides a container for grouping related options within the `OptionsPanel` component.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string} [props.className] - Classes to pass to the container.
+ *
+ * @returns {JSX.Element} The OptionsPanelSection component.
+ *
+ * @example
+ * <OptionsPanelSection>
+ * 	...
+ * </OptionsPanelSection>
+ *
+ * @preserve
+ */
 export const OptionsPanelSection = ({ children, className }) => {
 	return (
 		<div
@@ -50,6 +67,43 @@ export const OptionsPanelSection = ({ children, className }) => {
 				className,
 			)}
 		>
+			{children}
+		</div>
+	);
+};
+
+/**
+ * Component that provides a header for the top of an options page.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {boolean} [props.sticky] - If `true`, the header will be sticky (scroll with content). Make sure to pass a background color!
+ * @param {string} [props.title] - Title to show.
+ * @param {Number} [props.level=2] - Heading level of the title.
+ * @param {string} [props.className] - Classes to pass to the container.
+ * @param {JSX.Element|JSX.Element[]} [props.actions] - Controls to show on the right side of the header.
+ *
+ * @returns {JSX.Element} The OptionsPanelHeader component.
+ *
+ * @example
+ * <OptionsPanelHeader title='Theme options'>
+ * 	...
+ * </OptionsPanelHeader>
+ *
+ * @preserve
+ */
+export const OptionsPanelHeader = ({ children, sticky, title, className, actions, level = 2 }) => {
+	return (
+		<div className={clsx('es-uic-max-w-md es-uic-space-y-2.5', sticky && 'es-uic-sticky es-uic-top-0 es-uic-z-10', className)}>
+			<div className='es-uic-flex es-uic-flex-wrap es-uic-items-center es-uic-justify-between es-uic-gap-x-8 es-uic-gap-y-4'>
+				<Heading
+					className='es-uic-text-3xl es-uic-font-medium es-uic-tracking-tighter'
+					level={level}
+				>
+					{title}
+				</Heading>
+				<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>{actions}</div>
+			</div>
 			{children}
 		</div>
 	);

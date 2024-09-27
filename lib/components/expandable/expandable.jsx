@@ -4,7 +4,6 @@ import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
 import { clsx } from 'clsx/lite';
-
 import { __ } from '@wordpress/i18n';
 import { Label } from 'react-aria-components';
 import { FocusScope } from 'react-aria';
@@ -20,12 +19,14 @@ import { FocusScope } from 'react-aria';
  * @param {string} [props.className] - Classes to pass to the container.
  * @param {string} [props.contentClassName] - Classes to pass to the inner content wrapper.
  * @param {string} [props.labelClassName] - Classes to pass to the label.
+ * @param {string} [props.headerClassName] - Classes to pass to the header (label + trigger).
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display in the panel header, left of the expand button.
  * @param {boolean} [props.keepActionsOnExpand=false] - If `true`, the actions are not hidden when the panel is expanded.
  * @param {boolean} [props.disabled] - If `true`, the expand button is disabled.
  * @param {boolean} [props.noFocusHandling] - If `true`, the focus trapping when the item is expanded is disabled. Useful when part of another component that manages focus itself.
  * @param {boolean} [props.open] - Whether the expandable is open.
  * @param {Function} [props.onOpenChange] - Function is called when the panel is opened or closed.
+ * @param {object} [props.headerProps] - Props to pass to the header (label + trigger).
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Expandable component.
@@ -46,6 +47,7 @@ export const Expandable = (props) => {
 		className,
 		labelClassName,
 		contentClassName,
+		headerClassName,
 
 		actions,
 
@@ -59,6 +61,10 @@ export const Expandable = (props) => {
 
 		open = false,
 		onOpenChange,
+
+		customOpenButton,
+
+		headerProps,
 
 		hidden,
 
@@ -84,7 +90,10 @@ export const Expandable = (props) => {
 			)}
 			{...other}
 		>
-			<div className={clsx('es-uic-flex es-uic-h-10 es-uic-items-center es-uic-gap-1 es-uic-transition-[padding]', isOpen && 'es-uic-py-1 es-uic-pl-2 es-uic-pr-1')}>
+			<div
+				className={clsx('es-uic-flex es-uic-h-10 es-uic-items-center es-uic-gap-1 es-uic-transition-[padding]', isOpen && 'es-uic-py-1 es-uic-pl-2 es-uic-pr-1', headerClassName)}
+				{...headerProps}
+			>
 				<RichLabel
 					icon={icon}
 					label={label}
@@ -107,21 +116,37 @@ export const Expandable = (props) => {
 
 				{actions && keepActionsOnExpand && <div className='es-uic-ml-auto es-uic-flex es-uic-gap-2'>{actions}</div>}
 
-				<Button
-					type='ghost'
-					icon={isOpen ? icons.caretDownFill : icons.caretDown}
-					onPress={() => {
-						setIsOpen(!isOpen);
+				{customOpenButton &&
+					customOpenButton({
+						open: isOpen,
+						toggleOpen: () => {
+							setIsOpen(!isOpen);
 
-						if (onOpenChange) {
-							onOpenChange(!isOpen);
-						}
-					}}
-					tooltip={isOpen ? __('Close', 'eightshift-ui-components') : __('Open', 'eightshift-ui-components')}
-					disabled={disabled}
-					className={clsx('[&>svg]:es-uic-size-5 [&>svg]:es-uic-transition-transform', isOpen && '[&>svg]:-es-uic-scale-y-100')}
-					size='small'
-				/>
+							if (onOpenChange) {
+								onOpenChange(!isOpen);
+							}
+						},
+						tooltip: isOpen ? __('Close', 'eightshift-ui-components') : __('Open', 'eightshift-ui-components'),
+						disabled,
+					})}
+
+				{!customOpenButton && (
+					<Button
+						type='ghost'
+						icon={isOpen ? icons.caretDownFill : icons.caretDown}
+						onPress={() => {
+							setIsOpen(!isOpen);
+
+							if (onOpenChange) {
+								onOpenChange(!isOpen);
+							}
+						}}
+						tooltip={isOpen ? __('Close', 'eightshift-ui-components') : __('Open', 'eightshift-ui-components')}
+						disabled={disabled}
+						className={clsx('[&>svg]:es-uic-size-5 [&>svg]:es-uic-transition-transform', isOpen && '[&>svg]:-es-uic-scale-y-100')}
+						size='small'
+					/>
+				)}
 			</div>
 
 			<AnimatedVisibility

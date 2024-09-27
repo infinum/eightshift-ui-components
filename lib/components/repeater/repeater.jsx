@@ -1,33 +1,18 @@
 import { __ } from '@wordpress/i18n';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
-import { useId, useState, useEffect, useRef } from 'react';
+import { useId } from 'react';
 import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
-import { ToggleButton } from '../toggle-button/toggle-button';
-import { useSortable } from '@dnd-kit/react/sortable';
 import { RepeaterContext } from './repeater-context';
-import { RestrictToVerticalAxis } from '@dnd-kit/abstract/modifiers';
-import { move } from '@dnd-kit/helpers';
-import { DragDropProvider } from '@dnd-kit/react';
 import { clsx } from 'clsx/lite';
+import { List, arrayMove, arrayRemove } from 'react-movable';
 
-const SortableItem = ({ id, index, disabled, children }) => {
-	const [element, setElement] = useState(null);
-	const handleRef = useRef(null);
-
-	const { isDragSource, status } = useSortable({
-		id,
-		index,
-		element,
-		type: 'item',
-		modifiers: [RestrictToVerticalAxis],
-		transition: { idle: true, duration: 400, easing: 'cubic-bezier(0, 0.55, 0.45, 1)' }, // 'easeOutCirc'
-		handle: handleRef,
-		disabled,
-	});
-
-	return <div ref={setElement}>{children(handleRef, isDragSource, status)}</div>;
+const fixIds = (items, itemIdBase) => {
+	return items.map((item, i) => ({
+		...item,
+		id: item?.id ?? `${itemIdBase}-${i}`,
+	}));
 };
 
 /**
@@ -48,6 +33,7 @@ const SortableItem = ({ id, index, disabled, children }) => {
  * @param {Function} [props.onAfterItemAdd] - Function to run after an item is added.
  * @param {Function} [props.onAfterItemRemove] - Function to run after an item is removed.
  * @param {Number} [props.minItems] - The minimum number of items that must be present. If there are less items than this, deleting items will be disabled.
+ * @param {Number} [props.maxItems] - The maximum number of items that can be present. If there are more items than this, adding items will be disabled.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {JSX.Element} [props.addButton] - If provided, overrides the default add button. `(props: { addItem: (additional: Object<string, any>?) => void, disabled: Boolean }) => JSX.Element`.
  * @param {string} [props.className] - Classes to pass to the item wrapper.
@@ -100,6 +86,7 @@ export const Repeater = (props) => {
 		onAfterItemAdd,
 		onAfterItemRemove,
 		minItems,
+		maxItems,
 		addButton,
 		className,
 		emptyState,
@@ -107,29 +94,10 @@ export const Repeater = (props) => {
 		hidden,
 	} = props;
 
-	const fixIds = (items) => {
-		return items.map((item, i) => ({
-			...item,
-			id: item?.id ?? `${itemIdBase}-${i}`,
-		}));
-	};
+	const items = fixIds(rawItems, itemIdBase);
 
-	const [items, setItems] = useState(fixIds(rawItems));
-
-	const [canDelete, setCanDelete] = useState(false);
-	const [isPanelOpen, setIsPanelOpen] = useState({});
-	const [isDragging, setIsDragging] = useState(false);
-
-	const isAnyPanelOpen = Object.keys(isPanelOpen)?.length < 1 ? false : Object.entries(isPanelOpen).some(([_, v]) => v === true);
-
-	if (canDelete && items.length < (minItems ?? 1)) {
-		setCanDelete(false);
-	}
-
-	// Ensure the internal state is updated if items are updated externally.
-	useEffect(() => {
-		setItems(fixIds(rawItems));
-	}, [rawItems]);
+	const canDelete = items.length > (minItems ?? 0);
+	const canAdd = items.length < (maxItems ?? Number.MAX_SAFE_INTEGER);
 
 	if (hidden) {
 		return null;
@@ -145,17 +113,6 @@ export const Repeater = (props) => {
 				<>
 					{actions}
 
-					<AnimatedVisibility visible={items.length > 0}>
-						<ToggleButton
-							selected={canDelete}
-							onChange={setCanDelete}
-							size='small'
-							icon={icons.trash}
-							tooltip={__('Delete items', 'eightshift-ui-components')}
-							disabled={minItems && items.length <= minItems}
-						/>
-					</AnimatedVisibility>
-
 					{!addButton && (
 						<Button
 							onPress={() => {
@@ -170,7 +127,7 @@ export const Repeater = (props) => {
 							icon={icons.add}
 							className={clsx('[&>svg]:es-uic-size-4', !hideEmptyState && items.length < 1 && 'es-uic-invisible')}
 							tooltip={__('Add item', 'eightshift-ui-components')}
-							disabled={addDisabled || canDelete}
+							disabled={addDisabled || !canAdd}
 						/>
 					)}
 
@@ -185,7 +142,7 @@ export const Repeater = (props) => {
 										onAfterItemAdd(newItem);
 									}
 								},
-								disabled: addDisabled || canDelete,
+								disabled: addDisabled,
 							})}
 						</div>
 					)}
@@ -193,123 +150,79 @@ export const Repeater = (props) => {
 			}
 			className='es-uic-w-full'
 		>
-			<div className={className}>
-				<DragDropProvider
-					onDragStart={(event) => {
-						if (isAnyPanelOpen) {
-							event.preventDefault();
+			<List
+				values={items}
+				onChange={({ oldIndex, newIndex }) => onChange(newIndex === -1 ? arrayRemove(items, oldIndex) : arrayMove(items, oldIndex, newIndex))}
+				renderList={({ children, props }) => {
+					const { key, ...rest } = props;
 
-							return;
-						}
-
-						setIsDragging(true);
-					}}
-					onDragOver={(event) => {
-						if (isAnyPanelOpen) {
-							event.preventDefault();
-
-							return;
-						}
-
-						const { source, target } = event.operation;
-
-						if (!source || !target) {
-							return;
-						}
-
-						setItems((items) => move(items, source, target));
-					}}
-					onDragEnd={(event) => {
-						if (isAnyPanelOpen) {
-							event.preventDefault();
-
-							return;
-						}
-
-						const { source, target } = event.operation;
-
-						if (!source || !target) {
-							return;
-						}
-
-						if (event.canceled) {
-							return;
-						}
-
-						setIsDragging(false);
-
-						setItems((items) => move(items, source, target));
-						onChange(items);
-					}}
-				>
-					{items.map((item, index) => (
-						<SortableItem
-							key={item.id}
-							id={item.id}
-							index={index}
-							item={item}
-							disabled={canDelete || isAnyPanelOpen}
+					return (
+						<ul
+							key={key}
+							className={clsx('es-uic-w-full es-uic-list-none', className)}
+							{...rest}
 						>
-							{(handleRef, isDragSource, status) => {
-								return (
-									<RepeaterContext.Provider
-										key={item.id}
-										value={{
-											...item,
-											index,
-											canDelete,
-											deleteItem: () => {
-												setItems([...items].filter((i) => i.id !== item.id));
-												onChange([...items].filter((i) => i.id !== item.id));
+							{children}
+						</ul>
+					);
+				}}
+				renderItem={({ value: item, index, isDragged, isSelected, isOutOfBounds, props }) => {
+					const { key, ...rest } = props;
 
-												if (onAfterItemRemove) {
-													onAfterItemRemove(item);
-												}
-											},
-											handleOpenChange: (isOpen) => setIsPanelOpen((data) => ({ ...data, [item.id]: isOpen })),
-											isDragSource,
-										}}
-									>
-										<div className='es-uic-relative'>
-											<Button
-												size='small'
-												className={clsx(
-													'es-uic-absolute es-uic-bottom-0 es-uic-left-1 es-uic-top-0 es-uic-z-20 es-uic-my-auto es-uic-h-6 es-uic-w-4 -es-uic-translate-x-full !es-uic-text-gray-500 es-uic-opacity-50 focus:es-uic-opacity-100 [&_svg]:es-uic-shrink-0',
-													(isAnyPanelOpen || canDelete) && 'es-uic-pointer-events-none es-uic-invisible !es-uic-cursor-default',
-												)}
-												type='ghost'
-												icon='⋮'
-												// Temporarily commented out.
-												// tooltip={!isDragSource && status === 'idle' && __('Re-order', 'eightshift-ui-components')}
-												forwardedRef={handleRef}
-											/>
+					return (
+						<li
+							className='es-uic-group es-uic-w-full es-uic-list-none focus:es-uic-outline-none'
+							key={item?.id ?? key}
+							{...rest}
+						>
+							<RepeaterContext.Provider
+								value={{
+									...item,
+									index,
+									deleteItem: () => {
+										onChange([...items].filter((i) => i.id !== item.id));
 
-											{children({
-												...item,
-												updateData: (newValue) => {
-													const updated = [...items].map((i) => (i.id === item.id ? { ...i, ...newValue } : i));
+										if (onAfterItemRemove) {
+											onAfterItemRemove(item);
+										}
+									},
+									duplicateItem: () => {
+										const newItem = { ...item, id: `${itemIdBase}${items.length + 1}` };
+										onChange([...items, newItem]);
 
-													onChange(updated);
-													setItems(updated);
-												},
-												itemIndex: index,
-												deleteItem: () => {
-													setItems([...items].filter((i) => i.id !== item.id));
-													onChange([...items].filter((i) => i.id !== item.id));
+										if (onAfterItemAdd) {
+											onAfterItemAdd(newItem);
+										}
+									},
+									isDragged,
+									isOutOfBounds,
+									isSelected,
+									canDelete,
+									canAdd,
+								}}
+							>
+								{children({
+									...item,
+									updateData: (newValue) => {
+										const updated = [...items].map((i) => (i.id === item.id ? { ...i, ...newValue } : i));
 
-													if (onAfterItemRemove) {
-														onAfterItemRemove(item);
-													}
-												},
-											})}
-										</div>
-									</RepeaterContext.Provider>
-								);
-							}}
-						</SortableItem>
-					))}
-				</DragDropProvider>
-			</div>
+										onChange(updated);
+									},
+									itemIndex: index,
+									deleteItem: () => {
+										onChange([...items].filter((i) => i.id !== item.id));
+
+										if (onAfterItemRemove) {
+											onAfterItemRemove(item);
+										}
+									},
+								})}
+							</RepeaterContext.Provider>
+						</li>
+					);
+				}}
+				removableByMove
+			/>
 
 			<AnimatedVisibility visible={items.length < 1}>
 				{emptyState}
@@ -346,7 +259,7 @@ export const Repeater = (props) => {
 										onAfterItemAdd(newItem);
 									}
 								},
-								disabled: addDisabled || canDelete,
+								disabled: addDisabled,
 							})}
 					</div>
 				)}

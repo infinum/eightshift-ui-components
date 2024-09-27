@@ -67,9 +67,9 @@ import {
 	ResponsivePreview,
 	Modal,
 	Draggable,
-	DraggableItem,
-	DraggableItemHandle,
+	DraggableHandle,
 	ItemCollection,
+	OptionsPanelHeader,
 } from '../lib';
 import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
@@ -384,6 +384,25 @@ function App() {
 		},
 	];
 
+	const repeaterDefaultItems2 = [
+		{
+			id: 'prvi',
+			title: 'Item 1',
+			icon: icons.num1Square,
+		},
+		{
+			id: 'drugi',
+			title: 'Item 2',
+			subtitle: 'Lorem',
+			icon: icons.num2Circle,
+		},
+		{
+			id: 'treci',
+			title: 'Item 3',
+			icon: icons.num3SquareAlt,
+		},
+	];
+
 	const draggableListDefaultItems = [
 		{
 			toggle: false,
@@ -424,8 +443,9 @@ function App() {
 	];
 
 	const [repeaterItems, setRepeaterItems] = useState(repeaterDefaultItems);
-	const [repeaterItems2, setRepeaterItems2] = useState(repeaterDefaultItems);
+	const [repeaterItems2, setRepeaterItems2] = useState(repeaterDefaultItems2);
 	const [draggableListItems, setDraggableListItems] = useState(draggableListDefaultItems);
+	const [draggableListItems2, setDraggableListItems2] = useState(draggableListDefaultItems);
 	const [draggableItems, setDraggableItems] = useState(draggableDefaultItems);
 
 	const [sliderValue, setSliderValue] = useState(0);
@@ -1723,7 +1743,7 @@ function App() {
 								<RepeaterItem
 									label={title ?? 'New item'}
 									className={clsx(!title && '!es-uic-text-gray-400')}
-									subtitle={itemIndex % 2 === 0 && 'Lorem'}
+									subtitle={subtitle}
 									icon={icon}
 								>
 									<InputField
@@ -2735,21 +2755,20 @@ function App() {
 						items={draggableItems}
 						onChange={setDraggableItems}
 						className='es-uic-grid es-uic-auto-rows-auto es-uic-grid-cols-3 es-uic-gap-1'
-						slotClassName='es-uic-border es-uic-border-dashed es-uic-p-1 es-uic-rounded-md'
 					>
 						{(item) => {
 							const { toggle, title, updateData } = item;
 
 							return (
-								<DraggableItem className='es-uic-size-full es-uic-rounded es-uic-border es-uic-bg-gray-50 es-uic-p-2'>
-									<DraggableItemHandle />
+								<div className='es-uic-relative es-uic-size-full es-uic-rounded es-uic-border es-uic-bg-white es-uic-p-2'>
+									<DraggableHandle className='es-uic-absolute es-uic-right-1 es-uic-top-1' />
 									<p>{title}</p>
 									<Switch
 										aria-label='Title'
 										checked={toggle}
 										onChange={(value) => updateData({ toggle: value })}
 									/>
-								</DraggableItem>
+								</div>
 							);
 						}}
 					</Draggable>
@@ -2777,8 +2796,43 @@ function App() {
 							);
 						}}
 					</DraggableList>
+
+					<DraggableList
+						label='My draggable list 2'
+						items={draggableListItems2}
+						onChange={setDraggableListItems2}
+					>
+						{(item) => {
+							const { toggle, title, icon, updateData } = item;
+
+							return (
+								<DraggableListItem
+									label={title ?? 'New item'}
+									icon={icon ?? icons.emptyCircle}
+								>
+									<Switch
+										aria-label='Title'
+										checked={toggle}
+										onChange={(value) => updateData({ toggle: value })}
+									/>
+								</DraggableListItem>
+							);
+						}}
+					</DraggableList>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-[50rem] es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es-uic-m-5 es-uic-w-[50rem] es-uic-space-y-4 es-uic-bg-gray-100 !es-uic-p-5'>
+					<OptionsPanelHeader
+						title='Theme options'
+						actions={
+							<>
+								<Button type='ghost'>Test</Button>
+								<Button type='selected'>Save</Button>
+							</>
+						}
+					>
+						<Button>Demo</Button>
+					</OptionsPanelHeader>
+
 					<OptionsPanel>
 						<OptionsPanelSection>
 							<Select

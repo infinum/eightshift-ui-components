@@ -134,6 +134,7 @@ export const ComponentToggle = (props) => {
 					<AnimatedVisibility
 						visible={useComponent}
 						className={contentClassName}
+						noInitial
 					>
 						{children}
 					</AnimatedVisibility>
