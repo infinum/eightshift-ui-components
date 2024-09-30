@@ -67,8 +67,8 @@ button.components-toggle-group-control-option-base,
 }
 
 /* Make block missing message nicer. */
-.block-editor-block-list__block.wp-block.has-warning wp-block-missing {
-	@apply !es-uic-rounded-lg !es-uic-border-zinc-700/15 !es-uic-shadow !es-uic-shadow-zinc-700/10;
+.wp-block-missing div.block-editor-warning {
+	@apply !es-uic-rounded-lg !es-uic-border-zinc-300 !es-uic-bg-zinc-50/75 !es-uic-shadow !es-uic-shadow-zinc-700/20;
 
 	& .block-editor-warning__message {
 		@apply !es-uic-text-zinc-950;
