@@ -109,7 +109,10 @@ export const Select = (props) => {
 						return;
 					}
 
-					delete v.id;
+					if (v && 'id' in v) {
+						delete v.id;
+					}
+
 					onChange(v);
 				}}
 				closeMenuOnSelect={!keepMenuOpenAfterSelect}

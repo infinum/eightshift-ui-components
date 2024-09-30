@@ -116,7 +116,10 @@ export const AsyncSelect = (props) => {
 				defaultOptions={preloadOptions}
 				value={value}
 				onChange={(value) => {
-					delete value.id;
+					if (value && 'id' in value) {
+						delete value.id;
+					}
+
 					onChange(value);
 				}}
 				closeMenuOnSelect={!keepMenuOpenAfterSelect}
