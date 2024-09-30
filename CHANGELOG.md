@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.6.1] - 2024-09-30
+- Fixed `clearable` not working in Select components.
+- Fixed `Tabs` tab alignment when in horizontal mode.
+- `OptionsPanel`, `OptionsPanelSection`, and `OptionsPanelHeader` now support the `hidden` prop.
+- Tweaked `OptionsPanelHeader` title font.
+- Tweaked some default Gutenberg overrides to do WP 6.6 changes.
+- Reverted `position: relative` overlap tweak by @piqusy, as it caused layout issues in some cases. `z-index: 50` should still make it OK.
+
 ## [1.6.0] - 2024-09-27
 - Updated dependencies.
 - `ColorPicker` now has better UX when set to `clearable`.
@@ -181,6 +189,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[1.6.1]: https://github.com/infinum/eightshift-ui-components/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/infinum/eightshift-ui-components/compare/1.5.1...1.6.0
 [1.5.1]: https://github.com/infinum/eightshift-ui-components/compare/1.5.0...1.5.1
 [1.5.0]: https://github.com/infinum/eightshift-ui-components/compare/1.4.7...1.5.0
