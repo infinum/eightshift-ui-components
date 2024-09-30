@@ -135,7 +135,7 @@ export const TabList = (props) => {
 				clsx(
 					'es-uic-flex',
 					orientation === 'vertical' && 'es-uic-h-full es-uic-flex-col es-uic-gap-px es-uic-pr-1.5',
-					orientation === 'horizontal' && 'es-uic-w-full es-uic-items-end es-uic-gap-1 es-uic-border-b es-uic-border-b-gray-300',
+					orientation === 'horizontal' && 'es-uic-w-full es-uic-items-stretch es-uic-gap-1 es-uic-border-b es-uic-border-b-gray-300',
 					className,
 				)
 			}
