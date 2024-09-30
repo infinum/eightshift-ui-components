@@ -14,6 +14,7 @@ import { Heading } from 'react-aria-components';
  * @param {JSX.Element} [props.icon] - Icon to display on the top of the panel.
  * @param {string} [props.subtitle] - Subtitle to display on the top of the panel.
  * @param {string} [props.help] - Help text to show below the panel.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The OptionsPanel component.
  *
@@ -25,7 +26,11 @@ import { Heading } from 'react-aria-components';
  * @preserve
  */
 export const OptionsPanel = (props) => {
-	const { children, className, title, icon, subtitle, help } = props;
+	const { children, className, title, icon, subtitle, help, hidden } = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	return (
 		<div className={clsx('es-uic-max-w-md', className)}>
@@ -49,6 +54,7 @@ export const OptionsPanel = (props) => {
  * @component
  * @param {Object} props - Component props.
  * @param {string} [props.className] - Classes to pass to the container.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The OptionsPanelSection component.
  *
@@ -59,7 +65,11 @@ export const OptionsPanel = (props) => {
  *
  * @preserve
  */
-export const OptionsPanelSection = ({ children, className }) => {
+export const OptionsPanelSection = ({ children, className, hidden }) => {
+	if (hidden) {
+		return null;
+	}
+
 	return (
 		<div
 			className={clsx(
@@ -82,6 +92,7 @@ export const OptionsPanelSection = ({ children, className }) => {
  * @param {Number} [props.level=2] - Heading level of the title.
  * @param {string} [props.className] - Classes to pass to the container.
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Controls to show on the right side of the header.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The OptionsPanelHeader component.
  *
@@ -92,12 +103,16 @@ export const OptionsPanelSection = ({ children, className }) => {
  *
  * @preserve
  */
-export const OptionsPanelHeader = ({ children, sticky, title, className, actions, level = 2 }) => {
+export const OptionsPanelHeader = ({ children, sticky, title, className, actions, level = 2, hidden }) => {
+	if (hidden) {
+		return null;
+	}
+
 	return (
 		<div className={clsx('es-uic-max-w-md es-uic-space-y-2.5', sticky && 'es-uic-sticky es-uic-top-0 es-uic-z-10', className)}>
 			<div className='es-uic-flex es-uic-flex-wrap es-uic-items-center es-uic-justify-between es-uic-gap-x-8 es-uic-gap-y-4'>
 				<Heading
-					className='es-uic-text-3xl es-uic-font-medium es-uic-tracking-tighter'
+					className='es-uic-text-2xl es-uic-font-medium es-uic-tracking-tight'
 					level={level}
 				>
 					{title}
