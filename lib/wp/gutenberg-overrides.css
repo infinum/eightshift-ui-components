@@ -57,21 +57,21 @@ button.components-toggle-group-control-option-base,
 	@apply !es-uic-w-80;
 }
 
-/* Fix block appender alignment */
-.block-list-appender.wp-block {
-	@apply !es-uic-static !es-uic-p-1;
-}
-
-.components-dropdown.block-editor-inserter {
-	@apply !es-uic-mx-auto !es-uic-w-fit;
-}
-
-/* Fix block appender alignment */
+/* Make block crash message nicer. */
 .block-editor-block-list__block-crash-warning {
 	@apply !es-uic-rounded-lg !es-uic-border-red-700/15 !es-uic-shadow !es-uic-shadow-red-700/10;
 
 	& .block-editor-warning__message {
 		@apply !es-uic-text-red-950;
+	}
+}
+
+/* Make block missing message nicer. */
+.block-editor-block-list__block.wp-block.has-warning wp-block-missing {
+	@apply !es-uic-rounded-lg !es-uic-border-zinc-700/15 !es-uic-shadow !es-uic-shadow-zinc-700/10;
+
+	& .block-editor-warning__message {
+		@apply !es-uic-text-zinc-950;
 	}
 }
 
@@ -102,13 +102,9 @@ button.components-toggle-group-control-option-base,
 	@apply !es-uic-rounded;
 }
 
-/* Tweak default inserter position and spacing. */
-.block-list-appender.wp-block > .block-editor-default-block-appender {
-	@apply es-uic-w-fit;
-
-	.block-editor-inserter__toggle {
-		@apply !es-uic-size-9 !es-uic-rounded-md;
-	}
+/* Make default inserter more rounded. */
+.block-editor-inserter__toggle {
+	@apply !es-uic-rounded-md;
 }
 
 /* Unify buttons in top toolbar */
@@ -122,7 +118,7 @@ button.components-toggle-group-control-option-base,
 	}
 }
 
-/* Expand blocks to full-width. */
+/* Allow blocks to expand to full-width. */
 .editor-styles-wrapper .wp-block:not(.editor-post-title, .block-list-appender) {
 	@apply !es-uic-max-w-full;
 }
