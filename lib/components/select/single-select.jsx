@@ -129,6 +129,7 @@ export const Select = (props) => {
 					DropdownIndicator: customDropdownArrow ?? CustomSelectDefaultDropdownIndicator,
 					ClearIndicator: customClearIndicator ?? CustomSelectDefaultClearIndicator,
 				}}
+				menuPortalTarget={document.body}
 				{...additionalProps}
 			/>
 		</BaseControl>
