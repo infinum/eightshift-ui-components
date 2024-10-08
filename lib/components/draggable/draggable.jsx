@@ -8,10 +8,10 @@ import { DragDropProvider } from '@dnd-kit/react';
 import { move } from '@dnd-kit/helpers';
 
 const fixIds = (items, itemIdBase) => {
-	return items.map((item, i) => ({
+	return items?.map((item, i) => ({
 		...item,
 		id: item?.id ?? `${itemIdBase}-${i}`,
-	}));
+	})) ?? [];
 };
 
 const SortableItem = ({ id, index, disabled, children, axis }) => {

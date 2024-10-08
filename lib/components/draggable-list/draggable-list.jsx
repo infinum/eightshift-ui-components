@@ -62,7 +62,7 @@ export const DraggableList = (props) => {
 	const {
 		children,
 
-		items: rawItems,
+		items: rawItems = [],
 		onChange,
 
 		icon,

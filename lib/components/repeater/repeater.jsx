@@ -74,7 +74,7 @@ export const Repeater = (props) => {
 	const {
 		children,
 		onChange,
-		items: rawItems,
+		items: rawItems = [],
 		icon,
 		label,
 		subtitle,

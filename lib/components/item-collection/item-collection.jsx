@@ -29,7 +29,7 @@ import { Fragment } from 'react';
  * @preserve
  */
 export const ItemCollection = (props) => {
-	const { children, items, onChange, hidden } = props;
+	const { children, items = [], onChange, hidden } = props;
 
 	if (hidden) {
 		return null;
