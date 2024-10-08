@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.7.0] - 2024-10-09
+- Updated dependencies.
+- `Repeater`, `Draggable`, `DraggableList` and `ItemCollection` will now behave better when `undefined` is passed as value.
+- Fixed overlap issues with `Select` components.
+- Improved `ColorPicker` grouping logic and made grouped menu more compact.
+- Added `MiniResponsive` for cases you need to use a `Responsive` in a limited space. Works best with `OptionSelect` or other `Button`-like components!
+- Fixed `Spacer` not applying `className` in some cases.
+- Tweaked `MediaPlaceholder` default colors a bit.
+- `MediaPlaceholder` can now have any child items passed. They are rendered below the label and icon.
+
 ## [1.6.1] - 2024-09-30
 - Fixed `clearable` not working in Select components.
 - Fixed `Tabs` tab alignment when in horizontal mode.
@@ -189,6 +199,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[1.7.0]: https://github.com/infinum/eightshift-ui-components/compare/1.6.1...1.7.0
 [1.6.1]: https://github.com/infinum/eightshift-ui-components/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/infinum/eightshift-ui-components/compare/1.5.1...1.6.0
 [1.5.1]: https://github.com/infinum/eightshift-ui-components/compare/1.5.0...1.5.1
