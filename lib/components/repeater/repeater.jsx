@@ -9,7 +9,7 @@ import { clsx } from 'clsx/lite';
 import { List, arrayMove, arrayRemove } from 'react-movable';
 
 const fixIds = (items, itemIdBase) => {
-	return items.map((item, i) => ({
+	return items?.map((item, i) => ({
 		...item,
 		id: item?.id ?? `${itemIdBase}-${i}`,
 	}));
@@ -94,7 +94,11 @@ export const Repeater = (props) => {
 		hidden,
 	} = props;
 
-	const items = fixIds(rawItems, itemIdBase);
+	if (typeof rawItems === 'undefined' || rawItems === null || !Array.isArray(rawItems)) {
+		console.warn(__("Repeater: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
+	}
+
+	const items = fixIds(rawItems ?? [], itemIdBase);
 
 	const canDelete = items.length > (minItems ?? 0);
 	const canAdd = items.length < (maxItems ?? Number.MAX_SAFE_INTEGER);

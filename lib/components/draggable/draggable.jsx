@@ -8,10 +8,12 @@ import { DragDropProvider } from '@dnd-kit/react';
 import { move } from '@dnd-kit/helpers';
 
 const fixIds = (items, itemIdBase) => {
-	return items.map((item, i) => ({
-		...item,
-		id: item?.id ?? `${itemIdBase}-${i}`,
-	}));
+	return (
+		items?.map((item, i) => ({
+			...item,
+			id: item?.id ?? `${itemIdBase}-${i}`,
+		})) ?? []
+	);
 };
 
 const SortableItem = ({ id, index, disabled, children, axis }) => {
@@ -93,7 +95,11 @@ export const Draggable = (props) => {
 		...rest
 	} = props;
 
-	const [items, setItems] = useState(fixIds(rawItems));
+	if (typeof rawItems === 'undefined' || rawItems === null || !Array.isArray(rawItems)) {
+		console.warn(__("Draggable: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
+	}
+
+	const [items, setItems] = useState(fixIds(rawItems ?? []));
 
 	// Ensure the internal state is updated if items are updated externally.
 	useEffect(() => {

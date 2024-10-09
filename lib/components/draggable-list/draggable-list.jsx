@@ -5,7 +5,7 @@ import { clsx } from 'clsx/lite';
 import { List, arrayMove, arrayRemove } from 'react-movable';
 
 const fixIds = (items, itemIdBase) => {
-	return items.map((item, i) => ({
+	return items?.map((item, i) => ({
 		...item,
 		id: item?.id ?? `${itemIdBase}-${i}`,
 	}));
@@ -81,7 +81,11 @@ export const DraggableList = (props) => {
 		...rest
 	} = props;
 
-	const items = fixIds(rawItems, itemIdBase);
+	if (typeof rawItems === 'undefined' || rawItems === null || !Array.isArray(rawItems)) {
+		console.warn(__("DraggableList: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
+	}
+
+	const items = fixIds(rawItems ?? [], itemIdBase);
 
 	if (hidden) {
 		return null;
