@@ -7,6 +7,7 @@ import { upperFirst } from '../../utilities';
 import { icons } from '../../icons/icons';
 import { ResponsivePreview } from '../responsive-preview/responsive-preview';
 import { Button, ButtonGroup } from '../button/button';
+import { Spacer } from '../spacer/spacer';
 import { BaseControl } from '../base-control/base-control';
 import { TriggeredPopover } from '../popover/popover';
 import { OptionSelect } from '../option-select/option-select';
@@ -217,7 +218,7 @@ export const MiniResponsive = (props) => {
 						tooltip: __('Responsive overrides', 'eightshift-ui-components'),
 						className: 'es-uic-w-7',
 					}}
-					className='es-uic-min-w-80 es-uic-divide-y es-uic-divide-gray-200 es-uic-p-0'
+					className='es-uic-min-w-80 es-uic-divide-y es-uic-divide-gray-200 !es-uic-p-0'
 				>
 					<div className='es-uic-flex es-uic-items-center es-uic-justify-between es-uic-p-2'>
 						<Text className='es-uic-block es-uic-text-xs es-uic-text-gray-500'>{__('Responsive overrides', 'eightshift-ui-components')}</Text>
@@ -494,12 +495,13 @@ export const MiniResponsive = (props) => {
 						)}
 					</div>
 
-					<div className='es-uic-grid es-uic-grid-cols-2 es-uic-divide-x es-uic-divide-gray-100 es-uic-p-1'>
+					<div className='es-uic-grid es-uic-grid-cols-[1fr_auto_1fr] es-uic-gap-x-1 es-uic-px-1'>
 						<TriggeredPopover
 							triggerButtonLabel={__('Responsive preview', 'eightshift-ui-components')}
 							triggerButtonProps={{
 								disabled: !Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined'),
 								type: 'ghost',
+								className: 'es-uic-my-1',
 							}}
 						>
 							<ResponsivePreview
@@ -512,6 +514,12 @@ export const MiniResponsive = (props) => {
 								breakpointUiData={breakpointUiData}
 							/>
 						</TriggeredPopover>
+
+						<Spacer
+							className='*:!es-uic-bg-gray-200'
+							vertical
+							border
+						/>
 
 						<Button
 							icon={icons.clearAlt}
@@ -526,7 +534,7 @@ export const MiniResponsive = (props) => {
 								onChange(newValue);
 							}}
 							type='ghost'
-							className='es-uic-justify-center'
+							className='es-uic-my-1 es-uic-justify-center'
 						>
 							{__('Clear all overrides', 'eightshift-ui-components')}
 						</Button>
