@@ -97,6 +97,12 @@ export const MiniResponsive = (props) => {
 		innerContentAlign = 'start',
 	} = props;
 
+	if (typeof rawBreakpoints === 'undefined' || !Array.isArray(rawBreakpoints)) {
+		console.warn(__("MiniResponsive: Missing or invalid 'breakpoints' prop.", 'eightshift-ui-components'));
+
+		return null;
+	}
+
 	const breakpoints = rawBreakpoints.slice(1);
 	const desktopFirstBreakpoints = (rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1)).map((breakpoint) =>
 		breakpoint.startsWith('max-') ? breakpoint : `max-${breakpoint}`,
@@ -132,7 +138,7 @@ export const MiniResponsive = (props) => {
 
 							{firstMobileFirstOverride &&
 								!isDesktopFirst &&
-								sprintf(__('Applies when the browser width is %dpx or narrower.', 'eightshift-ui-components'), breakpointData[firstMobileFirstOverride] - 1)}
+								sprintf(__('Applies when the browser width is %dpx or less.', 'eightshift-ui-components'), breakpointData[firstMobileFirstOverride] - 1)}
 
 							{lastDesktopFirstOverride &&
 								isDesktopFirst &&

@@ -443,12 +443,6 @@ function App() {
 		},
 	];
 
-	// const [repeaterItems, setRepeaterItems] = useState();
-	// const [repeaterItems2, setRepeaterItems2] = useState();
-	// const [draggableListItems, setDraggableListItems] = useState();
-	// const [draggableListItems2, setDraggableListItems2] = useState();
-	// const [draggableItems, setDraggableItems] = useState();
-
 	const [repeaterItems, setRepeaterItems] = useState(repeaterDefaultItems);
 	const [repeaterItems2, setRepeaterItems2] = useState(repeaterDefaultItems2);
 	const [draggableListItems, setDraggableListItems] = useState(draggableListDefaultItems);
