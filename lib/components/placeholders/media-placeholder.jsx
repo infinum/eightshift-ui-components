@@ -24,15 +24,15 @@ import { icons } from '../../icons/icons';
  * @preserve
  */
 export const MediaPlaceholder = (props) => {
-	const { style = 'default', size = 'default', className, icon, helpText, hidden } = props;
+	const { style = 'default', size = 'default', className, icon, helpText, children, hidden } = props;
 
 	if (hidden) {
 		return null;
 	}
 
 	const styleClassName = {
-		default: 'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-text-gray-300 es-uic-shadow',
-		simple: 'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-border-dashed es-uic-text-gray-300',
+		default: 'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-text-gray-400 es-uic-shadow',
+		simple: 'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-border-dashed es-uic-text-gray-400',
 	};
 
 	const sizeClassName = {
@@ -48,7 +48,7 @@ export const MediaPlaceholder = (props) => {
 	return (
 		<div
 			className={clsx(
-				'es-uic-flex es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-gap-2 es-uic-overflow-hidden',
+				'es-uic-flex es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-gap-2 es-uic-overflow-hidden es-uic-p-2',
 				styleClassName[style] ?? styleClassName?.default,
 				sizeClassName[size] ?? sizeClassName?.default,
 				className,
@@ -56,7 +56,9 @@ export const MediaPlaceholder = (props) => {
 		>
 			<div className='[&>svg]:es-uic-size-7'>{icon ?? icons.image}</div>
 
-			{helpText && <div className='es-uic-text-sm es-uic-text-gray-400'>{helpText}</div>}
+			{helpText && <div className='es-uic-text-sm es-uic-text-gray-500'>{helpText}</div>}
+
+			{children && <div className='es-uic-mt-2 es-uic-flex es-uic-items-center es-uic-gap-x-2 es-uic-gap-y-2.5 es-uic-text-sm'>{children}</div>}
 		</div>
 	);
 };

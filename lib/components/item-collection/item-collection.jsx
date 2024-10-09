@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { __ } from '@wordpress/i18n';
 
 /**
  * A simple component to manage a collection of items.
@@ -29,11 +30,17 @@ import { Fragment } from 'react';
  * @preserve
  */
 export const ItemCollection = (props) => {
-	const { children, items, onChange, hidden } = props;
+	const { children, items: rawItems, onChange, hidden } = props;
 
 	if (hidden) {
 		return null;
 	}
+
+	if (typeof rawItems === 'undefined' || rawItems === null || !Array.isArray(rawItems)) {
+		console.warn(__("ItemCollection: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
+	}
+
+	const items = rawItems ?? [];
 
 	return items.map((item, index) => (
 		<Fragment key={index}>

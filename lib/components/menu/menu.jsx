@@ -155,7 +155,7 @@ export const MenuSection = (props) => {
 			className={clsx(
 				'es-uic-space-y-1 es-uic-border-b es-uic-border-b-gray-200 es-uic-pb-1 last:es-uic-border-b-0',
 				label && 'es-uic-pt-2 first:es-uic-pt-1.5',
-				!label && 'last:es-uic-pb-1',
+				!label && 'last:es-uic-pb-1 has-[>_:only-child]:es-uic-pb-0',
 			)}
 		>
 			{label && <Header className='es-uic-ml-1.5 es-uic-text-xs es-uic-font-medium es-uic-text-gray-400'>{label}</Header>}

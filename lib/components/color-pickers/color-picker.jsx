@@ -4,7 +4,6 @@ import { ColorSwatch } from './color-swatch';
 import { RichLabel } from '../rich-label/rich-label';
 import { BaseControl } from '../base-control/base-control';
 import { clsx } from 'clsx/lite';
-
 import { icons } from '../../icons/icons';
 
 /**
@@ -259,7 +258,7 @@ export const ColorPicker = (props) => {
 							return (
 								<MenuSection
 									key={groupSlug}
-									label={colorGroupNames[groupSlug]}
+									aria-label={colorGroupNames[groupSlug]}
 								>
 									{colors.map((color) => (
 										<SingleItem

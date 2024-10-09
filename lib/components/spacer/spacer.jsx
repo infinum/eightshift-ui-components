@@ -71,7 +71,6 @@ export const Spacer = (props) => {
 		!vertical && border && sizes[size].sizeHorizontalBorder,
 		vertical && !border && sizes[size].sizeVertical,
 		vertical && border && sizes[size].sizeVerticalBorder,
-		className,
 	);
 
 	if (text || icon) {
@@ -91,7 +90,7 @@ export const Spacer = (props) => {
 
 	if (border) {
 		return (
-			<div>
+			<div className={className}>
 				{size !== 'px' && <div className={spaceClass} />}
 				<div className={clsx('es-uic-bg-gray-300', vertical ? 'es-uic-h-full es-uic-w-px' : 'es-uic-h-px es-uic-w-full')} />
 				{size !== 'px' && <div className={spaceClass} />}
@@ -99,5 +98,5 @@ export const Spacer = (props) => {
 		);
 	}
 
-	return <div className={spaceClass} />;
+	return <div className={clsx(spaceClass, className)} />;
 };

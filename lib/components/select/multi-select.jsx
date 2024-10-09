@@ -150,6 +150,7 @@ export const MultiSelect = (props) => {
 							DropdownIndicator: customDropdownArrow ?? CustomSelectDefaultDropdownIndicator,
 							ClearIndicator: customClearIndicator ?? CustomSelectDefaultClearIndicator,
 						}}
+						menuPortalTarget={document.body}
 						{...additionalProps}
 					/>
 				</SortableContext>

@@ -70,6 +70,7 @@ import {
 	DraggableHandle,
 	ItemCollection,
 	OptionsPanelHeader,
+	MiniResponsive,
 } from '../lib';
 import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
@@ -684,7 +685,7 @@ function App() {
 					<Tab>ColumnConfigSlider</Tab>
 					<Tab>ContainerPanel</Tab>
 					<Tab>Layout components</Tab>
-					<Tab>ImagePlaceholder / MediaPlaceholder / FilePlaceholder</Tab>
+					<Tab>Placeholders</Tab>
 					<Tab>Draggable</Tab>
 					<Tab>DraggableList</Tab>
 					<Tab>OptionsPanel</Tab>
@@ -1281,6 +1282,53 @@ function App() {
 
 					<Spacer border />
 
+					<MiniResponsive
+						icon={icons.emptyRect}
+						label='Font family'
+						value={resp}
+						onChange={setResp}
+						options={respOpt}
+						breakpoints={['mobile', 'tablet', 'desktop', 'large']}
+						breakpointData={globalManifest.globalVariables.breakpoints}
+					>
+						{({ currentValue, handleChange, options, isInlineCollapsedView }) => (
+							<OptionSelect
+								options={options}
+								onChange={(value) => handleChange(value)}
+								value={currentValue}
+								type={isInlineCollapsedView ? 'menu' : 'toggleButtons'}
+							/>
+						)}
+					</MiniResponsive>
+
+					<Spacer
+						className='es-uic-opacity-25'
+						border
+					/>
+
+					<MiniResponsive
+						value={resp}
+						onChange={setResp}
+						options={respOpt}
+						breakpoints={['mobile', 'tablet', 'desktop', 'large']}
+						breakpointData={globalManifest.globalVariables.breakpoints}
+					>
+						{({ currentValue, handleChange, options, isInlineCollapsedView }) => (
+							<OptionSelect
+								options={options}
+								onChange={(value) => handleChange(value)}
+								value={currentValue}
+								type={isInlineCollapsedView ? 'menu' : 'toggleButtons'}
+								aria-label='Font family'
+								tooltip
+							/>
+						)}
+					</MiniResponsive>
+
+					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(resp, null, 2)}</pre>
+
+					<Spacer border />
+
 					<Responsive
 						icon={icons.emptyRect}
 						label='Font family'
@@ -1780,7 +1828,7 @@ function App() {
 
 					<Spacer border />
 
-					{repeaterItems.map((item, index) => (
+					{repeaterItems?.map((item, index) => (
 						<InputField
 							label={`Title ${index}`}
 							key={index}
@@ -1798,7 +1846,7 @@ function App() {
 
 					<pre>
 						{JSON.stringify(
-							repeaterItems.map((i) => ({ ...i, icon: undefined })),
+							repeaterItems?.map((i) => ({ ...i, icon: undefined })),
 							null,
 							2,
 						)}
@@ -1808,7 +1856,7 @@ function App() {
 
 					<pre>
 						{JSON.stringify(
-							repeaterItems2.map((i) => ({ ...i, icon: undefined })),
+							repeaterItems2?.map((i) => ({ ...i, icon: undefined })),
 							null,
 							2,
 						)}
@@ -2749,6 +2797,16 @@ function App() {
 							/>
 						}
 					/>
+
+					<MediaPlaceholder
+						icon={icons.warning}
+						style='simple'
+						size='video'
+						helpText='Missing lorem ipsum'
+					>
+						<Button>Do something about it</Button>
+						<Button type='ghost'>Or don't</Button>
+					</MediaPlaceholder>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
 					<Draggable
