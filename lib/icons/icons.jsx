@@ -22153,6 +22153,108 @@ export const icons = {
 			/>
 		</svg>
 	),
+	webVideo: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<circle
+				cx='14.5'
+				cy='14.5'
+				r='4.5'
+				stroke='currentColor'
+				fill='none'
+			/>
+			<ellipse
+				cx='14.5'
+				cy='14.5'
+				rx='1.75'
+				ry='4.5'
+				stroke='currentColor'
+				fill='none'
+			/>
+			<path
+				d='M10.5 13h8m-8 3h8'
+				stroke='currentColor'
+				strokeLinecap='round'
+				strokeLinejoin='round'
+				fill='none'
+			/>
+			<path
+				d='M11 9V2.5A1.5 1.5 0 0 0 9.5 1h-7A1.5 1.5 0 0 0 1 2.5v9A1.5 1.5 0 0 0 2.5 13h6'
+				stroke='currentColor'
+				strokeLinecap='round'
+				fill='none'
+			/>
+			<path
+				d='M4 1.5v11M1 4h3M1 7h3m-3 3h3'
+				stroke='currentColor'
+				fill='none'
+			/>
+			<path
+				d='M8 4h3M8 7h3m-3 3h1.5'
+				stroke='currentColor'
+				strokeLinecap='round'
+				fill='none'
+			/>
+			<path
+				d='M8 1.5v11'
+				stroke='currentColor'
+				fill='none'
+			/>
+			<path
+				d='M5.25 7.896V5.604a.25.25 0 0 1 .427-.177l1.146 1.146a.25.25 0 0 1 0 .354L5.677 8.073a.25.25 0 0 1-.427-.177Z'
+				fill='currentColor'
+			/>
+		</svg>
+	),
+	media: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<path
+				d='m9 17 1.666-1.48a1.183 1.183 0 0 1 1.623.047c.478.478 1.258.46 1.713-.04l.837-.922a1.5 1.5 0 0 1 2.216-.005L19 16.722M10.5 9h7a1.5 1.5 0 0 1 1.5 1.5v7a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 9 17.5v-7A1.5 1.5 0 0 1 10.5 9Z'
+				stroke='currentColor'
+				fill='none'
+			/>
+			<circle
+				cx='12'
+				cy='12'
+				r='1'
+				fill='currentColor'
+				fillOpacity='0.12'
+				stroke='currentColor'
+			/>
+			<path
+				d='M12 7.5v-5A1.5 1.5 0 0 0 10.5 1h-8A1.5 1.5 0 0 0 1 2.5v9A1.5 1.5 0 0 0 2.5 13h5'
+				stroke='currentColor'
+				strokeLinecap='round'
+				fill='none'
+			/>
+			<path
+				d='M4 1.5v11M1 4h3M1 7h3m-3 3h3'
+				stroke='currentColor'
+				fill='none'
+			/>
+			<path
+				d='M9 4h3M9 7h3M9 1v7'
+				stroke='currentColor'
+				strokeLinecap='round'
+				fill='none'
+			/>
+			<path
+				d='M5.75 7.896V5.604a.25.25 0 0 1 .427-.177l1.146 1.146a.25.25 0 0 1 0 .354L6.177 8.073a.25.25 0 0 1-.427-.177Z'
+				fill='currentColor'
+			/>
+		</svg>
+	),
 };
 
 /**
@@ -23829,4 +23931,10 @@ export const blockIcons = {
 		"<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'><path d='M12.5 15h-10A1.5 1.5 0 0 1 1 13.5v-11A1.5 1.5 0 0 1 2.5 1h13A1.5 1.5 0 0 1 17 2.5v10' stroke='currentColor' stroke-opacity='0.3' fill='none'/><path fill-rule='evenodd' clip-rule='evenodd' d='M12 18.5a1.5 1.5 0 0 0 1.5 1.5h5a1.5 1.5 0 0 0 1.5-1.5v-5a1.5 1.5 0 0 0-1.5-1.5h-5a1.5 1.5 0 0 0-1.5 1.5v5Zm6.354-2.146a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708.708l1.147 1.146H14a.5.5 0 0 0 0 1h2.793l-1.147 1.146a.5.5 0 0 0 .708.708l2-2Z' fill='currentColor'/><path d='M6.946 4.734c-.3-1.018-.988-1.087-1.73-1.087-.741 0-1.53.426-1.53 1.168 0 .594.186.87 1.06 1.227l1.206.456c.874.357 1.111.622 1.138 1.21.045 1.015-1.055 1.223-1.796 1.223-.742 0-1.528-.102-1.794-1.007M5.284 3l.01 6.753' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' fill='none'/><path d='m13 5 2 1.5m0 0L13 8m2-1.5H7.5m0 0c1 0 2.5 1 2.5 3.5v2.5m-2.5-6h-2m6 4-1.5 2m0 0-1.5-2' stroke='currentColor' stroke-opacity='0.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>",
 	'esf-block-filter':
 		"<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'><path d='M14.5 10 10 12.5V19l4.5-2.5V10Z' fill='currentColor' fill-opacity='0.3'/><path d='M5.209 2.886 8.674 6.99a.5.5 0 0 1 .118.323v2.813a.5.5 0 0 0 .754.43l1.212-.715a.5.5 0 0 0 .246-.43V7.323a.5.5 0 0 1 .13-.337l3.762-4.11' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' fill='none'/><path d='M15.111 2.444c0 .798-2.263 1.445-5.055 1.445C7.263 3.889 5 3.242 5 2.444 5 1.647 7.263 1 10.056 1c2.792 0 5.055.647 5.055 1.444Z' stroke='currentColor' fill='none'/><path d='m9.941 19-4.563-2.608a.75.75 0 0 1-.378-.65V9.823l4.941 2.823V19Z' fill='currentColor' fill-opacity='0.12' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round'/><path d='m9.94 19 4.564-2.608a.75.75 0 0 0 .378-.65V9.823L9.94 12.647V19Z' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' fill='none'/><path d='M8.664 7.73 5 9.824l4.941 2.823 4.941-2.823L11 7.605' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>",
+	'esf-talentlyft':
+		"<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'><path d='M16.25 7.25c0 3.452-3.447 7.75-6.25 7.75-3 0-6.25-4.298-6.25-7.75a6.25 6.25 0 1 1 12.5 0Z' stroke='currentColor' fill='none'/><path fill-rule='evenodd' clip-rule='evenodd' d='M15.773 4.851a6.239 6.239 0 0 0-.791-1.375c-3.441.906-5.608-.832-6.447-2.303a6.208 6.208 0 0 0-1.508.578c1 2.032 3.495 4.383 8.746 3.1Z' fill='currentColor' fill-opacity='0.3'/><path fill-rule='evenodd' clip-rule='evenodd' d='M16.023 8.904a6.688 6.688 0 0 0 .224-1.856C10.32 9.046 6.139 5.864 5.187 3.262a6.247 6.247 0 0 0-.983 1.644c3.411 4.884 8.474 4.763 11.82 3.998Z' fill='currentColor' fill-opacity='0.3'/><path fill-rule='evenodd' clip-rule='evenodd' d='M4.637 10.783c-.553-1.18-.887-2.426-.887-3.533v-.04c1.816 2.592 5.492 5.397 11.464 3.788a11.89 11.89 0 0 1-1.335 2.054c-2.324.14-6.525-.168-9.242-2.269Z' fill='currentColor' fill-opacity='0.3'/><path d='M10 17c-.402 0-.767-.158-1.036-.415a.292.292 0 0 0-.2-.085.264.264 0 0 0-.264.264v.736c.013.827.68 1.5 1.5 1.5s1.487-.673 1.5-1.5v-.736a.264.264 0 0 0-.264-.264.292.292 0 0 0-.2.085c-.27.257-.634.415-1.036.415Z' stroke='currentColor' fill='none'/></svg>",
+	'esf-corvus-pay':
+		"<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'><path d='M4.884 10.004c-.372-4.092-2.17-3.72-3.255-3.255 1.085-1.24 3.255-3.72 5.58-1.396 2.326-4.65 8.61-3.459 11.162-2.325v3.256c-1.86-1.86-6.494-1.418-7.906.465-1.395 1.86-1.395 6.975 1.86 7.905 2.28.652 5.115-.155 6.046-.93v2.79c-2.233 2.233-6.511 1.706-8.371.93-1.55-.774-4.744-3.348-5.116-7.44Z' stroke='currentColor' stroke-linejoin='round' fill='none'/><path d='M8.605 14.19C6.67 11.356 6.589 7.368 7.209 5.352l.466-.93 1.86-1.395 1.86-.93h2.325l2.79.465c-3.166.327-5.688 2.825-6.393 4.08l-.582 3.36.93 3.721 1.86.93h3.72l2.322-.928c.002-.413.003-.6.003-.002 0 .505-.006.863-.012 1.15a7.042 7.042 0 0 1-.008.37c.089.452-1.756 1.111-3.805 1.281-2.352.097-4.319.039-5.94-2.336Z' fill='currentColor' fill-opacity='0.3'/></svg>",
+	'esf-paycek':
+		"<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'><path d='M2.733 10.688 1.5 18.5h1.54a3 3 0 0 0 2.942-2.412L6.5 13.5h5.143A6.857 6.857 0 0 0 18.5 6.643 5.143 5.143 0 0 0 13.357 1.5h-2.474a4 4 0 0 0-3.795 2.735L6.5 6H13a1.5 1.5 0 0 1 0 3H4.709a2 2 0 0 0-1.976 1.688Z' stroke='currentColor' fill='none'/><path d='M12.495 13.5c3.6-1.2 3.107-4.926 2.44-6.426l-.94 1.426-1 .5h-3c-2.8 0-3.698 2.817-3.981 4.39l6.481.11Z' fill='currentColor' fill-opacity='0.3'/></svg>",
 };
