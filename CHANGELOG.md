@@ -6,6 +6,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 ## [1.7.1] - 2024-11-14
 - Fixed truncate helper when the input is empty.
 - Added 2 new UI icons and 3 new block icons.
+- Updated dependencies.
 
 ## [1.7.0] - 2024-10-09
 - Updated dependencies.
