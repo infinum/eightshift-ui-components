@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.8.0] - 2024-XX-XX
+- ...
+
 ## [1.7.2] - 2024-11-14
 - Re-publish of `1.7.1`, as it didn't properly publish.
 
@@ -207,6 +210,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[1.8.0]: https://github.com/infinum/eightshift-ui-components/compare/1.7.2...1.8.0
 [1.7.2]: https://github.com/infinum/eightshift-ui-components/compare/1.7.1...1.7.2
 [1.7.1]: https://github.com/infinum/eightshift-ui-components/compare/1.7.0...1.7.1
 [1.7.0]: https://github.com/infinum/eightshift-ui-components/compare/1.6.1...1.7.0
