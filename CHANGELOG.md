@@ -4,7 +4,8 @@ All notable changes to this project will be documented in this file.
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
 ## [1.8.0] - 2024-XX-XX
-- ...
+- `JsxSvg` now supports `decorative` prop (sets `aria-hidden="true"`)
+- `JsxSvg` now support passing custom dynamic props to the output SVG.
 
 ## [1.7.2] - 2024-11-14
 - Re-publish of `1.7.1`, as it didn't properly publish.
