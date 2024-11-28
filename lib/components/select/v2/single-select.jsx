@@ -92,7 +92,7 @@ export const __ExperimentalSelect = (props) => {
 		<Select
 			selectedKey={currentValue}
 			onSelectionChange={(selected) => {
-				if (!selected) {
+				if (selected === null || selected === undefined) {
 					onChange(null);
 
 					return;

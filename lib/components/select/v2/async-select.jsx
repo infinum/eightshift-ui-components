@@ -152,7 +152,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 	return (
 		<ComboBox
 			onSelectionChange={(selected) => {
-				if (!selected) {
+				if (selected === null || selected === undefined) {
 					onChange(null);
 					list.setFilterText('');
 
