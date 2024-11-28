@@ -7,6 +7,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - `JsxSvg` now supports `decorative` prop (sets `aria-hidden="true"`)
 - `JsxSvg` now support passing custom dynamic props to the output SVG.
 - Added `__ExperimentalSelect` and `__ExperimentalAsyncSelect` as preview version of future select components. Please try them out and report any issues!
+- Updated dependencies.
 
 ## [1.7.2] - 2024-11-14
 - Re-publish of `1.7.1`, as it didn't properly publish.
