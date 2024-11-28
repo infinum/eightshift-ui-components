@@ -71,6 +71,8 @@ import {
 	ItemCollection,
 	OptionsPanelHeader,
 	MiniResponsive,
+	__ExperimentalAsyncSelect,
+	__ExperimentalSelect,
 } from '../lib';
 import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
@@ -98,6 +100,8 @@ function App() {
 	let [mulSel, setMulSel] = useState([]);
 	let [mulSelSimple, setMulSelSimple] = useState([]);
 	let [sinASel, setSinASel] = useState(null);
+	let [sinASel2, setSinASel2] = useState(null);
+	let [sinASel3, setSinASel3] = useState(null);
 	let [mulASel, setMulASel] = useState([]);
 
 	let [imgUrl, setImgUrl] = useState(null);
@@ -231,10 +235,12 @@ function App() {
 		{
 			label: 'Item 2',
 			value: 'item-2',
+			subtitle: 'How do you say second? Ne prvo!',
 		},
 		{
 			label: 'Item 3',
 			value: 'item-3',
+			icon: icons.num3Square,
 		},
 		{
 			label: 'Item 4 with veeeery very long label',
@@ -669,6 +675,12 @@ function App() {
 					<Tab>Responsive 2.0</Tab>
 					<Tab>BaseControl</Tab>
 					<Tab>Select</Tab>
+					<Tab>
+						Select next
+						<span className='es-uic-ml-1 es-uic-inline-block es-uic-rounded es-uic-bg-teal-800 es-uic-px-1 es-uic-py-0.5 es-uic-text-xs es-uic-uppercase es-uic-text-teal-50'>
+							beta
+						</span>
+					</Tab>
 					<Tab>Tabs</Tab>
 					<Tab>InputField</Tab>
 					<Tab>ComponentToggle</Tab>
@@ -1580,6 +1592,88 @@ function App() {
 						options={groupedOptions}
 						label='Groups'
 						icon={icons.group}
+					/>
+				</TabPanel>
+				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+					<__ExperimentalAsyncSelect
+						label='Async single select'
+						value={sinASel2}
+						onChange={setSinASel2}
+						fetchUrl={(searchText) =>
+							searchText?.length >= 3
+								? `https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5&contains=${searchText.substring(0, 30)}`
+								: 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5'
+						}
+						getLabel={(item) => item?.joke ?? item?.setup}
+						getValue={(item) => item?.id}
+						getSubtitle={(item) => item?.delivery}
+						getIcon={() => <span className='es-uic-shrink-0 es-uic-text-lg'>😂</span>}
+						getData={(data) => data?.jokes}
+					/>
+
+					<__ExperimentalAsyncSelect
+						label='Async single select - clearable'
+						value={sinASel3}
+						onChange={setSinASel3}
+						fetchUrl={(searchText) =>
+							searchText?.length >= 3
+								? `https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5&contains=${searchText.substring(0, 30)}`
+								: 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5'
+						}
+						getLabel={(item) => item?.joke ?? item?.setup}
+						getValue={(item) => item?.id}
+						getSubtitle={(item) => item?.delivery}
+						getIcon={() => <span className='es-uic-shrink-0 es-uic-text-lg'>😂</span>}
+						getData={(data) => data?.jokes}
+						clearable
+					/>
+
+					<hr />
+
+					<__ExperimentalSelect
+						label='Single basic'
+						value={sinSel}
+						onChange={setSinSel}
+						options={data}
+					/>
+
+					<hr />
+
+					<__ExperimentalSelect
+						label='Single basic - simpleValue'
+						value={sinSelSimple}
+						onChange={setSinSelSimple}
+						options={data}
+						simpleValue
+					/>
+
+					<__ExperimentalSelect
+						label='Single basic - simpleValue with clear'
+						value={sinSelSimple}
+						onChange={setSinSelSimple}
+						options={data}
+						simpleValue
+						clearable
+					/>
+
+					<hr />
+
+					<__ExperimentalSelect
+						label='Single basic - simpleValue with custom value display'
+						value={sinSelSimple}
+						onChange={setSinSelSimple}
+						options={data}
+						simpleValue
+						customValueDisplay={(item) => <span className='es-uic-font-bold es-uic-text-blue-400'>{item?.label}</span>}
+					/>
+
+					<__ExperimentalSelect
+						label='Single basic - simpleValue with custom menu item'
+						value={sinSelSimple}
+						onChange={setSinSelSimple}
+						options={data}
+						simpleValue
+						// customMenuOption={(item) => <span className='es-uic-font-bold es-uic-text-blue-400'>{item?.label}</span>}
 					/>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
