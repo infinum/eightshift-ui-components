@@ -8,7 +8,7 @@ import JsxParser from 'react-jsx-parser';
  * @param {Object} props - Component props.
  * @param {string} props.svg - The SVG string to render.
  * @param {string} [props.className] - The class name to apply to the SVG. **Note**: Make sure the SVG doesn't include a class name already!
- * @param {boolean} [props.decorative] - If `true`, `aria-hidden="true"` is added to the SVG.
+ * @param {boolean} [props.ariaHidden] - Set to `true` if the image is decorative.
  * @param {string} [props.customProps] - Custom props to add to the SVG.
  * @param {Object} [props.customPropBindings] - Dynamic bindings for custom props.
  *
@@ -23,7 +23,7 @@ import JsxParser from 'react-jsx-parser';
  * @preserve
  */
 export const JsxSvg = (props) => {
-	const { svg, className, decorative, customProps, customPropBindings } = props;
+	const { svg, className, customProps, customPropBindings, 'aria-hidden': ariaHiddenProp, ariaHidden } = props;
 
 	if (!svg || typeof svg !== 'string') {
 		return null;
@@ -35,7 +35,7 @@ export const JsxSvg = (props) => {
 		jsxString = jsxString.replace('<svg ', `<svg className="${className}" `);
 	}
 
-	if (decorative) {
+	if (ariaHiddenProp || ariaHidden) {
 		jsxString = jsxString.replace('<svg ', `<svg aria-hidden="true" `);
 	}
 

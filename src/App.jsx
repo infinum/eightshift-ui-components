@@ -1673,7 +1673,7 @@ function App() {
 						onChange={setSinSelSimple}
 						options={data}
 						simpleValue
-						// customMenuOption={(item) => <span className='es-uic-font-bold es-uic-text-blue-400'>{item?.label}</span>}
+						customMenuOption={(item) => <span className='es-uic-font-bold es-uic-text-blue-400'>{item?.label}</span>}
 					/>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
