@@ -92,14 +92,15 @@ export const Checkbox = (props) => {
 						<AnimatedVisibility
 							transition='scaleFade'
 							visible={isIndeterminate}
+							className='es-uic-transition-none'
 						>
-							<div className='es-uic-h-[1.5px] es-uic-w-3 es-uic-rounded es-uic-bg-white' />
+							<div className='es-uic-h-0.5 es-uic-w-3 es-uic-rounded es-uic-bg-white' />
 						</AnimatedVisibility>
 
 						<AnimatedVisibility
-							transition='scaleFade'
+							transition='scaleRotateFade'
 							visible={!isIndeterminate && isSelected}
-							className='[&>svg]:es-uic-size-3 [&>svg]:es-uic-stroke-[3]'
+							className='es-uic-transition-none [&>svg]:es-uic-size-3 [&>svg]:es-uic-stroke-[3]'
 							noInitial
 						>
 							{icons.check}

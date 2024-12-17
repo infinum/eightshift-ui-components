@@ -15,7 +15,7 @@ import { useState, useEffect } from 'react';
  *
  * @returns {JSX.Element} The AnimatedVisibility component.
  *
- * @typedef {'fade' | 'slideFade' |'scaleFade' | 'scaleRotateFade' | 'slideFadeUpSlight' | 'slideFadeDownSlight' | 'slideInFadeOut'} ElementTransition
+ * @typedef {'fade' | 'slideFade' |'scaleFade' | 'scaleRotateFade' | 'slideFadeUpSlight' | 'slideFadeDownSlight' | 'slideInFadeOut' | 'scaleSlideFade'} ElementTransition
  *
  * @example
  * const [visible, setVisible] = useState(false);
@@ -73,9 +73,15 @@ export const AnimatedVisibility = (props) => {
 			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-zoom-in-90',
 			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-zoom-out-90',
 		},
+		scaleSlideFade: {
+			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-zoom-in-[98%] es-uic-slide-in-from-top-3',
+			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-zoom-out-[98%] es-uic-slide-out-to-top-3',
+			durationClassName: 'es-uic-duration-300',
+		},
 		scaleRotateFade: {
-			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-zoom-in-95 -es-uic-spin-in-12',
-			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-zoom-out-95 -es-uic-spin-out-12',
+			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-zoom-in-90 es-uic-spin-in-12',
+			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-zoom-out-90 es-uic-spin-out-12',
+			durationClassName: 'es-uic-duration-300',
 		},
 	};
 
