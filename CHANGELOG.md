@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
 ## [1.9.0] - 2024-12-17
-- Rewrote `Expandable` and `ComponentToggle` to use new React-Aria Disclosure components.
+- Rewrote `Expandable` and `ComponentToggle` to use new React Aria disclosure components.
+- Deprecated `noFocusHandling` from `Expandable`.
+- Reworked `AnimatedVisibility` to use native CSS animations instead of Motion.
+- Made `Checkbox` checkmark a bit thicker.
+- Tweaked `ContainerPanel` animations.
+- Added 2 UI icons.
+- Updated dependencies.
 
 ## [1.8.0] - 2024-11-22
 - `JsxSvg` now supports `aria-hidden` prop
