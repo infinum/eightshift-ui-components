@@ -54,6 +54,7 @@ export const ContainerPanel = (props) => {
 			actions={
 				<>
 					{actions}
+
 					<HStack
 						hidden={!closable && !onUseChange}
 						className='es-uic-ml-auto'
@@ -85,8 +86,8 @@ export const ContainerPanel = (props) => {
 				</>
 			}
 			className={clsx(
-				'es-uic-space-y-2 es-uic-border-t es-uic-border-t-gray-200',
-				closable && open && 'es-uic-space-y-0',
+				'es-uic-border-t es-uic-border-t-gray-200',
+				!closable && typeof use === 'undefined' && 'es-uic-space-y-2',
 				justClosable && open && 'es-uic-pb-4',
 				justUse && use && 'es-uic-pb-4',
 				useAndClosable && use && open && 'es-uic-pb-4',
@@ -102,7 +103,8 @@ export const ContainerPanel = (props) => {
 			{closable && typeof use === 'undefined' && (
 				<AnimatedVisibility
 					visible={open}
-					className={clsx(open && 'es-uic-space-y-2 es-uic-px-4')}
+					className='es-uic-space-y-2 es-uic-px-4'
+					transition='scaleSlideFade'
 				>
 					{children}
 				</AnimatedVisibility>
@@ -110,7 +112,8 @@ export const ContainerPanel = (props) => {
 			{typeof use !== 'undefined' && (
 				<AnimatedVisibility
 					visible={closable ? use && open : use}
-					className={clsx((closable ? use && open : use) && 'es-uic-space-y-2 es-uic-px-4')}
+					className='es-uic-space-y-2 es-uic-px-4'
+					transition='scaleSlideFade'
 				>
 					{children}
 				</AnimatedVisibility>
