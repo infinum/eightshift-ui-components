@@ -15,7 +15,7 @@ import { useState, useEffect } from 'react';
  *
  * @returns {JSX.Element} The AnimatedVisibility component.
  *
- * @typedef {'fade' | 'slideFade' |'scaleFade' | 'scaleRotateFade' | 'slideFadeUpSlight' | 'slideFadeDownSlight'} ElementTransition
+ * @typedef {'fade' | 'slideFade' |'scaleFade' | 'scaleRotateFade' | 'slideFadeUpSlight' | 'slideFadeDownSlight' | 'slideInFadeOut'} ElementTransition
  *
  * @example
  * const [visible, setVisible] = useState(false);
@@ -54,8 +54,12 @@ export const AnimatedVisibility = (props) => {
 			outClassName: 'es-uic-animate-out es-uic-fade-out',
 		},
 		slideFade: {
+			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-slide-in-from-top-3',
+			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-slide-out-to-top-3',
+		},
+		slideInFadeOut: {
 			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-slide-in-from-bottom-3',
-			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-slide-out-to-bottom-3',
+			outClassName: 'es-uic-animate-out es-uic-fade-out',
 		},
 		slideFadeUpSlight: {
 			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-slide-in-from-bottom-1',
