@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [1.9.1] - 2024-12-17
+- Downgraded from React 19 to React 18.
+
 ## [1.9.0] - 2024-12-17
 - Rewrote `Expandable` and `ComponentToggle` to use new React Aria disclosure components.
 - Deprecated `noFocusHandling` from `Expandable`.
@@ -222,6 +225,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[1.9.1]: https://github.com/infinum/eightshift-ui-components/compare/1.9.0...1.9.1
 [1.9.0]: https://github.com/infinum/eightshift-ui-components/compare/1.8.0...1.9.0
 [1.8.0]: https://github.com/infinum/eightshift-ui-components/compare/1.7.2...1.8.0
 [1.7.2]: https://github.com/infinum/eightshift-ui-components/compare/1.7.1...1.7.2
