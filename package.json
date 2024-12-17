@@ -47,7 +47,6 @@
 		"@dnd-kit/dom": "^0.0.5",
 		"@dnd-kit/helpers": "^0.0.5",
 		"@dnd-kit/react": "^0.0.5",
-		"motion": "^11.15.0",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-jsx-parser": "^2.2.2",
