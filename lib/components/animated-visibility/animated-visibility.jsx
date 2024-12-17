@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 
 /**
  * Component that allows animating the visibility of its children.
@@ -50,13 +50,13 @@ export const AnimatedVisibility = (props) => {
 	};
 
 	return (
-		<AnimatePresence initial={!noInitial}>
+		<AnimatePresence initial={!noInitial} mode='popLayout'>
 			{visible && (
 				<motion.div
 					initial={transitions[transition].initial}
 					animate={transitions[transition].animate}
 					exit={transitions[transition].exit}
-					transition={{ type: 'spring', damping: 15, stiffness: 225 }}
+					transition={{ type: 'spring', duration: 0.6, bounce: 0.4 }}
 					className={className}
 					{...other}
 				>
