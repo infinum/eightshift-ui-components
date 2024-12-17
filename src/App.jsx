@@ -87,7 +87,7 @@ function App() {
 	const [menuThingy, setMenuThingy] = useState(false);
 	const [menuThingy2, setMenuThingy2] = useState(false);
 	const [num, setNum] = useState(0);
-	const [animVis, setAnimVis] = useState(false);
+	const [animVis, setAnimVis] = useState(true);
 	const [txt1, setTxt1] = useState('');
 	const [txt2, setTxt2] = useState('');
 	const [useComp, setUseComp] = useState(false);
@@ -768,18 +768,30 @@ function App() {
 					<div className='es-uic-flex es-uic-min-h-56 es-uic-flex-col es-uic-gap-2 es-uic-rounded-md es-uic-border es-uic-border-dotted es-uic-border-gray-300 es-uic-p-2'>
 						<ToggleButton
 							className='mx-auto'
-							checked={animVis}
-							onChange={(v) => setAnimVis(v)}
+							selected={animVis}
+							onChange={setAnimVis}
 						>
-							Hidden thingy
+							Show
 						</ToggleButton>
-						<AnimatedVisibility
-							visible={animVis}
-							noInitial
-							transition='scaleFade'
-						>
-							<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 es-uic-p-4'>Hi, I&apos;m content</div>
-						</AnimatedVisibility>
+						<div className='es-uic-grid es-uic-grid-cols-2 es-uic-gap-4'>
+							<AnimatedVisibility
+								visible={animVis}
+								noInitial
+								transition='scaleFade'
+							>
+								<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 es-uic-p-4'>Hi, I&apos;m content.</div>
+							</AnimatedVisibility>
+							<AnimatedVisibility
+								visible={animVis}
+								transition='scaleFade'
+							>
+								<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 es-uic-p-4'>Hi, I&apos;m content.</div>
+							</AnimatedVisibility>
+						</div>
+
+						<span className='es-uic-text-gray-500'>
+							Left has <code>noInitial</code> set.
+						</span>
 					</div>
 				</TabPanel>
 				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
@@ -788,9 +800,10 @@ function App() {
 						label='Lorem ipsum dolor'
 						actions={
 							<Button
-								onClick={() => console.log('hi')}
+								onPress={() => console.log('hi')}
 								icon={icons.emptyRect}
 								type='ghost'
+								size='small'
 							/>
 						}
 					>
@@ -800,13 +813,31 @@ function App() {
 					<Expandable
 						icon={icons.experiment}
 						label='Lorem ipsum dolor'
+						actions={
+							<Button
+								onPress={() => console.log('hi')}
+								icon={icons.emptyRect}
+								type='ghost'
+								size='small'
+							/>
+						}
+					>
+						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>
+							lorem
+							<Button>Ipsum</Button>
+						</div>
+					</Expandable>
+
+					<Expandable
+						icon={icons.experiment}
+						label='Lorem ipsum dolor'
 						keepActionsOnExpand
 						actions={
 							<Button
-								className='es-uic-flex es-uic-size-8 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border [&>svg]:es-uic-size-5.5'
-								onClick={() => console.log('hi')}
-								icon={icons.emptyRect}
+								onPress={() => console.log('hi')}
+								icon={icons.emptyCircle}
 								type='ghost'
+								size='small'
 							/>
 						}
 					>
@@ -1230,7 +1261,7 @@ function App() {
 						step={5}
 					>
 						<Button
-							onClick={() => setNum(0)}
+							onPress={() => setNum(0)}
 							type='ghost'
 							icon={icons.resetToZero}
 						/>
@@ -1244,7 +1275,7 @@ function App() {
 						inline
 					>
 						<Button
-							onClick={() => setNum(0)}
+							onPress={() => setNum(0)}
 							type='ghost'
 							icon={icons.resetToZero}
 							disabled={num === 0}

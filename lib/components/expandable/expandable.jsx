@@ -5,8 +5,7 @@ import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
 import { clsx } from 'clsx/lite';
 import { __ } from '@wordpress/i18n';
-import { Label } from 'react-aria-components';
-import { FocusScope } from 'react-aria';
+import { Label, Disclosure, DisclosurePanel } from 'react-aria-components';
 
 /**
  * A component that allows hiding content in an expandable panel, to declutter the UI.
@@ -23,10 +22,10 @@ import { FocusScope } from 'react-aria';
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display in the panel header, left of the expand button.
  * @param {boolean} [props.keepActionsOnExpand=false] - If `true`, the actions are not hidden when the panel is expanded.
  * @param {boolean} [props.disabled] - If `true`, the expand button is disabled.
- * @param {boolean} [props.noFocusHandling] - If `true`, the focus trapping when the item is expanded is disabled. Useful when part of another component that manages focus itself.
  * @param {boolean} [props.open] - Whether the expandable is open.
  * @param {Function} [props.onOpenChange] - Function is called when the panel is opened or closed.
  * @param {object} [props.headerProps] - Props to pass to the header (label + trigger).
+ * @param {JSX.Element} [props.customOpenButton] - Allows adding a custom open button. **IMPORTANT**: make sure to set `slot='trigger'` on the passed element!
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Expandable component.
@@ -81,18 +80,25 @@ export const Expandable = (props) => {
 		return null;
 	}
 
-	const component = (
-		<div
+	return (
+		<Disclosure
+			isExpanded={isOpen}
+			onExpandedChange={(value) => {
+				setIsOpen(value);
+
+				if (onOpenChange) {
+					onOpenChange(!isOpen);
+				}
+			}}
 			className={clsx(
-				'es-uic-w-full es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-border-opacity-0 es-uic-text-sm es-uic-transition focus:es-uic-outline-none',
-				isOpen && 'es-uic-border-opacity-100 es-uic-shadow-lg',
+				'es-uic-w-full es-uic-rounded-lg es-uic-border es-uic-border-gray-300/0 es-uic-text-sm es-uic-transition',
+				isOpen && 'es-uic-border-gray-300/100 es-uic-shadow-lg',
 				className,
 			)}
 			{...other}
 		>
 			<div
 				className={clsx('es-uic-flex es-uic-h-10 es-uic-items-center es-uic-gap-1 es-uic-transition-[padding]', isOpen && 'es-uic-py-1 es-uic-pl-2 es-uic-pr-1', headerClassName)}
-				{...headerProps}
 			>
 				<RichLabel
 					icon={icon}
@@ -132,6 +138,7 @@ export const Expandable = (props) => {
 
 				{!customOpenButton && (
 					<Button
+						slot='trigger'
 						type='ghost'
 						icon={isOpen ? icons.caretDownFill : icons.caretDown}
 						onPress={() => {
@@ -149,27 +156,15 @@ export const Expandable = (props) => {
 				)}
 			</div>
 
-			<AnimatedVisibility
-				visible={isOpen}
-				className={clsx('es-uic-space-y-2.5 es-uic-border-t es-uic-border-t-gray-200 es-uic-p-2', contentClassName)}
-				transition='slideFade'
-				noInitial
+			<DisclosurePanel
+				className={clsx(
+					isOpen && 'es-uic-space-y-2.5 es-uic-border-t es-uic-border-t-gray-200 es-uic-p-2',
+					isOpen && 'es-uic-animate-in es-uic-fade-in-0 es-uic-slide-in-from-top-3 es-uic-fill-mode-forwards',
+					contentClassName,
+				)}
 			>
 				{children}
-			</AnimatedVisibility>
-		</div>
-	);
-
-	if (noFocusHandling) {
-		return component;
-	}
-
-	return (
-		<FocusScope
-			contain={isOpen}
-			autoFocus={isOpen}
-		>
-			{component}
-		</FocusScope>
+			</DisclosurePanel>
+		</Disclosure>
 	);
 };

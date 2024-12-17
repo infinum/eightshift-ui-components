@@ -1,4 +1,5 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { clsx } from 'clsx/lite';
+import { useState, useEffect } from 'react';
 
 /**
  * Component that allows animating the visibility of its children.
@@ -8,11 +9,13 @@ import { motion, AnimatePresence } from 'framer-motion';
  * @param {boolean} props.visible - Whether the content should be visible
  * @param {string} props.className - Classes to pass to the element wrapper.
  * @param {boolean} [props.noInitial=false] - If `true`, the animation when the component is first mounted is disabled.
+ * @param {boolean} [props.noExitAnimation=false] - If `true`, the exit animation is not played.
+ * @param {boolean} [props.noEnterAnimation=false] - If `true`, the entrance animation is not played.
  * @param {ElementTransition} [props.transition='slideFade'] - The transition to use when showing/hiding the content.
  *
  * @returns {JSX.Element} The AnimatedVisibility component.
  *
- * @typedef {'fade' | 'slideFade' |'scaleFade' | 'scaleRotateFade'} ElementTransition
+ * @typedef {'fade' | 'slideFade' |'scaleFade' | 'scaleRotateFade' | 'slideFadeUpSlight' | 'slideFadeDownSlight' | 'slideInFadeOut' | 'scaleSlideFade'} ElementTransition
  *
  * @example
  * const [visible, setVisible] = useState(false);
@@ -24,45 +27,90 @@ import { motion, AnimatePresence } from 'framer-motion';
  * @preserve
  */
 export const AnimatedVisibility = (props) => {
-	const { visible, className, children, noInitial = false, transition = 'slideFade', ...other } = props;
+	const { visible, className, children, noInitial = false, transition = 'slideFade', noExitAnimation, noEnterAnimation, ...other } = props;
+
+	const [isVisibleInner, setIsVisibleInner] = useState(false);
+	const [canAnimate, setCanAnimate] = useState(true);
+
+	useEffect(() => {
+		if (visible) {
+			setIsVisibleInner(true);
+		}
+
+		if (!visible && noExitAnimation) {
+			setIsVisibleInner(false);
+		}
+	}, [visible]);
+
+	useEffect(() => {
+		if (noInitial && visible) {
+			setCanAnimate(false);
+		}
+	}, []);
 
 	const transitions = {
 		fade: {
-			initial: { opacity: 0 },
-			animate: { opacity: 1 },
-			exit: { opacity: 0 },
+			inClassName: 'es-uic-animate-in es-uic-fade-in',
+			outClassName: 'es-uic-animate-out es-uic-fade-out',
 		},
 		slideFade: {
-			initial: { opacity: 0, y: -5 },
-			animate: { opacity: 1, y: 0 },
-			exit: { opacity: 0, y: -5 },
+			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-slide-in-from-top-3',
+			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-slide-out-to-top-3',
+		},
+		slideInFadeOut: {
+			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-slide-in-from-bottom-3',
+			outClassName: 'es-uic-animate-out es-uic-fade-out',
+		},
+		slideFadeUpSlight: {
+			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-slide-in-from-bottom-1',
+			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-slide-out-to-bottom-1',
+		},
+		slideFadeDownSlight: {
+			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-slide-in-from-top-1',
+			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-slide-out-to-top-1',
 		},
 		scaleFade: {
-			initial: { opacity: 0, scale: 0.9 },
-			animate: { opacity: 1, scale: 1 },
-			exit: { opacity: 0, scale: 0.9 },
+			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-zoom-in-90',
+			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-zoom-out-90',
+		},
+		scaleSlideFade: {
+			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-zoom-in-[98%] es-uic-slide-in-from-top-3',
+			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-zoom-out-[98%] es-uic-slide-out-to-top-3',
+			durationClassName: 'es-uic-duration-300',
 		},
 		scaleRotateFade: {
-			initial: { opacity: 0, scale: 0.95, rotate: '-10deg' },
-			animate: { opacity: 1, scale: 1, rotate: '0deg' },
-			exit: { opacity: 0, scale: 0.95, rotate: '-10deg' },
+			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-zoom-in-90 es-uic-spin-in-12',
+			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-zoom-out-90 es-uic-spin-out-12',
+			durationClassName: 'es-uic-duration-300',
 		},
 	};
 
 	return (
-		<AnimatePresence initial={!noInitial}>
-			{visible && (
-				<motion.div
-					initial={transitions[transition].initial}
-					animate={transitions[transition].animate}
-					exit={transitions[transition].exit}
-					transition={{ type: 'spring', damping: 15, stiffness: 225 }}
-					className={className}
+		<>
+			{isVisibleInner && (
+				<div
+					className={clsx(
+						!noEnterAnimation && visible && noInitial && visible && canAnimate && transitions[transition].inClassName,
+						!noEnterAnimation && visible && !noInitial && transitions[transition].inClassName,
+						!noExitAnimation && !visible && transitions[transition].outClassName,
+						transitions?.[transition]?.durationClassName ?? 'es-uic-duration-300',
+						'es-uic-fill-mode-forwards',
+						className,
+					)}
+					onAnimationEnd={() => {
+						if (visible === false) {
+							setIsVisibleInner(false);
+						}
+
+						if (!canAnimate) {
+							setCanAnimate(true);
+						}
+					}}
 					{...other}
 				>
 					{children}
-				</motion.div>
+				</div>
 			)}
-		</AnimatePresence>
+		</>
 	);
 };
