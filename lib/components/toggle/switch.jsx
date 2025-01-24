@@ -46,7 +46,7 @@ export const Switch = (props) => {
 				<div
 					className={clsx(
 						'es-uic-no-webkit-highlight es-uic-h-4 es-uic-w-7 es-uic-shrink-0 es-uic-cursor-pointer es-uic-rounded-full es-uic-border es-uic-border-gray-500 es-uic-bg-white es-uic-p-[0.1875rem] es-uic-shadow-sm es-uic-outline-none es-uic-transition',
-						'group-focus-visible:es-uic-ring group-focus-visible:es-uic-ring-teal-500 group-focus-visible:es-uic-ring-opacity-50',
+						'group-focus-visible:es-uic-ring group-focus-visible:es-uic-ring-teal-500/50',
 						'group-selected:es-uic-border-teal-800/75 group-selected:es-uic-bg-teal-100/25 group-selected:es-uic-shadow-teal-500/25',
 						'group-disabled:es-uic-cursor-default group-disabled:es-uic-border-gray-300 group-disabled:es-uic-bg-white',
 					)}

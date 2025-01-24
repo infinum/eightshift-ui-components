@@ -127,7 +127,7 @@ export const DraggableList = (props) => {
 								'es-uic-min-h-8 es-uic-w-full',
 								'es-uic-flex es-uic-items-center es-uic-gap-1 es-uic-rounded-lg',
 								'es-uic-transition-[box-shadow,_background-color,_filter,_opacity,_border-color]',
-								'focus:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+								'focus:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
 								isDisabled && 'es-uic-grayscale',
 								isDragged && 'es-uic-bg-white es-uic-opacity-50',
 								isSelected && 'es-uic-bg-teal-50',

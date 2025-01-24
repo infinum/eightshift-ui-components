@@ -130,7 +130,7 @@ export const ListBox = (props) => {
 							className={({ isDisabled, isSelected }) => {
 								return clsx(
 									'es-uic-flex es-uic-min-h-9 es-uic-select-none es-uic-rounded-md es-uic-border es-uic-transition',
-									'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+									'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
 									isSelected &&
 										!disabled &&
 										'es-uic-border es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white es-uic-shadow-md es-uic-shadow-teal-500/25 after:es-uic-opacity-45',

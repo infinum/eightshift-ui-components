@@ -175,7 +175,7 @@ export const ColumnConfigSlider = (props) => {
 											i === 0 && '!-es-uic-translate-x-1/2 !es-uic-translate-y-0 es-uic-self-center es-uic-justify-self-start',
 											i === 1 && '!es-uic-translate-x-1/2 !es-uic-translate-y-0 es-uic-self-center es-uic-justify-self-end',
 											'es-uic-shadow dragging:es-uic-bg-teal-600 disabled:es-uic-opacity-0',
-											'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+											'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
 											'es-uic-border-teal-600 es-uic-bg-teal-500 es-uic-shadow-teal-600/50',
 											'hover:es-uic-cursor-grab dragging:es-uic-cursor-grabbing',
 										)}

@@ -56,12 +56,12 @@ export const RadioButton = (props) => {
 		segmented: clsx(
 			'es-uic-py-1 es-uic-px-1.5 es-uic-border es-uic-border-gray-300 hover:es-uic-bg-gray-50 es-uic-transition es-uic-min-h-10',
 			'first:es-uic-rounded-t-lg last:es-uic-rounded-b-lg',
-			'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50 focus-visible:es-uic-z-10',
+			'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50 focus-visible:es-uic-z-10',
 		),
 		segmentedHorizontal: clsx(
 			'es-uic-py-1 es-uic-px-1.5 es-uic-border es-uic-border-gray-300 hover:es-uic-bg-gray-50 es-uic-transition es-uic-grow es-uic-min-h-10',
 			'first:es-uic-rounded-l-lg last:es-uic-rounded-r-lg',
-			'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50 focus-visible:es-uic-z-10',
+			'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50 focus-visible:es-uic-z-10',
 		),
 	};
 
@@ -88,7 +88,7 @@ export const RadioButton = (props) => {
 							isSelected && !disabled && 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white',
 							isSelected && disabled && 'es-uic-border-gray-400 es-uic-bg-gray-400 es-uic-text-white',
 							!isSelected && 'es-uic-border-gray-300',
-							!design?.startsWith('segmented') && isFocusVisible && 'es-uic-ring es-uic-ring-teal-500 es-uic-ring-opacity-50',
+							!design?.startsWith('segmented') && isFocusVisible && 'es-uic-ring es-uic-ring-teal-500/50',
 						)}
 					>
 						<AnimatedVisibility

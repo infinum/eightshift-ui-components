@@ -62,7 +62,7 @@ export const SolidColorPicker = (props) => {
 
 	const valueInputClassName = clsx(
 		'es-uic-h-8 es-uic-w-12 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-tabular-nums es-uic-text-sm es-uic-shadow-sm es-uic-transition es-uic-text-right selection:es-uic-bg-teal-500/20 selection:es-uic-text-teal-950',
-		'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+		'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
 	);
 
 	return (
@@ -73,7 +73,7 @@ export const SolidColorPicker = (props) => {
 				yChannel='lightness'
 				className={clsx(
 					'es-uic-size-48 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-shadow-sm es-uic-transition',
-					'[&:has(>_[data-focus-visible="true"])]:es-uic-ring [&:has(>_[data-focus-visible="true"])]:es-uic-ring-teal-500 [&:has(>_[data-focus-visible="true"])]:es-uic-ring-opacity-50',
+					'[&:has(>_[data-focus-visible="true"])]:es-uic-ring [&:has(>_[data-focus-visible="true"])]:es-uic-ring-teal-500/50',
 					'disabled:!es-uic-bg-gradient-to-r disabled:es-uic-from-white disabled:es-uic-to-gray-100',
 				)}
 				onChange={handleChange}
@@ -99,7 +99,7 @@ export const SolidColorPicker = (props) => {
 				<SliderTrack
 					className={clsx(
 						'es-uic-h-7 es-uic-w-48 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-shadow-sm',
-						'[&:has(>_[data-focus-visible="true"])]:es-uic-ring [&:has(>_[data-focus-visible="true"])]:es-uic-ring-teal-500 [&:has(>_[data-focus-visible="true"])]:es-uic-ring-opacity-50',
+						'[&:has(>_[data-focus-visible="true"])]:es-uic-ring [&:has(>_[data-focus-visible="true"])]:es-uic-ring-teal-500/50',
 						'disabled:!es-uic-bg-gradient-to-r disabled:es-uic-from-white disabled:es-uic-to-gray-100',
 					)}
 				>
@@ -125,7 +125,7 @@ export const SolidColorPicker = (props) => {
 					<SliderTrack
 						className={clsx(
 							'es-uic-h-7 es-uic-w-48 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-shadow-sm',
-							'[&:has(>_[data-focus-visible="true"])]:es-uic-ring [&:has(>_[data-focus-visible="true"])]:es-uic-ring-teal-500 [&:has(>_[data-focus-visible="true"])]:es-uic-ring-opacity-50',
+							'[&:has(>_[data-focus-visible="true"])]:es-uic-ring [&:has(>_[data-focus-visible="true"])]:es-uic-ring-teal-500/50',
 							'disabled:!es-uic-bg-gradient-to-r disabled:es-uic-from-white disabled:es-uic-to-gray-100',
 						)}
 						style={() => {
@@ -160,7 +160,7 @@ export const SolidColorPicker = (props) => {
 					<Input
 						className={clsx(
 							'es-uic-h-9 es-uic-w-20 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-tabular-nums es-uic-shadow-sm es-uic-transition',
-							'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+							'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
 						)}
 					/>
 				</ColorField>

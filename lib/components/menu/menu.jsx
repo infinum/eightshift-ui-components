@@ -221,7 +221,7 @@ export const MenuItem = (props) => {
 				'first:es-uic-mt-1 [&>svg]:es-uic-size-5 [&>svg]:es-uic-text-gray-500',
 				'es-uic-select-none es-uic-rounded es-uic-border es-uic-border-transparent es-uic-px-1 es-uic-py-1.5 es-uic-text-sm es-uic-transition',
 				'hover:es-uic-bg-gray-100',
-				'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+				'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
 				disabled ? 'es-uic-text-gray-400' : 'es-uic-text-gray-800',
 				className,
 			)}

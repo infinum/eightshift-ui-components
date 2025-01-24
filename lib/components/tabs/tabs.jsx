@@ -175,7 +175,7 @@ export const Tab = (props) => {
 			className={({ isSelected, isDisabled }) => {
 				return clsx(
 					'es-uic-relative es-uic-flex es-uic-select-none es-uic-items-center es-uic-rounded es-uic-p-1.5 es-uic-text-sm es-uic-transition',
-					'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+					'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
 					'after:es-uic-absolute after:es-uic-rounded-full after:es-uic-bg-teal-600 after:es-uic-shadow-sm after:es-uic-shadow-teal-500/25 after:es-uic-transition after:es-uic-duration-300 after:es-uic-content-[""]',
 					!isParentVertical && 'after:es-uic-inset-x-0 after:-es-uic-bottom-px after:es-uic-h-0.5',
 					isSelected && 'es-uic-border-b-teal-600 es-uic-text-teal-900 after:es-uic-opacity-100',

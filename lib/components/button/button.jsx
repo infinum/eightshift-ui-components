@@ -93,7 +93,7 @@ export const Button = (props) => {
 			regular: 'es-uic-text-gray-700 es-uic-shadow-sm es-uic-border es-uic-border-gray-300 es-uic-bg-white',
 			hover: 'hover:es-uic-border-gray-300 hover:es-uic-bg-gray-100',
 			disabled: 'disabled:es-uic-border-gray-300 disabled:es-uic-bg-gray-50/50 disabled:es-uic-text-gray-300 es-uic-border',
-			focus: 'focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+			focus: 'focus-visible:es-uic-ring-teal-500/50',
 		},
 		selected: {
 			regular: 'es-uic-bg-teal-600 es-uic-text-white es-uic-border-teal-600 after:es-uic-opacity-45 es-uic-border es-uic-shadow-md es-uic-shadow-teal-500/25',
@@ -107,7 +107,7 @@ export const Button = (props) => {
 		danger: {
 			regular: 'es-uic-border-red-300 es-uic-text-gray-700 es-uic-text-gray-900 es-uic-shadow-red-300/30 [&>svg]:es-uic-text-red-500 es-uic-shadow-sm es-uic-border',
 			hover: 'hover:es-uic-border-red-400 hover:es-uic-bg-red-50 hover:es-uic-text-red-500 hover:es-uic-shadow-red-300/75',
-			focus: 'focus-visible:es-uic-ring-red-500 focus-visible:es-uic-ring-opacity-50',
+			focus: 'focus-visible:es-uic-ring-red-500/50',
 		},
 	};
 

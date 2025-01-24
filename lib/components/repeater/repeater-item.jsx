@@ -48,7 +48,7 @@ export const RepeaterItem = (props) => {
 				'es-uic-transition es-uic-rounded-md',
 
 				isSelected && 'es-uic-bg-teal-50 es-uic-border-teal-100',
-				'group-focus:es-uic-outline-none group-focus-visible:es-uic-ring group-focus-visible:es-uic-ring-teal-500 group-focus-visible:es-uic-ring-opacity-50',
+				'group-focus:es-uic-outline-none group-focus-visible:es-uic-ring group-focus-visible:es-uic-ring-teal-500/50',
 			)}
 			customOpenButton={({ open, toggleOpen, tooltip, disabled }) => {
 				return (

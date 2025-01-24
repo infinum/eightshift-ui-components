@@ -115,7 +115,7 @@ export const NumberPicker = ({
 				<Group
 					className={clsx(
 						'es-uic-flex es-uic-w-fit es-uic-items-center es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-pl-1 es-uic-pr-0.5 es-uic-shadow-sm es-uic-transition',
-						isInputFocused && 'es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+						isInputFocused && 'es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
 						!prefix && (sizes?.[size]?.noPrefixPadding ?? sizes.default.noPrefixPadding),
 						sizes?.[size]?.field ?? sizes.default.field,
 					)}
