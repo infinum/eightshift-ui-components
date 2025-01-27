@@ -104,7 +104,7 @@ export const ContainerPanel = (props) => {
 				<AnimatedVisibility
 					visible={open}
 					className='es:space-y-2 es:px-4'
-					transition='scaleSlideFade'
+					transition='slideFade'
 				>
 					{children}
 				</AnimatedVisibility>
@@ -113,7 +113,7 @@ export const ContainerPanel = (props) => {
 				<AnimatedVisibility
 					visible={closable ? use && open : use}
 					className='es:space-y-2 es:px-4'
-					transition='scaleSlideFade'
+					transition='slideFade'
 				>
 					{children}
 				</AnimatedVisibility>

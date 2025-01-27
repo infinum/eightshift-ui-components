@@ -160,7 +160,7 @@ export const LinkInput = (props) => {
 							'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 							'es:focus-visible:border-accent-500',
 							'es:inset-ring es:inset-ring-secondary-100',
-							'es:disabled:shadow-none es:disabled:border-secondary-200 es:disabled:bg-secondary-50 es:disabled:text-secondary-500 es:disabled:cursor-default es:readonly:bg-secondary-50',
+							'es:disabled:shadow-none! es:disabled:border-secondary-200 es:disabled:bg-secondary-50 es:disabled:text-secondary-500 es:disabled:cursor-default es:readonly:bg-secondary-50',
 							!suggestionList.isLoading && 'es:aria-[expanded=false]:rounded-b-lg',
 							suggestionList.isLoading && 'es:rounded-b-lg',
 							url?.length > 0 && 'es:pr-10',

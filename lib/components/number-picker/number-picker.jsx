@@ -119,6 +119,7 @@ export const NumberPicker = ({
 						isInputFocused && 'es:outline-hidden es:focus-visible:border-accent-500 es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 						!prefix && (sizes?.[size]?.noPrefixPadding ?? sizes.default.noPrefixPadding),
 						sizes?.[size]?.field ?? sizes.default.field,
+						'es:disabled:shadow-none es:disabled:border-secondary-200 es:disabled:bg-secondary-50 es:disabled:text-secondary-500 es:disabled:cursor-default es:readonly:bg-secondary-50',
 					)}
 				>
 					{prefix && (
@@ -140,7 +141,7 @@ export const NumberPicker = ({
 						aria-label={ariaLabel ?? __('Enter a number', 'eightshift-ui-components')}
 					/>
 
-					<div className='es:opacity-0 es:group-hover:opacity-100 es:group-focus-visible:opacity-100 es:transition-opacity'>
+					<div className={clsx('es:opacity-0 es:group-hover:opacity-100 es:group-focus-visible:opacity-100 es:transition-opacity', disabled && 'es:invisible')}>
 						<Button
 							type='ghost'
 							className='es:col-start-4 es:h-3 es:w-4 es:text-secondary-500! es:disabled:text-secondary-300! es:icon:size-[0.8rem]'
