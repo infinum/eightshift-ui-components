@@ -29,6 +29,7 @@ import { icons } from '../../icons/icons';
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {string} [props.tooltip] - If provided, overrides the default tooltip text. If there is no label, the value will still be shown within the tooltip.
  * @param {string} [props.clearItemLabel] - Label for the "None" item, if `clearable` is enabled.
+ * @param {JSX.Element|JSX.Element[]} [props.extraOptions] - If `type` is `menu`, allows passing additional menu items, which will be displayed below the options.
  *
  * @returns {JSX.Element} The ColorPicker component.
  *
@@ -76,6 +77,8 @@ export const ColorPicker = (props) => {
 
 		tooltip,
 
+		extraOptions,
+
 		...rest
 	} = props;
 
@@ -115,7 +118,7 @@ export const ColorPicker = (props) => {
 						...output[newSlug],
 						{
 							...current,
-							shade: current.slug.match(colorSuffixRegex)[0].replace('-', ''),
+							shade: current.slug.match(colorSuffixRegex)[0].replaceAll('-', ''),
 						},
 					];
 				} else {
@@ -127,6 +130,8 @@ export const ColorPicker = (props) => {
 			{ generic: [] },
 		);
 	}
+
+	console.log(groupedColors);
 
 	const SingleItem = ({ name, slug, color, ...rest }) => (
 		<MenuItem
@@ -282,6 +287,9 @@ export const ColorPicker = (props) => {
 						)}
 					</>
 				)}
+
+				{extraOptions && <MenuSeparator />}
+				{extraOptions}
 			</Menu>
 		</BaseControl>
 	);

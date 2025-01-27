@@ -161,9 +161,9 @@ export const MenuSection = (props) => {
 	return (
 		<ReactAriaMenuSection
 			className={clsx(
-				'es:space-y-1 es:border-b es:border-b-secondary-200 es:pt-1 es:last:border-b-0',
+				'es:space-y-1 es:border-b es:border-b-secondary-200 es:last:border-b-0',
 				label && 'es:pt-2 es:first:pt-1.5 es:last:pb-0',
-				!label && 'es:last:pb-1 es:has-[>_:only-child]:pb-0',
+				!label && 'es:has-[>_:only-child]:pb-0',
 			)}
 		>
 			{label && <Header className='es:ml-1.5 es:text-xs es:font-medium es:text-secondary-400'>{label}</Header>}
@@ -225,7 +225,7 @@ export const MenuItem = (props) => {
 			aria-label={ariaLabel}
 			isDisabled={disabled}
 			className={clsx(
-				'es:mx-1 es:mb-1 es:flex es:min-w-44 es:items-center es:gap-1.5',
+				'es:mx-1 es:mb-1 es:flex es:min-w-44 es:min-h-8 es:items-center es:gap-1.5',
 				'es:first:mt-1 es:icon:size-5 es:icon:text-secondary-500',
 				'es:select-none es:rounded-md es:p-1.5 es:text-sm es:transition',
 				'es:any-focus:outline-hidden',

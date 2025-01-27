@@ -295,8 +295,8 @@ export const ButtonGroup = ({ children, className, vertical, hidden, type = 'seg
 			className={clsx(
 				'es:flex',
 				vertical && 'es:flex-col',
-				type === 'segmented' && vertical && 'es-button-group-v es:-space-y-px',
-				type === 'segmented' && !vertical && 'es-button-group-h es:-space-x-px',
+				type === 'segmented' && vertical && 'es-button-group-v es:-space-y-px!',
+				type === 'segmented' && !vertical && 'es-button-group-h es:-space-x-px!',
 				type === 'split' && vertical && 'es:space-y-1',
 				type === 'split' && !vertical && 'es:space-x-1.5',
 				className,

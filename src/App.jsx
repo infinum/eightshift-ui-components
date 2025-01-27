@@ -2442,6 +2442,7 @@ function App() {
 						onChange={setColor1}
 						colors={defaultColors}
 						clearable
+						extraOptions={<MenuItem checked={false}>Lorem</MenuItem>}
 					/>
 
 					<ColorPicker

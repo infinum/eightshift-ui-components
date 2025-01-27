@@ -2,7 +2,7 @@
 
 @import "tailwindcss/preflight.css";
 
-body :is(#wpwrap #editor, #wpbody) {
+:is(body, #wpwrap #editor, #wpbody) {
 	@import "tailwindcss/theme.css" prefix(es);
 	@import "tailwindcss/utilities.css" prefix(es);
 }
