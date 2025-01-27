@@ -1,8 +1,6 @@
-import { useState, useRef } from 'react';
 import { __ } from '@wordpress/i18n';
 import { icons } from '../../icons/icons';
 import { camelCase, pascalCase, upperFirst } from '../../utilities';
-
 import { Menu, MenuItem } from '../menu/menu';
 import { BaseControl } from '../base-control/base-control';
 
@@ -51,15 +49,8 @@ export const MatrixAlign = (props) => {
 
 		'aria-label': ariaLabel,
 
-		popoverPosition,
-
 		hidden,
 	} = props;
-
-	const [currentValue, setCurrentValue] = useState(value);
-
-	const ref = useRef(null);
-	const innerRef = useRef(null);
 
 	if (hidden) {
 		return null;
@@ -123,16 +114,17 @@ export const MatrixAlign = (props) => {
 			inline
 		>
 			<Menu
-				triggerIcon={icons[`position${size}${upperFirst(camelCase(currentValue))}`]}
+				triggerIcon={icons[`position${size}${upperFirst(camelCase(value))}`]}
 				triggerProps={{ 'aria-label': ariaLabel }}
 				tooltip={tooltip}
+				keepOpen
 			>
-				{sizeOptions.map(({ value, label }) => (
+				{sizeOptions.map(({ value: itemValue, label }) => (
 					<MenuItem
-						key={value}
-						endIcon={icons?.[`position${size}${pascalCase(value)}`]}
-						selected={value === currentValue}
-						onClick={() => onChange(value)}
+						key={itemValue}
+						endIcon={icons?.[`position${size}${pascalCase(itemValue)}`]}
+						selected={value === itemValue}
+						onClick={() => onChange(itemValue)}
 					>
 						{label}
 					</MenuItem>

@@ -153,13 +153,14 @@ export const LinkInput = (props) => {
 					ref={triggerRef}
 				>
 					<Input
-						placeholder={placeholder}
+						placeholder={!disabled && placeholder}
 						className={clsx(
 							'es:min-h-10 es:w-full es:rounded-t-lg es:border es:border-secondary-300 es:py-2 es:pl-2 es:pr-1 es:text-sm es:shadow-xs es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950',
 							'es:any-focus:outline-hidden',
 							'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 							'es:focus-visible:border-accent-500',
 							'es:inset-ring es:inset-ring-secondary-100',
+							'es:disabled:shadow-none es:disabled:border-secondary-200 es:disabled:bg-secondary-50 es:disabled:text-secondary-500 es:disabled:cursor-default es:readonly:bg-secondary-50',
 							!suggestionList.isLoading && 'es:aria-[expanded=false]:rounded-b-lg',
 							suggestionList.isLoading && 'es:rounded-b-lg',
 							url?.length > 0 && 'es:pr-10',
@@ -168,7 +169,7 @@ export const LinkInput = (props) => {
 					/>
 
 					<AnimatedVisibility
-						visible={url?.length > 0}
+						visible={!disabled && url?.length > 0}
 						className='es:absolute es:inset-y-1 es:right-1'
 						transition='fade'
 					>

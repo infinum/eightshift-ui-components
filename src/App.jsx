@@ -825,6 +825,14 @@ function App() {
 						fetchSuggestions={getLinkData}
 					/>
 
+					<LinkInput
+						url={linkTxt}
+						help='Help, not sure how to input this'
+						onChange={({ url }) => setLinkTxt(url)}
+						fetchSuggestions={getLinkData}
+						disabled
+					/>
+
 					<pre>{JSON.stringify(linkTxt)}</pre>
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
@@ -1191,6 +1199,18 @@ function App() {
 						suffix='%'
 						icon={icons.rangeMid}
 					/>
+
+					<NumberPicker
+						label='Pick a number'
+						value={num}
+						onChange={(value) => setNum(value)}
+						max={200}
+						prefix='$'
+						suffix='%'
+						icon={icons.rangeMid}
+						disabled
+					/>
+
 					<NumberPicker
 						label='Pick a number'
 						value={num}
@@ -1621,6 +1641,23 @@ function App() {
 					/>
 
 					<__ExperimentalAsyncSelect
+						label='Async single select'
+						value={sinASel2}
+						onChange={setSinASel2}
+						fetchUrl={(searchText) =>
+							searchText?.length >= 3
+								? `https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5&contains=${searchText.substring(0, 30)}`
+								: 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5'
+						}
+						getLabel={(item) => item?.joke ?? item?.setup}
+						getValue={(item) => item?.id}
+						getSubtitle={(item) => item?.delivery}
+						getIcon={() => <span className='es:shrink-0 es:text-lg'>😂</span>}
+						getData={(data) => data?.jokes}
+						disabled
+					/>
+
+					<__ExperimentalAsyncSelect
 						label='Async single select - clearable'
 						value={sinASel3}
 						onChange={setSinASel3}
@@ -1727,6 +1764,7 @@ function App() {
 						onChange={setTxt1}
 						label='Lorem'
 						inline
+						disabled
 					/>
 
 					<InputField
@@ -1743,6 +1781,7 @@ function App() {
 						help={txt2?.length < 5 ? 'Nema dovoljno znakova?' : 'Iiiiima'}
 						icon={icons.emptyRect}
 						label='Lorem'
+						readOnly
 					/>
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>

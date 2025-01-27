@@ -71,6 +71,7 @@ export const InputField = (props) => {
 							'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 							'es:focus-visible:border-accent-500',
 							'es:inset-ring es:inset-ring-secondary-100',
+							'es:disabled:shadow-none es:disabled:border-secondary-200 es:disabled:bg-secondary-50 es:disabled:text-secondary-500 es:disabled:cursor-default es:readonly:bg-secondary-50',
 							(monospaceFont || type === 'password') && 'es:font-mono',
 							className,
 						)}
@@ -85,6 +86,7 @@ export const InputField = (props) => {
 							'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 							'es:focus-visible:border-accent-500',
 							'es:inset-ring es:inset-ring-secondary-100',
+							'es:disabled:shadow-none es:disabled:border-secondary-200 es:disabled:bg-secondary-50 es:disabled:text-secondary-500 es:disabled:cursor-default es:readonly:bg-secondary-50',
 							className,
 						)}
 					/>

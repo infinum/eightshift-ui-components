@@ -73,7 +73,7 @@
 }
 
 @custom-variant readonly {
-	&[data-readonly] {
+	&:where([data-readonly], [readonly]) {
 		@slot;
 	}
 }
