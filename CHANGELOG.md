@@ -3,8 +3,16 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [1.10.0] - 2025-01-24
+## [2.0.0] - 2025-01-27
+**Breaking changes ahead!**
 - Updated dependencies.
+- Upgraded to TailwindCSS 4.
+  - All `es-uic-` classes are now `es:`
+  - Removed `font-geist` class, use `es:font-sans` instead
+  - Updated design of most components.
+- Added an option to theme the accent color of the components.
+- Replaced `tailwindcss-animate` with `tailwindcss-motion`
+- Removed `ListBox`
 
 ## [1.9.1] - 2024-12-17
 - Downgraded from React 19 to React 18.
@@ -68,7 +76,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 ## [1.5.0] - 2024-09-11
 - Updated dependencies.
-- (**breaking-ish**) Tweaked CSS reset to ignore whole WP admin by default. You'll need to add `es-uic-has-css-reset` to enable it where needed.
+- (**breaking-ish**) Tweaked CSS reset to ignore whole WP admin by default. You'll need to add `es:has-css-reset` to enable it where needed.
 - Reworked `DraggableList`, now using a new animation library for a more fluid experience.
 - There's now also a `DraggableListItemHandle` that can be placed anywhere within `DraggableListItem` to mark the drag area.
 - `DraggableListItem` will now hide the label properly if `title`, `icon` and `subtitle` are not sent
@@ -105,7 +113,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 ## [1.4.3] - 2024-07-26
 - Fixed `updateData` in `Repeater` that gets passed to child items.
-- Tailwind's CSS reset will now be ignored with in containers that have a `es-uic-no-css-reset` class applied. Also, the reset is disabled for WP admin tables (`.wp-list-table`). If you need to include a reset "island" within a container that had `es-uic-no-css-reset` applied, you can add a `es-uic-has-css-reset` to re-enable it for that container.
+- Tailwind's CSS reset will now be ignored with in containers that have a `es:no-css-reset` class applied. Also, the reset is disabled for WP admin tables (`.wp-list-table`). If you need to include a reset "island" within a container that had `es:no-css-reset` applied, you can add a `es:has-css-reset` to re-enable it for that container.
 
 ## [1.4.2] - 2024-07-26
 - Added missing import in `NumberPicker`.
@@ -121,7 +129,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Updated Gutenberg overrides.
 - Tweaked `Button` icon size when size is set to `small`.
 - Fixed height of separator when using extra controls with `NumberPicker` and a custom size is set.
-- `es-uic-shrink`, `es-uic-shrink-0`, `es-uic-grow`, `es-uic-grow-0`, `es-uic-flex-1`, `es-uic-flex-auto`, `es-uic-flex-initial`, and `es-uic-flex-none` will always be available.
+- `es:shrink`, `es:shrink-0`, `es:grow`, `es:grow-0`, `es:flex-1`, `es:flex-auto`, `es:flex-initial`, and `es:flex-none` will always be available.
 - `MultiSelect` and `AsyncMultiSelect` multi-value item containers now have a maximum width set to prevent overflows with long titles.
 - Rewrote `LinkInput` so it is less in the way when entering URLs.
 - Rewrote `Repeater` to use React DNDKit until React Aria fixes issues with interactive elements inside `GridList`s.
@@ -228,7 +236,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
-[1.10.0]: https://github.com/infinum/eightshift-ui-components/compare/1.9.1...1.10.0
+[2.0.0]: https://github.com/infinum/eightshift-ui-components/compare/1.9.1...2.0.0
 [1.9.1]: https://github.com/infinum/eightshift-ui-components/compare/1.9.0...1.9.1
 [1.9.0]: https://github.com/infinum/eightshift-ui-components/compare/1.8.0...1.9.0
 [1.8.0]: https://github.com/infinum/eightshift-ui-components/compare/1.7.2...1.8.0

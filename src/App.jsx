@@ -36,7 +36,6 @@ import {
 	Tabs,
 	InputField,
 	ComponentToggle,
-	ListBox,
 	ButtonGroup,
 	Repeater,
 	RepeaterItem,
@@ -73,12 +72,16 @@ import {
 	MiniResponsive,
 	__ExperimentalAsyncSelect,
 	__ExperimentalSelect,
+	OptionsPanelIntro,
 } from '../lib';
 import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
 import '../lib/fonts/fonts.css';
+import { cloneElement } from 'react';
 
 function App() {
+	const [controlTheme, setControlTheme] = useState('default');
+
 	const [toggled, setToggled] = useState(false);
 	const [toggled2, setToggled2] = useState(null);
 	const [linkTxt, setLinkTxt] = useState();
@@ -93,6 +96,7 @@ function App() {
 	const [useComp, setUseComp] = useState(false);
 	let [selectedKey, setSelectedKey] = useState('sans');
 	let [loremIpsum, setLoremIpsum] = useState(0);
+	let [loremIpsum2, setLoremIpsum2] = useState('s');
 	let [radioValue, setRadioValue] = useState(null);
 
 	let [sinSel, setSinSel] = useState(null);
@@ -128,59 +132,6 @@ function App() {
 		{
 			label: 'Monospaced',
 			value: 'mono',
-		},
-	];
-
-	const listBoxOpts = [
-		{
-			label: 'Sans',
-			value: 'sans',
-		},
-		{
-			label: 'Serif',
-			value: 'serif',
-		},
-		{
-			label: 'Monospaced',
-			value: 'mono',
-			disabled: true,
-		},
-	];
-
-	const listBoxOpts2 = [
-		{
-			label: 'Sans',
-			value: 'sans',
-			icon: icons.num1Square,
-			subtitle: 'Helvetica',
-		},
-		{
-			label: 'Serif',
-			value: 'serif',
-			icon: icons.num2Square,
-		},
-		{
-			label: 'Monospaced',
-			value: 'mono',
-			icon: icons.num3Square,
-		},
-	];
-
-	const listBoxOpts4 = [
-		{
-			label: 'Sans',
-			value: 'sans',
-			icon: icons.num1Square,
-		},
-		{
-			label: 'Serif',
-			value: 'serif',
-			icon: icons.num2Square,
-		},
-		{
-			label: 'Monospaced',
-			value: 'mono',
-			icon: icons.num3Square,
 		},
 	];
 
@@ -282,18 +233,18 @@ function App() {
 	const CustomValueDisplay = (props) => {
 		return (
 			<RSSingleValue {...props}>
-				<span className='es-uic-rounded-sm es-uic-border es-uic-border-dotted es-uic-border-sky-400 es-uic-p-2'>{props.children}</span>
+				<span className='es:rounded-sm es:border es:border-dotted es:border-sky-400 es:p-2'>{props.children}</span>
 			</RSSingleValue>
 		);
 	};
 
 	const CustomMultiValueDisplay = (props) => {
-		const colors = ['es-uic-bg-red-500', 'es-uic-bg-blue-500', 'es-uic-bg-green-500', 'es-uic-bg-yellow-500', 'es-uic-bg-slate-900'];
+		const colors = ['es:bg-red-500', 'es:bg-blue-500', 'es:bg-green-500', 'es:bg-yellow-500', 'es:bg-secondary-900'];
 		const colorIndex = props.options.findIndex((option) => option.value === props.data.value) % colors.length;
 
 		return (
 			<RSMultiValue {...props}>
-				<span className={`${colors[colorIndex]} es-uic-rounded es-uic-p-1 es-uic-font-medium es-uic-leading-none es-uic-text-white`}>{props.children}</span>
+				<span className={`${colors[colorIndex]} es:rounded es:p-1 es:font-medium es:leading-none es:text-white`}>{props.children}</span>
 			</RSMultiValue>
 		);
 	};
@@ -301,7 +252,7 @@ function App() {
 	const CustomDropdownIndicator = (props) => {
 		return (
 			<RSDropdownIndicator {...props}>
-				<span className='[&>svg]:es-uic-text-lime-500'>{props.selectProps.menuIsOpen ? icons.arrowUpSquareAlt : icons.arrowDownSquareAlt}</span>
+				<span className='es:icon:text-lime-500'>{props.selectProps.menuIsOpen ? icons.arrowUpSquareAlt : icons.arrowDownSquareAlt}</span>
 			</RSDropdownIndicator>
 		);
 	};
@@ -340,6 +291,8 @@ function App() {
 	const [v5, setV5] = useState([]);
 	const [v6, setV6] = useState([]);
 	const [v7, setV7] = useState();
+
+	const [tabVar, setTabVar] = useState('underline');
 
 	const [cpOpen, setCpOpen] = useState(false);
 
@@ -652,14 +605,40 @@ function App() {
 	const [colConfig5, setColConfig5] = useState([2, 4]);
 
 	return (
-		<div className='font-geist es-uic-flex es-uic-min-h-screen es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-overscroll-contain es-uic-bg-neutral-100 es-uic-p-2'>
-			<div className='es-uic-mx-auto es-uic-flex es-uic-w-96 es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-gap-2.5 es-uic-p-10 empty:es-uic-hidden'></div>
+		<div
+			className={clsx(
+				'es:font-sans es:flex es:min-h-screen es:flex-col es:items-center es:justify-center es:overscroll-contain es:bg-neutral-100 es:p-2',
+				controlTheme === 'green' && 'es-uic-theme-green',
+				controlTheme === 'blue' && 'es-uic-theme-blue',
+				controlTheme === 'orange' && 'es-uic-theme-orange',
+				controlTheme === 'purple' && 'es-uic-theme-purple',
+				controlTheme === 'mono' && 'es-uic-theme-mono',
+			)}
+		>
+			<OptionSelect
+				label='Control theme'
+				value={controlTheme}
+				onChange={setControlTheme}
+				options={[
+					{ value: 'default', label: 'Default' },
+					{ value: 'green', label: 'Green' },
+					{ value: 'blue', label: 'Blue' },
+					{ value: 'orange', label: 'Orange' },
+					{ value: 'purple', label: 'Purple' },
+					{ value: 'mono', label: 'Monochrome' },
+				]}
+				className='es:my-10'
+				inline
+			/>
+
+			<div className='es:mx-auto es:flex es:w-96 es:flex-col es:items-center es:justify-center es:gap-2.5 es:p-10 es:empty:hidden'></div>
 
 			<Tabs
 				vertical
-				className='es-uic-h-[90vh] es-uic-w-fit es-uic-overflow-y-auto es-uic-rounded-lg es-uic-bg-white es-uic-shadow-sm'
+				type={tabVar}
+				className='es:h-[90vh] es:w-fit es:overflow-y-auto es:rounded-lg es:bg-white es:shadow-sm'
 			>
-				<TabList className='es-uic-sticky es-uic-top-0 es-uic-self-start es-uic-border-r-0 es-uic-p-5'>
+				<TabList className='es:sticky es:top-0 es:self-start es:border-r-0 es:p-5'>
 					<Tab>Toggle / Switch</Tab>
 					<Tab>Spacer</Tab>
 					<Tab>AnimatedVisibility</Tab>
@@ -675,16 +654,10 @@ function App() {
 					<Tab>Responsive 2.0</Tab>
 					<Tab>BaseControl</Tab>
 					<Tab>Select</Tab>
-					<Tab>
-						Select next
-						<span className='es-uic-ml-1 es-uic-inline-block es-uic-rounded es-uic-bg-teal-800 es-uic-px-1 es-uic-py-0.5 es-uic-text-xs es-uic-uppercase es-uic-text-teal-50'>
-							beta
-						</span>
-					</Tab>
+					<Tab badge='BETA'>Select next</Tab>
 					<Tab>Tabs</Tab>
 					<Tab>InputField</Tab>
 					<Tab>ComponentToggle</Tab>
-					<Tab>ListBox</Tab>
 					<Tab>Repeater</Tab>
 					<Tab>Checkbox</Tab>
 					<Tab>RadioButton</Tab>
@@ -705,7 +678,7 @@ function App() {
 					<Tab>Modal</Tab>
 					<Tab>ItemCollection</Tab>
 				</TabList>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Toggle
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
@@ -728,10 +701,10 @@ function App() {
 						isIndeterminate={toggled2 === null}
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Spacer
 						size='s'
-						className='es-uic-bg-violet-50'
+						className='es:bg-violet-50'
 						border
 					/>
 
@@ -764,8 +737,8 @@ function App() {
 						border
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
-					<div className='es-uic-flex es-uic-min-h-56 es-uic-flex-col es-uic-gap-2 es-uic-rounded-md es-uic-border es-uic-border-dotted es-uic-border-gray-300 es-uic-p-2'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
+					<div className='es:flex es:min-h-56 es:flex-col es:gap-2 es:rounded-md es:border es:border-dotted es:border-secondary-300 es:p-2'>
 						<ToggleButton
 							className='mx-auto'
 							selected={animVis}
@@ -773,28 +746,28 @@ function App() {
 						>
 							Show
 						</ToggleButton>
-						<div className='es-uic-grid es-uic-grid-cols-2 es-uic-gap-4'>
+						<div className='es:grid es:grid-cols-2 es:gap-4'>
 							<AnimatedVisibility
 								visible={animVis}
 								noInitial
-								transition='scaleFade'
+								transition='slideFade'
 							>
-								<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 es-uic-p-4'>Hi, I&apos;m content.</div>
+								<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>Hi, I&apos;m content.</div>
 							</AnimatedVisibility>
 							<AnimatedVisibility
 								visible={animVis}
-								transition='scaleFade'
+								transition='slideFade'
 							>
-								<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 es-uic-p-4'>Hi, I&apos;m content.</div>
+								<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>Hi, I&apos;m content.</div>
 							</AnimatedVisibility>
 						</div>
 
-						<span className='es-uic-text-gray-500'>
+						<span className='es:text-secondary-500'>
 							Left has <code>noInitial</code> set.
 						</span>
 					</div>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Expandable
 						icon={icons.experiment}
 						label='Lorem ipsum dolor'
@@ -807,7 +780,7 @@ function App() {
 							/>
 						}
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>lorem</div>
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>lorem</div>
 					</Expandable>
 
 					<Expandable
@@ -822,7 +795,7 @@ function App() {
 							/>
 						}
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>
 							lorem
 							<Button>Ipsum</Button>
 						</div>
@@ -841,10 +814,10 @@ function App() {
 							/>
 						}
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-200 es-uic-p-4'>lorem</div>
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>lorem</div>
 					</Expandable>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<LinkInput
 						url={linkTxt}
 						help='Help, not sure how to input this'
@@ -854,7 +827,7 @@ function App() {
 
 					<pre>{JSON.stringify(linkTxt)}</pre>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Notice
 						label='Lorem ipsum dolor'
 						subtitle='Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
@@ -903,13 +876,13 @@ function App() {
 						type='placeholder'
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
-					<TriggeredPopover className='es-uic-bg-purple-50 es-uic-p-5'>Hello</TriggeredPopover>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
+					<TriggeredPopover className='es:bg-purple-50 es:p-5'>Hello</TriggeredPopover>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Button>Hello</Button>
 
-					<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>
+					<div className='es:flex es:items-center es:gap-2'>
 						<Button
 							size='small'
 							icon={icons.componentGeneric}
@@ -923,7 +896,7 @@ function App() {
 						</Button>
 					</div>
 
-					<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>
+					<div className='es:flex es:items-center es:gap-2'>
 						<Button icon={icons.componentGeneric} />
 						<Button>Hello</Button>
 						<Button icon={icons.componentGeneric}>Hello</Button>
@@ -949,7 +922,7 @@ function App() {
 						Hello
 					</Button>
 
-					<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>
+					<div className='es:flex es:items-center es:gap-2'>
 						<Button
 							size='large'
 							icon={icons.componentGeneric}
@@ -966,8 +939,8 @@ function App() {
 					<Button icon={icons.emptyRect}>Hello</Button>
 
 					<OptionSelect
-						value={loremIpsum}
-						onChange={(v) => setLoremIpsum(v)}
+						value={loremIpsum2}
+						onChange={(v) => setLoremIpsum2(v)}
 						options={[
 							{ label: 'Small', value: 0, icon: icons.small },
 							{ label: 'Medium', value: 1, icon: icons.medium },
@@ -976,8 +949,8 @@ function App() {
 					/>
 
 					<OptionSelect
-						value={loremIpsum}
-						onChange={(v) => setLoremIpsum(v)}
+						value={loremIpsum2}
+						onChange={(v) => setLoremIpsum2(v)}
 						options={[
 							{ tooltip: 'Small', value: 0, icon: icons.small },
 							{ tooltip: 'Medium', value: 1, icon: icons.medium },
@@ -997,7 +970,7 @@ function App() {
 						vertical
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<MatrixAlign
 						value={matrixVal}
 						onChange={(value) => setMatrixVal(value)}
@@ -1011,7 +984,7 @@ function App() {
 						label='Position'
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Menu
 						aria-label='Bok i tebi'
 						keepOpen
@@ -1074,7 +1047,12 @@ function App() {
 							<MenuItem id='print'>Print…</MenuItem>
 							<MenuItem id='print2'>Print2…</MenuItem>
 							<SubMenuItem trigger={<MenuItem>Sub</MenuItem>}>
-								<MenuItem id='print3'>Print3…</MenuItem>
+								<MenuItem
+									disabled
+									id='print3'
+								>
+									Print3…
+								</MenuItem>
 								<MenuItem id='print4'>Print4…</MenuItem>
 							</SubMenuItem>
 						</SubMenuItem>
@@ -1190,7 +1168,7 @@ function App() {
 						label='Not set demo'
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-flex es-uic-flex-col es-uic-items-center es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:flex es:flex-col es:items-center es:space-y-4 es:p-5!'>
 					<DecorativeTooltip text='Hello'>Hover me</DecorativeTooltip>
 					<DecorativeTooltip
 						text='Hello'
@@ -1203,7 +1181,7 @@ function App() {
 						<Button>Hover me</Button>
 					</Tooltip>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<NumberPicker
 						label='Pick a number'
 						value={num}
@@ -1282,7 +1260,7 @@ function App() {
 						/>
 					</NumberPicker>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Responsive
 						icon={icons.emptyRect}
 						label='Font family'
@@ -1321,7 +1299,7 @@ function App() {
 						)}
 					</Responsive>
 
-					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(resp, null, 2)}</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(resp, null, 2)}</pre>
 
 					<Spacer border />
 
@@ -1345,7 +1323,7 @@ function App() {
 					</MiniResponsive>
 
 					<Spacer
-						className='es-uic-opacity-25'
+						className='es:opacity-25'
 						border
 					/>
 
@@ -1368,7 +1346,7 @@ function App() {
 						)}
 					</MiniResponsive>
 
-					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(resp, null, 2)}</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(resp, null, 2)}</pre>
 
 					<Spacer border />
 
@@ -1396,9 +1374,9 @@ function App() {
 						)}
 					</Responsive>
 
-					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(resp2, null, 2)}</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(resp2, null, 2)}</pre>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<BaseControl>
 						<Button>Hi</Button>
 					</BaseControl>
@@ -1447,7 +1425,7 @@ function App() {
 						<Button>Hi</Button>
 					</BaseControl>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Select
 						label='Single basic'
 						value={sinSel}
@@ -1625,7 +1603,7 @@ function App() {
 						icon={icons.group}
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<__ExperimentalAsyncSelect
 						label='Async single select'
 						value={sinASel2}
@@ -1638,7 +1616,7 @@ function App() {
 						getLabel={(item) => item?.joke ?? item?.setup}
 						getValue={(item) => item?.id}
 						getSubtitle={(item) => item?.delivery}
-						getIcon={() => <span className='es-uic-shrink-0 es-uic-text-lg'>😂</span>}
+						getIcon={() => <span className='es:shrink-0 es:text-lg'>😂</span>}
 						getData={(data) => data?.jokes}
 					/>
 
@@ -1654,7 +1632,7 @@ function App() {
 						getLabel={(item) => item?.joke ?? item?.setup}
 						getValue={(item) => item?.id}
 						getSubtitle={(item) => item?.delivery}
-						getIcon={() => <span className='es-uic-shrink-0 es-uic-text-lg'>😂</span>}
+						getIcon={() => <span className='es:shrink-0 es:text-lg'>😂</span>}
 						getData={(data) => data?.jokes}
 						clearable
 					/>
@@ -1695,7 +1673,7 @@ function App() {
 						onChange={setSinSelSimple}
 						options={data}
 						simpleValue
-						customValueDisplay={(item) => <span className='es-uic-font-bold es-uic-text-blue-400'>{item?.label}</span>}
+						customValueDisplay={(item) => <span className='es:font-bold es:text-blue-400'>{item?.label}</span>}
 					/>
 
 					<__ExperimentalSelect
@@ -1704,31 +1682,50 @@ function App() {
 						onChange={setSinSelSimple}
 						options={data}
 						simpleValue
-						customMenuOption={(item) => <span className='es-uic-font-bold es-uic-text-blue-400'>{item?.label}</span>}
+						customMenuOption={(item) => <span className='es:font-bold es:text-blue-400'>{item?.label}</span>}
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Tabs>
 						<TabList />
 						<TabPanel>Abc</TabPanel>
 					</Tabs>
 
-					<Tabs>
+					<OptionSelect
+						value={tabVar}
+						onChange={setTabVar}
+						options={[
+							{ label: 'Underline', value: 'underline' },
+							{ label: 'Pill', value: 'pill' },
+						]}
+						type='radios'
+						vertical
+					/>
+
+					<Tabs type={tabVar}>
 						<TabList>
 							<Tab>Founding of Rome</Tab>
-							<Tab>Monarchy and Republic</Tab>
-							<Tab disabled>Empire</Tab>
+							<Tab badge='2'>Monarchy and Republic</Tab>
+							<Tab
+								icon={icons.emptyCircle}
+								badge={<DecorativeTooltip text='Requires attention'>{cloneElement(icons.warning, { className: 'es:size-4 es:stroke-[1.2] es:text-red-600' })}</DecorativeTooltip>}
+							>
+								Monarchy and Republic
+							</Tab>
+							<Tab disabled>Empire of Something Else</Tab>
 						</TabList>
 						<TabPanel>Arma virumque cano, Troiae qui primus ab oris.</TabPanel>
 						<TabPanel>Senatus Populusque Romanus.</TabPanel>
 						<TabPanel>Alea jacta est.</TabPanel>
+						<TabPanel>Nešto.</TabPanel>
 					</Tabs>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<InputField
 						value={txt1}
 						onChange={setTxt1}
 						label='Lorem'
+						inline
 					/>
 
 					<InputField
@@ -1747,14 +1744,14 @@ function App() {
 						label='Lorem'
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<ComponentToggle
 						icon={icons.paragraph}
 						label='Paragraph'
 						useComponent={useComp}
 						onChange={setUseComp}
 					>
-						<div className='p-2 es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200'>
+						<div className='es:min-h-24 es:w-full es:rounded-md es:bg-secondary-200 p-2'>
 							Lorem options
 							<Button>Hello</Button>
 							<InputField label='Hi' />
@@ -1768,7 +1765,7 @@ function App() {
 						onChange={setUseComp}
 						noUseToggle
 					>
-						<div className='es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-bg-slate-200 es-uic-p-2'>
+						<div className='es:min-h-24 es:w-full es:rounded-md es:bg-secondary-200 es:p-2'>
 							Lorem options no use
 							<Button>Hello</Button>
 							<InputField label='Hi' />
@@ -1782,7 +1779,7 @@ function App() {
 						onChange={setUseComp}
 						expandButtonDisabled
 					>
-						<div className='bg-slate-200 es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-p-2'>
+						<div className='es:min-h-24 es:w-full es:rounded-md es:p-2 bg-secondary-200'>
 							Lorem options expandButtonDisabled
 							<Button>Hello</Button>
 							<InputField label='Hi' />
@@ -1796,7 +1793,7 @@ function App() {
 						onChange={setUseComp}
 						noExpandButton
 					>
-						<div className='bg-slate-200 es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-p-2'>
+						<div className='es:min-h-24 es:w-full es:rounded-md es:p-2 bg-secondary-200'>
 							Lorem options noExpandButton
 							<Button>Hello</Button>
 							<InputField label='Hi' />
@@ -1811,41 +1808,14 @@ function App() {
 						noExpandButton
 						noUseToggle
 					>
-						<div className='bg-slate-200 es-uic-min-h-24 es-uic-w-full es-uic-rounded-md es-uic-p-2'>
+						<div className='es:min-h-24 es:w-full es:rounded-md es:p-2 bg-secondary-200'>
 							Lorem options noExpandButton noUseToggle
 							<Button>Hello</Button>
 							<InputField label='Hi' />
 						</div>
 					</ComponentToggle>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
-					<ListBox
-						icon={icons.emptyRect}
-						label='Font family'
-						options={listBoxOpts}
-						value={selectedKey}
-						onChange={(key) => setSelectedKey(key)}
-						orientation='vertical'
-					/>
-
-					<ListBox
-						icon={icons.emptyRect}
-						label='Font family'
-						options={listBoxOpts2}
-						value={selectedKey}
-						onChange={(key) => setSelectedKey(key)}
-					/>
-
-					<ListBox
-						icon={icons.emptyRect}
-						label='Font family'
-						options={listBoxOpts4}
-						value={selectedKey}
-						onChange={(key) => setSelectedKey(key)}
-						orientation='horizontal-tiles'
-					/>
-				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Repeater
 						items={repeaterItems}
 						onChange={setRepeaterItems}
@@ -1864,7 +1834,7 @@ function App() {
 								<RepeaterItem
 									label={title ?? 'New item'}
 									icon={icons.emptyCircle}
-									className={clsx(!title && '!es-uic-text-gray-400')}
+									className={clsx(!title && 'es:text-secondary-400!')}
 								>
 									<InputField
 										label='Title'
@@ -1915,7 +1885,7 @@ function App() {
 							return (
 								<RepeaterItem
 									label={title ?? 'New item'}
-									className={clsx(!title && '!es-uic-text-gray-400')}
+									className={clsx(!title && 'es:text-secondary-400!')}
 									subtitle={subtitle}
 									icon={icon}
 								>
@@ -1987,7 +1957,7 @@ function App() {
 						)}
 					</pre>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Checkbox
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
@@ -2025,7 +1995,7 @@ function App() {
 						Hello
 					</Checkbox>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<RadioButtonGroup
 						label='Hello'
 						value={radioValue}
@@ -2154,9 +2124,9 @@ function App() {
 						value={loremIpsum}
 						onChange={(v) => setLoremIpsum(v)}
 						options={[
-							{ label: 'Small', value: 0 },
-							{ label: 'Medium', value: 1 },
-							{ label: 'Large', value: 2 },
+							{ label: 'Small', value: 's' },
+							{ label: 'Medium', value: 'm' },
+							{ label: 'Large', value: 'l' },
 						]}
 					/>
 
@@ -2165,15 +2135,15 @@ function App() {
 						value={loremIpsum}
 						onChange={(v) => setLoremIpsum(v)}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 's', icon: icons.small },
+							{ label: 'Medium', value: 'm', icon: icons.medium },
+							{ label: 'Large', value: 'l', icon: icons.large },
 						]}
 						vertical
 						itemProps={{ alignEnd: true }}
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Slider
 						label='Slider'
 						value={sliderValue}
@@ -2248,9 +2218,9 @@ function App() {
 						value={sliderValue}
 						onChange={setSliderValue}
 						markers={{
-							0: <span className='es-uic-text-red-500'>R</span>,
-							50: <span className='es-uic-text-green-500'>G</span>,
-							100: <span className='es-uic-text-blue-500'>B</span>,
+							0: <span className='es:text-red-500'>R</span>,
+							50: <span className='es:text-green-500'>G</span>,
+							100: <span className='es:text-blue-500'>B</span>,
 						}}
 						startPoint={50}
 						noActiveHighlight
@@ -2407,15 +2377,13 @@ function App() {
 						markers
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<SolidColorPicker
 						value={currColor}
 						onChange={setCurrColor}
 					/>
 
-					<code className='es-uic-flex es-uic-min-h-9 es-uic-min-w-24 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-bg-gray-100 es-uic-p-1 es-uic-text-sm'>
-						{currColor}
-					</code>
+					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded es:border es:bg-secondary-100 es:p-1 es:text-sm'>{currColor}</code>
 
 					<SolidColorPicker
 						value={currColor2}
@@ -2423,9 +2391,7 @@ function App() {
 						allowTransparency
 					/>
 
-					<code className='es-uic-flex es-uic-min-h-9 es-uic-min-w-24 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-bg-gray-100 es-uic-p-1 es-uic-text-sm'>
-						{currColor2}
-					</code>
+					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded es:border es:bg-secondary-100 es:p-1 es:text-sm'>{currColor2}</code>
 
 					<SolidColorPicker
 						value={currColor3}
@@ -2434,9 +2400,7 @@ function App() {
 						outputFormat='hsla'
 					/>
 
-					<code className='es-uic-flex es-uic-min-h-9 es-uic-min-w-24 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-bg-gray-100 es-uic-p-1 es-uic-text-sm'>
-						{currColor3}
-					</code>
+					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded es:border es:bg-secondary-100 es:p-1 es:text-sm'>{currColor3}</code>
 
 					<SolidColorPicker
 						value={currColor3}
@@ -2445,15 +2409,15 @@ function App() {
 						disabled
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<GradientEditor
 						value={grad}
 						onChange={setGrad}
 					/>
 
-					<code className='es-uic-max-w-60 es-uic-rounded-md es-uic-border es-uic-bg-gray-50 es-uic-p-1 es-uic-font-mono es-uic-text-xs'>{grad}</code>
+					<code className='es:max-w-60 es:rounded-md es:border es:bg-secondary-50 es:p-1 es:font-mono es:text-xs'>{grad}</code>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<ColorSwatch color='red' />
 					<ColorSwatch color='transparent' />
 					<ColorSwatch color='#4433EE80' />
@@ -2471,7 +2435,7 @@ function App() {
 						colorName='Conic gradient'
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<ColorPicker
 						value={color1}
 						onChange={setColor1}
@@ -2523,7 +2487,7 @@ function App() {
 						showColorCode
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<ResponsiveLegacy
 						icon={icons.help}
 						label='Lorem or ipsum?'
@@ -2554,7 +2518,7 @@ function App() {
 						)}
 					</ResponsiveLegacy>
 
-					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(responsiveState, null, 2)}</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(responsiveState, null, 2)}</pre>
 
 					<ResponsiveLegacy
 						icon={icons.help}
@@ -2598,7 +2562,7 @@ function App() {
 						}}
 					</ResponsiveLegacy>
 
-					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(responsiveState2, null, 2)}</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(responsiveState2, null, 2)}</pre>
 
 					<ResponsiveLegacy
 						icon={icons.help}
@@ -2630,9 +2594,9 @@ function App() {
 						)}
 					</ResponsiveLegacy>
 
-					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(responsiveState3, null, 2)}</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(responsiveState3, null, 2)}</pre>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<ColumnConfigSlider
 						icon={icons.columns}
 						label='Column configuration'
@@ -2640,7 +2604,7 @@ function App() {
 						onChange={setColConfig}
 					/>
 
-					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(colConfig)}</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(colConfig)}</pre>
 
 					<ColumnConfigSlider
 						icon={icons.columns}
@@ -2650,7 +2614,7 @@ function App() {
 						columns={14}
 					/>
 
-					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(colConfig2)}</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(colConfig2)}</pre>
 
 					<ColumnConfigSlider
 						icon={icons.columns}
@@ -2661,7 +2625,7 @@ function App() {
 						showOuterAsGutter
 					/>
 
-					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(colConfig2)}</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(colConfig2)}</pre>
 
 					<ColumnConfigSlider
 						icon={icons.columns}
@@ -2671,7 +2635,7 @@ function App() {
 						disableOffset
 					/>
 
-					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(colConfig2)}</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(colConfig2)}</pre>
 
 					<ColumnConfigSlider
 						icon={icons.columns}
@@ -2681,7 +2645,7 @@ function App() {
 						disableWidth
 					/>
 
-					<pre className='es-uic-w-full es-uic-text-xs'>{JSON.stringify(colConfig2)}</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(colConfig2)}</pre>
 
 					<ColumnConfigSlider
 						icon={icons.columns}
@@ -2693,27 +2657,27 @@ function App() {
 					/>
 				</TabPanel>
 
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-0 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-0 es:p-5!'>
 					<ContainerPanel>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
 					</ContainerPanel>
 
 					<ContainerPanel title='Component name'>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
 					</ContainerPanel>
 
 					<ContainerPanel
 						title='Component name'
 						icon={icons.emptyCircle}
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
 					</ContainerPanel>
 
 					<ContainerPanel
 						title='Component name'
 						closable
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
 					</ContainerPanel>
 
 					<ContainerPanel
@@ -2722,7 +2686,7 @@ function App() {
 						use={toggled}
 						onUseChange={setToggled}
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
 					</ContainerPanel>
 
 					<ContainerPanel
@@ -2730,25 +2694,25 @@ function App() {
 						use={toggled}
 						onUseChange={setToggled}
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
 					</ContainerPanel>
 
 					<ContainerPanel>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-300' />
 					</ContainerPanel>
 
 					<ContainerPanel title='Component name'>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-300' />
 					</ContainerPanel>
 
 					<ContainerPanel
 						title='Component name'
 						closable
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-300' />
 					</ContainerPanel>
 
 					<ContainerPanel
@@ -2757,8 +2721,8 @@ function App() {
 						use={toggled}
 						onUseChange={setToggled}
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-300' />
 					</ContainerPanel>
 
 					<ContainerPanel
@@ -2766,8 +2730,8 @@ function App() {
 						use={toggled}
 						onUseChange={setToggled}
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-400' />
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-300' />
 					</ContainerPanel>
 
 					<Checkbox
@@ -2777,14 +2741,14 @@ function App() {
 					/>
 
 					<ContainerPanel use={cpOpen}>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-300' />
 					</ContainerPanel>
 
 					<ContainerPanel
 						title='Demo'
 						use={cpOpen}
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-300' />
 					</ContainerPanel>
 
 					<ContainerPanel
@@ -2792,11 +2756,11 @@ function App() {
 						use={cpOpen}
 						closable
 					>
-						<div className='es-uic-h-40 es-uic-w-full es-uic-rounded-md es-uic-bg-gray-300' />
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-300' />
 					</ContainerPanel>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
-					<HStack className='es-uic-max-w-72'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
+					<HStack className='es:max-w-72'>
 						<Button icon={icons.emptyCircle} />
 						<Button icon={icons.emptyCircle} />
 						<Button icon={icons.emptyCircle} />
@@ -2812,7 +2776,7 @@ function App() {
 
 					<HStack
 						noWrap
-						className='es-uic-max-w-72'
+						className='es:max-w-72'
 					>
 						<Button icon={icons.emptyCircle} />
 						<Button icon={icons.emptyCircle} />
@@ -2827,7 +2791,7 @@ function App() {
 						<Button icon={icons.emptyCircle} />
 					</HStack>
 
-					<VStack className='es-uic-max-h-40'>
+					<VStack className='es:max-h-40'>
 						<Button icon={icons.emptyCircle} />
 						<Button icon={icons.emptyCircle} />
 						<Button icon={icons.emptyCircle} />
@@ -2839,7 +2803,7 @@ function App() {
 
 					<VStack
 						noWrap
-						className='es-uic-max-h-40'
+						className='es:max-h-40'
 					>
 						<Button icon={icons.emptyCircle} />
 						<Button icon={icons.emptyCircle} />
@@ -2850,7 +2814,7 @@ function App() {
 						<Button icon={icons.emptyCircle} />
 					</VStack>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<ImagePlaceholder />
 					<ImagePlaceholder url='https://picsum.photos/200' />
 
@@ -2933,18 +2897,18 @@ function App() {
 						<Button type='ghost'>Or don't</Button>
 					</MediaPlaceholder>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Draggable
 						items={draggableItems}
 						onChange={setDraggableItems}
-						className='es-uic-grid es-uic-auto-rows-auto es-uic-grid-cols-3 es-uic-gap-1'
+						className='es:grid es:auto-rows-auto es:grid-cols-3 es:gap-1'
 					>
 						{(item) => {
 							const { toggle, title, updateData } = item;
 
 							return (
-								<div className='es-uic-relative es-uic-size-full es-uic-rounded es-uic-border es-uic-bg-white es-uic-p-2'>
-									<DraggableHandle className='es-uic-absolute es-uic-right-1 es-uic-top-1' />
+								<div className='es:relative es:size-full es:rounded es:border es:bg-white es:p-2'>
+									<DraggableHandle className='es:absolute es:right-1 es:top-1' />
 									<p>{title}</p>
 									<Switch
 										aria-label='Title'
@@ -2956,7 +2920,7 @@ function App() {
 						}}
 					</Draggable>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<DraggableList
 						label='My draggable list'
 						items={draggableListItems}
@@ -3003,9 +2967,9 @@ function App() {
 						}}
 					</DraggableList>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-[50rem] es-uic-space-y-4 es-uic-bg-gray-100 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-[50rem] es:space-y-4 es:p-5! es:bg-[#f1f1f1]'>
 					<OptionsPanelHeader
-						title='Theme options'
+						title='Global settings'
 						actions={
 							<>
 								<Button type='ghost'>Test</Button>
@@ -3013,106 +2977,244 @@ function App() {
 							</>
 						}
 					>
-						<Button>Demo</Button>
+						{/* <Button>Demo</Button> */}
 					</OptionsPanelHeader>
 
-					<OptionsPanel>
-						<OptionsPanelSection>
-							<Select
-								icon={icons.emptyCircle}
-								label='Pick an item'
-								onChange={(v) => setV(v)}
-								value={v}
-								options={data}
+					<Tabs vertical>
+						<TabList>
+							<Tab icon={icons.options}>General settings</Tab>
+							<Tab icon={icons.bot}>SEO</Tab>
+						</TabList>
+						<TabPanel>
+							<OptionsPanelIntro
+								title='Lorem ipsum'
+								subtitle='Dolor, ipsum, sit amet, lorem, ipsum dolor, sit...'
 							/>
-						</OptionsPanelSection>
-					</OptionsPanel>
+							<OptionsPanel>
+								<OptionsPanelSection>
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+										inline
+									/>
+								</OptionsPanelSection>
+							</OptionsPanel>
 
-					<OptionsPanel title='Header & footer'>
-						<OptionsPanelSection>
-							<Select
-								icon={icons.emptyCircle}
-								label='Pick an item'
-								onChange={(v) => setV(v)}
-								value={v}
-								options={data}
-							/>
-						</OptionsPanelSection>
-					</OptionsPanel>
+							<OptionsPanel title='Header & footer'>
+								<OptionsPanelSection>
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+										inline
+									/>
+								</OptionsPanelSection>
+							</OptionsPanel>
 
-					<OptionsPanel
-						title='Header & footer'
-						help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
-					>
-						<OptionsPanelSection>
-							<Select
-								icon={icons.emptyCircle}
-								label='Pick an item'
-								onChange={(v) => setV(v)}
-								value={v}
-								options={data}
-							/>
-						</OptionsPanelSection>
-					</OptionsPanel>
+							<OptionsPanel
+								title='Header & footer'
+								subtitle='Nešto tu i tamo'
+								help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
+							>
+								<OptionsPanelSection>
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+									/>
+								</OptionsPanelSection>
+							</OptionsPanel>
 
-					<OptionsPanel
-						title='Header & footer'
-						help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
-					>
-						<OptionsPanelSection>
-							<Select
-								icon={icons.emptyCircle}
-								label='Pick an item'
-								onChange={(v) => setV(v)}
-								value={v}
-								options={data}
-							/>
-						</OptionsPanelSection>
-						<OptionsPanelSection>
-							<Select
-								icon={icons.emptyCircle}
-								label='Pick an item'
-								onChange={(v) => setV(v)}
-								value={v}
-								options={data}
-							/>
-						</OptionsPanelSection>
-					</OptionsPanel>
+							<OptionsPanel
+								title='Header & footer'
+								help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
+							>
+								<OptionsPanelSection>
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+									/>
 
-					<OptionsPanel
-						title='Header & footer'
-						help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
-					>
-						<OptionsPanelSection>
-							<Select
-								icon={icons.emptyCircle}
-								label='Pick an item'
-								onChange={(v) => setV(v)}
-								value={v}
-								options={data}
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+									/>
+								</OptionsPanelSection>
+							</OptionsPanel>
+						</TabPanel>
+						<TabPanel>
+							<OptionsPanelIntro
+								title='SEO'
+								subtitle='Optimize your Lorem so it can better Ipsum!'
 							/>
-						</OptionsPanelSection>
-						<OptionsPanelSection>
-							<Select
-								icon={icons.emptyCircle}
-								label='Pick an item'
-								onChange={(v) => setV(v)}
-								value={v}
-								options={data}
+
+							<OptionsPanel
+								title='Header & footer'
+								help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
+							>
+								<OptionsPanelSection>
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+									/>
+								</OptionsPanelSection>
+								<OptionsPanelSection>
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+									/>
+								</OptionsPanelSection>
+								<OptionsPanelSection>
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+									/>
+								</OptionsPanelSection>
+							</OptionsPanel>
+						</TabPanel>
+					</Tabs>
+
+					<Tabs type='pill'>
+						<TabList>
+							<Tab icon={icons.options}>General settings</Tab>
+							<Tab icon={icons.bot}>SEO</Tab>
+						</TabList>
+						<TabPanel>
+							<OptionsPanelIntro
+								title='Lorem ipsum'
+								subtitle='Dolor, ipsum, sit amet, lorem, ipsum dolor, sit...'
+								border
 							/>
-						</OptionsPanelSection>
-						<OptionsPanelSection>
-							<Select
-								icon={icons.emptyCircle}
-								label='Pick an item'
-								onChange={(v) => setV(v)}
-								value={v}
-								options={data}
+							<OptionsPanel>
+								<OptionsPanelSection>
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+										inline
+									/>
+								</OptionsPanelSection>
+							</OptionsPanel>
+
+							<OptionsPanel title='Header & footer'>
+								<OptionsPanelSection>
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+										inline
+									/>
+								</OptionsPanelSection>
+							</OptionsPanel>
+
+							<OptionsPanel
+								title='Header & footer'
+								subtitle='Nešto tu i tamo'
+								help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
+							>
+								<OptionsPanelSection>
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+									/>
+								</OptionsPanelSection>
+							</OptionsPanel>
+
+							<OptionsPanel
+								title='Header & footer'
+								help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
+							>
+								<OptionsPanelSection>
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+									/>
+
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+									/>
+								</OptionsPanelSection>
+							</OptionsPanel>
+						</TabPanel>
+						<TabPanel>
+							<OptionsPanelIntro
+								title='SEO'
+								subtitle='Optimize your Lorem so it can better Ipsum!'
+								border
 							/>
-						</OptionsPanelSection>
-					</OptionsPanel>
+
+							<OptionsPanel
+								title='Header & footer'
+								help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
+							>
+								<OptionsPanelSection>
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+									/>
+								</OptionsPanelSection>
+								<OptionsPanelSection>
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+									/>
+								</OptionsPanelSection>
+								<OptionsPanelSection>
+									<Select
+										icon={icons.emptyCircle}
+										label='Pick an item'
+										onChange={(v) => setV(v)}
+										value={v}
+										options={data}
+									/>
+								</OptionsPanelSection>
+							</OptionsPanel>
+						</TabPanel>
+					</Tabs>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<ResponsivePreview
 						value={{
 							_default: 'sans',
@@ -3135,10 +3237,10 @@ function App() {
 						breakpointData={globalManifest.globalVariables.breakpoints}
 					/>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Modal title='My modal'>Lorem ipsum modal sit amet.</Modal>
 				</TabPanel>
-				<TabPanel className='es-uic-m-5 es-uic-w-96 es-uic-space-y-4 !es-uic-p-5'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<ItemCollection
 						items={draggableItems}
 						onChange={setDraggableItems}
@@ -3147,7 +3249,7 @@ function App() {
 							const { toggle, title, updateData, itemIndex, deleteItem } = item;
 
 							return (
-								<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>
+								<div className='es:flex es:items-center es:gap-2'>
 									<p>
 										{itemIndex} {title}
 									</p>
@@ -3158,7 +3260,7 @@ function App() {
 									/>
 									<Button
 										size='small'
-										type='danger'
+										type='dangerGhost'
 										icon={icons.trash}
 										onPress={() => deleteItem()}
 									/>

@@ -133,7 +133,7 @@ export const ColorPicker = (props) => {
 			{...rest}
 			endIcon={
 				<ColorSwatch
-					className='!es-uic-size-5.5'
+					className='es:size-5.5!'
 					color={color}
 				/>
 			}
@@ -196,7 +196,7 @@ export const ColorPicker = (props) => {
 			icon={icon}
 			label={label}
 			subtitle={subtitle}
-			className={clsx('es-uic-w-full', labelClassName)}
+			className={clsx('es:w-full', labelClassName)}
 			inline={!stacked}
 		>
 			<Menu
@@ -205,15 +205,15 @@ export const ColorPicker = (props) => {
 						{(type === 'default' || icon) && (
 							<ColorSwatch
 								color={currentColor}
-								className='!es-uic-size-6 !es-uic-shadow-none'
+								className='es:size-6! es:shadow-none!'
 							/>
 						)}
 						{!icon && type !== 'default' && (
-							<div className='es-uic-relative es-uic-size-6 [&>svg]:es-uic-absolute [&>svg]:es-uic-inset-0 [&>svg]:es-uic-size-full'>
+							<div className='es:relative es:size-6 es:icon:absolute es:icon:inset-0 es:icon:size-full'>
 								{menuTriggerIcon}
 								<ColorSwatch
 									color={currentColor}
-									className='es-uic-absolute -es-uic-bottom-0.5 es-uic-left-0 !es-uic-h-2 !es-uic-shadow-none'
+									className='es:absolute es:-bottom-0.5 es:left-0 es:h-2! es:shadow-none!'
 								/>
 							</div>
 						)}
@@ -232,7 +232,7 @@ export const ColorPicker = (props) => {
 						<MenuItem
 							onClick={() => onChange(undefined)}
 							selected={typeof value === 'undefined'}
-							endIcon={<ColorSwatch className='!es-uic-size-5.5' />}
+							endIcon={<ColorSwatch className='es:size-5.5!' />}
 						>
 							{clearItemLabel}
 						</MenuItem>

@@ -50,38 +50,45 @@ export const AnimatedVisibility = (props) => {
 
 	const transitions = {
 		fade: {
-			inClassName: 'es-uic-animate-in es-uic-fade-in',
-			outClassName: 'es-uic-animate-out es-uic-fade-out',
+			inClassName: 'es:motion-opacity-in es:motion-duration-300',
+			outClassName: 'es:motion-opacity-out es:motion-duration-200',
 		},
 		slideFade: {
-			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-slide-in-from-top-3',
-			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-slide-out-to-top-3',
+			inClassName: 'es:motion-safe:motion-translate-y-in-[-5%] es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+			outClassName:
+				'es:motion-safe:motion-translate-y-out-[-5%] es:motion-opacity-out es:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 		},
 		slideInFadeOut: {
-			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-slide-in-from-bottom-3',
-			outClassName: 'es-uic-animate-out es-uic-fade-out',
+			inClassName: 'es:motion-safe:motion-translate-y-in-[-5%] es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+			outClassName: 'es:motion-opacity-out es:motion-duration-200',
 		},
 		slideFadeUpSlight: {
-			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-slide-in-from-bottom-1',
-			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-slide-out-to-bottom-1',
+			inClassName:
+				'es:motion-safe:motion-translate-y-in-[-0.25rem] es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+			outClassName:
+				'es:motion-safe:motion-translate-y-out-[-0.25rem] es:motion-opacity-out es:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 		},
 		slideFadeDownSlight: {
-			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-slide-in-from-top-1',
-			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-slide-out-to-top-1',
+			inClassName:
+				'es:motion-safe:motion-translate-y-in-[0.25rem] es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+			outClassName:
+				'es:motion-safe:motion-translate-y-out-[0.25rem] es:motion-opacity-out es:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 		},
 		scaleFade: {
-			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-zoom-in-90',
-			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-zoom-out-90',
+			inClassName: 'es:motion-safe:motion-scale-in-95 es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+			outClassName: 'es:motion-safe:motion-scale-out-90 es:motion-opacity-out es:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 		},
 		scaleSlideFade: {
-			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-zoom-in-[98%] es-uic-slide-in-from-top-3',
-			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-zoom-out-[98%] es-uic-slide-out-to-top-3',
-			durationClassName: 'es-uic-duration-300',
+			inClassName:
+				'es:motion-safe:motion-translate-y-in-[-5%] es:motion-safe:motion-scale-in-95 es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+			outClassName:
+				'es:motion-safe:motion-translate-y-out-[-5%] es:motion-safe:motion-scale-out-90 es:motion-opacity-out es:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 		},
 		scaleRotateFade: {
-			inClassName: 'es-uic-animate-in es-uic-fade-in es-uic-zoom-in-90 es-uic-spin-in-12',
-			outClassName: 'es-uic-animate-out es-uic-fade-out es-uic-zoom-out-90 es-uic-spin-out-12',
-			durationClassName: 'es-uic-duration-300',
+			inClassName:
+				'es:motion-rotate-in es:motion-safe:motion-scale-in-95 es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+			outClassName:
+				'es:motion-rotate-out es:motion-safe:motion-scale-out-90 es:motion-opacity-out es:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 		},
 	};
 
@@ -93,8 +100,7 @@ export const AnimatedVisibility = (props) => {
 						!noEnterAnimation && visible && noInitial && visible && canAnimate && transitions[transition].inClassName,
 						!noEnterAnimation && visible && !noInitial && transitions[transition].inClassName,
 						!noExitAnimation && !visible && transitions[transition].outClassName,
-						transitions?.[transition]?.durationClassName ?? 'es-uic-duration-300',
-						'es-uic-fill-mode-forwards',
+						'es:fill-mode-forwards',
 						className,
 					)}
 					onAnimationEnd={() => {

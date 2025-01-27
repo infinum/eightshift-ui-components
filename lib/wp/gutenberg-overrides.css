@@ -15,7 +15,7 @@
 .components-guide__container .components-button,
 .components-notice__content .components-button,
 .editor-post-featured-image__toggle.components-button {
-	@apply !es-uic-rounded-md;
+	@apply es:!rounded-md;
 }
 
 .components-input-control__container,
@@ -23,88 +23,88 @@
 .components-checkbox-control__input,
 button.components-toggle-group-control-option-base,
 .editor-post-visibility__password-input {
-	@apply !es-uic-rounded;
+	@apply es:!rounded;
 }
 
 .components-button-group .components-button {
-	@apply first:!es-uic-rounded-l-md last:!es-uic-rounded-r-md;
+	@apply first:es:!rounded-l-md last:es:!rounded-r-md;
 }
 
 .components-popover__content,
 .components-guide {
-	@apply !es-uic-rounded-lg;
+	@apply es:!rounded-lg;
 }
 
 .block-editor-inserter__search {
-	@apply !es-uic-rounded-t-lg;
+	@apply es:!rounded-t-lg;
 }
 
 .media-menu-item.active {
-	@apply !es-uic-rounded-t-md;
+	@apply es:!rounded-t-md;
 }
 
 /* Fix weird label casings */
 .components-base-control__label,
 .components-input-control__label,
 .components-custom-select-control__label {
-	@apply !es-uic-normal-case !es-uic-text-[13px] !es-uic-tracking-normal !es-uic-font-normal;
+	@apply es:!normal-case es:!text-[13px] es:!tracking-normal es:!font-normal;
 }
 
 /* Increase sidebar width */
 .edit-post-sidebar,
 .interface-interface-skeleton__sidebar:not(:empty) > .interface-complementary-area__fill[style='width: 280px;'], /* WP6.6 is weird. */
 .interface-complementary-area.editor-sidebar {
-	@apply !es-uic-w-80;
+	@apply es:!w-80;
 }
 
 /* Make block crash message nicer. */
 .block-editor-block-list__block-crash-warning {
-	@apply !es-uic-rounded-lg !es-uic-border-red-700/15 !es-uic-shadow !es-uic-shadow-red-700/10;
+	@apply es:!rounded-lg es:!border-red-700/15 es:!shadow es:!shadow-red-700/10;
 
 	& .block-editor-warning__message {
-		@apply !es-uic-text-red-950;
+		@apply es:!text-red-950;
 	}
 }
 
 /* Make block missing message nicer. */
 .wp-block-missing div.block-editor-warning {
-	@apply !es-uic-rounded-lg !es-uic-border-zinc-300 !es-uic-bg-zinc-50/75 !es-uic-shadow !es-uic-shadow-zinc-700/20;
+	@apply es:!rounded-lg es:!border-zinc-300 es:!bg-zinc-50/75 es:!shadow es:!shadow-zinc-700/20;
 
 	& .block-editor-warning__message {
-		@apply !es-uic-text-zinc-950;
+		@apply es:!text-zinc-950;
 	}
 }
 
 /* Round the (contextual) toolbar */
 .block-editor-block-contextual-toolbar,
 .block-editor-block-parent-selector__button {
-	@apply !es-uic-rounded-lg es-uic-shadow-sm;
+	@apply es:!rounded-lg es:shadow-sm;
 }
 
 /* Tweak inserter buttons */
 .block-editor-block-types-list .block-editor-block-types-list__item {
-	@apply !es-uic-rounded-lg after:!es-uic-rounded-lg [&_svg]:es-uic-scale-125;
+	@apply es:!rounded-lg after:es:!rounded-lg [&_svg]:es:scale-125;
 }
 
 /* Tweak list view block icons */
 .block-editor-list-view-tree {
 	.block-editor-block-icon {
-		@apply !es-uic-rounded;
+		@apply es:!rounded;
 	}
 
 	.block-editor-list-view-leaf > * {
-		@apply first:!es-uic-rounded-l-lg last:!es-uic-rounded-r-lg;
+		@apply first:es:!rounded-l-lg last:es:!rounded-r-lg;
 	}
 }
 
 /* Round off block icon in sidebar. */
 .block-editor-block-inspector .block-editor-block-card .block-editor-block-icon {
-	@apply !es-uic-rounded;
+	@apply es:!rounded;
 }
 
 /* Make default inserter more rounded. */
 .block-editor-inserter__toggle {
-	@apply !es-uic-rounded-md;
+	@apply es:!rounded-md;
 }
 
 /* Unify buttons in top toolbar */
@@ -114,16 +114,16 @@ button.components-toggle-group-control-option-base,
 .editor-header__center,
 .editor-header__settings {
 	.components-button {
-		@apply !es-uic-min-h-9 !es-uic-min-w-9;
+		@apply es:!min-h-9 es:!min-w-9;
 	}
 }
 
 /* Allow blocks to expand to full-width. */
 .editor-styles-wrapper .wp-block:not(.editor-post-title, .block-list-appender) {
-	@apply !es-uic-max-w-full;
+	@apply es:!max-w-full;
 }
 
 /* Nicer-looking Gutenberg tooltip. */
 .components-tooltip {
-	@apply es-uic-px-1 es-uic-py-0.5 es-uic-text-white es-uic-backdrop-blur-xl es-uic-backdrop-brightness-105 es-uic-backdrop-saturate-150 es-uic-bg-gray-950/70 es-uic-border es-uic-border-gray-800 es-uic-shadow-md !es-uic-rounded-md has-[>_:first-child]:es-uic-text-gray-700 has-[>_:first-child]:es-uic-bg-white/80 has-[>_:first-child]:es-uic-border-gray-200;
+	@apply es:px-1 es:py-0.5 es:text-white es:backdrop-blur-xl es:backdrop-brightness-105 es:backdrop-saturate-150 es:bg-gray-950/70 es:border es:border-gray-800 es:shadow-md es:!rounded-md has-[>_:first-child]:es:text-gray-700 has-[>_:first-child]:es:bg-white/80 has-[>_:first-child]:es:border-gray-200;
 }

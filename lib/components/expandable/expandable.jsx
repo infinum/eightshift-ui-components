@@ -90,16 +90,10 @@ export const Expandable = (props) => {
 					onOpenChange(!isOpen);
 				}
 			}}
-			className={clsx(
-				'es-uic-w-full es-uic-rounded-lg es-uic-border es-uic-border-gray-300/0 es-uic-text-sm es-uic-transition',
-				isOpen && 'es-uic-border-gray-300/100 es-uic-shadow-lg',
-				className,
-			)}
+			className={clsx('es:w-full es:rounded-lg es:border es:border-secondary-300/0 es:text-sm es:transition', isOpen && 'es:border-secondary-300/100 es:shadow-lg', className)}
 			{...other}
 		>
-			<div
-				className={clsx('es-uic-flex es-uic-h-10 es-uic-items-center es-uic-gap-1 es-uic-transition-[padding]', isOpen && 'es-uic-py-1 es-uic-pl-2 es-uic-pr-1', headerClassName)}
-			>
+			<div className={clsx('es:flex es:h-10 es:items-center es:gap-1 es:transition-[padding]', isOpen && 'es:py-1 es:pl-2 es:pr-1', headerClassName)}>
 				<RichLabel
 					icon={icon}
 					label={label}
@@ -112,7 +106,7 @@ export const Expandable = (props) => {
 				{actions && !keepActionsOnExpand && (
 					<AnimatedVisibility
 						visible={!isOpen}
-						className='es-uic-ml-auto es-uic-flex es-uic-gap-2'
+						className='es:ml-auto es:flex es:gap-2'
 						transition='scaleFade'
 						noInitial
 					>
@@ -120,7 +114,7 @@ export const Expandable = (props) => {
 					</AnimatedVisibility>
 				)}
 
-				{actions && keepActionsOnExpand && <div className='es-uic-ml-auto es-uic-flex es-uic-gap-2'>{actions}</div>}
+				{actions && keepActionsOnExpand && <div className='es:ml-auto es:flex es:gap-2'>{actions}</div>}
 
 				{customOpenButton &&
 					customOpenButton({
@@ -150,7 +144,7 @@ export const Expandable = (props) => {
 						}}
 						tooltip={isOpen ? __('Close', 'eightshift-ui-components') : __('Open', 'eightshift-ui-components')}
 						disabled={disabled}
-						className={clsx('[&>svg]:es-uic-size-5 [&>svg]:es-uic-transition-transform', isOpen && '[&>svg]:-es-uic-scale-y-100')}
+						className={clsx('es:icon:size-5 es:icon:transition-transform', isOpen && 'es:icon:-scale-y-100')}
 						size='small'
 					/>
 				)}
@@ -158,8 +152,9 @@ export const Expandable = (props) => {
 
 			<DisclosurePanel
 				className={clsx(
-					isOpen && 'es-uic-space-y-2.5 es-uic-border-t es-uic-border-t-gray-200 es-uic-p-2',
-					isOpen && 'es-uic-animate-in es-uic-fade-in-0 es-uic-slide-in-from-top-3 es-uic-fill-mode-forwards',
+					isOpen && 'es:space-y-2.5 es:border-t es:border-t-secondary-200 es:p-2',
+					isOpen &&
+						'es:motion-safe:motion-preset-slide-down-sm es:motion-safe:motion-ease-spring-smooth es:motion-safe:motion-ease-linear/opacity es:motion-safe:motion-duration-300 es:motion-reduce:motion-preset-fade-md',
 					contentClassName,
 				)}
 			>

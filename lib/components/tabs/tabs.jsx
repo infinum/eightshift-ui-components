@@ -1,7 +1,8 @@
 import { Tabs as ReactAriaTabs, TabList as ReactAriaTabList, Tab as ReactAriaTab, TabPanel as ReactAriaTabPanel } from 'react-aria-components';
 import { __, sprintf } from '@wordpress/i18n';
 import { clsx } from 'clsx/lite';
-import { cloneElement, useId } from 'react';
+import { cloneElement, useId, isValidElement } from 'react';
+import { cva } from 'class-variance-authority';
 import { Notice } from '../notice/notice';
 import { RichLabel } from '../rich-label/rich-label';
 
@@ -12,9 +13,12 @@ import { RichLabel } from '../rich-label/rich-label';
  * @param {Object} props - Component props.
  * @param {boolean} [props.vertical=false] - Whether the tabs are vertical.
  * @param {string} [props.className] - Classes to pass to the tabs container.
+ * @param {TabsType} [props.type='underline'] - Design of the tabs.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Tabs component.
+ *
+ * @typedef {'underline' | 'pill'} TabsType
  *
  * @example
  * <Tabs>
@@ -29,7 +33,7 @@ import { RichLabel } from '../rich-label/rich-label';
  * @preserve
  */
 export const Tabs = (props) => {
-	const { children, vertical, className, hidden, ...rest } = props;
+	const { children, vertical, className, hidden, type = 'underline', ...rest } = props;
 
 	const baseId = useId();
 
@@ -58,12 +62,14 @@ export const Tabs = (props) => {
 					child,
 					{
 						key: index,
+						type: type,
 					},
 					childItems?.map((innerChild, i) =>
 						cloneElement(innerChild, {
 							id: `tab-${baseId}-${i + 1}`,
 							key: i,
 							isParentVertical: vertical,
+							type: type,
 						}),
 					),
 				),
@@ -76,7 +82,7 @@ export const Tabs = (props) => {
 				cloneElement(child, {
 					id: `tab-${baseId}-${tabPanelCounter++}`,
 					key: index,
-					className: clsx(child.props.className, vertical && 'es-uic-border-l es-uic-border-l-gray-300 es-uic-pl-3'),
+					className: clsx(child.props.className, vertical && 'es:pl-3'),
 				}),
 			];
 		}
@@ -103,7 +109,7 @@ export const Tabs = (props) => {
 		<ReactAriaTabs
 			{...rest}
 			orientation={vertical ? 'vertical' : 'horizontal'}
-			className={clsx(vertical ? 'es-uic-grid es-uic-size-full es-uic-min-h-40 es-uic-grid-cols-[minmax(0,_15rem),_2fr] es-uic-gap-4' : 'es-uic-flex-col', className)}
+			className={clsx(vertical ? 'es:grid es:size-full es:min-h-40 es:grid-cols-[minmax(0,15rem)_2fr] es:gap-4' : 'es:flex-col', className)}
 		>
 			{childrenWithIds}
 		</ReactAriaTabs>
@@ -126,19 +132,25 @@ Tabs.displayName = 'Tabs';
  * @preserve
  */
 export const TabList = (props) => {
-	const { children, 'aria-label': ariaLabel, className, ...other } = props;
+	const { children, 'aria-label': ariaLabel, className, type, ...other } = props;
 
 	return (
 		<ReactAriaTabList
 			aria-label={ariaLabel ?? __('tabs', 'eightshift-ui-components')}
-			className={({ orientation }) =>
-				clsx(
-					'es-uic-flex',
-					orientation === 'vertical' && 'es-uic-h-full es-uic-flex-col es-uic-gap-px es-uic-pr-1.5',
-					orientation === 'horizontal' && 'es-uic-w-full es-uic-items-stretch es-uic-gap-1 es-uic-border-b es-uic-border-b-gray-300',
+			className={({ orientation }) => {
+				const horizontal = orientation === 'horizontal';
+				const vertical = orientation === 'vertical';
+
+				return clsx(
+					'es:flex es:p-0.5 es:-m-0.5',
+					vertical && 'es:h-full es:flex-col es:gap-1.5 es:pr-1.5 es:overflow-y-auto es:overflow-x-visible',
+					horizontal && 'es:w-full es:items-stretch es:gap-3 es:overflow-x-auto es:overflow-y-visible es:mb-3',
+					horizontal &&
+						type === 'underline' &&
+						'es:relative es:isolate es:after:content-[""] es:after:-z-10 es:after:absolute es:after:bottom-0.5 es:after:left-0 es:after:w-full es:after:h-px es:after:bg-secondary-300',
 					className,
-				)
-			}
+				);
+			}}
 			{...other}
 		>
 			{children}
@@ -156,6 +168,7 @@ TabList.displayName = 'TabList';
  * @param {boolean} [props.disabled] - Whether the tab is disabled.
  * @param {string} [props.className] - Classes to pass to the tab.
  * @param {JSX.Element} [props.icon] - Icon to show on the tab.
+ * @param {string|JSX.Element} [props.badge] - Badge to render besides the label.
  * @param {string} [props.label] - Tab label. **Note**: overrides inner items!
  * @param {string} [props.subtitle] - Tab subtitle. **Note**: overrides inner items!
  *
@@ -166,40 +179,78 @@ TabList.displayName = 'TabList';
  * @preserve
  */
 export const Tab = (props) => {
-	const { children, disabled, isParentVertical, className, icon, label, subtitle, ...other } = props;
+	const { children, disabled, isParentVertical, className, icon, label, subtitle, type, badge, ...other } = props;
+
+	const componentClasses = cva(
+		[
+			'es:group es:flex es:items-center es:gap-1.5 es:relative es:shrink-0 es:min-h-9.5',
+			'es:select-none es:text-sm es:transition es:not-disabled:cursor-pointer',
+			'es:any-focus:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+			className,
+		],
+		{
+			variants: {
+				type: {
+					underline: 'es:disabled:text-secondary-400 es:selected:text-accent-950',
+					pill: 'es:font-[450] es:border es:border-transparent es:px-3 es:py-2 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-700 es:selected:bg-accent-100 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+				},
+			},
+			compoundVariants: [
+				{
+					vertical: false,
+					type: 'underline',
+					class: [
+						'es:px-2 es:py-2.5 es:rounded-lg',
+						'es:after:content-[""] es:after:absolute es:after:bottom-px es:after:left-0 es:after:right-0 es:after:w-5/6 es:after:mx-auto es:after:h-0.75',
+						'es:after:bg-linear-to-b es:hover:not-selected:not-disabled:after:from-secondary-200 es:hover:not-selected:not-disabled:after:to-secondary-300 es:selected:after:from-accent-500 es:selected:after:to-accent-600',
+						'es:after:rounded-t-full es:selected:after:shadow-xs es:selected:after:shadow-accent-700/30 es:after:transition',
+					],
+				},
+				{
+					vertical: true,
+					type: 'underline',
+					class: [
+						'es:pl-3 es:pr-2 es:py-2.5 es:rounded-lg es:selected:bg-accent-50/50 es:selected:text-accent-950 es:transition',
+						'es:after:content-[""] es:after:absolute es:after:-left-0 es:after:top-0 es:after:bottom-0 es:after:h-5/6 es:after:my-auto es:after:w-1',
+						'es:after:bg-linear-to-r es:hover:not-selected:not-disabled:after:from-secondary-200 es:hover:not-selected:not-disabled:after:to-secondary-300 es:selected:after:from-accent-500 es:selected:after:to-accent-600',
+						'es:after:rounded-full es:selected:after:shadow-xs es:selected:after:shadow-accent-700/30 es:after:transition',
+					],
+				},
+			],
+		},
+	);
 
 	return (
 		<ReactAriaTab
 			{...other}
 			isDisabled={disabled}
-			className={({ isSelected, isDisabled }) => {
-				return clsx(
-					'es-uic-relative es-uic-flex es-uic-select-none es-uic-items-center es-uic-rounded es-uic-p-1.5 es-uic-text-sm es-uic-transition',
-					'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
-					'after:es-uic-absolute after:es-uic-rounded-full after:es-uic-bg-teal-600 after:es-uic-shadow-sm after:es-uic-shadow-teal-500/25 after:es-uic-transition after:es-uic-duration-300 after:es-uic-content-[""]',
-					!isParentVertical && 'after:es-uic-inset-x-0 after:-es-uic-bottom-px after:es-uic-h-0.5',
-					isSelected && 'es-uic-border-b-teal-600 es-uic-text-teal-900 after:es-uic-opacity-100',
-					isSelected && isParentVertical && 'after:es-uic-scale-y-100',
-					isSelected && !isParentVertical && 'after:es-uic-scale-x-100',
-					!isSelected && !isDisabled && 'es-uic-text-gray-800 after:es-uic-opacity-0 hover:es-uic-bg-gray-100',
-					!isSelected && !isDisabled && isParentVertical && 'after:es-uic-scale-y-75',
-					!isSelected && !isDisabled && !isParentVertical && 'after:es-uic-scale-x-75',
-					isDisabled && 'es-uic-text-gray-300 after:es-uic-hidden',
-					isParentVertical &&
-						'es-uic-min-h-9 es-uic-pl-3 after:es-uic-inset-y-0 after:es-uic-left-px after:es-uic-right-auto after:es-uic-my-auto after:es-uic-h-7 after:es-uic-w-[0.1875rem]',
-					className,
-				);
-			}}
+			className={componentClasses({ vertical: Boolean(isParentVertical), type: type })}
 		>
 			{(icon || subtitle) && (
 				<RichLabel
 					icon={icon}
 					label={label ?? children}
 					subtitle={subtitle}
+					noColor
 				/>
 			)}
 
 			{!(icon || subtitle) && (label ?? children)}
+
+			{badge && !isValidElement(badge) && (
+				<span
+					className={clsx(
+						'es:transition-colors es:px-1.5 es:py-1 es:leading-none es:rounded-md es:text-xs es:font-medium',
+						type === 'underline' &&
+							'es:inset-ring es:inset-ring-secondary-200/20 es:bg-secondary-100 es:group-selected:bg-accent-500/10 es:group-selected:text-accent-900 es:group-selected:inset-ring-accent-500/10',
+						type === 'pill' && 'es:bg-secondary-100 es:group-selected:bg-accent-600 es:group-selected:text-white',
+					)}
+				>
+					{badge}
+				</span>
+			)}
+
+			{badge && isValidElement(badge) && <div>{badge}</div>}
 		</ReactAriaTab>
 	);
 };
@@ -225,7 +276,7 @@ export const TabPanel = (props) => {
 	return (
 		<ReactAriaTabPanel
 			{...other}
-			className={clsx('es-uic-mt-1.5 es-uic-space-y-2.5 es-uic-text-sm focus:es-uic-outline-none', className)}
+			className={clsx('es:mt-1.5 es:space-y-2.5 es:text-sm es:focus:outline-hidden', className)}
 		>
 			{children}
 		</ReactAriaTabPanel>

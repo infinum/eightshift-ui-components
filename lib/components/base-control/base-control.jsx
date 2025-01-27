@@ -66,8 +66,8 @@ export const BaseControl = (props) => {
 	}
 
 	return (
-		<div className={clsx('es-uic-space-y-1', className)}>
-			<div className={clsx('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && !icon && 'es-uic-pb-0.5', labelContainerClassName)}>
+		<div className={clsx('es:space-y-1', className)}>
+			<div className={clsx('es:flex es:items-center es:gap-1', !inline && !icon && 'es:pb-0.5', labelContainerClassName)}>
 				{(label || icon || subtitle) && (
 					<RichLabel
 						icon={icon}
@@ -79,17 +79,17 @@ export const BaseControl = (props) => {
 					/>
 				)}
 
-				{inline && <div className={clsx('es-uic-ml-auto es-uic-flex es-uic-items-center es-uic-gap-1', controlContainerClassName)}>{children}</div>}
+				{inline && <div className={clsx('es:ml-auto es:flex es:items-center es:gap-1', controlContainerClassName)}>{children}</div>}
 
-				{!inline && actions && <div className={clsx('es-uic-flex es-uic-items-center es-uic-gap-1', !inline && 'es-uic-ml-auto')}>{actions}</div>}
+				{!inline && actions && <div className={clsx('es:flex es:items-center es:gap-1', !inline && 'es:ml-auto')}>{actions}</div>}
 			</div>
 
-			{!inline && Array.isArray(children) && children.filter(Boolean).length > 1 && <div className={clsx('es-uic-space-y-1', controlContainerClassName)}>{children}</div>}
+			{!inline && Array.isArray(children) && children.filter(Boolean).length > 1 && <div className={clsx('es:space-y-1', controlContainerClassName)}>{children}</div>}
 			{!inline && (!Array.isArray(children) || children.filter(Boolean).length < 2) && children}
 
 			{help && (
 				<Text
-					className='es-uic-inline-block es-uic-text-sm es-uic-text-gray-400'
+					className='es:inline-block es:text-sm es:text-secondary-500'
 					slot='description'
 				>
 					{help}

@@ -34,25 +34,25 @@ export const ImagePlaceholder = (props) => {
 	}
 
 	const styleClassName = {
-		default: 'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-text-gray-300 es-uic-shadow',
-		simple: 'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-border-dashed es-uic-text-gray-300',
+		default: 'es:rounded-xl es:border es:border-secondary-300 es:bg-secondary-50 es:text-secondary-300 es:shadow-xs',
+		simple: 'es:rounded-xl es:border es:border-secondary-300 es:border-dashed es:text-secondary-300',
 	};
 
 	const sizeClassName = {
 		auto: '',
-		default: 'es-uic-size-20',
-		large: 'es-uic-size-40',
-		fullWidth: 'es-uic-w-full',
-		fullHeight: 'es-uic-h-full',
-		full: 'es-uic-size-full',
-		video: 'es-uic-w-full es-uic-aspect-video',
+		default: 'es:size-20',
+		large: 'es:size-40',
+		fullWidth: 'es:w-full',
+		fullHeight: 'es:h-full',
+		full: 'es:size-full',
+		video: 'es:w-full es:aspect-video',
 	};
 
 	return (
 		<div
 			className={clsx(
-				'es-uic-grid es-uic-grid-cols-1 es-uic-grid-rows-1 es-uic-overflow-hidden',
-				'[&>*]:es-uic-col-start-1 [&>*]:es-uic-col-end-1 [&>*]:es-uic-row-start-1 [&>*]:es-uic-row-end-1',
+				'es:grid es:grid-cols-1 es:grid-rows-1 es:overflow-hidden',
+				'es:*:col-start-1 es:*:col-end-1 es:*:row-start-1 es:*:row-end-1',
 				styleClassName[style] ?? styleClassName?.default,
 				sizeClassName[size] ?? sizeClassName?.default,
 				className,
@@ -61,11 +61,13 @@ export const ImagePlaceholder = (props) => {
 			{!noImage && (
 				<img
 					className={clsx(
-						'es-uic-size-full es-uic-select-none es-uic-fill-mode-forwards',
-						imageMode === 'cover' && 'es-uic-object-cover',
-						imageMode === 'contain' && 'es-uic-object-contain',
-						imageMode === 'fill' && 'es-uic-object-fill',
-						url?.length > 0 ? 'es-uic-animate-in es-uic-fade-in-0 es-uic-zoom-in-95' : 'es-uic-animate-out es-uic-fade-out-0 es-uic-zoom-out-95',
+						'es:size-full es:select-none es:fill-mode-forwards',
+						imageMode === 'cover' && 'es:object-cover',
+						imageMode === 'contain' && 'es:object-contain',
+						imageMode === 'fill' && 'es:object-fill',
+						url?.length > 0
+							? 'es:motion-opacity-in es:motion-scale-in-125 es:motion-blur-in-xs es:motion-delay-300/blur es:motion-duration-300 es:motion-ease-spring-snappy/scale'
+							: 'es:hidden',
 					)}
 					src={url}
 					alt={alt}
@@ -74,8 +76,8 @@ export const ImagePlaceholder = (props) => {
 
 			<div
 				className={clsx(
-					'es-uic-place-self-center es-uic-justify-self-center es-uic-transition es-uic-fill-mode-forwards [&>svg]:es-uic-size-7',
-					!url ? 'es-uic-animate-in es-uic-fade-in-0 es-uic-zoom-in-95' : 'es-uic-animate-out es-uic-fade-out-0 es-uic-zoom-out-95',
+					'es:place-self-center es:justify-self-center es:transition es:fill-mode-forwards es:icon:size-7',
+					!url ? 'es:motion-opacity-in es:motion-scale-in-90 es:motion-duration-300 es:motion-ease-spring-snappy/scale' : 'es:invisible',
 				)}
 			>
 				{icons.image}

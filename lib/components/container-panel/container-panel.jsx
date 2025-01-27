@@ -39,7 +39,7 @@ export const ContainerPanel = (props) => {
 	const [open, setOpen] = useState(startOpen);
 
 	if (!title && typeof use === 'undefined') {
-		return <div className='es-uic-space-y-2 es-uic-border-t es-uic-border-t-gray-200 es-uic-p-4'>{children}</div>;
+		return <div className='es:space-y-2 es:border-t es:border-t-secondary-200 es:p-4'>{children}</div>;
 	}
 
 	const justUse = !closable && typeof onUseChange !== 'undefined';
@@ -57,7 +57,7 @@ export const ContainerPanel = (props) => {
 
 					<HStack
 						hidden={!closable && !onUseChange}
-						className='es-uic-ml-auto'
+						className='es:ml-auto'
 					>
 						{onUseChange && (
 							<Switch
@@ -78,7 +78,7 @@ export const ContainerPanel = (props) => {
 								icon={(typeof use !== 'undefined' ? open && use : open) ? icons.caretDownFill : icons.caretDown}
 								type='ghost'
 								size='small'
-								className={clsx('[&>svg]:es-uic-size-5 [&>svg]:es-uic-transition-transform', (typeof use !== 'undefined' ? open && use : open) && '[&>svg]:-es-uic-scale-y-100')}
+								className={clsx('es:icon:size-5 es:icon:transition-transform', (typeof use !== 'undefined' ? open && use : open) && 'es:icon:-scale-y-100')}
 								disabled={typeof use !== 'undefined' && !use}
 							/>
 						)}
@@ -86,24 +86,24 @@ export const ContainerPanel = (props) => {
 				</>
 			}
 			className={clsx(
-				'es-uic-border-t es-uic-border-t-gray-200',
-				!closable && typeof use === 'undefined' && 'es-uic-space-y-2',
-				justClosable && open && 'es-uic-pb-4',
-				justUse && use && 'es-uic-pb-4',
-				useAndClosable && use && open && 'es-uic-pb-4',
-				!justClosable && !justUse && !useAndClosable && 'es-uic-pb-4',
-				!closable && !onUseChange && typeof use === 'undefined' && 'es-uic-px-4',
+				'es:border-t es:border-t-secondary-200',
+				!closable && typeof use === 'undefined' && 'es:space-y-2',
+				justClosable && open && 'es:pb-4',
+				justUse && use && 'es:pb-4',
+				useAndClosable && use && open && 'es:pb-4',
+				!justClosable && !justUse && !useAndClosable && 'es:pb-4',
+				!closable && !onUseChange && typeof use === 'undefined' && 'es:px-4',
 				className,
 			)}
-			labelContainerClassName={clsx((closable || onUseChange) && 'es-uic-pl-4 es-uic-pr-3 es-uic-min-h-12', !(closable || onUseChange) && 'es-uic-mt-3', '!es-uic-pb-0')}
-			controlContainerClassName='es-uic-px-4'
-			labelClassName='!es-uic-text-gray-600'
+			labelContainerClassName={clsx((closable || onUseChange) && 'es:pl-4 es:pr-3 es:min-h-12', !(closable || onUseChange) && 'es:mt-3', 'es:pb-0!')}
+			controlContainerClassName='es:px-4'
+			labelClassName='es:text-secondary-600!'
 		>
 			{!closable && !onUseChange && typeof use === 'undefined' && children}
 			{closable && typeof use === 'undefined' && (
 				<AnimatedVisibility
 					visible={open}
-					className='es-uic-space-y-2 es-uic-px-4'
+					className='es:space-y-2 es:px-4'
 					transition='scaleSlideFade'
 				>
 					{children}
@@ -112,7 +112,7 @@ export const ContainerPanel = (props) => {
 			{typeof use !== 'undefined' && (
 				<AnimatedVisibility
 					visible={closable ? use && open : use}
-					className='es-uic-space-y-2 es-uic-px-4'
+					className='es:space-y-2 es:px-4'
 					transition='scaleSlideFade'
 				>
 					{children}

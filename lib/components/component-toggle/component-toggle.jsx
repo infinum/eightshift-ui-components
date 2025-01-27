@@ -65,7 +65,7 @@ export const ComponentToggle = (props) => {
 		expandButtonDisabled,
 		hideUseToggleOnExpand,
 
-		contentClassName = 'es-uic-space-y-2.5',
+		contentClassName = 'es:space-y-2.5',
 
 		design = 'default',
 
@@ -98,12 +98,12 @@ export const ComponentToggle = (props) => {
 				</ToggleButton>
 				<TriggeredPopover
 					triggerButtonProps={{
-						className: 'es-uic-w-5.5 es-uic-stroke-[1.25]',
+						className: 'es:w-5.5 es:stroke-[1.25]',
 						tooltip: optionsLabel,
 						disabled: !useComponent,
 					}}
 					triggerButtonIcon={icons.dropdownCaretAlt}
-					className={clsx('es-uic-w-[18.5rem] es-uic-p-2', contentClassName)}
+					className={clsx('es:w-[18.5rem] es:p-2', contentClassName)}
 				>
 					<Spacer text={optionsLabel} />
 					{children}

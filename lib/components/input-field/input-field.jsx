@@ -12,6 +12,7 @@ import { clsx } from 'clsx/lite';
  * @param {string} [props.subtitle] - Subtitle to display.
  * @param {string} [props.help] - Help text to display below the input.
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display to the right of the label.
+ * @param {boolean} [props.inline] - Whether the element menu is displayed inline with the label, to the right of it.
  * @param {string} [props.value] - The current value of the input.
  * @param {Function} [props.onChange] - Function to run when the input value changes.
  * @param {InputType} [props.type='text'] - The input type. Renders a `<textarea>` instead of `<input>` if set to 'multiline'.
@@ -19,6 +20,7 @@ import { clsx } from 'clsx/lite';
  * @param {boolean} [props.readOnly] - If `true`, the input is read-only.
  * @param {string} [props.className] - Classes to pass to the input field.
  * @param {string} [props.wrapperClassName] - Classes to pass to the input field wrapping element.
+ * @param {boolean} [props.monospaceFont] - If `true`, the input uses a monospace font. Useful for things like IDs to make them easier to read.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The InputField component.
@@ -35,7 +37,7 @@ import { clsx } from 'clsx/lite';
  * @preserve
  */
 export const InputField = (props) => {
-	const { icon, label, subtitle, help, actions, value, onChange, type = 'text', disabled, readOnly, className, wrapperClassName, hidden, ...other } = props;
+	const { icon, label, subtitle, help, actions, inline, value, onChange, type = 'text', disabled, readOnly, className, wrapperClassName, hidden, monospaceFont, ...other } = props;
 
 	if (hidden) {
 		return null;
@@ -55,6 +57,7 @@ export const InputField = (props) => {
 				label={label}
 				subtitle={subtitle}
 				actions={actions}
+				inline={inline}
 				labelAs={Label}
 				help={help}
 			>
@@ -63,8 +66,12 @@ export const InputField = (props) => {
 						{...other}
 						type={type}
 						className={clsx(
-							'es-uic-min-h-10 es-uic-w-full es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-shadow-sm es-uic-transition selection:es-uic-bg-teal-500/20 selection:es-uic-text-teal-950',
-							'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
+							'es:min-h-10 es:w-full es:rounded-lg es:border es:border-secondary-300 es:p-2 es:text-sm es:shadow-xs es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950',
+							'es:any-focus:outline-hidden',
+							'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+							'es:focus-visible:border-accent-500',
+							'es:inset-ring es:inset-ring-secondary-100',
+							(monospaceFont || type === 'password') && 'es:font-mono',
 							className,
 						)}
 					/>
@@ -73,8 +80,11 @@ export const InputField = (props) => {
 					<TextArea
 						{...other}
 						className={clsx(
-							'es-uic-min-h-10 es-uic-w-full es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-shadow-sm es-uic-transition selection:es-uic-bg-teal-500/20 selection:es-uic-text-teal-950',
-							'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
+							'es:min-h-10 es:w-full es:rounded-lg es:border es:border-secondary-300 es:p-2 es:text-sm es:shadow-xs es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950',
+							'es:any-focus:outline-hidden',
+							'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+							'es:focus-visible:border-accent-500',
+							'es:inset-ring es:inset-ring-secondary-100',
 							className,
 						)}
 					/>

@@ -38,7 +38,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @returns {JSX.Element} The OptionSelect component.
  *
- * @typedef {'toggleButtons' | 'radios' | 'radiosSegmented' | 'menu'} OptionSelectType
+ * @typedef {'toggleButtons' | 'toggleButtonsSplit' | 'radios' | 'radiosSegmented' | 'menu'} OptionSelectType
  *
  * @example
  * <OptionSelect
@@ -107,7 +107,13 @@ export const OptionSelect = (props) => {
 
 	const currentItem = options?.find(({ value: optionValue }) => optionValue === value);
 
-	const notSetLabel = <span className='es-uic-leading-3 es-uic-opacity-50'>{__('Not set', 'eightshift-ui-components')}</span>;
+	const notSetLabel = <span className='es:leading-3 es:opacity-50'>{__('Not set', 'eightshift-ui-components')}</span>;
+
+	let radioDesign = 'default';
+
+	if (type === 'radiosSegmented') {
+		radioDesign = 'segmented';
+	}
 
 	return (
 		<BaseControl
@@ -120,10 +126,11 @@ export const OptionSelect = (props) => {
 			className={className}
 			{...rest}
 		>
-			{type === 'toggleButtons' && (
+			{['toggleButtons', 'toggleButtonsSplit'].includes(type) && (
 				<ButtonGroup
 					vertical={vertical}
 					aria-label={typeof label !== 'undefined' ? null : ariaLabel}
+					type={type === 'toggleButtonsSplit' ? 'split' : 'segmented'}
 					{...wrapperProps}
 				>
 					{options.map(
@@ -165,7 +172,7 @@ export const OptionSelect = (props) => {
 				<RadioButtonGroup
 					orientation={vertical ? 'vertical' : 'horizontal'}
 					onChange={(v) => onChange(v)}
-					design={type === 'radios' ? 'default' : 'segmented'}
+					design={radioDesign}
 					aria-label={typeof label !== 'undefined' ? null : ariaLabel}
 					value={value}
 					{...wrapperProps}

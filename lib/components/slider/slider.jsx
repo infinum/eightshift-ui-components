@@ -128,7 +128,7 @@ export const Slider = (props) => {
 			step={step}
 			isDisabled={disabled}
 			orientation={vertical ? 'vertical' : 'horizontal'}
-			className={clsx('es-uic-w-full', markerEntries?.some(([_, value]) => value?.length > 0) && 'es-uic-pb-3.5')}
+			className={clsx('es:w-full', markerEntries?.some(([_, value]) => value?.length > 0) && 'es:pb-3.5')}
 			onChangeEnd={onChangeEnd}
 			{...other}
 		>
@@ -142,7 +142,7 @@ export const Slider = (props) => {
 						{actions}
 
 						{!inputField && (
-							<ReactAriaSliderOutput className={clsx('es-uic-text-xs es-uic-tabular-nums es-uic-text-gray-600')}>
+							<ReactAriaSliderOutput className={clsx('es:text-xs es:tabular-nums es:text-secondary-600')}>
 								{({ state }) => state.values.map((_, i) => state.getThumbValueLabel(i)).join(' – ')}
 							</ReactAriaSliderOutput>
 						)}
@@ -162,15 +162,10 @@ export const Slider = (props) => {
 				labelAs={Label}
 				className={labelClassName}
 			>
-				<div className={clsx('es-uic-flex es-uic-items-center es-uic-gap-2.5 !es-uic-space-y-0', vertical && 'es-uic-flex-col')}>
-					{before && <div className='es-uic-flex es-uic-shrink-0 es-uic-items-center es-uic-gap-1'>{before}</div>}
+				<div className={clsx('es:flex es:items-center es:gap-2.5 es:space-y-0!', vertical && 'es:flex-col')}>
+					{before && <div className='es:flex es:shrink-0 es:items-center es:gap-1'>{before}</div>}
 
-					<ReactAriaSliderTrack
-						className={clsx(
-							'es-uic-isolate es-uic-grid es-uic-grid-cols-1 es-uic-grid-rows-1',
-							vertical ? 'es-uic-mx-auto es-uic-h-40 es-uic-w-4' : 'es-uic-h-4 es-uic-w-full es-uic-grow',
-						)}
-					>
+					<ReactAriaSliderTrack className={clsx('es:isolate es:grid es:grid-cols-1 es:grid-rows-1', vertical ? 'es:mx-auto es:h-40 es:w-4' : 'es:h-4 es:w-full es:grow')}>
 						{({ state }) => {
 							let activeBarLeft;
 							let activeBarBottom;
@@ -233,10 +228,10 @@ export const Slider = (props) => {
 								<>
 									<div
 										className={clsx(
-											'es-uic-relative es-uic-col-start-1 es-uic-row-start-1 es-uic-rounded-full es-uic-border',
-											!vertical && 'es-uic-h-1.5 es-uic-w-full es-uic-self-center',
-											vertical && 'es-uic-h-full es-uic-w-1.5 es-uic-flex-col es-uic-justify-self-center',
-											disabled ? 'es-uic-border-gray-200 es-uic-bg-white' : 'es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-shadow-sm',
+											'es:relative es:col-start-1 es:row-start-1 es:rounded-full es:border',
+											!vertical && 'es:h-1.5 es:w-full es:self-center',
+											vertical && 'es:h-full es:w-1.5 es:flex-col es:justify-self-center',
+											disabled ? 'es:border-secondary-200 es:bg-white' : 'es:border-secondary-300 es:bg-secondary-50 es:shadow-xs',
 										)}
 										style={trackStyle}
 									/>
@@ -244,16 +239,16 @@ export const Slider = (props) => {
 									{!noActiveHighlight && (
 										<div
 											className={clsx(
-												'es-uic-absolute es-uic-col-start-1 es-uic-row-start-1 es-uic-border',
-												!vertical && 'es-uic-h-1.5 es-uic-w-full es-uic-self-center',
-												vertical && 'es-uic-h-full es-uic-w-1.5 es-uic-flex-col es-uic-justify-self-center',
-												!vertical && shouldRoundStart && 'es-uic-rounded-l-full',
-												!vertical && shouldRoundEnd && 'es-uic-rounded-r-full',
-												vertical && shouldRoundStart && 'es-uic-rounded-t-full',
-												vertical && shouldRoundEnd && 'es-uic-rounded-b-full',
-												!vertical && activeBarOffset && '-es-uic-translate-x-px',
-												vertical && activeBarOffset && 'es-uic-translate-y-px',
-												disabled ? 'es-uic-border-gray-200 es-uic-bg-gray-50' : 'es-uic-border-teal-500 es-uic-bg-teal-500/30',
+												'es:absolute es:col-start-1 es:row-start-1 es:border',
+												!vertical && 'es:h-1.5 es:w-full es:self-center',
+												vertical && 'es:h-full es:w-1.5 es:flex-col es:justify-self-center',
+												!vertical && shouldRoundStart && 'es:rounded-l-full',
+												!vertical && shouldRoundEnd && 'es:rounded-r-full',
+												vertical && shouldRoundStart && 'es:rounded-t-full',
+												vertical && shouldRoundEnd && 'es:rounded-b-full',
+												!vertical && activeBarOffset && 'es:-translate-x-px',
+												vertical && activeBarOffset && 'es:translate-y-px',
+												disabled ? 'es:border-secondary-200 es:bg-secondary-50' : 'es:border-accent-500 es:bg-accent-500/30',
 											)}
 											style={{
 												bottom: vertical ? `${activeBarBottom}%` : null,
@@ -267,9 +262,9 @@ export const Slider = (props) => {
 									{markers && (
 										<div
 											className={clsx(
-												'es-uic-relative es-uic-col-start-1 es-uic-row-start-1',
-												!vertical && 'es-uic-h-1 es-uic-w-full es-uic-self-center',
-												vertical && 'es-uic-h-full es-uic-w-1 es-uic-flex-col es-uic-justify-self-center',
+												'es:relative es:col-start-1 es:row-start-1',
+												!vertical && 'es:h-1 es:w-full es:self-center',
+												vertical && 'es:h-full es:w-1 es:flex-col es:justify-self-center',
 											)}
 										>
 											{markerData.map(([rawDotValue, labelData], index) => {
@@ -295,16 +290,16 @@ export const Slider = (props) => {
 													<div
 														key={index}
 														className={clsx(
-															'es-uic-absolute',
-															vertical ? 'es-uic-h-px es-uic-w-1' : 'es-uic-h-1 es-uic-w-px es-uic-translate-x-1/2',
+															'es:absolute',
+															vertical ? 'es:h-px es:w-1' : 'es:h-1 es:w-px es:translate-x-1/2',
 															!(
 																dotValue === min ||
 																dotValue === max ||
 																(dotValue === startPoint && !noActiveHighlight) ||
 																(min < 0 && dotValue === 0 && !noActiveHighlight) ||
 																isWithinActiveBar
-															) && 'es-uic-bg-gray-300',
-															!noActiveHighlight && isWithinActiveBar && 'es-uic-bg-teal-500/75',
+															) && 'es:bg-secondary-300',
+															!noActiveHighlight && isWithinActiveBar && 'es:bg-accent-500/75',
 														)}
 														style={{
 															left: vertical ? null : `${state.getValuePercent(dotValue) * 100}%`,
@@ -313,11 +308,11 @@ export const Slider = (props) => {
 													>
 														<span
 															className={clsx(
-																'es-uic-absolute es-uic-select-none es-uic-text-xs es-uic-transition-colors',
-																vertical ? 'es-uic-left-3.5 es-uic-top-0 -es-uic-translate-y-1/2' : 'es-uic-left-0 es-uic-top-2.5 -es-uic-translate-x-1/2',
+																'es:absolute es:select-none es:text-xs es:transition-colors',
+																vertical ? 'es:left-3.5 es:top-0 es:-translate-y-1/2' : 'es:left-0 es:top-2.5 es:-translate-x-1/2',
 																(Array.isArray(value) ? value.includes(Number(dotValue)) : value === Number(dotValue) && !disabled)
-																	? 'es-uic-text-teal-700'
-																	: 'es-uic-text-gray-300',
+																	? 'es:text-accent-700'
+																	: 'es:text-secondary-300',
 															)}
 														>
 															{markers && markers !== 'dots' && labelData}
@@ -328,19 +323,19 @@ export const Slider = (props) => {
 										</div>
 									)}
 
-									<div className='es-uic-relative es-uic-col-start-1 es-uic-row-start-1 es-uic-p-px'>
+									<div className='es:relative es:col-start-1 es:row-start-1 es:p-px'>
 										{state.values.map((_, i) => (
 											<ReactAriaSliderThumb
 												key={i}
 												index={i}
 												aria-label={thumbLabels?.[i]}
 												className={clsx(
-													'es-uic-absolute es-uic-size-3.5 es-uic-rounded-full es-uic-border es-uic-transition es-uic-duration-300',
-													vertical ? '!-es-uic-translate-y-1/2 !es-uic-translate-x-0' : '!-es-uic-translate-x-1/2 !es-uic-translate-y-0',
-													'es-uic-shadow dragging:es-uic-bg-teal-600 disabled:es-uic-border-gray-200 disabled:es-uic-bg-gray-100 disabled:es-uic-shadow-none',
-													'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
-													'es-uic-border-teal-600 es-uic-bg-teal-500 es-uic-shadow-teal-600/50',
-													'hover:es-uic-cursor-grab dragging:es-uic-cursor-grabbing',
+													'es:absolute es:size-3.5 es:rounded-full es:border es:transition es:duration-300',
+													vertical ? 'es:translate-x-1/2!' : 'es:translate-y-1/2!',
+													'es:shadow dragging:es:bg-accent-600 es:disabled:border-secondary-200 es:disabled:bg-secondary-100 es:disabled:shadow-none',
+													'es:focus-visible:ring es:focus-visible:ring-accent-500/50',
+													'es:border-accent-600 es:bg-accent-500 es:shadow-accent-600/50',
+													'es:hover:cursor-grab dragging:es:cursor-grabbing',
 												)}
 												onFocus={() => {
 													if (state.values.length < 2) {
@@ -350,7 +345,7 @@ export const Slider = (props) => {
 													setCurrentThumbIndex(i);
 												}}
 											>
-												{inputField && state.values.length > 1 && currentThumbIndex === i && <div className='es-uic-m-0.5 es-uic-size-2 es-uic-rounded-full es-uic-bg-teal-100' />}
+												{inputField && state.values.length > 1 && currentThumbIndex === i && <div className='es:m-0.5 es:size-2 es:rounded-full es:bg-accent-100' />}
 
 												{thumbContent && thumbContent(i)}
 											</ReactAriaSliderThumb>
@@ -361,7 +356,7 @@ export const Slider = (props) => {
 						}}
 					</ReactAriaSliderTrack>
 
-					{after && <div className='es-uic-flex es-uic-shrink-0 es-uic-items-center es-uic-gap-1'>{after}</div>}
+					{after && <div className='es:flex es:shrink-0 es:items-center es:gap-1'>{after}</div>}
 				</div>
 			</BaseControl>
 		</ReactAriaSlider>
@@ -375,7 +370,7 @@ const NumberInputField = (props) => {
 	const labelProps = useSlottedContext(LabelContext);
 
 	const isSingleValue = state.values.length === 1;
-	const fieldIndex = isSingleValue ? 0 : props.focusedThumb ?? 0;
+	const fieldIndex = isSingleValue ? 0 : (props.focusedThumb ?? 0);
 
 	return (
 		<>
@@ -393,12 +388,12 @@ const NumberInputField = (props) => {
 
 					props.setFocusedThumb(-1);
 				}}
-				className={fieldIndex === -1 && !isSingleValue ? 'es-uic-invisible' : ''}
+				className={fieldIndex === -1 && !isSingleValue ? 'es:invisible' : ''}
 				{...other}
 			/>
 
 			{fieldIndex === -1 && !isSingleValue && (
-				<ReactAriaSliderOutput className={clsx('es-uic-text-xs es-uic-tabular-nums es-uic-text-gray-600')}>
+				<ReactAriaSliderOutput className={clsx('es:text-xs es:tabular-nums es:text-secondary-600')}>
 					{({ state }) => state.values.map((_, i) => state.getThumbValueLabel(i)).join(' – ')}
 				</ReactAriaSliderOutput>
 			)}

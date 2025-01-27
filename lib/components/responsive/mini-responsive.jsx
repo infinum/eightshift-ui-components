@@ -125,15 +125,15 @@ export const MiniResponsive = (props) => {
 		return (
 			<DecorativeTooltip
 				placement='left'
-				className='es-uic-p-3'
+				className='es:p-3'
 				theme='light'
 				offset={7.5}
 				arrow
 				text={
-					<div className='es-uic-max-w-64 es-uic-p-1'>
-						<span className='es-uic-block es-uic-text-balance es-uic-font-semibold es-uic-tabular-nums'>{__('Default', 'eightshift-ui-components')}</span>
+					<div className='es:max-w-64 es:p-1'>
+						<span className='es:block es:text-balance es:font-semibold es:tabular-nums'>{__('Default', 'eightshift-ui-components')}</span>
 
-						<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
+						<span className='es:block es:text-balance es:tabular-nums'>
 							{!firstMobileFirstOverride && !lastDesktopFirstOverride && __('Always applied, regardless of browser width.', 'eightshift-ui-components')}
 
 							{firstMobileFirstOverride &&
@@ -145,7 +145,7 @@ export const MiniResponsive = (props) => {
 								sprintf(__('Applies when the browser width is %dpx or more.', 'eightshift-ui-components'), breakpointData[lastDesktopFirstOverride.replace('max-', '')])}
 						</span>
 
-						<div className='es-uic-mx-auto'>
+						<div className='es:mx-auto'>
 							{firstMobileFirstOverride && !isDesktopFirst && (
 								<BreakpointPreview
 									blocks={[
@@ -189,7 +189,7 @@ export const MiniResponsive = (props) => {
 					</div>
 				}
 			>
-				<div className='es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-border-teal-500/10 es-uic-bg-teal-50 es-uic-p-0.5 es-uic-text-teal-800 es-uic-shadow-sm es-uic-shadow-teal-600/25 [&>svg]:es-uic-size-5'>
+				<div className='es:flex es:size-7 es:items-center es:justify-center es:rounded es:border es:border-accent-500/10 es:bg-accent-50 es:p-0.5 es:text-accent-800 es:shadow-sm es:shadow-accent-600/25 es:icon:size-5'>
 					{icons?.[overrideIcon] ?? overrideIcon ?? icons[`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`]}
 				</div>
 			</DecorativeTooltip>
@@ -219,15 +219,15 @@ export const MiniResponsive = (props) => {
 				})}
 
 				<TriggeredPopover
-					triggerButtonIcon={cloneElement(isDesktopFirst ? icons.responsiveOverridesAlt : icons.responsiveOverridesAlt2, { className: '!es-uic-size-5' })}
+					triggerButtonIcon={cloneElement(isDesktopFirst ? icons.responsiveOverridesAlt : icons.responsiveOverridesAlt2, { className: 'es:size-5!' })}
 					triggerButtonProps={{
 						tooltip: __('Responsive overrides', 'eightshift-ui-components'),
-						className: 'es-uic-w-7',
+						className: 'es:w-7',
 					}}
-					className='es-uic-min-w-80 es-uic-divide-y es-uic-divide-gray-200 !es-uic-p-0'
+					className='es:min-w-80 es:divide-y es:divide-secondary-200 es:p-0!'
 				>
-					<div className='es-uic-flex es-uic-items-center es-uic-justify-between es-uic-p-2'>
-						<Text className='es-uic-block es-uic-text-xs es-uic-text-gray-500'>{__('Responsive overrides', 'eightshift-ui-components')}</Text>
+					<div className='es:flex es:items-center es:justify-between es:p-2'>
+						<Text className='es:block es:text-xs es:text-secondary-500'>{__('Responsive overrides', 'eightshift-ui-components')}</Text>
 
 						<OptionSelect
 							hidden={noModeSelect}
@@ -249,20 +249,20 @@ export const MiniResponsive = (props) => {
 						/>
 					</div>
 
-					<div className='es-uic-space-y-2 es-uic-px-2 es-uic-py-2.5'>
+					<div className='es:space-y-2 es:px-2 es:py-2.5'>
 						{!isDesktopFirst && (
 							<div
 								className={clsx(
-									'es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2',
-									innerContentAlign === 'start' && 'es-uic-justify-items-start',
-									innerContentAlign === 'center' && 'es-uic-justify-items-center',
-									innerContentAlign === 'end' && 'es-uic-justify-items-end',
-									innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+									'es:grid es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2',
+									innerContentAlign === 'start' && 'es:justify-items-start',
+									innerContentAlign === 'center' && 'es:justify-items-center',
+									innerContentAlign === 'end' && 'es:justify-items-end',
+									innerContentAlign === 'stretch' && 'es:justify-items-stretch',
 								)}
 								key='_default-mobile-first'
 							>
 								<DefaultTooltip />
-								<div className='es-uic-col-start-2 es-uic-col-end-2'>
+								<div className='es:col-start-2 es:col-end-2'>
 									{children({
 										breakpoint: '_default',
 										currentValue: value?.['_default'],
@@ -301,11 +301,11 @@ export const MiniResponsive = (props) => {
 							return (
 								<div
 									className={clsx(
-										'es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2',
-										innerContentAlign === 'start' && 'es-uic-justify-items-start',
-										innerContentAlign === 'center' && 'es-uic-justify-items-center',
-										innerContentAlign === 'end' && 'es-uic-justify-items-end',
-										innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+										'es:grid es:grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2',
+										innerContentAlign === 'start' && 'es:justify-items-start',
+										innerContentAlign === 'center' && 'es:justify-items-center',
+										innerContentAlign === 'end' && 'es:justify-items-end',
+										innerContentAlign === 'stretch' && 'es:justify-items-stretch',
 									)}
 									key={realBreakpointName}
 								>
@@ -315,10 +315,10 @@ export const MiniResponsive = (props) => {
 										offset={7.5}
 										arrow
 										text={
-											<div className='es-uic-max-w-96 es-uic-p-1'>
-												<span className='es-uic-block es-uic-font-semibold'>{breakpointUiData?.[realBreakpointName]?.label ?? upperFirst(realBreakpointName)}</span>
+											<div className='es:max-w-96 es:p-1'>
+												<span className='es:block es:font-semibold'>{breakpointUiData?.[realBreakpointName]?.label ?? upperFirst(realBreakpointName)}</span>
 
-												<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
+												<span className='es:block es:text-balance es:tabular-nums'>
 													{!isDesktopFirst && (
 														<>
 															{!belowOverride &&
@@ -357,11 +357,11 @@ export const MiniResponsive = (props) => {
 												</span>
 
 												{typeof value[breakpoint] === 'undefined' && (
-													<span className='es-uic-mt-2 es-uic-block es-uic-font-medium es-uic-italic'>{__('Not set', 'eightshift-ui-components')}</span>
+													<span className='es:mt-2 es:block es:font-medium es:italic'>{__('Not set', 'eightshift-ui-components')}</span>
 												)}
 
 												{typeof value[breakpoint] !== 'undefined' && (
-													<div className='es-uic-mx-auto es-uic-mt-2'>
+													<div className='es:mx-auto es:mt-2'>
 														{!isDesktopFirst && (
 															<BreakpointPreview
 																dotsStart={belowOverride}
@@ -434,10 +434,10 @@ export const MiniResponsive = (props) => {
 									>
 										<div
 											className={clsx(
-												'es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-shadow-sm es-uic-transition-colors [&>svg]:es-uic-size-5',
+												'es:flex es:size-7 es:items-center es:justify-center es:rounded es:border es:p-0.5 es:shadow-sm es:transition-colors es:icon:size-5',
 												typeof value[breakpoint] !== 'undefined'
-													? 'es-uic-border-gray-200 es-uic-bg-gray-50 es-uic-text-gray-700'
-													: 'es-uic-border-gray-100 es-uic-bg-white es-uic-text-gray-500',
+													? 'es:border-secondary-200 es:bg-secondary-50 es:text-secondary-700'
+													: 'es:border-secondary-100 es:bg-white es:text-secondary-500',
 											)}
 										>
 											{icons?.[breakpointUiData?.[realBreakpointName]?.icon] ?? breakpointUiData?.[realBreakpointName]?.icon ?? icons?.[`screen${upperFirst(realBreakpointName)}`]}
@@ -474,16 +474,16 @@ export const MiniResponsive = (props) => {
 						{isDesktopFirst && (
 							<div
 								className={clsx(
-									'es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2',
-									innerContentAlign === 'start' && 'es-uic-justify-items-start',
-									innerContentAlign === 'center' && 'es-uic-justify-items-center',
-									innerContentAlign === 'end' && 'es-uic-justify-items-end',
-									innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+									'es:grid es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2',
+									innerContentAlign === 'start' && 'es:justify-items-start',
+									innerContentAlign === 'center' && 'es:justify-items-center',
+									innerContentAlign === 'end' && 'es:justify-items-end',
+									innerContentAlign === 'stretch' && 'es:justify-items-stretch',
 								)}
 								key='_default-desktop-first'
 							>
 								<DefaultTooltip />
-								<div className='es-uic-col-start-2 es-uic-col-end-2'>
+								<div className='es:col-start-2 es:col-end-2'>
 									{children({
 										breakpoint: '_default',
 										currentValue: value?.['_default'],
@@ -501,13 +501,13 @@ export const MiniResponsive = (props) => {
 						)}
 					</div>
 
-					<div className='es-uic-grid es-uic-grid-cols-[1fr_auto_1fr] es-uic-gap-x-1 es-uic-px-1'>
+					<div className='es:grid es:grid-cols-[1fr_auto_1fr] es:gap-x-1 es:px-1'>
 						<TriggeredPopover
 							triggerButtonLabel={__('Responsive preview', 'eightshift-ui-components')}
 							triggerButtonProps={{
 								disabled: !Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined'),
 								type: 'ghost',
-								className: 'es-uic-my-1',
+								className: 'es:my-1',
 							}}
 						>
 							<ResponsivePreview
@@ -522,7 +522,7 @@ export const MiniResponsive = (props) => {
 						</TriggeredPopover>
 
 						<Spacer
-							className='*:!es-uic-bg-gray-200'
+							className='es:*:bg-secondary-200!'
 							vertical
 							border
 						/>
@@ -540,7 +540,7 @@ export const MiniResponsive = (props) => {
 								onChange(newValue);
 							}}
 							type='ghost'
-							className='es-uic-my-1 es-uic-justify-center'
+							className='es:my-1 es:justify-center'
 						>
 							{__('Clear all overrides', 'eightshift-ui-components')}
 						</Button>

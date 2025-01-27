@@ -14,7 +14,7 @@ export const CustomSelectDefaultDropdownIndicator = (props) => {
 	return (
 		<components.DropdownIndicator {...props}>
 			{React.cloneElement(icons.dropdownCaretAlt, {
-				className: clsx(props.selectProps.menuIsOpen && '-es-uic-scale-y-100 '),
+				className: clsx(props.selectProps.menuIsOpen && 'es:-scale-y-100 '),
 			})}
 		</components.DropdownIndicator>
 	);
@@ -37,5 +37,5 @@ export const CustomSelectDefaultClearIndicator = (props) => <components.ClearInd
  * @preserve
  */
 export const CustomSelectDefaultMultiValueRemove = (props) => (
-	<components.MultiValueRemove {...props}>{React.cloneElement(icons.clear, { className: 'es-uic-size-4' })}</components.MultiValueRemove>
+	<components.MultiValueRemove {...props}>{React.cloneElement(icons.clear, { className: 'es:size-4' })}</components.MultiValueRemove>
 );

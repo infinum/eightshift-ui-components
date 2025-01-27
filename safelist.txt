@@ -1,0 +1,8 @@
+es:shrink
+es:shrink-0
+es:grow
+es:grow-0
+es:flex-1
+es:flex-auto
+es:flex-initial
+es:flex-none

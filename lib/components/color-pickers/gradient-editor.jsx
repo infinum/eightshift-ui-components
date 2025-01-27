@@ -73,17 +73,17 @@ const gradientTypes = [
 	{
 		label: __('Linear'),
 		value: 'linear',
-		icon: <div className='es-uic-transparent es-uic-size-4 es-uic-rounded-full es-uic-bg-gradient-to-br es-uic-from-current' />,
+		icon: <div className='es:transparent es:size-4 es:rounded-full es:bg-linear-to-br es:from-current' />,
 	},
 	{
 		label: __('Radial'),
 		value: 'radial',
-		icon: <div className='es-uic-transparent es-uic-size-4 es-uic-rounded-full es-uic-bg-[radial-gradient(var(--tw-gradient-stops))] es-uic-from-current' />,
+		icon: <div className='es:transparent es:size-4 es:rounded-full es:bg-[radial-gradient(var(--tw-gradient-stops))] es:from-current' />,
 	},
 	{
 		label: __('Conic'),
 		value: 'conic',
-		icon: <div className='es-uic-transparent es-uic-size-4 es-uic-rounded-full es-uic-bg-[conic-gradient(var(--tw-gradient-stops))] es-uic-from-current' />,
+		icon: <div className='es:transparent es:size-4 es:rounded-full es:bg-[conic-gradient(var(--tw-gradient-stops))] es:from-current' />,
 	},
 ];
 
@@ -91,49 +91,49 @@ const linearDirections = [
 	{
 		label: __('Right'),
 		value: 'right',
-		iconClass: 'es-uic-bg-gradient-to-r',
+		iconClass: 'es:bg-linear-to-r',
 		valueDegrees: 90,
 	},
 	{
 		label: __('Left'),
 		value: 'left',
-		iconClass: 'es-uic-bg-gradient-to-l',
+		iconClass: 'es:bg-linear-to-l',
 		valueDegrees: 180,
 	},
 	{
 		label: __('Top'),
 		value: 'top',
-		iconClass: 'es-uic-bg-gradient-to-t',
+		iconClass: 'es:bg-linear-to-t',
 		valueDegrees: 270,
 	},
 	{
 		label: __('Bottom'),
 		value: 'bottom',
-		iconClass: 'es-uic-bg-gradient-to-b',
+		iconClass: 'es:bg-linear-to-b',
 		valueDegrees: 90,
 	},
 	{
 		label: __('Top-right'),
 		value: 'top right',
-		iconClass: 'es-uic-bg-gradient-to-tr',
+		iconClass: 'es:bg-linear-to-tr',
 		valueDegrees: 45,
 	},
 	{
 		label: __('Top-left'),
 		value: 'top left',
-		iconClass: 'es-uic-bg-gradient-to-tl',
+		iconClass: 'es:bg-linear-to-tl',
 		valueDegrees: 315,
 	},
 	{
 		label: __('Bottom-right'),
 		value: 'bottom right',
-		iconClass: 'es-uic-bg-gradient-to-br',
+		iconClass: 'es:bg-linear-to-br',
 		valueDegrees: 135,
 	},
 	{
 		label: __('Bottom-left'),
 		value: 'bottom left',
-		iconClass: 'es-uic-bg-gradient-to-bl',
+		iconClass: 'es:bg-linear-to-bl',
 		valueDegrees: 225,
 	},
 ];
@@ -198,11 +198,11 @@ export const GradientEditor = (props) => {
 	}
 
 	return (
-		<div className='es-uic-w-full es-uic-space-y-2.5'>
+		<div className='es:w-full es:space-y-2.5'>
 			<button
 				className={clsx(
-					'es-uic-shadow-sm, es-uic-mx-auto es-uic-block es-uic-h-40 es-uic-cursor-pointer es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-transition-[width]',
-					squarePreview ? 'es-uic-w-40' : 'es-uic-w-full',
+					'es:shadow-sm, es:mx-auto es:block es:h-40 es:cursor-pointer es:rounded-lg es:border es:border-secondary-300 es:transition-[width]',
+					squarePreview ? 'es:w-40' : 'es:w-full',
 				)}
 				style={{ backgroundImage: outputGradient }}
 				onClick={() => setSquarePreview((prev) => !prev)}
@@ -214,11 +214,12 @@ export const GradientEditor = (props) => {
 				value={gradientType}
 				onChange={(value) => onChange(getGradientResult({ stops: gradientData.stops }, value))}
 				options={gradientTypes}
-				wrapperProps={{ className: 'es-uic-mx-auto es-uic-w-fit' }}
+				wrapperProps={{ className: 'es:mx-auto es:w-fit' }}
+				type='toggleButtonsSplit'
 			/>
 
 			{gradientType === 'linear' && (
-				<div className='es-uic-flex es-uic-items-center es-uic-gap-1'>
+				<div className='es:flex es:items-center es:gap-1'>
 					<NumberPicker
 						inline
 						icon={icons.angle}
@@ -235,7 +236,7 @@ export const GradientEditor = (props) => {
 						}}
 						suffix='°'
 						size='small'
-						className='es-uic-grow'
+						className='es:grow'
 						placeholder={linearDirections.find(({ value }) => value === gradientData?.orientation?.value)?.valueDegrees ?? ''}
 					/>
 
@@ -250,7 +251,7 @@ export const GradientEditor = (props) => {
 							return (
 								<MenuItem
 									key={value}
-									icon={<div className={clsx('es-uic-size-5 es-uic-rounded-sm es-uic-from-gray-700 es-uic-to-gray-200', iconClass)} />}
+									icon={<div className={clsx('es:size-5 es:rounded-sm es:from-secondary-700 es:to-secondary-200', iconClass)} />}
 									onClick={() => {
 										setGradientData({
 											...gradientData,
@@ -267,7 +268,7 @@ export const GradientEditor = (props) => {
 			)}
 
 			{gradientType === 'radial' && (
-				<div className='es-uic-space-y-2'>
+				<div className='es:space-y-2'>
 					<OptionSelect
 						label={__('Shape', 'eightshift-ui-components')}
 						icon={icons.genericShapesAlt}
@@ -305,7 +306,7 @@ export const GradientEditor = (props) => {
 			)}
 
 			{gradientType === 'conic' && (
-				<div className='es-uic-space-y-2'>
+				<div className='es:space-y-2'>
 					<NumberPicker
 						inline
 						icon={icons.angle}
@@ -322,7 +323,7 @@ export const GradientEditor = (props) => {
 						}}
 						size='small'
 						suffix='°'
-						className='es-uic-grow'
+						className='es:grow'
 					/>
 
 					<MatrixAlign
@@ -390,7 +391,7 @@ export const GradientEditor = (props) => {
 							subtitle={color}
 							icon={
 								<ColorSwatch
-									className='es-uic-size-5 es-uic-rounded-full es-uic-border es-uic-border-white es-uic-ring-1 es-uic-ring-black'
+									className='es:size-5 es:rounded-full es:border es:border-white es:ring-1 es:ring-black'
 									color={color}
 								/>
 							}
@@ -452,7 +453,7 @@ export const GradientEditor = (props) => {
 					});
 				}}
 				thumbContent={(index) => (
-					<div className='es-uic-pointer-events-none es-uic-absolute es-uic-inset-0 es-uic-flex es-uic-size-3 es-uic-items-center es-uic-justify-center es-uic-text-center es-uic-text-xs es-uic-font-semibold es-uic-text-white'>
+					<div className='es:pointer-events-none es:absolute es:inset-0 es:flex es:size-3 es:items-center es:justify-center es:text-center es:text-xs es:font-semibold es:text-white'>
 						{index + 1}
 					</div>
 				)}

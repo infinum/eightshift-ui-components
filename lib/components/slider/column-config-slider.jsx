@@ -87,7 +87,7 @@ export const ColumnConfigSlider = (props) => {
 			step={1}
 			isDisabled={disabled}
 			orientation='horizontal'
-			className='es-uic-w-full'
+			className='es:w-full'
 			onChangeEnd={onChangeEnd}
 			{...other}
 		>
@@ -105,10 +105,10 @@ export const ColumnConfigSlider = (props) => {
 				}
 				labelAs={Label}
 				className={labelClassName}
-				controlContainerClassName='es-uic-flex es-uic-items-center es-uic-gap-2.5 !es-uic-space-y-0'
+				controlContainerClassName='es:flex es:items-center es:gap-2.5 es:space-y-0!'
 			>
 				<ReactAriaSliderTrack
-					className='es-uic-isolate es-uic-grid es-uic-h-10 es-uic-w-full es-uic-grid-rows-1'
+					className='es:isolate es:grid es:h-10 es:w-full es:grid-rows-1'
 					style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
 				>
 					{({ state }) => {
@@ -116,8 +116,8 @@ export const ColumnConfigSlider = (props) => {
 							<>
 								<div
 									className={clsx(
-										'es-uic-col-span-full es-uic-row-span-1 es-uic-row-start-1 es-uic-h-full es-uic-w-full es-uic-grow es-uic-rounded-md es-uic-border',
-										disabled ? 'es-uic-border-gray-200 es-uic-bg-white' : 'es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-shadow-sm',
+										'es:col-span-full es:row-span-1 es:row-start-1 es:h-full es:w-full es:grow es:rounded-lg es:border',
+										disabled ? 'es:border-secondary-200 es:bg-white' : 'es:border-secondary-300 es:bg-secondary-50 es:shadow-xs',
 									)}
 								/>
 
@@ -125,9 +125,9 @@ export const ColumnConfigSlider = (props) => {
 									<div
 										key={marker}
 										className={clsx(
-											'es-uic-row-span-1 es-uic-row-start-1 es-uic-h-full es-uic-w-px es-uic-justify-self-center',
-											marker >= value[0] - 1 && marker < value[1] ? 'es-uic-bg-teal-700/25' : 'es-uic-bg-gray-300',
-											(marker === value[0] - 2 || marker === value[1] - 1) && 'es-uic-hidden',
+											'es:row-span-1 es:row-start-1 es:h-full es:w-px es:justify-self-center',
+											marker >= value[0] - 1 && marker < value[1] ? 'es:bg-accent-700/25' : 'es:bg-secondary-300',
+											(marker === value[0] - 2 || marker === value[1] - 1) && 'es:hidden',
 										)}
 										style={{ gridColumn: `${marker + 1} / span 2` }}
 									/>
@@ -135,9 +135,9 @@ export const ColumnConfigSlider = (props) => {
 
 								<div
 									className={clsx(
-										'es-uic-pointer-events-none es-uic-col-start-1 es-uic-row-start-1 es-uic-border',
-										'es-uic-h-full es-uic-w-full es-uic-self-center es-uic-rounded-md',
-										disabled ? 'es-uic-border-gray-200 es-uic-bg-gray-50' : 'es-uic-border-teal-500 es-uic-bg-teal-500/30',
+										'es:pointer-events-none es:col-start-1 es:row-start-1 es:border',
+										'es:h-full es:w-full es:self-center es:rounded-lg',
+										disabled ? 'es:border-secondary-200 es:bg-secondary-50' : 'es:border-accent-500 es:bg-accent-500/30',
 									)}
 									style={{
 										gridColumn: `${value[0]} / span ${value[1] - value[0] + 1}`,
@@ -149,10 +149,10 @@ export const ColumnConfigSlider = (props) => {
 										<span
 											key={marker}
 											className={clsx(
-												'es-uic-row-span-1 es-uic-row-start-1 es-uic-select-none es-uic-place-self-center es-uic-text-xs es-uic-transition-colors',
-												'es-uic-inset-y-0 es-uic-my-auto es-uic-h-fit es-uic-pl-px es-uic-text-center',
-												'[&>svg]:es-uic-size-3 [&>svg]:es-uic-stroke-[1.5]',
-												marker >= value[0] - 1 && marker < value[1] ? 'es-uic-text-teal-700' : 'es-uic-text-gray-400',
+												'es:row-span-1 es:row-start-1 es:select-none es:place-self-center es:text-xs es:transition-colors',
+												'es:inset-y-0 es:my-auto es:h-fit es:pl-px es:text-center',
+												'es:icon:size-3 es:icon:stroke-[1.5]',
+												marker >= value[0] - 1 && marker < value[1] ? 'es:text-accent-700' : 'es:text-secondary-400',
 											)}
 											style={{ gridColumn: `${index + 1} / span 1` }}
 										>
@@ -171,13 +171,13 @@ export const ColumnConfigSlider = (props) => {
 										aria-label={thumbLabels?.[i]}
 										isDisabled={(i === 0 && disableOffset) || (i === 1 && disableWidth)}
 										className={clsx(
-											'!es-uic-static es-uic-row-span-1 es-uic-row-start-1 es-uic-h-6 es-uic-w-1.5 es-uic-rounded-full es-uic-border es-uic-transition es-uic-duration-300',
-											i === 0 && '!-es-uic-translate-x-1/2 !es-uic-translate-y-0 es-uic-self-center es-uic-justify-self-start',
-											i === 1 && '!es-uic-translate-x-1/2 !es-uic-translate-y-0 es-uic-self-center es-uic-justify-self-end',
-											'es-uic-shadow dragging:es-uic-bg-teal-600 disabled:es-uic-opacity-0',
-											'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
-											'es-uic-border-teal-600 es-uic-bg-teal-500 es-uic-shadow-teal-600/50',
-											'hover:es-uic-cursor-grab dragging:es-uic-cursor-grabbing',
+											'es:static! es:row-span-1 es:row-start-1 es:h-6 es:w-1.5 es:rounded-full es:border es:transition es:duration-300',
+											i === 0 && 'es:translate-y-1/2! es:self-center es:justify-self-start',
+											i === 1 && 'es:translate-x-full! es:translate-y-1/2! es:self-center es:justify-self-end',
+											'es:shadow dragging:es:bg-accent-600 es:disabled:opacity-0',
+											'es:focus-visible:ring es:focus-visible:ring-accent-500/50',
+											'es:border-accent-600 es:bg-accent-500 es:shadow-accent-600/50',
+											'es:hover:cursor-grab dragging:es:cursor-grabbing',
 										)}
 										style={{
 											gridColumn: `${state.values[i]} / span 1`,
@@ -210,7 +210,7 @@ export const ColumnConfigSlider = (props) => {
  * @preserve
  */
 export const ColumnConfigSliderOutput = ({ showOuterAsGutter }) => (
-	<ReactAriaSliderOutput className={clsx('es-uic-text-xs es-uic-tabular-nums es-uic-text-gray-600')}>
+	<ReactAriaSliderOutput className={clsx('es:text-xs es:tabular-nums es:text-secondary-600')}>
 		{({ state }) => {
 			const columns = state.getThumbMaxValue(1);
 			const offset = parseInt(state.getThumbValueLabel(0));

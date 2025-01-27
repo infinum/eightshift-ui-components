@@ -87,16 +87,14 @@ export const Tooltip = (props) => {
 				crossOffset={crossOffset}
 				className={({ isEntering, isExiting }) =>
 					clsx(
-						'es-uic-group',
-						'es-uic-z-20 es-uic-select-none es-uic-rounded-md es-uic-border es-uic-px-1.5 es-uic-py-0.5 es-uic-text-sm es-uic-shadow es-uic-backdrop-blur-3xl es-uic-will-change-[transform,opacity] es-uic-fill-mode-forwards',
-						theme === 'light' && 'es-uic-border-gray-200 es-uic-bg-white/90 es-uic-text-gray-700',
-						theme === 'dark' && 'es-uic-border-gray-600 es-uic-bg-black/80 es-uic-text-gray-100',
-						isEntering && 'es-uic-duration-300 es-uic-ease-out es-uic-animate-in es-uic-fade-in',
+						'es:group es:motion-translat',
+						'es:z-20 es:select-none es:rounded-md es:border es:px-1.5 es:py-0.5 es:text-sm es:shadow es:backdrop-blur-3xl es:will-change-[transform,opacity] es:fill-mode-forwards',
+						theme === 'light' && 'es:border-secondary-200 es:bg-white/90 es:text-secondary-700',
+						theme === 'dark' && 'es:border-secondary-600 es:bg-black/80 es:text-secondary-100',
 						isEntering &&
-							'placement-left:es-uic-slide-in-from-right-0.5 placement-right:es-uic-slide-in-from-left-0.5 placement-top:es-uic-slide-in-from-bottom-0.5 placement-bottom:es-uic-slide-in-from-top-0.5',
-						isExiting && 'es-uic-duration-150 es-uic-ease-in es-uic-animate-out es-uic-fade-out',
+							'es:motion-opacity-in es:motion-duration-300 es:motion-safe:data-[placement=left]:-motion-translate-x-in-25 es:motion-safe:data-[placement=right]:motion-translate-x-in-25 es:motion-safe:data-[placement=top]:motion-translate-y-in-25 es:motion-safe:data-[placement=bottom]:-motion-translate-y-in-25 es:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
 						isExiting &&
-							'placement-left:es-uic-slide-out-to-right-0.5 placement-right:es-uic-slide-out-to-left-0.5 placement-top:es-uic-slide-out-to-bottom-0.5 placement-bottom:es-uic-slide-out-to-top-0.5',
+							'es:motion-opacity-out es:motion-duration-200 es:motion-safe:data-[placement=left]:motion-translate-x-out-[-12.5%] es:motion-safe:data-[placement=right]:motion-translate-x-out-[12.5%] es:motion-safe:data-[placement=top]:motion-translate-y-out-[12.5%] es:motion-safe:data-[placement=bottom]:motion-translate-y-out-[-12.5%] es:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
 						className,
 					)
 				}
@@ -108,11 +106,11 @@ export const Tooltip = (props) => {
 							height={8}
 							viewBox='0 0 8 8'
 							className={clsx(
-								'es-uic-m-px es-uic-stroke-none es-uic-drop-shadow-sm',
-								theme === 'light' && 'es-uic-fill-gray-200',
-								theme === 'dark' && 'es-uic-fill-gray-600',
-								'group-placement-left:-es-uic-rotate-90 group-placement-right:es-uic-rotate-90 group-placement-bottom:es-uic-rotate-180',
-								'forced-colors:es-uic-fill-[Canvas] forced-colors:es-uic-stroke-[ButtonBorder]',
+								'es:m-px es:stroke-none es:drop-shadow-sm',
+								theme === 'light' && 'es:fill-secondary-200',
+								theme === 'dark' && 'es:fill-secondary-600',
+								'group-placement-left:-es:rotate-90 group-placement-right:es:rotate-90 group-placement-bottom:es:rotate-180',
+								'es:forced-colors:fill-[Canvas] es:forced-colors:stroke-[ButtonBorder]',
 							)}
 						>
 							<path d='M0 0 L4 4 L8 0' />
@@ -184,12 +182,12 @@ export const DecorativeTooltip = (props) => {
 			triggerRef={ref}
 			text={text}
 			open={open}
-			className='es-uic-pointer-events-none'
+			className='es:pointer-events-none'
 			{...rest}
 		>
 			<div
 				ref={ref}
-				className={clsx('es-uic-inline', wrapperClassName)}
+				className={clsx('es:inline', wrapperClassName)}
 				{...mergeProps(hoverProps, focusWithinProps)}
 			>
 				{children}

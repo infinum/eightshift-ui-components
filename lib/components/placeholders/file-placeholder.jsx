@@ -25,27 +25,15 @@ import { clsx } from 'clsx/lite';
 export const FilePlaceholder = (props) => {
 	const { icon, fileName, className, children } = props;
 
-	const commonClassName = clsx(
-		'es-uic-w-fit es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-p-2 es-uic-pr-3 es-uic-text-xs es-uic-text-gray-300 es-uic-shadow',
-		fileName && 'es-uic-font-mono',
-		className,
-	);
-
-	if (!fileName) {
-		return (
-			<RichLabel
-				icon={icon ?? icons.file}
-				label={children ?? __('No file selected', 'eightshift-ui-components')}
-				className={commonClassName}
-			/>
-		);
-	}
-
 	return (
 		<RichLabel
 			icon={icon ?? icons.file}
-			label={fileName ?? __('No file selected', 'eightshift-ui-components')}
-			className={commonClassName}
+			label={(fileName ? fileName : children) ?? __('No file selected', 'eightshift-ui-components')}
+			className={clsx(
+				'es:w-fit es:rounded-xl es:border es:border-secondary-300 es:bg-secondary-50 es:p-2 es:pr-3 es:text-xs es:text-secondary-300 es:shadow-xs',
+				fileName && 'es:font-mono',
+				className,
+			)}
 		/>
 	);
 };

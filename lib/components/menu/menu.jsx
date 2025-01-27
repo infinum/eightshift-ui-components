@@ -1,4 +1,12 @@
-import { Menu as ReactAriaMenu, MenuItem as ReactAriaMenuItem, MenuTrigger, Separator as ReactAriaSeparator, Section, Header, SubmenuTrigger } from 'react-aria-components';
+import {
+	Menu as ReactAriaMenu,
+	MenuItem as ReactAriaMenuItem,
+	MenuTrigger,
+	Separator as ReactAriaSeparator,
+	MenuSection as ReactAriaMenuSection,
+	Header,
+	SubmenuTrigger,
+} from 'react-aria-components';
 import { icons } from '../../icons/icons';
 import { Button } from '../button/button';
 import { Popover } from '../popover/popover';
@@ -115,13 +123,13 @@ export const Menu = (props) => {
 				{triggerLabel}
 			</Button>
 			<Popover
-				className='!es-uic-p-0 focus:es-uic-outline-none'
+				className='es:p-0! es:focus:outline-hidden'
 				aria-label={ariaLabel}
-				wrapperClassName={clsx(!hasSubmenuItems && 'es-uic-overflow-y-auto')}
+				wrapperClassName={clsx(!hasSubmenuItems && 'es:overflow-y-auto')}
 				{...popoverProps}
 			>
 				<ReactAriaMenu
-					className='es-uic-outline-none'
+					className='es:outline-hidden'
 					{...props}
 					{...additionalProps}
 				>
@@ -151,16 +159,16 @@ export const MenuSection = (props) => {
 	const { children, label } = props;
 
 	return (
-		<Section
+		<ReactAriaMenuSection
 			className={clsx(
-				'es-uic-space-y-1 es-uic-border-b es-uic-border-b-gray-200 es-uic-pb-1 last:es-uic-border-b-0',
-				label && 'es-uic-pt-2 first:es-uic-pt-1.5',
-				!label && 'last:es-uic-pb-1 has-[>_:only-child]:es-uic-pb-0',
+				'es:space-y-1 es:border-b es:border-b-secondary-200 es:pt-1 es:last:border-b-0',
+				label && 'es:pt-2 es:first:pt-1.5 es:last:pb-0',
+				!label && 'es:last:pb-1 es:has-[>_:only-child]:pb-0',
 			)}
 		>
-			{label && <Header className='es-uic-ml-1.5 es-uic-text-xs es-uic-font-medium es-uic-text-gray-400'>{label}</Header>}
+			{label && <Header className='es:ml-1.5 es:text-xs es:font-medium es:text-secondary-400'>{label}</Header>}
 			{children}
-		</Section>
+		</ReactAriaMenuSection>
 	);
 };
 
@@ -174,7 +182,7 @@ export const MenuSection = (props) => {
  * @preserve
  */
 export const MenuSeparator = () => {
-	return <ReactAriaSeparator className='es-uic-mb-1 es-uic-border-b es-uic-border-gray-300' />;
+	return <ReactAriaSeparator className='es:mb-1 es:border-b es:border-secondary-200/50' />;
 };
 
 /**
@@ -217,12 +225,13 @@ export const MenuItem = (props) => {
 			aria-label={ariaLabel}
 			isDisabled={disabled}
 			className={clsx(
-				'es-uic-mx-1 es-uic-mb-1 es-uic-flex es-uic-min-w-40 es-uic-items-center es-uic-gap-1.5',
-				'first:es-uic-mt-1 [&>svg]:es-uic-size-5 [&>svg]:es-uic-text-gray-500',
-				'es-uic-select-none es-uic-rounded es-uic-border es-uic-border-transparent es-uic-px-1 es-uic-py-1.5 es-uic-text-sm es-uic-transition',
-				'hover:es-uic-bg-gray-100',
-				'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
-				disabled ? 'es-uic-text-gray-400' : 'es-uic-text-gray-800',
+				'es:mx-1 es:mb-1 es:flex es:min-w-44 es:items-center es:gap-1.5',
+				'es:first:mt-1 es:icon:size-5 es:icon:text-secondary-500',
+				'es:select-none es:rounded-md es:p-1.5 es:text-sm es:transition',
+				'es:any-focus:outline-hidden',
+				!disabled &&
+					'es:hover:bg-secondary-100 es:focus-visible:inset-ring es:focus-visible:inset-ring-secondary-100/30 es:focus-visible:bg-secondary-100 es:contrast-more:focus-visible:bg-accent-500/15',
+				disabled ? 'es:text-secondary-400' : 'es:text-secondary-800',
 				className,
 			)}
 			onAction={onClick}
@@ -232,8 +241,8 @@ export const MenuItem = (props) => {
 			{(selected === false || checked === false) && icons.dummySpacer}
 			{icon}
 			{children}
-			{shortcut && <div className='es-uic-ml-auto es-uic-pl-2 es-uic-text-[0.6875rem] es-uic-tracking-tight es-uic-text-gray-400'>{shortcut}</div>}
-			{endIcon && <div className={clsx(!shortcut && 'es-uic-ml-auto es-uic-pl-2')}>{endIcon}</div>}
+			{shortcut && <div className='es:ml-auto es:pl-2 es:text-[0.6875rem] es:tracking-tight es:text-secondary-400'>{shortcut}</div>}
+			{endIcon && <div className={clsx(!shortcut && 'es:ml-auto es:pl-2')}>{endIcon}</div>}
 		</ReactAriaMenuItem>
 	);
 };
@@ -258,17 +267,17 @@ export const SubMenuItem = (props) => {
 	return (
 		<SubmenuTrigger>
 			{cloneElement(trigger, {
-				endIcon: <span className='es-uic-text-gray-400'>{icons.caretRightFill}</span>,
+				endIcon: <span className='es:text-secondary-400'>{icons.caretRightFill}</span>,
 			})}
 			<Popover
 				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
-				className='!es-uic-p-0 focus:es-uic-outline-none'
+				className='es:p-0! es:focus:outline-hidden'
 				offset={-1}
 				{...popoverProps}
 			>
 				<ReactAriaMenu
 					aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
-					className='focus:es-uic-outline-none'
+					className='es:focus:outline-hidden'
 				>
 					{children}
 				</ReactAriaMenu>

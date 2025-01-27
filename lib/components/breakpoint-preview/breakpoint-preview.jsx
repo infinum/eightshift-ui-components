@@ -59,63 +59,63 @@ export const BreakpointPreview = (props) => {
 
 	const activeColors = {
 		blue: {
-			text: 'es-uic-text-blue-500',
-			bg: 'es-uic-bg-blue-500',
+			text: 'es:text-blue-500',
+			bg: 'es:bg-blue-500',
 		},
 		green: {
-			text: 'es-uic-text-lime-500',
-			bg: 'es-uic-bg-lime-500',
+			text: 'es:text-lime-500',
+			bg: 'es:bg-lime-500',
 		},
 		yellow: {
-			text: 'es-uic-text-yellow-400',
-			bg: 'es-uic-bg-yellow-400',
+			text: 'es:text-yellow-400',
+			bg: 'es:bg-yellow-400',
 		},
 		red: {
-			text: 'es-uic-text-red-500',
-			bg: 'es-uic-bg-red-500',
+			text: 'es:text-red-500',
+			bg: 'es:bg-red-500',
 		},
 		indigo: {
-			text: 'es-uic-text-indigo-500',
-			bg: 'es-uic-bg-indigo-500',
+			text: 'es:text-indigo-500',
+			bg: 'es:bg-indigo-500',
 		},
 		orange: {
-			text: 'es-uic-text-orange-500',
-			bg: 'es-uic-bg-orange-500',
+			text: 'es:text-orange-500',
+			bg: 'es:bg-orange-500',
 		},
 		cyan: {
-			text: 'es-uic-text-cyan-500',
-			bg: 'es-uic-bg-cyan-500',
+			text: 'es:text-cyan-500',
+			bg: 'es:bg-cyan-500',
 		},
 		teal: {
-			text: 'es-uic-text-teal-500',
-			bg: 'es-uic-bg-teal-500',
+			text: 'es:text-accent-500',
+			bg: 'es:bg-accent-500',
 		},
 		fuchsia: {
-			text: 'es-uic-text-fuchsia-500',
-			bg: 'es-uic-bg-fuchsia-500',
+			text: 'es:text-fuchsia-500',
+			bg: 'es:bg-fuchsia-500',
 		},
 		black: {
-			text: 'es-uic-text-black',
-			bg: 'es-uic-bg-black',
+			text: 'es:text-black',
+			bg: 'es:bg-black',
 		},
 		default: {
-			text: 'es-uic-text-slate-600',
-			bg: 'es-uic-bg-slate-600',
+			text: 'es:text-secondary-600',
+			bg: 'es:bg-secondary-600',
 		},
 	};
 
 	return (
-		<div className={clsx('es-uic-mx-auto es-uic-grid es-uic-w-fit es-uic-shrink-0 es-uic-auto-cols-auto es-uic-grid-rows-[auto,_auto] es-uic-gap-x-2 es-uic-gap-y-0.5')}>
+		<div className={clsx('es:mx-auto es:grid es:w-fit es:shrink-0 es:auto-cols-auto es:grid-rows-[auto_auto] es:gap-x-2 es:gap-y-0.5')}>
 			{dotsStart && (
 				<>
-					<div className='es-uic-row-start-1 es-uic-flex es-uic-shrink-0 es-uic-translate-x-1 es-uic-items-center es-uic-gap-1 es-uic-justify-self-end es-uic-text-gray-400'>
-						<div className='es-uic-flex es-uic-gap-0.5 es-uic-text-gray-300'>
-							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
-							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
-							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+					<div className='es:row-start-1 es:flex es:shrink-0 es:translate-x-1 es:items-center es:gap-1 es:justify-self-end es:text-secondary-400'>
+						<div className='es:flex es:gap-0.5 es:text-secondary-300'>
+							<div className='es:size-0.5 es:rounded es:bg-current' />
+							<div className='es:size-0.5 es:rounded es:bg-current' />
+							<div className='es:size-0.5 es:rounded es:bg-current' />
 						</div>
 					</div>
-					<div className='es-uic-row-start-2 es-uic-size-px es-uic-justify-self-end' />
+					<div className='es:row-start-2 es:size-px es:justify-self-end' />
 				</>
 			)}
 
@@ -125,39 +125,39 @@ export const BreakpointPreview = (props) => {
 
 				return (
 					<Fragment key={i}>
-						<div className='es-uic-row-start-1 es-uic-flex es-uic-min-w-28 es-uic-items-center es-uic-gap-1 es-uic-font-mono es-uic-font-medium es-uic-text-gray-400'>
+						<div className='es:row-start-1 es:flex es:min-w-28 es:items-center es:gap-1 es:font-mono es:font-medium es:text-secondary-400'>
 							{dotsStart && (
-								<div className={clsx('es-uic-flex es-uic-gap-0.5', active ? activeTextColor : 'text-gray-300')}>
-									<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
-									<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
-									<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+								<div className={clsx('es:flex es:gap-0.5', active ? activeTextColor : 'text-secondary-300')}>
+									<div className='es:size-0.5 es:rounded es:bg-current' />
+									<div className='es:size-0.5 es:rounded es:bg-current' />
+									<div className='es:size-0.5 es:rounded es:bg-current' />
 								</div>
 							)}
 							{width && <span>{width}</span>}
-							<div className={clsx('es-uic-grow es-uic-rounded', active ? 'es-uic-h-0.5' : 'es-uic-h-px es-uic-bg-gray-300', active && activeBgColor)} />
+							<div className={clsx('es:grow es:rounded', active ? 'es:h-0.5' : 'es:h-px es:bg-secondary-300', active && activeBgColor)} />
 							{widthEnd && <span>{widthEnd}</span>}
 							{dotsEnd && (
-								<div className={clsx('es-uic-flex es-uic-gap-0.5', active ? activeTextColor : 'es-uic-text-gray-300')}>
-									<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
-									<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
-									<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+								<div className={clsx('es:flex es:gap-0.5', active ? activeTextColor : 'es:text-secondary-300')}>
+									<div className='es:size-0.5 es:rounded es:bg-current' />
+									<div className='es:size-0.5 es:rounded es:bg-current' />
+									<div className='es:size-0.5 es:rounded es:bg-current' />
 								</div>
 							)}
 						</div>
-						<div className='es-uic-row-start-2 es-uic-flex es-uic-w-full es-uic-min-w-28 es-uic-flex-col es-uic-items-start es-uic-gap-1'>
+						<div className='es:row-start-2 es:flex es:w-full es:min-w-28 es:flex-col es:items-start es:gap-1'>
 							<span
 								className={clsx(
-									'es-uic-rounded es-uic-px-1 es-uic-py-0.5',
-									hasActive && active && 'es-uic-text-white',
+									'es:rounded es:px-1 es:py-0.5',
+									hasActive && active && 'es:text-white',
 									hasActive && active && activeBgColor,
-									hasActive && !active && 'es-uic-bg-gray-200 es-uic-text-gray-500',
-									!hasActive && 'es-uic-bg-gray-600 es-uic-text-white',
-									alignEnd && 'es-uic-ml-auto',
+									hasActive && !active && 'es:bg-secondary-200 es:text-secondary-500',
+									!hasActive && 'es:bg-secondary-600 es:text-white',
+									alignEnd && 'es:ml-auto',
 								)}
 							>
 								{upperFirst(breakpoint)}
 							</span>
-							{value && <span className={clsx('-es-uic-mt-0.5 es-uic-px-1', active ? 'es-uic-text-gray-400' : 'es-uic-text-gray-400', alignEnd && 'es-uic-ml-auto')}>{value}</span>}
+							{value && <span className={clsx('es:-mt-0.5 es:px-1', active ? 'es:text-secondary-400' : 'es:text-secondary-400', alignEnd && 'es:ml-auto')}>{value}</span>}
 						</div>
 					</Fragment>
 				);
@@ -165,14 +165,14 @@ export const BreakpointPreview = (props) => {
 
 			{dotsEnd && (
 				<>
-					<div className='es-uic-row-start-1 es-uic-flex es-uic-shrink-0 -es-uic-translate-x-1 es-uic-items-center es-uic-gap-1 es-uic-font-mono es-uic-font-medium es-uic-text-gray-400'>
-						<div className='es-uic-flex es-uic-gap-0.5 es-uic-text-gray-300'>
-							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
-							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
-							<div className='es-uic-size-0.5 es-uic-rounded es-uic-bg-current' />
+					<div className='es:row-start-1 es:flex es:shrink-0 es:-translate-x-1 es:items-center es:gap-1 es:font-mono es:font-medium es:text-secondary-400'>
+						<div className='es:flex es:gap-0.5 es:text-secondary-300'>
+							<div className='es:size-0.5 es:rounded es:bg-current' />
+							<div className='es:size-0.5 es:rounded es:bg-current' />
+							<div className='es:size-0.5 es:rounded es:bg-current' />
 						</div>
 					</div>
-					<div className='es-uic-row-start-2 es-uic-size-px' />
+					<div className='es:row-start-2 es:size-px' />
 				</>
 			)}
 		</div>

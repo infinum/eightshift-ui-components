@@ -92,6 +92,7 @@ export const LinkInput = (props) => {
 	});
 
 	const [shouldShowSuggestions, setShouldShowSuggestions] = useState(false);
+	const [suggestionsVisible, setSuggestionsVisible] = useState(false);
 
 	useEffect(() => {
 		suggestionList.setFilterText(url);
@@ -148,22 +149,27 @@ export const LinkInput = (props) => {
 				help={help}
 			>
 				<Group
-					className='es-uic-relative'
+					className='es:relative'
 					ref={triggerRef}
 				>
 					<Input
 						placeholder={placeholder}
 						className={clsx(
-							'es-uic-min-h-10 es-uic-w-full es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-py-2 es-uic-pl-2 es-uic-pr-1 es-uic-text-sm es-uic-shadow-sm es-uic-transition selection:es-uic-bg-teal-500/20 selection:es-uic-text-teal-950',
-							'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
-							url?.length > 0 && 'es-uic-pr-10',
+							'es:min-h-10 es:w-full es:rounded-t-lg es:border es:border-secondary-300 es:py-2 es:pl-2 es:pr-1 es:text-sm es:shadow-xs es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950',
+							'es:any-focus:outline-hidden',
+							'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+							'es:focus-visible:border-accent-500',
+							'es:inset-ring es:inset-ring-secondary-100',
+							!suggestionList.isLoading && 'es:aria-[expanded=false]:rounded-b-lg',
+							suggestionList.isLoading && 'es:rounded-b-lg',
+							url?.length > 0 && 'es:pr-10',
 							className,
 						)}
 					/>
 
 					<AnimatedVisibility
 						visible={url?.length > 0}
-						className='es-uic-absolute es-uic-inset-y-1 es-uic-right-1'
+						className='es:absolute es:inset-y-1 es:right-1'
 						transition='fade'
 					>
 						<ReactAriaButton
@@ -172,59 +178,58 @@ export const LinkInput = (props) => {
 								suggestionList.setFilterText('');
 								onChange({ url: undefined, isAnchor: false });
 							}}
-							className='focus:es-uic-outline-none'
+							className='es:focus:outline-hidden'
 						>
-							<Tooltip text={__('Clear', 'eightshift-ui-components')}>
-								<div
-									className={clsx(
-										'es-uic-flex es-uic-size-8 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-bg-white/85 es-uic-text-gray-600 es-uic-backdrop-blur es-uic-transition',
-										'hover:es-uic-bg-red-50 hover:es-uic-text-red-500',
-										'[&>svg]:es-uic-size-6',
-									)}
-								>
-									{removeIcon}
-								</div>
-							</Tooltip>
+							{!(shouldShowSuggestions && suggestionList.isLoading) && (
+								<Tooltip text={__('Clear', 'eightshift-ui-components')}>
+									<div
+										className={clsx(
+											'es:flex es:size-8 es:items-center es:justify-center es:rounded es:bg-white/85 es:text-secondary-600 es:backdrop-blur es:transition es:cursor-pointer',
+											'es:hover:bg-red-600/5 es:hover:text-red-600',
+											'es:icon:size-6',
+										)}
+									>
+										{removeIcon}
+									</div>
+								</Tooltip>
+							)}
+
+							{shouldShowSuggestions && suggestionList.isLoading && (
+								<div className='es:p-1.5'>{cloneElement(icons.loader, { className: 'es:text-accent-600! es:stroke-2 es:motion-preset-spin es:motion-duration-1500' })}</div>
+							)}
 						</ReactAriaButton>
 					</AnimatedVisibility>
 				</Group>
 			</BaseControl>
 
-			{canShowSuggestions && shouldShowSuggestions && (
+			{canShowSuggestions && shouldShowSuggestions && !suggestionList.isLoading && (
 				<Popover
 					aria-label={__('URL suggestions', 'eightshift-ui-components')}
 					className={({ isEntering, isExiting }) =>
 						clsx(
-							'es-uic-rounded-md es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-shadow-lg es-uic-outline-none',
-							isEntering && 'es-uic-animate-in es-uic-fade-in-0 es-uic-slide-in-from-top-3 es-uic-fill-mode-forwards',
-							isExiting && 'es-uic-animate-out es-uic-fade-out-0 es-uic-slide-out-to-top-2 es-uic-fill-mode-forwards',
-							!shouldShowSuggestions && suggestionList.items.length < 1 && 'es-uic-invisible',
+							'es:rounded-b-lg es:border es:border-secondary-300 es:bg-white es:shadow-lg es:outline-hidden',
+							isEntering && 'es:not-motion-reduce:motion-preset-slide-down-sm es:motion-reduce:motion-preset-fade es:motion-duration-300',
+							isExiting && 'es:not-motion-reduce:motion-translate-y-out-[-2.5%] es:motion-opacity-out-0 es:motion-duration-200',
+							!shouldShowSuggestions && suggestionList.items.length < 1 && 'es:invisible',
 						)
 					}
+					offset={-2}
 					style={{
 						width: `${triggerRef.current?.offsetWidth}px`,
 					}}
 				>
-					{shouldShowSuggestions && suggestionList.isLoading && (
-						<RichLabel
-							icon={cloneElement(icons.emptyCircle, { className: 'es-uic-animate-spin' })}
-							label={__('Loading suggestions', 'eightshift-ui-components')}
-							className='es-uic-min-h-12 es-uic-p-2'
-						/>
-					)}
-
 					{shouldShowSuggestions && !suggestionList.isLoading && suggestionList.items.length === 0 && (
 						<RichLabel
 							icon={icons.searchEmpty}
 							label={__('No results', 'eightshift-ui-components')}
 							subtitle={__('Try a different search term.', 'eightshift-ui-components')}
-							className='es-uic-min-h-12 es-uic-p-2'
+							className='es:min-h-12 es:p-2'
 						/>
 					)}
 
 					{!suggestionList.isLoading && suggestionList.items.length > 0 && (
 						<>
-							<ListBox className='es-uic-space-y-1 es-uic-p-1'>
+							<ListBox className='es:space-y-1 es:p-1'>
 								{(item) => {
 									const {
 										label: title,
@@ -260,10 +265,10 @@ export const LinkInput = (props) => {
 										<ListBoxItem
 											id={item.value}
 											className={clsx(
-												'es-uic-rounded es-uic-p-1 es-uic-text-sm es-uic-transition',
-												'hover:es-uic-border-gray-300 hover:es-uic-bg-gray-100',
-												'focus-visible:es-uic-border-gray-300 focus-visible:es-uic-bg-gray-100',
-												'selected:es-uic-bg-teal-600/10 selected:es-uic-text-teal-900 selected:focus-visible:es-uic-bg-teal-600/15',
+												'es:rounded es:p-1 es:text-sm es:transition',
+												'es:hover:border-secondary-300 es:hover:bg-secondary-100',
+												'es:focus-visible:border-secondary-300 es:focus-visible:bg-secondary-100',
+												'selected:es:bg-accent-600/10 selected:es:text-accent-900 selected:focus-visible:es:bg-accent-600/15',
 											)}
 											textValue={url}
 										>
@@ -278,29 +283,35 @@ export const LinkInput = (props) => {
 								}}
 							</ListBox>
 
-							<Spacer border />
+							<Spacer
+								border
+								className='es:opacity-40'
+							/>
 
-							<div className='es-uic-grid es-uic-select-none es-uic-grid-cols-[auto,_1fr] es-uic-items-center es-uic-gap-x-1.5 es-uic-gap-y-1 es-uic-p-2 es-uic-text-sm es-uic-text-gray-500'>
-								<div className='es-uic-flex es-uic-gap-0.5 es-uic-justify-self-center'>
-									<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
+							<div className='es:flex es:flex-wrap es:items-center es:justify-end es:gap-x-3 es:gap-y-1.5 es:p-2 es:text-sm es:text-secondary-500'>
+								<div className='es:flex es:gap-1'>
+									<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded es:bg-radial es:from-secondary-100 es:to-secondary-200 es:font-mono es:text-xs es:text-secondary-600'>
 										&darr;
 									</kbd>
-
-									<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
+									<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded es:bg-radial es:from-secondary-100 es:to-secondary-200 es:font-mono es:text-xs es:text-secondary-600'>
 										&uarr;
 									</kbd>
+									{__('Navigate', 'eightshift-ui-components')}
 								</div>
-								{__('Navigate', 'eightshift-ui-components')}
-								<div className='es-uic-flex es-uic-gap-0.5 es-uic-justify-self-center'>
-									<kbd className='es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
+
+								<div className='es:flex es:gap-1'>
+									<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded es:bg-radial es:from-secondary-100 es:to-secondary-200 es:font-mono es:text-xs es:text-secondary-600'>
 										&crarr;
 									</kbd>
+									{__('Select', 'eightshift-ui-components')}
 								</div>
-								{__('Select', 'eightshift-ui-components')}
-								<kbd className='es-uic-flex es-uic-h-5 es-uic-min-w-5 es-uic-items-center es-uic-justify-center es-uic-justify-self-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-font-sans es-uic-text-xs es-uic-text-gray-400'>
-									Esc
-								</kbd>{' '}
-								{__('Hide suggestions', 'eightshift-ui-components')}
+
+								<div className='es:flex es:gap-1'>
+									<kbd className='es:flex es:h-4 es:items-center es:justify-center es:rounded es:bg-radial es:from-secondary-100 es:to-secondary-200 es:font-mono es:text-xs es:tracking-tighter es:px-0.5 es:text-secondary-600'>
+										Esc
+									</kbd>
+									{__('Hide', 'eightshift-ui-components')}
+								</div>
 							</div>
 						</>
 					)}

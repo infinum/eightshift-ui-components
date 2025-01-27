@@ -25,5 +25,5 @@ export const VStack = (props) => {
 		return null;
 	}
 
-	return <div className={clsx('es-uic-flex es-uic-flex-col es-uic-gap-x-1.5 es-uic-gap-y-1.5', !noWrap && 'es-uic-flex-wrap', className)}>{children}</div>;
+	return <div className={clsx('es:flex es:flex-col es:gap-x-1.5 es:gap-y-1.5', !noWrap && 'es:flex-wrap', className)}>{children}</div>;
 };
