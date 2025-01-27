@@ -20,6 +20,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
   - for other uses: import `~@eightshift/ui-components/dist/assets/style.css` (no prefixing, uses cascade layers)
 - Fonts are now built-in and automatically managed, remove any `~@eightshift/ui-components/dist/assets/fonts.css` imports
 - `ColorPicker` now supports adding custom options below colors via the `extraOptions` prop
+- Added 2 new UI icons
 
 ## [1.9.1] - 2024-12-17
 - Downgraded from React 19 to React 18.

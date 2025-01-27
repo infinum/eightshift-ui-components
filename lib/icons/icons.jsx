@@ -22355,6 +22355,47 @@ export const icons = {
 			/>
 		</svg>
 	),
+	lightMode: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<path
+				d='M10 18v-2m-8-6h2m11.657 5.657L14.4 14.4M4.343 15.657 5.6 14.4M10 4V2m6 8h2M5.6 5.6 4.343 4.343M14.4 5.6l1.257-1.257'
+				stroke='currentColor'
+				strokeLinecap='round'
+				fill='none'
+			/>
+			<circle
+				cx='10'
+				cy='10'
+				r='4'
+				stroke='currentColor'
+				strokeLinecap='round'
+				fill='none'
+			/>
+		</svg>
+	),
+	darkMode: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<path
+				d='M3 12.939A7.4 7.4 0 0 0 12.939 3 7.396 7.396 0 1 1 3 12.939Z'
+				stroke='currentColor'
+				strokeLinecap='round'
+				strokeLinejoin='round'
+				fill='none'
+			/>
+		</svg>
+	),
 };
 
 /**
