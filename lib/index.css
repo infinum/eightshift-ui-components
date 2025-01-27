@@ -103,25 +103,25 @@
 }
 
 @custom-variant btn-group-h-start {
-	:where(.es-button-group-h) &:first-child {
+	:where(.es-button-group-h) &:first-child:not(:last-child) {
 		@slot;
 	}
 }
 
 @custom-variant btn-group-v-start {
-	:where(.es-button-group-v) &:first-child {
+	:where(.es-button-group-v) &:first-child:not(:last-child) {
 		@slot;
 	}
 }
 
 @custom-variant btn-group-h-end {
-	:where(.es-button-group-h) &:last-child {
+	:where(.es-button-group-h) &:last-child:not(:first-child) {
 		@slot;
 	}
 }
 
 @custom-variant btn-group-v-end {
-	:where(.es-button-group-v) &:last-child {
+	:where(.es-button-group-v) &:last-child:not(:first-child) {
 		@slot;
 	}
 }
