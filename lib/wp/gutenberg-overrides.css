@@ -1,4 +1,4 @@
-@reference "../editor.css";
+@reference "../style-editor.css";
 
 /* Add rounded corners to make components look nicer and more uniform. */
 .edit-post-header__toolbar .components-button,

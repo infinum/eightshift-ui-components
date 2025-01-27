@@ -1,0 +1,10 @@
+@import './index.css';
+
+.es\:css-reset {
+	@import "tailwindcss/preflight.css";
+}
+
+body :is(#wpwrap) {
+	@import "tailwindcss/theme.css" prefix(es);
+	@import "tailwindcss/utilities.css" prefix(es);
+}
