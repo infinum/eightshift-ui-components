@@ -16,8 +16,8 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Removed `ListBox`
 - Added 2 new Tabs variants (`pill` and `pillInverse`)
 - CSS reset and Gutenberg overrides are now automatically managed, no extra config needed
-  - for the editor: import `~@eightshift/ui-components/dist/assets/style-editor.css` (doesn't use cascade layers and prefixes styles to avoid block editor conflicts)
-  - for other uses, e.g. Theme options: import `~@eightshift/ui-components/dist/assets/style.css` (no prefixing, uses cascade layers)
+  - for the editor and admin areas: import `~@eightshift/ui-components/dist/assets/style-editor.css` (doesn't use cascade layers and prefixes styles to avoid block editor conflicts)
+  - for other uses: import `~@eightshift/ui-components/dist/assets/style.css` (no prefixing, uses cascade layers)
 - Fonts are now built-in and automatically managed, remove any `~@eightshift/ui-components/dist/assets/fonts.css` imports
 
 ## [1.9.1] - 2024-12-17
