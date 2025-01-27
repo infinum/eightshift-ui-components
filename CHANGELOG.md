@@ -15,6 +15,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Removed `ListBox`
 - Added new Tabs style
 - Tailwind's CSS is now disabled with `es:tw-css-reset`
+- Fonts are now included as a package, remove any `~@eightshift/ui-components/dist/assets/fonts.css` imports
 
 ## [1.9.1] - 2024-12-17
 - Downgraded from React 19 to React 18.

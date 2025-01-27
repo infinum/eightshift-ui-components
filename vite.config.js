@@ -20,9 +20,9 @@ export default defineConfig({
 		},
 		cssMinify: false, // 'lightningcss',
 		minify: 'keepNames',
-		commonjsOptions: {
-			transformMixedEsModules: true,
-		},
+		// commonjsOptions: {
+		// 	transformMixedEsModules: true,
+		// },
 		rollupOptions: {
 			external: ['react', 'react/jsx-runtime'],
 			input: Object.fromEntries(

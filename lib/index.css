@@ -4,12 +4,13 @@
 /* @import "tailwindcss/theme.css" layer(theme) prefix(es);
 @import "tailwindcss/preflight.css" layer(base);
 @import "tailwindcss/utilities.css" layer(utilities) prefix(es); */
-@config '../tailwind.config.js';
+
+/* @config '../tailwind.config.js'; */
 @source '../safelist.txt';
 
 @theme {
-	--font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-	--font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+	--font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+	--font-mono: 'Geist Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
 	--default-transition-duration: 300ms;
 
@@ -168,4 +169,8 @@
 	* {
 		all: revert-layer;
 	}
+}
+
+#wpbody #editor {
+	@import "tailwindcss/preflight.css" layer(base);
 }

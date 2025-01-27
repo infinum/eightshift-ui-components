@@ -95,5 +95,9 @@
 		"react-jsx-parser": "^2.2.2",
 		"react-movable": "^3.4.0",
 		"svg-to-jsx-string": "^0.1.1"
+	},
+	"dependencies": {
+		"@fontsource-variable/geist": "^5.0.1",
+		"@fontsource-variable/geist-mono": "^5.0.1"
 	}
 }
