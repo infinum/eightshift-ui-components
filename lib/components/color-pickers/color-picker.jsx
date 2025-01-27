@@ -118,7 +118,7 @@ export const ColorPicker = (props) => {
 						...output[newSlug],
 						{
 							...current,
-							shade: current.slug.match(colorSuffixRegex)[0].replaceAll('-', ''),
+							shade: current.slug.match(colorSuffixRegex)[0].replace('-', ''),
 						},
 					];
 				} else {
@@ -130,8 +130,6 @@ export const ColorPicker = (props) => {
 			{ generic: [] },
 		);
 	}
-
-	console.log(groupedColors);
 
 	const SingleItem = ({ name, slug, color, ...rest }) => (
 		<MenuItem
@@ -145,10 +143,10 @@ export const ColorPicker = (props) => {
 			onClick={() => onChange(slug)}
 			selected={value === slug}
 		>
-			{!showColorCode && name}
+			{!showColorCode && name.replaceAll('-', ' ')}
 			{showColorCode && (
 				<RichLabel
-					label={name}
+					label={name.replaceAll('-', ' ')}
 					subtitle={color.toUpperCase()}
 				/>
 			)}
