@@ -107,7 +107,7 @@ export const Expandable = (props) => {
 					<AnimatedVisibility
 						visible={!isOpen}
 						className='es:ml-auto es:flex es:gap-2'
-						transition='slideFade'
+						transition='slideFadeDownSlight'
 						noInitial
 					>
 						{actions}

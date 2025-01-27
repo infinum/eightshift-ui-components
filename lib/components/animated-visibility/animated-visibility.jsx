@@ -64,15 +64,15 @@ export const AnimatedVisibility = (props) => {
 		},
 		slideFadeUpSlight: {
 			inClassName:
-				'es:motion-safe:motion-translate-y-in-[-0.25rem] es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
-			outClassName:
-				'es:motion-safe:motion-translate-y-out-[-0.25rem] es:motion-opacity-out es:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
-		},
-		slideFadeDownSlight: {
-			inClassName:
 				'es:motion-safe:motion-translate-y-in-[0.25rem] es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 			outClassName:
 				'es:motion-safe:motion-translate-y-out-[0.25rem] es:motion-opacity-out es:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+		},
+		slideFadeDownSlight: {
+			inClassName:
+				'es:motion-safe:motion-translate-y-in-[-0.25rem] es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+			outClassName:
+				'es:motion-safe:motion-translate-y-out-[-0.25rem] es:motion-opacity-out es:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 		},
 		scaleFade: {
 			inClassName: 'es:motion-safe:motion-scale-in-95 es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
