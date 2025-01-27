@@ -1,9 +1,9 @@
-/* @import 'tailwindcss' prefix(es); */
-@layer theme, base, components, utilities;
+@import 'tailwindcss' prefix(es);
+/* @layer theme, base, components, utilities; */
 
-@import "tailwindcss/theme.css" layer(theme) prefix(es);
+/* @import "tailwindcss/theme.css" layer(theme) prefix(es);
 @import "tailwindcss/preflight.css" layer(base);
-@import "tailwindcss/utilities.css" layer(utilities) prefix(es);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(es); */
 @config '../tailwind.config.js';
 @source '../safelist.txt';
 
@@ -159,3 +159,13 @@
 @import './themes.css';
 
 /* @plugin './scopedPreflight.js'; */
+
+.es\:tw-css-reset {
+	@import "tailwindcss/preflight.css" layer(base);
+}
+
+.es\:no-tw-css-reset {
+	* {
+		all: revert-layer;
+	}
+}

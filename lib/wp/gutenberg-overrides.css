@@ -1,3 +1,6 @@
+@import "tailwindcss/theme.css" layer(theme) prefix(es);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(es);
+
 /* Add rounded corners to make components look nicer and more uniform. */
 .edit-post-header__toolbar .components-button,
 .edit-post-header__settings .components-button,
@@ -15,7 +18,7 @@
 .components-guide__container .components-button,
 .components-notice__content .components-button,
 .editor-post-featured-image__toggle.components-button {
-	@apply es:!rounded-md;
+	@apply es:rounded-md!;
 }
 
 .components-input-control__container,
@@ -27,7 +30,7 @@ button.components-toggle-group-control-option-base,
 }
 
 .components-button-group .components-button {
-	@apply first:es:!rounded-l-md last:es:!rounded-r-md;
+	@apply es:first:rounded-l-md! es:last:rounded-r-md!;
 }
 
 .components-popover__content,
@@ -83,7 +86,7 @@ button.components-toggle-group-control-option-base,
 
 /* Tweak inserter buttons */
 .block-editor-block-types-list .block-editor-block-types-list__item {
-	@apply es:!rounded-lg after:es:!rounded-lg [&_svg]:es:scale-125;
+	@apply es:!rounded-lg es:after:!rounded-lg es:[&_svg]:scale-125;
 }
 
 /* Tweak list view block icons */
@@ -93,7 +96,7 @@ button.components-toggle-group-control-option-base,
 	}
 
 	.block-editor-list-view-leaf > * {
-		@apply first:es:!rounded-l-lg last:es:!rounded-r-lg;
+		@apply es:first:!rounded-l-lg es:last:!rounded-r-lg;
 	}
 }
 
@@ -104,7 +107,7 @@ button.components-toggle-group-control-option-base,
 
 /* Make default inserter more rounded. */
 .block-editor-inserter__toggle {
-	@apply es:!rounded-md;
+	@apply es:rounded-md!;
 }
 
 /* Unify buttons in top toolbar */
@@ -125,5 +128,5 @@ button.components-toggle-group-control-option-base,
 
 /* Nicer-looking Gutenberg tooltip. */
 .components-tooltip {
-	@apply es:px-1 es:py-0.5 es:text-white es:backdrop-blur-xl es:backdrop-brightness-105 es:backdrop-saturate-150 es:bg-gray-950/70 es:border es:border-gray-800 es:shadow-md es:!rounded-md has-[>_:first-child]:es:text-gray-700 has-[>_:first-child]:es:bg-white/80 has-[>_:first-child]:es:border-gray-200;
+	@apply es:px-1 es:py-0.5 es:text-white es:backdrop-blur-xl es:backdrop-brightness-105 es:backdrop-saturate-150 es:bg-gray-950/70 es:border es:border-gray-800 es:shadow-md es:rounded-md! es:has-[>_:first-child]:text-gray-700 es:has-[>_:first-child]:bg-white/80 es:has-[>_:first-child]:border-gray-200;
 }
