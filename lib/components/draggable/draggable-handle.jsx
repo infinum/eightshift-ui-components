@@ -26,12 +26,12 @@ export const DraggableHandle = (props) => {
 	return (
 		<div
 			className={clsx(
-				'es-uic-flex es-uic-h-5 es-uic-w-4 es-uic-cursor-pointer es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-text-gray-400 es-uic-transition',
-				'[&>svg]:es-uic-size-4 [&>svg]:es-uic-shrink-0',
-				'active:es-uic-border-teal-500/30 active:es-uic-bg-teal-50 active:es-uic-text-teal-500',
-				'focus:es-uic-outline-none focus-visible:es-uic-border-teal-500 focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-				'hover:es-uic-text-teal-500',
-				status === 'dragging' && '!es-uic-border-teal-600 !es-uic-bg-teal-500 !es-uic-text-white es-uic-shadow-sm es-uic-shadow-teal-500/30',
+				'es:flex es:h-5 es:w-4 es:cursor-pointer es:items-center es:justify-center es:rounded es:border es:border-secondary-200 es:bg-white es:text-secondary-400 es:transition',
+				'es:icon:size-4 es:icon:shrink-0',
+				'es:active:border-accent-500/30 es:active:bg-accent-50 es:active:text-accent-500',
+				'es:focus:outline-hidden es:focus-visible:border-accent-500 es:focus-visible:outline-hidden es:focus-visible:ring es:focus-visible:ring-accent-500/50',
+				'es:hover:text-accent-500',
+				status === 'dragging' && 'es:border-accent-600! es:bg-accent-500! es:text-white! es:shadow-sm es:shadow-accent-500/30',
 				className,
 			)}
 			ref={handleRef}

@@ -44,12 +44,12 @@ export const getMultiValue = (ComponentToRender) => {
 				style={style}
 				ref={setNodeRef}
 				className={clsx(
-					'focus:es-uic-outline-none',
+					'es:focus:outline-hidden',
 					// Make non-dragged tiles have no pointer events, so you don't see hover styles on things like the remove button.
-					CSS.Translate.toString(transform) && '[&_>_div]:es-uic-pointer-events-none',
+					CSS.Translate.toString(transform) && 'es:[&_>_div]:pointer-events-none',
 					// Make the currently grabbed item into a fancy holo-like thing.
 					isDragging &&
-						'es-uic-z-50 es-uic-blur-[0.5px] [&_>_div]:!es-uic-border [&_>_div]:es-uic-border-dotted [&_>_div]:!es-uic-border-teal-500 [&_>_div]:!es-uic-bg-teal-100/20 [&_>_div]:!es-uic-text-teal-900/15 [&_>_div_[role=button]]:es-uic-opacity-0',
+						'es:z-50 es:blur-[0.5px] es:[&_>_div]:border! es:[&_>_div]:border-dotted es:[&_>_div]:border-accent-500! es:[&_>_div]:bg-accent-100/20! es:[&_>_div]:text-accent-900/15! es:[&_>_div_[role=button]]:opacity-0',
 				)}
 				{...attributes}
 				{...listeners}

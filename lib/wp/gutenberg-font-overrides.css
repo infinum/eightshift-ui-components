@@ -1,3 +1,5 @@
+@reference "../editor.css";
+
 /* Override font family. */
 .edit-post-header,
 .components-popover,
@@ -22,9 +24,9 @@
 .edit-post-layout__footer,
 .components-snackbar,
 .components-text-control__input {
-	@apply es-uic-font-sans;
+	@apply es:font-sans;
 }
 
 body.wp-admin {
-	@apply !es-uic-font-sans;
+	@apply es:font-sans!;
 }

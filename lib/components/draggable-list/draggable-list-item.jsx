@@ -30,13 +30,13 @@ export const DraggableListItem = (props) => {
 			icon={icon}
 			label={label}
 			subtitle={subtitle}
-			className={clsx('es-uic-w-full', className)}
+			className={clsx('es:w-full', className)}
 			fullWidthLabel
 			inline
 			{...rest}
 		>
 			{cloneElement(icons.reorderGrabberV, {
-				className: 'es-uic-opacity-0 es-uic-transition-opacity group-focus-visible:es-uic-opacity-100 es-uic-text-gray-400 es-uic-size-4 group-hover:es-uic-opacity-100',
+				className: 'es:opacity-0 es:transition-opacity es:group-focus-visible:opacity-100 es:text-secondary-400 es:size-4 es:group-hover:opacity-100',
 			})}
 
 			{children}
@@ -65,7 +65,7 @@ export const DraggableListItemHandle = (props) => {
 		<button
 			className={
 				className ??
-				'es-uic-relative es-uic-h-6 es-uic-w-2 es-uic-cursor-pointer es-uic-items-center es-uic-justify-center es-uic-self-center es-uic-rounded es-uic-border es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-transition after:es-uic-absolute after:es-uic-inset-0 after:es-uic-m-auto after:es-uic-h-4 after:es-uic-w-px after:es-uic-bg-gray-200 after:es-uic-transition after:es-uic-content-[""] hover:es-uic-border-teal-500 hover:es-uic-bg-teal-400 hover:after:es-uic-bg-teal-500'
+				'es:relative es:h-6 es:w-2 es:cursor-pointer es:items-center es:justify-center es:self-center es:rounded es:border es:border-secondary-300 es:bg-secondary-50 es:transition es:after:absolute es:after:inset-0 es:after:m-auto es:after:h-4 es:after:w-px es:after:bg-secondary-200 es:after:transition es:after:content-[""] es:hover:border-accent-500 es:hover:bg-accent-400 es:hover:after:bg-accent-500'
 			}
 			{...rest}
 			data-movable-handle

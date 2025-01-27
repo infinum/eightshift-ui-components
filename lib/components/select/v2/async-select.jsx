@@ -197,22 +197,21 @@ export const __ExperimentalAsyncSelect = (props) => {
 			>
 				<div
 					className={clsx(
-						'es-uic-relative es-uic-flex es-uic-max-w-80 es-uic-items-center es-uic-gap-1 es-uic-p-1 focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
-						'es-uic-h-9 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-bg-white es-uic-text-sm es-uic-shadow-sm es-uic-transition',
-						'focus:es-uic-outline-none',
-						!inline && 'es-uic-w-full',
-						disabled && 'es-uic-select-none',
+						'es:relative es:flex es:max-w-80 es:items-center es:gap-1 es:p-1 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+						'es:h-9 es:rounded-lg es:border es:border-secondary-300 es:bg-white es:text-sm es:shadow-xs es:transition',
+						'es:focus:outline-hidden',
+						!inline && 'es:w-full',
+						disabled && 'es:select-none',
+						'es:has-[[aria-haspopup=listbox][data-focus-visible=true],[aria-autocomplete=list][data-focus-visible=true]]:border-accent-500 es:has-[[aria-haspopup=listbox][data-focus-visible=true],[aria-autocomplete=list][data-focus-visible=true]]:ring-2 es:has-[[aria-haspopup=listbox][data-focus-visible=true],[aria-autocomplete=list][data-focus-visible=true]]:ring-accent-500/50',
 					)}
 					ref={ref}
 				>
 					<Input
 						className={clsx(
-							'es-uic-peer es-uic-h-6 es-uic-w-full es-uic-grow es-uic-rounded-sm es-uic-p-1 es-uic-text-sm es-uic-text-transparent es-uic-transition',
-							'focus:es-uic-text-current focus:es-uic-outline-none',
-							'focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500/50',
-							'selection:es-uic-bg-teal-500/20 selection:es-uic-text-teal-950',
-							disabled && 'es-uic-bg-transparent es-uic-text-gray-400 selection:es-uic-bg-transparent selection:es-uic-text-transparent',
-							!(value?.value && list.filterText.length) && 'es-uic-pr-6',
+							'es:peer es:h-6 es:w-full es:grow es:rounded-sm es:p-1 es:pr-6 es:text-sm es:text-transparent es:transition',
+							'es:focus:text-current es:any-focus:outline-hidden',
+							'es:selection:bg-accent-500/20 es:selection:text-accent-950',
+							disabled && 'es:bg-transparent es:text-secondary-400 es:selection:bg-transparent es:selection:text-transparent',
 						)}
 						placeholder={placeholder ?? __('Select...', 'eightshift-ui-components')}
 					/>
@@ -220,9 +219,9 @@ export const __ExperimentalAsyncSelect = (props) => {
 					{value && (
 						<div
 							className={clsx(
-								'es-uic-pointer-events-none es-uic-absolute es-uic-bottom-0 es-uic-left-2 es-uic-top-0 es-uic-my-auto es-uic-flex es-uic-select-none es-uic-items-center es-uic-overflow-hidden',
-								'has-[svg]:es-uic-left-1 peer-data-[focused=true]:es-uic-invisible peer-disabled:es-uic-opacity-40',
-								clearable ? 'es-uic-right-16' : 'es-uic-right-6',
+								'es:pointer-events-none es:absolute es:bottom-0 es:left-2 es:top-0 es:my-auto es:flex es:select-none es:items-center es:overflow-hidden',
+								'es:has-[svg]:left-1 es:peer-data-[focused=true]:invisible es:peer-disabled:opacity-40',
+								clearable ? 'es:right-16' : 'es:right-6',
 							)}
 						>
 							{customValueDisplay && customValueDisplay(value)}
@@ -232,7 +231,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 									icon={getIcon(value)}
 									label={value?.label}
 									subtitle={value?.subtitle}
-									className='[&_span]:es-uic-overflow-hidden [&_span]:es-uic-text-ellipsis [&_span]:es-uic-text-nowrap'
+									className='es:[&_span]:overflow-hidden es:[&_span]:text-ellipsis es:[&_span]:text-nowrap'
 								/>
 							)}
 						</div>
@@ -240,14 +239,9 @@ export const __ExperimentalAsyncSelect = (props) => {
 
 					{clearable && <ClearButton disabled={disabled} />}
 
-					<Button
-						className={clsx(
-							'es-uic-group es-uic-absolute es-uic-bottom-0 es-uic-right-0 es-uic-top-0 es-uic-my-auto es-uic-size-6',
-							disabled ? 'es-uic-text-gray-300' : 'es-uic-text-gray-500',
-						)}
-					>
+					<Button className={clsx('es:group es:absolute es:bottom-0 es:right-0 es:top-0 es:my-auto es:size-6', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}>
 						{cloneElement(icons.dropdownCaretAlt, {
-							className: 'es-uic-w-4 group-aria-expanded:-es-uic-scale-y-100 es-uic-transition-transform es-uic-duration-200',
+							className: 'es:w-4 es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
 							'aria-hidden': true,
 						})}
 					</Button>
@@ -255,17 +249,19 @@ export const __ExperimentalAsyncSelect = (props) => {
 			</BaseControl>
 
 			<Popover
-				className={clsx(
-					'es-uic-flex es-uic-w-80 es-uic-min-w-9 es-uic-max-w-80 es-uic-flex-col es-uic-overflow-x-hidden es-uic-rounded-md es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-text-sm es-uic-shadow-lg',
-					'focus:es-uic-outline-none',
-					'entering:es-uic-animate-in entering:es-uic-fade-in-0 entering:es-uic-slide-in-from-top-3 entering:es-uic-fill-mode-forwards',
-					'exiting:es-uic-animate-out exiting:es-uic-fade-out-0 exiting:es-uic-slide-out-to-top-2 exiting:es-uic-fill-mode-forwards',
-				)}
+				className={({ isEntering, isExiting }) =>
+					clsx(
+						'es:flex es:w-80 es:min-w-9 es:max-w-80 es:flex-col es:overflow-x-hidden es:rounded-lg es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-lg',
+						'es:focus:outline-hidden',
+						isEntering && 'es:motion-safe:motion-preset-slide-down-sm es:motion-safe:motion-duration-300 es:motion-reduce:motion-preset-fade-md',
+						isExiting && 'es:not-motion-reduce:motion-translate-y-out-[-2.5%] es:motion-opacity-out-0 es:motion-duration-200',
+					)
+				}
 				placement='bottom left'
 				triggerRef={ref}
 			>
 				{!list.isLoading && list.items.length > 0 && (
-					<ListBox className='es-uic-space-y-0.5 es-uic-p-1 focus:es-uic-outline-none'>
+					<ListBox className='es:space-y-0.5 es:p-1 es:focus:outline-hidden'>
 						{(item) => {
 							return (
 								<OptionItemBase
@@ -286,13 +282,13 @@ export const __ExperimentalAsyncSelect = (props) => {
 					</ListBox>
 				)}
 
-				{list.isLoading && cloneElement(icons.loader, { className: 'es-uic-mx-auto es-uic-my-4 es-uic-animate-spin es-uic-size-5.5 es-uic-text-teal-700' })}
+				{list.isLoading && cloneElement(icons.loader, { className: 'es:mx-auto es:my-4 es:animate-spin es:size-5.5 es:text-accent-700' })}
 
 				{!list.isLoading && list.items.length === 0 && (
-					<div className='es-uic-flex es-uic-p-2'>
+					<div className='es:flex es:p-2'>
 						<Text
 							slot='errorMessage'
-							className={clsx('es-uic-flex es-uic-w-full es-uic-items-center es-uic-gap-1 es-uic-rounded es-uic-text-amber-950')}
+							className={clsx('es:flex es:w-full es:items-center es:gap-1 es:rounded es:text-amber-950')}
 						>
 							{icons.searchEmpty}
 							{__('Nothing found', 'eightshift-ui-components')}
@@ -313,8 +309,8 @@ const ClearButton = ({ disabled }) => {
 		<Button
 			aria-label={__('Clear value', 'eightshift-ui-components')}
 			className={clsx(
-				'es-uic-mr-7 es-uic-flex es-uic-h-6 es-uic-w-8 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-text-sm es-uic-text-gray-600 es-uic-transition hover:es-uic-bg-red-50 hover:es-uic-text-red-900 focus:es-uic-outline-none focus:es-uic-ring focus:es-uic-ring-teal-500/50 disabled:es-uic-text-gray-300',
-				isEmpty ? 'es-uic-hidden' : 'es-uic-flex',
+				'es:mr-7 es:flex es:h-6 es:w-8 es:items-center es:justify-center es:rounded es:text-sm es:text-secondary-600 es:transition es:hover:bg-red-50 es:hover:text-red-900 es:focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
+				isEmpty ? 'es:hidden' : 'es:flex',
 			)}
 			onPress={() => state?.setSelectedKey(null)}
 			slot={null}

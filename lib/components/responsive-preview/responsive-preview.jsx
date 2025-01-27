@@ -108,19 +108,19 @@ export const ResponsivePreview = (props) => {
 	}
 
 	return (
-		<div className='es-uic-flex es-uic-min-w-72 es-uic-flex-col es-uic-items-start es-uic-gap-4 es-uic-p-2 es-uic-text-sm'>
-			<div className='es-uic-flex es-uic-w-full es-uic-items-center es-uic-gap-2.5'>
+		<div className='es:flex es:min-w-72 es:flex-col es:items-start es:gap-4 es:p-2 es:text-sm'>
+			<div className='es:flex es:w-full es:items-center es:gap-2.5'>
 				<RichLabel
 					icon={icons.previewResponsive}
 					label={__('Responsive preview', 'eightshift-ui-components')}
 				/>
 
-				<span className='es-uic-ml-auto es-uic-select-none es-uic-rounded es-uic-bg-gray-100 es-uic-px-1 es-uic-py-0.5 es-uic-text-xs es-uic-text-gray-500'>
+				<span className='es:ml-auto es:select-none es:rounded es:bg-secondary-100 es:px-1 es:py-0.5 es:text-xs es:text-secondary-500'>
 					{isDesktopFirst ? __('Desktop-first', 'eightshift-ui-components') : __('Mobile-first', 'eightshift-ui-components')}
 				</span>
 			</div>
 
-			{previewItems.length === 0 && <span className='es-uic-text-sm es-uic-italic es-uic-text-gray-500'>{__('No overrides applied', 'eightshift-ui-components')}</span>}
+			{previewItems.length === 0 && <span className='es:text-sm es:italic es:text-secondary-500'>{__('No overrides applied', 'eightshift-ui-components')}</span>}
 			<BreakpointPreview
 				blocks={previewItems}
 				dotsStart

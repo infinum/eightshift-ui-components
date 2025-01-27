@@ -117,16 +117,17 @@ export const Popover = (props) => {
 			containerPadding={containerPadding}
 			className={({ isEntering, isExiting }) =>
 				clsx(
-					'es-uic-rounded-md es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-shadow-lg es-uic-outline-none',
-					isEntering && 'es-uic-animate-in es-uic-fade-in-0 es-uic-slide-in-from-top-3 es-uic-fill-mode-forwards',
-					isExiting && 'es-uic-animate-out es-uic-fade-out-0 es-uic-slide-out-to-top-2 es-uic-fill-mode-forwards',
+					'es:rounded-lg es:border es:border-secondary-300 es:bg-white es:shadow-lg es:outline-hidden',
+					'es:motion-safe:motion-ease-spring-smooth',
+					isEntering && 'es:motion-safe:motion-preset-slide-down-sm es:motion-safe:motion-duration-300 es:motion-reduce:motion-preset-fade-md',
+					isExiting && 'es:not-motion-reduce:motion-translate-y-out-[-2.5%] es:motion-opacity-out-0 es:motion-duration-200',
 					wrapperClassName,
 				)
 			}
 			style={style}
 		>
 			<Dialog
-				className={clsx('es-uic-p-1 es-uic-text-sm es-uic-outline-none', className)}
+				className={clsx('es:p-1 es:text-sm es:outline-hidden', className)}
 				aria-label={ariaLabel}
 				{...other}
 			>

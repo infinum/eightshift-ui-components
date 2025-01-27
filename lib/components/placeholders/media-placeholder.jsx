@@ -31,34 +31,34 @@ export const MediaPlaceholder = (props) => {
 	}
 
 	const styleClassName = {
-		default: 'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-bg-gray-50 es-uic-text-gray-400 es-uic-shadow',
-		simple: 'es-uic-rounded-lg es-uic-border es-uic-border-gray-300 es-uic-border-dashed es-uic-text-gray-400',
+		default: 'es:rounded-xl es:border es:border-secondary-300 es:bg-secondary-50 es:text-secondary-400 es:shadow-xs',
+		simple: 'es:rounded-xl es:border es:border-secondary-300 es:border-dashed es:text-secondary-400',
 	};
 
 	const sizeClassName = {
 		auto: '',
-		default: 'es-uic-size-20',
-		large: 'es-uic-size-40',
-		fullWidth: 'es-uic-w-full',
-		fullHeight: 'es-uic-h-full',
-		full: 'es-uic-size-full',
-		video: 'es-uic-w-full es-uic-aspect-video',
+		default: 'es:size-20',
+		large: 'es:size-40',
+		fullWidth: 'es:w-full',
+		fullHeight: 'es:h-full',
+		full: 'es:size-full',
+		video: 'es:w-full es:aspect-video',
 	};
 
 	return (
 		<div
 			className={clsx(
-				'es-uic-flex es-uic-flex-col es-uic-items-center es-uic-justify-center es-uic-gap-2 es-uic-overflow-hidden es-uic-p-2',
+				'es:flex es:flex-col es:items-center es:justify-center es:gap-2 es:overflow-hidden es:p-2',
 				styleClassName[style] ?? styleClassName?.default,
 				sizeClassName[size] ?? sizeClassName?.default,
 				className,
 			)}
 		>
-			<div className='[&>svg]:es-uic-size-7'>{icon ?? icons.image}</div>
+			<div className='es:icon:size-7'>{icon ?? icons.image}</div>
 
-			{helpText && <div className='es-uic-text-sm es-uic-text-gray-500'>{helpText}</div>}
+			{helpText && <div className='es:text-sm es:text-secondary-500'>{helpText}</div>}
 
-			{children && <div className='es-uic-mt-2 es-uic-flex es-uic-items-center es-uic-gap-x-2 es-uic-gap-y-2.5 es-uic-text-sm'>{children}</div>}
+			{children && <div className='es:mt-2 es:flex es:items-center es:gap-x-2 es:gap-y-2.5 es:text-sm'>{children}</div>}
 		</div>
 	);
 };

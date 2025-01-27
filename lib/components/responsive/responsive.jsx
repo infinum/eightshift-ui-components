@@ -130,15 +130,15 @@ export const Responsive = (props) => {
 		return (
 			<DecorativeTooltip
 				placement='left'
-				className='es-uic-p-3'
+				className='es:p-3'
 				theme='light'
 				offset={7.5}
 				arrow
 				text={
-					<div className='es-uic-max-w-64 es-uic-p-1'>
-						<span className='es-uic-block es-uic-text-balance es-uic-font-semibold es-uic-tabular-nums'>{__('Default', 'eightshift-ui-components')}</span>
+					<div className='es:max-w-64 es:p-1'>
+						<span className='es:block es:text-balance es:font-semibold es:tabular-nums'>{__('Default', 'eightshift-ui-components')}</span>
 
-						<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
+						<span className='es:block es:text-balance es:tabular-nums'>
 							{!firstMobileFirstOverride && !lastDesktopFirstOverride && __('Always applied, regardless of browser width.', 'eightshift-ui-components')}
 
 							{firstMobileFirstOverride &&
@@ -150,7 +150,7 @@ export const Responsive = (props) => {
 								sprintf(__('Applies when the browser width is %dpx or more.', 'eightshift-ui-components'), breakpointData[lastDesktopFirstOverride.replace('max-', '')])}
 						</span>
 
-						<div className='es-uic-mx-auto'>
+						<div className='es:mx-auto'>
 							{firstMobileFirstOverride && !isDesktopFirst && (
 								<BreakpointPreview
 									blocks={[
@@ -194,7 +194,7 @@ export const Responsive = (props) => {
 					</div>
 				}
 			>
-				<div className='es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-border-teal-500/10 es-uic-bg-teal-50 es-uic-p-0.5 es-uic-text-teal-800 es-uic-shadow-sm es-uic-shadow-teal-600/25 [&>svg]:es-uic-size-5'>
+				<div className='es:flex es:size-7 es:items-center es:justify-center es:rounded es:border es:border-accent-500/10 es:bg-accent-50 es:p-0.5 es:text-accent-800 es:shadow-sm es:shadow-accent-600/25 es:icon:size-5'>
 					{icons?.[overrideIcon] ?? overrideIcon ?? icons[`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`]}
 				</div>
 			</DecorativeTooltip>
@@ -211,7 +211,7 @@ export const Responsive = (props) => {
 				<>
 					{inline && (
 						<AnimatedVisibility
-							className='es-uic-mr-0.5'
+							className='es:mr-0.5'
 							visible={!detailsVisible}
 							key='_default-inline'
 							transition='scaleFade'
@@ -244,13 +244,13 @@ export const Responsive = (props) => {
 							aria-label={__('Responsive options', 'eightshift-ui-components')}
 							tooltip={__('Responsive options', 'eightshift-ui-components')}
 							popoverProps={{ placement: 'bottom right' }}
-							triggerProps={{ className: 'es-uic-w-5.5 es-uic-stroke-[1.25]' }}
+							triggerProps={{ className: 'es:w-5.5 es:stroke-[1.25]' }}
 							triggerIcon={icons.dropdownCaretAlt}
 						>
 							{!noModeSelect && (
 								<>
 									<MenuItem
-										className='!es-uic-pb-0 !es-uic-pt-1'
+										className='es:pb-0! es:pt-1!'
 										disabled
 									>
 										{__('Breakpoint mode', 'eightshift-ui-components')}
@@ -323,19 +323,19 @@ export const Responsive = (props) => {
 			{!isDesktopFirst && !inline && (
 				<div
 					className={clsx(
-						'es-uic-grid es-uic-items-center es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-end] es-uic-duration-150',
-						innerContentAlign === 'start' && 'es-uic-justify-items-start',
-						innerContentAlign === 'center' && 'es-uic-justify-items-center',
-						innerContentAlign === 'end' && 'es-uic-justify-items-end',
-						innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+						'es:grid es:items-center es:gap-x-2 es:transition-[grid-template-columns,margin-block-end] es:duration-150',
+						innerContentAlign === 'start' && 'es:justify-items-start',
+						innerContentAlign === 'center' && 'es:justify-items-center',
+						innerContentAlign === 'end' && 'es:justify-items-end',
+						innerContentAlign === 'stretch' && 'es:justify-items-stretch',
 						detailsVisible
-							? 'es-uic-mb-2 es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
-							: 'es-uic-grid-cols-[minmax(0,_0rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]',
+							? 'es:mb-2 es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)]'
+							: 'es:grid-cols-[minmax(0,0rem)_minmax(0,1fr)_minmax(0,2.25rem)]',
 					)}
 					key='_default-mobile-first'
 				>
 					{detailsVisible && <DefaultTooltip />}
-					<div className={clsx(detailsVisible ? 'es-uic-col-start-2 es-uic-col-end-2' : 'es-uic-col-span-full')}>
+					<div className={clsx(detailsVisible ? 'es:col-start-2 es:col-end-2' : 'es:col-span-full')}>
 						{children({
 							breakpoint: '_default',
 							currentValue: value?.['_default'],
@@ -354,17 +354,17 @@ export const Responsive = (props) => {
 			{!isDesktopFirst && inline && (
 				<AnimatedVisibility
 					className={clsx(
-						'es-uic-mb-2 es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2',
-						innerContentAlign === 'start' && 'es-uic-justify-items-start',
-						innerContentAlign === 'center' && 'es-uic-justify-items-center',
-						innerContentAlign === 'end' && 'es-uic-justify-items-end',
-						innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+						'es:mb-2 es:grid es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2',
+						innerContentAlign === 'start' && 'es:justify-items-start',
+						innerContentAlign === 'center' && 'es:justify-items-center',
+						innerContentAlign === 'end' && 'es:justify-items-end',
+						innerContentAlign === 'stretch' && 'es:justify-items-stretch',
 					)}
 					key='_default-mobile-first-inline'
 					visible={detailsVisible}
 				>
 					<DefaultTooltip />
-					<div className='es-uic-col-start-2 es-uic-col-end-2'>
+					<div className='es:col-start-2 es:col-end-2'>
 						{children({
 							breakpoint: '_default',
 							currentValue: value?.['_default'],
@@ -383,7 +383,7 @@ export const Responsive = (props) => {
 
 			<AnimatedVisibility
 				visible={detailsVisible}
-				className='es-uic-space-y-2'
+				className='es:space-y-2'
 			>
 				{breakpointsToMap.map((breakpoint, i) => {
 					const realBreakpointName = breakpoint.replace('max-', '');
@@ -407,11 +407,11 @@ export const Responsive = (props) => {
 					return (
 						<div
 							className={clsx(
-								'es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2',
-								innerContentAlign === 'start' && 'es-uic-justify-items-start',
-								innerContentAlign === 'center' && 'es-uic-justify-items-center',
-								innerContentAlign === 'end' && 'es-uic-justify-items-end',
-								innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+								'es:grid es:grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2',
+								innerContentAlign === 'start' && 'es:justify-items-start',
+								innerContentAlign === 'center' && 'es:justify-items-center',
+								innerContentAlign === 'end' && 'es:justify-items-end',
+								innerContentAlign === 'stretch' && 'es:justify-items-stretch',
 							)}
 							key={realBreakpointName}
 						>
@@ -421,10 +421,10 @@ export const Responsive = (props) => {
 								offset={7.5}
 								arrow
 								text={
-									<div className='es-uic-max-w-96 es-uic-p-1'>
-										<span className='es-uic-block es-uic-font-semibold'>{breakpointUiData?.[realBreakpointName]?.label ?? upperFirst(realBreakpointName)}</span>
+									<div className='es:max-w-96 es:p-1'>
+										<span className='es:block es:font-semibold'>{breakpointUiData?.[realBreakpointName]?.label ?? upperFirst(realBreakpointName)}</span>
 
-										<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
+										<span className='es:block es:text-balance es:tabular-nums'>
 											{!isDesktopFirst && (
 												<>
 													{!belowOverride &&
@@ -463,11 +463,11 @@ export const Responsive = (props) => {
 										</span>
 
 										{typeof value[breakpoint] === 'undefined' && (
-											<span className='es-uic-mt-2 es-uic-block es-uic-font-medium es-uic-italic'>{__('Not set', 'eightshift-ui-components')}</span>
+											<span className='es:mt-2 es:block es:font-medium es:italic'>{__('Not set', 'eightshift-ui-components')}</span>
 										)}
 
 										{typeof value[breakpoint] !== 'undefined' && (
-											<div className='es-uic-mx-auto es-uic-mt-2'>
+											<div className='es:mx-auto es:mt-2'>
 												{!isDesktopFirst && (
 													<BreakpointPreview
 														dotsStart={belowOverride}
@@ -540,10 +540,10 @@ export const Responsive = (props) => {
 							>
 								<div
 									className={clsx(
-										'es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-shadow-sm es-uic-transition-colors [&>svg]:es-uic-size-5',
+										'es:flex es:size-7 es:items-center es:justify-center es:rounded es:border es:p-0.5 es:shadow-sm es:transition-colors es:icon:size-5',
 										typeof value[breakpoint] !== 'undefined'
-											? 'es-uic-border-gray-200 es-uic-bg-gray-50 es-uic-text-gray-700'
-											: 'es-uic-border-gray-100 es-uic-bg-white es-uic-text-gray-500',
+											? 'es:border-secondary-200 es:bg-secondary-50 es:text-secondary-700'
+											: 'es:border-secondary-100 es:bg-white es:text-secondary-500',
 									)}
 								>
 									{icons?.[breakpointUiData?.[realBreakpointName]?.icon] ?? breakpointUiData?.[realBreakpointName]?.icon ?? icons?.[`screen${upperFirst(realBreakpointName)}`]}
@@ -581,19 +581,19 @@ export const Responsive = (props) => {
 			{isDesktopFirst && !inline && (
 				<div
 					className={clsx(
-						'es-uic-grid es-uic-items-center es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-start] es-uic-duration-150',
-						innerContentAlign === 'start' && 'es-uic-justify-items-start',
-						innerContentAlign === 'center' && 'es-uic-justify-items-center',
-						innerContentAlign === 'end' && 'es-uic-justify-items-end',
-						innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+						'es:grid es:items-center es:gap-x-2 es:transition-[grid-template-columns,margin-block-start] es:duration-150',
+						innerContentAlign === 'start' && 'es:justify-items-start',
+						innerContentAlign === 'center' && 'es:justify-items-center',
+						innerContentAlign === 'end' && 'es:justify-items-end',
+						innerContentAlign === 'stretch' && 'es:justify-items-stretch',
 						detailsVisible
-							? '!es-uic-mt-2 es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
-							: 'es-uic-grid-cols-[minmax(0,_0rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]',
+							? 'es:mt-2! es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)]'
+							: 'es:grid-cols-[minmax(0,0rem)_minmax(0,1fr)_minmax(0,2.25rem)]',
 					)}
 					key='_default-desktop-first'
 				>
 					{detailsVisible && <DefaultTooltip />}
-					<div className={clsx(detailsVisible ? 'es-uic-col-start-2 es-uic-col-end-2' : 'es-uic-col-span-full')}>
+					<div className={clsx(detailsVisible ? 'es:col-start-2 es:col-end-2' : 'es:col-span-full')}>
 						{children({
 							breakpoint: '_default',
 							currentValue: value?.['_default'],
@@ -612,17 +612,17 @@ export const Responsive = (props) => {
 			{isDesktopFirst && inline && (
 				<AnimatedVisibility
 					className={clsx(
-						'es-uic-grid es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2 es-uic-pt-1',
-						innerContentAlign === 'start' && 'es-uic-justify-items-start',
-						innerContentAlign === 'center' && 'es-uic-justify-items-center',
-						innerContentAlign === 'end' && 'es-uic-justify-items-end',
-						innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+						'es:grid es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2 es:pt-1',
+						innerContentAlign === 'start' && 'es:justify-items-start',
+						innerContentAlign === 'center' && 'es:justify-items-center',
+						innerContentAlign === 'end' && 'es:justify-items-end',
+						innerContentAlign === 'stretch' && 'es:justify-items-stretch',
 					)}
 					key='_default-desktop-first-inline'
 					visible={detailsVisible}
 				>
 					<DefaultTooltip />
-					<div className='es-uic-col-start-2 es-uic-col-end-2'>
+					<div className='es:col-start-2 es:col-end-2'>
 						{children({
 							breakpoint: '_default',
 							currentValue: value?.['_default'],

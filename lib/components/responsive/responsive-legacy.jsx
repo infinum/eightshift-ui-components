@@ -125,21 +125,21 @@ export const ResponsiveLegacy = (props) => {
 	const DefaultTooltip = () => (
 		<DecorativeTooltip
 			placement='left'
-			className='es-uic-p-3'
+			className='es:p-3'
 			theme='light'
 			offset={7.5}
 			arrow
 			text={
-				<div className='es-uic-max-w-64 es-uic-p-1'>
-					<span className='es-uic-block es-uic-text-balance es-uic-font-semibold es-uic-tabular-nums'>{__('Default', 'eightshift-ui-components')}</span>
+				<div className='es:max-w-64 es:p-1'>
+					<span className='es:block es:text-balance es:font-semibold es:tabular-nums'>{__('Default', 'eightshift-ui-components')}</span>
 
-					<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
+					<span className='es:block es:text-balance es:tabular-nums'>
 						{!globalOverride && __('Always applied, regardless of browser width.', 'eightshift-ui-components')}
 						{globalOverride && sprintf(__('Applied when the browser width is %dpx or wider.', 'eightshift-ui-components'), breakpointData[globalOverride] + 1)}
 					</span>
 
 					{globalOverride && (
-						<div className='es-uic-mx-auto es-uic-mt-2'>
+						<div className='es:mx-auto es:mt-2'>
 							<BreakpointPreview
 								blocks={[
 									{
@@ -162,7 +162,7 @@ export const ResponsiveLegacy = (props) => {
 				</div>
 			}
 		>
-			<div className='es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-border-teal-500/10 es-uic-bg-teal-50 es-uic-p-0.5 es-uic-text-teal-800 es-uic-shadow-sm es-uic-shadow-teal-600/25 [&>svg]:es-uic-size-5'>
+			<div className='es:flex es:size-7 es:items-center es:justify-center es:rounded es:border es:border-accent-500/10 es:bg-accent-50 es:p-0.5 es:text-accent-800 es:shadow-sm es:shadow-accent-600/25 es:icon:size-5'>
 				{icons[`screen${upperFirst(defaultBreakpoint)}`] ?? icons.play}
 			</div>
 		</DecorativeTooltip>
@@ -174,7 +174,7 @@ export const ResponsiveLegacy = (props) => {
 			label={label}
 			subtitle={subtitle}
 			help={help}
-			className='es-uic-w-full'
+			className='es:w-full'
 			actions={
 				<>
 					{inline && (
@@ -206,19 +206,19 @@ export const ResponsiveLegacy = (props) => {
 			{!inline && (
 				<div
 					className={clsx(
-						'es-uic-grid es-uic-items-center es-uic-gap-x-2 es-uic-transition-[grid-template-columns,_margin-block-end] es-uic-duration-150',
-						innerContentAlign === 'start' && 'es-uic-justify-items-start',
-						innerContentAlign === 'center' && 'es-uic-justify-items-center',
-						innerContentAlign === 'end' && 'es-uic-justify-items-end',
-						innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+						'es:grid es:items-center es:gap-x-2 es:transition-[grid-template-columns,margin-block-end] es:duration-150',
+						innerContentAlign === 'start' && 'es:justify-items-start',
+						innerContentAlign === 'center' && 'es:justify-items-center',
+						innerContentAlign === 'end' && 'es:justify-items-end',
+						innerContentAlign === 'stretch' && 'es:justify-items-stretch',
 						detailsVisible
-							? 'es-uic-mb-2 es-uic-grid-cols-[minmax(0,_1.75rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]'
-							: 'es-uic-grid-cols-[minmax(0,_0rem),_minmax(0,_1fr),_minmax(0,_2.25rem)]',
+							? 'es:mb-2 es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)]'
+							: 'es:grid-cols-[minmax(0,0rem)_minmax(0,1fr)_minmax(0,2.25rem)]',
 					)}
 					key={defaultBreakpoint}
 				>
 					{detailsVisible && <DefaultTooltip />}
-					<div className={clsx(detailsVisible ? 'es-uic-col-start-2 es-uic-col-end-2' : 'es-uic-col-span-full')}>
+					<div className={clsx(detailsVisible ? 'es:col-start-2 es:col-end-2' : 'es:col-span-full')}>
 						{children({
 							breakpoint: defaultBreakpoint,
 							currentValue: value?.[attribute[defaultBreakpoint]],
@@ -231,17 +231,17 @@ export const ResponsiveLegacy = (props) => {
 			{inline && (
 				<AnimatedVisibility
 					className={clsx(
-						'es-uic-mb-2 es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2',
-						innerContentAlign === 'start' && 'es-uic-justify-items-start',
-						innerContentAlign === 'center' && 'es-uic-justify-items-center',
-						innerContentAlign === 'end' && 'es-uic-justify-items-end',
-						innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+						'es:mb-2 es:grid es:grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2',
+						innerContentAlign === 'start' && 'es:justify-items-start',
+						innerContentAlign === 'center' && 'es:justify-items-center',
+						innerContentAlign === 'end' && 'es:justify-items-end',
+						innerContentAlign === 'stretch' && 'es:justify-items-stretch',
 					)}
 					key={defaultBreakpoint}
 					visible={detailsVisible}
 				>
 					<DefaultTooltip />
-					<div className='es-uic-col-start-2 es-uic-col-end-2'>
+					<div className='es:col-start-2 es:col-end-2'>
 						{children({
 							breakpoint: defaultBreakpoint,
 							currentValue: value?.[attribute[defaultBreakpoint]],
@@ -255,7 +255,7 @@ export const ResponsiveLegacy = (props) => {
 
 			<AnimatedVisibility
 				visible={detailsVisible}
-				className='es-uic-space-y-2'
+				className='es:space-y-2'
 			>
 				{breakpoints.map((breakpoint, i) => {
 					const isOverrideSet = value[attribute[breakpoint]] !== inheritValue;
@@ -270,11 +270,11 @@ export const ResponsiveLegacy = (props) => {
 					return (
 						<div
 							className={clsx(
-								'es-uic-grid es-uic-grid-cols-[minmax(0,_auto),_minmax(0,_1fr),_minmax(0,_2.25rem)] es-uic-items-center es-uic-gap-x-2',
-								innerContentAlign === 'start' && 'es-uic-justify-items-start',
-								innerContentAlign === 'center' && 'es-uic-justify-items-center',
-								innerContentAlign === 'end' && 'es-uic-justify-items-end',
-								innerContentAlign === 'stretch' && 'es-uic-justify-items-stretch',
+								'es:grid es:grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2',
+								innerContentAlign === 'start' && 'es:justify-items-start',
+								innerContentAlign === 'center' && 'es:justify-items-center',
+								innerContentAlign === 'end' && 'es:justify-items-end',
+								innerContentAlign === 'stretch' && 'es:justify-items-stretch',
 							)}
 							key={breakpoint}
 						>
@@ -284,10 +284,10 @@ export const ResponsiveLegacy = (props) => {
 								offset={7.5}
 								arrow
 								text={
-									<div className='es-uic-max-w-96 es-uic-p-1'>
-										<span className='es-uic-block es-uic-font-semibold'>{upperFirst(breakpoint)}</span>
+									<div className='es:max-w-96 es:p-1'>
+										<span className='es:block es:font-semibold'>{upperFirst(breakpoint)}</span>
 
-										<span className='es-uic-block es-uic-text-balance es-uic-tabular-nums'>
+										<span className='es:block es:text-balance es:tabular-nums'>
 											{aboveOverride &&
 												(aboveOverride !== rawBreakpoints[0] || !belowOverride) &&
 												isOverrideSet &&
@@ -307,11 +307,11 @@ export const ResponsiveLegacy = (props) => {
 										</span>
 
 										{((aboveOverride && !isOverrideSet) || !aboveOverride) && (
-											<span className='es-uic-mt-2 es-uic-block es-uic-font-medium es-uic-italic'>{__('Not set', 'eightshift-ui-components')}</span>
+											<span className='es:mt-2 es:block es:font-medium es:italic'>{__('Not set', 'eightshift-ui-components')}</span>
 										)}
 
 										{aboveOverride && isOverrideSet && (
-											<div className='es-uic-mx-auto es-uic-mt-2'>
+											<div className='es:mx-auto es:mt-2'>
 												<BreakpointPreview
 													blocks={[
 														belowOverride && {
@@ -348,10 +348,10 @@ export const ResponsiveLegacy = (props) => {
 							>
 								<div
 									className={clsx(
-										'es-uic-flex es-uic-size-7 es-uic-items-center es-uic-justify-center es-uic-rounded es-uic-border es-uic-p-0.5 es-uic-shadow-sm es-uic-transition-colors [&>svg]:es-uic-size-5',
+										'es:flex es:size-7 es:items-center es:justify-center es:rounded es:border es:p-0.5 es:shadow-sm es:transition-colors es:icon:size-5',
 										value[attribute[breakpoint]] === inheritValue
-											? 'es-uic-border-gray-200 es-uic-bg-gray-50 es-uic-text-gray-700'
-											: 'es-uic-border-gray-100 es-uic-bg-white es-uic-text-gray-500',
+											? 'es:border-secondary-200 es:bg-secondary-50 es:text-secondary-700'
+											: 'es:border-secondary-100 es:bg-white es:text-secondary-500',
 									)}
 								>
 									{icons?.[`screen${upperFirst(breakpoint)}`]}

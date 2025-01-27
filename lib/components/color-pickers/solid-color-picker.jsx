@@ -7,6 +7,7 @@ import { __ } from '@wordpress/i18n';
 import { TriggeredPopover } from '../popover/popover';
 import { icons } from '../../icons/icons';
 import { Spacer } from '../spacer/spacer';
+import { Tab, TabList, TabPanel, Tabs } from '../tabs/tabs';
 
 /**
  * A solid color picker.
@@ -61,33 +62,31 @@ export const SolidColorPicker = (props) => {
 	};
 
 	const valueInputClassName = clsx(
-		'es-uic-h-8 es-uic-w-12 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-tabular-nums es-uic-text-sm es-uic-shadow-sm es-uic-transition es-uic-text-right selection:es-uic-bg-teal-500/20 selection:es-uic-text-teal-950',
-		'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+		'es:h-8 es:w-12',
+		'es:tabular-nums es:font-mono',
+		'es:border es:rounded-lg es:border-secondary-300 es:p-2 es:text-sm es:shadow-xs es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950',
+		'es:any-focus:outline-hidden',
+		'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50 es:focus-visible:z-10',
+		'es:focus-visible:border-accent-500',
+		'es:inset-ring es:inset-ring-secondary-100',
 	);
 
 	return (
-		<div className='es-uic-flex es-uic-flex-col es-uic-items-center es-uic-gap-2'>
+		<div className='es:flex es:flex-col es:items-center es:gap-2'>
 			<ColorArea
 				value={color}
 				xChannel='saturation'
 				yChannel='lightness'
 				className={clsx(
-					'es-uic-size-48 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-shadow-sm es-uic-transition',
-					'[&:has(>_[data-focus-visible="true"])]:es-uic-ring [&:has(>_[data-focus-visible="true"])]:es-uic-ring-teal-500 [&:has(>_[data-focus-visible="true"])]:es-uic-ring-opacity-50',
-					'disabled:!es-uic-bg-gradient-to-r disabled:es-uic-from-white disabled:es-uic-to-gray-100',
+					'es:size-48 es:rounded-md es:border es:border-secondary-300 es:shadow-sm es:transition',
+					'es:[&:has(>_[data-focus-visible="true"])]:ring es:[&:has(>_[data-focus-visible="true"])]:ring-accent-500/50',
+					'es:disabled:bg-linear-to-r! es:disabled:from-white es:disabled:to-secondary-100',
 				)}
 				onChange={handleChange}
 				onChangeEnd={handleChangeEnd}
 				isDisabled={disabled}
 			>
-				<ColorThumb
-					className={clsx(
-						'es-uic-size-5 es-uic-rounded-full es-uic-border es-uic-border-white es-uic-shadow-[0_0_0_1px_black] es-uic-transition',
-						'dragging:!-es-uic-translate-x-1/2 dragging:!-es-uic-translate-y-1/2 dragging:!es-uic-scale-110',
-						'focus-visible:!-es-uic-translate-x-1/2 focus-visible:!-es-uic-translate-y-1/2 focus-visible:!es-uic-scale-125',
-						'disabled:es-uic-invisible',
-					)}
-				/>
+				<ColorThumb className='es:size-5 es:rounded-full es:transition es:dragging:scale-110! es:border es:border-white es:shadow-[0_0_0_1px_black] es:disabled:invisible' />
 			</ColorArea>
 
 			<ColorSlider
@@ -98,20 +97,12 @@ export const SolidColorPicker = (props) => {
 			>
 				<SliderTrack
 					className={clsx(
-						'es-uic-h-7 es-uic-w-48 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-shadow-sm',
-						'[&:has(>_[data-focus-visible="true"])]:es-uic-ring [&:has(>_[data-focus-visible="true"])]:es-uic-ring-teal-500 [&:has(>_[data-focus-visible="true"])]:es-uic-ring-opacity-50',
-						'disabled:!es-uic-bg-gradient-to-r disabled:es-uic-from-white disabled:es-uic-to-gray-100',
+						'es:h-7 es:w-48 es:rounded-md es:border es:border-secondary-300 es:shadow-sm',
+						'es:[&:has(>_[data-focus-visible="true"])]:ring es:[&:has(>_[data-focus-visible="true"])]:ring-accent-500/50',
+						'es:disabled:bg-linear-to-r! es:disabled:from-white es:disabled:to-secondary-100',
 					)}
 				>
-					<ColorThumb
-						className={clsx(
-							'es-uic-top-3.25',
-							'es-uic-size-5 es-uic-rounded-full es-uic-border es-uic-border-white es-uic-shadow-[0_0_0_1px_black] es-uic-transition',
-							'dragging:!-es-uic-translate-x-1/2 dragging:!-es-uic-translate-y-1/2 dragging:!es-uic-scale-110',
-							'focus-visible:!-es-uic-translate-x-1/2 focus-visible:!-es-uic-translate-y-1/2 focus-visible:!es-uic-scale-125',
-							'disabled:es-uic-invisible',
-						)}
-					/>
+					<ColorThumb className='es:top-3.25 es:size-5 es:rounded-full es:border es:border-white es:shadow-[0_0_0_1px_black] es:transition es:dragging:scale-110! es:disabled:invisible' />
 				</SliderTrack>
 			</ColorSlider>
 
@@ -124,9 +115,9 @@ export const SolidColorPicker = (props) => {
 				>
 					<SliderTrack
 						className={clsx(
-							'es-uic-h-7 es-uic-w-48 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-shadow-sm',
-							'[&:has(>_[data-focus-visible="true"])]:es-uic-ring [&:has(>_[data-focus-visible="true"])]:es-uic-ring-teal-500 [&:has(>_[data-focus-visible="true"])]:es-uic-ring-opacity-50',
-							'disabled:!es-uic-bg-gradient-to-r disabled:es-uic-from-white disabled:es-uic-to-gray-100',
+							'es:h-7 es:w-48 es:rounded-md es:border es:border-secondary-300 es:shadow-sm',
+							'es:[&:has(>_[data-focus-visible="true"])]:ring es:[&:has(>_[data-focus-visible="true"])]:ring-accent-500/50',
+							'es:disabled:bg-linear-to-r! es:disabled:from-white es:disabled:to-secondary-100',
 						)}
 						style={() => {
 							const startColor = color.clone().withChannelValue('alpha', 0).toString('hsla');
@@ -137,20 +128,12 @@ export const SolidColorPicker = (props) => {
 							};
 						}}
 					>
-						<ColorThumb
-							className={clsx(
-								'es-uic-top-3.25',
-								'es-uic-size-5 es-uic-rounded-full es-uic-border es-uic-border-white es-uic-shadow-[0_0_0_1px_black] es-uic-transition',
-								'dragging:!-es-uic-translate-x-1/2 dragging:!-es-uic-translate-y-1/2 dragging:!es-uic-scale-110',
-								'focus-visible:!-es-uic-translate-x-1/2 focus-visible:!-es-uic-translate-y-1/2 focus-visible:!es-uic-scale-125',
-								'disabled:es-uic-invisible',
-							)}
-						/>
+						<ColorThumb className='es:top-3.25 es:size-5 es:rounded-full es:border es:border-white es:shadow-[0_0_0_1px_black] es:transition es:disabled:invisible' />
 					</SliderTrack>
 				</ColorSlider>
 			)}
 
-			<div className='es-uic-flex es-uic-items-center es-uic-justify-center es-uic-gap-2'>
+			<div className='es:flex es:items-center es:justify-center'>
 				<ColorField
 					value={color}
 					onChange={(color) => handleChange(color?.toFormat('hsl'))}
@@ -159,149 +142,157 @@ export const SolidColorPicker = (props) => {
 				>
 					<Input
 						className={clsx(
-							'es-uic-h-9 es-uic-w-20 es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-p-2 es-uic-text-sm es-uic-tabular-nums es-uic-shadow-sm es-uic-transition',
-							'focus:es-uic-outline-none focus-visible:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+							'es:h-9 es:w-20',
+							'es:tabular-nums es:font-mono',
+							'es:border es:border-secondary-300 es:p-2 es:text-sm es:shadow-xs es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950',
+							'es:any-focus:outline-hidden',
+							'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50 es:focus-visible:z-10',
+							'es:focus-visible:border-accent-500',
+							'es:inset-ring es:inset-ring-secondary-100',
+							noAdvancedOptions ? 'es:rounded-lg' : 'es:rounded-l-lg',
 						)}
 					/>
 				</ColorField>
 
 				<TriggeredPopover
-					triggerButtonIcon={icons.options}
-					className='es-uic-w-48 es-uic-space-y-1 es-uic-p-2'
+					triggerButtonIcon={icons.dropdownCaretAlt}
+					className='es:w-52 es:p-3'
 					triggerButtonProps={{
 						disabled: disabled,
 						tooltip: __('Advanced color options', 'eightshift-ui-components'),
+						className: 'es:rounded-l-none es:rounded-r-l es:-ml-px es:w-6 es:icon:size-4.5!',
 					}}
 					hidden={noAdvancedOptions}
 				>
-					<Label className='es-uic-text-sm'>{__('Advanced color options', 'eightshift-ui-components')}</Label>
+					<Label className='es:text-sm es:tracking-tight es:mb-2 es:inline-block'>{__('Advanced color options', 'eightshift-ui-components')}</Label>
 
-					<Spacer
-						border
-						text='RGB'
-					/>
-					<ColorField
-						value={color?.toFormat(allowTransparency ? 'rgba' : 'rgb')}
-						onChange={(color) => handleChange(color?.toFormat('hsl'))}
-						channel='red'
-					>
-						<BaseControl
-							label={__('Red', 'eightshift-ui-components')}
-							inline
-						>
-							<Input className={valueInputClassName} />
-						</BaseControl>
-					</ColorField>
-					<ColorField
-						value={color?.toFormat(allowTransparency ? 'rgba' : 'rgb')}
-						onChange={(color) => handleChange(color?.toFormat('hsl'))}
-						channel='green'
-					>
-						<BaseControl
-							label={__('Green', 'eightshift-ui-components')}
-							inline
-						>
-							<Input className={valueInputClassName} />
-						</BaseControl>
-					</ColorField>
-					<ColorField
-						value={color?.toFormat(allowTransparency ? 'rgba' : 'rgb')}
-						onChange={(color) => handleChange(color?.toFormat('hsl'))}
-						channel='blue'
-					>
-						<BaseControl
-							label={__('Blue', 'eightshift-ui-components')}
-							inline
-						>
-							<Input className={valueInputClassName} />
-						</BaseControl>
-					</ColorField>
+					<Tabs type='pillInverse'>
+						<TabList>
+							<Tab>RGB</Tab>
+							<Tab>HSL</Tab>
+							<Tab>HSB</Tab>
+						</TabList>
+						<TabPanel>
+							<ColorField
+								value={color?.toFormat(allowTransparency ? 'rgba' : 'rgb')}
+								onChange={(color) => handleChange(color?.toFormat('hsl'))}
+								channel='red'
+							>
+								<BaseControl
+									label={__('Red', 'eightshift-ui-components')}
+									inline
+								>
+									<Input className={valueInputClassName} />
+								</BaseControl>
+							</ColorField>
+							<ColorField
+								value={color?.toFormat(allowTransparency ? 'rgba' : 'rgb')}
+								onChange={(color) => handleChange(color?.toFormat('hsl'))}
+								channel='green'
+							>
+								<BaseControl
+									label={__('Green', 'eightshift-ui-components')}
+									inline
+								>
+									<Input className={valueInputClassName} />
+								</BaseControl>
+							</ColorField>
+							<ColorField
+								value={color?.toFormat(allowTransparency ? 'rgba' : 'rgb')}
+								onChange={(color) => handleChange(color?.toFormat('hsl'))}
+								channel='blue'
+							>
+								<BaseControl
+									label={__('Blue', 'eightshift-ui-components')}
+									inline
+								>
+									<Input className={valueInputClassName} />
+								</BaseControl>
+							</ColorField>
+						</TabPanel>
 
-					<Spacer
-						border
-						text='HSL'
-					/>
-					<ColorField
-						value={color?.toFormat(allowTransparency ? 'hsla' : 'hsl')}
-						onChange={(color) => handleChange(color?.toFormat('hsl'))}
-						channel='hue'
-					>
-						<BaseControl
-							label={__('Hue', 'eightshift-ui-components')}
-							inline
-						>
-							<Input className={valueInputClassName} />
-						</BaseControl>
-					</ColorField>
+						<TabPanel>
+							<ColorField
+								value={color?.toFormat(allowTransparency ? 'hsla' : 'hsl')}
+								onChange={(color) => handleChange(color?.toFormat('hsl'))}
+								channel='hue'
+							>
+								<BaseControl
+									label={__('Hue', 'eightshift-ui-components')}
+									inline
+								>
+									<Input className={valueInputClassName} />
+								</BaseControl>
+							</ColorField>
 
-					<ColorField
-						value={color?.toFormat(allowTransparency ? 'hsla' : 'hsl')}
-						onChange={(color) => handleChange(color?.toFormat('hsl'))}
-						channel='saturation'
-					>
-						<BaseControl
-							label={__('Saturation', 'eightshift-ui-components')}
-							inline
-						>
-							<Input className={valueInputClassName} />
-						</BaseControl>
-					</ColorField>
+							<ColorField
+								value={color?.toFormat(allowTransparency ? 'hsla' : 'hsl')}
+								onChange={(color) => handleChange(color?.toFormat('hsl'))}
+								channel='saturation'
+							>
+								<BaseControl
+									label={__('Saturation', 'eightshift-ui-components')}
+									inline
+								>
+									<Input className={valueInputClassName} />
+								</BaseControl>
+							</ColorField>
 
-					<ColorField
-						value={color?.toFormat(allowTransparency ? 'hsla' : 'hsl')}
-						onChange={(color) => handleChange(color?.toFormat('hsl'))}
-						channel='lightness'
-					>
-						<BaseControl
-							label={__('Lightness', 'eightshift-ui-components')}
-							inline
-						>
-							<Input className={valueInputClassName} />
-						</BaseControl>
-					</ColorField>
+							<ColorField
+								value={color?.toFormat(allowTransparency ? 'hsla' : 'hsl')}
+								onChange={(color) => handleChange(color?.toFormat('hsl'))}
+								channel='lightness'
+							>
+								<BaseControl
+									label={__('Lightness', 'eightshift-ui-components')}
+									inline
+								>
+									<Input className={valueInputClassName} />
+								</BaseControl>
+							</ColorField>
+						</TabPanel>
 
-					<Spacer
-						border
-						text='HSB'
-					/>
-					<ColorField
-						value={color?.toFormat(allowTransparency ? 'hsba' : 'hsb')}
-						onChange={(color) => handleChange(color?.toFormat('hsl'))}
-						channel='hue'
-					>
-						<BaseControl
-							label={__('Hue', 'eightshift-ui-components')}
-							inline
-						>
-							<Input className={valueInputClassName} />
-						</BaseControl>
-					</ColorField>
+						<TabPanel>
+							<ColorField
+								value={color?.toFormat(allowTransparency ? 'hsba' : 'hsb')}
+								onChange={(color) => handleChange(color?.toFormat('hsl'))}
+								channel='hue'
+							>
+								<BaseControl
+									label={__('Hue', 'eightshift-ui-components')}
+									inline
+								>
+									<Input className={valueInputClassName} />
+								</BaseControl>
+							</ColorField>
 
-					<ColorField
-						value={color?.toFormat(allowTransparency ? 'hsba' : 'hsb')}
-						onChange={(color) => handleChange(color?.toFormat('hsl'))}
-						channel='saturation'
-					>
-						<BaseControl
-							label={__('Saturation', 'eightshift-ui-components')}
-							inline
-						>
-							<Input className={valueInputClassName} />
-						</BaseControl>
-					</ColorField>
+							<ColorField
+								value={color?.toFormat(allowTransparency ? 'hsba' : 'hsb')}
+								onChange={(color) => handleChange(color?.toFormat('hsl'))}
+								channel='saturation'
+							>
+								<BaseControl
+									label={__('Saturation', 'eightshift-ui-components')}
+									inline
+								>
+									<Input className={valueInputClassName} />
+								</BaseControl>
+							</ColorField>
 
-					<ColorField
-						value={color?.toFormat(allowTransparency ? 'hsba' : 'hsb')}
-						onChange={(color) => handleChange(color?.toFormat('hsl'))}
-						channel='brightness'
-					>
-						<BaseControl
-							label={__('Brightness', 'eightshift-ui-components')}
-							inline
-						>
-							<Input className={valueInputClassName} />
-						</BaseControl>
-					</ColorField>
+							<ColorField
+								value={color?.toFormat(allowTransparency ? 'hsba' : 'hsb')}
+								onChange={(color) => handleChange(color?.toFormat('hsl'))}
+								channel='brightness'
+							>
+								<BaseControl
+									label={__('Brightness', 'eightshift-ui-components')}
+									inline
+								>
+									<Input className={valueInputClassName} />
+								</BaseControl>
+							</ColorField>
+						</TabPanel>
+					</Tabs>
 				</TriggeredPopover>
 			</div>
 		</div>

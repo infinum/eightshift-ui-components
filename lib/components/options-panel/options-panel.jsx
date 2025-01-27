@@ -33,17 +33,24 @@ export const OptionsPanel = (props) => {
 	}
 
 	return (
-		<div className={clsx('es-uic-max-w-md', className)}>
-			{title && (
-				<RichLabel
-					icon={icon}
-					label={title}
-					subtitle={subtitle}
-					className='es-uic-mb-1 es-uic-text-[0.875rem] es-uic-tracking-[-0.01em] !es-uic-text-gray-500'
-				/>
-			)}
-			<div className='es-uic-divide-y es-uic-divide-gray-200 es-uic-rounded-lg es-uic-border es-uic-border-gray-200 es-uic-bg-white es-uic-shadow'>{children}</div>
-			{help && <span className='es-uic-mt-1.5 es-uic-block es-uic-text-sm es-uic-text-gray-400'>{help}</span>}
+		<div className='es:not-last:mb-10'>
+			<div className={clsx('es:bg-white es:rounded-xl es:border es:border-secondary-300 es:overflow-clip es:max-w-lg es:shadow-xs', className)}>
+				{title && (
+					<RichLabel
+						icon={icon}
+						label={title}
+						subtitle={subtitle}
+						className={clsx(
+							'es:bg-secondary-50 es:shrink-0 es:text-secondary-700 es:px-4 es:**:first:text-base! es:border-b es:border-b-secondary-200',
+							subtitle ? 'es:py-3' : 'es:pt-2.25 es:pb-1.75',
+						)}
+						noColor
+					/>
+				)}
+
+				<div className='es:divide-y es:divide-secondary-200/75 es:py-4'>{children}</div>
+			</div>
+			{help && <span className='es:mx-0.5 es:mt-1 es:block es:text-sm es:text-secondary-400'>{help}</span>}
 		</div>
 	);
 };
@@ -70,16 +77,7 @@ export const OptionsPanelSection = ({ children, className, hidden }) => {
 		return null;
 	}
 
-	return (
-		<div
-			className={clsx(
-				'last:rounded-b-lg es-uic-space-y-2.5 es-uic-px-3 es-uic-py-4 first:es-uic-rounded-t-lg first:es-uic-pt-3.5 last:es-uic-pb-3.5 only:es-uic-rounded-lg',
-				className,
-			)}
-		>
-			{children}
-		</div>
-	);
+	return <div className={clsx('es:space-y-2.5 es:not-last:pb-4 es:not-first:pt-4 es:px-4', className)}>{children}</div>;
 };
 
 /**
@@ -91,6 +89,7 @@ export const OptionsPanelSection = ({ children, className, hidden }) => {
  * @param {string} [props.title] - Title to show.
  * @param {Number} [props.level=2] - Heading level of the title.
  * @param {string} [props.className] - Classes to pass to the container.
+ * @param {boolean} [props.limitWidth] - If `true`, the width is limited.
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Controls to show on the right side of the header.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
@@ -103,23 +102,61 @@ export const OptionsPanelSection = ({ children, className, hidden }) => {
  *
  * @preserve
  */
-export const OptionsPanelHeader = ({ children, sticky, title, className, actions, level = 2, hidden }) => {
+export const OptionsPanelHeader = ({ children, sticky, title, className, actions, level = 2, limitWidth, hidden }) => {
 	if (hidden) {
 		return null;
 	}
 
 	return (
-		<div className={clsx('es-uic-max-w-md es-uic-space-y-2.5', sticky && 'es-uic-sticky es-uic-top-0 es-uic-z-10', className)}>
-			<div className='es-uic-flex es-uic-flex-wrap es-uic-items-center es-uic-justify-between es-uic-gap-x-8 es-uic-gap-y-4'>
+		<div className={clsx('es:space-y-2.5', limitWidth && 'es:max-w-md', sticky && 'es:sticky es:top-0 es:z-10 es:bg-white', className)}>
+			<div className='es:flex es:flex-wrap es:items-center es:justify-between es:gap-x-8 es:gap-y-4'>
 				<Heading
-					className='es-uic-text-2xl es-uic-font-medium es-uic-tracking-tight'
+					className='es:text-2xl es:font-medium es:tracking-tight'
 					level={level}
 				>
 					{title}
 				</Heading>
-				<div className='es-uic-flex es-uic-items-center es-uic-gap-2'>{actions}</div>
+				<div className='es:flex es:items-center es:gap-2'>{actions}</div>
 			</div>
 			{children}
+		</div>
+	);
+};
+
+/**
+ * Component that provides an intro for an options page.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string} [props.title] - Title to show.
+ * @param {string} [props.subtitle] - Subtitle to show.
+ * @param {Number} [props.level=2] - Heading level of the title.
+ * @param {string} [props.className] - Classes to pass to the container.
+ * @param {JSX.Element|JSX.Element[]} [props.actions] - Controls to show on the right side of the header.
+ * @param {boolean} [props.border] - If `true`, a border is shown below the text.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
+ *
+ * @returns {JSX.Element} The OptionsPanelIntro component.
+ *
+ * @example
+ * <OptionsPanelIntro title='Theme options' />
+ *
+ * @preserve
+ */
+export const OptionsPanelIntro = ({ title, subtitle, className, level = 3, border, hidden }) => {
+	if (hidden) {
+		return null;
+	}
+
+	return (
+		<div className={clsx('es:pb-2.5', border && 'es:mb-5 es:border-b es:border-b-secondary-200', className)}>
+			<Heading
+				className='es:text-lg es:tracking-tight es:text-secondary-800'
+				level={level}
+			>
+				{title}
+			</Heading>
+			{subtitle && <p className='es:text-sm es:text-secondary-500 es:mt-0.5'>{subtitle}</p>}
 		</div>
 	);
 };

@@ -39,25 +39,25 @@ export const RepeaterItem = (props) => {
 			label={isOutOfBounds ? __('Release to delete', 'eightshift-ui-components') : label}
 			subtitle={isOutOfBounds ? null : subtitle}
 			className={clsx(
-				'es-uic-transition',
-				isDragged && 'es-uic-border es-uic-border-gray-100 es-uic-bg-white/50 es-uic-shadow-md es-uic-backdrop-blur-lg',
-				isOutOfBounds && 'es-uic-border !es-uic-border-red-200 es-uic-bg-red-50 es-uic-shadow-red-500/20 [&_button]:es-uic-invisible [&_svg_path]:es-uic-stroke-red-500',
+				'es:transition',
+				isDragged && 'es:border es:border-secondary-100 es:bg-white/50 es:shadow-md es:backdrop-blur-lg',
+				isOutOfBounds && 'es:border es:border-red-200! es:bg-red-50 es:shadow-red-500/20 es:[&_button]:invisible es:[&_svg_path]:stroke-red-500',
 			)}
-			labelClassName={clsx(className, isDragged ? 'es-uic-cursor-grabbing' : 'es-uic-cursor-grab')}
+			labelClassName={clsx(className, isDragged ? 'es:cursor-grabbing' : 'es:cursor-grab')}
 			headerClassName={clsx(
-				'es-uic-transition es-uic-rounded-md',
+				'es:transition es:rounded-md',
 
-				isSelected && 'es-uic-bg-teal-50 es-uic-border-teal-100',
-				'group-focus:es-uic-outline-none group-focus-visible:es-uic-ring group-focus-visible:es-uic-ring-teal-500 group-focus-visible:es-uic-ring-opacity-50',
+				isSelected && 'es:bg-accent-50 es:border-accent-100',
+				'es:group-focus:outline-hidden es:group-focus-visible:ring es:group-focus-visible:ring-accent-500/50',
 			)}
 			customOpenButton={({ open, toggleOpen, tooltip, disabled }) => {
 				return (
-					<div className='es-uic-flex es-uic-items-center es-uic-gap-px'>
+					<div className='es:flex es:items-center es:gap-px'>
 						<Menu
 							hidden={noMenuButton}
 							triggerIcon={icons.moreH}
 							triggerProps={{
-								className: '[&>svg]:es-uic-size-5 [&>svg]:es-uic-shrink-0',
+								className: 'es:icon:size-5 es:icon:shrink-0',
 								size: 'small',
 								type: 'ghost',
 							}}
@@ -89,7 +89,7 @@ export const RepeaterItem = (props) => {
 							onPress={toggleOpen}
 							tooltip={tooltip}
 							disabled={disabled}
-							className={clsx('[&>svg]:es-uic-size-5 [&>svg]:es-uic-transition-transform', open && '[&>svg]:-es-uic-scale-y-100')}
+							className={clsx('es:icon:size-5 es:icon:transition-transform', open && 'es:icon:-scale-y-100')}
 							size='small'
 						/>
 					</div>

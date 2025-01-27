@@ -98,7 +98,7 @@ export const DraggableList = (props) => {
 			subtitle={subtitle}
 			help={help}
 			actions={actions}
-			className='es-uic-w-full'
+			className='es:w-full'
 			{...rest}
 		>
 			<List
@@ -110,7 +110,7 @@ export const DraggableList = (props) => {
 					return (
 						<ul
 							key={key}
-							className='es-uic-w-full es-uic-list-none'
+							className='es:w-full es:list-none'
 							{...rest}
 						>
 							{children}
@@ -123,15 +123,15 @@ export const DraggableList = (props) => {
 					return (
 						<li
 							className={clsx(
-								'es-uic-group',
-								'es-uic-min-h-8 es-uic-w-full',
-								'es-uic-flex es-uic-items-center es-uic-gap-1 es-uic-rounded-lg',
-								'es-uic-transition-[box-shadow,_background-color,_filter,_opacity,_border-color]',
-								'focus:es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
-								isDisabled && 'es-uic-grayscale',
-								isDragged && 'es-uic-bg-white es-uic-opacity-50',
-								isSelected && 'es-uic-bg-teal-50',
-								isDragged ? 'es-uic-cursor-grabbing' : 'es-uic-cursor-grab',
+								'es:group',
+								'es:min-h-8 es:w-full',
+								'es:flex es:items-center es:gap-1 es:rounded-lg',
+								'es:transition-[box-shadow,background-color,filter,opacity,border-color]',
+								'es:focus:outline-hidden es:focus-visible:ring es:focus-visible:ring-accent-500/50',
+								isDisabled && 'es:grayscale',
+								isDragged && 'es:bg-white es:opacity-50',
+								isSelected && 'es:bg-accent-50',
+								isDragged ? 'es:cursor-grabbing' : 'es:cursor-grab',
 							)}
 							key={value?.id ?? key}
 							{...rest}

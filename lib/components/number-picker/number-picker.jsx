@@ -75,19 +75,19 @@ export const NumberPicker = ({
 
 	const sizes = {
 		compact: {
-			field: 'es-uic-min-h-5',
-			noPrefixPadding: 'es-uic-pl-1.5',
-			extraContentSeparator: 'es-uic-h-[1.875rem]',
+			field: 'es:min-h-5',
+			noPrefixPadding: 'es:pl-1.5',
+			extraContentSeparator: 'es:h-[1.875rem]',
 		},
 		small: {
-			field: 'es-uic-min-h-9',
-			noPrefixPadding: 'es-uic-pl-2',
-			extraContentSeparator: 'es-uic-h-[2.125rem]',
+			field: 'es:min-h-9',
+			noPrefixPadding: 'es:pl-2',
+			extraContentSeparator: 'es:h-[2.125rem]',
 		},
 		default: {
-			field: 'es-uic-min-h-10',
-			noPrefixPadding: 'es-uic-pl-2',
-			extraContentSeparator: 'es-uic-h-[2.375rem]',
+			field: 'es:min-h-10',
+			noPrefixPadding: 'es:pl-2',
+			extraContentSeparator: 'es:h-[2.375rem]',
 		},
 	};
 
@@ -110,20 +110,22 @@ export const NumberPicker = ({
 				subtitle={subtitle}
 				help={help}
 				inline={inline}
-				className='text-sm'
+				className='es:text-sm'
 			>
 				<Group
 					className={clsx(
-						'es-uic-flex es-uic-w-fit es-uic-items-center es-uic-rounded-md es-uic-border es-uic-border-gray-300 es-uic-pl-1 es-uic-pr-0.5 es-uic-shadow-sm es-uic-transition',
-						isInputFocused && 'es-uic-outline-none focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50',
+						'es:group es:flex es:w-fit es:items-center es:rounded-lg es:border es:border-secondary-300 es:pl-1 es:pr-0.5 es:shadow-xs es:transition',
+						'es:inset-ring es:inset-ring-secondary-100',
+						isInputFocused && 'es:outline-hidden es:focus-visible:border-accent-500 es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 						!prefix && (sizes?.[size]?.noPrefixPadding ?? sizes.default.noPrefixPadding),
 						sizes?.[size]?.field ?? sizes.default.field,
+						'es:disabled:shadow-none es:disabled:border-secondary-200 es:disabled:bg-secondary-50 es:disabled:text-secondary-500 es:disabled:cursor-default es:readonly:bg-secondary-50',
 					)}
 				>
 					{prefix && (
 						<span
 							slot='prefix'
-							className='es-uic-col-start-1 es-uic-row-span-2 es-uic-mr-0.5 es-uic-select-none es-uic-self-center es-uic-text-xs es-uic-text-gray-500'
+							className='es:col-start-1 es:row-span-2 es:mr-0.5 es:select-none es:self-center es:text-sm es:text-secondary-400'
 						>
 							{prefix}
 						</span>
@@ -131,40 +133,42 @@ export const NumberPicker = ({
 					<Input
 						onFocus={() => setIsInputFocused(true)}
 						onBlur={() => setIsInputFocused(false)}
-						className='es-uic-col-start-2 es-uic-row-span-2 !es-uic-border-none es-uic-bg-transparent !es-uic-px-0 !es-uic-py-1 es-uic-text-sm es-uic-tabular-nums !es-uic-shadow-none !es-uic-outline-none selection:es-uic-bg-teal-500/20 selection:es-uic-text-teal-950 focus:!es-uic-shadow-none focus:es-uic-outline-none'
+						className='es:col-start-2 es:row-span-2 es:border-none! es:bg-transparent es:px-0! es:py-1! es:text-sm es:tabular-nums es:shadow-none! es:outline-hidden! es:selection:bg-accent-500/20 es:selection:text-accent-950 es:focus:shadow-none! es:focus:outline-hidden'
 						placeholder={placeholder}
 						style={{
 							width: fixedWidth ? `${fixedWidth}ch` : `calc(${min < 0 ? '0.75ch + ' : ''}${(max ?? 1000)?.toString()?.length} * 1ch)`,
 						}}
 						aria-label={ariaLabel ?? __('Enter a number', 'eightshift-ui-components')}
 					/>
-					{suffix && (
-						<span
-							slot='suffix'
-							className='es-uic-col-start-3 es-uic-row-span-2 es-uic-select-none es-uic-self-center es-uic-text-xs es-uic-text-gray-500'
-						>
-							{suffix}
-						</span>
-					)}
-					<div>
+
+					<div className={clsx('es:opacity-0 es:group-hover:opacity-100 es:group-focus-visible:opacity-100 es:transition-opacity', disabled && 'es:invisible')}>
 						<Button
 							type='ghost'
-							className='es-uic-col-start-4 !es-uic-h-3 !es-uic-w-5 !es-uic-rounded !es-uic-text-gray-500 disabled:!es-uic-text-gray-300 [&>svg]:es-uic-size-[0.8rem]'
+							className='es:col-start-4 es:h-3 es:w-4 es:text-secondary-500! es:disabled:text-secondary-300! es:icon:size-[0.8rem]'
 							slot='increment'
 							icon={icons.caretUpFill}
 						/>
 						<Button
 							type='ghost'
-							className='es-uic-col-start-4 !es-uic-h-3 !es-uic-w-5 !es-uic-rounded !es-uic-text-gray-500 disabled:!es-uic-text-gray-300 [&>svg]:es-uic-size-[0.8rem]'
+							className='es:col-start-4 es:h-3 es:w-4 es:text-secondary-500! es:disabled:text-secondary-300! es:icon:size-[0.8rem]'
 							slot='decrement'
 							icon={icons.caretDownFill}
 						/>
 					</div>
 
+					{suffix && (
+						<span
+							slot='suffix'
+							className='es:col-start-3 es:row-span-2 es:select-none es:self-center es:text-sm es:text-secondary-400 es:mr-0.5'
+						>
+							{suffix}
+						</span>
+					)}
+
 					{children && (
 						<>
-							<div className={clsx('es-uic-w-px es-uic-bg-gray-300', sizes?.[size]?.extraContentSeparator ?? sizes.default.extraContentSeparator)} />
-							<div className='es-uic-p-0.5 es-uic-pr-0'>
+							<div className={clsx('es:w-px es:bg-secondary-300', sizes?.[size]?.extraContentSeparator ?? sizes.default.extraContentSeparator)} />
+							<div className='es:p-0.5 es:pr-0'>
 								{Array.isArray(children) ? children.map((child) => cloneElement(child, { slot: null })) : cloneElement(children, { slot: null })}
 							</div>
 						</>

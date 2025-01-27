@@ -40,33 +40,33 @@ export const Spacer = (props) => {
 
 	const sizes = {
 		px: {
-			sizeHorizontal: 'es-uic-h-px',
-			sizeHorizontalBorder: 'es-uic-h-px',
-			sizeVertical: 'es-uic-w-px',
-			sizeVerticalBorder: 'es-uic-w-px',
+			sizeHorizontal: 'es:h-px',
+			sizeHorizontalBorder: 'es:h-px',
+			sizeVertical: 'es:w-px',
+			sizeVerticalBorder: 'es:w-px',
 		},
 		xs: {
-			sizeHorizontal: 'es-uic-h-1',
-			sizeHorizontalBorder: 'es-uic-h-0.5',
-			sizeVertical: 'es-uic-w-1',
-			sizeVerticalBorder: 'es-uic-w-0.5',
+			sizeHorizontal: 'es:h-1',
+			sizeHorizontalBorder: 'es:h-0.5',
+			sizeVertical: 'es:w-1',
+			sizeVerticalBorder: 'es:w-0.5',
 		},
 		s: {
-			sizeHorizontal: 'es-uic-h-2.5',
-			sizeHorizontalBorder: 'es-uic-h-1',
-			sizeVertical: 'es-uic-w-2.5',
-			sizeVerticalBorder: 'es-uic-w-1',
+			sizeHorizontal: 'es:h-2.5',
+			sizeHorizontalBorder: 'es:h-1',
+			sizeVertical: 'es:w-2.5',
+			sizeVerticalBorder: 'es:w-1',
 		},
 		m: {
-			sizeHorizontal: 'es-uic-h-5',
-			sizeHorizontalBorder: 'es-uic-h-2',
-			sizeVertical: 'es-uic-w-5',
-			sizeVerticalBorder: 'es-uic-w-2',
+			sizeHorizontal: 'es:h-5',
+			sizeHorizontalBorder: 'es:h-2',
+			sizeVertical: 'es:w-5',
+			sizeVerticalBorder: 'es:w-2',
 		},
 	};
 
 	const spaceClass = clsx(
-		vertical ? 'es-uic-h-full' : 'es-uic-w-full',
+		vertical ? 'es:h-full' : 'es:w-full',
 		!vertical && !border && sizes[size].sizeHorizontal,
 		!vertical && border && sizes[size].sizeHorizontalBorder,
 		vertical && !border && sizes[size].sizeVertical,
@@ -75,15 +75,15 @@ export const Spacer = (props) => {
 
 	if (text || icon) {
 		return (
-			<div className={clsx('es-uic-flex es-uic-items-center es-uic-gap-1.5', className)}>
+			<div className={clsx('es:flex es:items-center es:gap-1.5', className)}>
 				<RichLabel
 					icon={icon}
 					label={text}
 					subtitle={subtitle}
-					className='es-uic-shrink-0 es-uic-text-slate-500'
+					className='es:shrink-0 es:text-secondary-500'
 				/>
 
-				{border && <div className='es-uic-h-px es-uic-w-full es-uic-bg-slate-300 es-uic-leading-3' />}
+				{border && <div className='es:h-px es:w-full es:bg-secondary-300 es:leading-3' />}
 			</div>
 		);
 	}
@@ -92,7 +92,7 @@ export const Spacer = (props) => {
 		return (
 			<div className={className}>
 				{size !== 'px' && <div className={spaceClass} />}
-				<div className={clsx('es-uic-bg-gray-300', vertical ? 'es-uic-h-full es-uic-w-px' : 'es-uic-h-px es-uic-w-full')} />
+				<div className={clsx('es:bg-secondary-300', vertical ? 'es:h-full es:w-px' : 'es:h-px es:w-full')} />
 				{size !== 'px' && <div className={spaceClass} />}
 			</div>
 		);

@@ -1,12 +1,7 @@
-import { useState, useRef } from 'react';
 import { __ } from '@wordpress/i18n';
-import { Popover } from '../popover/popover';
-import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
-import { camelCase, upperFirst } from '../../utilities';
-import { clsx } from 'clsx/lite';
-
-import { Tooltip } from '../tooltip/tooltip';
+import { camelCase, pascalCase, upperFirst } from '../../utilities';
+import { Menu, MenuItem } from '../menu/menu';
 import { BaseControl } from '../base-control/base-control';
 
 /**
@@ -54,17 +49,8 @@ export const MatrixAlign = (props) => {
 
 		'aria-label': ariaLabel,
 
-		popoverPosition,
-
 		hidden,
 	} = props;
-
-	const [currentValue, setCurrentValue] = useState(value);
-	const [tooltipText, setTooltipText] = useState(null);
-	const [popoverOpen, setPopoverOpen] = useState(false);
-
-	const ref = useRef(null);
-	const innerRef = useRef(null);
 
 	if (hidden) {
 		return null;
@@ -118,73 +104,32 @@ export const MatrixAlign = (props) => {
 		},
 	];
 
-	// Set icons for (in)active options.
-	const sizeOptions = allSizeOptions
-		.filter(({ availableOn }) => availableOn.includes(size))
-		.map((item) => ({
-			...item,
-			icon: item.value === currentValue ? icons.matrixAlignControlDotActive : icons.matrixAlignControlDotInactive,
-		}));
+	const sizeOptions = allSizeOptions.filter(({ availableOn }) => availableOn.includes(size));
 
 	return (
-		<>
-			<BaseControl
-				icon={icon}
-				label={label}
-				subtitle={subtitle}
-				inline
+		<BaseControl
+			icon={icon}
+			label={label}
+			subtitle={subtitle}
+			inline
+		>
+			<Menu
+				triggerIcon={icons[`position${size}${upperFirst(camelCase(value))}`]}
+				triggerProps={{ 'aria-label': ariaLabel }}
+				tooltip={tooltip}
+				keepOpen
 			>
-				<Button
-					icon={icons[`position${size}${upperFirst(camelCase(currentValue))}`]}
-					onPress={() => {
-						setPopoverOpen(true);
-					}}
-					forwardedRef={ref}
-					tooltip={tooltip}
-				>
-					{!(icon || subtitle) && label}
-				</Button>
-			</BaseControl>
-			<Popover
-				aria-label={ariaLabel ?? __('Select position', 'eightshift-ui-components')}
-				position={popoverPosition}
-				triggerRef={ref}
-				onOpenChange={setPopoverOpen}
-				isOpen={popoverOpen}
-				ariaLabel={label ?? tooltip}
-			>
-				<Tooltip
-					text={tooltipText}
-					placement='bottom'
-					delayDuration={200}
-					open={popoverOpen && tooltipText !== null}
-					offset={10}
-					triggerRef={innerRef}
-					className={tooltipText === null ? 'es-uic-opacity-0' : ''}
-				>
-					<div
-						ref={innerRef}
-						className={clsx('es-uic-grid', size === '3x3' && 'es-uic-grid-cols-3 es-uic-grid-rows-3', size === '2x2' && 'es-uic-grid-cols-2 es-uic-grid-rows-2')}
+				{sizeOptions.map(({ value: itemValue, label }) => (
+					<MenuItem
+						key={itemValue}
+						endIcon={icons?.[`position${size}${pascalCase(itemValue)}`]}
+						selected={value === itemValue}
+						onClick={() => onChange(itemValue)}
 					>
-						{sizeOptions.map(({ value, label, icon }) => (
-							<Button
-								key={value}
-								icon={icon}
-								type='ghost'
-								onHoverStart={() => setTooltipText(label)}
-								onHoverEnd={() => setTooltipText(null)}
-								onFocus={() => setTooltipText(label)}
-								onPress={() => {
-									setCurrentValue(value);
-									setTooltipText(null);
-									setPopoverOpen(false);
-									onChange(value);
-								}}
-							/>
-						))}
-					</div>
-				</Tooltip>
-			</Popover>
-		</>
+						{label}
+					</MenuItem>
+				))}
+			</Menu>
+		</BaseControl>
 	);
 };

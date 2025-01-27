@@ -39,24 +39,31 @@ export const Switch = (props) => {
 			isDisabled={disabled}
 			isSelected={checked ?? false}
 			onChange={onChange}
-			className='es-uic-group es-uic-flex es-uic-items-center es-uic-justify-between es-uic-gap-2'
+			className='es:group es:flex es:items-center es:justify-between es:gap-2'
 		>
 			{children}
-			<div className={clsx('es-uic-flex es-uic-shrink-0 es-uic-items-center es-uic-justify-center', className)}>
+			<div className={clsx('es:flex es:shrink-0 es:items-center es:justify-center', className)}>
 				<div
 					className={clsx(
-						'es-uic-no-webkit-highlight es-uic-h-4 es-uic-w-7 es-uic-shrink-0 es-uic-cursor-pointer es-uic-rounded-full es-uic-border es-uic-border-gray-500 es-uic-bg-white es-uic-p-[0.1875rem] es-uic-shadow-sm es-uic-outline-none es-uic-transition',
-						'group-focus-visible:es-uic-ring group-focus-visible:es-uic-ring-teal-500 group-focus-visible:es-uic-ring-opacity-50',
-						'group-selected:es-uic-border-teal-800/75 group-selected:es-uic-bg-teal-100/25 group-selected:es-uic-shadow-teal-500/25',
-						'group-disabled:es-uic-cursor-default group-disabled:es-uic-border-gray-300 group-disabled:es-uic-bg-white',
+						'es:shrink-0 es:cursor-pointer es:no-webkit-highlight',
+						'es:h-5 es:w-9 es:p-[0.1875rem] es:rounded-full',
+						'es:outline-hidden es:bg-radial-[circle_at_75%_50%]',
+						'es:border es:inset-ring es:inset-shadow-xs',
+						'es:transition',
+						'es:group-focus-visible:ring-2 es:group-focus-visible:ring-accent-500/50 es:focus-visible:ring-3 es:shadow-xs',
+						!checked && 'es:border-secondary-400 es:inset-ring-secondary-100 es:from-white es:to-secondary-100',
+						checked && 'es:border-accent-700/75 es:inset-ring-accent-500 es:to-accent-500 es:from-accent-600 es:shadow-accent-600/30',
+						disabled && 'es:cursor-default es:border-secondary-300 es:bg-white',
 					)}
 				>
 					<span
 						className={clsx(
-							'es-uic-block es-uic-size-2 es-uic-rounded-full es-uic-border es-uic-border-gray-500 es-uic-bg-gray-500 es-uic-transition es-uic-will-change-transform',
-							'group-selected:!es-uic-translate-x-3 group-selected:!es-uic-scale-125 group-selected:es-uic-border-teal-600 group-selected:es-uic-bg-teal-600',
-							'group-disabled:es-uic-border-gray-300 group-disabled:es-uic-bg-white',
-							isIndeterminate && 'es-uic-translate-x-1.5',
+							'es:block es:size-3 es:rounded-full es:border es:will-change-transform es:bg-radial',
+							'es:transition es:motion-ease-spring-snappy es:ease-[var(--motion-spring-snappy)]',
+							!checked && 'es:border-secondary-500 es:from-secondary-500 es:to-secondary-600 es:scale-95',
+							checked && 'es:translate-x-4 es:border-accent-600/20 es:from-white es:to-accent-500/30 es:from-40% es:bg-white es:shadow-xs es:shadow-accent-900/60',
+							disabled && 'es:border-secondary-300 es:bg-white',
+							isIndeterminate && 'es:translate-x-2 es:scale-100',
 						)}
 					/>
 				</div>

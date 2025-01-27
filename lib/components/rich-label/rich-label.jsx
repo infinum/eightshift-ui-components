@@ -14,6 +14,8 @@ import { clsx } from 'clsx/lite';
  * @param {boolean} [props.contentsOnly] - If `true`, only the label (/icon/subtitle) will be rendered, without any wrapping elements. Useful if you want to provide your own layout.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {boolean} [props.noColor] - If `true`, colors on text won't be set, opacity will be used instead.
+ * @param {boolean} [props.fullSizeSubtitle] - If `true`, the subtitle is the same size as the label.
+ * @param {boolean} [props.inlineSubtitle] - If `true`, the subtitle is shown after the label instead of below it.
  *
  * @returns {JSX.Element} The RichLabel component.
  *
@@ -26,7 +28,7 @@ import { clsx } from 'clsx/lite';
  * @preserve
  */
 export const RichLabel = (props) => {
-	const { icon, label, subtitle, as, className, fullWidth = false, contentsOnly, hidden, noColor } = props;
+	const { icon, label, subtitle, as, className, fullWidth = false, contentsOnly, hidden, noColor, fullSizeSubtitle, inlineSubtitle } = props;
 
 	if (hidden) {
 		return null;
@@ -37,9 +39,9 @@ export const RichLabel = (props) => {
 	if (contentsOnly) {
 		return (
 			<>
-				{icon && <span className={clsx('[&>svg]:es-uic-size-5.5', !noColor && 'es-uic-text-slate-500')}>{icon}</span>}
-				{label && <span className={clsx('es-uic-text-balance', !noColor && 'es-uic-text-gray-800')}>{label}</span>}
-				{subtitle && <span className={clsx('es-uic-text-balance es-uic-text-xs es-uic-opacity-65', !noColor && 'es-uic-text-gray-800')}>{subtitle}</span>}
+				{icon && <span className={clsx('es:[&>svg]:size-5.5', !noColor && 'es:text-slate-500')}>{icon}</span>}
+				{label && <span className={clsx('es:text-balance', !noColor && 'es:text-secondary-800')}>{label}</span>}
+				{subtitle && <span className={clsx('es:text-balance es:text-xs es:opacity-65', !noColor && 'es:text-secondary-800')}>{subtitle}</span>}
 			</>
 		);
 	}
@@ -47,18 +49,18 @@ export const RichLabel = (props) => {
 	return (
 		<ComponentToRender
 			className={clsx(
-				'es-uic-flex es-uic-items-center es-uic-gap-1.5 es-uic-text-sm',
-				!noColor && 'es-uic-text-gray-800 [&>span>svg]:es-uic-text-slate-500',
-				noColor && '[&>span>svg]:es-uic-opacity-80',
-				fullWidth && 'es-uic-grow',
+				'es:flex es:items-center es:gap-1.5 es:text-sm',
+				!noColor && 'es:text-secondary-800 es:[&>span>svg]:text-slate-500',
+				noColor && 'es:[&>span>svg]:opacity-80',
+				fullWidth && 'es:grow',
 				className,
 			)}
 		>
-			{icon && <span className='[&>svg]:es-uic-size-5.5'>{icon}</span>}
+			{icon && <span className='es:[&>svg]:size-5.5'>{icon}</span>}
 			{(label || subtitle) && (
-				<div className='es-uic-flex es-uic-flex-col es-uic-items-start es-uic-text-balance es-uic-text-start'>
+				<div className={clsx('es:flex es:items-start es:text-balance es:text-start', inlineSubtitle ? 'es:gap-1.5' : 'es:flex-col')}>
 					{label && <span>{label}</span>}
-					{subtitle && <span className='es-uic-text-xs es-uic-opacity-65'>{subtitle}</span>}
+					{subtitle && <span className={clsx(!fullSizeSubtitle && 'es:text-xs', 'es:opacity-65')}>{subtitle}</span>}
 				</div>
 			)}
 		</ComponentToRender>

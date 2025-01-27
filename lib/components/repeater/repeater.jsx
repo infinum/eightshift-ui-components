@@ -129,14 +129,14 @@ export const Repeater = (props) => {
 							}}
 							size='small'
 							icon={icons.add}
-							className={clsx('[&>svg]:es-uic-size-4', !hideEmptyState && items.length < 1 && 'es-uic-invisible')}
+							className={clsx('es:icon:size-4', !hideEmptyState && items.length < 1 && 'es:invisible')}
 							tooltip={__('Add item', 'eightshift-ui-components')}
 							disabled={addDisabled || !canAdd}
 						/>
 					)}
 
 					{addButton && (
-						<div className={clsx(!hideEmptyState && items.length < 1 && 'es-uic-invisible')}>
+						<div className={clsx(!hideEmptyState && items.length < 1 && 'es:invisible')}>
 							{addButton({
 								addItem: (additional = {}) => {
 									const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem, ...additional };
@@ -152,7 +152,7 @@ export const Repeater = (props) => {
 					)}
 				</>
 			}
-			className='es-uic-w-full'
+			className='es:w-full'
 		>
 			<List
 				values={items}
@@ -163,7 +163,7 @@ export const Repeater = (props) => {
 					return (
 						<ul
 							key={key}
-							className={clsx('es-uic-w-full es-uic-list-none', className)}
+							className={clsx('es:w-full es:list-none', className)}
 							{...rest}
 						>
 							{children}
@@ -175,7 +175,7 @@ export const Repeater = (props) => {
 
 					return (
 						<li
-							className='es-uic-group es-uic-w-full es-uic-list-none focus:es-uic-outline-none'
+							className='es:group es:w-full es:list-none es:focus:outline-hidden'
 							key={item?.id ?? key}
 							{...rest}
 						>
@@ -232,7 +232,7 @@ export const Repeater = (props) => {
 				{emptyState}
 
 				{!hideEmptyState && (
-					<div className='es-uic-flex es-uic-flex-col es-uic-items-center es-uic-gap-2 es-uic-rounded-md es-uic-border es-uic-border-dashed es-uic-border-gray-300 es-uic-p-4 es-uic-text-center es-uic-text-sm es-uic-text-gray-400'>
+					<div className='es:flex es:flex-col es:items-center es:gap-2 es:rounded-md es:border es:border-dashed es:border-secondary-300 es:p-4 es:text-center es:text-sm es:text-secondary-400'>
 						{!addButton && (
 							<Button
 								onPress={() => {
@@ -245,7 +245,7 @@ export const Repeater = (props) => {
 								}}
 								size='small'
 								icon={icons.add}
-								className='[&>svg]:es-uic-size-4'
+								className='es:icon:size-4'
 								disabled={addDisabled}
 							>
 								{__('Add item', 'eightshift-ui-components')}

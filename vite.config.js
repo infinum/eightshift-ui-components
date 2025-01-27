@@ -4,10 +4,11 @@ import { extname, relative, resolve } from 'path';
 import { fileURLToPath } from 'node:url';
 import { glob } from 'glob';
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
+import tailwindcss from '@tailwindcss/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [react(), libInjectCss()],
+	plugins: [react(), libInjectCss(), tailwindcss()],
 	build: {
 		copyPublicDir: true,
 		lib: {
@@ -17,8 +18,11 @@ export default defineConfig({
 			},
 			formats: ['es'],
 		},
-		cssMinify: 'lightningcss',
+		cssMinify: false, // 'lightningcss',
 		minify: 'keepNames',
+		// commonjsOptions: {
+		// 	transformMixedEsModules: true,
+		// },
 		rollupOptions: {
 			external: ['react', 'react/jsx-runtime'],
 			input: Object.fromEntries(

@@ -19,6 +19,7 @@ import { cloneElement } from 'react';
  * @param {string} [props.labelClassName] - Additional classes to add to the label container.
  * @param {boolean} [props.alignEnd] - Whether the label should be aligned to the end.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
+ * @param {boolean} [props.inlineSubtitle] - If `true`, the subtitle is shown after the label instead of below it.
  *
  * @returns {JSX.Element} The RadioButton component.
  *
@@ -43,6 +44,8 @@ export const RadioButton = (props) => {
 
 		children,
 
+		inlineSubtitle,
+
 		hidden,
 
 		...rest
@@ -54,58 +57,75 @@ export const RadioButton = (props) => {
 
 	const styleClassName = {
 		segmented: clsx(
-			'es-uic-py-1 es-uic-px-1.5 es-uic-border es-uic-border-gray-300 hover:es-uic-bg-gray-50 es-uic-transition es-uic-min-h-10',
-			'first:es-uic-rounded-t-lg last:es-uic-rounded-b-lg',
-			'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50 focus-visible:es-uic-z-10',
+			'es:cursor-pointer es:py-1 es:px-1.5 es:border es:border-secondary-300 es:hover:bg-secondary-100/75 es:transition es:min-h-10',
+			'es:first:rounded-t-xl es:last:rounded-b-xl',
+			'es:focus-visible:ring-2 es:focus-visible:border-accent-500 es:focus-visible:ring-accent-500/50 es:focus-visible:z-10',
+			'es:shadow-xs es:inset-ring es:inset-shadow-xs',
+			'es:inset-ring-secondary-100 es:inset-shadow-secondary-100/50',
 		),
 		segmentedHorizontal: clsx(
-			'es-uic-py-1 es-uic-px-1.5 es-uic-border es-uic-border-gray-300 hover:es-uic-bg-gray-50 es-uic-transition es-uic-grow es-uic-min-h-10',
-			'first:es-uic-rounded-l-lg last:es-uic-rounded-r-lg',
-			'focus-visible:es-uic-ring focus-visible:es-uic-ring-teal-500 focus-visible:es-uic-ring-opacity-50 focus-visible:es-uic-z-10',
+			'es:cursor-pointer es:py-1 es:px-1.5 es:border es:border-secondary-300 es:hover:bg-secondary-100/75 es:transition es:grow es:min-h-10',
+			'es:first:rounded-l-xl es:last:rounded-r-xl',
+			'es:focus-visible:ring-2 es:focus-visible:border-accent-500 es:focus-visible:ring-accent-500/50 es:focus-visible:z-10',
+			'es:shadow-xs es:inset-ring es:inset-shadow-xs',
+			'es:inset-ring-secondary-100 es:inset-shadow-secondary-100/50',
 		),
 	};
 
 	return (
 		<Radio
 			isDisabled={disabled}
-			className={clsx('es-uic-flex es-uic-items-center es-uic-gap-1.5 es-uic-text-sm', styleClassName[design], className)}
+			className={clsx('es:group es:flex es:items-center es:gap-1.5 es:text-sm', styleClassName[design], className)}
 			{...rest}
 		>
-			{({ isSelected, isFocusVisible }) => (
+			{({ isSelected }) => (
 				<>
 					{alignEnd && (label || subtitle || icon) && (
 						<RichLabel
 							icon={icon}
 							label={label}
 							subtitle={subtitle}
-							className={labelClassName}
+							className={clsx('es:ml-1', labelClassName)}
+							inlineSubtitle={inlineSubtitle}
 							fullWidth
+							fullSizeSubtitle
 						/>
 					)}
 					<div
 						className={clsx(
-							'es-uic-flex es-uic-size-5 es-uic-items-center es-uic-justify-center es-uic-rounded-full es-uic-border es-uic-text-gray-600 es-uic-shadow-sm es-uic-transition',
-							isSelected && !disabled && 'es-uic-border-teal-600 es-uic-bg-teal-600 es-uic-text-white',
-							isSelected && disabled && 'es-uic-border-gray-400 es-uic-bg-gray-400 es-uic-text-white',
-							!isSelected && 'es-uic-border-gray-300',
-							!design?.startsWith('segmented') && isFocusVisible && 'es-uic-ring es-uic-ring-teal-500 es-uic-ring-opacity-50',
+							'es:size-5 es:flex es:items-center es:justify-center',
+							'es:transition es:cursor-pointer',
+							'es:bg-radial es:border es:rounded-full',
+							'es:shadow-xs es:inset-ring es:inset-shadow-xs',
+							'es:any-focus:outline-hidden',
+							!isSelected && 'es:border-secondary-300 es:inset-ring-secondary-100 es:inset-shadow-secondary-100/50',
+							!isSelected && 'es:from-secondary-50 es:to-white es:text-secondary-600 es:hover:text-accent-950',
+							!isSelected && 'es:hover:inset-shadow-secondary-100 es:hover:to-secondary-100 es:hover:inset-ring-secondary-100',
+							isSelected && 'es:text-white es:from-accent-500 es:to-accent-600',
+							isSelected && 'es:shadow-accent-600/30 es:border-accent-700 es:inset-ring es:inset-ring-accent-600 es:inset-shadow-accent-400/75',
+							isSelected && 'es:group-focus-visible:inset-ring-accent-600 es:group-focus-visible:inset-shadow-xs es:group-focus-visible:inset-shadow-accent-400',
+							!design?.startsWith('segmented') && 'es:group-focus-visible:ring-2 es:group-focus-visible:ring-accent-500/50',
+							!design?.startsWith('segmented') && !isSelected && 'es:group-focus-visible:border-accent-500',
+							!design?.startsWith('segmented') && !alignEnd && subtitle && 'es:mb-auto',
 						)}
 					>
 						<AnimatedVisibility
 							transition='scaleFade'
 							visible={isSelected}
-							className={clsx('[&>svg]:es-uic-size-3 [&>svg]:es-uic-stroke-2', disabled && 'es-uic-opacity-55')}
+							className={clsx('es:icon:size-3 es:icon:stroke-2', disabled && 'es:opacity-55')}
 							noInitial
 						>
-							<div className='es-uic-size-2.5 es-uic-rounded-full es-uic-bg-white es-uic-shadow-sm' />
+							<div className='es:size-2 es:rounded-full es:bg-white es:shadow-sm' />
 						</AnimatedVisibility>
 					</div>
 					{!alignEnd && (
 						<RichLabel
-							icon={icon}
+							icon={alignEnd && icon}
 							label={label}
 							subtitle={subtitle}
-							className={clsx(labelClassName, '[&_>_span_>_svg]:!es-uic-size-5', disabled && 'es-uic-opacity-55')}
+							className={clsx(labelClassName, subtitle && 'es:mt-0.5', 'es:[&_>_span_>_svg]:size-5 es:ml-0.5 es:*:space-y-0.5', disabled && 'es:opacity-55')}
+							inlineSubtitle={inlineSubtitle}
+							fullSizeSubtitle
 						/>
 					)}
 					{!(icon || label || subtitle) && children}
@@ -209,7 +229,7 @@ export const RadioButtonGroup = (props) => {
 
 	return (
 		<RadioGroup
-			className={clsx('es-uic-w-full', className)}
+			className={clsx('es:w-full', className)}
 			isDisabled={disabled}
 			isReadOnly={readOnly}
 			onChange={onChange}
@@ -228,10 +248,10 @@ export const RadioButtonGroup = (props) => {
 			>
 				<div
 					className={clsx(
-						design === 'default' && orientation === 'horizontal' && 'es-uic-flex es-uic-flex-wrap es-uic-gap-2.5',
-						design === 'default' && orientation === 'vertical' && 'es-uic-flex es-uic-flex-col es-uic-gap-2.5',
-						design === 'segmented' && orientation === 'vertical' && 'es-uic-flex es-uic-flex-col -es-uic-space-y-px',
-						design === 'segmented' && orientation === 'horizontal' && 'es-uic-nowrap es-uic-flex -es-uic-space-x-px',
+						design === 'default' && orientation === 'horizontal' && 'es:flex es:flex-wrap es:gap-2.5',
+						design === 'default' && orientation === 'vertical' && 'es:flex es:flex-col es:gap-2.5',
+						design === 'segmented' && orientation === 'vertical' && 'es:flex es:flex-col es:-space-y-px',
+						design === 'segmented' && orientation === 'horizontal' && 'es:nowrap es:flex es:-space-x-px',
 					)}
 				>
 					{mappedChildren}

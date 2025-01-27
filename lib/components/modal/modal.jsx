@@ -76,23 +76,27 @@ export const Modal = (props) => {
 				isOpen={open}
 				shouldCloseOnInteractOutside={shouldCloseOnInteractOutside}
 				isKeyboardDismissDisabled={noKeyboardDismiss}
-				className={clsx(
-					'es-uic-fixed es-uic-inset-0 es-uic-z-10 es-uic-flex es-uic-min-h-full es-uic-items-center es-uic-justify-center es-uic-overflow-y-auto es-uic-bg-black/25 es-uic-p-4 es-uic-text-center es-uic-backdrop-blur',
-					'entering:es-uic-duration-300 entering:es-uic-ease-out entering:es-uic-animate-in entering:es-uic-fade-in',
-					'exiting:es-uic-duration-200 exiting:es-uic-ease-in exiting:es-uic-animate-out exiting:es-uic-fade-out',
-					overlayClassName,
-				)}
+				className={({ isEntering, isExiting }) =>
+					clsx(
+						'es:fixed es:inset-0 es:z-9999 es:flex es:min-h-full es:items-center es:justify-center es:overflow-y-auto es:bg-black/25 es:p-4 es:text-center es:backdrop-blur',
+						isEntering && 'es:motion-opacity-in es:motion-duration-150',
+						isExiting && 'es:motion-opacity-out es:motion-duration-150',
+						overlayClassName,
+					)
+				}
 			>
 				<ReactAriaModal
-					className={clsx(
-						'es-uic-w-full es-uic-max-w-lg es-uic-overflow-hidden es-uic-rounded-xl es-uic-border es-uic-border-gray-100 es-uic-bg-white es-uic-p-5 es-uic-text-left es-uic-align-middle es-uic-shadow-xl',
-						'entering:es-uic-duration-300 entering:es-uic-ease-out entering:es-uic-animate-in entering:es-uic-zoom-in-95',
-						'exiting:es-uic-duration-200 exiting:es-uic-ease-in exiting:es-uic-animate-out exiting:es-uic-zoom-out-95',
-						className,
-					)}
+					className={({ isEntering, isExiting }) =>
+						clsx(
+							'es:w-full es:max-w-lg es:overflow-hidden es:rounded-xl es:border es:border-secondary-100 es:bg-white es:p-5 es:text-left es:align-middle es:shadow-xl es:inset-ring es:inset-ring-secondary-100',
+							isEntering && 'es:motion-safe:motion-scale-in-95 es:motion-fade-in es:motion-duration-300 es:motion-ease-spring-smooth/scale',
+							isExiting && 'es:motion-safe:motion-scale-out-95 es:motion-fade-out es:motion-duration-250 es:motion-ease-spring-smooth/scale',
+							className,
+						)
+					}
 				>
 					<Dialog
-						className='es-uic-relative es-uic-text-sm es-uic-outline-none'
+						className='es:relative es:text-sm es:outline-hidden'
 						aria-label={ariaLabel}
 					>
 						{({ close }) => (
@@ -100,7 +104,7 @@ export const Modal = (props) => {
 								<HStack>
 									{title && (
 										<Heading
-											className='es-uic-text-balance es-uic-text-base'
+											className='es:text-balance es:text-base'
 											slot='title'
 										>
 											{title}
@@ -109,7 +113,7 @@ export const Modal = (props) => {
 
 									{!noCloseButton && (
 										<Button
-											className='es-uic-ml-auto'
+											className='es:ml-auto'
 											onPress={close}
 											type='ghost'
 											size='small'
