@@ -18,7 +18,7 @@ import { RichLabel } from '../rich-label/rich-label';
  *
  * @returns {JSX.Element} The Tabs component.
  *
- * @typedef {'underline' | 'pill'} TabsType
+ * @typedef {'underline' | 'pill' | 'pillInverse'} TabsType
  *
  * @example
  * <Tabs>
@@ -144,7 +144,7 @@ export const TabList = (props) => {
 				return clsx(
 					'es:flex es:p-0.5 es:-m-0.5',
 					vertical && 'es:h-full es:flex-col es:gap-1.5 es:pr-1.5 es:overflow-y-auto es:overflow-x-visible',
-					horizontal && 'es:w-full es:items-stretch es:gap-3 es:overflow-x-auto es:overflow-y-visible es:mb-3',
+					horizontal && 'es:w-full es:items-stretch es:gap-1.5 es:overflow-x-auto es:overflow-y-visible es:mb-3',
 					horizontal &&
 						type === 'underline' &&
 						'es:relative es:isolate es:after:content-[""] es:after:-z-10 es:after:absolute es:after:bottom-0.5 es:after:left-0 es:after:w-full es:after:h-px es:after:bg-secondary-300',
@@ -192,7 +192,9 @@ export const Tab = (props) => {
 			variants: {
 				type: {
 					underline: 'es:disabled:text-secondary-400 es:selected:text-accent-950',
-					pill: 'es:font-[450] es:border es:border-transparent es:px-3 es:py-2 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-700 es:selected:bg-accent-100 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+					pill: 'es:font-[450] es:border es:border-transparent es:px-3 es:py-2 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-900 es:selected:bg-accent-400/15 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+					pillInverse:
+						'es:font-[450] es:border es:border-transparent es:px-3 es:py-2 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-accent-600 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
 				},
 			},
 			compoundVariants: [
@@ -244,6 +246,7 @@ export const Tab = (props) => {
 						type === 'underline' &&
 							'es:inset-ring es:inset-ring-secondary-200/20 es:bg-secondary-100 es:group-selected:bg-accent-500/10 es:group-selected:text-accent-900 es:group-selected:inset-ring-accent-500/10',
 						type === 'pill' && 'es:bg-secondary-100 es:group-selected:bg-accent-600 es:group-selected:text-white',
+						type === 'pillInverse' && 'es:bg-secondary-100 es:group-selected:bg-accent-50 es:group-selected:text-accent-900',
 					)}
 				>
 					{badge}

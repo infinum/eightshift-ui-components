@@ -8,14 +8,17 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Updated dependencies.
 - Upgraded to TailwindCSS 4.
   - All `es-uic-` classes are now `es:`
+  - `!important` modifiers should now be at the end of the class name, instead of at the beginning (e.g. `es-uic-static` -> `es:static!`)
   - Removed `font-geist` class, use `es:font-sans` instead
   - Updated design of most components.
 - Added an option to theme the accent color of the components.
 - Replaced `tailwindcss-animate` with `tailwindcss-motion`
 - Removed `ListBox`
-- Added new Tabs style
-- Tailwind's CSS is now disabled with `es:tw-css-reset`
-- Fonts are now included as a package, remove any `~@eightshift/ui-components/dist/assets/fonts.css` imports
+- Added 2 new Tabs variants (`pill` and `pillInverse`)
+- CSS reset and Gutenberg overrides are now automatically managed, no extra config needed
+  - for the editor: import `~@eightshift/ui-components/dist/assets/style-editor.css` (doesn't use cascade layers and prefixes styles to avoid block editor conflicts)
+  - for other uses, e.g. Theme options: import `~@eightshift/ui-components/dist/assets/style.css` (no prefixing, uses cascade layers)
+- Fonts are now built-in and automatically managed, remove any `~@eightshift/ui-components/dist/assets/fonts.css` imports
 
 ## [1.9.1] - 2024-12-17
 - Downgraded from React 19 to React 18.

@@ -76,8 +76,8 @@ import {
 } from '../lib';
 import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
-import '../lib/fonts/fonts.css';
 import { cloneElement } from 'react';
+import '../lib/style';
 
 function App() {
 	const [controlTheme, setControlTheme] = useState('default');
@@ -1697,6 +1697,7 @@ function App() {
 						options={[
 							{ label: 'Underline', value: 'underline' },
 							{ label: 'Pill', value: 'pill' },
+							{ label: 'Pill (inverse)', value: 'pillInverse' },
 						]}
 						type='radios'
 						vertical

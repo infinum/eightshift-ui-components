@@ -86,14 +86,7 @@ export const SolidColorPicker = (props) => {
 				onChangeEnd={handleChangeEnd}
 				isDisabled={disabled}
 			>
-				<ColorThumb
-					className={clsx(
-						'es:size-5 es:rounded-full es:border es:border-white es:shadow-[0_0_0_1px_black] es:transition',
-						'dragging:!-es:translate-x-1/2 dragging:!-es:translate-y-1/2 dragging:es:!scale-110',
-						'es:focus-visible:-translate-x-1/2! es:focus-visible:-translate-y-1/2! es:focus-visible:scale-125!',
-						'es:disabled:invisible',
-					)}
-				/>
+				<ColorThumb className='es:size-5 es:rounded-full es:transition es:dragging:scale-110! es:border es:border-white es:shadow-[0_0_0_1px_black] es:disabled:invisible' />
 			</ColorArea>
 
 			<ColorSlider
@@ -109,15 +102,7 @@ export const SolidColorPicker = (props) => {
 						'es:disabled:bg-linear-to-r! es:disabled:from-white es:disabled:to-secondary-100',
 					)}
 				>
-					<ColorThumb
-						className={clsx(
-							'es:top-3.25',
-							'es:size-5 es:rounded-full es:border es:border-white es:shadow-[0_0_0_1px_black] es:transition',
-							'dragging:!-es:translate-x-1/2 dragging:!-es:translate-y-1/2 dragging:es:!scale-110',
-							'es:focus-visible:-translate-x-1/2! es:focus-visible:-translate-y-1/2! es:focus-visible:scale-125!',
-							'es:disabled:invisible',
-						)}
-					/>
+					<ColorThumb className='es:top-3.25 es:size-5 es:rounded-full es:border es:border-white es:shadow-[0_0_0_1px_black] es:transition es:dragging:scale-110! es:disabled:invisible' />
 				</SliderTrack>
 			</ColorSlider>
 
@@ -143,15 +128,7 @@ export const SolidColorPicker = (props) => {
 							};
 						}}
 					>
-						<ColorThumb
-							className={clsx(
-								'es:top-3.25',
-								'es:size-5 es:rounded-full es:border es:border-white es:shadow-[0_0_0_1px_black] es:transition',
-								'dragging:!-es:translate-x-1/2 dragging:!-es:translate-y-1/2 dragging:es:!scale-110',
-								'es:focus-visible:-translate-x-1/2! es:focus-visible:-translate-y-1/2! es:focus-visible:scale-125!',
-								'es:disabled:invisible',
-							)}
-						/>
+						<ColorThumb className='es:top-3.25 es:size-5 es:rounded-full es:border es:border-white es:shadow-[0_0_0_1px_black] es:transition es:disabled:invisible' />
 					</SliderTrack>
 				</ColorSlider>
 			)}
@@ -178,24 +155,24 @@ export const SolidColorPicker = (props) => {
 				</ColorField>
 
 				<TriggeredPopover
-					triggerButtonIcon={icons.options}
-					className='es:w-48 es:space-y-1 es:px-0! es:pb-2'
+					triggerButtonIcon={icons.dropdownCaretAlt}
+					className='es:w-52 es:p-3'
 					triggerButtonProps={{
 						disabled: disabled,
 						tooltip: __('Advanced color options', 'eightshift-ui-components'),
-						className: 'es:rounded-l-none es:rounded-r-l es:-ml-px',
+						className: 'es:rounded-l-none es:rounded-r-l es:-ml-px es:w-6 es:icon:size-4.5!',
 					}}
 					hidden={noAdvancedOptions}
 				>
-					<Label className='es:text-sm es:px-1.5 es:font-medium es:tracking-tight es:mt-0.5 es:inline-block'>{__('Advanced color options', 'eightshift-ui-components')}</Label>
+					<Label className='es:text-sm es:tracking-tight es:mb-2 es:inline-block'>{__('Advanced color options', 'eightshift-ui-components')}</Label>
 
-					<Tabs>
+					<Tabs type='pillInverse'>
 						<TabList>
 							<Tab>RGB</Tab>
 							<Tab>HSL</Tab>
 							<Tab>HSB</Tab>
 						</TabList>
-						<TabPanel className='es:px-2'>
+						<TabPanel>
 							<ColorField
 								value={color?.toFormat(allowTransparency ? 'rgba' : 'rgb')}
 								onChange={(color) => handleChange(color?.toFormat('hsl'))}
@@ -234,7 +211,7 @@ export const SolidColorPicker = (props) => {
 							</ColorField>
 						</TabPanel>
 
-						<TabPanel className='es:px-2'>
+						<TabPanel>
 							<ColorField
 								value={color?.toFormat(allowTransparency ? 'hsla' : 'hsl')}
 								onChange={(color) => handleChange(color?.toFormat('hsl'))}
@@ -275,7 +252,7 @@ export const SolidColorPicker = (props) => {
 							</ColorField>
 						</TabPanel>
 
-						<TabPanel className='es:px-2'>
+						<TabPanel>
 							<ColorField
 								value={color?.toFormat(allowTransparency ? 'hsba' : 'hsb')}
 								onChange={(color) => handleChange(color?.toFormat('hsl'))}

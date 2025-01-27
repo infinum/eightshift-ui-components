@@ -7,28 +7,35 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@fontsource-variable/geist':
+        specifier: ^5.0.1
+        version: 5.0.1
+      '@fontsource-variable/geist-mono':
+        specifier: ^5.0.1
+        version: 5.0.1
     devDependencies:
       '@adobe/react-spectrum':
         specifier: ^3.39.0
         version: 3.39.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@dnd-kit/abstract':
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.6
+        version: 0.0.6
       '@dnd-kit/core':
         specifier: ^6.3.1
         version: 6.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@dnd-kit/dom':
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.6
+        version: 0.0.6
       '@dnd-kit/helpers':
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.6
+        version: 0.0.6
       '@dnd-kit/modifiers':
         specifier: ^9.0.0
         version: 9.0.0(@dnd-kit/core@6.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       '@dnd-kit/react':
-        specifier: ^0.0.5
-        version: 0.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.0.6
+        version: 0.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@dnd-kit/sortable':
         specifier: ^10.0.0
         version: 10.0.0(@dnd-kit/core@6.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
@@ -42,8 +49,8 @@ importers:
         specifier: ^3.12.1
         version: 3.12.1(react@18.3.1)
       '@stylistic/eslint-plugin-js':
-        specifier: ^2.13.0
-        version: 2.13.0(eslint@9.19.0(jiti@2.4.2))
+        specifier: ^3.0.0
+        version: 3.0.0(eslint@9.19.0(jiti@2.4.2))
       '@tailwindcss/vite':
         specifier: ^4.0.0
         version: 4.0.0(vite@6.0.11(jiti@2.4.2)(lightningcss@1.29.1))
@@ -72,13 +79,13 @@ importers:
         specifier: ^0.0.16
         version: 0.0.16
       eslint:
-        specifier: ^9.18.0
+        specifier: ^9.19.0
         version: 9.19.0(jiti@2.4.2)
       eslint-config-prettier:
         specifier: ^10.0.1
         version: 10.0.1(eslint@9.19.0(jiti@2.4.2))
       eslint-plugin-jsdoc:
-        specifier: ^50.6.2
+        specifier: ^50.6.3
         version: 50.6.3(eslint@9.19.0(jiti@2.4.2))
       eslint-plugin-prettier:
         specifier: ^5.2.3
@@ -138,7 +145,7 @@ importers:
         specifier: ^3.4.0
         version: 3.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-select:
-        specifier: ^5.9.0
+        specifier: ^5.10.0
         version: 5.10.0(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-stately:
         specifier: ^3.35.0
@@ -155,9 +162,6 @@ importers:
       tailwindcss-react-aria-components:
         specifier: ^1.2.0
         version: 1.2.0(tailwindcss@4.0.0)
-      tailwindcss-scoped-preflight:
-        specifier: ^3.5.0
-        version: 3.5.0(postcss@8.5.1)(tailwindcss@4.0.0)
       vite:
         specifier: ^6.0.11
         version: 6.0.11(jiti@2.4.2)(lightningcss@1.29.1)
@@ -288,16 +292,16 @@ packages:
     resolution: {integrity: sha512-t8kDRGrKXyp6+tjUh7hw2RLyclsW4TRoRvRHtSyAX9Bb5ldlFh+90YAYY6awRXrlB4G5G2izNeGySpATlFzmOg==}
     engines: {node: '>=6.9.0'}
 
-  '@dnd-kit/abstract@0.0.5':
-    resolution: {integrity: sha512-1ANNxFkYqXgfUHrCZsjwrDbiCYJkneW738KnB7AIakq/Bg5f4C3M63UUzTmkX7Vbbngl9Cvnmw7/N8Nwp0dUlQ==}
+  '@dnd-kit/abstract@0.0.6':
+    resolution: {integrity: sha512-fqZm4ppzffLFeHpibLz8YoQ7LjjPwz4Ct9pVl1l1dlcQxZQ7GPMUC266f3/DrU+Hm5O1UPaSpNzkgFfjDs0uAg==}
 
   '@dnd-kit/accessibility@3.1.1':
     resolution: {integrity: sha512-2P+YgaXF+gRsIihwwY1gCsQSYnu9Zyj2py8kY5fFvUM1qm2WA2u639R6YNVfU4GWr+ZM5mqEsfHZZLoRONbemw==}
     peerDependencies:
       react: '>=16.8.0'
 
-  '@dnd-kit/collision@0.0.5':
-    resolution: {integrity: sha512-rh9JwZiGnaq5hCR1Z1X4eWsA/wQiSDaYJnwnzvkidlwQBLJMwIKK1cs3FGjYSWTCDrtQvt1mzb1fow4w/MM4EA==}
+  '@dnd-kit/collision@0.0.6':
+    resolution: {integrity: sha512-zmJQlJCQdRRCD78GcVUOgHAbZFfARl/bBxyorbJSItCvoNci1x18CMvtMtRkCl/EieqKSiFiiDC61O+alLWKLw==}
 
   '@dnd-kit/core@6.3.1':
     resolution: {integrity: sha512-xkGBRQQab4RLwgXxoqETICr6S5JlogafbhNsidmrkVv2YRs5MLwpjoF2qpiGjQt8S9AoxtIV603s0GIUpY5eYQ==}
@@ -305,14 +309,14 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
 
-  '@dnd-kit/dom@0.0.5':
-    resolution: {integrity: sha512-0QyyOrxokMtuMPJh/qmTyINrEU0TmYbOLprw55wD6t1ftfZZQCpQE42etM25UlfrIGpy9zT4qcNh/yGPP+ebmA==}
+  '@dnd-kit/dom@0.0.6':
+    resolution: {integrity: sha512-aFoiAvgsdKh/FRXaum6CmBk6ldg9llQGwlaBR35TFlxuJVqZEiKOsfhiHV3FVow+LSQ5l8vY1vRxV7qJAeoOKw==}
 
-  '@dnd-kit/geometry@0.0.5':
-    resolution: {integrity: sha512-aBKYXSTIDW55iMd9jDrLSaikoebGZyn80sGalPxwjGgFr2FyiNCBkSy7lePZ/lrRfNTy1vMEqixFkt0EH6593g==}
+  '@dnd-kit/geometry@0.0.6':
+    resolution: {integrity: sha512-qs6NVC+j+dblq8yNLAxA9lOOy9ldU6kxP73aT5I+BL/fnREEvABRsDjKM9oRgMy18AWoRsC69CZUUQ9sH1zH5A==}
 
-  '@dnd-kit/helpers@0.0.5':
-    resolution: {integrity: sha512-6mffj480PRXL760aGCJ3moywlxqxLR5v3bWB68d9nHCfu4EmVpcwXiC+kUdiBLmleaXsxbkaeJVZbrWymaCntQ==}
+  '@dnd-kit/helpers@0.0.6':
+    resolution: {integrity: sha512-RwzFXSxKgNaHX9hgyxoAOI1r6akraUxQP6gs6ZmEAuT+AwiOwRRz8ZzjtqaLm9cO5J9uisvl0DYq2JUZ65J60g==}
 
   '@dnd-kit/modifiers@9.0.0':
     resolution: {integrity: sha512-ybiLc66qRGuZoC20wdSSG6pDXFikui/dCNGthxv4Ndy8ylErY0N3KVxY2bgo7AWwIbxDmXDg3ylAFmnrjcbVvw==}
@@ -320,11 +324,11 @@ packages:
       '@dnd-kit/core': ^6.3.0
       react: '>=16.8.0'
 
-  '@dnd-kit/react@0.0.5':
-    resolution: {integrity: sha512-hpTmh3gEoMyhiXoUH+mqHPMETflfL5uwhD2V+rOYMpoRdCQLYovy5r251TY+avieb8d8J7YuIB1k8Hxoy9UJXA==}
+  '@dnd-kit/react@0.0.6':
+    resolution: {integrity: sha512-ao0kmS6Fut5sW7NHM5W47mExnea2BHGqbL2N6MVQEaqApSo3/CLem+djZ5xaLVyov7UKdRA2DHSf9xGdNW3wzA==}
     peerDependencies:
-      react: ^18.0.0
-      react-dom: ^18.0.0
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
 
   '@dnd-kit/sortable@10.0.0':
     resolution: {integrity: sha512-+xqhmIIzvAYMGfBYYnbKuNicfSsk4RksY2XdmJhT+HAC01nix6fHCztU68jooFiMUB01Ky3F0FyOvhG/BZrWkg==}
@@ -332,8 +336,8 @@ packages:
       '@dnd-kit/core': ^6.3.0
       react: '>=16.8.0'
 
-  '@dnd-kit/state@0.0.5':
-    resolution: {integrity: sha512-w+GE/FUhIAoJUuPBR8yWvpdT+85R0xJyWE6ImaNTGQlplCeraxkiLAvYFI46uD8ZcE9nRXl3zIyk7gFlC0tzrQ==}
+  '@dnd-kit/state@0.0.6':
+    resolution: {integrity: sha512-TDOjySuuirPu7+77JaDkMuTCWqHJ6zcP/h5RlkgqCIJK8QToYJd2sacuzZS++pNoMQJbaaPUcRD2rXGTQ6tyQQ==}
 
   '@dnd-kit/utilities@3.2.2':
     resolution: {integrity: sha512-+MKAJEOfaBe5SmV6t34p80MMKhjvUz0vRrvVJbPT0WElzaOJ/1xs+D+KDv+tD/NE5ujfrChEcshd4fLn0wpiqg==}
@@ -586,6 +590,12 @@ packages:
 
   '@floating-ui/utils@0.2.9':
     resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
+
+  '@fontsource-variable/geist-mono@5.0.1':
+    resolution: {integrity: sha512-HwNLiQ3fJnqHitA6QFSfeY3A9s/5MvSX/9uNC4TBqwS8NQiRoqATEXZtn1Sbgt5/Tx7iT4IYOYKQleIs5nz7sw==}
+
+  '@fontsource-variable/geist@5.0.1':
+    resolution: {integrity: sha512-TDSL3iy47DFGM8go1hejvloGaTFD7bxTjh9Oy9KXpC9z55eBcTueziPlyEqVVb9Sn1OkiW4lPgXQkc+BNOzFvA==}
 
   '@formatjs/ecma402-abstract@2.3.2':
     resolution: {integrity: sha512-6sE5nyvDloULiyOMbOTJEEgWL32w+VHkZQs8S02Lnn8Y/O5aQhjOEXwWzvR7SsBE/exxlSpY2EsWZgqHbtLatg==}
@@ -1783,74 +1793,74 @@ packages:
       '@react-spectrum/provider': ^3.0.0
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
 
-  '@stylistic/eslint-plugin-js@2.13.0':
-    resolution: {integrity: sha512-GPPDK4+fcbsQD58a3abbng2Dx+jBoxM5cnYjBM4T24WFZRZdlNSKvR19TxP8CPevzMOodQ9QVzNeqWvMXzfJRA==}
+  '@stylistic/eslint-plugin-js@3.0.0':
+    resolution: {integrity: sha512-GAAeTmhxk+lUz2rgQvoaYOlhe9G8vYlgN8D81QdA6fJCJdfcKTr7lAlToGCPLB/0iJtT4JXGuJoNJBiu6EOgcw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.40.0'
 
-  '@swc/core-darwin-arm64@1.10.9':
-    resolution: {integrity: sha512-XTHLtijFervv2B+i1ngM993umhSj9K1IeMomvU/Db84Asjur2XmD4KXt9QPnGDRFgv2kLSjZ+DDL25Qk0f4r+w==}
+  '@swc/core-darwin-arm64@1.10.11':
+    resolution: {integrity: sha512-ZpgEaNcx2e5D+Pd0yZGVbpSrEDOEubn7r2JXoNBf0O85lPjUm3HDzGRfLlV/MwxRPAkwm93eLP4l7gYnc50l3g==}
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [darwin]
 
-  '@swc/core-darwin-x64@1.10.9':
-    resolution: {integrity: sha512-bi3el9/FV/la8HIsolSjeDar+tM7m9AmSF1w7X6ZByW2qgc4Z1tmq0A4M4H9aH3TfHesZbfq8hgaNtc2/VtzzQ==}
+  '@swc/core-darwin-x64@1.10.11':
+    resolution: {integrity: sha512-szObinnq2o7spXMDU5pdunmUeLrfV67Q77rV+DyojAiGJI1RSbEQotLOk+ONOLpoapwGUxOijFG4IuX1xiwQ2g==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [darwin]
 
-  '@swc/core-linux-arm-gnueabihf@1.10.9':
-    resolution: {integrity: sha512-xsLHV02S+RTDuI+UJBkA2muNk/s0ETRpoc1K/gNt0i8BqTurPYkrvGDDALN9+leiUPydHvZi9P1qdExbgUJnXw==}
+  '@swc/core-linux-arm-gnueabihf@1.10.11':
+    resolution: {integrity: sha512-tVE8aXQwd8JUB9fOGLawFJa76nrpvp3dvErjozMmWSKWqtoeO7HV83aOrVtc8G66cj4Vq7FjTE9pOJeV1FbKRw==}
     engines: {node: '>=10'}
     cpu: [arm]
     os: [linux]
 
-  '@swc/core-linux-arm64-gnu@1.10.9':
-    resolution: {integrity: sha512-41hJgPoGhIa12U6Tud+yLF/m64YA3mGut3TmBEkj2R7rdJdE0mljdtR0tf4J2RoQaWZPPi0DBSqGdROiAEx9dg==}
+  '@swc/core-linux-arm64-gnu@1.10.11':
+    resolution: {integrity: sha512-geFkENU5GMEKO7FqHOaw9HVlpQEW10nICoM6ubFc0hXBv8dwRXU4vQbh9s/isLSFRftw1m4jEEWixAnXSw8bxQ==}
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [linux]
 
-  '@swc/core-linux-arm64-musl@1.10.9':
-    resolution: {integrity: sha512-DUMRhl49b9r7bLg9oNzCdW4lLcDJKrRBn87Iq5APPvixsm1auGnsVQycGkQcDDKvVllxIFSbmCYzjagx3l8Hnw==}
+  '@swc/core-linux-arm64-musl@1.10.11':
+    resolution: {integrity: sha512-2mMscXe/ivq8c4tO3eQSbQDFBvagMJGlalXCspn0DgDImLYTEnt/8KHMUMGVfh0gMJTZ9q4FlGLo7mlnbx99MQ==}
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [linux]
 
-  '@swc/core-linux-x64-gnu@1.10.9':
-    resolution: {integrity: sha512-xW0y88vQvmzYo3Gn7yFnY03TfHMwuca4aFH3ZmhwDNOYHmTOi6fmhAkg/13F/NrwjMYO+GnF5uJTjdjb3B6tdQ==}
+  '@swc/core-linux-x64-gnu@1.10.11':
+    resolution: {integrity: sha512-eu2apgDbC4xwsigpl6LS+iyw6a3mL6kB4I+6PZMbFF2nIb1Dh7RGnu70Ai6mMn1o80fTmRSKsCT3CKMfVdeNFg==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [linux]
 
-  '@swc/core-linux-x64-musl@1.10.9':
-    resolution: {integrity: sha512-jYs32BEx+CPVuxN6NdsWEpdehjnmAag25jyJzwjQx+NCGYwHEV3bT5y8TX4eFhaVB1rafmqJOlYQPs4+MSyGCg==}
+  '@swc/core-linux-x64-musl@1.10.11':
+    resolution: {integrity: sha512-0n+wPWpDigwqRay4IL2JIvAqSKCXv6nKxPig9M7+epAlEQlqX+8Oq/Ap3yHtuhjNPb7HmnqNJLCXT1Wx+BZo0w==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [linux]
 
-  '@swc/core-win32-arm64-msvc@1.10.9':
-    resolution: {integrity: sha512-Uhh5T3Fq3Nyom96Bm3ACBNASH3iqNc76in7ewZz8PooUqeTIO8aZpsghnncjctRNE9T819/8btpiFIhHo3sKtg==}
+  '@swc/core-win32-arm64-msvc@1.10.11':
+    resolution: {integrity: sha512-7+bMSIoqcbXKosIVd314YjckDRPneA4OpG1cb3/GrkQTEDXmWT3pFBBlJf82hzJfw7b6lfv6rDVEFBX7/PJoLA==}
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [win32]
 
-  '@swc/core-win32-ia32-msvc@1.10.9':
-    resolution: {integrity: sha512-bD5BpbojEsDfrAvT+1qjQPf5RCKLg4UL+3Uwm019+ZR02hd8qO538BlOnQdOqRqccu+75DF6aRglQ7AJ24Cs0Q==}
+  '@swc/core-win32-ia32-msvc@1.10.11':
+    resolution: {integrity: sha512-6hkLl4+3KjP/OFTryWxpW7YFN+w4R689TSPwiII4fFgsFNupyEmLWWakKfkGgV2JVA59L4Oi02elHy/O1sbgtw==}
     engines: {node: '>=10'}
     cpu: [ia32]
     os: [win32]
 
-  '@swc/core-win32-x64-msvc@1.10.9':
-    resolution: {integrity: sha512-NwkuUNeBBQnAaXVvcGw8Zr6RR8kylyjFUnlYZZ3G0QkQZ4rYLXYTafAmiRjrfzgVb0LcMF/sBzJvGOk7SwtIDg==}
+  '@swc/core-win32-x64-msvc@1.10.11':
+    resolution: {integrity: sha512-kKNE2BGu/La2k2WFHovenqZvGQAHRIU+rd2/6a7D6EiQ6EyimtbhUqjCCZ+N1f5fIAnvM+sMdLiQJq4jdd/oOQ==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [win32]
 
-  '@swc/core@1.10.9':
-    resolution: {integrity: sha512-MQ97YSXu2oibzm7wi4GNa7hhndjLuVt/lmO2sq53+P37oZmyg/JQ/IYYtSiC6UGK3+cHoiVAykrK+glxLjJbag==}
+  '@swc/core@1.10.11':
+    resolution: {integrity: sha512-3zGU5y3S20cAwot9ZcsxVFNsSVaptG+dKdmAxORSE3EX7ixe1Xn5kUwLlgIsM4qrwTUWCJDLNhRS+2HLFivcDg==}
     engines: {node: '>=10'}
     peerDependencies:
       '@swc/helpers': '*'
@@ -2847,12 +2857,6 @@ packages:
     peerDependencies:
       tailwindcss: '*'
 
-  tailwindcss-scoped-preflight@3.5.0:
-    resolution: {integrity: sha512-1OhUdl9RYdHsHwzao8kc58aZV1xKBircKOP88+rU7J7ROhclwZnaKpGx9wkDDHPYG515M1icmK729gDbo+jk1Q==}
-    peerDependencies:
-      postcss: ^8
-      tailwindcss: ^3
-
   tailwindcss@4.0.0:
     resolution: {integrity: sha512-ULRPI3A+e39T7pSaf1xoi58AqqJxVCLg8F/uM5A3FadUbnyDTgltVnXJvdkTjwCOGA6NazqHVcwPJC5h2vRYVQ==}
 
@@ -3140,10 +3144,10 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@dnd-kit/abstract@0.0.5':
+  '@dnd-kit/abstract@0.0.6':
     dependencies:
-      '@dnd-kit/geometry': 0.0.5
-      '@dnd-kit/state': 0.0.5
+      '@dnd-kit/geometry': 0.0.6
+      '@dnd-kit/state': 0.0.6
       tslib: 2.8.1
 
   '@dnd-kit/accessibility@3.1.1(react@18.3.1)':
@@ -3151,10 +3155,10 @@ snapshots:
       react: 18.3.1
       tslib: 2.8.1
 
-  '@dnd-kit/collision@0.0.5':
+  '@dnd-kit/collision@0.0.6':
     dependencies:
-      '@dnd-kit/abstract': 0.0.5
-      '@dnd-kit/geometry': 0.0.5
+      '@dnd-kit/abstract': 0.0.6
+      '@dnd-kit/geometry': 0.0.6
       tslib: 2.8.1
 
   '@dnd-kit/core@6.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
@@ -3165,22 +3169,22 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       tslib: 2.8.1
 
-  '@dnd-kit/dom@0.0.5':
+  '@dnd-kit/dom@0.0.6':
     dependencies:
-      '@dnd-kit/abstract': 0.0.5
-      '@dnd-kit/collision': 0.0.5
-      '@dnd-kit/geometry': 0.0.5
-      '@dnd-kit/state': 0.0.5
+      '@dnd-kit/abstract': 0.0.6
+      '@dnd-kit/collision': 0.0.6
+      '@dnd-kit/geometry': 0.0.6
+      '@dnd-kit/state': 0.0.6
       tslib: 2.8.1
 
-  '@dnd-kit/geometry@0.0.5':
+  '@dnd-kit/geometry@0.0.6':
     dependencies:
-      '@dnd-kit/state': 0.0.5
+      '@dnd-kit/state': 0.0.6
       tslib: 2.8.1
 
-  '@dnd-kit/helpers@0.0.5':
+  '@dnd-kit/helpers@0.0.6':
     dependencies:
-      '@dnd-kit/abstract': 0.0.5
+      '@dnd-kit/abstract': 0.0.6
       tslib: 2.8.1
 
   '@dnd-kit/modifiers@9.0.0(@dnd-kit/core@6.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)':
@@ -3190,11 +3194,11 @@ snapshots:
       react: 18.3.1
       tslib: 2.8.1
 
-  '@dnd-kit/react@0.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@dnd-kit/react@0.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@dnd-kit/abstract': 0.0.5
-      '@dnd-kit/dom': 0.0.5
-      '@dnd-kit/state': 0.0.5
+      '@dnd-kit/abstract': 0.0.6
+      '@dnd-kit/dom': 0.0.6
+      '@dnd-kit/state': 0.0.6
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       tslib: 2.8.1
@@ -3206,7 +3210,7 @@ snapshots:
       react: 18.3.1
       tslib: 2.8.1
 
-  '@dnd-kit/state@0.0.5':
+  '@dnd-kit/state@0.0.6':
     dependencies:
       '@preact/signals-core': 1.8.0
       tslib: 2.8.1
@@ -3417,6 +3421,10 @@ snapshots:
       '@floating-ui/utils': 0.2.9
 
   '@floating-ui/utils@0.2.9': {}
+
+  '@fontsource-variable/geist-mono@5.0.1': {}
+
+  '@fontsource-variable/geist@5.0.1': {}
 
   '@formatjs/ecma402-abstract@2.3.2':
     dependencies:
@@ -5568,57 +5576,57 @@ snapshots:
     transitivePeerDependencies:
       - react-dom
 
-  '@stylistic/eslint-plugin-js@2.13.0(eslint@9.19.0(jiti@2.4.2))':
+  '@stylistic/eslint-plugin-js@3.0.0(eslint@9.19.0(jiti@2.4.2))':
     dependencies:
       eslint: 9.19.0(jiti@2.4.2)
       eslint-visitor-keys: 4.2.0
       espree: 10.3.0
 
-  '@swc/core-darwin-arm64@1.10.9':
+  '@swc/core-darwin-arm64@1.10.11':
     optional: true
 
-  '@swc/core-darwin-x64@1.10.9':
+  '@swc/core-darwin-x64@1.10.11':
     optional: true
 
-  '@swc/core-linux-arm-gnueabihf@1.10.9':
+  '@swc/core-linux-arm-gnueabihf@1.10.11':
     optional: true
 
-  '@swc/core-linux-arm64-gnu@1.10.9':
+  '@swc/core-linux-arm64-gnu@1.10.11':
     optional: true
 
-  '@swc/core-linux-arm64-musl@1.10.9':
+  '@swc/core-linux-arm64-musl@1.10.11':
     optional: true
 
-  '@swc/core-linux-x64-gnu@1.10.9':
+  '@swc/core-linux-x64-gnu@1.10.11':
     optional: true
 
-  '@swc/core-linux-x64-musl@1.10.9':
+  '@swc/core-linux-x64-musl@1.10.11':
     optional: true
 
-  '@swc/core-win32-arm64-msvc@1.10.9':
+  '@swc/core-win32-arm64-msvc@1.10.11':
     optional: true
 
-  '@swc/core-win32-ia32-msvc@1.10.9':
+  '@swc/core-win32-ia32-msvc@1.10.11':
     optional: true
 
-  '@swc/core-win32-x64-msvc@1.10.9':
+  '@swc/core-win32-x64-msvc@1.10.11':
     optional: true
 
-  '@swc/core@1.10.9(@swc/helpers@0.5.15)':
+  '@swc/core@1.10.11(@swc/helpers@0.5.15)':
     dependencies:
       '@swc/counter': 0.1.3
       '@swc/types': 0.1.17
     optionalDependencies:
-      '@swc/core-darwin-arm64': 1.10.9
-      '@swc/core-darwin-x64': 1.10.9
-      '@swc/core-linux-arm-gnueabihf': 1.10.9
-      '@swc/core-linux-arm64-gnu': 1.10.9
-      '@swc/core-linux-arm64-musl': 1.10.9
-      '@swc/core-linux-x64-gnu': 1.10.9
-      '@swc/core-linux-x64-musl': 1.10.9
-      '@swc/core-win32-arm64-msvc': 1.10.9
-      '@swc/core-win32-ia32-msvc': 1.10.9
-      '@swc/core-win32-x64-msvc': 1.10.9
+      '@swc/core-darwin-arm64': 1.10.11
+      '@swc/core-darwin-x64': 1.10.11
+      '@swc/core-linux-arm-gnueabihf': 1.10.11
+      '@swc/core-linux-arm64-gnu': 1.10.11
+      '@swc/core-linux-arm64-musl': 1.10.11
+      '@swc/core-linux-x64-gnu': 1.10.11
+      '@swc/core-linux-x64-musl': 1.10.11
+      '@swc/core-win32-arm64-msvc': 1.10.11
+      '@swc/core-win32-ia32-msvc': 1.10.11
+      '@swc/core-win32-x64-msvc': 1.10.11
       '@swc/helpers': 0.5.15
 
   '@swc/counter@0.1.3': {}
@@ -5728,7 +5736,7 @@ snapshots:
 
   '@vitejs/plugin-react-swc@3.7.2(@swc/helpers@0.5.15)(vite@6.0.11(jiti@2.4.2)(lightningcss@1.29.1))':
     dependencies:
-      '@swc/core': 1.10.9(@swc/helpers@0.5.15)
+      '@swc/core': 1.10.11(@swc/helpers@0.5.15)
       vite: 6.0.11(jiti@2.4.2)(lightningcss@1.29.1)
     transitivePeerDependencies:
       - '@swc/helpers'
@@ -6622,11 +6630,6 @@ snapshots:
 
   tailwindcss-react-aria-components@1.2.0(tailwindcss@4.0.0):
     dependencies:
-      tailwindcss: 4.0.0
-
-  tailwindcss-scoped-preflight@3.5.0(postcss@8.5.1)(tailwindcss@4.0.0):
-    dependencies:
-      postcss: 8.5.1
       tailwindcss: 4.0.0
 
   tailwindcss@4.0.0: {}

@@ -1,5 +1,4 @@
-@import "tailwindcss/theme.css" layer(theme) prefix(es);
-@import "tailwindcss/utilities.css" layer(utilities) prefix(es);
+@reference "../editor.css";
 
 /* Add rounded corners to make components look nicer and more uniform. */
 .edit-post-header__toolbar .components-button,
@@ -26,7 +25,7 @@
 .components-checkbox-control__input,
 button.components-toggle-group-control-option-base,
 .editor-post-visibility__password-input {
-	@apply es:!rounded;
+	@apply es:rounded!;
 }
 
 .components-button-group .components-button {
@@ -35,74 +34,74 @@ button.components-toggle-group-control-option-base,
 
 .components-popover__content,
 .components-guide {
-	@apply es:!rounded-lg;
+	@apply es:rounded-lg!;
 }
 
 .block-editor-inserter__search {
-	@apply es:!rounded-t-lg;
+	@apply es:rounded-t-lg!;
 }
 
 .media-menu-item.active {
-	@apply es:!rounded-t-md;
+	@apply es:rounded-t-md!;
 }
 
 /* Fix weird label casings */
 .components-base-control__label,
 .components-input-control__label,
 .components-custom-select-control__label {
-	@apply es:!normal-case es:!text-[13px] es:!tracking-normal es:!font-normal;
+	@apply es:normal-case! es:text-[13px]! es:tracking-normal! es:font-normal!;
 }
 
 /* Increase sidebar width */
 .edit-post-sidebar,
 .interface-interface-skeleton__sidebar:not(:empty) > .interface-complementary-area__fill[style='width: 280px;'], /* WP6.6 is weird. */
 .interface-complementary-area.editor-sidebar {
-	@apply es:!w-80;
+	@apply es:w-80!;
 }
 
 /* Make block crash message nicer. */
 .block-editor-block-list__block-crash-warning {
-	@apply es:!rounded-lg es:!border-red-700/15 es:!shadow es:!shadow-red-700/10;
+	@apply es:rounded-lg! es:border-red-700/15! es:shadow! es:shadow-red-700/10!;
 
 	& .block-editor-warning__message {
-		@apply es:!text-red-950;
+		@apply es:text-red-950!;
 	}
 }
 
 /* Make block missing message nicer. */
 .wp-block-missing div.block-editor-warning {
-	@apply es:!rounded-lg es:!border-zinc-300 es:!bg-zinc-50/75 es:!shadow es:!shadow-zinc-700/20;
+	@apply es:rounded-lg! es:border-zinc-300! es:bg-zinc-50/75! es:shadow! es:shadow-zinc-700/20!;
 
 	& .block-editor-warning__message {
-		@apply es:!text-zinc-950;
+		@apply es:text-zinc-950!;
 	}
 }
 
 /* Round the (contextual) toolbar */
 .block-editor-block-contextual-toolbar,
 .block-editor-block-parent-selector__button {
-	@apply es:!rounded-lg es:shadow-sm;
+	@apply es:rounded-lg! es:shadow-sm;
 }
 
 /* Tweak inserter buttons */
 .block-editor-block-types-list .block-editor-block-types-list__item {
-	@apply es:!rounded-lg es:after:!rounded-lg es:[&_svg]:scale-125;
+	@apply es:rounded-lg! es:after:rounded-lg! es:[&_svg]:scale-125;
 }
 
 /* Tweak list view block icons */
 .block-editor-list-view-tree {
 	.block-editor-block-icon {
-		@apply es:!rounded;
+		@apply es:rounded!;
 	}
 
 	.block-editor-list-view-leaf > * {
-		@apply es:first:!rounded-l-lg es:last:!rounded-r-lg;
+		@apply es:first:rounded-l-lg! es:last:rounded-r-lg!;
 	}
 }
 
 /* Round off block icon in sidebar. */
 .block-editor-block-inspector .block-editor-block-card .block-editor-block-icon {
-	@apply es:!rounded;
+	@apply es:rounded!;
 }
 
 /* Make default inserter more rounded. */
@@ -117,13 +116,13 @@ button.components-toggle-group-control-option-base,
 .editor-header__center,
 .editor-header__settings {
 	.components-button {
-		@apply es:!min-h-9 es:!min-w-9;
+		@apply es:min-h-9! es:min-w-9!;
 	}
 }
 
 /* Allow blocks to expand to full-width. */
 .editor-styles-wrapper .wp-block:not(.editor-post-title, .block-list-appender) {
-	@apply es:!max-w-full;
+	@apply es:max-w-full!;
 }
 
 /* Nicer-looking Gutenberg tooltip. */

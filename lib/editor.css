@@ -1,0 +1,8 @@
+@import './index.css';
+
+@import "tailwindcss/preflight.css";
+
+body :is(#wpwrap #editor) {
+	@import "tailwindcss/theme.css" prefix(es);
+	@import "tailwindcss/utilities.css" prefix(es);
+}
