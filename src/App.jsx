@@ -929,6 +929,13 @@ function App() {
 					>
 						Hello
 					</Button>
+					<Button
+						icon={icons.componentGeneric}
+						type='ghost'
+						disabled
+					>
+						Hello
+					</Button>
 
 					<div className='es:flex es:items-center es:gap-2'>
 						<Button

@@ -138,8 +138,6 @@
 
 @import './themes.css';
 
-.es\:no-tw-css-reset {
-	* {
-		all: revert-layer;
-	}
+.es\:no-css-reset * {
+	all: revert-layer;
 }
