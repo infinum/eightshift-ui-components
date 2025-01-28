@@ -29,9 +29,10 @@ export const DraggableHandle = (props) => {
 				'es:flex es:h-5 es:w-4 es:cursor-pointer es:items-center es:justify-center es:rounded es:border es:border-secondary-200 es:bg-white es:text-secondary-400 es:transition',
 				'es:icon:size-4 es:icon:shrink-0',
 				'es:active:border-accent-500/30 es:active:bg-accent-50 es:active:text-accent-500',
-				'es:any-focus:outline-hidden es:focus-visible:border-accent-500 es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+				'es:any-focus:outline-hidden',
+				status !== 'dragging' && 'es:focus:border-accent-500 es:focus:ring-2 es:focus:ring-accent-500/50',
 				'es:hover:text-accent-500',
-				status === 'dragging' && 'es:border-accent-600! es:bg-accent-500! es:text-white! es:shadow-sm es:shadow-accent-500/30',
+				status === 'dragging' && 'es:border-accent-600! es:bg-accent-500! es:text-white! es:shadow-sm es:shadow-accent-500/30 es:ring-3 es:ring-accent-500/50',
 				className,
 			)}
 			ref={handleRef}
