@@ -175,7 +175,7 @@ export const ColumnConfigSlider = (props) => {
 											i === 0 && 'es:translate-y-1/2! es:self-center es:justify-self-start',
 											i === 1 && 'es:translate-x-full! es:translate-y-1/2! es:self-center es:justify-self-end',
 											'es:shadow dragging:es:bg-accent-600 es:disabled:opacity-0',
-											'es:focus-visible:ring es:focus-visible:ring-accent-500/50',
+											'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 											'es:border-accent-600 es:bg-accent-500 es:shadow-accent-600/50',
 											'es:hover:cursor-grab dragging:es:cursor-grabbing',
 										)}

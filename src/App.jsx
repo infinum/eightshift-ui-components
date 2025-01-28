@@ -686,6 +686,22 @@ function App() {
 						label='Airplane mode'
 					/>
 
+					<Toggle
+						checked
+						onChange={(value) => setToggled(value)}
+						icon={icons.experiment}
+						label='Airplane mode'
+						disabled
+					/>
+
+					<Toggle
+						checked={false}
+						onChange={(value) => setToggled(value)}
+						icon={icons.experiment}
+						label='Airplane mode'
+						disabled
+					/>
+
 					<Switch
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
@@ -781,6 +797,12 @@ function App() {
 						}
 					>
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>lorem</div>
+						<Button
+							onPress={() => console.log('hi')}
+							icon={icons.emptyRect}
+							type='ghost'
+							size='small'
+						/>
 					</Expandable>
 
 					<Expandable
@@ -882,6 +904,14 @@ function App() {
 						icon={icons.person}
 						subtitle='Post meta'
 						type='placeholder'
+					/>
+
+					<Notice
+						icon={icons.person}
+						label='Lorem ipsum'
+						subtitle='dolor sit amet, consectetur adipiscing elit. Vivamus ultrices tincidunt nibh, in lacinia tellus lobortis eu. Curabitur dignissim tellus eget felis tincidunt, a maximus odio tristique.'
+						type='placeholder'
+						alignIconToTitle
 					/>
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
@@ -1190,6 +1220,38 @@ function App() {
 						theme='light'
 					>
 						Hover me
+					</DecorativeTooltip>
+
+					<DecorativeTooltip
+						text='Hello'
+						theme='light'
+						placement='left'
+					>
+						Left
+					</DecorativeTooltip>
+
+					<DecorativeTooltip
+						text='Hello'
+						theme='light'
+						placement='right'
+					>
+						Right
+					</DecorativeTooltip>
+
+					<DecorativeTooltip
+						text='Hello'
+						theme='light'
+						placement='top'
+					>
+						Top
+					</DecorativeTooltip>
+
+					<DecorativeTooltip
+						text='Hello'
+						theme='light'
+						placement='bottom'
+					>
+						Bottom
 					</DecorativeTooltip>
 
 					<Tooltip text='Hi, I am a tooltip'>

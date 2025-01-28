@@ -279,7 +279,7 @@ export const TabPanel = (props) => {
 	return (
 		<ReactAriaTabPanel
 			{...other}
-			className={clsx('es:mt-1.5 es:space-y-2.5 es:text-sm es:focus:outline-hidden', className)}
+			className={clsx('es:mt-1.5 es:space-y-2.5 es:text-sm es:any-focus:outline-hidden', className)}
 		>
 			{children}
 		</ReactAriaTabPanel>

@@ -79,7 +79,7 @@ export const SolidColorPicker = (props) => {
 				yChannel='lightness'
 				className={clsx(
 					'es:size-48 es:rounded-md es:border es:border-secondary-300 es:shadow-sm es:transition',
-					'es:[&:has(>_[data-focus-visible="true"])]:ring es:[&:has(>_[data-focus-visible="true"])]:ring-accent-500/50',
+					'es:[&:has(>_[data-focus-visible="true"])]:ring-2 es:[&:has(>_[data-focus-visible="true"])]:ring-accent-500/50',
 					'es:disabled:bg-linear-to-r! es:disabled:from-white es:disabled:to-secondary-100',
 				)}
 				onChange={handleChange}
@@ -98,7 +98,7 @@ export const SolidColorPicker = (props) => {
 				<SliderTrack
 					className={clsx(
 						'es:h-7 es:w-48 es:rounded-md es:border es:border-secondary-300 es:shadow-sm',
-						'es:[&:has(>_[data-focus-visible="true"])]:ring es:[&:has(>_[data-focus-visible="true"])]:ring-accent-500/50',
+						'es:[&:has(>_[data-focus-visible="true"])]:ring-2 es:[&:has(>_[data-focus-visible="true"])]:ring-accent-500/50',
 						'es:disabled:bg-linear-to-r! es:disabled:from-white es:disabled:to-secondary-100',
 					)}
 				>
@@ -116,7 +116,7 @@ export const SolidColorPicker = (props) => {
 					<SliderTrack
 						className={clsx(
 							'es:h-7 es:w-48 es:rounded-md es:border es:border-secondary-300 es:shadow-sm',
-							'es:[&:has(>_[data-focus-visible="true"])]:ring es:[&:has(>_[data-focus-visible="true"])]:ring-accent-500/50',
+							'es:[&:has(>_[data-focus-visible="true"])]:ring-2 es:[&:has(>_[data-focus-visible="true"])]:ring-accent-500/50',
 							'es:disabled:bg-linear-to-r! es:disabled:from-white es:disabled:to-secondary-100',
 						)}
 						style={() => {

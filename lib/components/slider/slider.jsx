@@ -333,7 +333,7 @@ export const Slider = (props) => {
 													'es:absolute es:size-3.5 es:rounded-full es:border es:transition es:duration-300',
 													vertical ? 'es:translate-x-1/2!' : 'es:translate-y-1/2!',
 													'es:shadow dragging:es:bg-accent-600 es:disabled:border-secondary-200 es:disabled:bg-secondary-100 es:disabled:shadow-none',
-													'es:focus-visible:ring es:focus-visible:ring-accent-500/50',
+													'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 													'es:border-accent-600 es:bg-accent-500 es:shadow-accent-600/50',
 													'es:hover:cursor-grab dragging:es:cursor-grabbing',
 												)}

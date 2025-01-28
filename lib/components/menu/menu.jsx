@@ -123,7 +123,7 @@ export const Menu = (props) => {
 				{triggerLabel}
 			</Button>
 			<Popover
-				className='es:p-0! es:focus:outline-hidden'
+				className='es:p-0! es:any-focus:outline-hidden'
 				aria-label={ariaLabel}
 				wrapperClassName={clsx(!hasSubmenuItems && 'es:overflow-y-auto')}
 				{...popoverProps}
@@ -271,13 +271,13 @@ export const SubMenuItem = (props) => {
 			})}
 			<Popover
 				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
-				className='es:p-0! es:focus:outline-hidden'
+				className='es:p-0! es:any-focus:outline-hidden'
 				offset={-1}
 				{...popoverProps}
 			>
 				<ReactAriaMenu
 					aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
-					className='es:focus:outline-hidden'
+					className='es:any-focus:outline-hidden'
 				>
 					{children}
 				</ReactAriaMenu>

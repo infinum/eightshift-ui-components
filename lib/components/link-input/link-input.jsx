@@ -179,7 +179,7 @@ export const LinkInput = (props) => {
 								suggestionList.setFilterText('');
 								onChange({ url: undefined, isAnchor: false });
 							}}
-							className='es:focus:outline-hidden'
+							className='es:any-focus:outline-hidden'
 						>
 							{!(shouldShowSuggestions && suggestionList.isLoading) && (
 								<Tooltip text={__('Clear', 'eightshift-ui-components')}>

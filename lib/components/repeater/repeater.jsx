@@ -175,7 +175,7 @@ export const Repeater = (props) => {
 
 					return (
 						<li
-							className='es:group es:w-full es:list-none es:focus:outline-hidden'
+							className='es:group es:w-full es:list-none es:any-focus:outline-hidden'
 							key={item?.id ?? key}
 							{...rest}
 						>

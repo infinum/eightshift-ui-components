@@ -45,10 +45,9 @@ export const RepeaterItem = (props) => {
 			)}
 			labelClassName={clsx(className, isDragged ? 'es:cursor-grabbing' : 'es:cursor-grab')}
 			headerClassName={clsx(
-				'es:transition es:rounded-md',
-
+				'es:transition es:rounded-lg es:border es:border-transparent',
 				isSelected && 'es:bg-accent-50 es:border-accent-100',
-				'es:group-focus:outline-hidden es:group-focus-visible:ring es:group-focus-visible:ring-accent-500/50',
+				'es:group-focus:outline-hidden es:group-focus:border-accent-500 es:group-focus:ring-2 es:group-focus:ring-accent-500/50',
 			)}
 			customOpenButton={({ open, toggleOpen, tooltip, disabled }) => {
 				return (

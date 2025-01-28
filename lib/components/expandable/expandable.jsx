@@ -83,13 +83,6 @@ export const Expandable = (props) => {
 	return (
 		<Disclosure
 			isExpanded={isOpen}
-			onExpandedChange={(value) => {
-				setIsOpen(value);
-
-				if (onOpenChange) {
-					onOpenChange(!isOpen);
-				}
-			}}
 			className={clsx('es:w-full es:rounded-xl es:border es:border-secondary-300/0 es:text-sm es:transition', isOpen && 'es:border-secondary-300/100 es:shadow-lg', className)}
 			{...other}
 		>

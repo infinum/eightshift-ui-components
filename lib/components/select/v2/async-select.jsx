@@ -199,7 +199,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 					className={clsx(
 						'es:relative es:flex es:max-w-80 es:items-center es:gap-1 es:p-1 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 						'es:h-9 es:rounded-lg es:border es:border-secondary-300 es:bg-white es:text-sm es:shadow-xs es:transition',
-						'es:focus:outline-hidden',
+						'es:any-focus:outline-hidden',
 						!inline && 'es:w-full',
 						disabled && 'es:select-none',
 						'es:has-[[aria-haspopup=listbox][data-focus-visible=true],[aria-autocomplete=list][data-focus-visible=true]]:border-accent-500 es:has-[[aria-haspopup=listbox][data-focus-visible=true],[aria-autocomplete=list][data-focus-visible=true]]:ring-2 es:has-[[aria-haspopup=listbox][data-focus-visible=true],[aria-autocomplete=list][data-focus-visible=true]]:ring-accent-500/50',
@@ -252,7 +252,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 				className={({ isEntering, isExiting }) =>
 					clsx(
 						'es:flex es:w-80 es:min-w-9 es:max-w-80 es:flex-col es:overflow-x-hidden es:rounded-lg es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-lg',
-						'es:focus:outline-hidden',
+						'es:any-focus:outline-hidden',
 						isEntering && 'es:motion-safe:motion-preset-slide-down-sm es:motion-safe:motion-duration-300 es:motion-reduce:motion-preset-fade-md',
 						isExiting && 'es:not-motion-reduce:motion-translate-y-out-[-2.5%] es:motion-opacity-out-0 es:motion-duration-200',
 					)
@@ -261,7 +261,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 				triggerRef={ref}
 			>
 				{!list.isLoading && list.items.length > 0 && (
-					<ListBox className='es:space-y-0.5 es:p-1 es:focus:outline-hidden'>
+					<ListBox className='es:space-y-0.5 es:p-1 es:any-focus:outline-hidden'>
 						{(item) => {
 							return (
 								<OptionItemBase
@@ -309,7 +309,7 @@ const ClearButton = ({ disabled }) => {
 		<Button
 			aria-label={__('Clear value', 'eightshift-ui-components')}
 			className={clsx(
-				'es:mr-7 es:flex es:h-6 es:w-8 es:items-center es:justify-center es:rounded es:text-sm es:text-secondary-600 es:transition es:hover:bg-red-50 es:hover:text-red-900 es:focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
+				'es:mr-7 es:flex es:h-6 es:w-8 es:items-center es:justify-center es:rounded es:text-sm es:text-secondary-600 es:transition es:hover:bg-red-50 es:hover:text-red-900 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
 				isEmpty ? 'es:hidden' : 'es:flex',
 			)}
 			onPress={() => state?.setSelectedKey(null)}

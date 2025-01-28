@@ -116,23 +116,13 @@ export const Draggable = (props) => {
 			{...rest}
 		>
 			<DragDropProvider
-				onDragOver={({ operation: { source, target } }) => {
-					if (!source || !target) {
+				onDragOver={(event) => setItems((items) => move(items, event))}
+				onDragEnd={(event) => {
+					if (event?.canceled) {
 						return;
 					}
 
-					setItems((items) => move(items, source, target));
-				}}
-				onDragEnd={({ operation: { source, target }, canceled }) => {
-					if (canceled) {
-						return;
-					}
-
-					if (!source || !target) {
-						return;
-					}
-
-					setItems((items) => move(items, source, target));
+					setItems((items) => move(items, event));
 					onChange(items);
 				}}
 			>
