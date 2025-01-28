@@ -39,7 +39,7 @@ export const Switch = (props) => {
 			isDisabled={disabled}
 			isSelected={checked ?? false}
 			onChange={onChange}
-			className='es:group es:flex es:items-center es:justify-between es:gap-2'
+			className='es:group es:flex es:items-center es:justify-between es:gap-2 es:any-focus:outline-hidden'
 		>
 			{children}
 			<div className={clsx('es:flex es:shrink-0 es:items-center es:justify-center', className)}>
@@ -47,7 +47,7 @@ export const Switch = (props) => {
 					className={clsx(
 						'es:shrink-0 es:group-not-disabled:cursor-pointer es:no-webkit-highlight',
 						'es:h-5 es:w-9 es:p-[0.1875rem] es:rounded-full',
-						'es:outline-hidden es:bg-radial-[circle_at_75%_50%]',
+						'es:bg-radial-[circle_at_75%_50%]',
 						'es:border es:inset-ring es:inset-shadow-xs',
 						'es:transition',
 						'es:group-focus-visible:ring-2 es:group-focus-visible:ring-accent-500/50 es:group-focus-visible:border-accent-600',

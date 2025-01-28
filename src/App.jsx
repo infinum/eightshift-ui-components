@@ -797,6 +797,12 @@ function App() {
 						}
 					>
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>lorem</div>
+						<Button
+							onPress={() => console.log('hi')}
+							icon={icons.emptyRect}
+							type='ghost'
+							size='small'
+						/>
 					</Expandable>
 
 					<Expandable
