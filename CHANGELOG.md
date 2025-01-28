@@ -7,6 +7,9 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Fixed `alignIconToTitle` in `Notice`
 - Fixed `Tooltip` animation in left/right variants
 - Fixed disabled state not showing in `Switch`(/`Toggle`)
+- Fixed `Expandable` issue with expanding via keyboard
+- Reworked some focus states across various components to make them look better and work nicer
+- Update `dnd-kit` helper within `Draggable`
 
 ## [2.0.1] - 2025-01-27
 - Tweaked CSS reset scoping.
