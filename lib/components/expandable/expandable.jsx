@@ -138,9 +138,9 @@ export const Expandable = (props) => {
 						onPress={() => {
 							setIsOpen(!isOpen);
 
-							if (onOpenChange) {
-								onOpenChange(!isOpen);
-							}
+							// if (onOpenChange) {
+							// 	onOpenChange(!isOpen);
+							// }
 						}}
 						tooltip={isOpen ? __('Close', 'eightshift-ui-components') : __('Open', 'eightshift-ui-components')}
 						disabled={disabled}

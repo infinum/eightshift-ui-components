@@ -50,7 +50,7 @@ export const Switch = (props) => {
 						'es:outline-hidden es:bg-radial-[circle_at_75%_50%]',
 						'es:border es:inset-ring es:inset-shadow-xs',
 						'es:transition',
-						'es:group-focus-visible:ring-2 es:group-focus-visible:ring-accent-500/50 es:focus-visible:ring-3',
+						'es:group-focus-visible:ring-2 es:group-focus-visible:ring-accent-500/50 es:group-focus-visible:border-accent-600',
 						!checked && !disabled && 'es:border-secondary-400 es:inset-ring-secondary-100 es:from-white es:to-secondary-100',
 						checked && !disabled && 'es:border-accent-700/75 es:inset-ring-accent-500 es:to-accent-500 es:from-accent-600 es:shadow-accent-600/30',
 						disabled && 'es:cursor-default es:border-secondary-300 es:from-white es:to-secondary-50 es:inset-ring-secondary-200/30 es:inset-shadow-secondary-100',

@@ -127,7 +127,7 @@ export const DraggableList = (props) => {
 								'es:min-h-8 es:w-full',
 								'es:flex es:items-center es:gap-1 es:rounded-lg',
 								'es:transition-[box-shadow,background-color,filter,opacity,border-color]',
-								'es:focus:outline-hidden es:focus-visible:ring es:focus-visible:ring-accent-500/50',
+								'es:focus:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 								isDisabled && 'es:grayscale',
 								isDragged && 'es:bg-white es:opacity-50',
 								isSelected && 'es:bg-accent-50',
