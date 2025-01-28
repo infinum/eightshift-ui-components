@@ -92,9 +92,9 @@ export const Tooltip = (props) => {
 						theme === 'light' && 'es:border-secondary-200 es:bg-white/90 es:text-secondary-700',
 						theme === 'dark' && 'es:border-secondary-600 es:bg-black/80 es:text-secondary-100',
 						isEntering &&
-							'es:motion-opacity-in es:motion-duration-300 es:motion-safe:data-[placement=left]:-motion-translate-x-in-25 es:motion-safe:data-[placement=right]:motion-translate-x-in-25 es:motion-safe:data-[placement=top]:motion-translate-y-in-25 es:motion-safe:data-[placement=bottom]:-motion-translate-y-in-25 es:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
+							'es:motion-opacity-in es:motion-duration-300 es:motion-safe:data-[placement=left]:motion-translate-x-in-25 es:motion-safe:data-[placement=right]:-motion-translate-x-in-25 es:motion-safe:data-[placement=top]:motion-translate-y-in-25 es:motion-safe:data-[placement=bottom]:-motion-translate-y-in-25 es:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
 						isExiting &&
-							'es:motion-opacity-out es:motion-duration-200 es:motion-safe:data-[placement=left]:motion-translate-x-out-[-12.5%] es:motion-safe:data-[placement=right]:motion-translate-x-out-[12.5%] es:motion-safe:data-[placement=top]:motion-translate-y-out-[12.5%] es:motion-safe:data-[placement=bottom]:motion-translate-y-out-[-12.5%] es:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
+							'es:motion-opacity-out es:motion-duration-200 es:motion-safe:data-[placement=left]:motion-translate-x-out-[12.5%] es:motion-safe:data-[placement=right]:motion-translate-x-out-[-12.5%] es:motion-safe:data-[placement=top]:motion-translate-y-out-[12.5%] es:motion-safe:data-[placement=bottom]:motion-translate-y-out-[-12.5%] es:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
 						className,
 					)
 				}
