@@ -45,24 +45,27 @@ export const Switch = (props) => {
 			<div className={clsx('es:flex es:shrink-0 es:items-center es:justify-center', className)}>
 				<div
 					className={clsx(
-						'es:shrink-0 es:cursor-pointer es:no-webkit-highlight',
+						'es:shrink-0 es:group-not-disabled:cursor-pointer es:no-webkit-highlight',
 						'es:h-5 es:w-9 es:p-[0.1875rem] es:rounded-full',
 						'es:outline-hidden es:bg-radial-[circle_at_75%_50%]',
 						'es:border es:inset-ring es:inset-shadow-xs',
 						'es:transition',
-						'es:group-focus-visible:ring-2 es:group-focus-visible:ring-accent-500/50 es:focus-visible:ring-3 es:shadow-xs',
-						!checked && 'es:border-secondary-400 es:inset-ring-secondary-100 es:from-white es:to-secondary-100',
-						checked && 'es:border-accent-700/75 es:inset-ring-accent-500 es:to-accent-500 es:from-accent-600 es:shadow-accent-600/30',
-						disabled && 'es:cursor-default es:border-secondary-300 es:bg-white',
+						'es:group-focus-visible:ring-2 es:group-focus-visible:ring-accent-500/50 es:focus-visible:ring-3',
+						!checked && !disabled && 'es:border-secondary-400 es:inset-ring-secondary-100 es:from-white es:to-secondary-100',
+						checked && !disabled && 'es:border-accent-700/75 es:inset-ring-accent-500 es:to-accent-500 es:from-accent-600 es:shadow-accent-600/30',
+						disabled && 'es:cursor-default es:border-secondary-300 es:from-white es:to-secondary-50 es:inset-ring-secondary-200/30 es:inset-shadow-secondary-100',
+						!disabled && 'es:shadow-xs',
 					)}
 				>
 					<span
 						className={clsx(
 							'es:block es:size-3 es:rounded-full es:border es:will-change-transform es:bg-radial',
 							'es:transition es:motion-ease-spring-snappy es:ease-[var(--motion-spring-snappy)]',
-							!checked && 'es:border-secondary-500 es:from-secondary-500 es:to-secondary-600 es:scale-95',
-							checked && 'es:translate-x-4 es:border-accent-600/20 es:from-white es:to-accent-500/30 es:from-40% es:bg-white es:shadow-xs es:shadow-accent-900/60',
-							disabled && 'es:border-secondary-300 es:bg-white',
+							!checked && 'es:scale-95',
+							!checked && !disabled && 'es:border-secondary-500 es:from-secondary-500 es:to-secondary-600',
+							checked && 'es:translate-x-4',
+							checked && !disabled && 'es:border-accent-600/20 es:from-white es:to-accent-500/30 es:from-40% es:bg-white es:shadow-xs es:shadow-accent-900/60',
+							disabled && 'es:border-secondary-400 es:bg-secondary-100',
 							isIndeterminate && 'es:translate-x-2 es:scale-100',
 						)}
 					/>
