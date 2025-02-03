@@ -1804,6 +1804,8 @@ function App() {
 							{ label: 'Underline', value: 'underline' },
 							{ label: 'Pill', value: 'pill' },
 							{ label: 'Pill (inverse)', value: 'pillInverse' },
+							{ label: 'Pill compact', value: 'pillCompact' },
+							{ label: 'Pill compact (inverse)', value: 'pillCompactInverse' },
 						]}
 						type='radios'
 						vertical
@@ -1819,6 +1821,19 @@ function App() {
 							>
 								Monarchy and Republic
 							</Tab>
+							<Tab disabled>Empire of Something Else</Tab>
+						</TabList>
+						<TabPanel>Arma virumque cano, Troiae qui primus ab oris.</TabPanel>
+						<TabPanel>Senatus Populusque Romanus.</TabPanel>
+						<TabPanel>Alea jacta est.</TabPanel>
+						<TabPanel>Nešto.</TabPanel>
+					</Tabs>
+
+					<Tabs type={tabVar}>
+						<TabList>
+							<Tab>Founding of Rome</Tab>
+							<Tab badge='2'>Monarchy and Republic</Tab>
+							<Tab icon={icons.emptyCircle}>Monarchy and Republic</Tab>
 							<Tab disabled>Empire of Something Else</Tab>
 						</TabList>
 						<TabPanel>Arma virumque cano, Troiae qui primus ab oris.</TabPanel>
