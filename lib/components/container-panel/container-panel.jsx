@@ -23,6 +23,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {boolean} [props.closable] - If `true`, the panel can be closed. Will not show if `title` is not set.
  * @param {boolean} [props.startOpen=false] - Controls whether the panel is open by default.
  * @param {JSX.Element} [props.actions] - Actions to show at the end
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The ContainerPanel component.
  *
@@ -34,9 +35,13 @@ import { BaseControl } from '../base-control/base-control';
  * @preserve
  */
 export const ContainerPanel = (props) => {
-	const { children, className, title, icon, subtitle, use, onUseChange, closable, startOpen = false, actions } = props;
+	const { children, className, title, icon, subtitle, use, onUseChange, closable, startOpen = false, actions, hidden } = props;
 
 	const [open, setOpen] = useState(startOpen);
+
+	if (hidden) {
+		return null;
+	}
 
 	if (!title && typeof use === 'undefined') {
 		return <div className='es:space-y-2 es:border-t es:border-t-secondary-200 es:p-4'>{children}</div>;
@@ -105,6 +110,7 @@ export const ContainerPanel = (props) => {
 					visible={open}
 					className='es:space-y-2 es:px-4'
 					transition='slideFadeDownSlight'
+					noInitial
 				>
 					{children}
 				</AnimatedVisibility>
@@ -114,6 +120,7 @@ export const ContainerPanel = (props) => {
 					visible={closable ? use && open : use}
 					className='es:space-y-2 es:px-4'
 					transition='slideFadeDownSlight'
+					noInitial
 				>
 					{children}
 				</AnimatedVisibility>
