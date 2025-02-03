@@ -198,9 +198,9 @@ export const Tab = (props) => {
 					pillInverse:
 						'es:font-[450] es:border es:border-transparent es:px-3 es:py-2 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-accent-600 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
 					pillCompact:
-						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:p-1 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-900 es:selected:bg-accent-400/15 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:px-1.5 es:py-1 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-900 es:selected:bg-accent-400/15 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
 					pillCompactInverse:
-						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:p-1 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-accent-600 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:px-1.5 es:py-1 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-accent-600 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
 				},
 			},
 			compoundVariants: [
