@@ -44,7 +44,7 @@ export const ContainerPanel = (props) => {
 	}
 
 	if (!title && typeof use === 'undefined') {
-		return <div className='es:space-y-2 es:border-t es:border-t-secondary-200 es:p-4'>{children}</div>;
+		return <div className={clsx('es:space-y-2 es:border-t es:border-t-secondary-200 es:p-4', className)}>{children}</div>;
 	}
 
 	const justUse = !closable && typeof onUseChange !== 'undefined';
