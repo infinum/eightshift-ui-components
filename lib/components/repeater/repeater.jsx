@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
@@ -7,6 +8,7 @@ import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { RepeaterContext } from './repeater-context';
 import { clsx } from 'clsx/lite';
 import { List, arrayMove, arrayRemove } from 'react-movable';
+import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
 
 const fixIds = (items, itemIdBase) => {
 	return items?.map((item, i) => ({
@@ -37,6 +39,8 @@ const fixIds = (items, itemIdBase) => {
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {JSX.Element} [props.addButton] - If provided, overrides the default add button. `(props: { addItem: (additional: Object<string, any>?) => void, disabled: Boolean }) => JSX.Element`.
  * @param {string} [props.className] - Classes to pass to the item wrapper.
+ * @param {boolean} [props.noOpenAllButton] - If `true`, the "Open all"/"Close all" button is not displayed.
+ * @param {JSX.Element|JSX.Element[]} [props.moreOptions] - Options to add in the "More options" menu.
  * @param {JSX.Element} [props.emptyState] - Allows overriding the default empty state.
  *
  * @returns {JSX.Element} The Repeater component.
@@ -91,8 +95,13 @@ export const Repeater = (props) => {
 		className,
 		emptyState,
 
+		noOpenAllButton,
+		moreOptions,
+
 		hidden,
 	} = props;
+
+	const [allOpen, setAllOpen] = useState(false);
 
 	if (typeof rawItems === 'undefined' || rawItems === null || !Array.isArray(rawItems)) {
 		console.warn(__("Repeater: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
@@ -116,6 +125,20 @@ export const Repeater = (props) => {
 			actions={
 				<>
 					{actions}
+
+					<Menu
+						tooltip={__('More options', 'eightshift-ui-components')}
+						triggerIcon={icons.moreH}
+						triggerProps={{ type: 'ghost', size: 'small' }}
+						hidden={noOpenAllButton && !moreOptions}
+					>
+						{!noOpenAllButton && (
+							<MenuItem onClick={() => setAllOpen(!allOpen)}>{allOpen ? __('Close all', 'eightshift-ui-components') : __('Open all', 'eightshift-ui-components')}</MenuItem>
+						)}
+
+						{moreOptions && <MenuSeparator />}
+						{moreOptions}
+					</Menu>
 
 					{!addButton && (
 						<Button
@@ -203,6 +226,8 @@ export const Repeater = (props) => {
 									isSelected,
 									canDelete,
 									canAdd,
+									allOpen,
+									setAllOpen,
 								}}
 							>
 								{children({

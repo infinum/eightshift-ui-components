@@ -31,7 +31,7 @@ import { RepeaterContext } from './repeater-context';
 export const RepeaterItem = (props) => {
 	const { children, icon, label, subtitle, 'aria-label': ariaLabel, className, actions, textValue, expandDisabled, menuOptions, noMenuButton, ...rest } = props;
 
-	const { deleteItem, duplicateItem, isDragged, isOutOfBounds, isSelected, canDelete, canAdd } = useContext(RepeaterContext);
+	const { deleteItem, duplicateItem, isDragged, isOutOfBounds, isSelected, canDelete, canAdd, allOpen, setAllOpen } = useContext(RepeaterContext);
 
 	return (
 		<Expandable
@@ -49,6 +49,13 @@ export const RepeaterItem = (props) => {
 				isSelected && 'es:bg-accent-50 es:border-accent-100',
 				'es:group-focus:outline-hidden es:group-focus:border-accent-500 es:group-focus:ring-2 es:group-focus:ring-accent-500/50',
 			)}
+			open={allOpen}
+			onOpenChange={(open) => {
+				if (allOpen && !open) {
+					setAllOpen(false);
+				}
+			}}
+			key={allOpen}
 			customOpenButton={({ open, toggleOpen, tooltip, disabled }) => {
 				return (
 					<div className='es:flex es:items-center es:gap-px'>
