@@ -6,3 +6,10 @@ es:flex-1
 es:flex-auto
 es:flex-initial
 es:flex-none
+es:border-t
+es:border-b
+es:border-l
+es:border-r
+es:border-y
+es:border-x
+es:border-secondary-200
