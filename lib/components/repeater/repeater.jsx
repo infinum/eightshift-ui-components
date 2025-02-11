@@ -39,7 +39,7 @@ const fixIds = (items, itemIdBase) => {
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {JSX.Element} [props.addButton] - If provided, overrides the default add button. `(props: { addItem: (additional: Object<string, any>?) => void, disabled: Boolean }) => JSX.Element`.
  * @param {string} [props.className] - Classes to pass to the item wrapper.
- * @param {boolean} [props.noOpenAllButton] - If `true`, the "Open all"/"Close all" button is not displayed.
+ * @param {boolean} [props.noExpandAllButton] - If `true`, the "Expand all"/"Collapse all" button is not displayed.
  * @param {JSX.Element|JSX.Element[]} [props.moreOptions] - Options to add in the "More options" menu.
  * @param {JSX.Element} [props.emptyState] - Allows overriding the default empty state.
  *
@@ -95,7 +95,7 @@ export const Repeater = (props) => {
 		className,
 		emptyState,
 
-		noOpenAllButton,
+		noExpandAllButton,
 		moreOptions,
 
 		hidden,
@@ -130,10 +130,10 @@ export const Repeater = (props) => {
 						tooltip={__('More options', 'eightshift-ui-components')}
 						triggerIcon={icons.moreH}
 						triggerProps={{ type: 'ghost', size: 'small' }}
-						hidden={noOpenAllButton && !moreOptions}
+						hidden={noExpandAllButton && !moreOptions}
 					>
-						{!noOpenAllButton && (
-							<MenuItem onClick={() => setAllOpen(!allOpen)}>{allOpen ? __('Close all', 'eightshift-ui-components') : __('Open all', 'eightshift-ui-components')}</MenuItem>
+						{!noExpandAllButton && (
+							<MenuItem onClick={() => setAllOpen(!allOpen)}>{allOpen ? __('Collapse all', 'eightshift-ui-components') : __('Expand all', 'eightshift-ui-components')}</MenuItem>
 						)}
 
 						{moreOptions && <MenuSeparator />}
