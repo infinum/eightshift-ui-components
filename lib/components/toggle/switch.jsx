@@ -42,7 +42,7 @@ export const Switch = (props) => {
 			className='es:group es:flex es:items-center es:justify-between es:gap-2 es:any-focus:outline-hidden'
 		>
 			{children}
-			<div className={clsx('es:flex es:shrink-0 es:items-center es:justify-center', className)}>
+			<div className={clsx('es:flex es:shrink-0 es:items-center es:justify-center es:min-h-6.5', className)}>
 				<div
 					className={clsx(
 						'es:shrink-0 es:group-not-disabled:cursor-pointer es:no-webkit-highlight',
