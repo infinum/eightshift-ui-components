@@ -133,7 +133,12 @@ export const Repeater = (props) => {
 						hidden={noExpandAllButton && !moreOptions}
 					>
 						{!noExpandAllButton && (
-							<MenuItem onClick={() => setAllOpen(!allOpen)}>{allOpen ? __('Collapse all', 'eightshift-ui-components') : __('Expand all', 'eightshift-ui-components')}</MenuItem>
+							<MenuItem
+								endIcon={allOpen ? icons.panelCollapse : icons.panelExpand}
+								onClick={() => setAllOpen(!allOpen)}
+							>
+								{allOpen ? __('Collapse all', 'eightshift-ui-components') : __('Expand all', 'eightshift-ui-components')}
+							</MenuItem>
 						)}
 
 						{moreOptions && <MenuSeparator />}
