@@ -100,7 +100,7 @@ export const ContainerPanel = (props) => {
 				!closable && !onUseChange && typeof use === 'undefined' && 'es:px-4',
 				className,
 			)}
-			labelContainerClassName={clsx((closable || onUseChange) && 'es:pl-4 es:pr-3 es:min-h-12', !(closable || onUseChange) && 'es:mt-3', 'es:pb-0!')}
+			labelContainerClassName={clsx((closable || onUseChange) && 'es:pl-4 es:pr-3 es:min-h-12', !(closable || onUseChange) && 'es:mt-3 es:mb-3', 'es:pb-0!')}
 			controlContainerClassName='es:px-4'
 			labelClassName='es:text-secondary-600!'
 		>
