@@ -61,7 +61,7 @@ export const ImagePlaceholder = (props) => {
 			{!noImage && (
 				<img
 					className={clsx(
-						'es:size-full es:select-none es:fill-mode-forwards',
+						'es:size-full! es:select-none es:fill-mode-forwards',
 						imageMode === 'cover' && 'es:object-cover',
 						imageMode === 'contain' && 'es:object-contain',
 						imageMode === 'fill' && 'es:object-fill',
