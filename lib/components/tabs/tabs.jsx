@@ -169,6 +169,7 @@ TabList.displayName = 'TabList';
  * @param {string} [props.className] - Classes to pass to the tab.
  * @param {JSX.Element} [props.icon] - Icon to show on the tab.
  * @param {string|JSX.Element} [props.badge] - Badge to render besides the label.
+ * @param {boolean} [props.invisible] - If `true`, the tab is disabled and not rendered, but is not unmounted from the DOM.
  * @param {string} [props.label] - Tab label. **Note**: overrides inner items!
  * @param {string} [props.subtitle] - Tab subtitle. **Note**: overrides inner items!
  *
@@ -179,7 +180,7 @@ TabList.displayName = 'TabList';
  * @preserve
  */
 export const Tab = (props) => {
-	const { children, disabled, isParentVertical, className, icon, label, subtitle, type, badge, ...other } = props;
+	const { children, disabled, isParentVertical, className, icon, label, subtitle, type, badge, invisible, ...other } = props;
 
 	const componentClasses = cva(
 		[
@@ -188,6 +189,7 @@ export const Tab = (props) => {
 			'es:any-focus:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 			!(type === 'pillCompact' || type === 'pillCompactInverse') && 'es:min-h-9.5',
 			isParentVertical && (type === 'pillCompact' || type === 'pillCompactInverse') && 'es:min-h-8',
+			invisible && 'es:hidden',
 			className,
 		],
 		{
@@ -231,7 +233,7 @@ export const Tab = (props) => {
 	return (
 		<ReactAriaTab
 			{...other}
-			isDisabled={disabled}
+			isDisabled={disabled || invisible}
 			className={componentClasses({ vertical: Boolean(isParentVertical), type: type })}
 		>
 			{(icon || subtitle) && (
