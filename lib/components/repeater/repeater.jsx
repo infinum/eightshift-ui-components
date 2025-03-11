@@ -130,7 +130,7 @@ export const Repeater = (props) => {
 						tooltip={__('More options', 'eightshift-ui-components')}
 						triggerIcon={icons.moreH}
 						triggerProps={{ type: 'ghost', size: 'small' }}
-						hidden={noExpandAllButton && !moreOptions}
+						hidden={items?.length < 1 || (noExpandAllButton && !moreOptions)}
 					>
 						{!noExpandAllButton && (
 							<MenuItem
