@@ -19,6 +19,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Increased `Toggle`/`Switch` spacing a bit.
 - Removed legacy `illustrations` from icons.
 - `Tab` now has an `invisible` prop, which allows hiding a tab without unmounting it, which could cause errors.
+- Updated dependencies
 
 ## [2.0.2] - 2025-01-28
 - Fixed `alignIconToTitle` in `Notice`
