@@ -40,6 +40,7 @@ import { Text } from 'react-aria-components';
  * @param {Object<string, number>} [props.breakpointUiData] - Allows overriding breakpoint names and icons. `{ [breakpoint: string]: { label: string, icon: JSX.Element|string } }`.
  * @param {boolean} [props.noModeSelect] - If `true`, the mode selection (desktop-first/mobile-first) is hidden.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
+ * @param {boolean} [props.useLegacyDesktopFirst] - If `true`, the legacy desktop-first mode is used. This is only for backwards compatibility.
  * @param {'start' | 'center' | 'end' | 'stretch'} [props.innerContentAlign='start'] - Determines inner content alignment
  *
  * @returns {JSX.Element} The MiniResponsive component.
@@ -94,6 +95,8 @@ export const MiniResponsive = (props) => {
 
 		hidden,
 
+		useLegacyDesktopFirst,
+
 		innerContentAlign = 'start',
 	} = props;
 
@@ -104,9 +107,11 @@ export const MiniResponsive = (props) => {
 	}
 
 	const breakpoints = rawBreakpoints.slice(1);
-	const desktopFirstBreakpoints = (rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1)).map((breakpoint) =>
-		breakpoint.startsWith('max-') ? breakpoint : `max-${breakpoint}`,
-	);
+	let desktopFirstBreakpoints = (rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(1)).map((breakpoint) => (breakpoint.startsWith('max-') ? breakpoint : `max-${breakpoint}`));
+
+	if (useLegacyDesktopFirst) {
+		desktopFirstBreakpoints = (rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1)).map((breakpoint) => (breakpoint.startsWith('max-') ? breakpoint : `max-${breakpoint}`));
+	}
 
 	const isDesktopFirst = value?.['_desktopFirst'] === true;
 
@@ -356,9 +361,7 @@ export const MiniResponsive = (props) => {
 													)}
 												</span>
 
-												{typeof value[breakpoint] === 'undefined' && (
-													<span className='es:mt-2 es:block es:font-medium es:italic'>{__('Not set', 'eightshift-ui-components')}</span>
-												)}
+												{typeof value[breakpoint] === 'undefined' && <span className='es:mt-2 es:block es:font-medium es:italic'>{__('Not set', 'eightshift-ui-components')}</span>}
 
 												{typeof value[breakpoint] !== 'undefined' && (
 													<div className='es:mx-auto es:mt-2'>

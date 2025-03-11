@@ -215,7 +215,7 @@ export const GradientEditor = (props) => {
 				onChange={(value) => onChange(getGradientResult({ stops: gradientData.stops }, value))}
 				options={gradientTypes}
 				wrapperProps={{ className: 'es:mx-auto es:w-fit' }}
-				type='toggleButtonsSplit'
+				type='toggleButtons'
 			/>
 
 			{gradientType === 'linear' && (

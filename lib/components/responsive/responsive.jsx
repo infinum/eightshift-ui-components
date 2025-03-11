@@ -41,6 +41,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {boolean} [props.noModeSelect] - If `true`, the mode selection (desktop-first/mobile-first) is hidden.
  * @param {boolean} [props.inline] - If `true`, the default breakpoint is shown inline with the label. In the expanded state, all breakpoints are shown below the label.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
+ * @param {boolean} [props.useLegacyDesktopFirst] - If `true`, the legacy desktop-first mode is used. This is only for backwards compatibility.
  * @param {'start' | 'center' | 'end' | 'stretch'} [props.innerContentAlign='start'] - Determines inner content alignment
  *
  * @returns {JSX.Element} The Responsive component.
@@ -98,6 +99,8 @@ export const Responsive = (props) => {
 		hidden,
 
 		innerContentAlign = 'start',
+
+		useLegacyDesktopFirst,
 	} = props;
 
 	if (typeof rawBreakpoints === 'undefined' || !Array.isArray(rawBreakpoints)) {
@@ -107,9 +110,12 @@ export const Responsive = (props) => {
 	}
 
 	const breakpoints = rawBreakpoints.slice(1);
-	const desktopFirstBreakpoints = (rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1)).map((breakpoint) =>
-		breakpoint.startsWith('max-') ? breakpoint : `max-${breakpoint}`,
-	);
+
+	let desktopFirstBreakpoints = (rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(1)).map((breakpoint) => (breakpoint.startsWith('max-') ? breakpoint : `max-${breakpoint}`));
+
+	if (useLegacyDesktopFirst) {
+		desktopFirstBreakpoints = (rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1)).map((breakpoint) => (breakpoint.startsWith('max-') ? breakpoint : `max-${breakpoint}`));
+	}
 
 	const [detailsVisible, setDetailsVisible] = useState(false);
 
@@ -328,9 +334,7 @@ export const Responsive = (props) => {
 						innerContentAlign === 'center' && 'es:justify-items-center',
 						innerContentAlign === 'end' && 'es:justify-items-end',
 						innerContentAlign === 'stretch' && 'es:justify-items-stretch',
-						detailsVisible
-							? 'es:mb-2 es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)]'
-							: 'es:grid-cols-[minmax(0,0rem)_minmax(0,1fr)_minmax(0,2.25rem)]',
+						detailsVisible ? 'es:mb-2 es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)]' : 'es:grid-cols-[minmax(0,0rem)_minmax(0,1fr)_minmax(0,2.25rem)]',
 					)}
 					key='_default-mobile-first'
 				>
@@ -462,9 +466,7 @@ export const Responsive = (props) => {
 											)}
 										</span>
 
-										{typeof value[breakpoint] === 'undefined' && (
-											<span className='es:mt-2 es:block es:font-medium es:italic'>{__('Not set', 'eightshift-ui-components')}</span>
-										)}
+										{typeof value[breakpoint] === 'undefined' && <span className='es:mt-2 es:block es:font-medium es:italic'>{__('Not set', 'eightshift-ui-components')}</span>}
 
 										{typeof value[breakpoint] !== 'undefined' && (
 											<div className='es:mx-auto es:mt-2'>
@@ -586,9 +588,7 @@ export const Responsive = (props) => {
 						innerContentAlign === 'center' && 'es:justify-items-center',
 						innerContentAlign === 'end' && 'es:justify-items-end',
 						innerContentAlign === 'stretch' && 'es:justify-items-stretch',
-						detailsVisible
-							? 'es:mt-2! es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)]'
-							: 'es:grid-cols-[minmax(0,0rem)_minmax(0,1fr)_minmax(0,2.25rem)]',
+						detailsVisible ? 'es:mt-2! es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)]' : 'es:grid-cols-[minmax(0,0rem)_minmax(0,1fr)_minmax(0,2.25rem)]',
 					)}
 					key='_default-desktop-first'
 				>

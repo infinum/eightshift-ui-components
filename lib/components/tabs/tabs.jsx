@@ -18,7 +18,7 @@ import { RichLabel } from '../rich-label/rich-label';
  *
  * @returns {JSX.Element} The Tabs component.
  *
- * @typedef {'underline' | 'pill' | 'pillInverse'} TabsType
+ * @typedef {'underline' | 'pill' | 'pillInverse' | 'pillCompact' | 'pillCompactInverse'} TabsType
  *
  * @example
  * <Tabs>
@@ -169,6 +169,7 @@ TabList.displayName = 'TabList';
  * @param {string} [props.className] - Classes to pass to the tab.
  * @param {JSX.Element} [props.icon] - Icon to show on the tab.
  * @param {string|JSX.Element} [props.badge] - Badge to render besides the label.
+ * @param {boolean} [props.invisible] - If `true`, the tab is disabled and not rendered, but is not unmounted from the DOM.
  * @param {string} [props.label] - Tab label. **Note**: overrides inner items!
  * @param {string} [props.subtitle] - Tab subtitle. **Note**: overrides inner items!
  *
@@ -179,13 +180,16 @@ TabList.displayName = 'TabList';
  * @preserve
  */
 export const Tab = (props) => {
-	const { children, disabled, isParentVertical, className, icon, label, subtitle, type, badge, ...other } = props;
+	const { children, disabled, isParentVertical, className, icon, label, subtitle, type, badge, invisible, ...other } = props;
 
 	const componentClasses = cva(
 		[
-			'es:group es:flex es:items-center es:gap-1.5 es:relative es:shrink-0 es:min-h-9.5',
+			'es:group es:flex es:items-center es:gap-1.5 es:relative es:shrink-0',
 			'es:select-none es:text-sm es:transition es:not-disabled:cursor-pointer',
 			'es:any-focus:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+			!(type === 'pillCompact' || type === 'pillCompactInverse') && 'es:min-h-9.5',
+			isParentVertical && (type === 'pillCompact' || type === 'pillCompactInverse') && 'es:min-h-8',
+			invisible && 'es:hidden',
 			className,
 		],
 		{
@@ -195,6 +199,10 @@ export const Tab = (props) => {
 					pill: 'es:font-[450] es:border es:border-transparent es:px-3 es:py-2 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-900 es:selected:bg-accent-400/15 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
 					pillInverse:
 						'es:font-[450] es:border es:border-transparent es:px-3 es:py-2 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-accent-600 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+					pillCompact:
+						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:px-1.5 es:py-1 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-900 es:selected:bg-accent-400/15 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+					pillCompactInverse:
+						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:px-1.5 es:py-1 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-accent-600 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
 				},
 			},
 			compoundVariants: [
@@ -225,7 +233,7 @@ export const Tab = (props) => {
 	return (
 		<ReactAriaTab
 			{...other}
-			isDisabled={disabled}
+			isDisabled={disabled || invisible}
 			className={componentClasses({ vertical: Boolean(isParentVertical), type: type })}
 		>
 			{(icon || subtitle) && (
@@ -234,6 +242,7 @@ export const Tab = (props) => {
 					label={label ?? children}
 					subtitle={subtitle}
 					noColor
+					iconClassName={clsx((type === 'pillCompact' || type === 'pillCompactInverse') && 'es:icon:size-4!')}
 				/>
 			)}
 
@@ -247,6 +256,9 @@ export const Tab = (props) => {
 							'es:inset-ring es:inset-ring-secondary-200/20 es:bg-secondary-100 es:group-selected:bg-accent-500/10 es:group-selected:text-accent-900 es:group-selected:inset-ring-accent-500/10',
 						type === 'pill' && 'es:bg-secondary-100 es:group-selected:bg-accent-600 es:group-selected:text-white',
 						type === 'pillInverse' && 'es:bg-secondary-100 es:group-selected:bg-accent-50 es:group-selected:text-accent-900',
+						type === 'pillCompact' && 'es:bg-secondary-100 es:group-selected:bg-accent-600 es:group-selected:text-white',
+						type === 'pillCompactInverse' && 'es:bg-secondary-100 es:group-selected:bg-accent-50 es:group-selected:text-accent-900',
+						(type === 'pillCompact' || type === 'pillCompactInverse') && 'es:[&_svg]:size-4!',
 					)}
 				>
 					{badge}

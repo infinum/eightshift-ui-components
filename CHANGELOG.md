@@ -3,6 +3,24 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [3.0.0] - 2025-02-04
+- [**BREAKING**] Fixed how `Responsive`'s (+ `MiniResponsive`) desktop-first mode works. To use previous behavior, add `useLegacyDesktopFirst`. Mobile-first is unaffected.
+- Tweaked `ContainerPanel` so it doesn't animate on first mount.
+- `ContainerPanel` now supports the `hidden` attribute.
+- Fixed bug in `ContainerPanel` that in certain cases didn't pass through `className`.
+- Tweaked admin styles to also encompass body.
+- Added compact pill styles to `Tabs`.
+- Added 1 block icon.
+- Added 7 UI icons.
+- Updated 1 UI icon.
+- `Repeater` now has an option to expand/collapse all child panels at once. You can disable it with `noExpandAllButton`.
+- `Repeater` now has an extra slot for 'More options' dropdown.
+- Tweaked `Tooltip` entrance animation.
+- Increased `Toggle`/`Switch` spacing a bit.
+- Removed legacy `illustrations` from icons.
+- `Tab` now has an `invisible` prop, which allows hiding a tab without unmounting it, which could cause errors.
+- Updated dependencies
+
 ## [2.0.2] - 2025-01-28
 - Fixed `alignIconToTitle` in `Notice`
 - Fixed `Tooltip` animation in left/right variants
@@ -261,6 +279,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[3.0.0]: https://github.com/infinum/eightshift-ui-components/compare/2.0.2...3.0.0
 [2.0.2]: https://github.com/infinum/eightshift-ui-components/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/infinum/eightshift-ui-components/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/infinum/eightshift-ui-components/compare/1.9.1...2.0.0

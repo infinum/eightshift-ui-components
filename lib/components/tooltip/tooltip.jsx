@@ -1,7 +1,8 @@
 import { OverlayArrow as ReactAriaOverlayArrow, Tooltip as ReactAriaTooltip, TooltipTrigger as ReactAriaTooltipTrigger } from 'react-aria-components';
-import { useHover, useFocusWithin, mergeProps } from 'react-aria';
 import { clsx } from 'clsx/lite';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
+import { useTooltipTriggerState } from 'react-stately';
+import { useTooltipTrigger } from 'react-aria';
 
 /**
  * A simple tooltip component.
@@ -87,14 +88,14 @@ export const Tooltip = (props) => {
 				crossOffset={crossOffset}
 				className={({ isEntering, isExiting }) =>
 					clsx(
-						'es:group es:motion-translat',
+						'es:group es:pointer-events-none',
 						'es:z-20 es:select-none es:rounded-md es:border es:px-1.5 es:py-0.5 es:text-sm es:shadow es:backdrop-blur-3xl es:will-change-[transform,opacity] es:fill-mode-forwards',
 						theme === 'light' && 'es:border-secondary-200 es:bg-white/90 es:text-secondary-700',
 						theme === 'dark' && 'es:border-secondary-600 es:bg-black/80 es:text-secondary-100',
 						isEntering &&
-							'es:motion-opacity-in es:motion-duration-300 es:motion-safe:data-[placement=left]:motion-translate-x-in-25 es:motion-safe:data-[placement=right]:-motion-translate-x-in-25 es:motion-safe:data-[placement=top]:motion-translate-y-in-25 es:motion-safe:data-[placement=bottom]:-motion-translate-y-in-25 es:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
+							'es:motion-opacity-in es:motion-duration-300 es:motion-safe:data-[placement=left]:motion-translate-x-in-[5%] es:motion-safe:data-[placement=right]:-motion-translate-x-in-[5%] es:motion-safe:data-[placement=top]:motion-translate-y-in-[5%] es:motion-safe:data-[placement=bottom]:-motion-translate-y-in-[5%] es:motion-ease-spring-smooth es:motion-ease-linear/opacity',
 						isExiting &&
-							'es:motion-opacity-out es:motion-duration-200 es:motion-safe:data-[placement=left]:motion-translate-x-out-[12.5%] es:motion-safe:data-[placement=right]:motion-translate-x-out-[-12.5%] es:motion-safe:data-[placement=top]:motion-translate-y-out-[12.5%] es:motion-safe:data-[placement=bottom]:motion-translate-y-out-[-12.5%] es:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
+							'es:motion-opacity-out es:motion-duration-200 es:motion-safe:data-[placement=left]:motion-translate-x-out-[12.5%] es:motion-safe:data-[placement=right]:motion-translate-x-out-[-12.5%] es:motion-safe:data-[placement=top]:motion-translate-y-out-[12.5%] es:motion-safe:data-[placement=bottom]:motion-translate-y-out-[-12.5%] es:motion-ease-spring-smooth es:motion-ease-linear/opacity',
 						className,
 					)
 				}
@@ -107,9 +108,10 @@ export const Tooltip = (props) => {
 							viewBox='0 0 8 8'
 							className={clsx(
 								'es:m-px es:stroke-none es:drop-shadow-sm',
+								'es:pointer-events-none',
 								theme === 'light' && 'es:fill-secondary-200',
 								theme === 'dark' && 'es:fill-secondary-600',
-								'group-placement-left:-es:rotate-90 group-placement-right:es:rotate-90 group-placement-bottom:es:rotate-180',
+								'es:group-data-[placement=left]:-rotate-90 es:group-data-[placement=right]:rotate-90 es:group-data-[placement=bottom]:rotate-180',
 								'es:forced-colors:fill-[Canvas] es:forced-colors:stroke-[ButtonBorder]',
 							)}
 						>
@@ -164,31 +166,23 @@ export const Tooltip = (props) => {
 export const DecorativeTooltip = (props) => {
 	const { openDelay, closeDelay, children, text, wrapperClassName, ...rest } = props;
 
-	const [open, setOpen] = useState(false);
-
-	let { hoverProps } = useHover({
-		onHoverStart: () => setTimeout(() => setOpen(true), openDelay),
-		onHoverEnd: () => setTimeout(() => setOpen(false), closeDelay),
-	});
-
-	let { focusWithinProps } = useFocusWithin({
-		onFocusWithinChange: (isFocusWithin) => setOpen(isFocusWithin),
-	});
+	const state = useTooltipTriggerState(props);
 
 	const ref = useRef(null);
+
+	const { triggerProps } = useTooltipTrigger(props, state, ref);
 
 	return (
 		<Tooltip
 			triggerRef={ref}
 			text={text}
-			open={open}
-			className='es:pointer-events-none'
+			open={state.isOpen}
 			{...rest}
 		>
 			<div
 				ref={ref}
-				className={clsx('es:inline', wrapperClassName)}
-				{...mergeProps(hoverProps, focusWithinProps)}
+				{...triggerProps}
+				className={wrapperClassName}
 			>
 				{children}
 			</div>

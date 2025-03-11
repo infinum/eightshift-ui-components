@@ -20139,7 +20139,7 @@ export const icons = {
 			fill='none'
 		>
 			<path
-				d='M4.75 2.25v7.546m0 7.954V9.796m0 0h10.5m0 0V2.25m0 7.546v7.954'
+				d='M4.449 18H2l2.449-.286m0 .286h2.449l-2.449-.286m0 .286v-.286M4.449 2H2l2.449.321m0-.321h2.449l-2.449.321m0-.321v.321m0 7.679h11.102M4.449 10v7.714m0-7.714V2.321M15.551 10v7.714m0-7.714V2.321m0-.321h-2.449l2.449.321m0-.321H18l-2.449.321m0-.321v.321m0 15.679h-2.449l2.449-.286m0 .286H18l-2.449-.286m0 .286v-.286'
 				stroke='currentColor'
 				strokeLinecap='round'
 				strokeLinejoin='round'
@@ -22396,1260 +22396,227 @@ export const icons = {
 			/>
 		</svg>
 	),
-};
-
-/**
- * Illustrations for helper modals.
- */
-export const illustrations = {
-	gutter: (
+	listIndent: (
 		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
 			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
 		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
+			<path
+				d='M1 6h7m-7 8h7m-7-4h9'
+				stroke='currentColor'
+				strokeLinecap='round'
 				fill='none'
-				fillRule='evenodd'
-			>
-				<use
-					stroke='#C8C8C8'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<rect
-					fill='currentColor'
-					x='16'
-					y='3'
-					width='4'
-					height='48'
-					rx='1'
-				/>
-				<rect
-					fill='currentColor'
-					x='34'
-					y='3'
-					width='4'
-					height='48'
-					rx='1'
-				/>
-				<rect
-					stroke='#DCDCDC'
-					x='3.5'
-					y='3.5'
-					width='11'
-					height='47'
-					rx='2'
-				/>
-				<rect
-					stroke='#DCDCDC'
-					x='39.5'
-					y='3.5'
-					width='11'
-					height='47'
-					rx='2'
-				/>
-				<rect
-					stroke='#DCDCDC'
-					x='21.5'
-					y='3.5'
-					width='11'
-					height='47'
-					rx='2'
-				/>
-			</g>
+			/>
+			<path
+				d='m18.823 9.823-4.396-4.396a.25.25 0 0 0-.427.177v8.792c0 .223.27.335.427.177l4.396-4.396a.25.25 0 0 0 0-.354Z'
+				fill='currentColor'
+				fillOpacity='0.5'
+				stroke='currentColor'
+				strokeLinecap='round'
+				strokeLinejoin='round'
+			/>
 		</svg>
 	),
-	verticalSpacing: (
+	listOutdent: (
 		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
 			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
 		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
+			<path
+				d='M10 6h7m-7 8h7m-7-4h9'
+				stroke='currentColor'
+				strokeLinecap='round'
 				fill='none'
-				fillRule='evenodd'
-			>
-				<use
-					stroke='#C8C8C8'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<rect
-					fill='currentColor'
-					x='3'
-					y='42'
-					width='15'
-					height='9'
-					rx='2'
-				/>
-				<rect
-					fill='currentColor'
-					x='20'
-					y='42'
-					width='14'
-					height='9'
-					rx='2'
-				/>
-				<rect
-					fill='currentColor'
-					x='36'
-					y='42'
-					width='15'
-					height='9'
-					rx='2'
-				/>
-				<rect
-					stroke='#DCDCDC'
-					x='3.5'
-					y='3.5'
-					width='14'
-					height='37'
-					rx='2'
-				/>
-				<rect
-					stroke='#DCDCDC'
-					x='36.5'
-					y='3.5'
-					width='14'
-					height='37'
-					rx='2'
-				/>
-				<rect
-					stroke='#DCDCDC'
-					x='20.5'
-					y='3.5'
-					width='13'
-					height='37'
-					rx='2'
-				/>
-			</g>
+			/>
+			<path
+				d='m1.177 9.823 4.396-4.396A.25.25 0 0 1 6 5.604v8.792a.25.25 0 0 1-.427.177l-4.396-4.396a.25.25 0 0 1 0-.354Z'
+				fill='currentColor'
+				fillOpacity='0.5'
+				stroke='currentColor'
+				strokeLinecap='round'
+				strokeLinejoin='round'
+			/>
 		</svg>
 	),
-	width: (
+	panelExpand: (
 		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
 			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
 		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
+			<path
+				d='M2 4.5A1.5 1.5 0 0 1 3.5 3h13A1.5 1.5 0 0 1 18 4.5v3H2v-3Z'
+				fill='currentColor'
+				fillOpacity='0.12'
+			/>
+			<rect
+				x='2'
+				y='3'
+				width='16'
+				height='14'
+				rx='1.5'
+				stroke='currentColor'
 				fill='none'
-				fillRule='evenodd'
-			>
-				<use
-					stroke='#C8C8C8'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<rect
-					stroke='currentColor'
-					x='3.5'
-					y='3.5'
-					width='15'
-					height='13'
-					rx='2'
-				/>
-				<rect
-					stroke='currentColor'
-					x='3.5'
-					y='37.5'
-					width='47'
-					height='13'
-					rx='2'
-				/>
-				<rect
-					stroke='currentColor'
-					x='3.5'
-					y='20.5'
-					width='23'
-					height='13'
-					rx='2'
-				/>
-				<circle
-					fill='#D8D8D8'
-					cx='24.5'
-					cy='9.5'
-					r='1.5'
-				/>
-				<circle
-					fill='#D8D8D8'
-					cx='31.5'
-					cy='9.5'
-					r='1.5'
-				/>
-				<circle
-					fill='#D8D8D8'
-					cx='31.5'
-					cy='27'
-					r='1.5'
-				/>
-				<circle
-					fill='#D8D8D8'
-					cx='38.5'
-					cy='9.5'
-					r='1.5'
-				/>
-				<circle
-					fill='#D8D8D8'
-					cx='38.5'
-					cy='27'
-					r='1.5'
-				/>
-				<circle
-					fill='#D8D8D8'
-					cx='45.5'
-					cy='9.5'
-					r='1.5'
-				/>
-				<circle
-					fill='#D8D8D8'
-					cx='45.5'
-					cy='27'
-					r='1.5'
-				/>
-			</g>
+			/>
+			<path
+				d='M2 7.5h16'
+				stroke='currentColor'
+				fill='none'
+			/>
+			<path
+				d='M7.75 12 10 14m0 0 2.25-2M10 14V9'
+				stroke='currentColor'
+				strokeLinecap='round'
+				strokeLinejoin='round'
+				fill='none'
+			/>
 		</svg>
 	),
-	offset: (
+	panelCollapse: (
 		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
 			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
 		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
+			<path
+				d='M2 4.5A1.5 1.5 0 0 1 3.5 3h13A1.5 1.5 0 0 1 18 4.5v3H2v-3Z'
+				fill='currentColor'
+				fillOpacity='0.12'
+			/>
+			<rect
+				x='2'
+				y='3'
+				width='16'
+				height='14'
+				rx='1.5'
+				stroke='currentColor'
 				fill='none'
-				fillRule='evenodd'
-			>
-				<use
-					stroke='#C8C8C8'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<rect
-					stroke='currentColor'
-					x='39.5'
-					y='3.5'
-					width='11'
-					height='13'
-					rx='2'
-				/>
-				<rect
-					stroke='currentColor'
-					x='21.5'
-					y='20.5'
-					width='11'
-					height='13'
-					rx='2'
-				/>
-				<rect
-					stroke='currentColor'
-					x='30.5'
-					y='37.5'
-					width='11'
-					height='13'
-					rx='2'
-				/>
-				<g
-					stroke='#D8D8D8'
-					strokeLinecap='round'
-					strokeWidth='1.5'
-				>
-					<path d='M4.5 10h32' />
-					<path
-						strokeLinejoin='round'
-						d='M34.025 7.033L36.897 10l-2.872 3.023'
-					/>
-				</g>
-				<g
-					stroke='#D8D8D8'
-					strokeLinecap='round'
-					strokeWidth='1.5'
-				>
-					<path d='M4.5 27h14' />
-					<path
-						strokeLinejoin='round'
-						d='M16.025 24.033L18.897 27l-2.872 3.023'
-					/>
-				</g>
-				<g
-					stroke='#D8D8D8'
-					strokeLinecap='round'
-					strokeWidth='1.5'
-				>
-					<path d='M4.5 44.467l23 .033' />
-					<path
-						strokeLinejoin='round'
-						d='M25.025 41.5l2.872 2.967-2.872 3.023'
-					/>
-				</g>
-			</g>
+			/>
+			<path
+				d='M2 7.5h16'
+				stroke='currentColor'
+				fill='none'
+			/>
+			<path
+				d='m7.75 12.5 2.25-2m0 0 2.25 2m-2.25-2v5'
+				stroke='currentColor'
+				strokeLinecap='round'
+				strokeLinejoin='round'
+				fill='none'
+			/>
 		</svg>
 	),
-	order: (
+	blockParts: (
 		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
 			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
 		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
+			<path
+				d='M15 9.5v-6A1.5 1.5 0 0 0 13.5 2h-10A1.5 1.5 0 0 0 2 3.5v10A1.5 1.5 0 0 0 3.5 15h7'
+				stroke='currentColor'
+				strokeLinecap='round'
 				fill='none'
+			/>
+			<rect
+				x='4'
+				y='4'
+				width='9'
+				height='2'
+				rx='0.75'
+				fill='currentColor'
+				fillOpacity='0.3'
+			/>
+			<rect
+				x='4'
+				y='7'
+				width='4'
+				height='6'
+				rx='0.75'
+				fill='currentColor'
+				fillOpacity='0.12'
+			/>
+			<rect
+				x='9'
+				y='7'
+				width='4'
+				height='4'
+				rx='0.75'
+				fill='currentColor'
+				fillOpacity='0.12'
+			/>
+			<path
+				clip-rule='evenodd'
 				fillRule='evenodd'
-			>
-				<use
-					stroke='#C8C8C8'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<g transform='translate(3 3)'>
-					<rect
-						stroke='currentColor'
-						x='.5'
-						y='.5'
-						width='13'
-						height='47'
-						rx='2'
-					/>
-					<path
-						d='M8.532 28v-8.566H7.044l-2.76 2.197.873 1.09.985-.791c.117-.094.326-.291.627-.592l-.03.89-.017.815V28h1.81z'
-						fill='currentColor'
-						fillRule='nonzero'
-					/>
-				</g>
-				<rect
-					x='.5'
-					y='.5'
-					width='13'
-					height='47'
-					rx='2'
-					stroke='currentColor'
-					transform='translate(37 3)'
-				/>
-				<path
-					d='M47.044 31v-1.523h-3.732v-.082l1.101-1.038c.734-.671 1.247-1.189 1.538-1.552.291-.364.506-.718.645-1.064.138-.345.208-.716.208-1.11a2.18 2.18 0 00-.34-1.207 2.262 2.262 0 00-.955-.82c-.41-.196-.883-.293-1.418-.293-.406 0-.774.04-1.102.12a3.85 3.85 0 00-.908.342c-.277.149-.627.403-1.049.762l.985 1.166a4.99 4.99 0 01.978-.65c.313-.153.635-.229.967-.229.316 0 .57.084.759.252.19.168.284.424.284.768 0 .23-.043.453-.129.668a2.983 2.983 0 01-.422.7c-.195.252-.611.704-1.248 1.356l-2.15 2.174V31h5.988z'
-					fill='currentColor'
-					fillRule='nonzero'
-				/>
-				<g transform='translate(20 3)'>
-					<rect
-						stroke='currentColor'
-						x='.5'
-						y='.5'
-						width='13'
-						height='47'
-						rx='2'
-					/>
-					<path
-						d='M6.505 28.117c1.11 0 1.963-.23 2.56-.688.598-.46.897-1.1.897-1.925 0-.567-.178-1.017-.533-1.35-.356-.335-.88-.545-1.57-.63v-.036c.585-.14 1.04-.398 1.365-.773.324-.375.486-.83.486-1.365 0-.641-.257-1.141-.77-1.5-.514-.36-1.214-.54-2.101-.54-1.082 0-2.014.282-2.795.844l.838 1.248c.355-.23.679-.392.97-.486a2.79 2.79 0 01.858-.14c.812 0 1.219.324 1.219.972 0 .422-.154.72-.46.894-.307.173-.792.26-1.456.26H5.35v1.389H6c.719 0 1.242.084 1.57.252.328.168.492.453.492.855 0 .45-.142.776-.427.979-.285.203-.727.305-1.324.305a4.61 4.61 0 01-1.184-.159 5.589 5.589 0 01-1.096-.41v1.541c.719.309 1.543.463 2.473.463z'
-						fill='currentColor'
-						fillRule='nonzero'
-					/>
-				</g>
-			</g>
+				d='M14.075 11.47a1.176 1.176 0 0 1-1.687 1.06c-.111-.054-.251-.04-.326.058-.226.3-.412.632-.548.99-.05.134.042.276.175.329a1.177 1.177 0 0 1 0 2.186c-.133.053-.226.195-.175.33.136.357.322.69.548.989.075.099.215.112.326.058a1.176 1.176 0 0 1 1.685 1.126c-.007.123.06.247.18.278a4.004 4.004 0 0 0 1.5.095c.143-.018.225-.167.21-.31a1.176 1.176 0 0 1 1.927-1.029c.108.094.276.108.37 0a3.99 3.99 0 0 0 .726-1.207c.05-.135-.042-.276-.175-.33a1.177 1.177 0 0 1 0-2.186c.133-.053.226-.195.175-.33a4.002 4.002 0 0 0-.725-1.207c-.095-.108-.263-.093-.372 0a1.176 1.176 0 0 1-1.927-1.029c.016-.143-.066-.292-.208-.31a4.026 4.026 0 0 0-1.502.095c-.12.03-.186.155-.18.279a.697.697 0 0 1 .003.066Zm1.175 4.942a1.411 1.411 0 1 0-.002-2.822 1.411 1.411 0 0 0 .002 2.822Z'
+				fill='currentColor'
+			/>
 		</svg>
 	),
-	hide: (
+	captionGeneric: (
 		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
 			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
 		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
+			<rect
+				x='5'
+				y='17'
+				width='10'
+				height='3'
+				rx='1'
+				fill='currentColor'
+			/>
+			<path
+				d='M16.5 15h-13A1.5 1.5 0 0 1 2 13.5v-11A1.5 1.5 0 0 1 3.5 1h13A1.5 1.5 0 0 1 18 2.5v11a1.5 1.5 0 0 1-1.5 1.5Z'
+				stroke='currentColor'
 				fill='none'
-				fillRule='evenodd'
-			>
-				<g>
-					<use
-						stroke='#C8C8C8'
-						mask='url(#prefix__b)'
-						strokeWidth='2'
-						strokeLinecap='round'
-						strokeDasharray='3'
-						xlinkHref='#prefix__a'
-					/>
-					<rect
-						stroke='#DCDCDC'
-						x='3.5'
-						y='3.5'
-						width='47'
-						height='47'
-						rx='2'
-					/>
-				</g>
-				<path
-					d='M17.22 17.22a.75.75 0 00-.073.976l.073.084 4.034 4.035a9.986 9.986 0 00-3.955 5.75.75.75 0 001.455.364 8.49 8.49 0 013.58-5.034l1.81 1.81A4 4 0 0029.8 30.86l5.919 5.92a.75.75 0 001.133-.977l-.073-.084-6.113-6.115.001-.001-1.2-1.198-2.87-2.87h.002l-2.881-2.878.001-.002-1.133-1.13-4.307-4.306a.75.75 0 00-1.06 0zm7.984 9.045l3.535 3.536a2.5 2.5 0 01-3.535-3.535zM27 20.5c-1 0-1.97.148-2.889.425l1.237 1.236a8.503 8.503 0 019.899 6.272.75.75 0 001.455-.363A10.003 10.003 0 0027 20.5zm.195 3.51l3.801 3.8a4.003 4.003 0 00-3.801-3.8z'
-					fill='currentColor'
-					fillRule='nonzero'
-				/>
-			</g>
+			/>
 		</svg>
 	),
-	verticalAlign: (
+	componentOptions: (
 		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
 			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
 		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
-				fill='none'
+			<path
+				clip-rule='evenodd'
 				fillRule='evenodd'
-			>
-				<use
-					stroke='#C8C8C8'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<path
-					stroke='#D8D8D8'
-					strokeLinecap='round'
-					d='M10.5 17.515v32.97M43.5 3.5v33M27.5 35.5v15M27.5 3.5v17'
-				/>
-				<rect
-					stroke='currentColor'
-					x='3.5'
-					y='3.5'
-					width='14'
-					height='14'
-					rx='2'
-				/>
-				<rect
-					stroke='currentColor'
-					x='20.5'
-					y='20.5'
-					width='14'
-					height='14'
-					rx='2'
-				/>
-				<rect
-					stroke='currentColor'
-					x='36.5'
-					y='36.5'
-					width='14'
-					height='14'
-					rx='2'
-				/>
-			</g>
-		</svg>
-	),
-	useWrapper: (
-		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
-			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
-		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
+				d='M14.575 11.97a1.176 1.176 0 0 1-1.687 1.06c-.111-.054-.251-.04-.326.058-.226.3-.412.632-.548.99-.05.134.042.276.175.329a1.177 1.177 0 0 1 0 2.186c-.133.053-.226.195-.175.33.136.357.322.69.548.989.075.099.215.112.326.058a1.176 1.176 0 0 1 1.685 1.126c-.007.123.06.247.18.278a4.004 4.004 0 0 0 1.5.095c.143-.018.225-.167.21-.31a1.176 1.176 0 0 1 1.927-1.029c.108.094.276.108.37 0a3.99 3.99 0 0 0 .726-1.207c.05-.135-.042-.276-.175-.33a1.177 1.177 0 0 1 0-2.186c.133-.053.226-.195.175-.33a4.002 4.002 0 0 0-.725-1.207c-.095-.108-.263-.093-.372 0a1.176 1.176 0 0 1-1.927-1.029c.016-.143-.066-.292-.208-.31a4.026 4.026 0 0 0-1.502.095c-.12.03-.186.155-.18.279a.697.697 0 0 1 .003.066Zm1.175 4.942a1.411 1.411 0 1 0-.002-2.822 1.411 1.411 0 0 0 .002 2.822Z'
+				fill='currentColor'
+			/>
+			<path
+				d='m9.912 19-6.656-3.803a1.5 1.5 0 0 1-.756-1.303V5.235l7.412 4.236V19Z'
+				fill='currentColor'
+				fillOpacity='0.12'
+				stroke='currentColor'
+				strokeLinecap='round'
+				strokeLinejoin='round'
+			/>
+			<path
+				d='M17.324 11V5.235L9.912 9.471V19l.926-.53.464-.264m6.021-12.971-6.667-3.81a1.5 1.5 0 0 0-1.488 0L2.5 5.235l7.412 4.236 7.411-4.236Z'
+				stroke='currentColor'
+				strokeLinecap='round'
+				strokeLinejoin='round'
 				fill='none'
-				fillRule='evenodd'
-			>
-				<use
-					stroke='currentColor'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<rect
-					stroke='#C8C8C8'
-					x='3.5'
-					y='3.5'
-					width='47'
-					height='47'
-					rx='2'
-				/>
-				<rect
-					stroke='currentColor'
-					x='17.5'
-					y='23.5'
-					width='19'
-					height='8'
-					rx='4'
-				/>
-				<circle
-					fill='currentColor'
-					cx='32.5'
-					cy='27.5'
-					r='2.5'
-				/>
-			</g>
-		</svg>
-	),
-	simpleWrapper: (
-		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
-			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
-		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
-				fill='none'
-				fillRule='evenodd'
-			>
-				<use
-					stroke='currentColor'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='0 5'
-					xlinkHref='#prefix__a'
-				/>
-				<rect
-					stroke='#C8C8C8'
-					x='3.5'
-					y='3.5'
-					width='47'
-					height='47'
-					rx='2'
-				/>
-			</g>
-		</svg>
-	),
-	spacingTop: (
-		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
-			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
-		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
-				fill='none'
-				fillRule='evenodd'
-			>
-				<use
-					stroke='#C8C8C8'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<path
-					d='M5 3h44a2 2 0 012 2v10c-.538-.85-.996-1.398-1.373-1.644-.377-.245-.943-.364-1.698-.356H5.907c-.688.006-1.201.125-1.538.356-.337.232-.794.78-1.369 1.644V5a2 2 0 012-2z'
-					fill='currentColor'
-				/>
-				<rect
-					stroke='#DCDCDC'
-					x='3.5'
-					y='13.5'
-					width='47'
-					height='37'
-					rx='2'
-				/>
-			</g>
-		</svg>
-	),
-	spacingBottom: (
-		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
-			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
-		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
-				fill='none'
-				fillRule='evenodd'
-			>
-				<use
-					stroke='#C8C8C8'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<path
-					d='M5 51h44a2 2 0 002-2V39c-.538.85-.996 1.398-1.373 1.644-.377.245-.943.364-1.698.356H5.907c-.688-.006-1.201-.125-1.538-.356-.337-.232-.794-.78-1.369-1.644v10a2 2 0 002 2z'
-					fill='currentColor'
-				/>
-				<rect
-					stroke='#DCDCDC'
-					x='3.5'
-					y='3.5'
-					width='47'
-					height='37'
-					rx='2'
-				/>
-			</g>
-		</svg>
-	),
-	spacingTopIn: (
-		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
-			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
-		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
-				fill='none'
-				fillRule='evenodd'
-			>
-				<use
-					stroke='#C8C8C8'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<path
-					d='M6 5h42a1 1 0 011 1v9H5V6a1 1 0 011-1z'
-					fill='currentColor'
-				/>
-				<rect
-					stroke='#DCDCDC'
-					x='3.5'
-					y='3.5'
-					width='47'
-					height='47'
-					rx='2'
-				/>
-			</g>
-		</svg>
-	),
-	spacingBottomIn: (
-		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
-			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
-		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
-				fill='none'
-				fillRule='evenodd'
-			>
-				<use
-					stroke='#C8C8C8'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<path
-					d='M6 49h42a1 1 0 001-1v-9H5v9a1 1 0 001 1z'
-					fill='currentColor'
-				/>
-				<rect
-					stroke='#DCDCDC'
-					x='3.5'
-					y='3.5'
-					width='47'
-					height='47'
-					rx='2'
-				/>
-			</g>
-		</svg>
-	),
-	topDivider: (
-		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
-			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
-		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
-				fill='none'
-				fillRule='evenodd'
-			>
-				<use
-					stroke='#C8C8C8'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<rect
-					stroke='#DCDCDC'
-					x='3.5'
-					y='3.5'
-					width='47'
-					height='47'
-					rx='2'
-				/>
-				<path
-					d='M1 3a2 2 0 012-2h48a2 2 0 012 2h0'
-					stroke='currentColor'
-					strokeWidth='2'
-					strokeLinecap='round'
-				/>
-			</g>
-		</svg>
-	),
-	bottomDivider: (
-		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
-			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
-		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
-				fill='none'
-				fillRule='evenodd'
-			>
-				<use
-					stroke='#C8C8C8'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<rect
-					stroke='#DCDCDC'
-					x='3.5'
-					y='3.5'
-					width='47'
-					height='47'
-					rx='2'
-				/>
-				<path
-					d='M1 51a2 2 0 002 2h48a2 2 0 002-2h0'
-					stroke='currentColor'
-					strokeWidth='2'
-					strokeLinecap='round'
-				/>
-			</g>
-		</svg>
-	),
-	bgColor: (
-		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
-			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
-		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
-				fill='none'
-				fillRule='evenodd'
-			>
-				<path
-					d='M3 0h48a3 3 0 013 3v48a3 3 0 01-3 3H3a3 3 0 01-3-3V3a3 3 0 013-3z'
-					fill='currentColor'
-					opacity='.048'
-				/>
-				<use
-					stroke='#C8C8C8'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<path
-					d='M19.774 21.813c2.95-3.898 9.058-5.032 13.406-2.35 4.293 2.65 5.872 7.744 4.113 12.523-1.66 4.512-6.035 6.3-9.188 4.03-1.181-.85-1.639-1.916-1.86-3.647l-.106-.984-.045-.396c-.124-.93-.313-1.346-.707-1.564-.537-.298-.895-.305-1.6-.033l-.353.145-.179.077c-1.017.439-1.693.593-2.549.415l-.2-.047-.165-.047c-2.798-.86-3.212-4.626-.567-8.122zm.987 6.687l.124.037.134.03c.44.087.817.015 1.441-.24l.605-.257c1.205-.49 1.991-.538 3.055.05.92.51 1.279 1.292 1.462 2.648l.053.457.054.53.048.42c.172 1.355.486 2.081 1.252 2.632 2.282 1.644 5.551.307 6.89-3.334 1.522-4.133.176-8.477-3.494-10.741-3.686-2.274-8.926-1.301-11.408 1.978-2.081 2.75-1.826 5.257-.216 5.79zm11.26-1.985a1.244 1.244 0 01.886-1.524 1.255 1.255 0 011.536.88 1.244 1.244 0 01-.886 1.524 1.255 1.255 0 01-1.536-.88zm.496 3.473a1.244 1.244 0 01.887-1.524 1.255 1.255 0 011.535.88 1.244 1.244 0 01-.886 1.524 1.255 1.255 0 01-1.536-.88zm-2.48-6.463a1.244 1.244 0 01.886-1.524 1.255 1.255 0 011.536.88 1.244 1.244 0 01-.887 1.524 1.255 1.255 0 01-1.536-.88zm-.03 8.959a1.243 1.243 0 01.887-1.524 1.255 1.255 0 011.536.88 1.244 1.244 0 01-.887 1.524 1.255 1.255 0 01-1.535-.88zM26.5 22.558a1.244 1.244 0 01.886-1.524 1.255 1.255 0 011.536.88 1.244 1.244 0 01-.887 1.524 1.255 1.255 0 01-1.535-.88z'
-					fill='currentColor'
-					fillRule='nonzero'
-				/>
-			</g>
-		</svg>
-	),
-	anchorId: (
-		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
-			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
-		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
-				fill='none'
-				fillRule='evenodd'
-			>
-				<use
-					stroke='#C8C8C8'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<g
-					transform='translate(19.716 18)'
-					stroke='currentColor'
-					strokeWidth='1.5'
-				>
-					<circle
-						cx='8.284'
-						cy='2.5'
-						r='1.75'
-					/>
-					<path
-						strokeLinecap='round'
-						d='M8.284 4.5V19M5.784 9.5h5'
-					/>
-					<path
-						d='M1.36 11.504C1.264 10.694.81 10.194 0 10c.24 3.195 1.263 5.08 3.071 5.659 1.808.577 3.526 1.681 5.154 3.31M15.148 11.504c.096-.81.55-1.31 1.36-1.504-.239 3.195-1.263 5.08-3.07 5.659-1.81.577-3.527 1.681-5.154 3.31'
-						strokeLinecap='round'
-						strokeLinejoin='round'
-					/>
-				</g>
-			</g>
-		</svg>
-	),
-	blockId: (
-		<svg
-			width='54'
-			height='54'
-			viewBox='0 0 54 54'
-			xmlns='http://www.w3.org/2000/svg'
-			xmlnsXlink='http://www.w3.org/1999/xlink'
-		>
-			<defs>
-				<rect
-					id='prefix__a'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					rx='3'
-				/>
-				<mask
-					id='prefix__b'
-					maskContentUnits='userSpaceOnUse'
-					maskUnits='objectBoundingBox'
-					x='0'
-					y='0'
-					width='54'
-					height='54'
-					fill='#fff'
-				>
-					<use xlinkHref='#prefix__a' />
-				</mask>
-			</defs>
-			<g
-				fill='none'
-				fillRule='evenodd'
-			>
-				<use
-					stroke='#C8C8C8'
-					mask='url(#prefix__b)'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeDasharray='3'
-					xlinkHref='#prefix__a'
-				/>
-				<path
-					d='M30.858 26.658c.56.573.877 1.268 1.106 2.228l.1.456.179.947c.089.445.158.692.254.907.3.674.83 1.365 1.595 2.066a.75.75 0 11-1.013 1.106c-.908-.832-1.56-1.683-1.952-2.56-.149-.334-.24-.65-.346-1.18l-.21-1.1-.013-.06c-.181-.85-.404-1.385-.773-1.762-.713-.73-2.357-.537-2.797.158-.562.889-.705 2.396-.259 3.916.345 1.174.802 2.33 1.372 3.467a.75.75 0 11-1.34.672 22.272 22.272 0 01-1.471-3.717c-.562-1.912-.376-3.864.43-5.14.953-1.506 3.742-1.834 5.138-.404zm-2.366 2.315a.75.75 0 01.775.725 7.926 7.926 0 001.444 4.304l.196.266.3.39a.75.75 0 01-1.114.998l-.074-.083-.3-.39a9.426 9.426 0 01-1.951-5.435.75.75 0 01.724-.775zm-3.709-5.083c2.112-1.563 4.874-1.478 6.732-.284.93.598 1.635 1.295 2.103 2.093a.75.75 0 01-1.294.76c-.342-.584-.878-1.115-1.62-1.591-1.362-.876-3.45-.94-5.028.228-1.639 1.213-2.329 3.291-2.123 5.482.115 1.227.484 2.467 1.113 3.724a.75.75 0 01-1.342.67c-.709-1.417-1.132-2.837-1.265-4.254-.25-2.67.61-5.263 2.724-6.828zm9.18 4.301a.75.75 0 01.787.71c.031.604.18 1.097.442 1.494.22.333.414.525.563.6l.061.024a.75.75 0 01-.434 1.436c-.547-.165-1.017-.588-1.443-1.235-.415-.63-.643-1.382-.687-2.241a.75.75 0 01.71-.788zm-7.452-7.589a.75.75 0 01-.377.992c-1.84.828-3.194 2.008-4.083 3.548-1.113 1.928-1.414 4.181-1.164 6.08a.75.75 0 11-1.488.196c-.288-2.201.055-4.778 1.353-7.026 1.052-1.821 2.648-3.212 4.767-4.166a.75.75 0 01.992.376zm2.343-.787c1.83.037 3.652.878 5.459 2.486 1.823 1.622 2.921 3.827 3.294 6.58a.75.75 0 11-1.486.202c-.327-2.412-1.261-4.287-2.805-5.661-1.56-1.388-3.055-2.078-4.492-2.107a.75.75 0 11.03-1.5zm-6.871.014a.75.75 0 01-.061 1.06c-.269.238-.55.523-.844.854-.276.312-.56.716-.846 1.213a.75.75 0 11-1.299-.75 8.913 8.913 0 011.023-1.458c.331-.374.654-.7.968-.98a.75.75 0 011.059.061zm6.585-2.966c2.193.103 4.03.703 5.53 1.861a.75.75 0 01-.917 1.188c-1.245-.962-2.785-1.461-4.683-1.55-1.903-.09-3.461.284-4.714.979-.384.213-.815.106-1.032-.247a.739.739 0 01.247-1.031c1.535-.904 3.382-1.302 5.57-1.2z'
-					fill='currentColor'
-					fillRule='nonzero'
-				/>
-			</g>
+			/>
 		</svg>
 	),
 };
@@ -24078,4 +23045,6 @@ export const blockIcons = {
 		"<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'><path d='M4.884 10.004c-.372-4.092-2.17-3.72-3.255-3.255 1.085-1.24 3.255-3.72 5.58-1.396 2.326-4.65 8.61-3.459 11.162-2.325v3.256c-1.86-1.86-6.494-1.418-7.906.465-1.395 1.86-1.395 6.975 1.86 7.905 2.28.652 5.115-.155 6.046-.93v2.79c-2.233 2.233-6.511 1.706-8.371.93-1.55-.774-4.744-3.348-5.116-7.44Z' stroke='currentColor' stroke-linejoin='round' fill='none'/><path d='M8.605 14.19C6.67 11.356 6.589 7.368 7.209 5.352l.466-.93 1.86-1.395 1.86-.93h2.325l2.79.465c-3.166.327-5.688 2.825-6.393 4.08l-.582 3.36.93 3.721 1.86.93h3.72l2.322-.928c.002-.413.003-.6.003-.002 0 .505-.006.863-.012 1.15a7.042 7.042 0 0 1-.008.37c.089.452-1.756 1.111-3.805 1.281-2.352.097-4.319.039-5.94-2.336Z' fill='currentColor' fill-opacity='0.3'/></svg>",
 	'esf-paycek':
 		"<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'><path d='M2.733 10.688 1.5 18.5h1.54a3 3 0 0 0 2.942-2.412L6.5 13.5h5.143A6.857 6.857 0 0 0 18.5 6.643 5.143 5.143 0 0 0 13.357 1.5h-2.474a4 4 0 0 0-3.795 2.735L6.5 6H13a1.5 1.5 0 0 1 0 3H4.709a2 2 0 0 0-1.976 1.688Z' stroke='currentColor' fill='none'/><path d='M12.495 13.5c3.6-1.2 3.107-4.926 2.44-6.426l-.94 1.426-1 .5h-3c-2.8 0-3.698 2.817-3.981 4.39l6.481.11Z' fill='currentColor' fill-opacity='0.3'/></svg>",
+	'esf-nation-builder':
+		"<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'><path opacity='0.8' d='M6.317 2.337a8.515 8.515 0 0 0-4.606 5.77' stroke='currentColor' fill='none'/><path opacity='0.7' d='M1.711 8.108A8.574 8.574 0 0 0 3.354 15.3' stroke='currentColor' fill='none'/><path opacity='0.5' d='M10 18.5a8.484 8.484 0 0 1-6.646-3.2' stroke='currentColor' fill='none'/><path opacity='0.7' d='M10 18.5c2.696 0 5.1-1.256 6.657-3.214' stroke='currentColor' fill='none'/><path d='M16.656 15.286a8.564 8.564 0 0 0 1.632-7.178' stroke='currentColor' fill='none'/><path opacity='0.9' d='M18.289 8.108a8.516 8.516 0 0 0-4.59-5.764' stroke='currentColor' fill='none'/><path opacity='0.5' d='M6.316 2.337a8.57 8.57 0 0 1 7.382.007' stroke='currentColor' fill='none'/><path d='m9 5.5-1.5 9m5-9-1.5 9m-5-3h7.5M6.5 8H14' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>",
 };
