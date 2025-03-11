@@ -166,7 +166,7 @@ export const SolidColorPicker = (props) => {
 				>
 					<Label className='es:text-sm es:tracking-tight es:mb-2 es:inline-block'>{__('Advanced color options', 'eightshift-ui-components')}</Label>
 
-					<Tabs type='pillInverse'>
+					<Tabs type='pillCompactInverse'>
 						<TabList>
 							<Tab>RGB</Tab>
 							<Tab>HSL</Tab>

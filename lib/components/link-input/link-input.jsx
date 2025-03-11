@@ -92,7 +92,6 @@ export const LinkInput = (props) => {
 	});
 
 	const [shouldShowSuggestions, setShouldShowSuggestions] = useState(false);
-	const [suggestionsVisible, setSuggestionsVisible] = useState(false);
 
 	useEffect(() => {
 		suggestionList.setFilterText(url);
@@ -153,7 +152,7 @@ export const LinkInput = (props) => {
 					ref={triggerRef}
 				>
 					<Input
-						placeholder={!disabled && placeholder}
+						placeholder={disabled ? null : placeholder}
 						className={clsx(
 							'es:min-h-10 es:w-full es:rounded-t-lg es:border es:border-secondary-300 es:py-2 es:pl-2 es:pr-1 es:text-sm es:shadow-xs es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950',
 							'es:any-focus:outline-hidden',

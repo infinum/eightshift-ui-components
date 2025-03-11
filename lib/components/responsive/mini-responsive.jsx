@@ -95,6 +95,8 @@ export const MiniResponsive = (props) => {
 
 		hidden,
 
+		useLegacyDesktopFirst,
+
 		innerContentAlign = 'start',
 	} = props;
 
