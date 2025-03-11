@@ -1,6 +1,6 @@
 @import './index.css';
 
-.es\:css-reset {
+:where(.es\:css-reset) {
 	@import "tailwindcss/preflight.css";
 }
 
