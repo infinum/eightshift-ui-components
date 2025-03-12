@@ -1,6 +1,6 @@
 {
 	"name": "@eightshift/ui-components",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
@@ -89,7 +89,7 @@
 		"react-select": "^5.10.1",
 		"react-stately": "^3.36.1",
 		"svg-to-jsx-string": "^0.1.1",
-		"tailwindcss": "^4.0.12",
+		"tailwindcss": "^4.0.13",
 		"tailwindcss-motion": "^1.1.0",
 		"tailwindcss-react-aria-components": "^2.0.0",
 		"vite": "^6.2.1",
