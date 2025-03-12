@@ -4,6 +4,7 @@ import { clsx } from 'clsx/lite';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { icons } from '../../icons/icons';
 import { RichLabel } from '../rich-label/rich-label';
+import { Label } from 'react-aria-components';
 
 /**
  * A simple checkbox.
@@ -86,6 +87,7 @@ export const Checkbox = (props) => {
 					inlineSubtitle={inlineSubtitle}
 					fullSizeSubtitle
 					fullWidth
+					as={Label}
 				/>
 			)}
 			<div
@@ -129,6 +131,7 @@ export const Checkbox = (props) => {
 					className={clsx(subtitle && 'es:mt-0.5', 'es:ml-0.5 es:*:space-y-0.5', labelClassName)}
 					inlineSubtitle={inlineSubtitle}
 					fullSizeSubtitle
+					as={Label}
 				/>
 			)}
 			{!(icon || label || subtitle) && children}

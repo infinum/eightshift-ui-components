@@ -89,6 +89,7 @@ export const RadioButton = (props) => {
 							inlineSubtitle={inlineSubtitle}
 							fullWidth
 							fullSizeSubtitle
+							as={Label}
 						/>
 					)}
 					<div
@@ -126,6 +127,7 @@ export const RadioButton = (props) => {
 							className={clsx(labelClassName, subtitle && 'es:mt-0.5', 'es:[&_>_span_>_svg]:size-5 es:ml-0.5 es:*:space-y-0.5', disabled && 'es:opacity-55')}
 							inlineSubtitle={inlineSubtitle}
 							fullSizeSubtitle
+							as={Label}
 						/>
 					)}
 					{!(icon || label || subtitle) && children}
