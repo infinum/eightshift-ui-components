@@ -3,7 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [3.0.0] - 2025-02-04
+## [3.0.1] - 2025-03-13
+- Fixed `RadioButton` and `Checkbox` label roles.
+
+## [3.0.0] - 2025-03-11
 - [**BREAKING**] Fixed how `Responsive`'s (+ `MiniResponsive`) desktop-first mode works. To use previous behavior, add `useLegacyDesktopFirst`. Mobile-first is unaffected.
 - Tweaked `ContainerPanel` so it doesn't animate on first mount.
 - `ContainerPanel` now supports the `hidden` attribute.
@@ -279,6 +282,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[3.0.1]: https://github.com/infinum/eightshift-ui-components/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/infinum/eightshift-ui-components/compare/2.0.2...3.0.0
 [2.0.2]: https://github.com/infinum/eightshift-ui-components/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/infinum/eightshift-ui-components/compare/2.0.0...2.0.1
