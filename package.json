@@ -1,6 +1,6 @@
 {
 	"name": "@eightshift/ui-components",
-	"version": "3.0.1",
+	"version": "4.0.0",
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
@@ -39,8 +39,8 @@
 		"preview": "vite preview"
 	},
 	"peerDependencies": {
-		"react": "^18.3.1",
-		"react-dom": "^18.3.1"
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
 	"devDependencies": {
 		"@adobe/react-spectrum": "^3.40.1",
@@ -54,10 +54,10 @@
 		"@dnd-kit/utilities": "^3.2.2",
 		"@eslint/compat": "^1.2.7",
 		"@react-stately/collections": "^3.12.2",
-		"@stylistic/eslint-plugin-js": "^3.1.0",
+		"@stylistic/eslint-plugin-js": "^4.2.0",
 		"@tailwindcss/vite": "^4.0.14",
-		"@types/react": "^18.3.18",
-		"@types/react-dom": "^18.3.5",
+		"@types/react": "^19.0.11",
+		"@types/react-dom": "^19.0.4",
 		"@vitejs/plugin-react-swc": "^3.8.0",
 		"@wordpress/i18n": "^5.20.0",
 		"autoprefixer": "^10.4.21",
@@ -80,10 +80,10 @@
 		"postcss": "^8.5.3",
 		"prettier": "^3.5.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
-		"react": "^18.3.1",
+		"react": "^19.0.0",
 		"react-aria": "^3.38.1",
 		"react-aria-components": "^1.7.1",
-		"react-dom": "^18.3.1",
+		"react-dom": "^19.0.0",
 		"react-jsx-parser": "^2.4.0",
 		"react-movable": "^3.4.1",
 		"react-select": "^5.10.1",
