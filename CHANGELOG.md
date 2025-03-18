@@ -5,6 +5,8 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 ## [3.0.1] - 2025-03-13
 - Fixed `RadioButton` and `Checkbox` label roles.
+- Fixed `Tabs` in `vertical` mode having extra margin on tab content.
+- Updated dependencies.
 
 ## [3.0.0] - 2025-03-11
 - [**BREAKING**] Fixed how `Responsive`'s (+ `MiniResponsive`) desktop-first mode works. To use previous behavior, add `useLegacyDesktopFirst`. Mobile-first is unaffected.
