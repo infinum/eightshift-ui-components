@@ -57,6 +57,7 @@ export const ToggleButton = (props) => {
 		wrapperClassName,
 		tooltipProps,
 		hidden,
+		'aria-label': ariaLabel,
 		...other
 	} = props;
 
