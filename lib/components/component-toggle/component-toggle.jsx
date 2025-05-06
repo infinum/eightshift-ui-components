@@ -123,6 +123,7 @@ export const ComponentToggle = (props) => {
 						<Switch
 							checked={useComponent}
 							onChange={onChange}
+							aria-label={__('Use component', 'eightshift-ui-components')}
 						/>
 					)
 				}
