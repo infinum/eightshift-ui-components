@@ -12,6 +12,7 @@ import { __ } from '@wordpress/i18n';
  * @param {string} [props.gradient] - The gradient to display.
  * @param {string} [props.className] - Additional clsx to apply.
  * @param {string} [props.colorName] - The name of the color. Should be auto-generated for colors.
+ * @param {boolean} [props.customGradient=false] - Set to `true` if using a custom gradient.
  *
  * @returns {JSX.Element} The ColorSwatch component.
  *
@@ -24,13 +25,13 @@ import { __ } from '@wordpress/i18n';
  * @preserve
  */
 export const ColorSwatch = (props) => {
-	const { color: rawColor, gradient, className, colorName } = props;
+	const { color: rawColor, gradient, className, colorName, customGradient = false } = props;
 
 	const checkerPattern = 'repeating-conic-gradient(#CCC 0% 25%, white 0% 50%) 50% / 0.75rem 0.75rem';
 
 	let color;
 
-	if (rawColor && !gradient) {
+	if (rawColor && !gradient && !customGradient) {
 		try {
 			if (rawColor === 'transparent') {
 				color = 'rgba(0, 0, 0, 0)';
@@ -50,11 +51,11 @@ export const ColorSwatch = (props) => {
 			style={{
 				background: (color || gradient) && backgroundGradient,
 			}}
-			className={() => clsx('es:size-6 es:rounded es:border es:border-secondary-300 es:shadow-xs', !color && !gradient && 'es:bg-white', className)}
-			colorName={!color && !gradient ? __('No color', 'eightshift-ui-components') : colorName}
+			className={() => clsx('es:size-6 es:rounded es:border es:border-secondary-300 es:shadow-xs', !color && !gradient && !customGradient && 'es:bg-white', className)}
+			colorName={!color && !gradient && !customGradient ? __('No color', 'eightshift-ui-components') : colorName}
 			color={color}
 		>
-			{!color && !gradient && <div className='es:m-auto es:h-full es:w-px es:rotate-45 es:rounded es:bg-red-500' />}
+			{!color && !gradient && !customGradient && <div className='es:m-auto es:h-full es:w-px es:rotate-45 es:rounded es:bg-red-500' />}
 		</ReactAriaColorSwatch>
 	);
 };
