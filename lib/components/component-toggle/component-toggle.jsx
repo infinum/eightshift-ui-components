@@ -29,6 +29,7 @@ import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
  * @param {boolean} [props.hideUseToggleOnExpand] - If `true`, and the component is display in a variant where it can be expanded, the use toggle will hide when the component is expanded.
  * @param {string} [props.contentClassName] - Classes to pass to the content container.
  * @param {ComponentToggleDesign} [props.design='default'] - Design of the component.
+ * @param {string} [props.switchAriaLabel] - ARIA label of the toggle switch.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The ComponentToggle component.
@@ -64,6 +65,8 @@ export const ComponentToggle = (props) => {
 		controlOnly,
 		expandButtonDisabled,
 		hideUseToggleOnExpand,
+
+		switchAriaLabel = __('Use component', 'eightshift-ui-components'),
 
 		contentClassName = 'es:space-y-2.5',
 
@@ -123,6 +126,7 @@ export const ComponentToggle = (props) => {
 						<Switch
 							checked={useComponent}
 							onChange={onChange}
+							aria-label={switchAriaLabel}
 						/>
 					)
 				}

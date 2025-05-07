@@ -12,7 +12,7 @@ import { Tooltip } from '../tooltip/tooltip';
  * @param {ButtonType} [props.type='default'] - The type of the button.
  * @param {boolean} [props.disabled] - If `true`, the button is disabled.
  * @param {string} [props.className] - Classes to pass to the button.
- * @param {string} [props.tooltip] - Tooltip text to display on hover.
+ * @param {string|boolean} [props.tooltip] - Tooltip text to display on hover.
  * @param {boolean} props.selected - Whether the button is selected.
  * @param {Function} [props.onChange] - Function to run when the toggle state changes.
  * @param {string} [props.wrapperClassName] - Classes to pass to the tooltip wrapper.
@@ -44,7 +44,22 @@ import { Tooltip } from '../tooltip/tooltip';
  * @preserve
  */
 export const ToggleButton = (props) => {
-	const { children, icon, size = 'default', type = 'default', disabled, className, tooltip, selected, onChange, wrapperClassName, tooltipProps, hidden, ...other } = props;
+	const {
+		children,
+		icon,
+		size = 'default',
+		type = 'default',
+		disabled,
+		className,
+		tooltip: rawTooltip,
+		selected,
+		onChange,
+		wrapperClassName,
+		tooltipProps,
+		hidden,
+		'aria-label': ariaLabel,
+		...other
+	} = props;
 
 	if (hidden) {
 		return null;
@@ -193,6 +208,12 @@ export const ToggleButton = (props) => {
 			},
 		},
 	);
+
+	let tooltip = rawTooltip;
+
+	if (rawTooltip === true && ariaLabel?.length > 0) {
+		tooltip = ariaLabel;
+	}
 
 	const component = (
 		<ReactAriaToggleButton

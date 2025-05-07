@@ -2558,6 +2558,12 @@ function App() {
 						gradient='conic-gradient(#0D3636, rgb(249 250 251))'
 						colorName='Conic gradient'
 					/>
+
+					<ColorSwatch
+						colorName='Custom gradient'
+						className='es:bg-gradient-to-r es:from-accent-100 es:to-accent-500'
+						customGradient
+					/>
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<ColorPicker

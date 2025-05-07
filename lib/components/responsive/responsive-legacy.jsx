@@ -211,14 +211,12 @@ export const ResponsiveLegacy = (props) => {
 						innerContentAlign === 'center' && 'es:justify-items-center',
 						innerContentAlign === 'end' && 'es:justify-items-end',
 						innerContentAlign === 'stretch' && 'es:justify-items-stretch',
-						detailsVisible
-							? 'es:mb-2 es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)]'
-							: 'es:grid-cols-[minmax(0,0rem)_minmax(0,1fr)_minmax(0,2.25rem)]',
+						detailsVisible ? 'es:mb-2 es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)]' : 'es:grid-cols-[minmax(0,0rem)_minmax(0,1fr)_minmax(0,2.25rem)]',
 					)}
 					key={defaultBreakpoint}
 				>
 					{detailsVisible && <DefaultTooltip />}
-					<div className={clsx(detailsVisible ? 'es:col-start-2 es:col-end-2' : 'es:col-span-full')}>
+					<div className={clsx('es:w-full', detailsVisible ? 'es:col-start-2 es:col-end-2' : 'es:col-span-full')}>
 						{children({
 							breakpoint: defaultBreakpoint,
 							currentValue: value?.[attribute[defaultBreakpoint]],
@@ -358,12 +356,14 @@ export const ResponsiveLegacy = (props) => {
 								</div>
 							</DecorativeTooltip>
 
-							{children({
-								breakpoint: breakpoint,
-								currentValue: value?.[attribute[breakpoint]],
-								options: options,
-								handleChange: (newValue) => onChange(attribute[breakpoint], newValue),
-							})}
+							<div className='es:w-full'>
+								{children({
+									breakpoint: breakpoint,
+									currentValue: value?.[attribute[breakpoint]],
+									options: options,
+									handleChange: (newValue) => onChange(attribute[breakpoint], newValue),
+								})}
+							</div>
 
 							<Button
 								onPress={() => onChange(attribute[breakpoint], inheritValue)}

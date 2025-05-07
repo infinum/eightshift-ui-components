@@ -27,7 +27,7 @@ import { clsx } from 'clsx/lite';
  * @preserve
  */
 export const Switch = (props) => {
-	const { checked, onChange, disabled, id, children, className, isIndeterminate, hidden } = props;
+	const { checked, onChange, disabled, id, children, className, isIndeterminate, hidden, ...rest } = props;
 
 	if (hidden) {
 		return null;
@@ -40,6 +40,7 @@ export const Switch = (props) => {
 			isSelected={checked ?? false}
 			onChange={onChange}
 			className='es:group es:flex es:items-center es:justify-between es:gap-2 es:any-focus:outline-hidden'
+			{...rest}
 		>
 			{children}
 			<div className={clsx('es:flex es:shrink-0 es:items-center es:justify-center es:min-h-6.5', className)}>

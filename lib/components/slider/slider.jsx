@@ -42,6 +42,7 @@ import { generateMarkers } from './utils';
  * @param {Function} [props.thumbContent] - If provided, the function will be called with the current value of the thumb, and the return value will be displayed within the thumb. `(currentIndex: number) => JSX.Element`.
  * @param {string} [props.labelClassName] - Additional classes to pass to the label.
  * @param {Object<string, any>} [props.trackStyle] - Additional style for the track.
+ * @param {Number} [props.markerStep] - If provided, this value is used to generate markers instead of the step value. Useful when using small steps with a larger range.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Slider component.
@@ -94,6 +95,8 @@ export const Slider = (props) => {
 		labelClassName,
 		trackStyle,
 
+		markerStep = step,
+
 		hidden,
 
 		...other
@@ -112,7 +115,7 @@ export const Slider = (props) => {
 	}
 
 	if (markers === true || markers === 'dots') {
-		generatedMarkers = generateMarkers(min, max, step);
+		generatedMarkers = generateMarkers(min, max, markerStep);
 	}
 
 	const markerEntries = Object.entries(generatedMarkers);

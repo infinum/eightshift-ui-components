@@ -78,7 +78,7 @@ export const Modal = (props) => {
 				isKeyboardDismissDisabled={noKeyboardDismiss}
 				className={({ isEntering, isExiting }) =>
 					clsx(
-						'es:fixed es:inset-0 es:z-9999 es:flex es:min-h-full es:items-center es:justify-center es:overflow-y-auto es:bg-black/25 es:p-4 es:text-center es:backdrop-blur',
+						'es:fixed es:inset-0 es:z-9999 es:flex es:min-h-full es:items-center es:justify-center es:overflow-y-auto es:bg-black/25 es:p-4 es:text-center es:backdrop-blur-xs',
 						isEntering && 'es:motion-opacity-in es:motion-duration-150',
 						isExiting && 'es:motion-opacity-out es:motion-duration-150',
 						overlayClassName,

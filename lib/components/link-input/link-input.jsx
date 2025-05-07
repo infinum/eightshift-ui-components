@@ -110,7 +110,7 @@ export const LinkInput = (props) => {
 
 		setShouldShowSuggestions(
 			!(
-				(showSuggestionsWhenEmpty !== true && url.trim().length < 4) ||
+				(showSuggestionsWhenEmpty !== true && url.trim().length < 3) ||
 				url.startsWith('#') ||
 				url.startsWith(':') ||
 				url.startsWith('mailto') ||
@@ -135,7 +135,7 @@ export const LinkInput = (props) => {
 				suggestionList.setFilterText(value);
 			}}
 			allowsCustomValue
-			allowsEmptyCollection={canShowSuggestions && shouldShowSuggestions}
+			allowsEmptyCollection
 			isDisabled={disabled}
 		>
 			<BaseControl
@@ -154,14 +154,12 @@ export const LinkInput = (props) => {
 					<Input
 						placeholder={disabled ? null : placeholder}
 						className={clsx(
-							'es:min-h-10 es:w-full es:rounded-t-lg es:border es:border-secondary-300 es:py-2 es:pl-2 es:pr-1 es:text-sm es:shadow-xs es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950',
+							'es:min-h-10 es:w-full es:rounded-lg es:border es:border-secondary-300 es:py-2 es:pl-2 es:pr-1 es:text-sm es:shadow-xs es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950 es:bg-white',
 							'es:any-focus:outline-hidden',
 							'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 							'es:focus-visible:border-accent-500',
 							'es:inset-ring es:inset-ring-secondary-100',
 							'es:disabled:shadow-none! es:disabled:border-secondary-200 es:disabled:bg-secondary-50 es:disabled:text-secondary-500 es:disabled:cursor-default es:readonly:bg-secondary-50',
-							!suggestionList.isLoading && 'es:aria-[expanded=false]:rounded-b-lg',
-							suggestionList.isLoading && 'es:rounded-b-lg',
 							url?.length > 0 && 'es:pr-10',
 							className,
 						)}
@@ -202,18 +200,20 @@ export const LinkInput = (props) => {
 				</Group>
 			</BaseControl>
 
-			{canShowSuggestions && shouldShowSuggestions && !suggestionList.isLoading && (
+			{canShowSuggestions && shouldShowSuggestions && (
 				<Popover
 					aria-label={__('URL suggestions', 'eightshift-ui-components')}
 					className={({ isEntering, isExiting }) =>
 						clsx(
-							'es:rounded-b-lg es:border es:border-secondary-300 es:bg-white es:shadow-lg es:outline-hidden',
-							isEntering && 'es:not-motion-reduce:motion-preset-slide-down-sm es:motion-reduce:motion-preset-fade es:motion-duration-300',
+							'es:border es:rounded-lg es:border-secondary-300 es:bg-white es:shadow-lg es:outline-hidden es:min-w-72',
+							isEntering ||
+								(!(suggestionList.isLoading || !shouldShowSuggestions) &&
+									'es:not-motion-reduce:motion-preset-slide-down-sm es:motion-reduce:motion-preset-fade es:motion-duration-300'),
 							isExiting && 'es:not-motion-reduce:motion-translate-y-out-[-2.5%] es:motion-opacity-out-0 es:motion-duration-200',
-							!shouldShowSuggestions && suggestionList.items.length < 1 && 'es:invisible',
+							(suggestionList.isLoading || !shouldShowSuggestions) && 'es:invisible',
 						)
 					}
-					offset={-2}
+					offset={3}
 					style={{
 						width: `${triggerRef.current?.offsetWidth}px`,
 					}}
@@ -227,7 +227,7 @@ export const LinkInput = (props) => {
 						/>
 					)}
 
-					{!suggestionList.isLoading && suggestionList.items.length > 0 && (
+					{suggestionList.items.length > 0 && !suggestionList.isLoading && (
 						<>
 							<ListBox className='es:space-y-1 es:p-1'>
 								{(item) => {
