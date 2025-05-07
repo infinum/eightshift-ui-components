@@ -42,6 +42,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {boolean} [props.inline] - If `true`, the default breakpoint is shown inline with the label. In the expanded state, all breakpoints are shown below the label.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {boolean} [props.useLegacyDesktopFirst] - If `true`, the legacy desktop-first mode is used. This is only for backwards compatibility.
+ * @param {string} [props.className] - Classes to pass to the control base.
  * @param {'start' | 'center' | 'end' | 'stretch'} [props.innerContentAlign='start'] - Determines inner content alignment
  *
  * @returns {JSX.Element} The Responsive component.
@@ -101,6 +102,8 @@ export const Responsive = (props) => {
 		innerContentAlign = 'start',
 
 		useLegacyDesktopFirst,
+
+		className,
 	} = props;
 
 	if (typeof rawBreakpoints === 'undefined' || !Array.isArray(rawBreakpoints)) {
@@ -213,6 +216,7 @@ export const Responsive = (props) => {
 			label={label}
 			subtitle={subtitle}
 			help={help}
+			className={className}
 			actions={
 				<>
 					{inline && (
@@ -339,7 +343,7 @@ export const Responsive = (props) => {
 					key='_default-mobile-first'
 				>
 					{detailsVisible && <DefaultTooltip />}
-					<div className={clsx(detailsVisible ? 'es:col-start-2 es:col-end-2' : 'es:col-span-full')}>
+					<div className={clsx('es:w-full', detailsVisible ? 'es:col-start-2 es:col-end-2' : 'es:col-span-full')}>
 						{children({
 							breakpoint: '_default',
 							currentValue: value?.['_default'],
@@ -593,7 +597,7 @@ export const Responsive = (props) => {
 					key='_default-desktop-first'
 				>
 					{detailsVisible && <DefaultTooltip />}
-					<div className={clsx(detailsVisible ? 'es:col-start-2 es:col-end-2' : 'es:col-span-full')}>
+					<div className={clsx('es:w-full', detailsVisible ? 'es:col-start-2 es:col-end-2' : 'es:col-span-full')}>
 						{children({
 							breakpoint: '_default',
 							currentValue: value?.['_default'],

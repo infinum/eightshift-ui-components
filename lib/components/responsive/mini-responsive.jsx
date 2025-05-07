@@ -267,7 +267,7 @@ export const MiniResponsive = (props) => {
 								key='_default-mobile-first'
 							>
 								<DefaultTooltip />
-								<div className='es:col-start-2 es:col-end-2'>
+								<div className='es:w-full es:col-start-2 es:col-end-2'>
 									{children({
 										breakpoint: '_default',
 										currentValue: value?.['_default'],
@@ -486,7 +486,7 @@ export const MiniResponsive = (props) => {
 								key='_default-desktop-first'
 							>
 								<DefaultTooltip />
-								<div className='es:col-start-2 es:col-end-2'>
+								<div className='es:w-full es:col-start-2 es:col-end-2'>
 									{children({
 										breakpoint: '_default',
 										currentValue: value?.['_default'],
