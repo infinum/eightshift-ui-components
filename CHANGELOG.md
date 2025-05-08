@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [5.0.1] - 2025-05-08
+- Updated dependencies.
+
 ## [5.0.0] - 2025-05-07
 - [**NOTE**] This version reverts to React 18 due to WP not being ready yet.
 - Updated dependencies.
@@ -297,6 +300,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[5.0.1]: https://github.com/infinum/eightshift-ui-components/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/infinum/eightshift-ui-components/compare/3.0.1...5.0.0
 [4.0.0]: https://github.com/infinum/eightshift-ui-components/compare/3.0.1...4.0.0
 [3.0.1]: https://github.com/infinum/eightshift-ui-components/compare/3.0.0...3.0.1
