@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
+## [5.0.1] - 2025-05-21
+- Updated dependencies.
 
 ## [5.0.1] - 2025-05-08
 - Updated dependencies.
@@ -300,6 +302,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[5.0.2]: https://github.com/infinum/eightshift-ui-components/compare/5.0.1...5.0.2
 [5.0.1]: https://github.com/infinum/eightshift-ui-components/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/infinum/eightshift-ui-components/compare/3.0.1...5.0.0
 [4.0.0]: https://github.com/infinum/eightshift-ui-components/compare/3.0.1...4.0.0
@@ -345,3 +348,4 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 [1.0.2]: https://github.com/infinum/eightshift-ui-components/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/infinum/eightshift-ui-components/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/infinum/eightshift-ui-components/compare/0.0.1...1.0.0
+
