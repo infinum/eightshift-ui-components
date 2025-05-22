@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
-## [5.0.1] - 2025-05-21
+## [5.0.2] - 2025-05-21
 - Updated dependencies.
 
 ## [5.0.1] - 2025-05-08
