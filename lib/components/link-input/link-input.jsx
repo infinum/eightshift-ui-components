@@ -2,7 +2,7 @@ import { Label, Button as ReactAriaButton, Input, Group, ListBox, ListBoxItem, P
 import { __ } from '@wordpress/i18n';
 import { icons } from '../../icons/icons';
 import { clsx } from 'clsx/lite';
-import { useRef, cloneElement, useState, useEffect } from 'react';
+import { useRef, cloneElement, useEffect } from 'react';
 import { useAsyncList } from 'react-stately';
 import { Spacer } from '../spacer/spacer';
 import { Tooltip } from '../tooltip/tooltip';
@@ -74,10 +74,26 @@ export const LinkInput = (props) => {
 
 	const triggerRef = useRef(null);
 
+	let shouldShowSuggestions = true;
+
+	if (!canShowSuggestions || (!showSuggestionsWhenEmpty && url.length < 1)) {
+		shouldShowSuggestions = false;
+	} else {
+		shouldShowSuggestions = !(
+			(showSuggestionsWhenEmpty !== true && url.trim().length < 3) ||
+			url.startsWith('#') ||
+			url.startsWith(':') ||
+			url.startsWith('mailto') ||
+			url.startsWith('tel') ||
+			url.startsWith('http') ||
+			url.startsWith('www')
+		);
+	}
+
 	const suggestionList = useAsyncList({
 		initialFilterText: url,
 		async load({ signal, filterText }) {
-			if (!canShowSuggestions) {
+			if (disabled || !canShowSuggestions || !shouldShowSuggestions || !filterText || filterText.length < 3) {
 				return {
 					items: [],
 				};
@@ -91,34 +107,8 @@ export const LinkInput = (props) => {
 		},
 	});
 
-	const [shouldShowSuggestions, setShouldShowSuggestions] = useState(false);
-
 	useEffect(() => {
 		suggestionList.setFilterText(url);
-
-		if (!canShowSuggestions) {
-			setShouldShowSuggestions(false);
-
-			return;
-		}
-
-		if (!showSuggestionsWhenEmpty && url.length < 1) {
-			setShouldShowSuggestions(false);
-
-			return;
-		}
-
-		setShouldShowSuggestions(
-			!(
-				(showSuggestionsWhenEmpty !== true && url.trim().length < 3) ||
-				url.startsWith('#') ||
-				url.startsWith(':') ||
-				url.startsWith('mailto') ||
-				url.startsWith('tel') ||
-				url.startsWith('http') ||
-				url.startsWith('www')
-			),
-		);
 	}, [url]);
 
 	if (hidden) {
@@ -131,8 +121,6 @@ export const LinkInput = (props) => {
 			inputValue={suggestionList.filterText}
 			onInputChange={(value) => {
 				onChange({ url: value, isAnchor: value?.includes('#') });
-
-				suggestionList.setFilterText(value);
 			}}
 			allowsCustomValue
 			allowsEmptyCollection
