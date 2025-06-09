@@ -74,6 +74,22 @@ export const LinkInput = (props) => {
 
 	const triggerRef = useRef(null);
 
+	let shouldShowSuggestions = true;
+
+	if (!canShowSuggestions || (!showSuggestionsWhenEmpty && url.length < 1)) {
+		shouldShowSuggestions = false;
+	} else {
+		shouldShowSuggestions = !(
+			(showSuggestionsWhenEmpty !== true && url.trim().length < 3) ||
+			url.startsWith('#') ||
+			url.startsWith(':') ||
+			url.startsWith('mailto') ||
+			url.startsWith('tel') ||
+			url.startsWith('http') ||
+			url.startsWith('www')
+		);
+	}
+
 	const suggestionList = useAsyncList({
 		initialFilterText: url,
 		async load({ signal, filterText }) {
@@ -91,27 +107,7 @@ export const LinkInput = (props) => {
 		},
 	});
 
-	let shouldShowSuggestions = true;
-
-	if (!canShowSuggestions || (!showSuggestionsWhenEmpty && url.length < 1)) {
-		shouldShowSuggestions = false;
-	} else {
-		shouldShowSuggestions = !(
-			(showSuggestionsWhenEmpty !== true && url.trim().length < 3) ||
-			url.startsWith('#') ||
-			url.startsWith(':') ||
-			url.startsWith('mailto') ||
-			url.startsWith('tel') ||
-			url.startsWith('http') ||
-			url.startsWith('www')
-		);
-	}
-
 	useEffect(() => {
-		if (suggestionList.filterText === url) {
-			return;
-		}
-
 		suggestionList.setFilterText(url);
 	}, [url]);
 
@@ -125,8 +121,6 @@ export const LinkInput = (props) => {
 			inputValue={suggestionList.filterText}
 			onInputChange={(value) => {
 				onChange({ url: value, isAnchor: value?.includes('#') });
-
-				suggestionList.setFilterText(value);
 			}}
 			allowsCustomValue
 			allowsEmptyCollection
