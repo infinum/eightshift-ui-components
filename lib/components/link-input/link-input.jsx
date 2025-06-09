@@ -77,7 +77,7 @@ export const LinkInput = (props) => {
 	const suggestionList = useAsyncList({
 		initialFilterText: url,
 		async load({ signal, filterText }) {
-			if (disabled || !canShowSuggestions || !filterText || filterText.length < 3) {
+			if (disabled || !canShowSuggestions || !shouldShowSuggestions || !filterText || filterText.length < 3) {
 				return {
 					items: [],
 				};
