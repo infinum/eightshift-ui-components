@@ -22619,6 +22619,100 @@ export const icons = {
 			/>
 		</svg>
 	),
+	folder: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<path
+				d='M9.5 5.5H17A1.5 1.5 0 0 1 18.5 7v8a1.5 1.5 0 0 1-1.5 1.5H3A1.5 1.5 0 0 1 1.5 15V7.5m8-2L7.198 3.795a1.5 1.5 0 0 0-.893-.295H3A1.5 1.5 0 0 0 1.5 5v2.5m8-2L7.198 7.205a1.5 1.5 0 0 1-.893.295H1.5'
+				stroke='currentColor'
+				strokeLinejoin='round'
+				fill='none'
+			/>
+		</svg>
+	),
+	folderOpen: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<path
+				d='M16.5 7.5V7A1.5 1.5 0 0 0 15 5.5H9.203a1.5 1.5 0 0 1-1.034-.413L6.934 3.913A1.5 1.5 0 0 0 5.901 3.5H3A1.5 1.5 0 0 0 1.5 5v10A1.5 1.5 0 0 0 3 16.5h12.416a1.5 1.5 0 0 0 1.448-1.108l1.624-6A1.5 1.5 0 0 0 17.04 7.5H5.64a1.5 1.5 0 0 0-1.445 1.099L2 16.5'
+				stroke='currentColor'
+				strokeLinejoin='round'
+				fill='none'
+			/>
+		</svg>
+	),
+	folderTopLevel: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<path
+				d='M9.5 3.5H17A1.5 1.5 0 0 1 18.5 5v5m-9-6.5L7.198 1.795a1.5 1.5 0 0 0-.893-.295H3A1.5 1.5 0 0 0 1.5 3v2.5m8-2L7.198 5.205a1.5 1.5 0 0 1-.893.295H1.5m0 0V13A1.5 1.5 0 0 0 3 14.5h7'
+				stroke='currentColor'
+				strokeLinejoin='round'
+				fill='none'
+			/>
+			<path
+				d='M13 11a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2h-5Zm2.224 2.082a.5.5 0 0 1 .629.064l2 2 .064.079a.5.5 0 0 1-.693.693l-.078-.065-1.147-1.146V17.5a.5.5 0 1 1-1 0v-2.793l-1.146 1.146a.5.5 0 1 1-.707-.707l2-2 .078-.064Z'
+				fill='currentColor'
+			/>
+		</svg>
+	),
+	folderAdd: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<path
+				d='M9.5 3.5H17A1.5 1.5 0 0 1 18.5 5v5m-9-6.5L7.198 1.795a1.5 1.5 0 0 0-.893-.295H3A1.5 1.5 0 0 0 1.5 3v2.5m8-2L7.198 5.205a1.5 1.5 0 0 1-.893.295H1.5m0 0V13A1.5 1.5 0 0 0 3 14.5h7'
+				stroke='currentColor'
+				strokeLinejoin='round'
+				fill='none'
+			/>
+			<path
+				d='M13 11a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2h-5Zm2.5 2a.5.5 0 0 1 .5.5V15h1.5l.1.01a.5.5 0 0 1 0 .98l-.1.01H16v1.5a.5.5 0 1 1-1 0V16h-1.5a.5.5 0 0 1 0-1H15v-1.5a.5.5 0 0 1 .5-.5Z'
+				fill='currentColor'
+			/>
+		</svg>
+	),
+	rename: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<path
+				opacity='0.8'
+				d='M12 5.5h4.5a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H12m-4-9H3.5a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2H8'
+				stroke='currentColor'
+				fill='none'
+			/>
+			<path
+				d='M10 2.5v15m0-15h3m-3 0H7m3 15H7m3 0h3'
+				stroke='currentColor'
+				strokeLinecap='round'
+				fill='none'
+			/>
+		</svg>
+	),
 };
 
 /**
