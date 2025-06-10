@@ -74,7 +74,7 @@ export const Button = (props) => {
 			'es:btn-group-mid:rounded-none',
 			'es:btn-group-h-start:rounded-r-none es:btn-group-v-start:rounded-b-none',
 			'es:btn-group-h-end:rounded-l-none es:btn-group-v-end:rounded-t-none',
-			'es:not-disabled:cursor-pointer',
+			'es:enabled:cursor-pointer',
 			'es:shrink-0',
 			icon && children ? 'es:justify-start' : 'es:justify-center',
 			className,
@@ -91,10 +91,10 @@ export const Button = (props) => {
 					selected: 'es:bg-radial-[at_50%_125%] es:inset-ring es:inset-shadow-xs',
 					danger: 'es:bg-radial-[at_50%_125%] es:inset-ring es:inset-shadow-xs',
 					ghost:
-						'es:border-transparent es:text-secondary-700 es:not-disabled:hover:bg-secondary-100 es:not-disabled:active:bg-accent-50 es:not-disabled:pressed:bg-accent-50 es:disabled:border-transparent!',
+						'es:border-transparent es:text-secondary-700 es:enabled:hover:bg-secondary-100 es:enabled:active:bg-accent-50 es:enabled:pressed:bg-accent-50 es:enabled:active:text-accent-950 es:enabled:pressed:text-accent-950 es:disabled:border-transparent!',
 					dangerGhost: [
 						'es:border-transparent es:text-red-700',
-						'es:not-disabled:hover:bg-red-500/5 es:not-disabled:active:bg-red-500/10 es:not-disabled:pressed:bg-red-500/10',
+						'es:enabled:hover:bg-red-500/5 es:enabled:active:bg-red-500/10 es:enabled:pressed:bg-red-500/10',
 						'es:focus-visible:text-red-700',
 						'es:focus-visible:ring-red-500/30 es:focus-visible:border-red-600 es:focus-visible:inset-ring-red-100',
 						'es:disabled:border-transparent!',
