@@ -114,7 +114,7 @@ export const NumberPicker = ({
 			>
 				<Group
 					className={clsx(
-						'es:group es:flex es:w-fit es:items-center es:rounded-lg es:border es:border-secondary-300 es:pl-1 es:pr-0.5 es:shadow-xs es:transition',
+						'es:group es:flex es:w-fit es:items-center es:rounded-10 es:border es:border-secondary-300 es:pl-1 es:pr-0.5 es:shadow-sm es:focus-within:shadow-md es:transition',
 						'es:inset-ring es:inset-ring-secondary-100',
 						isInputFocused && 'es:outline-hidden es:focus-visible:border-accent-500 es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 						!prefix && (sizes?.[size]?.noPrefixPadding ?? sizes.default.noPrefixPadding),

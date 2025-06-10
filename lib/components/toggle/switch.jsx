@@ -55,7 +55,7 @@ export const Switch = (props) => {
 						!checked && !disabled && 'es:border-secondary-400 es:inset-ring-secondary-100 es:from-white es:to-secondary-100',
 						checked && !disabled && 'es:border-accent-700/75 es:inset-ring-accent-500 es:to-accent-500 es:from-accent-600 es:shadow-accent-600/30',
 						disabled && 'es:cursor-default es:border-secondary-300 es:from-white es:to-secondary-50 es:inset-ring-secondary-200/30 es:inset-shadow-secondary-100',
-						!disabled && 'es:shadow-xs',
+						!disabled && 'es:shadow-sm',
 					)}
 				>
 					<span
@@ -65,7 +65,7 @@ export const Switch = (props) => {
 							!checked && 'es:scale-95',
 							!checked && !disabled && 'es:border-secondary-500 es:from-secondary-500 es:to-secondary-600',
 							checked && 'es:translate-x-4',
-							checked && !disabled && 'es:border-accent-600/20 es:from-white es:to-accent-500/30 es:from-40% es:bg-white es:shadow-xs es:shadow-accent-900/60',
+							checked && !disabled && 'es:border-accent-600/20 es:from-white es:to-accent-500/30 es:from-40% es:bg-white es:shadow-sm es:shadow-accent-900/60',
 							disabled && 'es:border-secondary-400 es:bg-secondary-100',
 							isIndeterminate && 'es:translate-x-2 es:scale-100',
 						)}

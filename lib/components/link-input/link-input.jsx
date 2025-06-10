@@ -142,7 +142,7 @@ export const LinkInput = (props) => {
 					<Input
 						placeholder={disabled ? null : placeholder}
 						className={clsx(
-							'es:min-h-10 es:w-full es:rounded-lg es:border es:border-secondary-300 es:py-2 es:pl-2 es:pr-1 es:text-sm es:shadow-xs es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950 es:bg-white',
+							'es:min-h-10 es:w-full es:rounded-10 es:border es:border-secondary-300 es:py-2 es:pl-2 es:pr-1 es:text-sm es:shadow-sm es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950 es:bg-white',
 							'es:any-focus:outline-hidden',
 							'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 							'es:focus-visible:border-accent-500',
@@ -193,7 +193,7 @@ export const LinkInput = (props) => {
 					aria-label={__('URL suggestions', 'eightshift-ui-components')}
 					className={({ isEntering, isExiting }) =>
 						clsx(
-							'es:border es:rounded-lg es:border-secondary-300 es:bg-white es:shadow-lg es:outline-hidden es:min-w-72',
+							'es:border es:rounded-xl es:border-secondary-300 es:bg-white es:shadow-lg es:outline-hidden es:min-w-72',
 							isEntering ||
 								(!(suggestionList.isLoading || !shouldShowSuggestions) &&
 									'es:not-motion-reduce:motion-preset-slide-down-sm es:motion-reduce:motion-preset-fade es:motion-duration-300'),
@@ -210,8 +210,10 @@ export const LinkInput = (props) => {
 						<RichLabel
 							icon={icons.searchEmpty}
 							label={__('No results', 'eightshift-ui-components')}
-							subtitle={__('Try a different search term.', 'eightshift-ui-components')}
-							className='es:min-h-12 es:p-2'
+							subtitle={__('Try a different search term', 'eightshift-ui-components')}
+							className='es:min-h-14 es:p-2 es:w-fit es:mx-auto'
+							iconClassName='es:text-accent-700 es:icon:size-7!'
+							noColor
 						/>
 					)}
 
@@ -253,7 +255,7 @@ export const LinkInput = (props) => {
 										<ListBoxItem
 											id={item.value}
 											className={clsx(
-												'es:rounded es:p-1 es:text-sm es:transition',
+												'es:rounded-10 es:p-1 es:text-sm es:transition',
 												'es:hover:border-secondary-300 es:hover:bg-secondary-100',
 												'es:focus-visible:border-secondary-300 es:focus-visible:bg-secondary-100',
 												'selected:es:bg-accent-600/10 selected:es:text-accent-900 selected:focus-visible:es:bg-accent-600/15',

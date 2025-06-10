@@ -34,8 +34,8 @@ export const ImagePlaceholder = (props) => {
 	}
 
 	const styleClassName = {
-		default: 'es:rounded-xl es:border es:border-secondary-300 es:bg-secondary-50 es:text-secondary-300 es:shadow-xs',
-		simple: 'es:rounded-xl es:border es:border-secondary-300 es:border-dashed es:text-secondary-300',
+		default: 'es:rounded-2xl es:border es:border-secondary-300 es:bg-gradient-to-br es:from-white es:to-secondary-50 es:text-secondary-300 es:shadow-sm',
+		simple: 'es:rounded-2xl es:border es:border-secondary-300 es:border-dashed es:text-secondary-300',
 	};
 
 	const sizeClassName = {

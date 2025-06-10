@@ -196,13 +196,13 @@ export const Tab = (props) => {
 			variants: {
 				type: {
 					underline: 'es:disabled:text-secondary-400 es:selected:text-accent-950',
-					pill: 'es:font-[450] es:border es:border-transparent es:px-3 es:py-2 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-900 es:selected:bg-accent-400/15 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+					pill: 'es:font-[450] es:border es:border-transparent es:px-3 es:py-1.5 es:rounded-xl es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-900 es:selected:bg-gradient-to-br es:selected:from-accent-300/10 es:selected:to-accent-400/20 es:selected:border-accent-400/10 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
 					pillInverse:
-						'es:font-[450] es:border es:border-transparent es:px-3 es:py-2 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-accent-600 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+						'es:font-[450] es:border es:border-transparent es:px-3 es:py-1.5 es:rounded-xl es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-gradient-to-br es:selected:from-accent-500 es:selected:to-accent-600 es:selected:border-accent-600 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
 					pillCompact:
-						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:px-1.5 es:py-1 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-900 es:selected:bg-accent-400/15 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:px-2.5 es:py-1 es:rounded-10 es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-900 es:selected:bg-gradient-to-br es:selected:from-accent-300/10 es:selected:to-accent-400/20 es:selected:border-accent-400/10 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
 					pillCompactInverse:
-						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:px-1.5 es:py-1 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-accent-600 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:px-2.5 es:py-1 es:rounded-10 es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-gradient-to-br es:selected:from-accent-500 es:selected:to-accent-600 es:selected:border-accent-600 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
 				},
 			},
 			compoundVariants: [
@@ -213,7 +213,7 @@ export const Tab = (props) => {
 						'es:px-2 es:py-2.5 es:rounded-lg',
 						'es:after:content-[""] es:after:absolute es:after:bottom-px es:after:left-0 es:after:right-0 es:after:w-5/6 es:after:mx-auto es:after:h-0.75',
 						'es:after:bg-linear-to-b es:hover:not-selected:not-disabled:after:from-secondary-200 es:hover:not-selected:not-disabled:after:to-secondary-300 es:selected:after:from-accent-500 es:selected:after:to-accent-600',
-						'es:after:rounded-t-full es:selected:after:shadow-xs es:selected:after:shadow-accent-700/30 es:after:transition',
+						'es:after:rounded-t-full es:selected:after:shadow-sm es:selected:after:shadow-accent-700/30 es:after:transition',
 					],
 				},
 				{
@@ -223,7 +223,7 @@ export const Tab = (props) => {
 						'es:pl-3 es:pr-2 es:py-2.5 es:rounded-lg es:selected:bg-accent-50/50 es:selected:text-accent-950 es:transition',
 						'es:after:content-[""] es:after:absolute es:after:-left-0 es:after:top-0 es:after:bottom-0 es:after:h-5/6 es:after:my-auto es:after:w-1',
 						'es:after:bg-linear-to-r es:hover:not-selected:not-disabled:after:from-secondary-200 es:hover:not-selected:not-disabled:after:to-secondary-300 es:selected:after:from-accent-500 es:selected:after:to-accent-600',
-						'es:after:rounded-full es:selected:after:shadow-xs es:selected:after:shadow-accent-700/30 es:after:transition',
+						'es:after:rounded-full es:selected:after:shadow-sm es:selected:after:shadow-accent-700/30 es:after:transition',
 					],
 				},
 			],

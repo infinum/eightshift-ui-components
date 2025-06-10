@@ -8,8 +8,8 @@ import { Tooltip } from '../tooltip/tooltip';
  * @component
  * @param {Object} props - Component props.
  * @param {JSX.Element} [props.icon] - Icon to display within the button.
- * @param {ButtonSize} [props.size='default'] - The size of the button.
- * @param {ButtonType} [props.type='default'] - The type of the button.
+ * @param {ToggleButtonSize} [props.size='default'] - The size of the button.
+ * @param {ToggleButtonType} [props.type='default'] - The type of the button.
  * @param {boolean} [props.disabled] - If `true`, the button is disabled.
  * @param {string} [props.className] - Classes to pass to the button.
  * @param {string|boolean} [props.tooltip] - Tooltip text to display on hover.
@@ -19,10 +19,10 @@ import { Tooltip } from '../tooltip/tooltip';
  * @param {Object} [props.tooltipProps] - Props to pass to the tooltip.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
- * @returns {JSX.Element} The Button component.
+ * @returns {JSX.Element} The ToggleButton component.
  *
- * @typedef {'small' | 'default' | 'large'} ButtonSize
- * @typedef {'default' | 'selected' | 'ghost' | 'danger'} ButtonType
+ * @typedef {'small' | 'default' | 'large'} ToggleButtonSize
+ * @typedef {'default'| 'ghost'} ToggleButtonType
  *
  * @example
  * const [selected, setSelected] = useState(false);
@@ -75,6 +75,7 @@ export const ToggleButton = (props) => {
 			'es:btn-group-mid:rounded-none',
 			'es:btn-group-h-start:rounded-r-none es:btn-group-v-start:rounded-b-none',
 			'es:btn-group-h-end:rounded-l-none es:btn-group-v-end:rounded-t-none',
+			'es:enabled:hover:shadow-md es:enabled:active:shadow-sm es:enabled:pressed:shadow-sm',
 			'es:cursor-pointer',
 			icon && children ? 'es:justify-start' : 'es:justify-center',
 			className,
@@ -82,9 +83,9 @@ export const ToggleButton = (props) => {
 		{
 			variants: {
 				size: {
-					small: 'es:icon:size-4.5 es:rounded-md',
-					default: 'es:icon:size-5.5 es:rounded-lg',
-					large: 'es:icon:size-6 es:rounded-lg',
+					small: 'es:icon:size-4.5 es:rounded-7',
+					default: 'es:icon:size-5.5 es:rounded-10',
+					large: 'es:icon:size-6 es:rounded-xl',
 				},
 				type: {
 					default: ['es:bg-radial-[at_50%_125%]', 'es:inset-ring es:inset-shadow-xs'],
@@ -102,7 +103,7 @@ export const ToggleButton = (props) => {
 						'es:border-secondary-300',
 						'es:inset-ring-secondary-100',
 						'es:inset-shadow-secondary-100/50',
-						'es:shadow-xs',
+						'es:shadow-sm',
 						'es:hover:inset-shadow-secondary-100 es:hover:to-secondary-100 es:hover:inset-ring-secondary-100',
 						'es:hover:text-accent-950',
 						'es:focus-visible:text-accent-950',
@@ -121,7 +122,7 @@ export const ToggleButton = (props) => {
 						'es:focus-visible:border-accent-700',
 						'es:focus-visible:inset-ring es:focus-visible:inset-ring-accent-600',
 						'es:focus-visible:inset-shadow-xs es:focus-visible:inset-shadow-accent-400',
-						'es:shadow-xs es:shadow-accent-600/30',
+						'es:shadow-sm es:shadow-accent-600/30',
 					],
 				},
 				{
@@ -132,7 +133,7 @@ export const ToggleButton = (props) => {
 					type: 'ghost',
 					disabled: false,
 					selected: true,
-					class: ['es:bg-accent-600 es:text-white es:border-accent-600 es:shadow-xs es:shadow-accent-500/25', 'es:hover:shadow-accent-600/50'],
+					class: ['es:bg-accent-600 es:text-white es:border-accent-600 es:shadow-sm es:shadow-accent-500/25', 'es:hover:shadow-accent-600/50'],
 				},
 				// Sizes.
 				{

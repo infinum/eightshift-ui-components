@@ -51,11 +51,11 @@ export const ColorSwatch = (props) => {
 			style={{
 				background: (color || gradient) && backgroundGradient,
 			}}
-			className={() => clsx('es:size-6 es:rounded es:border es:border-secondary-300 es:shadow-xs', !color && !gradient && !customGradient && 'es:bg-white', className)}
+			className={() => clsx('es:size-6 es:rounded-md es:border es:border-secondary-300 es:shadow-sm', !color && !gradient && !customGradient && 'es:bg-white', className)}
 			colorName={!color && !gradient && !customGradient ? __('No color', 'eightshift-ui-components') : colorName}
 			color={color}
 		>
-			{!color && !gradient && !customGradient && <div className='es:m-auto es:h-full es:w-px es:rotate-45 es:rounded es:bg-red-500' />}
+			{!color && !gradient && !customGradient && <div className='es:m-auto es:h-full es:w-px es:rotate-45 es:rounded-md es:bg-red-500' />}
 		</ReactAriaColorSwatch>
 	);
 };

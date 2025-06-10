@@ -117,7 +117,7 @@ export const ColumnConfigSlider = (props) => {
 								<div
 									className={clsx(
 										'es:col-span-full es:row-span-1 es:row-start-1 es:h-full es:w-full es:grow es:rounded-lg es:border',
-										disabled ? 'es:border-secondary-200 es:bg-white' : 'es:border-secondary-300 es:bg-secondary-50 es:shadow-xs',
+										disabled ? 'es:border-secondary-200 es:bg-white' : 'es:border-secondary-300 es:bg-secondary-50 es:shadow-sm',
 									)}
 								/>
 

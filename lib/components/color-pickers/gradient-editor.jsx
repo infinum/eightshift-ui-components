@@ -78,12 +78,12 @@ const gradientTypes = [
 	{
 		label: __('Radial'),
 		value: 'radial',
-		icon: <div className='es:transparent es:size-4 es:rounded-full es:bg-[radial-gradient(var(--tw-gradient-stops))] es:from-current' />,
+		icon: <div className='es:transparent es:size-4 es:rounded-full es:bg-radial es:from-current/75 es:to-current/10' />,
 	},
 	{
 		label: __('Conic'),
 		value: 'conic',
-		icon: <div className='es:transparent es:size-4 es:rounded-full es:bg-[conic-gradient(var(--tw-gradient-stops))] es:from-current' />,
+		icon: <div className='es:transparent es:size-4 es:rounded-full es:bg-conic es:from-current' />,
 	},
 ];
 

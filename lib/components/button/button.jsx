@@ -82,18 +82,19 @@ export const Button = (props) => {
 		{
 			variants: {
 				size: {
-					small: 'es:icon:size-4.5 es:rounded-md',
-					default: 'es:icon:size-5.5 es:rounded-lg',
-					large: 'es:icon:size-6 es:rounded-lg',
+					small: 'es:icon:size-4.5 es:rounded-7',
+					default: 'es:icon:size-5.5 es:rounded-10',
+					large: 'es:icon:size-6 es:rounded-xl',
 				},
 				type: {
 					default: 'es:bg-radial-[at_50%_125%] es:inset-ring es:inset-shadow-xs',
 					selected: 'es:bg-radial-[at_50%_125%] es:inset-ring es:inset-shadow-xs',
 					danger: 'es:bg-radial-[at_50%_125%] es:inset-ring es:inset-shadow-xs',
-					ghost: 'es:border-transparent es:text-secondary-700 es:not-disabled:hover:bg-secondary-100 es:disabled:border-transparent!',
+					ghost:
+						'es:border-transparent es:text-secondary-700 es:not-disabled:hover:bg-secondary-100 es:not-disabled:active:bg-accent-50 es:not-disabled:pressed:bg-accent-50 es:disabled:border-transparent!',
 					dangerGhost: [
-						'es:border-transparent es:text-red-600',
-						'es:not-disabled:hover:bg-red-500/5',
+						'es:border-transparent es:text-red-700',
+						'es:not-disabled:hover:bg-red-500/5 es:not-disabled:active:bg-red-500/10 es:not-disabled:pressed:bg-red-500/10',
 						'es:focus-visible:text-red-700',
 						'es:focus-visible:ring-red-500/30 es:focus-visible:border-red-600 es:focus-visible:inset-ring-red-100',
 						'es:disabled:border-transparent!',
@@ -111,8 +112,8 @@ export const Button = (props) => {
 						'es:border-secondary-300',
 						'es:inset-ring-secondary-100',
 						'es:inset-shadow-secondary-100/50',
-						'es:shadow-xs',
-						'es:hover:inset-shadow-secondary-100 es:hover:to-secondary-100 es:hover:inset-ring-secondary-100',
+						'es:shadow-sm',
+						'es:enabled:hover:shadow-md es:enabled:active:shadow-sm es:enabled:pressed:shadow-sm es:hover:inset-shadow-secondary-100 es:hover:to-secondary-100 es:hover:inset-ring-secondary-100',
 						'es:hover:text-accent-950',
 						'es:focus-visible:text-accent-950',
 					],
@@ -129,22 +130,22 @@ export const Button = (props) => {
 						'es:focus-visible:border-accent-700',
 						'es:focus-visible:inset-ring es:focus-visible:inset-ring-accent-600',
 						'es:focus-visible:inset-shadow-xs es:focus-visible:inset-shadow-accent-400',
-						'es:shadow es:shadow-accent-600/30',
+						'es:shadow es:shadow-accent-600/30 es:enabled:hover:shadow-md es:enabled:active:shadow-sm es:enabled:pressed:shadow-sm',
 					],
 				},
 				{
 					type: 'danger',
 					disabled: false,
 					class: [
-						'es:text-red-800',
+						'es:text-red-700',
 						'es:from-red-50/75 es:to-white',
-						'es:border-red-600/50',
+						'es:border-red-700/50',
 						'es:inset-ring-red-100',
 						'es:inset-shadow-red-50',
 						'es:hover:inset-shadow-red-100 es:hover:inset-ring-red-100 es:hover:text-red-800 es:hover:border-red-600',
 						'es:focus-visible:text-red-900',
 						'es:focus-visible:ring-red-500/30 es:focus-visible:border-red-600 es:focus-visible:inset-ring-red-100',
-						'es:shadow',
+						'es:shadow es:shadow-red-700/20 es:enabled:hover:shadow-md es:enabled:active:shadow-sm es:enabled:pressed:shadow-sm',
 					],
 				},
 				{

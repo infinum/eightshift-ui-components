@@ -234,7 +234,7 @@ export const Slider = (props) => {
 											'es:relative es:col-start-1 es:row-start-1 es:rounded-full es:border',
 											!vertical && 'es:h-1.5 es:w-full es:self-center',
 											vertical && 'es:h-full es:w-1.5 es:flex-col es:justify-self-center',
-											disabled ? 'es:border-secondary-200 es:bg-white' : 'es:border-secondary-300 es:bg-secondary-50 es:shadow-xs',
+											disabled ? 'es:border-secondary-200 es:bg-white' : 'es:border-secondary-300 es:bg-secondary-50 es:shadow-sm',
 										)}
 										style={trackStyle}
 									/>

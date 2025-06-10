@@ -34,30 +34,30 @@ export const Notice = (props) => {
 	const styles = {
 		info: {
 			icon: icons.infoCircle,
-			className: 'es:border-blue-400 es:shadow-blue-500/15 es:bg-blue-100/5',
+			className: 'es:border-blue-400/75 es:shadow-blue-500/15 es:bg-blue-200/5',
 			iconColor: 'es:text-blue-400',
-			textColor: 'es:text-blue-900',
+			textColor: 'es:text-blue-500 es:saturate-75',
 			subtitleColor: 'es:text-blue-950/60',
 		},
 		success: {
 			icon: icons.checkSquare,
-			className: 'es:border-green-500 es:shadow-green-500/15 es:bg-green-100/5',
-			iconColor: 'es:text-green-500',
-			textColor: 'es:text-green-900',
-			subtitleColor: 'es:text-green-950/60',
+			className: 'es:border-emerald-500/75 es:shadow-emerald-500/15 es:bg-emerald-200/5',
+			iconColor: 'es:text-emerald-500',
+			textColor: 'es:text-emerald-600',
+			subtitleColor: 'es:text-emerald-950/60',
 		},
 		warning: {
 			icon: icons.warning,
-			className: 'es:border-amber-500 es:shadow-amber-500/15 es:bg-amber-100/5',
-			iconColor: 'es:text-amber-500',
-			textColor: 'es:text-amber-900',
-			subtitleColor: 'es:text-amber-950/60',
+			className: 'es:border-orange-500/75 es:shadow-orange-500/15 es:bg-orange-200/5',
+			iconColor: 'es:text-orange-500',
+			textColor: 'es:text-orange-700',
+			subtitleColor: 'es:text-orange-950/60',
 		},
 		error: {
 			icon: icons.errorCircle,
-			className: 'es:border-red-400 es:shadow-red-500/15 es:bg-red-100/5',
-			iconColor: 'es:text-red-400',
-			textColor: 'es:text-red-900',
+			className: 'es:border-red-300 es:shadow-red-500/15 es:bg-red-200/5',
+			iconColor: 'es:text-red-500',
+			textColor: 'es:text-red-700',
 			subtitleColor: 'es:text-red-950/60',
 		},
 		placeholder: {
@@ -79,16 +79,16 @@ export const Notice = (props) => {
 		<div>
 			<div
 				className={clsx(
-					'es:grid es:grid-cols-[auto_1fr] es:grid-rows-[auto_auto] es:rounded-md es:border es:bg-linear-to-tr es:shadow-sm',
+					'es:grid es:grid-cols-[auto_1fr] es:grid-rows-[auto_auto] es:rounded-xl es:border es:bg-linear-to-tr es:shadow-sm',
 					styles[type].className,
-					icon || styles[type].icon ? 'es:gap-x-1.5 es:p-1.5' : 'es:px-2 es:py-1.5',
+					icon || styles[type].icon ? 'es:gap-x-1.5 es:p-2' : 'es:px-2 es:py-2',
 					className,
 				)}
 			>
 				{(icon || styles[type].icon) && (
 					<span
 						className={clsx(
-							'es:col-span-1 es:col-start-1 es:row-span-2 es:row-start-1 es:shrink-0 es:icon:size-7',
+							'es:col-span-1 es:col-start-1 es:row-span-2 es:row-start-1 es:shrink-0 es:icon:size-6',
 							alignIconToTitle ? 'es:self-baseline' : 'es:self-center',
 							styles[type].iconColor,
 						)}

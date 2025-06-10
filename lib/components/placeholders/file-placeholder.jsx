@@ -27,13 +27,20 @@ export const FilePlaceholder = (props) => {
 
 	return (
 		<RichLabel
-			icon={icon ?? icons.file}
+			icon={
+				<div
+					className={clsx(
+						'es:w-fit es:rounded-xl es:border es:border-secondary-300 es:p-2',
+						fileName && 'es:shadow-sm es:bg-gradient-to-br es:from-secondary-50 es:to-secondary-100 es:text-secondary-600',
+						!fileName && 'es:border-dashed es:text-secondary-500',
+					)}
+				>
+					{icon ?? icons.file}
+				</div>
+			}
 			label={(fileName ? fileName : children) ?? __('No file selected', 'eightshift-ui-components')}
-			className={clsx(
-				'es:w-fit es:rounded-xl es:border es:border-secondary-300 es:bg-secondary-50 es:p-2 es:pr-3 es:text-xs es:text-secondary-300 es:shadow-xs',
-				fileName && 'es:font-mono',
-				className,
-			)}
+			className={clsx(fileName && 'es:font-mono', className)}
+			noColor
 		/>
 	);
 };
