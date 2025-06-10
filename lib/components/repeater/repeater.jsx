@@ -40,6 +40,7 @@ const fixIds = (items, itemIdBase) => {
  * @param {JSX.Element} [props.addButton] - If provided, overrides the default add button. `(props: { addItem: (additional: Object<string, any>?) => void, disabled: Boolean }) => JSX.Element`.
  * @param {string} [props.className] - Classes to pass to the item wrapper.
  * @param {boolean} [props.noExpandAllButton] - If `true`, the "Expand all"/"Collapse all" button is not displayed.
+ * @param {boolean} [props.noDragToRemove] - If `true`, the "drag to remove" functionality will be disabled.
  * @param {JSX.Element|JSX.Element[]} [props.moreOptions] - Options to add in the "More options" menu.
  * @param {JSX.Element} [props.emptyState] - Allows overriding the default empty state.
  *
@@ -96,6 +97,7 @@ export const Repeater = (props) => {
 		emptyState,
 
 		noExpandAllButton,
+		noDragToRemove,
 		moreOptions,
 
 		hidden,
@@ -258,7 +260,7 @@ export const Repeater = (props) => {
 						</li>
 					);
 				}}
-				removableByMove
+				removableByMove={!noDragToRemove}
 			/>
 
 			<AnimatedVisibility visible={items.length < 1}>
