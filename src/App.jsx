@@ -84,6 +84,9 @@ function App() {
 
 	const [toggled, setToggled] = useState(false);
 	const [toggled2, setToggled2] = useState(null);
+	const [toggled3, setToggled3] = useState(false);
+	const [toggled4, setToggled4] = useState(false);
+	const [toggled5, setToggled5] = useState(false);
 	const [linkTxt, setLinkTxt] = useState();
 	const [matrixVal, setMatrixVal] = useState('center center');
 	const [matrixVal2, setMatrixVal2] = useState('top left');
@@ -946,6 +949,20 @@ function App() {
 					>
 						Hello
 					</Button>
+					<Button
+						icon={icons.componentGeneric}
+						type='danger'
+					>
+						Hello
+					</Button>
+
+					<Button
+						icon={icons.componentGeneric}
+						type='dangerGhost'
+					>
+						Hello
+					</Button>
+
 					<Button
 						icon={icons.componentGeneric}
 						type='danger'
@@ -2083,22 +2100,40 @@ function App() {
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Checkbox
-						checked={toggled}
-						onChange={(value) => setToggled(value)}
-						label='Hello'
+						checked={toggled && toggled3 && toggled4 && toggled5}
+						indeterminate={(toggled || toggled3 || toggled4 || toggled5) && !(toggled && toggled3 && toggled4 && toggled5)}
+						label='Select all'
+						onChange={(value) => {
+							setToggled(value);
+							setToggled3(value);
+							setToggled4(value);
+							setToggled5(value);
+						}}
 					/>
 
 					<Checkbox
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
-						label='Hello'
+						label='Hello 1'
+					/>
+
+					<Checkbox
+						checked={toggled3}
+						onChange={(value) => setToggled3(value)}
+						label='Hello 2'
+					/>
+
+					<Checkbox
+						checked={toggled4}
+						onChange={(value) => setToggled4(value)}
+						label='Hello 3'
 						subtitle='Lorem ipsum dolor'
 					/>
 
 					<Checkbox
-						checked={toggled}
-						onChange={(value) => setToggled(value)}
-						label='Hello'
+						checked={toggled5}
+						onChange={(value) => setToggled5(value)}
+						label='Hello 4'
 						subtitle='Lorem ipsum dolor'
 						icon={icons.experiment}
 					/>
@@ -2977,6 +3012,10 @@ function App() {
 						fileName='demo.json'
 						icon={icons.experiment}
 					/>
+
+					<FilePlaceholder fileName='demo.json' />
+
+					<FilePlaceholder />
 
 					<Spacer />
 					<Spacer border />
