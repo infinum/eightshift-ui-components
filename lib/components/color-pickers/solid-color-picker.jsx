@@ -64,7 +64,7 @@ export const SolidColorPicker = (props) => {
 	const valueInputClassName = clsx(
 		'es:h-8 es:w-12',
 		'es:tabular-nums es:font-mono',
-		'es:border es:rounded-lg es:border-secondary-300 es:p-2 es:text-sm es:shadow-xs es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950',
+		'es:border es:rounded-lg es:border-secondary-300 es:p-2 es:text-sm es:shadow-sm es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950',
 		'es:any-focus:outline-hidden',
 		'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50 es:focus-visible:z-10',
 		'es:focus-visible:border-accent-500',
@@ -78,7 +78,7 @@ export const SolidColorPicker = (props) => {
 				xChannel='saturation'
 				yChannel='lightness'
 				className={clsx(
-					'es:size-48 es:rounded-md es:border es:border-secondary-300 es:shadow-sm es:transition',
+					'es:size-48 es:rounded-xl es:border es:border-secondary-300 es:shadow-sm es:transition',
 					'es:[&:has(>_[data-focus-visible="true"])]:ring-2 es:[&:has(>_[data-focus-visible="true"])]:ring-accent-500/50',
 					'es:disabled:bg-linear-to-r! es:disabled:from-white es:disabled:to-secondary-100',
 				)}
@@ -97,7 +97,7 @@ export const SolidColorPicker = (props) => {
 			>
 				<SliderTrack
 					className={clsx(
-						'es:h-7 es:w-48 es:rounded-md es:border es:border-secondary-300 es:shadow-sm',
+						'es:h-7 es:w-48 es:rounded-10 es:border es:border-secondary-300 es:shadow-sm',
 						'es:[&:has(>_[data-focus-visible="true"])]:ring-2 es:[&:has(>_[data-focus-visible="true"])]:ring-accent-500/50',
 						'es:disabled:bg-linear-to-r! es:disabled:from-white es:disabled:to-secondary-100',
 					)}
@@ -115,7 +115,7 @@ export const SolidColorPicker = (props) => {
 				>
 					<SliderTrack
 						className={clsx(
-							'es:h-7 es:w-48 es:rounded-md es:border es:border-secondary-300 es:shadow-sm',
+							'es:h-7 es:w-48 es:rounded-10 es:border es:border-secondary-300 es:shadow-sm',
 							'es:[&:has(>_[data-focus-visible="true"])]:ring-2 es:[&:has(>_[data-focus-visible="true"])]:ring-accent-500/50',
 							'es:disabled:bg-linear-to-r! es:disabled:from-white es:disabled:to-secondary-100',
 						)}
@@ -144,7 +144,7 @@ export const SolidColorPicker = (props) => {
 						className={clsx(
 							'es:h-9 es:w-20',
 							'es:tabular-nums es:font-mono',
-							'es:border es:border-secondary-300 es:p-2 es:text-sm es:shadow-xs es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950',
+							'es:border es:border-secondary-300 es:p-2 es:text-sm es:shadow-sm es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950',
 							'es:any-focus:outline-hidden',
 							'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50 es:focus-visible:z-10',
 							'es:focus-visible:border-accent-500',

@@ -88,7 +88,7 @@ export const Modal = (props) => {
 				<ReactAriaModal
 					className={({ isEntering, isExiting }) =>
 						clsx(
-							'es:w-full es:max-w-lg es:overflow-hidden es:rounded-xl es:border es:border-secondary-100 es:bg-white es:p-5 es:text-left es:align-middle es:shadow-xl es:inset-ring es:inset-ring-secondary-100',
+							'es:w-full es:max-w-lg es:overflow-hidden es:rounded-2xl es:border es:border-secondary-100 es:bg-white es:p-5 es:text-left es:align-middle es:shadow-xl es:inset-ring es:inset-ring-secondary-50',
 							isEntering && 'es:motion-safe:motion-scale-in-95 es:motion-fade-in es:motion-duration-300 es:motion-ease-spring-smooth/scale',
 							isExiting && 'es:motion-safe:motion-scale-out-95 es:motion-fade-out es:motion-duration-250 es:motion-ease-spring-smooth/scale',
 							className,

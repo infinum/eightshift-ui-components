@@ -86,7 +86,10 @@ export const Expandable = (props) => {
 			className={clsx('es:w-full es:rounded-xl es:border es:border-secondary-300/0 es:text-sm es:transition', isOpen && 'es:border-secondary-300/100 es:shadow-lg', className)}
 			{...other}
 		>
-			<div className={clsx('es:flex es:h-10 es:items-center es:gap-1 es:transition-[padding]', isOpen && 'es:py-1 es:pl-2 es:pr-1', headerClassName)}>
+			<div
+				className={clsx('es:flex es:h-10 es:items-center es:gap-1 es:transition-[padding]', isOpen && 'es:py-1 es:pl-2 es:pr-1', headerClassName)}
+				{...headerProps}
+			>
 				<RichLabel
 					icon={icon}
 					label={label}

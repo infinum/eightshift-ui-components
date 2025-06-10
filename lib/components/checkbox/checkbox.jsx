@@ -92,10 +92,10 @@ export const Checkbox = (props) => {
 			)}
 			<div
 				className={clsx(
-					'es:size-5 es:flex es:items-center es:justify-center',
+					'es:size-5 es:grid es:place-items-center es:grid-cols-1 es:grid-rows-1 es:*:row-start-1 es:*:col-start-1',
 					'es:transition es:cursor-pointer',
 					'es:bg-radial es:border es:rounded-md',
-					'es:shadow-xs es:inset-ring es:inset-shadow-xs',
+					'es:shadow-sm es:inset-ring es:inset-shadow-xs',
 					'es:any-focus:outline-hidden es:group-focus-visible:ring-2 es:group-focus-visible:ring-accent-500/50',
 					!selectedOrIntermediate && 'es:group-focus-visible:border-accent-500',
 					!selectedOrIntermediate && 'es:border-secondary-300 es:inset-ring-secondary-100 es:inset-shadow-secondary-100/50',
@@ -108,7 +108,7 @@ export const Checkbox = (props) => {
 				)}
 			>
 				<AnimatedVisibility
-					transition='scaleFade'
+					transition='scaleRotateFade'
 					visible={indeterminate}
 					className='es:transition-none'
 				>

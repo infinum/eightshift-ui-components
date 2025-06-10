@@ -198,7 +198,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 				<div
 					className={clsx(
 						'es:relative es:flex es:max-w-80 es:items-center es:gap-1 es:p-1 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
-						'es:h-9 es:rounded-lg es:border es:border-secondary-300 es:bg-white es:text-sm es:shadow-xs es:transition',
+						'es:h-9 es:rounded-10 es:border es:border-secondary-300 es:bg-white es:text-sm es:shadow-sm es:transition',
 						'es:any-focus:outline-hidden',
 						!inline && 'es:w-full',
 						disabled && 'es:select-none',

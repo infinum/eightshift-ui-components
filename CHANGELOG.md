@@ -4,8 +4,14 @@ All notable changes to this project will be documented in this file.
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
 ## [5.0.3] - 2025-06-10
-- Add menuPlacement='auto' to Select components to fix dropdown position.
-- Remove duplicate prop doc for Component Toggle.
+Co-authored with @piqusy
+
+- Fixed Select components options going off screen in long lists.
+- Remove duplicate prop doc for `ComponentToggle`.
+- Fixed `Repeater` items being draggable when expanded.
+- Fixed `headerProps` prop in `Expandable`.
+- 'Drag to remove' can now be disabled in `Repeater` with the `noDragToRemove` prop.
+- Tweaked some visual elements of components.
 
 ## [5.0.2] - 2025-06-09
 - Updated dependencies.
