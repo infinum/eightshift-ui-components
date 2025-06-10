@@ -102,6 +102,7 @@ export const Repeater = (props) => {
 	} = props;
 
 	const [allOpen, setAllOpen] = useState(false);
+	const [openItems, setOpenItems] = useState({});
 
 	if (typeof rawItems === 'undefined' || rawItems === null || !Array.isArray(rawItems)) {
 		console.warn(__("Repeater: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
@@ -183,7 +184,7 @@ export const Repeater = (props) => {
 			className='es:w-full'
 		>
 			<List
-				values={items}
+				values={items.map((item) => ({ ...item, disabled: openItems[item.id] }))}
 				onChange={({ oldIndex, newIndex }) => onChange(newIndex === -1 ? arrayRemove(items, oldIndex) : arrayMove(items, oldIndex, newIndex))}
 				renderList={({ children, props }) => {
 					const { key, ...rest } = props;
@@ -233,6 +234,8 @@ export const Repeater = (props) => {
 									canAdd,
 									allOpen,
 									setAllOpen,
+									setOpenItems,
+									isItemOpen: openItems[item.id] ?? allOpen,
 								}}
 							>
 								{children({

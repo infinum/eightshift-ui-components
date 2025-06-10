@@ -31,7 +31,7 @@ import { RepeaterContext } from './repeater-context';
 export const RepeaterItem = (props) => {
 	const { children, icon, label, subtitle, 'aria-label': ariaLabel, className, actions, textValue, expandDisabled, menuOptions, noMenuButton, ...rest } = props;
 
-	const { deleteItem, duplicateItem, isDragged, isOutOfBounds, isSelected, canDelete, canAdd, allOpen, setAllOpen } = useContext(RepeaterContext);
+	const { deleteItem, duplicateItem, isDragged, isOutOfBounds, isSelected, canDelete, canAdd, allOpen, setAllOpen, setOpenItems, id, isItemOpen } = useContext(RepeaterContext);
 
 	return (
 		<Expandable
@@ -40,20 +40,22 @@ export const RepeaterItem = (props) => {
 			subtitle={isOutOfBounds ? null : subtitle}
 			className={clsx(
 				'es:transition',
-				isDragged && 'es:border es:border-secondary-100 es:bg-white/50 es:shadow-md es:backdrop-blur-lg',
-				isOutOfBounds && 'es:border es:border-red-200! es:bg-red-50 es:shadow-red-500/20 es:[&_button]:invisible es:[&_svg_path]:stroke-red-500',
+				!isItemOpen && isDragged && 'es:border es:border-secondary-100 es:bg-white/50 es:shadow-md es:backdrop-blur-lg',
+				!isItemOpen && isOutOfBounds && 'es:border es:border-red-200! es:bg-red-50 es:shadow-red-500/20 es:[&_button]:invisible es:[&_svg_path]:stroke-red-500',
 			)}
-			labelClassName={clsx(className, isDragged ? 'es:cursor-grabbing' : 'es:cursor-grab')}
+			labelClassName={clsx(className, isDragged && 'es:cursor-grabbing', !isDragged && !isItemOpen && 'es:cursor-grab')}
 			headerClassName={clsx(
 				'es:transition es:rounded-lg es:border es:border-transparent',
 				isSelected && 'es:bg-accent-50 es:border-accent-100',
-				'es:group-focus:outline-hidden es:group-focus:border-accent-500 es:group-focus:ring-2 es:group-focus:ring-accent-500/50',
+				!isItemOpen && 'es:group-focus:outline-hidden es:group-focus:border-accent-500 es:group-focus:ring-2 es:group-focus:ring-accent-500/50',
 			)}
 			open={allOpen}
 			onOpenChange={(open) => {
 				if (allOpen && !open) {
 					setAllOpen(false);
 				}
+
+				setOpenItems((prev) => ({ ...prev, [id]: open }));
 			}}
 			key={allOpen}
 			customOpenButton={({ open, toggleOpen, tooltip, disabled }) => {
