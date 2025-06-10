@@ -136,6 +136,7 @@ export const AsyncSelect = (props) => {
 					DropdownIndicator: customDropdownArrow ?? CustomSelectDefaultDropdownIndicator,
 					ClearIndicator: customClearIndicator ?? CustomSelectDefaultClearIndicator,
 				}}
+				menuPlacement='auto'
 				menuPortalTarget={document.body}
 				{...additionalProps}
 			/>

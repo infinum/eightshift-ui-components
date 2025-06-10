@@ -23,7 +23,6 @@ import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
  * @param {boolean} [props.noUseToggle] - If `true`, the toggle is not displayed.
  * @param {boolean} [props.noExpandButton] - If `true`, the expand button is not shown.
  * @param {boolean} [props.noLabel] - If `true`, the label is not shown.
- * @param {boolean} [props.noUseToggle] - If `true`, the toggle is not displayed.
  * @param {boolean} [props.expandButtonDisabled] - If `true`, the expand button is disabled.
  * @param {boolean} [props.controlOnly] - If `true`, only the control is displayed.
  * @param {boolean} [props.hideUseToggleOnExpand] - If `true`, and the component is display in a variant where it can be expanded, the use toggle will hide when the component is expanded.
