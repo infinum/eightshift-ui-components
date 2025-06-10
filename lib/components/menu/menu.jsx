@@ -182,7 +182,7 @@ export const MenuSection = (props) => {
  * @preserve
  */
 export const MenuSeparator = () => {
-	return <ReactAriaSeparator className='es:mb-1 es:border-b es:border-secondary-200/50' />;
+	return <ReactAriaSeparator className='es:mb-1 es:border-b es:border-secondary-200' />;
 };
 
 /**
@@ -225,9 +225,9 @@ export const MenuItem = (props) => {
 			aria-label={ariaLabel}
 			isDisabled={disabled}
 			className={clsx(
-				'es:mx-1 es:mb-1 es:flex es:min-w-44 es:min-h-8 es:items-center es:gap-1.5',
+				'es:mx-1 es:mb-1 es:flex es:min-w-44 es:min-h-9 es:items-center es:gap-1.5',
 				'es:first:mt-1 es:icon:size-5 es:icon:text-secondary-500',
-				'es:select-none es:rounded-md es:p-1.5 es:text-sm es:transition',
+				'es:select-none es:rounded-xl es:py-1.5 es:px-2.5 es:text-sm es:transition',
 				'es:any-focus:outline-hidden',
 				!disabled &&
 					'es:hover:bg-secondary-100 es:focus-visible:inset-ring es:focus-visible:inset-ring-secondary-100/30 es:focus-visible:bg-secondary-100 es:contrast-more:focus-visible:bg-accent-500/15',
