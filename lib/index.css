@@ -130,6 +130,7 @@
 }
 
 @plugin 'tailwindcss-motion';
+@plugin 'tailwindcss-react-aria-components';
 
 @utility no-webkit-highlight {
 	-webkit-tap-highlight-color: transparent;
