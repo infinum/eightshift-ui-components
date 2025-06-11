@@ -20,7 +20,7 @@ import { clsx } from 'clsx/lite';
  * @preserve
  */
 export const VStack = (props) => {
-	const { children, noWrap, className, hidden } = props;
+	const { children, noWrap, className, hidden, as } = props;
 
 	if (hidden) {
 		return null;
