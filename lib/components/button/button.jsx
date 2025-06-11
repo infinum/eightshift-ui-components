@@ -25,7 +25,7 @@ import { __ } from '@wordpress/i18n';
  * @returns {JSX.Element} The Button component.
  *
  * @typedef {'small' | 'default' | 'large'} ButtonSize
- * @typedef {'default' | 'selected' | 'ghost' | 'danger' | 'dangerGhost'} ButtonType
+ * @typedef {'default' | 'selected' | 'selectedGhost' | 'ghost' | 'danger' | 'dangerGhost'} ButtonType
  *
  * @example
  * <Button onPress={() => console.log('Hi!')} icon={icons.myIcon} />
@@ -97,6 +97,13 @@ export const Button = (props) => {
 						'es:enabled:hover:bg-red-500/5 es:enabled:active:bg-red-500/10 es:enabled:pressed:bg-red-500/10',
 						'es:focus-visible:text-red-700',
 						'es:focus-visible:ring-red-500/30 es:focus-visible:border-red-600 es:focus-visible:inset-ring-red-100',
+						'es:disabled:border-transparent!',
+					],
+					selectedGhost: [
+						'es:border-transparent es:text-accent-600',
+						'es:enabled:hover:bg-accent-500/5 es:enabled:active:bg-accent-500/10 es:enabled:pressed:bg-accent-500/10',
+						'es:focus-visible:text-accent-700',
+						'es:focus-visible:ring-accent-500/30 es:focus-visible:border-accent-500 es:focus-visible:inset-ring-accent-100',
 						'es:disabled:border-transparent!',
 					],
 				},
