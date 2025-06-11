@@ -129,7 +129,7 @@ const ModalInternal = (props) => {
 							>
 								{title && (
 									<Heading
-										className='es:text-balance es:text-base'
+										className='es:text-balance es:text-base! es:my-0! es:font-medium!'
 										slot='title'
 									>
 										{title}
