@@ -102,6 +102,7 @@ function App() {
 	let [loremIpsum2, setLoremIpsum2] = useState('s');
 	let [radioValue, setRadioValue] = useState(null);
 	let [modalOpen, setModalOpen] = useState(false);
+	let [buttonPending, setButtonPending] = useState(false);
 
 	let [sinSel, setSinSel] = useState(null);
 	let [sinSelSimple, setSinSelSimple] = useState(null);
@@ -923,6 +924,48 @@ function App() {
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Button>Hello</Button>
+
+					<hr />
+
+					<Checkbox
+						checked={buttonPending}
+						onChange={setButtonPending}
+						label='Pending?'
+					/>
+
+					<Button pending={buttonPending}>Pending button</Button>
+					<Button
+						type='ghost'
+						pending={buttonPending}
+					>
+						Pending button
+					</Button>
+					<Button
+						type='danger'
+						pending={buttonPending}
+					>
+						Pending button
+					</Button>
+					<Button
+						type='dangerGhost'
+						pending={buttonPending}
+					>
+						Pending button
+					</Button>
+					<Button
+						type='selected'
+						pending={buttonPending}
+					>
+						Pending button
+					</Button>
+					<Button
+						type='selectedGhost'
+						pending={buttonPending}
+					>
+						Pending button
+					</Button>
+
+					<hr />
 
 					<div className='es:flex es:items-center es:gap-2'>
 						<Button
