@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [5.0.4] - 2025-06-12
+- `Modal` improvements:
+  - Now works properly in *controlled* mode (opening controlled by an external variable) - also provides `onOpenChange` so you can update your state when closing is requested
+  - New design for header when `title` is added and floating close button when no title is provided
+  - Optional footer action area via the `actions` prop
+  - `headerClassName`, `actionsClassName`, and `contentContainerClassName` for more customization options
+  - `...rest` props are now properly passed through
+- `HStack` and `VStack` now have an `as` prop so they can be rendered as other tags (vs. the default `div`)
+- `Button` improvements:
+  - Added a new `Button` style: `selectedGhost`
+  - There's now a `pending` prop to indicate that the button is waiting for a pending action. The ARIA label (default: "Loading") can be customized with the `pendingAriaLabel` prop.
+
 ## [5.0.3] - 2025-06-10
 Co-authored with @piqusy
 
@@ -315,6 +327,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[5.0.4]: https://github.com/infinum/eightshift-ui-components/compare/5.0.3...5.0.4
 [5.0.3]: https://github.com/infinum/eightshift-ui-components/compare/5.0.2...5.0.3
 [5.0.2]: https://github.com/infinum/eightshift-ui-components/compare/5.0.1...5.0.2
 [5.0.1]: https://github.com/infinum/eightshift-ui-components/compare/5.0.0...5.0.1
