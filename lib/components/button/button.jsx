@@ -1,9 +1,11 @@
 import { useObjectRef } from 'react-aria';
-import { Button as ReactAriaButton, Toolbar } from 'react-aria-components';
+import { ProgressBar, Button as ReactAriaButton, Toolbar } from 'react-aria-components';
 import { clsx } from 'clsx/lite';
 import { cva } from 'class-variance-authority';
 import { Tooltip } from '../tooltip/tooltip';
 import { __ } from '@wordpress/i18n';
+import { cloneElement } from 'react';
+import { icons } from '../../icons';
 
 /**
  * A simple button component.
@@ -20,6 +22,8 @@ import { __ } from '@wordpress/i18n';
  * @param {React.Ref} [props.forwardedRef] - Ref to forward to the button. Use the same as the `ref` prop.
  * @param {string} [props.wrapperClassName] - Classes to pass to the tooltip wrapper.
  * @param {Object} [props.tooltipProps] - Props to pass to the tooltip.
+ * @param {boolean} [props.pending] - If `true`, the button is in a pending state, which can be used to indicate that an action is being processed.
+ * @param {string} [props.pendingAriaLabel='Loading'] - ARIA label for the pending state, used for screen readers.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Button component.
@@ -40,6 +44,8 @@ export const Button = (props) => {
 		icon,
 		size = 'default',
 		type = 'default',
+		pending,
+		pendingAriaLabel = __('Loading', 'eightshift-ui-components'),
 		disabled,
 		className,
 		tooltip: rawTooltip,
@@ -74,8 +80,9 @@ export const Button = (props) => {
 			'es:btn-group-mid:rounded-none',
 			'es:btn-group-h-start:rounded-r-none es:btn-group-v-start:rounded-b-none',
 			'es:btn-group-h-end:rounded-l-none es:btn-group-v-end:rounded-t-none',
-			'es:enabled:cursor-pointer',
+			'es:enabled:not-pending:cursor-pointer',
 			'es:shrink-0',
+			'es:pending:shadow-none! es:pending:cursor-wait',
 			icon && children ? 'es:justify-start' : 'es:justify-center',
 			className,
 		],
@@ -237,10 +244,11 @@ export const Button = (props) => {
 		<ReactAriaButton
 			onPress={onPress}
 			isDisabled={disabled}
+			isPending={pending}
 			className={componentClasses({
-				disabled: disabled,
-				hasIcon: Boolean(icon),
-				iconOnly: Boolean(icon && !children),
+				disabled: !pending && disabled,
+				hasIcon: pending || Boolean(icon),
+				iconOnly: pending || Boolean(icon && !children),
 				size: size,
 				type: type,
 			})}
@@ -248,8 +256,26 @@ export const Button = (props) => {
 			aria-label={ariaLabel}
 			{...other}
 		>
-			{icon}
-			{children}
+			{({ isPending }) => (
+				<>
+					{!isPending && (
+						<>
+							{icon}
+							{children}
+						</>
+					)}
+					{isPending && (
+						<>
+							<ProgressBar
+								aria-label={pendingAriaLabel}
+								className='es:sr-only'
+								isIndeterminate
+							/>
+							{cloneElement(icons.loader, { className: 'es:motion-preset-spin es:motion-duration-1750' })}
+						</>
+					)}
+				</>
+			)}
 		</ReactAriaButton>
 	);
 
