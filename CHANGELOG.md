@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [5.0.5] - 2025-06-12
+- Adds a `PortalProvider` component that allows changing the target for transient components like menus, popovers, etc.
+
 ## [5.0.4] - 2025-06-12
 - `Modal` improvements:
   - Now works properly in *controlled* mode (opening controlled by an external variable) - also provides `onOpenChange` so you can update your state when closing is requested
@@ -327,6 +330,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[5.0.5]: https://github.com/infinum/eightshift-ui-components/compare/5.0.4...5.0.5
 [5.0.4]: https://github.com/infinum/eightshift-ui-components/compare/5.0.3...5.0.4
 [5.0.3]: https://github.com/infinum/eightshift-ui-components/compare/5.0.2...5.0.3
 [5.0.2]: https://github.com/infinum/eightshift-ui-components/compare/5.0.1...5.0.2
