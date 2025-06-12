@@ -253,6 +253,7 @@ export const MenuItem = (props) => {
  * @component
  * @param {Object} props - Component props.
  * @param {JSX.Element} props.trigger - The trigger button for the submenu. **This should be a `MenuItem`.**
+ * @param {boolean} [props.keepOpen=false] - If `true`, the submenu will not close when an item is selected.
  * @param {Object} [props.popoverProps] - Props to pass to the popover.
  *
  * @returns {JSX.Element} The SubMenuItem component.
@@ -262,7 +263,19 @@ export const MenuItem = (props) => {
  * @preserve
  */
 export const SubMenuItem = (props) => {
-	const { children, trigger, popoverProps } = props;
+	const { children, trigger, popoverProps, keepOpen } = props;
+
+	let additionalProps = {};
+
+	if (keepOpen) {
+		additionalProps = {
+			...additionalProps,
+			selectionMode: 'multiple',
+			selectedKeys: [],
+			onSelectionChange: () => {},
+			items: [],
+		};
+	}
 
 	return (
 		<SubmenuTrigger>
@@ -278,6 +291,7 @@ export const SubMenuItem = (props) => {
 				<ReactAriaMenu
 					aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
 					className='es:any-focus:outline-hidden'
+					{...additionalProps}
 				>
 					{children}
 				</ReactAriaMenu>
