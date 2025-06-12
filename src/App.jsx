@@ -1196,6 +1196,20 @@ function App() {
 						keepOpen
 					>
 						<OptionSelect
+							type='standaloneMenuItems'
+							value={loremIpsum}
+							onChange={(v) => setLoremIpsum(v)}
+							options={[
+								{ label: 'Small', value: 0, icon: icons.small },
+								{ label: 'Medium', value: 1, icon: icons.medium },
+								{ label: 'Large', value: 2, icon: icons.large },
+							]}
+							label='Pero'
+							icon={icons.small}
+							wrapperProps={{ keepOpen: true }}
+						/>
+						<MenuSeparator />
+						<OptionSelect
 							type='submenu'
 							value={loremIpsum}
 							onChange={(v) => setLoremIpsum(v)}

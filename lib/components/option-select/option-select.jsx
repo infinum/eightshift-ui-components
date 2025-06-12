@@ -38,7 +38,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @returns {JSX.Element} The OptionSelect component.
  *
- * @typedef {'toggleButtons' | 'toggleButtonsSplit' | 'radios' | 'radiosSegmented' | 'menu' | 'submenu'} OptionSelectType
+ * @typedef {'toggleButtons' | 'toggleButtonsSplit' | 'radios' | 'radiosSegmented' | 'menu' | 'submenu' | 'standaloneMenuItems'} OptionSelectType
  *
  * @example
  * <OptionSelect
@@ -178,6 +178,54 @@ export const OptionSelect = (props) => {
 				)}
 				{children}
 			</SubMenuItem>
+		);
+	}
+
+	if (type === 'standaloneMenuItems') {
+		return (
+			<>
+				{options.map(
+					({
+						label: optionLabel,
+						value: optionValue,
+						icon: optionIcon,
+						endIcon: optionEndIcon,
+						ariaLabel: optionAriaLabel,
+						subtitle: optionSubtitle,
+						separator: optionHasSeparator,
+						sectionTitle: optionSectionTitle,
+						shortcut: optionShortcut,
+						disabled: optionDisabled,
+					}) => (
+						<Fragment key={optionValue}>
+							{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
+							{optionSectionTitle && <MenuItem disabled>{optionSectionTitle}</MenuItem>}
+							<MenuItem
+								selected={value === optionValue}
+								disabled={optionDisabled || disabled}
+								className={itemClassName}
+								icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
+								endIcon={!noItemIcon && (typeof optionEndIcon === 'string' ? icons?.[optionEndIcon] : optionEndIcon)}
+								aria-label={optionAriaLabel ?? optionLabel}
+								onClick={() => onChange(optionValue)}
+								shortcut={optionShortcut}
+								{...itemProps}
+							>
+								{!noItemLabel && !optionSubtitle && optionLabel}
+								{!noItemLabel && optionSubtitle && (
+									<RichLabel
+										label={optionLabel}
+										subtitle={optionSubtitle}
+										noColor
+									/>
+								)}
+							</MenuItem>
+							{optionHasSeparator === 'below' && <MenuSeparator />}
+						</Fragment>
+					),
+				)}
+				{children}
+			</>
 		);
 	}
 

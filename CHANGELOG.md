@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
 ## [5.0.6] - 2025-06-12
-- Added a new `submenu` variant to `OptionSelect` for easy sub-menus.
+- Added new `submenu` and `standaloneMenuItems` variants to `OptionSelect` for easy sub-menus or radio button menu items.
 - Added `keepOpen` option to `SubMenuItem`.
 
 ## [5.0.5] - 2025-06-12
