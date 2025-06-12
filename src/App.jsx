@@ -1191,6 +1191,65 @@ function App() {
 						tooltip='Size'
 					/>
 
+					<Menu
+						triggerLabel='Menu with submenu'
+						keepOpen
+					>
+						<OptionSelect
+							type='standaloneMenuItems'
+							value={loremIpsum}
+							onChange={(v) => setLoremIpsum(v)}
+							options={[
+								{ label: 'Small', value: 0, icon: icons.small },
+								{ label: 'Medium', value: 1, icon: icons.medium },
+								{ label: 'Large', value: 2, icon: icons.large },
+							]}
+							label='Pero'
+							icon={icons.small}
+							wrapperProps={{ keepOpen: true }}
+						/>
+						<MenuSeparator />
+						<OptionSelect
+							type='submenu'
+							value={loremIpsum}
+							onChange={(v) => setLoremIpsum(v)}
+							options={[
+								{ label: 'Small', value: 0, icon: icons.small },
+								{ label: 'Medium', value: 1, icon: icons.medium },
+								{ label: 'Large', value: 2, icon: icons.large },
+							]}
+							label='Pero'
+							icon={icons.small}
+							wrapperProps={{ keepOpen: true }}
+						/>
+						<MenuSeparator />
+						<OptionSelect
+							type='submenu'
+							value={loremIpsum}
+							onChange={(v) => setLoremIpsum(v)}
+							options={[
+								{ label: 'Small', value: 0, icon: icons.small },
+								{ label: 'Medium', value: 1, icon: icons.medium },
+								{ label: 'Large', value: 2, icon: icons.large },
+							]}
+							label='Pero'
+							subtitle
+						/>
+						<MenuSeparator />
+						<OptionSelect
+							type='submenu'
+							value={loremIpsum}
+							onChange={(v) => setLoremIpsum(v)}
+							options={[
+								{ label: 'Small', value: 0, icon: icons.small },
+								{ label: 'Medium', value: 1, icon: icons.medium },
+								{ label: 'Large', value: 2, icon: icons.large },
+							]}
+							label='Pero'
+							subtitle='Ždero'
+						/>
+					</Menu>
+
 					<OptionSelect
 						type='menu'
 						value={loremIpsum}

@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { icons } from '../../icons/icons';
 import { BaseControl } from '../base-control/base-control';
 import { ButtonGroup } from '../button/button';
-import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
+import { Menu, MenuItem, MenuSeparator, SubMenuItem } from '../menu/menu';
 import { RadioButton, RadioButtonGroup } from '../radio/radio';
 import { RichLabel } from '../rich-label/rich-label';
 import { ToggleButton } from '../toggle-button/toggle-button';
@@ -38,7 +38,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @returns {JSX.Element} The OptionSelect component.
  *
- * @typedef {'toggleButtons' | 'toggleButtonsSplit' | 'radios' | 'radiosSegmented' | 'menu'} OptionSelectType
+ * @typedef {'toggleButtons' | 'toggleButtonsSplit' | 'radios' | 'radiosSegmented' | 'menu' | 'submenu' | 'standaloneMenuItems'} OptionSelectType
  *
  * @example
  * <OptionSelect
@@ -113,6 +113,120 @@ export const OptionSelect = (props) => {
 
 	if (type === 'radiosSegmented') {
 		radioDesign = 'segmented';
+	}
+
+	if (type === 'submenu') {
+		return (
+			<SubMenuItem
+				trigger={
+					<MenuItem
+						icon={
+							!noTriggerIcon &&
+							(icon ??
+								// eslint-disable-next-line no-nested-ternary
+								(currentItem ? (typeof currentItem?.icon === 'string' ? icons?.[currentItem?.icon] : currentItem?.icon) : (noTriggerLabel || noTriggerIcon) && notSetLabel))
+						}
+					>
+						<RichLabel
+							label={noTriggerLabel ? null : (label ?? currentItem?.label ?? notSetLabel)}
+							subtitle={subtitle === true ? currentItem?.label : subtitle}
+							noColor
+						/>
+					</MenuItem>
+				}
+				{...wrapperProps}
+			>
+				{options.map(
+					({
+						label: optionLabel,
+						value: optionValue,
+						icon: optionIcon,
+						endIcon: optionEndIcon,
+						ariaLabel: optionAriaLabel,
+						subtitle: optionSubtitle,
+						separator: optionHasSeparator,
+						sectionTitle: optionSectionTitle,
+						shortcut: optionShortcut,
+						disabled: optionDisabled,
+					}) => (
+						<Fragment key={optionValue}>
+							{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
+							{optionSectionTitle && <MenuItem disabled>{optionSectionTitle}</MenuItem>}
+							<MenuItem
+								selected={value === optionValue}
+								disabled={optionDisabled || disabled}
+								className={itemClassName}
+								icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
+								endIcon={!noItemIcon && (typeof optionEndIcon === 'string' ? icons?.[optionEndIcon] : optionEndIcon)}
+								aria-label={optionAriaLabel ?? optionLabel}
+								onClick={() => onChange(optionValue)}
+								shortcut={optionShortcut}
+								{...itemProps}
+							>
+								{!noItemLabel && !optionSubtitle && optionLabel}
+								{!noItemLabel && optionSubtitle && (
+									<RichLabel
+										label={optionLabel}
+										subtitle={optionSubtitle}
+										noColor
+									/>
+								)}
+							</MenuItem>
+							{optionHasSeparator === 'below' && <MenuSeparator />}
+						</Fragment>
+					),
+				)}
+				{children}
+			</SubMenuItem>
+		);
+	}
+
+	if (type === 'standaloneMenuItems') {
+		return (
+			<>
+				{options.map(
+					({
+						label: optionLabel,
+						value: optionValue,
+						icon: optionIcon,
+						endIcon: optionEndIcon,
+						ariaLabel: optionAriaLabel,
+						subtitle: optionSubtitle,
+						separator: optionHasSeparator,
+						sectionTitle: optionSectionTitle,
+						shortcut: optionShortcut,
+						disabled: optionDisabled,
+					}) => (
+						<Fragment key={optionValue}>
+							{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
+							{optionSectionTitle && <MenuItem disabled>{optionSectionTitle}</MenuItem>}
+							<MenuItem
+								selected={value === optionValue}
+								disabled={optionDisabled || disabled}
+								className={itemClassName}
+								icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
+								endIcon={!noItemIcon && (typeof optionEndIcon === 'string' ? icons?.[optionEndIcon] : optionEndIcon)}
+								aria-label={optionAriaLabel ?? optionLabel}
+								onClick={() => onChange(optionValue)}
+								shortcut={optionShortcut}
+								{...itemProps}
+							>
+								{!noItemLabel && !optionSubtitle && optionLabel}
+								{!noItemLabel && optionSubtitle && (
+									<RichLabel
+										label={optionLabel}
+										subtitle={optionSubtitle}
+										noColor
+									/>
+								)}
+							</MenuItem>
+							{optionHasSeparator === 'below' && <MenuSeparator />}
+						</Fragment>
+					),
+				)}
+				{children}
+			</>
+		);
 	}
 
 	return (
