@@ -101,6 +101,8 @@ function App() {
 	let [loremIpsum, setLoremIpsum] = useState(0);
 	let [loremIpsum2, setLoremIpsum2] = useState('s');
 	let [radioValue, setRadioValue] = useState(null);
+	let [modalOpen, setModalOpen] = useState(false);
+	let [buttonPending, setButtonPending] = useState(false);
 
 	let [sinSel, setSinSel] = useState(null);
 	let [sinSelSimple, setSinSelSimple] = useState(null);
@@ -923,6 +925,48 @@ function App() {
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Button>Hello</Button>
 
+					<hr />
+
+					<Checkbox
+						checked={buttonPending}
+						onChange={setButtonPending}
+						label='Pending?'
+					/>
+
+					<Button pending={buttonPending}>Pending button</Button>
+					<Button
+						type='ghost'
+						pending={buttonPending}
+					>
+						Pending button
+					</Button>
+					<Button
+						type='danger'
+						pending={buttonPending}
+					>
+						Pending button
+					</Button>
+					<Button
+						type='dangerGhost'
+						pending={buttonPending}
+					>
+						Pending button
+					</Button>
+					<Button
+						type='selected'
+						pending={buttonPending}
+					>
+						Pending button
+					</Button>
+					<Button
+						type='selectedGhost'
+						pending={buttonPending}
+					>
+						Pending button
+					</Button>
+
+					<hr />
+
 					<div className='es:flex es:items-center es:gap-2'>
 						<Button
 							size='small'
@@ -979,6 +1023,21 @@ function App() {
 					<Button
 						icon={icons.componentGeneric}
 						type='ghost'
+						disabled
+					>
+						Hello
+					</Button>
+
+					<Button
+						icon={icons.componentGeneric}
+						type='selectedGhost'
+					>
+						Hello
+					</Button>
+
+					<Button
+						icon={icons.componentGeneric}
+						type='selectedGhost'
 						disabled
 					>
 						Hello
@@ -3408,7 +3467,60 @@ function App() {
 					/>
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
-					<Modal title='My modal'>Lorem ipsum modal sit amet.</Modal>
+					<p>Auto</p>
+
+					<Modal
+						title='My modal'
+						triggerLabel='Title'
+					>
+						<p>
+							Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet,
+							ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
+						</p>
+
+						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+					</Modal>
+
+					<Modal triggerLabel='No title'>
+						<p>
+							Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet,
+							ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
+						</p>
+
+						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+					</Modal>
+
+					<Modal
+						title='My modal'
+						triggerLabel='No close button'
+						noCloseButton
+						actions={<Button slot='close'>Close</Button>}
+					>
+						<p>
+							Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet,
+							ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
+						</p>
+
+						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+					</Modal>
+
+					<p>Manual</p>
+
+					<Button onPress={() => setModalOpen(true)}>Open modal</Button>
+
+					<Modal
+						open={modalOpen}
+						onOpenChange={setModalOpen}
+						title='My modal'
+						actions={<Button slot='close'>Close</Button>}
+					>
+						<p>
+							Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet,
+							ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
+						</p>
+
+						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+					</Modal>
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<ItemCollection
