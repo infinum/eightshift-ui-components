@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [5.0.7] - 2025-06-18
+- `LinkInput` will no longer generate suggestions for relative URLs.
+- Fixed font loading.
+
 ## [5.0.6] - 2025-06-12
 - Added new `submenu` and `standaloneMenuItems` variants to `OptionSelect` for easy sub-menus or radio button menu items.
 - Added `keepOpen` option to `SubMenuItem`.
@@ -334,6 +338,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[5.0.7]: https://github.com/infinum/eightshift-ui-components/compare/5.0.6...5.0.7
 [5.0.6]: https://github.com/infinum/eightshift-ui-components/compare/5.0.5...5.0.6
 [5.0.5]: https://github.com/infinum/eightshift-ui-components/compare/5.0.4...5.0.5
 [5.0.4]: https://github.com/infinum/eightshift-ui-components/compare/5.0.3...5.0.4
