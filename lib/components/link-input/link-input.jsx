@@ -81,6 +81,7 @@ export const LinkInput = (props) => {
 	} else {
 		shouldShowSuggestions = !(
 			(showSuggestionsWhenEmpty !== true && url.trim().length < 3) ||
+			url.startsWith('/') ||
 			url.startsWith('#') ||
 			url.startsWith(':') ||
 			url.startsWith('mailto') ||

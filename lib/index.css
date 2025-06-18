@@ -1,3 +1,8 @@
+/* Fonts */
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
+
+/* Tailwind */
 @source '../safelist.txt';
 
 @theme {
