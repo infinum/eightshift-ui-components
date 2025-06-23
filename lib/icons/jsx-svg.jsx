@@ -11,6 +11,8 @@ import JsxParser from 'react-jsx-parser';
  * @param {boolean} [props.ariaHidden] - Set to `true` if the image is decorative.
  * @param {string} [props.customProps] - Custom props to add to the SVG.
  * @param {Object} [props.customPropBindings] - Dynamic bindings for custom props.
+ * @param {boolean} [props.noIdRandomization] - If `true`, the SVG will not randomize IDs for defs like gradients, masks, ...
+ * @param {string} [props.idRandomizationPrefix] - Sets the prefix for random IDs. Defaults to `icon`.
  *
  * @returns {JSX.Element} The JsxSvg component.
  *
@@ -23,7 +25,7 @@ import JsxParser from 'react-jsx-parser';
  * @preserve
  */
 export const JsxSvg = (props) => {
-	const { svg, className, customProps, customPropBindings, 'aria-hidden': ariaHiddenProp, ariaHidden } = props;
+	const { svg, className, customProps, customPropBindings, 'aria-hidden': ariaHiddenProp, ariaHidden, noIdRandomization, idRandomizationPrefix = 'icon', ...rest } = props;
 
 	if (!svg || typeof svg !== 'string') {
 		return null;
@@ -43,11 +45,26 @@ export const JsxSvg = (props) => {
 		jsxString = jsxString.replace('<svg ', `<svg ${customProps} `);
 	}
 
+	// Randomize IDs.
+	if (!noIdRandomization) {
+		const matches = Array.from(jsxString?.matchAll(/id=[\'"]([a-zA-Z0-9\-\_]*)[\'"]/g), (m) => m?.[1])?.filter(Boolean);
+
+		// Make all IDs unique and random.
+		matches.forEach((match) => {
+			const newId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+			jsxString = jsxString.replaceAll(match, `${idRandomizationPrefix}-${newId}`);
+		});
+	}
+
 	return (
 		<JsxParser
 			renderInWrapper={false}
 			jsx={jsxString}
 			bindings={customPropBindings}
+			components={{
+				linearGradient: 'linearGradient',
+			}}
+			{...rest}
 		/>
 	);
 };
