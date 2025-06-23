@@ -2,7 +2,7 @@ import { Label, Button as ReactAriaButton, Input, Group, ListBox, ListBoxItem, P
 import { __ } from '@wordpress/i18n';
 import { icons } from '../../icons/icons';
 import { clsx } from 'clsx/lite';
-import { useRef, cloneElement, useEffect } from 'react';
+import { useRef, cloneElement } from 'react';
 import { useAsyncList } from 'react-stately';
 import { Spacer } from '../spacer/spacer';
 import { Tooltip } from '../tooltip/tooltip';
@@ -92,25 +92,20 @@ export const LinkInput = (props) => {
 	}
 
 	const suggestionList = useAsyncList({
-		initialFilterText: url,
-		async load({ signal, filterText }) {
-			if (disabled || !canShowSuggestions || !shouldShowSuggestions || !filterText || filterText.length < 3) {
+		async load({ signal }) {
+			if (disabled || !canShowSuggestions || !shouldShowSuggestions) {
 				return {
 					items: [],
 				};
 			}
 
-			const items = await fetchSuggestions(filterText, signal);
+			const items = await fetchSuggestions(url, signal);
 
 			return {
 				items: items ?? [],
 			};
 		},
 	});
-
-	useEffect(() => {
-		suggestionList.setFilterText(url);
-	}, [url]);
 
 	if (hidden) {
 		return null;
@@ -119,9 +114,13 @@ export const LinkInput = (props) => {
 	return (
 		<ComboBox
 			items={suggestionList.items}
-			inputValue={suggestionList.filterText}
+			inputValue={url}
 			onInputChange={(value) => {
 				onChange({ url: value, isAnchor: value?.includes('#') });
+
+				if (shouldShowSuggestions) {
+					suggestionList.reload();
+				}
 			}}
 			allowsCustomValue
 			allowsEmptyCollection
@@ -149,6 +148,7 @@ export const LinkInput = (props) => {
 							'es:focus-visible:border-accent-500',
 							'es:inset-ring es:inset-ring-secondary-100',
 							'es:disabled:shadow-none! es:disabled:border-secondary-200 es:disabled:bg-secondary-50 es:disabled:text-secondary-500 es:disabled:cursor-default es:readonly:bg-secondary-50',
+							'es:not-readonly:focus:shadow-md',
 							url?.length > 0 && 'es:pr-10',
 							className,
 						)}
@@ -162,7 +162,6 @@ export const LinkInput = (props) => {
 						<ReactAriaButton
 							slot={null}
 							onPress={() => {
-								suggestionList.setFilterText('');
 								onChange({ url: undefined, isAnchor: false });
 							}}
 							className='es:any-focus:outline-hidden'
@@ -171,7 +170,7 @@ export const LinkInput = (props) => {
 								<Tooltip text={__('Clear', 'eightshift-ui-components')}>
 									<div
 										className={clsx(
-											'es:flex es:size-8 es:items-center es:justify-center es:rounded es:bg-white/85 es:text-secondary-600 es:backdrop-blur es:transition es:cursor-pointer',
+											'es:flex es:size-8 es:items-center es:justify-center es:rounded-md es:bg-white/85 es:text-secondary-600 es:backdrop-blur es:transition es:cursor-pointer',
 											'es:hover:bg-red-600/5 es:hover:text-red-600',
 											'es:icon:size-6',
 										)}
