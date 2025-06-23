@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [5.0.8] - 2025-06-23
+- Improved `LinkInput` performance and responsiveness
+- Added a default background to `InputField` so it looks good standalone
+- Updated dependencies
+
 ## [5.0.7] - 2025-06-18
 - `LinkInput` will no longer generate suggestions for relative URLs.
 - Fixed font loading.
@@ -338,6 +343,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[5.0.8]: https://github.com/infinum/eightshift-ui-components/compare/5.0.7...5.0.8
 [5.0.7]: https://github.com/infinum/eightshift-ui-components/compare/5.0.6...5.0.7
 [5.0.6]: https://github.com/infinum/eightshift-ui-components/compare/5.0.5...5.0.6
 [5.0.5]: https://github.com/infinum/eightshift-ui-components/compare/5.0.4...5.0.5
