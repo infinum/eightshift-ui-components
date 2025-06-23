@@ -66,7 +66,7 @@ export const InputField = (props) => {
 						{...other}
 						type={type}
 						className={clsx(
-							'es:min-h-10 es:w-full es:rounded-10 es:border es:border-secondary-300 es:p-2 es:text-sm es:shadow-sm es:not-readonly:focus:shadow-md es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950',
+							'es:min-h-10 es:w-full es:rounded-10 es:border es:border-secondary-300 es:p-2 es:text-sm es:shadow-sm es:not-readonly:focus:shadow-md es:transition es:selection:bg-accent-500/20 es:selection:text-accent-950 es:bg-white',
 							'es:any-focus:outline-hidden',
 							'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 							'es:focus-visible:border-accent-500',
