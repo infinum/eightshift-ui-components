@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [5.0.10] - 2025-06-24
+- Fixed more incorrectly parsed SVG elements in `JsxSvg`
+
 ## [5.0.9] - 2025-06-23
 - `JsxSvg` improvements:
   - Fixed improper handling of `linearGradient`s
@@ -349,6 +352,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[5.0.10]: https://github.com/infinum/eightshift-ui-components/compare/5.0.9...5.0.10
 [5.0.9]: https://github.com/infinum/eightshift-ui-components/compare/5.0.8...5.0.9
 [5.0.8]: https://github.com/infinum/eightshift-ui-components/compare/5.0.7...5.0.8
 [5.0.7]: https://github.com/infinum/eightshift-ui-components/compare/5.0.6...5.0.7

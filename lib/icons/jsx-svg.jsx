@@ -62,7 +62,38 @@ export const JsxSvg = (props) => {
 			jsx={jsxString}
 			bindings={customPropBindings}
 			components={{
+				animateMotion: 'animateMotion',
+				animateTransform: 'animateTransform',
+				clipPath: 'clipPath',
+				feBlend: 'feBlend',
+				feColorMatrix: 'feColorMatrix',
+				feComponentTransfer: 'feComponentTransfer',
+				feComposite: 'feComposite',
+				feConvolveMatrix: 'feConvolveMatrix',
+				feDiffuseLighting: 'feDiffuseLighting',
+				feDisplacementMap: 'feDisplacementMap',
+				feDistantLight: 'feDistantLight',
+				feDropShadow: 'feDropShadow',
+				feFlood: 'feFlood',
+				feFuncA: 'feFuncA',
+				feFuncB: 'feFuncB',
+				feFuncG: 'feFuncG',
+				feFuncR: 'feFuncR',
+				feGaussianBlur: 'feGaussianBlur',
+				feImage: 'feImage',
+				feMerge: 'feMerge',
+				feMergeNode: 'feMergeNode',
+				feMorphology: 'feMorphology',
+				feOffset: 'feOffset',
+				fePointLight: 'fePointLight',
+				feSpecularLighting: 'feSpecularLighting',
+				feSpotLight: 'feSpotLight',
+				feTile: 'feTile',
+				feTurbulence: 'feTurbulence',
+				foreignObject: 'foreignObject',
 				linearGradient: 'linearGradient',
+				radialGradient: 'radialGradient',
+				textPath: 'textPath',
 			}}
 			{...rest}
 		/>
