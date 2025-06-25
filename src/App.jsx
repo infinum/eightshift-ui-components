@@ -79,6 +79,18 @@ import { clsx } from 'clsx/lite';
 import { cloneElement } from 'react';
 import '../lib/style';
 
+const slugify = (input) => {
+	return input
+		.toString()
+		.toLowerCase()
+		.trim()
+		.replace(/\s+/g, '-')
+		.replace(/[^\w\-]+/g, '')
+		.replace(/\-\-+/g, '-')
+		.replace(/^-+/, '')
+		.replace(/-+$/, '');
+};
+
 function App() {
 	const [controlTheme, setControlTheme] = useState('default');
 
@@ -209,6 +221,12 @@ function App() {
 		{
 			label: 'Item 6',
 			value: 'item-6',
+		},
+		{
+			label: 'Item 7 lorem',
+			subtitle: 'Ipsum dolor sit amet lorem',
+			icon: icons.experiment,
+			value: 'item-7',
 		},
 	];
 
@@ -1925,6 +1943,84 @@ function App() {
 						simpleValue
 						customMenuOption={(item) => <span className='es:font-bold es:text-blue-400'>{item?.label}</span>}
 					/>
+
+					<__ExperimentalSelect
+						label='Single basic'
+						value={sinSel}
+						onChange={setSinSel}
+						options={data}
+					/>
+
+					<__ExperimentalAsyncSelect
+						label='Async single select PROD'
+						value={sinASel2}
+						onChange={setSinASel2}
+						fetchUrl={(searchText) =>
+							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
+						}
+						getLabel={(item) => item?.name}
+						getValue={(item) => item?.value}
+						getSubtitle={(item) => item?.country}
+						getIcon={() => icons.emptyCircle}
+						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
+					/>
+
+					<__ExperimentalAsyncSelect
+						label='Async single select PROD'
+						value={sinASel2}
+						onChange={setSinASel2}
+						fetchUrl={(searchText) =>
+							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
+						}
+						getLabel={(item) => item?.name}
+						getValue={(item) => item?.value}
+						getSubtitle={(item) => item?.country}
+						getIcon={() => icons.emptyCircle}
+						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
+						clearable
+					/>
+					<__ExperimentalAsyncSelect
+						label='Async single select PROD'
+						value={sinASel2}
+						onChange={setSinASel2}
+						fetchUrl={(searchText) =>
+							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
+						}
+						getLabel={(item) => item?.name}
+						getValue={(item) => item?.value}
+						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
+						clearable
+					/>
+
+					<__ExperimentalAsyncSelect
+						label='Async single select PROD'
+						value={sinASel2}
+						onChange={setSinASel2}
+						fetchUrl={(searchText) =>
+							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
+						}
+						getLabel={(item) => item?.name}
+						getValue={(item) => item?.value}
+						getIcon={() => icons.emptyCircle}
+						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
+						clearable
+					/>
+
+					<__ExperimentalAsyncSelect
+						label='Async single select PROD'
+						value={sinASel2}
+						onChange={setSinASel2}
+						fetchUrl={(searchText) =>
+							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
+						}
+						getLabel={(item) => item?.name}
+						getValue={(item) => item?.value}
+						getSubtitle={(item) => item?.country}
+						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
+						clearable
+					/>
+
+					{JSON.stringify(sinASel2)}
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Tabs>
