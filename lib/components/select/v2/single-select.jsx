@@ -1,12 +1,12 @@
 import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../../base-control/base-control';
-import { Select, Label, ListBox, ListBoxItem, Popover, Button, SelectValue, SelectStateContext } from 'react-aria-components';
+import { Select, Label, ListBox, Popover, Button, SelectValue, SelectStateContext } from 'react-aria-components';
 import { useContext, cloneElement } from 'react';
 import { icons } from '../../../icons';
-import clsx from 'clsx';
 import { OptionItemBase } from './shared';
 import { useRef } from 'react';
 import { RichLabel } from '../../rich-label/rich-label';
+import clsx from 'clsx';
 
 /**
  * Select menu.
@@ -29,6 +29,7 @@ import { RichLabel } from '../../rich-label/rich-label';
  * @param {JSX.Element} [props.customMenuOption] - If provided, replaces the default item in the dropdown menu (react-select's `components.Option`).
  * @param {JSX.Element} [props.customValueDisplay] - If provided, replaces the default current value display of each selected item (react-select's `components.MultiValue`).
  * @param {string} [props.className] - Classes to pass to the select menu.
+ * @param {boolean} [props.noMinWidth=false] - If `true`, the select menu will not have a minimum width.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The __ExperimentalSelect component.
@@ -70,12 +71,14 @@ export const __ExperimentalSelect = (props) => {
 		disabled = false,
 		clearable = false,
 
-		placeholder,
+		placeholder = __('Select...', 'eightshift-ui-components'),
 
 		customMenuOption,
 		customValueDisplay,
 
 		className,
+
+		noMinWidth = false,
 
 		hidden,
 	} = props;
@@ -131,48 +134,44 @@ export const __ExperimentalSelect = (props) => {
 			>
 				<div
 					className={clsx(
-						'es:relative es:flex es:max-w-80 es:items-center es:gap-1 es:p-1 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+						'es:relative es:flex es:max-w-80 es:items-center es:gap-1 es:px-1.5 es:py-1 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 						'es:h-9 es:rounded-10 es:border es:border-secondary-300 es:bg-white es:text-sm es:shadow-sm es:transition',
+						'es:inset-ring es:inset-ring-secondary-100',
 						'es:any-focus:outline-hidden',
+						!noMinWidth && 'es:min-w-48',
 						!inline && 'es:w-full',
-						disabled && 'es:select-none',
+						disabled && 'es:select-none es:shadow-none!',
 						'es:has-[[aria-haspopup=listbox][data-focus-visible=true],[aria-autocomplete=list][data-focus-visible=true]]:border-accent-500 es:has-[[aria-haspopup=listbox][data-focus-visible=true],[aria-autocomplete=list][data-focus-visible=true]]:ring-2 es:has-[[aria-haspopup=listbox][data-focus-visible=true],[aria-autocomplete=list][data-focus-visible=true]]:ring-accent-500/50',
+						className,
 					)}
 					ref={ref}
 				>
-					<Button
-						className={clsx(
-							'es:group es:h-6 es:w-full es:rounded-sm es:p-1 es:text-sm es:transition',
-							'es:flex es:grow es:items-center',
-							'es:any-focus:outline-hidden',
-							disabled && 'es:bg-transparent es:text-secondary-400 es:selection:bg-transparent es:selection:text-transparent',
-							currentValue && !clearable && 'es:pr-6',
-							!currentValue && 'es:text-secondary-400',
-						)}
-					>
-						<SelectValue>
-							{({ defaultChildren, isPlaceholder, selectedItem }) => {
+					<Button className='es:any-focus:outline-hidden'>
+						<SelectValue className='es:contents'>
+							{({ isPlaceholder, selectedItem }) => {
 								if (!isPlaceholder && currentValue && customValueDisplay) {
 									return customValueDisplay(selectedItem);
 								}
 
-								if (!isPlaceholder && currentValue && customMenuOption) {
-									let icon = selectedItem?.icon ?? null;
-
-									if (typeof selectedItem?.icon === 'string') {
-										icon = icons?.[selectedItem.icon] ?? null;
-									}
-
-									return (
-										<RichLabel
-											icon={icon}
-											label={selectedItem?.label}
-											subtitle={selectedItem.subtitle}
-										/>
-									);
+								if (!currentValue) {
+									return <span className='es:pointer-events-none es:pr-6 es:text-sm es:text-secondary-500'>{placeholder}</span>;
 								}
 
-								return defaultChildren;
+								let icon = selectedItem?.icon ?? null;
+
+								if (typeof selectedItem?.icon === 'string') {
+									icon = icons?.[selectedItem.icon] ?? null;
+								}
+
+								return (
+									<RichLabel
+										icon={icon}
+										label={selectedItem?.label}
+										subtitle={selectedItem.subtitle}
+										className={clsx('es:pr-6 es:grow es:w-full', disabled && 'es:grayscale es:pointer-events-none')}
+										iconClassName='es:pointer-events-none es:select-none'
+									/>
+								);
 							}}
 						</SelectValue>
 
@@ -188,12 +187,19 @@ export const __ExperimentalSelect = (props) => {
 					{clearable && <SelectClearButton />}
 				</div>
 				<Popover
-					className={({ isEntering, isExiting }) =>
+					className={({ isEntering, isExiting, placement }) =>
 						clsx(
-							'es:flex es:min-w-9 es:max-w-80 es:flex-col es:overflow-x-hidden es:rounded-lg es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-lg',
+							'es:flex es:w-76 es:min-w-9 es:max-w-76 es:flex-col es:overflow-x-hidden es:rounded-2xl es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-xl',
 							'es:any-focus:outline-hidden',
-							isEntering && 'es:motion-safe:motion-preset-slide-down-sm es:motion-safe:motion-duration-300 es:motion-reduce:motion-preset-fade-md',
-							isExiting && 'es:not-motion-reduce:motion-translate-y-out-[-2.5%] es:motion-opacity-out-0 es:motion-duration-200',
+							'es:motion-safe:motion-duration-300',
+							placement?.includes('top') && 'es:origin-bottom-left',
+							placement?.includes('bottom') && 'es:origin-top-left',
+							isEntering && placement?.includes('top') && 'es:motion-safe:motion-preset-slide-up-sm',
+							isEntering && placement?.includes('bottom') && 'es:motion-safe:motion-preset-slide-down-sm',
+							isExiting && placement?.includes('top') && 'es:motion-safe:motion-translate-y-out-[5%]',
+							isExiting && placement?.includes('bottom') && 'es:motion-safe:motion-translate-y-out-[-5%]',
+							isEntering && 'es:motion-safe:motion-scale-in-95 es:motion-reduce:motion-preset-fade-md',
+							isExiting && 'es:motion-safe:motion-scale-out-95 es:motion-safe:motion-blur-out-sm es:motion-opacity-out-0',
 						)
 					}
 					placement='bottom left'
