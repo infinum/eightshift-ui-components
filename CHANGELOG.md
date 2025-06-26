@@ -4,8 +4,10 @@ All notable changes to this project will be documented in this file.
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
 ## [5.1.0] - 2025-06-26
-- Reworked `__ExperimentalAsyncSelect` and `__ExperimentalSelect` to look and work better
 - Added `isString` helper function
+- `__ExperimentalAsyncSelect` and `__ExperimentalSelect` improvements:
+  - Reworked components to look and work better
+  - Added `customDropdownArrow` prop
 
 ## [5.0.10] - 2025-06-24
 - Fixed more incorrectly parsed SVG elements in `JsxSvg`
