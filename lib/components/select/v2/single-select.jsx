@@ -28,6 +28,7 @@ import clsx from 'clsx';
  * @param {string} [props.placeholder] - Placeholder text to show when no value is selected.
  * @param {JSX.Element} [props.customMenuOption] - If provided, replaces the default item in the dropdown menu (react-select's `components.Option`).
  * @param {JSX.Element} [props.customValueDisplay] - If provided, replaces the default current value display of each selected item (react-select's `components.MultiValue`).
+ * @param {JSX.Element} [props.customDropdownArrow] - If provided, replaces the default dropdown arrow indicator.
  * @param {string} [props.className] - Classes to pass to the select menu.
  * @param {boolean} [props.noMinWidth=false] - If `true`, the select menu will not have a minimum width.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
@@ -75,6 +76,7 @@ export const __ExperimentalSelect = (props) => {
 
 		customMenuOption,
 		customValueDisplay,
+		customDropdownArrow,
 
 		className,
 
@@ -146,7 +148,7 @@ export const __ExperimentalSelect = (props) => {
 					)}
 					ref={ref}
 				>
-					<Button className='es:any-focus:outline-hidden'>
+					<Button className='es:any-focus:outline-hidden es:size-full es:flex es:items-center es:group'>
 						<SelectValue className='es:contents'>
 							{({ isPlaceholder, selectedItem }) => {
 								if (!isPlaceholder && currentValue && customValueDisplay) {
@@ -179,9 +181,19 @@ export const __ExperimentalSelect = (props) => {
 							className={clsx('es:absolute es:bottom-0 es:right-1 es:top-0 es:my-auto es:flex es:items-center', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}
 							aria-hidden='true'
 						>
-							{cloneElement(icons.dropdownCaretAlt, {
-								className: 'es:w-5.5 es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
-							})}
+							{!customDropdownArrow &&
+								cloneElement(icons.dropdownCaretAlt, {
+									className: 'es:w-4 es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
+								})}
+
+							{customDropdownArrow && (
+								<div
+									aria-hidden='true'
+									className='es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200'
+								>
+									{customDropdownArrow}
+								</div>
+							)}
 						</div>
 					</Button>
 					{clearable && <SelectClearButton />}

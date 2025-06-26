@@ -32,6 +32,7 @@ import clsx from 'clsx';
  * @param {string} [props.placeholder] - Placeholder text to show when no value is selected.
  * @param {JSX.Element} [props.customMenuOption] - If provided, replaces the default item in the dropdown menu. `({ value: string, label: string, subtitle: string, metadata: any }) => JSX.Element`
  * @param {JSX.Element} [props.customValueDisplay] - If provided, replaces the default current value display of each selected item. `({ value: string, label: string, subtitle: string, metadata: any }) => JSX.Element`
+ * @param {JSX.Element} [props.customDropdownArrow] - If provided, replaces the default dropdown arrow indicator.
  * @param {Function} [props.processLoadedOptions] - Allows modifying (filtering, grouping, ...) options output after the items have been dynamically fetched. Must include `label`, `value`, and `id` keys in the output, additional fields can be added as required.
  * @param {string} props.className - Classes to pass to the select menu.
  * @param {boolean} [props.noMinWidth=false] - If `true`, the select menu will not have a minimum width.
@@ -75,6 +76,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 
 		customMenuOption,
 		customValueDisplay,
+		customDropdownArrow,
 
 		processLoadedOptions = (options) => options,
 
@@ -247,10 +249,20 @@ export const __ExperimentalAsyncSelect = (props) => {
 					{clearable && <ClearButton disabled={disabled} />}
 
 					<Button className={clsx('es:group es:absolute es:bottom-0 es:right-0 es:top-0 es:my-auto es:size-6', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}>
-						{cloneElement(icons.dropdownCaretAlt, {
-							className: 'es:w-4 es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
-							'aria-hidden': true,
-						})}
+						{!customDropdownArrow &&
+							cloneElement(icons.dropdownCaretAlt, {
+								className: 'es:w-4 es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
+								'aria-hidden': true,
+							})}
+
+						{customDropdownArrow && (
+							<div
+								aria-hidden='true'
+								className='es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200'
+							>
+								{customDropdownArrow}
+							</div>
+						)}
 					</Button>
 				</div>
 			</BaseControl>

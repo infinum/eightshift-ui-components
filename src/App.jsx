@@ -1860,6 +1860,7 @@ function App() {
 						getSubtitle={(item) => item?.delivery}
 						getIcon={() => <span className='es:shrink-0 es:text-lg'>😂</span>}
 						getData={(data) => data?.jokes}
+						customDropdownArrow={icons.experiment}
 					/>
 
 					<__ExperimentalAsyncSelect
