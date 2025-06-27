@@ -227,9 +227,9 @@ export const SelectNext = (props) => {
 					{searchable && (
 						<Autocomplete filter={contains}>
 							<SearchField
-								aria-label='Search'
-								autoFocus
+								aria-label={__('Search', 'eightshift-ui-components')}
 								className='es:flex es:items-center es:bg-secondary-100 es:m-2 es:rounded-lg es:relative es:placeholder:text-secondary-500'
+								autoFocus
 							>
 								<Input
 									placeholder={__('Search...', 'eightshift-ui-components')}

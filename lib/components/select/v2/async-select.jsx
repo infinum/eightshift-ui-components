@@ -273,7 +273,7 @@ export const AsyncSelectNext = (props) => {
 						onInputChange={list.setFilterText}
 					>
 						<SearchField
-							aria-label='Search'
+							aria-label={__('Search', 'eightshift-ui-components')}
 							className='es:flex es:items-center es:bg-secondary-100 es:m-2 es:rounded-lg es:relative es:placeholder:text-secondary-500'
 							autoFocus
 						>
