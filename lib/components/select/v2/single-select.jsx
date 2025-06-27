@@ -91,7 +91,7 @@ export const __ExperimentalSelect = (props) => {
 
 	const ref = useRef();
 
-	const currentValue = value?.value ?? value ?? null;
+	const currentValue = simpleValue ? (value ?? null) : (value?.value ?? null);
 
 	const { contains } = useFilter({ sensitivity: 'base' });
 
@@ -143,7 +143,7 @@ export const __ExperimentalSelect = (props) => {
 			>
 				<div
 					className={clsx(
-						'es:relative es:flex es:max-w-80 es:items-center es:gap-1 es:px-1.5 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+						'es:relative es:flex es:items-center es:gap-1 es:px-1.5 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 						'es:h-9 es:rounded-10 es:border es:border-secondary-300 es:bg-white es:text-sm es:shadow-sm es:transition',
 						'es:inset-ring es:inset-ring-secondary-100',
 						'es:any-focus:outline-hidden',
@@ -231,7 +231,7 @@ export const __ExperimentalSelect = (props) => {
 							>
 								<Input
 									placeholder={__('Search...', 'eightshift-ui-components')}
-									className='es:peer es:size-full es:h-9 es:outline-hidden es:px-2.5 es:text-sm es:py-0 es:[&::-webkit-search-cancel-button]:hidden'
+									className='es:peer es:size-full es:h-9 es:outline-hidden es:px-2.5 es:shadow-none es:text-sm es:py-0 es:[&::-webkit-search-cancel-button]:hidden'
 								/>
 								<Button
 									aria-label={__('Clear', 'eightshift-ui-components')}

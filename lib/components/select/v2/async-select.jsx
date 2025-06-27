@@ -96,7 +96,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 	} = props;
 
 	const list = useAsyncList({
-		getKey: (item) => getValue?.(item) ?? item?.value,
+		getKey: (item) => item.value,
 		async load({ signal, filterText }) {
 			const res = await fetch(fetchUrl(filterText), { ...fetchConfig, signal });
 			const json = processLoadedOptions(getData(await res.json()));
@@ -117,7 +117,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 				return entry;
 			});
 
-			if (value && (filterText ?? '').length < 1 && !output.find((item) => item.value === value?.value)) {
+			if (value && value?.value && (filterText ?? '').length < 1 && output.length > 0 && !output?.find((item) => item.value === value?.value)) {
 				return {
 					items: [value, ...output.slice(0, -1)],
 					selectedKeys: [value?.value],
@@ -133,11 +133,12 @@ export const __ExperimentalAsyncSelect = (props) => {
 	const ref = useRef();
 
 	useEffect(() => {
-		if (!list.getItem(value?.value)) {
-			list.reload();
+		// Overwrite first item if the current value is not in the list.
+		if (value?.value && !list.getItem(value?.value)) {
+			list.items[0] = value;
 		}
 
-		list.setSelectedKeys(value ? [value.value] : []);
+		list.setSelectedKeys(value?.value ? [value.value] : []);
 	}, [value?.value]);
 
 	if (hidden) {
@@ -185,7 +186,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 			>
 				<div
 					className={clsx(
-						'es:relative es:flex es:max-w-80 es:items-center es:gap-1 es:px-1.5 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+						'es:relative es:flex es:items-center es:gap-1 es:px-1.5 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 						'es:h-9 es:rounded-10 es:border es:border-secondary-300 es:bg-white es:text-sm es:shadow-sm es:transition',
 						'es:inset-ring es:inset-ring-secondary-100',
 						'es:any-focus:outline-hidden',
@@ -200,7 +201,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 					<Button className='es:any-focus:outline-hidden es:text-start es:size-full es:inline-block es:group es:overflow-x-clip'>
 						<SelectValue>
 							{({ selectedItem }) => {
-								if (!value) {
+								if (!value?.value) {
 									return <span className='es:pointer-events-none es:pr-6 es:text-sm es:text-secondary-500'>{placeholder}</span>;
 								}
 
@@ -275,7 +276,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 						>
 							<Input
 								placeholder={__('Search...', 'eightshift-ui-components')}
-								className='es:peer es:size-full es:h-9 es:outline-hidden es:px-2.5 es:text-sm es:py-0 es:[&::-webkit-search-cancel-button]:hidden'
+								className='es:peer es:size-full es:h-9 es:outline-hidden es:shadow-none es:px-2.5 es:text-sm es:py-0 es:[&::-webkit-search-cancel-button]:hidden'
 							/>
 							<Button
 								aria-label={__('Clear', 'eightshift-ui-components')}
@@ -291,45 +292,53 @@ export const __ExperimentalAsyncSelect = (props) => {
 
 						<div className='es:w-full es:h-px es:bg-secondary-200 es:shrink-0' />
 
-						<ListBox
-							className='es:space-y-0.5 es:p-1 es:any-focus:outline-hidden'
-							items={list.items}
-							renderEmptyState={() => (
-								<RichLabel
-									icon={icons.searchEmpty}
-									label={__('No results', 'eightshift-ui-components')}
-									subtitle={__('Try a different search term', 'eightshift-ui-components')}
-									className='es:min-h-14 es:p-2 es:w-fit es:mx-auto es:motion-preset-slide-up es:motion-ease-spring-bouncy es:motion-duration-200'
-									iconClassName='es:text-accent-700 es:icon:size-7!'
-									noColor
-								/>
-							)}
-						>
-							{(item) => {
-								let icon = getIcon ? getIcon(item) : (item?.icon ?? null);
+						{list.isLoading && (
+							<div className='es:p-3 es:min-h-16 es:flex es:items-center es:justify-center'>
+								{cloneElement(icons.loader, { className: 'es:text-accent-600! es:size-5.5 es:motion-preset-spin es:motion-duration-1500' })}
+							</div>
+						)}
 
-								if (typeof item?.icon === 'string') {
-									icon = icons?.[item.icon] ?? null;
-								}
+						{!list.isLoading && (
+							<ListBox
+								className='es:space-y-0.5 es:p-1 es:any-focus:outline-hidden'
+								items={list.items}
+								renderEmptyState={() => (
+									<RichLabel
+										icon={icons.searchEmpty}
+										label={__('No results', 'eightshift-ui-components')}
+										subtitle={__('Try a different search term', 'eightshift-ui-components')}
+										className='es:min-h-14 es:p-2 es:w-fit es:mx-auto es:motion-preset-slide-up es:motion-ease-spring-bouncy es:motion-duration-200'
+										iconClassName='es:text-accent-700 es:icon:size-7!'
+										noColor
+									/>
+								)}
+							>
+								{(item) => {
+									let icon = getIcon ? getIcon(item) : (item?.icon ?? null);
 
-								return (
-									<OptionItemBase
-										id={item.value}
-										className={item?.className}
-									>
-										{customMenuOption && customMenuOption(item)}
-										{!customMenuOption && (
-											<RichLabel
-												icon={icon}
-												label={item?.label}
-												subtitle={item.subtitle}
-												noColor
-											/>
-										)}
-									</OptionItemBase>
-								);
-							}}
-						</ListBox>
+									if (typeof item?.icon === 'string') {
+										icon = icons?.[item.icon] ?? null;
+									}
+
+									return (
+										<OptionItemBase
+											id={item.value}
+											className={item?.className}
+										>
+											{customMenuOption && customMenuOption(item)}
+											{!customMenuOption && (
+												<RichLabel
+													icon={icon}
+													label={item?.label}
+													subtitle={item.subtitle}
+													noColor
+												/>
+											)}
+										</OptionItemBase>
+									);
+								}}
+							</ListBox>
+						)}
 					</Autocomplete>
 				</Popover>
 			</BaseControl>
