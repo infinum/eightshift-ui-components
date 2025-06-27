@@ -143,7 +143,7 @@ export const __ExperimentalSelect = (props) => {
 			>
 				<div
 					className={clsx(
-						'es:relative es:flex es:max-w-80 es:items-center es:gap-1 es:px-1.5 es:py-1 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+						'es:relative es:flex es:max-w-80 es:items-center es:gap-1 es:px-1.5 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 						'es:h-9 es:rounded-10 es:border es:border-secondary-300 es:bg-white es:text-sm es:shadow-sm es:transition',
 						'es:inset-ring es:inset-ring-secondary-100',
 						'es:any-focus:outline-hidden',
@@ -155,8 +155,8 @@ export const __ExperimentalSelect = (props) => {
 					)}
 					ref={ref}
 				>
-					<Button className='es:any-focus:outline-hidden es:size-full es:flex es:items-center es:group'>
-						<SelectValue className='es:contents'>
+					<Button className='es:any-focus:outline-hidden es:text-start es:size-full es:inline-block es:group es:overflow-x-clip'>
+						<SelectValue>
 							{({ isPlaceholder, selectedItem }) => {
 								if (!isPlaceholder && currentValue && customValueDisplay) {
 									return customValueDisplay(selectedItem);
@@ -210,15 +210,13 @@ export const __ExperimentalSelect = (props) => {
 						clsx(
 							'es:flex es:w-76 es:min-w-9 es:max-w-76 es:flex-col es:overflow-x-hidden es:rounded-2xl es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-xl',
 							'es:any-focus:outline-hidden',
-							'es:motion-safe:motion-duration-300',
+							'es:motion-safe:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy',
 							placement?.includes('top') && 'es:origin-bottom-left',
 							placement?.includes('bottom') && 'es:origin-top-left',
-							isEntering && placement?.includes('top') && 'es:motion-safe:motion-preset-slide-up-sm',
-							isEntering && placement?.includes('bottom') && 'es:motion-safe:motion-preset-slide-down-sm',
 							isExiting && placement?.includes('top') && 'es:motion-safe:motion-translate-y-out-[5%]',
 							isExiting && placement?.includes('bottom') && 'es:motion-safe:motion-translate-y-out-[-5%]',
-							isEntering && 'es:motion-safe:motion-scale-in-95 es:motion-reduce:motion-preset-fade-md',
-							isExiting && 'es:motion-safe:motion-scale-out-95 es:motion-safe:motion-blur-out-sm es:motion-opacity-out-0',
+							isEntering && 'es:motion-safe:motion-scale-in-95 es:motion-opacity-in-0',
+							isExiting && 'es:motion-safe:motion-scale-out-95 es:motion-opacity-out-0',
 						)
 					}
 					placement='bottom left'
@@ -246,7 +244,8 @@ export const __ExperimentalSelect = (props) => {
 									{icons.clearAlt}
 								</Button>
 							</SearchField>
-							<div className='es:w-full es:h-px es:bg-secondary-100' />
+
+							<div className='es:w-full es:h-px es:bg-secondary-200 es:shrink-0' />
 
 							<ListBox
 								className='es:space-y-0.5 es:p-1 es:any-focus:outline-hidden'
@@ -322,6 +321,7 @@ export const __ExperimentalSelect = (props) => {
 												icon={icon}
 												label={item?.label}
 												subtitle={item.subtitle}
+												noColor
 											/>
 										)}
 									</OptionItemBase>

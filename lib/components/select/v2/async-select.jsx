@@ -1,15 +1,13 @@
-import { useAsyncList } from 'react-stately';
 import { __ } from '@wordpress/i18n';
-import { Label, Input, Button, Popover, ListBox, ComboBox } from 'react-aria-components';
-import { OptionItemBase } from './shared';
-import { RichLabel } from '../../rich-label/rich-label';
 import { BaseControl } from '../../base-control/base-control';
-import { useContext, useEffect } from 'react';
+import { Select, Label, ListBox, Popover, Button, SelectValue, SelectStateContext, Autocomplete, SearchField, Input } from 'react-aria-components';
+import { useContext, cloneElement, useEffect } from 'react';
 import { icons } from '../../../icons';
-import { cloneElement } from 'react';
-import { isString, unescapeHTML } from '../../../utilities';
-import { ComboBoxStateContext } from 'react-aria-components';
-import { useRef, useState } from 'react';
+import { OptionItemBase } from './shared';
+import { useRef } from 'react';
+import { RichLabel } from '../../rich-label/rich-label';
+import { useAsyncList } from 'react-stately';
+import { unescapeHTML } from '../../../utilities';
 import clsx from 'clsx';
 
 /**
@@ -72,7 +70,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 		clearable = false,
 
 		className,
-		placeholder,
+		placeholder = __('Select...', 'eightshift-ui-components'),
 
 		customMenuOption,
 		customValueDisplay,
@@ -97,18 +95,16 @@ export const __ExperimentalAsyncSelect = (props) => {
 		...rest
 	} = props;
 
-	const [searchText, setSearchText] = useState(value?.label ?? '');
-
 	const list = useAsyncList({
-		// initialFilterText: value?.label,
+		getKey: (item) => getValue?.(item) ?? item?.value,
 		async load({ signal, filterText }) {
 			const res = await fetch(fetchUrl(filterText), { ...fetchConfig, signal });
 			const json = processLoadedOptions(getData(await res.json()));
 
-			const output = json?.map((item) => {
-				const id = getValue(item);
+			const output = json?.map((item, index) => {
+				const id = getValue?.(item) ?? index;
 
-				const entry = { label: unescapeHTML(getLabel(item)), value: id };
+				const entry = { label: unescapeHTML(getLabel?.(item) ?? ''), value: id };
 
 				if (getMeta) {
 					entry.meta = getMeta(item);
@@ -121,7 +117,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 				return entry;
 			});
 
-			if (value && !output.find((item) => item.value === value?.value)) {
+			if (value && (filterText ?? '').length < 1 && !output.find((item) => item.value === value?.value)) {
 				return {
 					items: [value, ...output.slice(0, -1)],
 					selectedKeys: [value?.value],
@@ -137,12 +133,11 @@ export const __ExperimentalAsyncSelect = (props) => {
 	const ref = useRef();
 
 	useEffect(() => {
-		setSearchText(value?.label ?? '');
-		list.setFilterText('');
-
-		if (value?.value) {
-			list.setSelectedKeys([value?.value]);
+		if (!list.getItem(value?.value)) {
+			list.reload();
 		}
+
+		list.setSelectedKeys(value ? [value.value] : []);
 	}, [value?.value]);
 
 	if (hidden) {
@@ -150,57 +145,48 @@ export const __ExperimentalAsyncSelect = (props) => {
 	}
 
 	return (
-		<ComboBox
+		<Select
+			isDisabled={disabled}
+			selectedKey={value?.value ?? null}
 			onSelectionChange={(selected) => {
+				list.filterText = '';
+
 				if (selected === null || selected === undefined) {
 					onChange(null);
 
 					return;
 				}
 
-				const item = list?.getItem(selected) ?? list.items.find((item) => item.value === selected);
+				const item = list.items.find((item) => item.value === selected);
 
 				if (!item) {
-					if (clearable) {
-						onChange(null);
-					} else {
-						setSearchText(value?.label ?? '');
-					}
+					onChange(null);
 
 					return;
 				}
 
-				setSearchText(item?.label);
+				if (item && 'id' in item) {
+					delete item.id;
+				}
 
 				onChange(item);
 			}}
-			allowsCustomValue={false}
-			selectedKey={value?.value ?? null}
-			inputValue={searchText}
-			onInputChange={(value) => {
-				setSearchText(() => value);
-				list.setFilterText(value);
-			}}
-			items={list.items}
-			isDisabled={disabled}
-			menuTrigger='focus'
-			allowsEmptyCollection
+			placeholder={placeholder}
 			{...rest}
 		>
 			<BaseControl
-				icon={icon}
 				label={label}
+				icon={icon}
 				subtitle={subtitle}
-				help={help}
 				actions={actions}
-				labelAs={Label}
+				help={help}
 				inline={inline}
+				labelAs={Label}
 			>
 				<div
 					className={clsx(
-						'es:relative es:flex es:max-w-80 es:items-center es:gap-1 es:px-1.5 es:py-1 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+						'es:relative es:flex es:max-w-80 es:items-center es:gap-1 es:px-1.5 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 						'es:h-9 es:rounded-10 es:border es:border-secondary-300 es:bg-white es:text-sm es:shadow-sm es:transition',
-						'es:focus-within:shadow-md',
 						'es:inset-ring es:inset-ring-secondary-100',
 						'es:any-focus:outline-hidden',
 						!noMinWidth && 'es:min-w-48',
@@ -211,143 +197,160 @@ export const __ExperimentalAsyncSelect = (props) => {
 					)}
 					ref={ref}
 				>
-					<Label className='es:w-full'>
-						{!customValueDisplay && (
-							<RichLabel
-								icon={value && !isString(value) && getIcon && getIcon(value)}
-								subtitle={value && !isString(value) && <div className='es:pointer-events-none es:select-none es:line-clamp-1 es:text-ellipsis'>{value?.subtitle}</div>}
-								label={
-									<Input
-										className='es:w-full es:focus:text-current es:any-focus:outline-hidden! es:selection:bg-accent-500/20 es:selection:text-accent-950 es:text-ellipsis'
-										placeholder={placeholder ?? __('Select...', 'eightshift-ui-components')}
-									/>
+					<Button className='es:any-focus:outline-hidden es:text-start es:size-full es:inline-block es:group es:overflow-x-clip'>
+						<SelectValue>
+							{({ selectedItem }) => {
+								if (!value) {
+									return <span className='es:pointer-events-none es:pr-6 es:text-sm es:text-secondary-500'>{placeholder}</span>;
 								}
-								className={clsx('es:pr-6 es:grow es:w-full es:*:not-first:inline-block es:*:not-first:w-full', disabled && 'es:grayscale es:pointer-events-none')}
-								iconClassName='es:pointer-events-none es:select-none'
-							/>
-						)}
 
-						{customValueDisplay &&
-							customValueDisplay({
-								item: {
-									...value,
-									value: getValue && getValue(value),
-									subtitle: value && !isString(value) && value?.subtitle,
-									icon: value && !isString(value) && getIcon && getIcon(value),
-									meta: getMeta && getMeta(value),
-								},
-								shouldShowFullItem: value && !isString(value),
-								label: (
-									<Input
-										className='es:w-full es:focus:text-current es:any-focus:outline-hidden! es:selection:bg-accent-500/20 es:selection:text-accent-950 es:text-ellipsis'
-										placeholder={placeholder ?? __('Select...', 'eightshift-ui-components')}
+								if (customValueDisplay) {
+									return customValueDisplay(selectedItem);
+								}
+
+								let icon = getIcon ? getIcon(selectedItem) : (selectedItem?.icon ?? null);
+
+								if (typeof selectedItem?.icon === 'string') {
+									icon = icons?.[selectedItem.icon] ?? null;
+								}
+
+								return (
+									<RichLabel
+										icon={icon}
+										label={<span className='es:line-clamp-1'>{selectedItem?.label}</span>}
+										subtitle={<span className='es:line-clamp-1'>{selectedItem?.subtitle}</span>}
+										className={clsx('es:pr-6 es:grow es:w-full', disabled && 'es:grayscale es:pointer-events-none')}
+										iconClassName='es:pointer-events-none es:select-none'
 									/>
-								),
-							})}
-					</Label>
+								);
+							}}
+						</SelectValue>
 
-					{clearable && <ClearButton disabled={disabled} />}
+						<div
+							className={clsx('es:absolute es:bottom-0 es:right-1 es:top-0 es:my-auto es:flex es:items-center', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}
+							aria-hidden='true'
+						>
+							{!customDropdownArrow &&
+								cloneElement(icons.dropdownCaretAlt, {
+									className: 'es:w-4 es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
+								})}
 
-					<Button className={clsx('es:group es:absolute es:bottom-0 es:right-0 es:top-0 es:my-auto es:size-6', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}>
-						{!customDropdownArrow &&
-							cloneElement(icons.dropdownCaretAlt, {
-								className: 'es:w-4 es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
-								'aria-hidden': true,
-							})}
-
-						{customDropdownArrow && (
-							<div
-								aria-hidden='true'
-								className='es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200'
-							>
-								{customDropdownArrow}
-							</div>
-						)}
-					</Button>
-				</div>
-			</BaseControl>
-
-			<Popover
-				className={({ isEntering, isExiting, placement }) =>
-					clsx(
-						'es:flex es:w-76 es:min-w-9 es:max-w-76 es:flex-col es:overflow-x-hidden es:rounded-2xl es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-xl',
-						'es:any-focus:outline-hidden',
-						'es:motion-safe:motion-duration-300',
-						placement?.includes('top') && 'es:origin-bottom-left',
-						placement?.includes('bottom') && 'es:origin-top-left',
-						isEntering && placement?.includes('top') && 'es:motion-safe:motion-preset-slide-up-sm',
-						isEntering && placement?.includes('bottom') && 'es:motion-safe:motion-preset-slide-down-sm',
-						isExiting && placement?.includes('top') && 'es:motion-safe:motion-translate-y-out-[5%]',
-						isExiting && placement?.includes('bottom') && 'es:motion-safe:motion-translate-y-out-[-5%]',
-						isEntering && 'es:motion-safe:motion-scale-in-95 es:motion-reduce:motion-preset-fade-md',
-						isExiting && 'es:motion-safe:motion-scale-out-95 es:motion-safe:motion-blur-out-sm es:motion-opacity-out-0',
-					)
-				}
-				placement='bottom left'
-				triggerRef={ref}
-			>
-				{!list.isLoading && list.items.length > 0 && (
-					<ListBox className='es:space-y-0.5 es:p-1 es:any-focus:outline-hidden'>
-						{(item) => {
-							return (
-								<OptionItemBase
-									id={item.value}
-									className={item?.className}
+							{customDropdownArrow && (
+								<div
+									aria-hidden='true'
+									className='es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200'
 								>
-									{customMenuOption &&
-										customMenuOption({
-											...item,
-											icon: getIcon && getIcon(item),
-										})}
+									{customDropdownArrow}
+								</div>
+							)}
+						</div>
+					</Button>
+					{clearable && <SelectClearButton />}
+				</div>
+				<Popover
+					className={({ isEntering, isExiting, placement }) =>
+						clsx(
+							'es:flex es:w-76 es:min-w-9 es:max-w-76 es:flex-col es:overflow-x-hidden es:rounded-2xl es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-xl',
+							'es:any-focus:outline-hidden',
+							'es:motion-safe:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy',
+							placement?.includes('top') && 'es:origin-bottom-left',
+							placement?.includes('bottom') && 'es:origin-top-left',
+							isExiting && placement?.includes('top') && 'es:motion-safe:motion-translate-y-out-[5%]',
+							isExiting && placement?.includes('bottom') && 'es:motion-safe:motion-translate-y-out-[-5%]',
+							isEntering && 'es:motion-safe:motion-scale-in-95 es:motion-opacity-in-0',
+							isExiting && 'es:motion-safe:motion-scale-out-95 es:motion-opacity-out-0',
+						)
+					}
+					placement='bottom left'
+					triggerRef={ref}
+				>
+					<Autocomplete
+						inputValue={list.filterText}
+						onInputChange={list.setFilterText}
+					>
+						<SearchField
+							aria-label='Search'
+							className='es:flex es:items-center es:bg-secondary-100 es:m-2 es:rounded-lg es:relative es:placeholder:text-secondary-500'
+							autoFocus
+						>
+							<Input
+								placeholder={__('Search...', 'eightshift-ui-components')}
+								className='es:peer es:size-full es:h-9 es:outline-hidden es:px-2.5 es:text-sm es:py-0 es:[&::-webkit-search-cancel-button]:hidden'
+							/>
+							<Button
+								aria-label={__('Clear', 'eightshift-ui-components')}
+								className={clsx(
+									'es:absolute es:right-2 es:top-0 es:bottom-0 es:my-auto',
+									'es:flex es:size-6 es:items-center es:justify-center es:rounded es:text-sm es:text-secondary-600 es:transition es:hover:bg-red-50 es:hover:text-red-900 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
+									'es:peer-placeholder-shown:opacity-0',
+								)}
+							>
+								{icons.clearAlt}
+							</Button>
+						</SearchField>
 
-									{!customMenuOption && (
-										<RichLabel
-											icon={item?.icon ?? (getIcon ? getIcon(item) : null)}
-											label={item?.label}
-											subtitle={item.subtitle}
-										/>
-									)}
-								</OptionItemBase>
-							);
-						}}
-					</ListBox>
-				)}
+						<div className='es:w-full es:h-px es:bg-secondary-200 es:shrink-0' />
 
-				{list.isLoading && cloneElement(icons.loader, { className: 'es:mx-auto es:my-4 es:animate-spin es:size-5.5 es:text-accent-700' })}
+						<ListBox
+							className='es:space-y-0.5 es:p-1 es:any-focus:outline-hidden'
+							items={list.items}
+							renderEmptyState={() => (
+								<RichLabel
+									icon={icons.searchEmpty}
+									label={__('No results', 'eightshift-ui-components')}
+									subtitle={__('Try a different search term', 'eightshift-ui-components')}
+									className='es:min-h-14 es:p-2 es:w-fit es:mx-auto es:motion-preset-slide-up es:motion-ease-spring-bouncy es:motion-duration-200'
+									iconClassName='es:text-accent-700 es:icon:size-7!'
+									noColor
+								/>
+							)}
+						>
+							{(item) => {
+								let icon = getIcon ? getIcon(item) : (item?.icon ?? null);
 
-				{!list.isLoading && list.items.length === 0 && (
-					<div className='es:flex es:p-2'>
-						<RichLabel
-							slot='errorMessage'
-							icon={icons.searchEmpty}
-							label={__('No results', 'eightshift-ui-components')}
-							subtitle={__('Try a different search term', 'eightshift-ui-components')}
-							className='es:p-2 es:w-fit es:mx-auto'
-							iconClassName='es:text-accent-700 es:icon:size-7!'
-							noColor
-						/>
-					</div>
-				)}
-			</Popover>
-		</ComboBox>
+								if (typeof item?.icon === 'string') {
+									icon = icons?.[item.icon] ?? null;
+								}
+
+								return (
+									<OptionItemBase
+										id={item.value}
+										className={item?.className}
+									>
+										{customMenuOption && customMenuOption(item)}
+										{!customMenuOption && (
+											<RichLabel
+												icon={icon}
+												label={item?.label}
+												subtitle={item.subtitle}
+												noColor
+											/>
+										)}
+									</OptionItemBase>
+								);
+							}}
+						</ListBox>
+					</Autocomplete>
+				</Popover>
+			</BaseControl>
+		</Select>
 	);
 };
 
-const ClearButton = ({ disabled }) => {
-	const state = useContext(ComboBoxStateContext);
+const SelectClearButton = () => {
+	const state = useContext(SelectStateContext);
 
-	const isEmpty = state?.selectedKey === null || state?.inputValue === '';
+	const isEmpty = state?.selectedKey === null;
 
 	return (
 		<Button
 			aria-label={__('Clear value', 'eightshift-ui-components')}
 			className={clsx(
-				'es:shrink-0 es:mr-7 es:flex es:size-6 es:items-center es:justify-center es:rounded es:text-sm es:text-secondary-600 es:transition es:hover:bg-red-50 es:hover:text-red-900 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
+				'es:mr-6 es:flex es:h-6 es:w-8 es:items-center es:justify-center es:rounded es:text-sm es:text-secondary-600 es:transition es:hover:bg-red-50 es:hover:text-red-900 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
 				isEmpty ? 'es:hidden' : 'es:flex',
 			)}
 			onPress={() => state?.setSelectedKey(null)}
 			slot={null}
-			isDisabled={disabled || isEmpty}
 		>
 			{icons.clearAlt}
 		</Button>
