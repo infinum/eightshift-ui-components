@@ -13,6 +13,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Tweaked `Popover` and `LinkInput` popover enter/exit animations
 - Twaeked `Switch` styling when `disabled`
 - Tweaked `react-select` defaut styles to better match new components
+- `InputField` with type search will now clear on `Esc` on Firefox too
 
 ## [5.0.10] - 2025-06-24
 - Fixed more incorrectly parsed SVG elements in `JsxSvg`

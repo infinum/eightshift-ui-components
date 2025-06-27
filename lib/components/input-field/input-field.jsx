@@ -76,6 +76,15 @@ export const InputField = (props) => {
 							(monospaceFont || type === 'password') && 'es:font-mono',
 							className,
 						)}
+						onKeyUp={(e) => {
+							if (type === 'search' && e.key === 'Escape') {
+								onChange('');
+							}
+
+							if (props.onKeyUp) {
+								props.onKeyUp(e);
+							}
+						}}
 					/>
 				)}
 				{type === 'multiline' && (

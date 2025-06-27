@@ -2107,6 +2107,14 @@ function App() {
 					<InputField
 						value={txt1}
 						onChange={setTxt1}
+						label='Search'
+						type='search'
+						inline
+					/>
+
+					<InputField
+						value={txt1}
+						onChange={setTxt1}
 						label='Lorem'
 						type='password'
 					/>
