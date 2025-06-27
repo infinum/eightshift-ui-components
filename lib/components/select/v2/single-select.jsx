@@ -206,17 +206,19 @@ export const __ExperimentalSelect = (props) => {
 					{clearable && <SelectClearButton />}
 				</div>
 				<Popover
-					className={({ isEntering, isExiting, placement }) =>
+					className={({ isEntering, isExiting }) =>
 						clsx(
 							'es:flex es:w-76 es:min-w-9 es:max-w-76 es:flex-col es:-hidden es:rounded-2xl es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-xl es:inset-ring es:inset-ring-secondary-100',
 							'es:any-focus:outline-hidden',
 							'es:motion-safe:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy',
-							placement?.includes('top') && 'es:origin-bottom-left',
-							placement?.includes('bottom') && 'es:origin-top-left',
-							isExiting && placement?.includes('top') && 'es:motion-safe:motion-translate-y-out-[5%]',
-							isExiting && placement?.includes('bottom') && 'es:motion-safe:motion-translate-y-out-[-5%]',
+							'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
+							'es:placement-left:origin-right es:placement-right:origin-left',
 							isEntering && 'es:motion-safe:motion-scale-in-95 es:motion-opacity-in-0',
+							isEntering &&
+								'es:motion-safe:placement-top:motion-translate-y-in-[5%] es:motion-safe:placement-bottom:motion-translate-y-in-[-5%] es:motion-safe:placement-left:motion-translate-x-in-[5%] es:motion-safe:placement-right:motion-translate-x-in-[-5%]',
 							isExiting && 'es:motion-safe:motion-scale-out-95 es:motion-opacity-out-0',
+							isExiting &&
+								'es:motion-safe:placement-top:motion-translate-y-out-[5%] es:motion-safe:placement-bottom:motion-translate-y-out-[-5%] es:motion-safe:placement-left:motion-translate-x-out-[5%] es:motion-safe:placement-right:motion-translate-x-out-[-5%]',
 						)
 					}
 					placement='bottom left'
