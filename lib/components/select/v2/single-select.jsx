@@ -33,7 +33,7 @@ import clsx from 'clsx';
  * @param {boolean} [props.noMinWidth=false] - If `true`, the select menu will not have a minimum width.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
- * @returns {JSX.Element} The __ExperimentalSelect component.
+ * @returns {JSX.Element} The SelectNext component.
  *
  * @example
  * const [value, setValue] = useState(null);
@@ -44,7 +44,7 @@ import clsx from 'clsx';
  * 	{ label: 'Option 3', value: 'option-3' },
  * ];
  *
- * <__ExperimentalSelect
+ * <SelectNext
  * 	label='Select items'
  * 	options={loadOptions}
  * 	value={value}
@@ -54,7 +54,7 @@ import clsx from 'clsx';
  * @preserve
  */
 // eslint-disable-next-line no-underscore-dangle
-export const __ExperimentalSelect = (props) => {
+export const SelectNext = (props) => {
 	const {
 		icon,
 		help,

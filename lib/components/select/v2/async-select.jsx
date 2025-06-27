@@ -36,12 +36,12 @@ import clsx from 'clsx';
  * @param {boolean} [props.noMinWidth=false] - If `true`, the select menu will not have a minimum width.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
- * @returns {JSX.Element} The __ExperimentalAsyncSelect component.
+ * @returns {JSX.Element} The AsyncSelectNext component.
  *
  * @example
  * const [value, setValue] = useState(null);
  *
- * <__ExperimentalAsyncSelect
+ * <AsyncSelectNext
  * 	label='Select items'
  * 	fetchUrl={(searchText) => `https://api.example.com/items?q=${searchText}`}
  * 	value={value}
@@ -53,7 +53,7 @@ import clsx from 'clsx';
  * @preserve
  */
 // eslint-disable-next-line no-underscore-dangle
-export const __ExperimentalAsyncSelect = (props) => {
+export const AsyncSelectNext = (props) => {
 	const {
 		label,
 		help,

@@ -70,8 +70,8 @@ import {
 	ItemCollection,
 	OptionsPanelHeader,
 	MiniResponsive,
-	__ExperimentalAsyncSelect,
-	__ExperimentalSelect,
+	AsyncSelectNext,
+	SelectNext,
 	OptionsPanelIntro,
 } from '../lib';
 import { icons } from '../lib/icons';
@@ -1842,7 +1842,7 @@ function App() {
 					/>
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
-					<__ExperimentalAsyncSelect
+					<AsyncSelectNext
 						label='Async single select LOGGER'
 						value={sinASel2}
 						onChange={setSinASel2}
@@ -1861,7 +1861,7 @@ function App() {
 						customDropdownArrow={icons.experiment}
 					/>
 
-					<__ExperimentalAsyncSelect
+					<AsyncSelectNext
 						label='Async single select'
 						value={sinASel2}
 						onChange={setSinASel2}
@@ -1878,7 +1878,7 @@ function App() {
 						disabled
 					/>
 
-					<__ExperimentalAsyncSelect
+					<AsyncSelectNext
 						label='Async single select - clearable'
 						value={sinASel3}
 						onChange={setSinASel3}
@@ -1905,7 +1905,7 @@ function App() {
 
 					<hr />
 
-					<__ExperimentalSelect
+					<SelectNext
 						label='Single basic'
 						value={sinSel}
 						onChange={setSinSel}
@@ -1914,7 +1914,7 @@ function App() {
 
 					<hr />
 
-					<__ExperimentalSelect
+					<SelectNext
 						label='Single basic - simpleValue'
 						value={sinSelSimple}
 						onChange={setSinSelSimple}
@@ -1922,7 +1922,7 @@ function App() {
 						simpleValue
 					/>
 
-					<__ExperimentalSelect
+					<SelectNext
 						label='Single basic - simpleValue SRCH'
 						value={sinSelSimple}
 						onChange={setSinSelSimple}
@@ -1933,7 +1933,7 @@ function App() {
 
 					<pre>{JSON.stringify(sinSelSimple, null, 2)}</pre>
 
-					<__ExperimentalSelect
+					<SelectNext
 						label='Single basic - simpleValue with clear'
 						value={sinSelSimple}
 						onChange={setSinSelSimple}
@@ -1944,7 +1944,7 @@ function App() {
 
 					<hr />
 
-					<__ExperimentalSelect
+					<SelectNext
 						label='Single basic - simpleValue with custom value display'
 						value={sinSelSimple}
 						onChange={setSinSelSimple}
@@ -1953,7 +1953,7 @@ function App() {
 						customValueDisplay={(item) => <span className='es:font-bold es:text-blue-400'>{item?.label}</span>}
 					/>
 
-					<__ExperimentalSelect
+					<SelectNext
 						label='Single basic - simpleValue with custom menu item'
 						value={sinSelSimple}
 						onChange={setSinSelSimple}
@@ -1962,14 +1962,14 @@ function App() {
 						customMenuOption={(item) => <span className='es:font-bold es:text-blue-400'>{item?.label}</span>}
 					/>
 
-					<__ExperimentalSelect
+					<SelectNext
 						label='Single basic'
 						value={sinSel}
 						onChange={setSinSel}
 						options={data}
 					/>
 
-					<__ExperimentalAsyncSelect
+					<AsyncSelectNext
 						label='Async single select PROD'
 						value={sinASel2}
 						onChange={setSinASel2}
@@ -1983,7 +1983,7 @@ function App() {
 						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
 					/>
 
-					<__ExperimentalAsyncSelect
+					<AsyncSelectNext
 						label='Async single select PROD'
 						value={sinASel2}
 						onChange={setSinASel2}
@@ -1997,7 +1997,7 @@ function App() {
 						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
 						clearable
 					/>
-					<__ExperimentalAsyncSelect
+					<AsyncSelectNext
 						label='Async single select PROD'
 						value={sinASel2}
 						onChange={setSinASel2}
@@ -2010,7 +2010,7 @@ function App() {
 						clearable
 					/>
 
-					<__ExperimentalAsyncSelect
+					<AsyncSelectNext
 						label='Async single select PROD'
 						value={sinASel2}
 						onChange={setSinASel2}
@@ -2024,7 +2024,7 @@ function App() {
 						clearable
 					/>
 
-					<__ExperimentalAsyncSelect
+					<AsyncSelectNext
 						label='Async single select PROD LOGGEr2'
 						value={sinASel2}
 						onChange={setSinASel2}
