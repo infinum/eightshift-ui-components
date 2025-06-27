@@ -11,7 +11,7 @@ export const OptionItemBase = (props) => (
 
 		<div
 			className={clsx(
-				'es:flex es:min-h-9 es:select-none es:items-center es:gap-1 es:rounded-xl es:px-2 es:py-1.5 es:transition',
+				'es:flex es:min-h-9 es:select-none es:items-center es:gap-1 es:rounded-xl es:px-2 es:py-1.5 es:transition es:scroll-m-1',
 				'es:group-any-focus:outline-hidden es:overflow-clip',
 				'es:group-not-selected:hover:bg-secondary-100 es:group-not-selected:hover:outline-hidden',
 				'es:group-selected:bg-accent-600/15 es:group-selected:text-accent-950',

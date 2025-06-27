@@ -139,6 +139,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 		}
 
 		list.setSelectedKeys(value?.value ? [value.value] : []);
+		list.setFilterText('');
 	}, [value?.value]);
 
 	if (hidden) {
@@ -251,7 +252,7 @@ export const __ExperimentalAsyncSelect = (props) => {
 				<Popover
 					className={({ isEntering, isExiting, placement }) =>
 						clsx(
-							'es:flex es:w-76 es:min-w-9 es:max-w-76 es:flex-col es:overflow-x-hidden es:rounded-2xl es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-xl',
+							'es:flex es:w-76 es:min-w-9 es:max-w-76 es:flex-col es:overflow-hidden es:rounded-2xl es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-xl es:inset-ring es:inset-ring-secondary-100',
 							'es:any-focus:outline-hidden',
 							'es:motion-safe:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy',
 							placement?.includes('top') && 'es:origin-bottom-left',
@@ -298,47 +299,45 @@ export const __ExperimentalAsyncSelect = (props) => {
 							</div>
 						)}
 
-						{!list.isLoading && (
-							<ListBox
-								className='es:space-y-0.5 es:p-1 es:any-focus:outline-hidden'
-								items={list.items}
-								renderEmptyState={() => (
-									<RichLabel
-										icon={icons.searchEmpty}
-										label={__('No results', 'eightshift-ui-components')}
-										subtitle={__('Try a different search term', 'eightshift-ui-components')}
-										className='es:min-h-14 es:p-2 es:w-fit es:mx-auto es:motion-preset-slide-up es:motion-ease-spring-bouncy es:motion-duration-200'
-										iconClassName='es:text-accent-700 es:icon:size-7!'
-										noColor
-									/>
-								)}
-							>
-								{(item) => {
-									let icon = getIcon ? getIcon(item) : (item?.icon ?? null);
+						<ListBox
+							className={clsx('es:space-y-0.5 es:p-1 es:any-focus:outline-hidden es:overflow-y-auto es:max-h-72', list.isLoading && 'es:hidden')}
+							items={list.items}
+							renderEmptyState={() => (
+								<RichLabel
+									icon={icons.searchEmpty}
+									label={__('No results', 'eightshift-ui-components')}
+									subtitle={__('Try a different search term', 'eightshift-ui-components')}
+									className='es:min-h-14 es:p-2 es:w-fit es:mx-auto es:motion-preset-slide-up es:motion-ease-spring-bouncy es:motion-duration-200'
+									iconClassName='es:text-accent-700 es:icon:size-7!'
+									noColor
+								/>
+							)}
+						>
+							{(item) => {
+								let icon = getIcon ? getIcon(item) : (item?.icon ?? null);
 
-									if (typeof item?.icon === 'string') {
-										icon = icons?.[item.icon] ?? null;
-									}
+								if (typeof item?.icon === 'string') {
+									icon = icons?.[item.icon] ?? null;
+								}
 
-									return (
-										<OptionItemBase
-											id={item.value}
-											className={item?.className}
-										>
-											{customMenuOption && customMenuOption(item)}
-											{!customMenuOption && (
-												<RichLabel
-													icon={icon}
-													label={item?.label}
-													subtitle={item.subtitle}
-													noColor
-												/>
-											)}
-										</OptionItemBase>
-									);
-								}}
-							</ListBox>
-						)}
+								return (
+									<OptionItemBase
+										id={item.value}
+										className={item?.className}
+									>
+										{customMenuOption && customMenuOption(item)}
+										{!customMenuOption && (
+											<RichLabel
+												icon={icon}
+												label={item?.label}
+												subtitle={item.subtitle}
+												noColor
+											/>
+										)}
+									</OptionItemBase>
+								);
+							}}
+						</ListBox>
 					</Autocomplete>
 				</Popover>
 			</BaseControl>

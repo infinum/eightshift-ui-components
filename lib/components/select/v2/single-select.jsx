@@ -208,7 +208,7 @@ export const __ExperimentalSelect = (props) => {
 				<Popover
 					className={({ isEntering, isExiting, placement }) =>
 						clsx(
-							'es:flex es:w-76 es:min-w-9 es:max-w-76 es:flex-col es:overflow-x-hidden es:rounded-2xl es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-xl',
+							'es:flex es:w-76 es:min-w-9 es:max-w-76 es:flex-col es:-hidden es:rounded-2xl es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-xl es:inset-ring es:inset-ring-secondary-100',
 							'es:any-focus:outline-hidden',
 							'es:motion-safe:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy',
 							placement?.includes('top') && 'es:origin-bottom-left',
@@ -248,7 +248,7 @@ export const __ExperimentalSelect = (props) => {
 							<div className='es:w-full es:h-px es:bg-secondary-200 es:shrink-0' />
 
 							<ListBox
-								className='es:space-y-0.5 es:p-1 es:any-focus:outline-hidden'
+								className='es:space-y-0.5 es:p-1 es:any-focus:outline-hidden es:max-h-72 es:overflow-y-auto'
 								items={options}
 								renderEmptyState={() => (
 									<RichLabel
