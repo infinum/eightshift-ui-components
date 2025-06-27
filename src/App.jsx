@@ -628,20 +628,16 @@ function App() {
 	const [colConfig5, setColConfig5] = useState([2, 4]);
 
 	return (
-		<div
-			className={clsx(
-				'es:font-sans es:flex es:min-h-screen es:flex-col es:items-center es:justify-center es:overscroll-contain es:bg-neutral-100 es:p-2',
-				controlTheme === 'green' && 'es-uic-theme-green',
-				controlTheme === 'blue' && 'es-uic-theme-blue',
-				controlTheme === 'orange' && 'es-uic-theme-orange',
-				controlTheme === 'purple' && 'es-uic-theme-purple',
-				controlTheme === 'mono' && 'es-uic-theme-mono',
-			)}
-		>
+		<div className='es:font-sans es:flex es:min-h-screen es:flex-col es:items-center es:justify-center es:overscroll-contain es:bg-neutral-100 es:p-2'>
 			<OptionSelect
 				label='Control theme'
 				value={controlTheme}
-				onChange={setControlTheme}
+				onChange={(value) => {
+					document.documentElement.classList.remove(`es-uic-theme-${controlTheme}`);
+
+					setControlTheme(value);
+					document.documentElement.classList.add(`es-uic-theme-${value}`);
+				}}
 				options={[
 					{ value: 'default', label: 'Default' },
 					{ value: 'green', label: 'Green' },
@@ -1847,14 +1843,16 @@ function App() {
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<__ExperimentalAsyncSelect
-						label='Async single select'
+						label='Async single select LOGGER'
 						value={sinASel2}
 						onChange={setSinASel2}
-						fetchUrl={(searchText) =>
-							searchText?.length >= 3
+						fetchUrl={(searchText) => {
+							console.log('searchText', searchText);
+
+							return searchText?.length >= 3
 								? `https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5&contains=${searchText.substring(0, 30)}`
-								: 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5'
-						}
+								: 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5';
+						}}
 						getLabel={(item) => item?.joke ?? item?.setup}
 						getValue={(item) => item?.id}
 						getSubtitle={(item) => item?.delivery}
@@ -1894,6 +1892,14 @@ function App() {
 						getSubtitle={(item) => item?.delivery}
 						getIcon={() => <span className='es:shrink-0 es:text-lg'>😂</span>}
 						getData={(data) => data?.jokes}
+						customValueDisplay={(item) => (
+							<div
+								className='es:line-clamp-1 es:font-bold'
+								style={{ color: 'blue' }}
+							>
+								{item?.label}
+							</div>
+						)}
 						clearable
 					/>
 
@@ -1915,6 +1921,17 @@ function App() {
 						options={data}
 						simpleValue
 					/>
+
+					<__ExperimentalSelect
+						label='Single basic - simpleValue SRCH'
+						value={sinSelSimple}
+						onChange={setSinSelSimple}
+						options={data}
+						simpleValue
+						searchable
+					/>
+
+					<pre>{JSON.stringify(sinSelSimple, null, 2)}</pre>
 
 					<__ExperimentalSelect
 						label='Single basic - simpleValue with clear'
@@ -2008,12 +2025,16 @@ function App() {
 					/>
 
 					<__ExperimentalAsyncSelect
-						label='Async single select PROD'
+						label='Async single select PROD LOGGEr2'
 						value={sinASel2}
 						onChange={setSinASel2}
-						fetchUrl={(searchText) =>
-							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
-						}
+						fetchUrl={(searchText) => {
+							console.log('searchText2', searchText);
+
+							return searchText?.length >= 3
+								? `http://universities.hipolabs.com/search?limit=5&name=${searchText}`
+								: 'http://universities.hipolabs.com/search?limit=5&country=croatia';
+						}}
 						getLabel={(item) => item?.name}
 						getValue={(item) => item?.value}
 						getSubtitle={(item) => item?.country}
