@@ -54,19 +54,20 @@ export const Switch = (props) => {
 						'es:group-focus-visible:ring-2 es:group-focus-visible:ring-accent-500/50 es:group-focus-visible:border-accent-600',
 						!checked && !disabled && 'es:border-secondary-400 es:inset-ring-secondary-100 es:from-white es:to-secondary-100',
 						checked && !disabled && 'es:border-accent-700/75 es:inset-ring-accent-500 es:to-accent-500 es:from-accent-600 es:shadow-accent-600/30',
-						disabled && 'es:cursor-default es:border-secondary-300 es:from-white es:to-secondary-50 es:inset-ring-secondary-200/30 es:inset-shadow-secondary-100',
+						disabled && 'es:cursor-default es:border-secondary-300 es:from-white es:to-secondary-50 es:inset-ring-0 es:inset-shadow-secondary-100',
 						!disabled && 'es:shadow-sm',
 					)}
 				>
 					<span
 						className={clsx(
 							'es:block es:size-3 es:rounded-full es:border es:will-change-transform es:bg-radial',
-							'es:transition es:motion-ease-spring-snappy es:ease-[var(--motion-spring-snappy)]',
+							'es:transition es:motion-ease-spring-bouncy es:ease-[var(--motion-spring-bouncy)] es:duration-200',
 							!checked && 'es:scale-95',
 							!checked && !disabled && 'es:border-secondary-500 es:from-secondary-500 es:to-secondary-600',
 							checked && 'es:translate-x-4',
 							checked && !disabled && 'es:border-accent-600/20 es:from-white es:to-accent-500/30 es:from-40% es:bg-white es:shadow-sm es:shadow-accent-900/60',
-							disabled && 'es:border-secondary-400 es:bg-secondary-100',
+							disabled && 'es:border-secondary-300',
+							checked && disabled && 'es:bg-secondary-200',
 							isIndeterminate && 'es:translate-x-2 es:scale-100',
 						)}
 					/>
