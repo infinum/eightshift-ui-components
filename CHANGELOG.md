@@ -9,6 +9,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
   - Reworked components to look and work better
   - Added `customDropdownArrow` prop
   - Now fully feature-complete with previous `react-select` implementations
+  - [BREAKING] **Renamed to `AsyncSelectNext` and `SelectNext`**, please update imports accordingly
 - Tweaked `Popover` and `LinkInput` popover enter/exit animations
 - Twaeked `Switch` styling when `disabled`
 - Tweaked `react-select` defaut styles to better match new components
