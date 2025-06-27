@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [5.1.0] - 2025-06-27
+- Added `isString` helper function
+- `__ExperimentalAsyncSelect` and `__ExperimentalSelect` improvements:
+  - Reworked components to look and work better
+  - Added `customDropdownArrow` prop
+  - Now fully feature-complete with previous `react-select` implementations
+  - [BREAKING] **Renamed to `AsyncSelectNext` and `SelectNext`**, please update imports accordingly
+- Tweaked `Popover` and `LinkInput` popover enter/exit animations
+- Twaeked `Switch` styling when `disabled`
+- Tweaked `react-select` defaut styles to better match new components
+- `InputField` with type `search` will now clear on `Esc` on Firefox too
+
 ## [5.0.10] - 2025-06-24
 - Fixed more incorrectly parsed SVG elements in `JsxSvg`
 
@@ -352,6 +364,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[5.1.0]: https://github.com/infinum/eightshift-ui-components/compare/5.0.10...5.1.0
 [5.0.10]: https://github.com/infinum/eightshift-ui-components/compare/5.0.9...5.0.10
 [5.0.9]: https://github.com/infinum/eightshift-ui-components/compare/5.0.8...5.0.9
 [5.0.8]: https://github.com/infinum/eightshift-ui-components/compare/5.0.7...5.0.8

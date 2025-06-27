@@ -1,12 +1,12 @@
 import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../../base-control/base-control';
-import { Select, Label, ListBox, ListBoxItem, Popover, Button, SelectValue, SelectStateContext } from 'react-aria-components';
+import { Select, Label, ListBox, Popover, Button, SelectValue, SelectStateContext, Autocomplete, SearchField, Input, useFilter } from 'react-aria-components';
 import { useContext, cloneElement } from 'react';
 import { icons } from '../../../icons';
-import clsx from 'clsx';
 import { OptionItemBase } from './shared';
 import { useRef } from 'react';
 import { RichLabel } from '../../rich-label/rich-label';
+import clsx from 'clsx';
 
 /**
  * Select menu.
@@ -28,10 +28,12 @@ import { RichLabel } from '../../rich-label/rich-label';
  * @param {string} [props.placeholder] - Placeholder text to show when no value is selected.
  * @param {JSX.Element} [props.customMenuOption] - If provided, replaces the default item in the dropdown menu (react-select's `components.Option`).
  * @param {JSX.Element} [props.customValueDisplay] - If provided, replaces the default current value display of each selected item (react-select's `components.MultiValue`).
+ * @param {JSX.Element} [props.customDropdownArrow] - If provided, replaces the default dropdown arrow indicator.
  * @param {string} [props.className] - Classes to pass to the select menu.
+ * @param {boolean} [props.noMinWidth=false] - If `true`, the select menu will not have a minimum width.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
- * @returns {JSX.Element} The __ExperimentalSelect component.
+ * @returns {JSX.Element} The SelectNext component.
  *
  * @example
  * const [value, setValue] = useState(null);
@@ -42,7 +44,7 @@ import { RichLabel } from '../../rich-label/rich-label';
  * 	{ label: 'Option 3', value: 'option-3' },
  * ];
  *
- * <__ExperimentalSelect
+ * <SelectNext
  * 	label='Select items'
  * 	options={loadOptions}
  * 	value={value}
@@ -52,7 +54,7 @@ import { RichLabel } from '../../rich-label/rich-label';
  * @preserve
  */
 // eslint-disable-next-line no-underscore-dangle
-export const __ExperimentalSelect = (props) => {
+export const SelectNext = (props) => {
 	const {
 		icon,
 		help,
@@ -70,23 +72,32 @@ export const __ExperimentalSelect = (props) => {
 		disabled = false,
 		clearable = false,
 
-		placeholder,
+		placeholder = __('Select...', 'eightshift-ui-components'),
 
 		customMenuOption,
 		customValueDisplay,
+		customDropdownArrow,
 
 		className,
 
+		noMinWidth = false,
+
+		searchable,
+
 		hidden,
+
+		...rest
 	} = props;
 
 	const ref = useRef();
 
+	const currentValue = simpleValue ? (value ?? null) : (value?.value ?? null);
+
+	const { contains } = useFilter({ sensitivity: 'base' });
+
 	if (hidden) {
 		return null;
 	}
-
-	const currentValue = value?.value ?? value ?? null;
 
 	return (
 		<Select
@@ -119,6 +130,7 @@ export const __ExperimentalSelect = (props) => {
 				onChange(item);
 			}}
 			placeholder={placeholder}
+			{...rest}
 		>
 			<BaseControl
 				label={label}
@@ -131,48 +143,44 @@ export const __ExperimentalSelect = (props) => {
 			>
 				<div
 					className={clsx(
-						'es:relative es:flex es:max-w-80 es:items-center es:gap-1 es:p-1 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+						'es:relative es:flex es:items-center es:gap-1 es:px-1.5 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 						'es:h-9 es:rounded-10 es:border es:border-secondary-300 es:bg-white es:text-sm es:shadow-sm es:transition',
+						'es:inset-ring es:inset-ring-secondary-100',
 						'es:any-focus:outline-hidden',
+						!noMinWidth && 'es:min-w-48',
 						!inline && 'es:w-full',
-						disabled && 'es:select-none',
+						disabled && 'es:select-none es:shadow-none!',
 						'es:has-[[aria-haspopup=listbox][data-focus-visible=true],[aria-autocomplete=list][data-focus-visible=true]]:border-accent-500 es:has-[[aria-haspopup=listbox][data-focus-visible=true],[aria-autocomplete=list][data-focus-visible=true]]:ring-2 es:has-[[aria-haspopup=listbox][data-focus-visible=true],[aria-autocomplete=list][data-focus-visible=true]]:ring-accent-500/50',
+						className,
 					)}
 					ref={ref}
 				>
-					<Button
-						className={clsx(
-							'es:group es:h-6 es:w-full es:rounded-sm es:p-1 es:text-sm es:transition',
-							'es:flex es:grow es:items-center',
-							'es:any-focus:outline-hidden',
-							disabled && 'es:bg-transparent es:text-secondary-400 es:selection:bg-transparent es:selection:text-transparent',
-							currentValue && !clearable && 'es:pr-6',
-							!currentValue && 'es:text-secondary-400',
-						)}
-					>
+					<Button className='es:any-focus:outline-hidden es:text-start es:size-full es:inline-block es:group es:overflow-x-clip'>
 						<SelectValue>
-							{({ defaultChildren, isPlaceholder, selectedItem }) => {
+							{({ isPlaceholder, selectedItem }) => {
 								if (!isPlaceholder && currentValue && customValueDisplay) {
 									return customValueDisplay(selectedItem);
 								}
 
-								if (!isPlaceholder && currentValue && customMenuOption) {
-									let icon = selectedItem?.icon ?? null;
-
-									if (typeof selectedItem?.icon === 'string') {
-										icon = icons?.[selectedItem.icon] ?? null;
-									}
-
-									return (
-										<RichLabel
-											icon={icon}
-											label={selectedItem?.label}
-											subtitle={selectedItem.subtitle}
-										/>
-									);
+								if (!currentValue) {
+									return <span className='es:pointer-events-none es:pr-6 es:text-sm es:text-secondary-500'>{placeholder}</span>;
 								}
 
-								return defaultChildren;
+								let icon = selectedItem?.icon ?? null;
+
+								if (typeof selectedItem?.icon === 'string') {
+									icon = icons?.[selectedItem.icon] ?? null;
+								}
+
+								return (
+									<RichLabel
+										icon={icon}
+										label={selectedItem?.label}
+										subtitle={selectedItem.subtitle}
+										className={clsx('es:pr-6 es:grow es:w-full', disabled && 'es:grayscale es:pointer-events-none')}
+										iconClassName='es:pointer-events-none es:select-none'
+									/>
+								);
 							}}
 						</SelectValue>
 
@@ -180,9 +188,19 @@ export const __ExperimentalSelect = (props) => {
 							className={clsx('es:absolute es:bottom-0 es:right-1 es:top-0 es:my-auto es:flex es:items-center', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}
 							aria-hidden='true'
 						>
-							{cloneElement(icons.dropdownCaretAlt, {
-								className: 'es:w-5.5 es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
-							})}
+							{!customDropdownArrow &&
+								cloneElement(icons.dropdownCaretAlt, {
+									className: 'es:w-4 es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
+								})}
+
+							{customDropdownArrow && (
+								<div
+									aria-hidden='true'
+									className='es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200'
+								>
+									{customDropdownArrow}
+								</div>
+							)}
 						</div>
 					</Button>
 					{clearable && <SelectClearButton />}
@@ -190,43 +208,129 @@ export const __ExperimentalSelect = (props) => {
 				<Popover
 					className={({ isEntering, isExiting }) =>
 						clsx(
-							'es:flex es:min-w-9 es:max-w-80 es:flex-col es:overflow-x-hidden es:rounded-lg es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-lg',
+							'es:flex es:w-76 es:min-w-9 es:max-w-76 es:flex-col es:-hidden es:rounded-2xl es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-xl es:inset-ring es:inset-ring-secondary-100',
 							'es:any-focus:outline-hidden',
-							isEntering && 'es:motion-safe:motion-preset-slide-down-sm es:motion-safe:motion-duration-300 es:motion-reduce:motion-preset-fade-md',
-							isExiting && 'es:not-motion-reduce:motion-translate-y-out-[-2.5%] es:motion-opacity-out-0 es:motion-duration-200',
+							'es:motion-safe:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy',
+							'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
+							'es:placement-left:origin-right es:placement-right:origin-left',
+							isEntering && 'es:motion-safe:motion-scale-in-95 es:motion-opacity-in-0',
+							isEntering &&
+								'es:motion-safe:placement-top:motion-translate-y-in-[5%] es:motion-safe:placement-bottom:motion-translate-y-in-[-5%] es:motion-safe:placement-left:motion-translate-x-in-[5%] es:motion-safe:placement-right:motion-translate-x-in-[-5%]',
+							isExiting && 'es:motion-safe:motion-scale-out-95 es:motion-opacity-out-0',
+							isExiting &&
+								'es:motion-safe:placement-top:motion-translate-y-out-[5%] es:motion-safe:placement-bottom:motion-translate-y-out-[-5%] es:motion-safe:placement-left:motion-translate-x-out-[5%] es:motion-safe:placement-right:motion-translate-x-out-[-5%]',
 						)
 					}
 					placement='bottom left'
 					triggerRef={ref}
 				>
-					<ListBox
-						className='es:space-y-0.5 es:p-1 es:any-focus:outline-hidden'
-						items={options}
-					>
-						{(item) => {
-							let icon = item?.icon ?? null;
-
-							if (typeof item?.icon === 'string') {
-								icon = icons?.[item.icon] ?? null;
-							}
-
-							return (
-								<OptionItemBase
-									id={item.value}
-									className={item?.className}
-								>
-									{customMenuOption && customMenuOption(item)}
-									{!customMenuOption && (
-										<RichLabel
-											icon={icon}
-											label={item?.label}
-											subtitle={item.subtitle}
-										/>
+					{searchable && (
+						<Autocomplete filter={contains}>
+							<SearchField
+								aria-label={__('Search', 'eightshift-ui-components')}
+								className='es:flex es:items-center es:bg-secondary-100 es:m-2 es:rounded-lg es:relative es:placeholder:text-secondary-500'
+								autoFocus
+							>
+								<Input
+									placeholder={__('Search...', 'eightshift-ui-components')}
+									className='es:peer es:size-full es:h-9 es:outline-hidden es:px-2.5 es:shadow-none es:text-sm es:py-0 es:[&::-webkit-search-cancel-button]:hidden'
+								/>
+								<Button
+									aria-label={__('Clear', 'eightshift-ui-components')}
+									className={clsx(
+										'es:absolute es:right-2 es:top-0 es:bottom-0 es:my-auto',
+										'es:flex es:size-6 es:items-center es:justify-center es:rounded es:text-sm es:text-secondary-600 es:transition es:hover:bg-red-50 es:hover:text-red-900 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
+										'es:peer-placeholder-shown:opacity-0',
 									)}
-								</OptionItemBase>
-							);
-						}}
-					</ListBox>
+								>
+									{icons.clearAlt}
+								</Button>
+							</SearchField>
+
+							<div className='es:w-full es:h-px es:bg-secondary-200 es:shrink-0' />
+
+							<ListBox
+								className='es:space-y-0.5 es:p-1 es:any-focus:outline-hidden es:max-h-72 es:overflow-y-auto'
+								items={options}
+								renderEmptyState={() => (
+									<RichLabel
+										icon={icons.searchEmpty}
+										label={__('No results', 'eightshift-ui-components')}
+										subtitle={__('Try a different search term', 'eightshift-ui-components')}
+										className='es:min-h-14 es:p-2 es:w-fit es:mx-auto es:motion-preset-slide-up es:motion-ease-spring-bouncy es:motion-duration-200'
+										iconClassName='es:text-accent-700 es:icon:size-7!'
+										noColor
+									/>
+								)}
+							>
+								{(item) => {
+									let icon = item?.icon ?? null;
+
+									if (typeof item?.icon === 'string') {
+										icon = icons?.[item.icon] ?? null;
+									}
+
+									return (
+										<OptionItemBase
+											id={item.value}
+											className={item?.className}
+										>
+											{customMenuOption && customMenuOption(item)}
+											{!customMenuOption && (
+												<RichLabel
+													icon={icon}
+													label={item?.label}
+													subtitle={item.subtitle}
+												/>
+											)}
+										</OptionItemBase>
+									);
+								}}
+							</ListBox>
+						</Autocomplete>
+					)}
+
+					{!searchable && (
+						<ListBox
+							className='es:space-y-0.5 es:p-1 es:any-focus:outline-hidden'
+							items={options}
+							renderEmptyState={() => (
+								<RichLabel
+									icon={icons.searchEmpty}
+									label={__('No results', 'eightshift-ui-components')}
+									subtitle={__('Try a different search term', 'eightshift-ui-components')}
+									className='es:min-h-14 es:p-2 es:w-fit es:mx-auto es:motion-preset-slide-up es:motion-ease-spring-bouncy es:motion-duration-200'
+									iconClassName='es:text-accent-700 es:icon:size-7!'
+									noColor
+								/>
+							)}
+						>
+							{(item) => {
+								let icon = item?.icon ?? null;
+
+								if (typeof item?.icon === 'string') {
+									icon = icons?.[item.icon] ?? null;
+								}
+
+								return (
+									<OptionItemBase
+										id={item.value}
+										className={item?.className}
+									>
+										{customMenuOption && customMenuOption(item)}
+										{!customMenuOption && (
+											<RichLabel
+												icon={icon}
+												label={item?.label}
+												subtitle={item.subtitle}
+												noColor
+											/>
+										)}
+									</OptionItemBase>
+								);
+							}}
+						</ListBox>
+					)}
 				</Popover>
 			</BaseControl>
 		</Select>

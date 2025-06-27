@@ -118,9 +118,16 @@ export const Popover = (props) => {
 			className={({ isEntering, isExiting }) =>
 				clsx(
 					'es:rounded-2xl es:border es:border-secondary-300 es:bg-white es:inset-ring es:inset-ring-secondary-100 es:shadow-xl es:outline-hidden',
-					'es:motion-safe:motion-ease-spring-smooth',
-					isEntering && 'es:motion-safe:motion-preset-slide-down-sm es:motion-safe:motion-duration-300 es:motion-reduce:motion-preset-fade-md',
-					isExiting && 'es:not-motion-reduce:motion-translate-y-out-[-2.5%] es:motion-opacity-out-0 es:motion-duration-200',
+					'es:motion-safe:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy',
+					'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
+					'es:placement-left:origin-right es:placement-right:origin-left',
+					isEntering || (isExiting && 'es:pointer-events-none'),
+					isEntering && 'es:motion-safe:motion-scale-in-95 es:motion-opacity-in-0',
+					isEntering &&
+						'es:motion-safe:placement-top:motion-translate-y-in-[5%] es:motion-safe:placement-bottom:motion-translate-y-in-[-5%] es:motion-safe:placement-left:motion-translate-x-in-[5%] es:motion-safe:placement-right:motion-translate-x-in-[-5%]',
+					isExiting && 'es:motion-safe:motion-scale-out-95 es:motion-opacity-out-0',
+					isExiting &&
+						'es:motion-safe:placement-top:motion-translate-y-out-[5%] es:motion-safe:placement-bottom:motion-translate-y-out-[-5%] es:motion-safe:placement-left:motion-translate-x-out-[5%] es:motion-safe:placement-right:motion-translate-x-out-[-5%]',
 					wrapperClassName,
 				)
 			}

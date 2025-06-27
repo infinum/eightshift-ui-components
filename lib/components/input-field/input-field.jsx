@@ -72,9 +72,19 @@ export const InputField = (props) => {
 							'es:focus-visible:border-accent-500',
 							'es:inset-ring es:inset-ring-secondary-100',
 							'es:disabled:shadow-none! es:disabled:border-secondary-200 es:disabled:bg-secondary-50 es:disabled:text-secondary-500 es:disabled:cursor-default es:readonly:bg-secondary-50',
+							type === 'search' && 'es:[&::-webkit-search-cancel-button]:hidden',
 							(monospaceFont || type === 'password') && 'es:font-mono',
 							className,
 						)}
+						onKeyUp={(e) => {
+							if (type === 'search' && e.key === 'Escape') {
+								onChange('');
+							}
+
+							if (props.onKeyUp) {
+								props.onKeyUp(e);
+							}
+						}}
 					/>
 				)}
 				{type === 'multiline' && (
