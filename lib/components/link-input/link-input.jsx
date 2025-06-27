@@ -149,6 +149,7 @@ export const LinkInput = (props) => {
 							'es:inset-ring es:inset-ring-secondary-100',
 							'es:disabled:shadow-none! es:disabled:border-secondary-200 es:disabled:bg-secondary-50 es:disabled:text-secondary-500 es:disabled:cursor-default es:readonly:bg-secondary-50',
 							'es:not-readonly:focus:shadow-md',
+							'es:[&::-webkit-search-cancel-button]:hidden',
 							url?.length > 0 && 'es:pr-10',
 							className,
 						)}
