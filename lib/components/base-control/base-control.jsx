@@ -89,7 +89,7 @@ export const BaseControl = (props) => {
 
 			{help && (
 				<Text
-					className='es:inline-block es:text-sm es:text-secondary-500'
+					className='es:inline-block es:text-sm es:text-secondary-500 es:mt-0.5'
 					slot='description'
 				>
 					{help}
