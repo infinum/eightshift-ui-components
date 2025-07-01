@@ -13,6 +13,7 @@ import { HStack } from '../layout/hstack';
  * @param {boolean} [props.open] - **Controlled mode ** - whether the modal is open.
  * @param {boolean} [props.defaultOpen] - **Uncontrolled mode ** - whether the modal is initially open.
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display in the modal footer, typically buttons.
+ * @param {JSX.Element|JSX.Element[]} [props.headerActions] - Actions to display in the modal header, next to the close button (if enabled).
  * @param {string|JSX.Element} [props.triggerLabel] - Label for the trigger button.
  * @param {JSX.Element} [props.triggerIcon] - Trigger button icon.
  * @param {Object} [props.triggerProps] - Props to pass to the trigger button.
@@ -73,6 +74,7 @@ const ModalInternal = (props) => {
 
 		title,
 		actions,
+		headerActions,
 
 		noCloseButton,
 		noClickToDismiss,
@@ -136,16 +138,22 @@ const ModalInternal = (props) => {
 									</Heading>
 								)}
 
-								{!noCloseButton && (
-									<Button
-										className={!title && 'es:absolute es:top-4 es:right-4 es:bg-white/60 es:backdrop-blur-lg'}
-										onPress={close}
-										type='ghost'
-										size='small'
-										icon={icons.clear}
-										aria-label={__('Close', 'eightshift-frontend-libs')}
-										tooltip
-									/>
+								{(!noCloseButton || headerActions) && (
+									<HStack>
+										{headerActions}
+
+										{!noCloseButton && (
+											<Button
+												className={!title && 'es:absolute es:top-4 es:right-4 es:bg-white/60 es:backdrop-blur-lg'}
+												onPress={close}
+												type='ghost'
+												size='small'
+												icon={icons.clear}
+												aria-label={__('Close', 'eightshift-frontend-libs')}
+												tooltip
+											/>
+										)}
+									</HStack>
 								)}
 							</HStack>
 
