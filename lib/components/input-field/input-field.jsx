@@ -97,6 +97,7 @@ export const InputField = (props) => {
 							'es:focus-visible:border-accent-500',
 							'es:inset-ring es:inset-ring-secondary-100',
 							'es:disabled:shadow-none! es:readonly:shadow-xs! es:disabled:border-secondary-200 es:disabled:bg-secondary-50 es:disabled:text-secondary-500 es:disabled:cursor-default es:readonly:bg-secondary-50',
+							monospaceFont && 'es:font-mono',
 							className,
 						)}
 					/>
