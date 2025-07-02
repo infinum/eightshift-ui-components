@@ -126,9 +126,7 @@ const ModalInternal = (props) => {
 				>
 					{({ close }) => (
 						<>
-							<HStack
-								className={clsx(!title && 'es:relative', title && 'es:px-5 es:py-3 es:justify-between es:bg-secondary-50 es:border-b es:border-secondary-200', headerClassName)}
-							>
+							<HStack className={clsx(title && 'es:px-5 es:py-3 es:justify-between es:bg-secondary-50 es:border-b es:border-secondary-200', headerClassName)}>
 								{title && (
 									<Heading
 										className='es:text-balance es:text-base! es:my-0! es:font-medium!'
@@ -139,12 +137,12 @@ const ModalInternal = (props) => {
 								)}
 
 								{(!noCloseButton || headerActions) && (
-									<HStack>
+									<HStack className={!title && 'es:absolute es:top-4 es:right-4 es:z-20'}>
 										{headerActions}
 
 										{!noCloseButton && (
 											<Button
-												className={!title && 'es:absolute es:top-4 es:right-4 es:bg-white/60 es:backdrop-blur-lg'}
+												className={!title && 'es:bg-white/60 es:backdrop-blur-lg'}
 												onPress={close}
 												type='ghost'
 												size='small'
