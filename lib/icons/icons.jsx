@@ -3583,21 +3583,19 @@ export const icons = {
 			fill='none'
 		>
 			<path
-				d='M1.174 16.71 8.675 1.835a1.469 1.469 0 0 1 2.65 0l7.5 14.875c.525 1.04-.198 2.29-1.324 2.29H2.499c-1.126 0-1.85-1.25-1.325-2.29Z'
+				d='m.684 17.082 7.918-15.7a1.55 1.55 0 0 1 2.796 0l7.918 15.7c.554 1.099-.21 2.418-1.398 2.418H2.082C.893 19.5.13 18.18.684 17.082Z'
 				stroke='currentColor'
 				fill='none'
+			/>
+			<path
+				d='M11 7a.842.842 0 0 0-.236-.707A1.081 1.081 0 0 0 10 6a1.08 1.08 0 0 0-.764.293A.842.842 0 0 0 9 7l.031.275.563 4.95.031.275c.01.089.059.174.129.237a.37.37 0 0 0 .246.098.37.37 0 0 0 .246-.098.384.384 0 0 0 .129-.237l.031-.275.563-4.95L11 7Z'
+				fill='currentColor'
 			/>
 			<circle
 				cx='10'
-				cy='15.25'
-				r='0.75'
+				cy='15.5'
+				r='1'
 				fill='currentColor'
-			/>
-			<path
-				d='M10 12.5v-5'
-				stroke='currentColor'
-				strokeLinecap='round'
-				fill='none'
 			/>
 		</svg>
 	),
@@ -3610,46 +3608,44 @@ export const icons = {
 			fill='none'
 		>
 			<circle
-				cx='10'
-				cy='10'
-				r='9'
+				cx='8.5'
+				cy='8.5'
+				r='8.5'
+				transform='matrix(1 0 0 -1 1.5 18.5)'
 				stroke='currentColor'
 				fill='none'
+			/>
+			<path
+				d='M11 6a.842.842 0 0 0-.236-.707A1.081 1.081 0 0 0 10 5a1.08 1.08 0 0 0-.764.293A.842.842 0 0 0 9 6l.031.275.563 4.95.031.275c.01.089.059.174.129.237a.37.37 0 0 0 .246.098.37.37 0 0 0 .246-.098.384.384 0 0 0 .129-.237l.031-.275.563-4.95L11 6Z'
+				fill='currentColor'
 			/>
 			<circle
 				cx='10'
-				cy='13.75'
-				r='0.75'
+				cy='14.5'
+				r='1'
 				fill='currentColor'
-			/>
-			<path
-				d='M10 11V6'
-				stroke='currentColor'
-				strokeLinecap='round'
-				fill='none'
 			/>
 		</svg>
 	),
 	errorCircle: (
 		<svg
-			xmlns='http://www.w3.org/2000/svg'
-			viewBox='0 0 20 20'
 			width='20'
 			height='20'
+			viewBox='0 0 20 20'
 			fill='none'
+			xmlns='http://www.w3.org/2000/svg'
 		>
 			<circle
-				cx='10'
-				cy='10'
-				r='9'
-				stroke='currentColor'
-				fill='none'
+				cx='8.5'
+				cy='8.5'
+				r='8.5'
+				transform='matrix(1 0 0 -1 1.5 18.5)'
+				stroke='#0D3636'
 			/>
 			<path
-				d='m13 13-3-3m0 0L7 7m3 3-3 3m3-3 3-3'
-				stroke='currentColor'
-				strokeLinecap='round'
-				fill='none'
+				d='M6.5 6.5L13.5 13.5M13.5 6.5L6.5 13.5'
+				stroke='#0D3636'
+				stroke-linecap='round'
 			/>
 		</svg>
 	),
@@ -3662,9 +3658,7 @@ export const icons = {
 			fill='none'
 		>
 			<path
-				clipRule='evenodd'
-				fillRule='evenodd'
-				d='m.684 17.082 7.918-15.7a1.55 1.55 0 0 1 2.796 0l7.918 15.7c.554 1.099-.21 2.418-1.398 2.418H2.082C.893 19.5.13 18.18.684 17.082ZM10.75 15.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM10.5 7.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0v-5Z'
+				d='M17.573 19a1.5 1.5 0 0 0 1.342-2.17L11.342 1.683c-.553-1.106-2.13-1.106-2.683 0L1.086 16.829A1.5 1.5 0 0 0 2.428 19h15.145ZM10 12.907a.464.464 0 0 1-.303-.119.486.486 0 0 1-.166-.288l-.039-.275-.703-4.95L8.75 7c-.048-.331.042-.65.277-.884.234-.234.594-.366.973-.366.38 0 .739.132.973.366.235.235.325.553.277.884l-.04.275-.702 4.95-.04.275a.485.485 0 0 1-.165.288.464.464 0 0 1-.303.12Zm0 3.593a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z'
 				fill='currentColor'
 			/>
 		</svg>
@@ -3678,9 +3672,7 @@ export const icons = {
 			fill='none'
 		>
 			<path
-				clipRule='evenodd'
-				fillRule='evenodd'
-				d='M19.5 10a9.5 9.5 0 1 1-19 0 9.5 9.5 0 0 1 19 0Zm-8.75 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM10.5 6a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0V6Z'
+				d='M10 19a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-7.093a.464.464 0 0 1-.303-.119.485.485 0 0 1-.166-.288l-.039-.275-.703-4.95L8.75 6c-.048-.332.042-.65.277-.884.234-.234.594-.366.973-.366.38 0 .739.132.973.366.235.235.325.553.277.884l-.04.275-.702 4.95-.04.275a.486.486 0 0 1-.165.288.464.464 0 0 1-.303.12Zm0 3.593a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z'
 				fill='currentColor'
 			/>
 		</svg>
@@ -3694,9 +3686,7 @@ export const icons = {
 			fill='none'
 		>
 			<path
-				clipRule='evenodd'
-				fillRule='evenodd'
-				d='M10 19.5a9.5 9.5 0 1 0 0-19 9.5 9.5 0 0 0 0 19ZM7.354 6.646a.5.5 0 1 0-.708.708L9.293 10l-2.647 2.646a.5.5 0 0 0 .708.708L10 10.707l2.646 2.647a.5.5 0 0 0 .708-.708L10.707 10l2.647-2.646a.5.5 0 0 0-.708-.708L10 9.293 7.354 6.646Z'
+				d='M10 19a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm-3.111-5.111a.55.55 0 1 1-.778-.778L9.223 10 6.11 6.889a.55.55 0 1 1 .778-.778L10 9.223l3.111-3.112a.55.55 0 1 1 .778.778L10.777 10l3.112 3.111.07.086a.55.55 0 0 1-.762.762l-.086-.07L10 10.777 6.889 13.89Z'
 				fill='currentColor'
 			/>
 		</svg>
@@ -3916,18 +3906,19 @@ export const icons = {
 			height='20'
 			fill='none'
 		>
+			<circle
+				cx='8.5'
+				cy='8.5'
+				r='8.5'
+				transform='matrix(1 0 0 -1 1.5 18.5)'
+				stroke='currentColor'
+				fill='none'
+			/>
 			<path
-				d='M6 10.792 8.667 13.5 14 7'
+				d='m6 11 3 3 5-7'
 				stroke='currentColor'
 				strokeLinecap='round'
 				strokeLinejoin='round'
-				fill='none'
-			/>
-			<circle
-				cx='10'
-				cy='10'
-				r='9'
-				stroke='currentColor'
 				fill='none'
 			/>
 		</svg>
@@ -3941,7 +3932,7 @@ export const icons = {
 			fill='none'
 		>
 			<path
-				d='M1 11.167 7 17 19 3'
+				d='m4 11 4.5 4.5L16 5'
 				stroke='currentColor'
 				strokeLinecap='round'
 				strokeLinejoin='round'
@@ -5444,7 +5435,7 @@ export const icons = {
 			fill='none'
 		>
 			<path
-				d='M5.225 6.625 1.489 9.609a.5.5 0 0 0 0 .782l3.736 2.984m9.55-6.75 3.736 2.984a.5.5 0 0 1 0 .782l-3.736 2.984M11.087 5.5l-2.817 9'
+				d='m5.5 6.5-4 4 4 4m9-8 4 4-4 4m-6 2 3-12'
 				stroke='currentColor'
 				strokeLinecap='round'
 				strokeLinejoin='round'
@@ -6463,14 +6454,15 @@ export const icons = {
 			fill='none'
 		>
 			<circle
-				cx='10'
-				cy='10'
-				r='9'
+				cx='8.5'
+				cy='8.5'
+				r='8.5'
+				transform='matrix(1 0 0 -1 1.5 18.5)'
 				stroke='currentColor'
 				fill='none'
 			/>
 			<path
-				d='M10 14.25V10m0 0V5.75M10 10H5.75M10 10h4.25'
+				d='M6 10h4m0 0h4m-4 0V6m0 4v4'
 				stroke='currentColor'
 				strokeLinecap='round'
 				fill='none'
@@ -6479,17 +6471,15 @@ export const icons = {
 	),
 	plusCircleFill: (
 		<svg
-			xmlns='http://www.w3.org/2000/svg'
-			viewBox='0 0 20 20'
 			width='20'
 			height='20'
+			viewBox='0 0 20 20'
 			fill='none'
+			xmlns='http://www.w3.org/2000/svg'
 		>
 			<path
-				clipRule='evenodd'
-				fillRule='evenodd'
-				d='M10 19.5a9.5 9.5 0 1 0 0-19 9.5 9.5 0 0 0 0 19Zm.5-13.75a.5.5 0 1 0-1 0V9.5H5.75a.5.5 0 1 0 0 1H9.5v3.75a.5.5 0 0 0 1 0V10.5h3.75a.5.5 0 0 0 0-1H10.5V5.75Z'
-				fill='currentColor'
+				d='M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19ZM10 14.75C9.58579 14.75 9.25 14.4142 9.25 14V10.75H6C5.58579 10.75 5.25 10.4142 5.25 10C5.25 9.58579 5.58579 9.25 6 9.25H9.25V6C9.25 5.58579 9.58579 5.25 10 5.25C10.4142 5.25 10.75 5.58579 10.75 6V9.25H14C14.4142 9.25 14.75 9.58579 14.75 10C14.75 10.4142 14.4142 10.75 14 10.75H10.75V14C10.75 14.4142 10.4142 14.75 10 14.75Z'
+				fill='#0D3636'
 			/>
 		</svg>
 	),
@@ -8602,9 +8592,7 @@ export const icons = {
 			fill='none'
 		>
 			<path
-				clipRule='evenodd'
-				fillRule='evenodd'
-				d='M10 19.5a9.5 9.5 0 1 0 0-19 9.5 9.5 0 0 0 0 19Zm4.386-12.183a.5.5 0 0 0-.772-.634l-4.981 6.07-2.277-2.312a.5.5 0 1 0-.712.701l2.666 2.709a.5.5 0 0 0 .743-.034l5.333-6.5Z'
+				d='M10 19a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm-.955-4.452a.55.55 0 0 1-.434-.16l-3-3a.55.55 0 0 1 .692-.847l.086.07 2.54 2.541 4.624-6.471a.55.55 0 1 1 .894.638l-5 7a.55.55 0 0 1-.402.229Z'
 				fill='currentColor'
 			/>
 		</svg>
@@ -12858,17 +12846,15 @@ export const icons = {
 			height='20'
 			fill='none'
 		>
-			<circle
-				cx='10'
-				cy='10'
-				r='10'
+			<path
+				d='M10 19a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z'
 				fill='currentColor'
-				fillOpacity='0.12'
+				fillOpacity='0.25'
 			/>
 			<path
+				d='M6 10h4m0 0h4m-4 0V6m0 4v4'
 				stroke='currentColor'
 				strokeLinecap='round'
-				d='M10 5.5v9M5.5 10h9'
 				fill='none'
 			/>
 		</svg>
@@ -14325,28 +14311,26 @@ export const icons = {
 	),
 	warningFillTransparent: (
 		<svg
-			xmlns='http://www.w3.org/2000/svg'
-			viewBox='0 0 20 20'
 			width='20'
 			height='20'
+			viewBox='0 0 20 20'
 			fill='none'
+			xmlns='http://www.w3.org/2000/svg'
 		>
 			<path
-				d='m.351 17.573 8.31-16.427c.556-1.097 2.122-1.097 2.678 0l8.31 16.427a1.5 1.5 0 0 1-1.339 2.177H1.69a1.5 1.5 0 0 1-1.34-2.177Z'
-				fill='currentColor'
-				fillOpacity='0.3'
+				opacity='0.25'
+				d='M8.65836 1.68328L1.08541 16.8292C0.586734 17.8265 1.31198 19 2.42705 19H17.573C18.688 19 19.4133 17.8265 18.9146 16.8292L11.3416 1.68328C10.7889 0.577709 9.21114 0.577712 8.65836 1.68328Z'
+				fill='#0D3636'
 			/>
 			<path
-				d='M10 7.25v5'
-				stroke='currentColor'
-				strokeLinecap='round'
-				fill='none'
+				d='M11 7C11.0306 6.73478 10.952 6.48043 10.7639 6.29289C10.5769 6.10536 10.2958 6 10 6C9.70423 6 9.4231 6.10536 9.23608 6.29289C9.04803 6.48043 8.96944 6.73478 9 7C9.01042 7.09167 9.02083 7.18333 9.03125 7.275C9.21875 8.925 9.40625 10.575 9.59375 12.225C9.60417 12.3167 9.61458 12.4083 9.625 12.5C9.63523 12.5888 9.6837 12.674 9.75386 12.7367C9.82435 12.7995 9.91077 12.8348 10 12.8348C10.0892 12.8348 10.1756 12.7995 10.2461 12.7367C10.3163 12.674 10.3648 12.5888 10.375 12.5C10.3854 12.4083 10.3958 12.3167 10.4062 12.225C10.5937 10.575 10.7812 8.925 10.9687 7.275C10.9792 7.18333 10.9896 7.09167 11 7Z'
+				fill='#0D3636'
 			/>
 			<circle
 				cx='10'
-				cy='14.75'
-				r='0.75'
-				fill='currentColor'
+				cy='15.5'
+				r='1'
+				fill='#0D3636'
 			/>
 		</svg>
 	),
@@ -14358,23 +14342,19 @@ export const icons = {
 			height='20'
 			fill='none'
 		>
-			<circle
-				cx='10'
-				cy='10'
-				r='10'
+			<path
+				d='M10 19a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z'
 				fill='currentColor'
-				fillOpacity='0.3'
+				fillOpacity='0.25'
 			/>
 			<path
-				d='M10 6.25v5'
-				stroke='currentColor'
-				strokeLinecap='round'
-				fill='none'
+				d='M11 6a.842.842 0 0 0-.236-.707A1.081 1.081 0 0 0 10 5a1.08 1.08 0 0 0-.764.293A.842.842 0 0 0 9 6l.031.275.563 4.95.031.275c.01.089.059.174.129.237a.37.37 0 0 0 .246.098.37.37 0 0 0 .246-.098.384.384 0 0 0 .129-.237l.031-.275.563-4.95L11 6Z'
+				fill='currentColor'
 			/>
 			<circle
 				cx='10'
-				cy='13.75'
-				r='0.75'
+				cy='14.5'
+				r='1'
 				fill='currentColor'
 			/>
 		</svg>
@@ -14387,17 +14367,15 @@ export const icons = {
 			height='20'
 			fill='none'
 		>
-			<circle
-				cx='10'
-				cy='10'
-				r='10'
+			<path
+				d='M10 19a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z'
 				fill='currentColor'
-				fillOpacity='0.3'
+				fillOpacity='0.25'
 			/>
 			<path
+				d='m6.5 6.5 7 7m0-7-7 7'
 				stroke='currentColor'
 				strokeLinecap='round'
-				d='m6.582 6.983 6.364 6.364m-5.892 0 6.364-6.364'
 				fill='none'
 			/>
 		</svg>
@@ -14429,15 +14407,13 @@ export const icons = {
 			height='20'
 			fill='none'
 		>
-			<circle
-				cx='10'
-				cy='10'
-				r='10'
+			<path
+				d='M10 19a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z'
 				fill='currentColor'
-				fillOpacity='0.3'
+				fillOpacity='0.25'
 			/>
 			<path
-				d='M6 10.792 8.667 13.5 14 7'
+				d='m6 11 3 3 5-7'
 				stroke='currentColor'
 				strokeLinecap='round'
 				strokeLinejoin='round'
