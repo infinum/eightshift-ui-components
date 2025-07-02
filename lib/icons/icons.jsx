@@ -3710,22 +3710,16 @@ export const icons = {
 			fill='none'
 		>
 			<circle
-				r='9'
-				transform='matrix(1 0 0 -1 10 10)'
+				cx='8.5'
+				cy='8.5'
+				r='8.5'
+				transform='matrix(1 0 0 -1 1.5 18.5)'
 				stroke='currentColor'
 				fill='none'
-			/>
-			<circle
-				r='0.75'
-				transform='matrix(1 0 0 -1 10 6.25)'
-				fill='currentColor'
 			/>
 			<path
-				d='M11 14c-.91 1.149-1.5.5-1.343-1.445l.356-3.622L9 9.5'
-				stroke='currentColor'
-				strokeLinecap='round'
-				strokeLinejoin='round'
-				fill='none'
+				fill='currentColor'
+				d='M9 5h2v2H9zm2 4v5h1v1H8v-1h1v-4H8V9h3Z'
 			/>
 		</svg>
 	),
@@ -6877,9 +6871,7 @@ export const icons = {
 			fill='none'
 		>
 			<path
-				clipRule='evenodd'
-				fillRule='evenodd'
-				d='M19.5 10a9.5 9.5 0 1 0-19 0 9.5 9.5 0 0 0 19 0Zm-8.75-3.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm-.24 2.732-.354 3.618c-.038.46-.028.823.011 1.089.027.178.064.287.092.347a1.56 1.56 0 0 0 .35-.347.5.5 0 1 1 .783.622c-.247.311-.522.569-.826.687a.935.935 0 0 1-.535.052.887.887 0 0 1-.47-.273c-.223-.242-.33-.59-.383-.94a5.916 5.916 0 0 1-.019-1.322v-.009l.263-2.67-.177.1a.5.5 0 1 1-.49-.872l1.014-.568a.5.5 0 0 1 .742.486Z'
+				d='M10 1a9 9 0 1 1 0 18 9 9 0 0 1 0-18ZM8 9v1h1v4H8v1h4v-1h-1V9H8Zm1-4v2h2V5H9Z'
 				fill='currentColor'
 			/>
 		</svg>
@@ -14418,23 +14410,14 @@ export const icons = {
 			height='20'
 			fill='none'
 		>
-			<circle
-				r='10'
-				transform='matrix(1 0 0 -1 10 10)'
+			<path
+				d='M10 1a9 9 0 1 1 0 18 9 9 0 0 1 0-18ZM8 9v1h1v4H8v1h4v-1h-1V9H8Zm1-4v2h2V5H9Z'
 				fill='currentColor'
 				fillOpacity='0.3'
 			/>
-			<circle
-				r='0.75'
-				transform='matrix(1 0 0 -1 10 6.25)'
-				fill='currentColor'
-			/>
 			<path
-				d='M11 14c-.91 1.149-1.5.5-1.343-1.445l.356-3.622L9 9.5'
-				stroke='currentColor'
-				strokeLinecap='round'
-				strokeLinejoin='round'
-				fill='none'
+				d='M9 5h2v2H9V5Zm2 4v5h1v1H8v-1h1v-4H8V9h3Z'
+				fill='currentColor'
 			/>
 		</svg>
 	),
@@ -22710,6 +22693,42 @@ export const icons = {
 				stroke='currentColor'
 				strokeLinecap='round'
 				fill='none'
+			/>
+		</svg>
+	),
+	archiveFile: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<path
+				d='M15.5 10.5V3A1.5 1.5 0 0 0 14 1.5H5A1.5 1.5 0 0 0 3.5 3v14A1.5 1.5 0 0 0 5 18.5h8.5m2-8 1.705 2.302a1.5 1.5 0 0 1 .295.893V17a1.5 1.5 0 0 1-1.5 1.5h-2.5m2-8-1.705 2.302a1.5 1.5 0 0 0-.295.893V18.5'
+				stroke='currentColor'
+				strokeLinejoin='round'
+				fill='none'
+			/>
+			<path
+				d='M7.5 2.5v1m1 1v1m-1 1v1m1 1v1m-1 1v1m1 1v1m-1 1v1m1 1v1'
+				stroke='currentColor'
+				strokeLinecap='square'
+				fill='none'
+			/>
+		</svg>
+	),
+	info: (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 20 20'
+			width='20'
+			height='20'
+			fill='none'
+		>
+			<path
+				d='M8.5 4a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V4Zm2 5a1 1 0 0 1 1 1v6.5h1a.5.5 0 0 1 .5.5v.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1-.5-.5V17a.5.5 0 0 1 .5-.5h1V11a.5.5 0 0 0-.5-.5h-.5A.5.5 0 0 1 7 10v-.5a.5.5 0 0 1 .5-.5h3Z'
+				fill='currentColor'
 			/>
 		</svg>
 	),
