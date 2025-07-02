@@ -6,6 +6,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 ## [5.1.1] - 2025-07-02
 - Added slot for actions next to the close button in Modal (`headerActions` prop).
 - Fixed `monospaceFont` not working with multiline `InputField`s.
+- Added 2, updated 3 UI icons.
 
 ## [5.1.0] - 2025-06-27
 - Added `isString` helper function
