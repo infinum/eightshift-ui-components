@@ -222,6 +222,7 @@ export const SelectNext = (props) => {
 						)
 					}
 					placement='bottom left'
+					maxHeight={300}
 					triggerRef={ref}
 				>
 					{searchable && (
@@ -250,14 +251,14 @@ export const SelectNext = (props) => {
 							<div className='es:w-full es:h-px es:bg-secondary-200 es:shrink-0' />
 
 							<ListBox
-								className='es:space-y-0.5 es:p-1 es:any-focus:outline-hidden es:max-h-72 es:overflow-y-auto'
+								className={clsx('es:space-y-0.5 es:p-1 es:any-focus:outline-hidden es:min-h-16', options?.length > 0 && 'es:overflow-y-auto')}
 								items={options}
 								renderEmptyState={() => (
 									<RichLabel
 										icon={icons.searchEmpty}
 										label={__('No results', 'eightshift-ui-components')}
 										subtitle={__('Try a different search term', 'eightshift-ui-components')}
-										className='es:min-h-14 es:p-2 es:w-fit es:mx-auto es:motion-preset-slide-up es:motion-ease-spring-bouncy es:motion-duration-200'
+										className='es:min-h-14 es:p-2 es:w-fit es:mx-auto es:motion-preset-slide-up es:motion-ease-spring-bouncy es:motion-duration-200 es:shrink-0'
 										iconClassName='es:text-accent-700 es:icon:size-7!'
 										noColor
 									/>
