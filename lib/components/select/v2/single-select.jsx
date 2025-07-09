@@ -31,6 +31,7 @@ import clsx from 'clsx';
  * @param {JSX.Element} [props.customDropdownArrow] - If provided, replaces the default dropdown arrow indicator.
  * @param {string} [props.className] - Classes to pass to the select menu.
  * @param {boolean} [props.noMinWidth=false] - If `true`, the select menu will not have a minimum width.
+ * @param {boolean} [props.searchable] - If `true`, the menu will allow searching through the options.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The SelectNext component.
@@ -53,7 +54,6 @@ import clsx from 'clsx';
  *
  * @preserve
  */
-// eslint-disable-next-line no-underscore-dangle
 export const SelectNext = (props) => {
 	const {
 		icon,
@@ -176,7 +176,7 @@ export const SelectNext = (props) => {
 									<RichLabel
 										icon={icon}
 										label={selectedItem?.label}
-										subtitle={selectedItem.subtitle}
+										subtitle={selectedItem?.subtitle}
 										className={clsx('es:pr-6 es:grow es:w-full', disabled && 'es:grayscale es:pointer-events-none')}
 										iconClassName='es:pointer-events-none es:select-none'
 									/>
@@ -281,7 +281,7 @@ export const SelectNext = (props) => {
 												<RichLabel
 													icon={icon}
 													label={item?.label}
-													subtitle={item.subtitle}
+													subtitle={item?.subtitle}
 												/>
 											)}
 										</OptionItemBase>
@@ -293,7 +293,7 @@ export const SelectNext = (props) => {
 
 					{!searchable && (
 						<ListBox
-							className='es:space-y-0.5 es:p-1 es:any-focus:outline-hidden'
+							className='es:space-y-0.5 es:p-1 es:any-focus:outline-hidden es:overflow-y-auto'
 							items={options}
 							renderEmptyState={() => (
 								<RichLabel
@@ -323,7 +323,7 @@ export const SelectNext = (props) => {
 											<RichLabel
 												icon={icon}
 												label={item?.label}
-												subtitle={item.subtitle}
+												subtitle={item?.subtitle}
 												noColor
 											/>
 										)}
