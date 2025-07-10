@@ -27,6 +27,7 @@ import { __ } from '@wordpress/i18n';
  * @param {boolean} [props.keepOpen=false] - If `true`, the menu will not close when an item is selected.
  * @param {boolean} [props.openOnLongPress=false] - If `true`, the menu will open on long press instead of click. If enabled, a regular `onPress` event can also be passed to the trigger button to enable dual behavior.
  * @param {Object} [props.popoverProps] - Props to pass to the popover.
+ * @param {boolean} [props.disabled] - If `true`, the trigger button is disabled.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Menu component.
@@ -85,6 +86,8 @@ export const Menu = (props) => {
 
 		openOnLongPress = false,
 
+		disabled,
+
 		hidden,
 	} = props;
 
@@ -118,6 +121,7 @@ export const Menu = (props) => {
 			<Button
 				icon={triggerIcon}
 				tooltip={tooltip}
+				disabled={disabled}
 				{...triggerProps}
 			>
 				{triggerLabel}
