@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
 ## [5.1.2] - 2025-07-10
+- Updated dependencies
 - Fixed a couple of bugs in `SelectNext` and added missing prop docs
+- `Menu` now support the `disabled` attribute
 
 ## [5.1.1] - 2025-07-02
 - Added slot for actions next to the close button in Modal (`headerActions` prop).
