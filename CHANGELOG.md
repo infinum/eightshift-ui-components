@@ -5,7 +5,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 ## [5.1.2] - 2025-07-10
 - Updated dependencies
-- Fixed a couple of bugs in `SelectNext` and added missing prop docs
+- Fixed a couple of bugs in `SelectNext` and `AsyncSelectNext` and added missing prop docs
 - `Menu` now support the `disabled` attribute
 
 ## [5.1.1] - 2025-07-02
