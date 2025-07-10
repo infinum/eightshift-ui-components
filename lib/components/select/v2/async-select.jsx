@@ -325,7 +325,7 @@ export const AsyncSelectNext = (props) => {
 
 								return (
 									<OptionItemBase
-										id={item.value}
+										id={item?.value}
 										className={item?.className}
 									>
 										{customMenuOption && customMenuOption(item)}
@@ -333,7 +333,7 @@ export const AsyncSelectNext = (props) => {
 											<RichLabel
 												icon={icon}
 												label={item?.label}
-												subtitle={item.subtitle}
+												subtitle={item?.subtitle}
 												noColor
 											/>
 										)}

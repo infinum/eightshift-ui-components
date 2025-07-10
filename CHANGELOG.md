@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [5.1.2] - 2025-07-10
+- Updated dependencies
+- Fixed a couple of bugs in `SelectNext` and `AsyncSelectNext` and added missing prop docs
+- `Menu` now support the `disabled` attribute
+
 ## [5.1.1] - 2025-07-02
 - Added slot for actions next to the close button in Modal (`headerActions` prop).
 - Fixed `monospaceFont` not working with multiline `InputField`s.
@@ -369,6 +374,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[5.1.2]: https://github.com/infinum/eightshift-ui-components/compare/5.1.1...5.1.2
 [5.1.1]: https://github.com/infinum/eightshift-ui-components/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/infinum/eightshift-ui-components/compare/5.0.10...5.1.0
 [5.0.10]: https://github.com/infinum/eightshift-ui-components/compare/5.0.9...5.0.10
