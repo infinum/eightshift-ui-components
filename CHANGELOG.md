@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [5.1.3] - 2025-07-14
+- Fixed some icons missing dynamic colors
+- Added tiny bit of space to `Notice` subtitle
+- Tweaked compact `Tabs` spacing
+- Added `pillOutline` and `pillCompactOutline` variants of `Tabs`
+- Updated `Notice` styling
+
 ## [5.1.2] - 2025-07-10
 - Updated dependencies
 - Fixed a couple of bugs in `SelectNext` and `AsyncSelectNext` and added missing prop docs
@@ -374,6 +381,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[5.1.3]: https://github.com/infinum/eightshift-ui-components/compare/5.1.2...5.1.3
 [5.1.2]: https://github.com/infinum/eightshift-ui-components/compare/5.1.1...5.1.2
 [5.1.1]: https://github.com/infinum/eightshift-ui-components/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/infinum/eightshift-ui-components/compare/5.0.10...5.1.0

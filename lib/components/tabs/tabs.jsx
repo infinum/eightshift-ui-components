@@ -18,7 +18,7 @@ import { RichLabel } from '../rich-label/rich-label';
  *
  * @returns {JSX.Element} The Tabs component.
  *
- * @typedef {'underline' | 'pill' | 'pillInverse' | 'pillCompact' | 'pillCompactInverse'} TabsType
+ * @typedef {'underline' | 'pill' | 'pillInverse' | 'pillCompact' | 'pillCompactInverse' | 'pillOutline' | 'pillCompactOutline'} TabsType
  *
  * @example
  * <Tabs>
@@ -187,8 +187,8 @@ export const Tab = (props) => {
 			'es:group es:flex es:items-center es:gap-1.5 es:relative es:shrink-0',
 			'es:select-none es:text-sm es:transition es:not-disabled:cursor-pointer',
 			'es:any-focus:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
-			!(type === 'pillCompact' || type === 'pillCompactInverse') && 'es:min-h-9.5',
-			isParentVertical && (type === 'pillCompact' || type === 'pillCompactInverse') && 'es:min-h-8',
+			!(type === 'pillCompact' || type === 'pillCompactInverse' || type === 'pillCompactOutline') && 'es:min-h-9.5',
+			isParentVertical && (type === 'pillCompact' || type === 'pillCompactInverse' || type === 'pillCompactOutline') && 'es:min-h-8',
 			invisible && 'es:hidden',
 			className,
 		],
@@ -196,13 +196,17 @@ export const Tab = (props) => {
 			variants: {
 				type: {
 					underline: 'es:disabled:text-secondary-400 es:selected:text-accent-950',
-					pill: 'es:font-[450] es:border es:border-transparent es:px-3 es:py-1.5 es:rounded-xl es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-900 es:selected:bg-gradient-to-br es:selected:from-accent-300/10 es:selected:to-accent-400/20 es:selected:border-accent-400/10 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+					pill: 'es:font-[450] es:border es:border-transparent es:px-2.5 es:py-0.25 es:rounded-10 es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-900 es:selected:bg-gradient-to-br es:selected:from-accent-400/10 es:selected:to-accent-400/20 es:selected:border-accent-400/10 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+					pillOutline:
+						'es:font-[450] es:border es:border-transparent es:selected:border-accent-500 es:px-2.5 es:py-0.25 es:rounded-10 es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-700 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
 					pillInverse:
-						'es:font-[450] es:border es:border-transparent es:px-3 es:py-1.5 es:rounded-xl es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-gradient-to-br es:selected:from-accent-500 es:selected:to-accent-600 es:selected:border-accent-600 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+						'es:font-[450] es:border es:border-transparent es:px-2.5 es:py-0.25 es:rounded-10 es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-gradient-to-br es:selected:from-accent-500 es:selected:to-accent-600 es:selected:border-accent-600 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
 					pillCompact:
-						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:px-2.5 es:py-1 es:rounded-10 es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-900 es:selected:bg-gradient-to-br es:selected:from-accent-300/10 es:selected:to-accent-400/20 es:selected:border-accent-400/10 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:px-1.5 es:py-1 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-900 es:selected:bg-gradient-to-br es:selected:from-accent-400/15 es:selected:to-accent-400/20 es:selected:border-accent-400/10 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
 					pillCompactInverse:
-						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:px-2.5 es:py-1 es:rounded-10 es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-gradient-to-br es:selected:from-accent-500 es:selected:to-accent-600 es:selected:border-accent-600 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:px-1.5 es:py-1 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-gradient-to-br es:selected:from-accent-500 es:selected:to-accent-600 es:selected:border-accent-600 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
+					pillCompactOutline:
+						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:selected:border-accent-500 es:px-1.5 es:py-1 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-700 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
 				},
 			},
 			compoundVariants: [
@@ -242,7 +246,7 @@ export const Tab = (props) => {
 					label={label ?? children}
 					subtitle={subtitle}
 					noColor
-					iconClassName={clsx((type === 'pillCompact' || type === 'pillCompactInverse') && 'es:icon:size-4!')}
+					iconClassName={clsx((type === 'pillCompact' || type === 'pillCompactInverse' || type === 'pillCompactOutline') && 'es:icon:size-4!')}
 				/>
 			)}
 
@@ -258,7 +262,8 @@ export const Tab = (props) => {
 						type === 'pillInverse' && 'es:bg-secondary-100 es:group-selected:bg-accent-50 es:group-selected:text-accent-900',
 						type === 'pillCompact' && 'es:bg-secondary-100 es:group-selected:bg-accent-600 es:group-selected:text-white',
 						type === 'pillCompactInverse' && 'es:bg-secondary-100 es:group-selected:bg-accent-50 es:group-selected:text-accent-900',
-						(type === 'pillCompact' || type === 'pillCompactInverse') && 'es:[&_svg]:size-4!',
+						(type === 'pillOutline' || type === 'pillCompactOutline') && 'es:bg-secondary-100 es:text-secondary-900 es:group-selected:bg-accent-500 es:group-selected:text-white',
+						(type === 'pillCompact' || type === 'pillCompactInverse' || type === 'pillCompactOutline') && 'es:[&_svg]:size-4!',
 					)}
 				>
 					{badge}

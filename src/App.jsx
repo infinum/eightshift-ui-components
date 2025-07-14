@@ -2057,8 +2057,10 @@ function App() {
 							{ label: 'Underline', value: 'underline' },
 							{ label: 'Pill', value: 'pill' },
 							{ label: 'Pill (inverse)', value: 'pillInverse' },
+							{ label: 'Pill (outlined)', value: 'pillOutline' },
 							{ label: 'Pill compact', value: 'pillCompact' },
 							{ label: 'Pill compact (inverse)', value: 'pillCompactInverse' },
+							{ label: 'Pill compact (outlined)', value: 'pillCompactOutline' },
 						]}
 						type='radios'
 						vertical
