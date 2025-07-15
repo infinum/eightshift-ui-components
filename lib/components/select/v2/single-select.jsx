@@ -101,6 +101,7 @@ export const SelectNext = (props) => {
 
 	return (
 		<Select
+			isDisabled={disabled}
 			selectedKey={currentValue}
 			onSelectionChange={(selected) => {
 				if (selected === null || selected === undefined) {

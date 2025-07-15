@@ -24,14 +24,17 @@ import clsx from 'clsx';
  * @param {{label: string, value: string, metadata: Object<string, any>?}} props.value - Current value of the select.
  * @param {Function} props.onChange - Function to call when the value changes.
  * @param {boolean} [props.clearable=false] - Whether the select is clearable.
- * @param {boolean} [props.noSearch=false] - Whether the search is disabled.
  * @param {boolean} [props.disabled=false] - Whether the select is disabled.
- * @param {boolean} [props.keepMenuOpenAfterSelect=false] - Whether the menu stays open after an select.
  * @param {string} [props.placeholder] - Placeholder text to show when no value is selected.
+ * @param {Function} [props.getLabel] - Function to get the label for the item from the fetched data. `(item: Object<string, any>) => string`
+ * @param {Function} [props.getValue] - Function to get the value for the item from the fetched data. `(item: Object<string, any>) => string`
+ * @param {Function} [props.getMeta] - Function to get the metadata for the item from the fetched data. `(item: Object<string, any>) => Object<string, any>` (optional)
+ * @param {Function} [props.getIcon] - Function to get the icon for the item from the fetched data. `(item: Object<string, any>) => JSX.Element | string`
+ * @param {Function} [props.getSubtitle] - Function to get the subtitle for the item from the fetched data. `(item: Object<string, any>) => string`
+ * @param {Function} [props.getData] - Function to pre-process the fetched data before it is used in the select. `(data: Object<string, any>[]) => Object<string, any>[]`
  * @param {JSX.Element} [props.customMenuOption] - If provided, replaces the default item in the dropdown menu. `({ value: string, label: string, subtitle: string, metadata: any }) => JSX.Element`
  * @param {JSX.Element} [props.customValueDisplay] - If provided, replaces the default current value display of each selected item. `({ value: string, label: string, subtitle: string, metadata: any }) => JSX.Element`
  * @param {JSX.Element} [props.customDropdownArrow] - If provided, replaces the default dropdown arrow indicator.
- * @param {Function} [props.processLoadedOptions] - Allows modifying (filtering, grouping, ...) options output after the items have been dynamically fetched. Must include `label`, `value`, and `id` keys in the output, additional fields can be added as required.
  * @param {string} props.className - Classes to pass to the select menu.
  * @param {boolean} [props.noMinWidth=false] - If `true`, the select menu will not have a minimum width.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
@@ -52,7 +55,6 @@ import clsx from 'clsx';
  *
  * @preserve
  */
-// eslint-disable-next-line no-underscore-dangle
 export const AsyncSelectNext = (props) => {
 	const {
 		label,
@@ -65,7 +67,6 @@ export const AsyncSelectNext = (props) => {
 		value,
 		onChange,
 
-		noSearch = false,
 		disabled = false,
 		clearable = false,
 
