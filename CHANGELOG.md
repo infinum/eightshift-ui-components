@@ -6,6 +6,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 ## [5.1.4] - 2025-07-15
 - The 'Duplicate' button can now be disabled in `Repeater` with the `noDuplicateButton` prop
 - The 'Duplicate' button will now be disabled if `addDisabled` is `true`
+- Fixed doc comments for `SelectNext` and `AsyncSelectNext`
 
 ## [5.1.3] - 2025-07-14
 - Fixed some icons missing dynamic colors
