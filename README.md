@@ -7,11 +7,11 @@ Built using [React Aria components](https://react-spectrum.adobe.com/react-aria/
 ## Local setup
 
 > [!IMPORTANT]
-> Uses [`pnpm`](https://pnpm.io/) for package management.
+> Uses [Bun](https://bun.com/) for package management.
 
 1. Clone the repository
-2. `pnpm install`
-3. `pnpm start` to run the example
+2. `bun install`
+3. `bun start` to run the example
 
 ## Who do I talk to?
 
@@ -23,9 +23,6 @@ Eightshift UI components is maintained and sponsored by
 
 ## License
 Eightshift UI components are provided by [Team Eightshift](https://eightshift.com) at [Infinum](https://infinum.com). This is free software, and may be redistributed under the terms specified in the LICENSE file.
-
-## To-do
-[] AdvancedColorPicker
 
 ### Won't bring over from Frontend libs
 - BlockInserter
