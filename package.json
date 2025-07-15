@@ -1,6 +1,6 @@
 {
 	"name": "@eightshift/ui-components",
-	"version": "5.1.3",
+	"version": "5.1.4",
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",

@@ -40,6 +40,7 @@ const fixIds = (items, itemIdBase) => {
  * @param {JSX.Element} [props.addButton] - If provided, overrides the default add button. `(props: { addItem: (additional: Object<string, any>?) => void, disabled: Boolean }) => JSX.Element`.
  * @param {string} [props.className] - Classes to pass to the item wrapper.
  * @param {boolean} [props.noExpandAllButton] - If `true`, the "Expand all"/"Collapse all" button is not displayed.
+ * @param {boolean} [props.noDuplicateButton] - If `true`, the "Duplicate" button is not displayed.
  * @param {boolean} [props.noDragToRemove] - If `true`, the "drag to remove" functionality will be disabled.
  * @param {JSX.Element|JSX.Element[]} [props.moreOptions] - Options to add in the "More options" menu.
  * @param {JSX.Element} [props.emptyState] - Allows overriding the default empty state.
@@ -97,6 +98,7 @@ export const Repeater = (props) => {
 		emptyState,
 
 		noExpandAllButton,
+		noDuplicateButton,
 		noDragToRemove,
 		moreOptions,
 
@@ -113,7 +115,7 @@ export const Repeater = (props) => {
 	const items = fixIds(rawItems ?? [], itemIdBase);
 
 	const canDelete = items.length > (minItems ?? 0);
-	const canAdd = items.length < (maxItems ?? Number.MAX_SAFE_INTEGER);
+	const canAdd = items.length < (maxItems ?? Number.MAX_SAFE_INTEGER) && !addDisabled;
 
 	if (hidden) {
 		return null;
@@ -238,6 +240,7 @@ export const Repeater = (props) => {
 									setAllOpen,
 									setOpenItems,
 									isItemOpen: openItems[item.id] ?? allOpen,
+									noDuplicateButton,
 								}}
 							>
 								{children({

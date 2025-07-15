@@ -88,7 +88,7 @@ export const Notice = (props) => {
 				{(icon || styles[type].icon) && (
 					<div
 						className={clsx(
-							'es:col-span-1 es:col-start-1 es:row-span-2 es:row-start-1 es:shrink-0 es:icon:size-6',
+							'es:col-span-1 es:col-start-1 es:row-span-2 es:row-start-1 es:shrink-0 es:icon:size-5.5',
 							alignIconToTitle ? 'es:self-baseline' : 'es:self-center',
 							styles[type].iconColorClassName,
 						)}
