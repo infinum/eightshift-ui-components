@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [5.1.4] - 2025-07-15
+- The 'Duplicate' button can now be disabled in `Repeater` with the `noDuplicateButton` prop
+- The 'Duplicate' button will now be disabled if `addDisabled` is `true`
+
 ## [5.1.3] - 2025-07-14
 - Fixed some icons missing dynamic colors
 - Added tiny bit of space to `Notice` subtitle
@@ -381,6 +385,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[5.1.4]: https://github.com/infinum/eightshift-ui-components/compare/5.1.3...5.1.4
 [5.1.3]: https://github.com/infinum/eightshift-ui-components/compare/5.1.2...5.1.3
 [5.1.2]: https://github.com/infinum/eightshift-ui-components/compare/5.1.1...5.1.2
 [5.1.1]: https://github.com/infinum/eightshift-ui-components/compare/5.1.0...5.1.1
