@@ -31,7 +31,8 @@ import { RepeaterContext } from './repeater-context';
 export const RepeaterItem = (props) => {
 	const { children, icon, label, subtitle, 'aria-label': ariaLabel, className, actions, textValue, expandDisabled, menuOptions, noMenuButton, ...rest } = props;
 
-	const { deleteItem, duplicateItem, isDragged, isOutOfBounds, isSelected, canDelete, canAdd, allOpen, setAllOpen, setOpenItems, id, isItemOpen } = useContext(RepeaterContext);
+	const { deleteItem, duplicateItem, isDragged, isOutOfBounds, isSelected, canDelete, canAdd, allOpen, setAllOpen, setOpenItems, id, isItemOpen, noDuplicateButton } =
+		useContext(RepeaterContext);
 
 	return (
 		<Expandable
@@ -75,13 +76,15 @@ export const RepeaterItem = (props) => {
 
 							{menuOptions && <MenuSeparator />}
 
-							<MenuItem
-								disabled={!canAdd}
-								icon={icons.copy}
-								onPress={() => duplicateItem()}
-							>
-								{__('Duplicate', 'eightshift-ui-components')}
-							</MenuItem>
+							{!noDuplicateButton && (
+								<MenuItem
+									disabled={!canAdd}
+									icon={icons.copy}
+									onPress={() => duplicateItem()}
+								>
+									{__('Duplicate', 'eightshift-ui-components')}
+								</MenuItem>
+							)}
 
 							<MenuItem
 								disabled={!canDelete}
