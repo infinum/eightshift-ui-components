@@ -73,6 +73,7 @@ import {
 	AsyncSelectNext,
 	SelectNext,
 	OptionsPanelIntro,
+	__MultiSelectNext,
 } from '../lib';
 import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
@@ -646,7 +647,7 @@ function App() {
 					{ value: 'purple', label: 'Purple' },
 					{ value: 'mono', label: 'Monochrome' },
 				]}
-				className='es:my-10'
+				className='es:my-5'
 				inline
 			/>
 
@@ -1685,9 +1686,29 @@ function App() {
 						onChange={setMulSel}
 						options={data}
 					/>
-					<pre>{JSON.stringify(mulSel, null, 2)}</pre>
+
+					<__MultiSelectNext
+						label='Multi basic NEXT'
+						value={mulSel}
+						onChange={setMulSel}
+						options={data}
+					/>
+					<pre>
+						{JSON.stringify(
+							mulSel.map((item) => ({ ...item, icon: null })),
+							null,
+							2,
+						)}
+					</pre>
 					<MultiSelect
 						label='Multi basic - simpleValue'
+						value={mulSelSimple}
+						onChange={setMulSelSimple}
+						options={data}
+						simpleValue
+					/>
+					<__MultiSelectNext
+						label='Multi basic - simpleValue NEXT'
 						value={mulSelSimple}
 						onChange={setMulSelSimple}
 						options={data}
