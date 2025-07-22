@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [5.2.0] - 2025-07-22
+## [5.2.0] - 2025-07-23
 - Updated dependencies.
 - Added experimental MultiSelect component (`__MultiSelectNext`).
 
