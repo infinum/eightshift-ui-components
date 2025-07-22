@@ -5,7 +5,6 @@ import {
 	ListBox,
 	Popover,
 	Button,
-	SelectStateContext,
 	Autocomplete,
 	SearchField,
 	Input,
@@ -16,7 +15,7 @@ import {
 	Text,
 	DropIndicator,
 } from 'react-aria-components';
-import { useContext, cloneElement } from 'react';
+import { cloneElement } from 'react';
 import { icons } from '../../../icons';
 import { OptionItemBase } from './shared';
 import { useRef } from 'react';
@@ -173,7 +172,7 @@ export const __MultiSelectNext = (props) => {
 		}
 
 		const selectedValues = [...selected]
-			.map((item) => {
+			?.map((item) => {
 				const option = options.find((option) => option.value === item);
 
 				if (!option) {
@@ -184,7 +183,7 @@ export const __MultiSelectNext = (props) => {
 					...option,
 				};
 			})
-			.filter(Boolean);
+			?.filter(Boolean);
 
 		onChange(selectedValues);
 	};
@@ -232,6 +231,7 @@ export const __MultiSelectNext = (props) => {
 		>
 			<DialogTrigger>
 				<Button
+					aria-label={__('Select items', 'eightshift-ui-components')}
 					className={clsx(
 						'es:group',
 						'es:relative es:flex es:items-center es:gap-1 es:py-0.75 es:pl-0.75 es:pr-1.5 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
@@ -289,6 +289,7 @@ export const __MultiSelectNext = (props) => {
 				</Button>
 
 				<Popover
+					aria-label={__('Items', 'eightshift-ui-components')}
 					className={({ isEntering, isExiting }) =>
 						clsx(
 							'es:flex es:w-76 es:min-w-9 es:max-w-76 es:flex-col es:-hidden es:rounded-2xl es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-xl es:inset-ring es:inset-ring-secondary-100',
@@ -334,11 +335,12 @@ export const __MultiSelectNext = (props) => {
 							<div className='es:w-full es:h-px es:bg-secondary-200 es:shrink-0' />
 
 							<ListBox
+								aria-label={__('Items', 'eightshift-ui-components')}
 								selectedKeys={selectedItems}
 								selectionMode='multiple'
+								selectionBehavior='toggle'
 								className={clsx('es:space-y-0.5 es:p-1 es:any-focus:outline-hidden es:min-h-16', options?.length > 0 && 'es:overflow-y-auto')}
 								items={options}
-								selectionBehavior='toggle'
 								onSelectionChange={handleSelectionChange}
 								escapeKeyBehavior='none'
 								renderEmptyState={() => (
@@ -382,6 +384,7 @@ export const __MultiSelectNext = (props) => {
 
 					{!searchable && (
 						<ListBox
+							aria-label={__('Items', 'eightshift-ui-components')}
 							autoFocus
 							selectionMode='multiple'
 							selectionBehavior='toggle'
@@ -455,25 +458,5 @@ export const __MultiSelectNext = (props) => {
 				</Popover>
 			</DialogTrigger>
 		</BaseControl>
-	);
-};
-
-const SelectClearButton = () => {
-	const state = useContext(SelectStateContext);
-
-	const isEmpty = state?.selectedKey === null;
-
-	return (
-		<Button
-			aria-label={__('Clear value', 'eightshift-ui-components')}
-			className={clsx(
-				'es:mr-6 es:flex es:h-6 es:w-8 es:items-center es:justify-center es:rounded es:text-sm es:text-secondary-600 es:transition es:hover:bg-red-50 es:hover:text-red-900 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
-				isEmpty ? 'es:hidden' : 'es:flex',
-			)}
-			onPress={() => state?.setSelectedKey(null)}
-			slot={null}
-		>
-			{icons.clearAlt}
-		</Button>
 	);
 };
