@@ -1693,6 +1693,23 @@ function App() {
 						onChange={setMulSel}
 						options={data}
 					/>
+
+					<__MultiSelectNext
+						label='Multi basic NEXT'
+						value={mulSel}
+						onChange={setMulSel}
+						options={data}
+						customValueDisplay={(label, item) => (
+							<HStack
+								className='es:icon:size-[1em]'
+								slot='label'
+							>
+								{item.icon}
+								{label}
+							</HStack>
+						)}
+					/>
+
 					<pre>
 						{JSON.stringify(
 							mulSel.map((item) => ({ ...item, icon: null })),
