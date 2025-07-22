@@ -234,7 +234,7 @@ export const __MultiSelectNext = (props) => {
 				<Button
 					className={clsx(
 						'es:group',
-						'es:relative es:flex es:items-center es:gap-1 es:p-1 es:pr-1.5 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+						'es:relative es:flex es:items-center es:gap-1 es:py-0.75 es:pl-0.75 es:pr-1.5 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
 						'es:min-h-9 es:rounded-10 es:border es:border-secondary-300 es:bg-white es:text-sm es:shadow-sm es:transition',
 						'es:inset-ring es:inset-ring-secondary-100',
 						'es:any-focus:outline-hidden',
@@ -245,16 +245,15 @@ export const __MultiSelectNext = (props) => {
 						className,
 					)}
 					ref={ref}
-					aria-label='TODO3'
 				>
 					<ListBox
-						aria-label='Albums'
+						aria-label={__('Selected items', 'eightshift-ui-components')}
 						layout='grid'
 						items={currentValue}
 						selectionMode='none'
 						dependencies={[currentValue]}
-						className='es:w-full es:flex es:items-center es:flex-wrap es:gap-1 es:has-dragging:inset-ring-1 es:has-dragging:inset-ring-accent-500/10 es:rounded-md es:transition'
-						renderEmptyState={() => <div className='es:text-secondary-500 es:pl-1 es:h-6.5 es:flex es:items-center'>{placeholder}</div>}
+						className='es:peer es:w-full es:flex es:items-center es:flex-wrap es:gap-0.75 es:has-dragging:inset-ring-1 es:has-dragging:inset-ring-accent-500/10 es:rounded-md es:transition es:leading-tight'
+						renderEmptyState={() => <div className='es:text-secondary-500 es:pl-1.5 es:flex es:items-center'>{placeholder}</div>}
 						dragAndDropHooks={dragAndDropHooks}
 					>
 						{(item) => (
@@ -262,16 +261,17 @@ export const __MultiSelectNext = (props) => {
 								id={item?.value}
 								textValue={item?.label}
 								className={clsx(
-									'es:inset-ring es:inset-ring-secondary-200/25 es:bg-secondary-100 es:focus-visible:inset-ring-accent-500 es:dragging:cursor-grabbing es:focus:outline-hidden es:py-1 es:px-1.5 es:rounded-md es:dragging:inset-ring-accent-600/20 es:dragging:bg-transparent es:dragging:text-accent-600/40 es:transition',
+									'es:inset-ring es:inset-ring-secondary-200/30 es:h-7 es:bg-secondary-100 es:focus-visible:inset-ring-accent-500 es:dragging:cursor-grabbing es:focus:outline-hidden es:py-1 es:px-1.5 es:rounded-7 es:dragging:inset-ring-accent-600/20 es:dragging:bg-transparent es:dragging:text-accent-600/40 es:transition es:flex es:items-center es:gap-1',
 									!disabled && selectedItems.size >= 2 && 'es:cursor-move',
 								)}
 							>
-								<Text slot='label'>{truncateEnd(item?.label, 18)}</Text>
+								{customValueDisplay && customValueDisplay(truncateEnd(item?.label, 18), item)}
+								{!customValueDisplay && <Text slot='label'>{truncateEnd(item?.label, 18)}</Text>}
 							</ListBoxItem>
 						)}
 					</ListBox>
 
-					<div className='es:shrink-0 es:ml-auto'>
+					<div className='es:shrink-0 es:ml-auto es:peer-has-dragging:hidden'>
 						{!customDropdownArrow &&
 							cloneElement(icons.dropdownCaretAlt, {
 								className: 'es:shrink-0 es:w-4 es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
@@ -289,7 +289,6 @@ export const __MultiSelectNext = (props) => {
 				</Button>
 
 				<Popover
-					aria-label='TODO'
 					className={({ isEntering, isExiting }) =>
 						clsx(
 							'es:flex es:w-76 es:min-w-9 es:max-w-76 es:flex-col es:-hidden es:rounded-2xl es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-xl es:inset-ring es:inset-ring-secondary-100',
@@ -310,10 +309,7 @@ export const __MultiSelectNext = (props) => {
 					triggerRef={ref}
 				>
 					{searchable && (
-						<Autocomplete
-							filter={contains}
-							aria-label='TODO 4'
-						>
+						<Autocomplete filter={contains}>
 							<SearchField
 								aria-label={__('Search', 'eightshift-ui-components')}
 								className='es:flex es:items-center es:bg-secondary-100 es:m-2 es:rounded-lg es:relative es:placeholder:text-secondary-500'
@@ -338,7 +334,6 @@ export const __MultiSelectNext = (props) => {
 							<div className='es:w-full es:h-px es:bg-secondary-200 es:shrink-0' />
 
 							<ListBox
-								aria-label='TODO 2'
 								selectedKeys={selectedItems}
 								selectionMode='multiple'
 								className={clsx('es:space-y-0.5 es:p-1 es:any-focus:outline-hidden es:min-h-16', options?.length > 0 && 'es:overflow-y-auto')}
