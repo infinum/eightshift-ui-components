@@ -74,6 +74,7 @@ import {
 	SelectNext,
 	OptionsPanelIntro,
 	__MultiSelectNext,
+	__AsyncMultiSelectNext,
 } from '../lib';
 import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
@@ -241,8 +242,17 @@ function App() {
 				}
 
 				resolve(data.filter(filterData));
-			}, 3000);
+			}, 30);
 		});
+	};
+
+	const getDataAlt = async (searchText) => {
+		const url = searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia';
+
+		const data = await fetch(url);
+		const json = await data.json();
+
+		return json.map((item) => ({ label: item?.name, value: slugify(item?.name) }));
 	};
 
 	const CustomMenuOption = (props) => (
@@ -2081,6 +2091,45 @@ function App() {
 					/>
 
 					{JSON.stringify(sinASel2)}
+
+					<hr />
+
+					<AsyncMultiSelect
+						label='Multi async'
+						value={mulASel}
+						onChange={setMulASel}
+						loadOptions={getDataAlt}
+					/>
+
+					<__AsyncMultiSelectNext
+						label='Multi async NEXT'
+						value={mulASel}
+						onChange={setMulASel}
+						// loadOptions={getData}
+						fetchUrl={(searchText) =>
+							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
+						}
+						getLabel={(item) => item?.name}
+						getValue={(item) => item?.value}
+						getSubtitle={(item) => item?.country}
+						getIcon={() => icons.emptyCircle}
+						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
+					/>
+
+					<__AsyncMultiSelectNext
+						label='Multi async NEXT'
+						value={mulASel}
+						onChange={setMulASel}
+						fetchUrl={(searchText) =>
+							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
+						}
+						getLabel={(item) => item?.name}
+						getValue={(item) => item?.value}
+						getSubtitle={(item) => item?.country}
+						getIcon={() => icons.emptyCircle}
+						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
+						clearable
+					/>
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Tabs>
