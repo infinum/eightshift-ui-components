@@ -199,7 +199,7 @@ export const __MultiSelectNext = (props) => {
 		renderDragPreview(items) {
 			return (
 				<div className='es:bg-accent-700 es:rounded-md es:px-1.5 es:py-0.5 es:text-white es:translate-x-7 es:translate-y-6'>
-					{truncateEnd(items[0]['text'], 18)}
+					{truncateEnd(items[0]['text'], 20)}
 					{items.length > 1 && <span className='badge'>{items.length}</span>}
 				</div>
 			);
@@ -265,8 +265,8 @@ export const __MultiSelectNext = (props) => {
 									!disabled && selectedItems.size >= 2 && 'es:cursor-move',
 								)}
 							>
-								{customValueDisplay && customValueDisplay(truncateEnd(item?.label, 18), item)}
-								{!customValueDisplay && <Text slot='label'>{truncateEnd(item?.label, 18)}</Text>}
+								{customValueDisplay && customValueDisplay(truncateEnd(item?.label, 20), item)}
+								{!customValueDisplay && <Text slot='label'>{truncateEnd(item?.label, 20)}</Text>}
 							</ListBoxItem>
 						)}
 					</ListBox>
@@ -363,6 +363,7 @@ export const __MultiSelectNext = (props) => {
 										<OptionItemBase
 											id={item.value}
 											className={item?.className}
+											selectIndicator
 										>
 											{customMenuOption && customMenuOption(item)}
 											{!customMenuOption && (
@@ -372,10 +373,6 @@ export const __MultiSelectNext = (props) => {
 													subtitle={item?.subtitle}
 												/>
 											)}
-
-											{cloneElement(selectedItems.has(item?.value ?? item) ? icons.checkSquare : icons.solidRect, {
-												className: 'es:ml-auto',
-											})}
 										</OptionItemBase>
 									);
 								}}
@@ -415,6 +412,7 @@ export const __MultiSelectNext = (props) => {
 									<OptionItemBase
 										id={item.value}
 										className={item?.className}
+										selectIndicator
 									>
 										{customMenuOption && customMenuOption(item)}
 										{!customMenuOption && (
@@ -424,10 +422,6 @@ export const __MultiSelectNext = (props) => {
 												subtitle={item?.subtitle}
 											/>
 										)}
-
-										{cloneElement(selectedItems.has(item?.value ?? item) ? icons.checkSquare : icons.solidRect, {
-											className: 'es:ml-auto',
-										})}
 									</OptionItemBase>
 								);
 							}}
