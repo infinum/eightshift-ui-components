@@ -5,7 +5,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 ## [5.2.0] - 2025-07-23
 - Updated dependencies.
-- Added experimental MultiSelect component (`__MultiSelectNext`).
+- Added experimental MultiSelect and async MultiSelect components (`__MultiSelectNext` and `__AsyncMultiSelectNext`).
 
 ## [5.1.4] - 2025-07-15
 - The 'Duplicate' button can now be disabled in `Repeater` with the `noDuplicateButton` prop
