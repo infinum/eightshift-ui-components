@@ -4,54 +4,15 @@ import { Label, ListBox, Popover, Button, Autocomplete, SearchField, Input, Dial
 import { cloneElement } from 'react';
 import { icons } from '../../../icons';
 import { OptionItemBase } from './shared';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { RichLabel } from '../../rich-label/rich-label';
 import clsx from 'clsx';
 import { useAsyncList } from 'react-stately';
 import { truncateEnd, unescapeHTML } from '../../../utilities';
+import { moveArrayItem } from '../shared';
 
 /**
- * Moves an array item before or after another item in the array.
- *
- * @param {Array} array - The array to modify
- * @param {*} itemToMove - The item to move
- * @param {*} targetItem - The target item to move relative to
- * @param {'before'|'after'} position - Where to place the moved item ('before' or 'after')
- * @returns {Array} - New array with the item moved
- */
-const moveArrayItem = (array, itemToMove, targetItem, position = 'before') => {
-	// Create a copy to avoid modifying the original array
-	const result = [...array];
-
-	// Find indexes
-	const sourceIndex = result.indexOf(itemToMove);
-	const targetIndex = result.indexOf(targetItem);
-
-	// Handle invalid cases
-	if (sourceIndex === -1 || targetIndex === -1) {
-		return result; // Item not found, return unchanged array
-	}
-
-	// Remove item from current position
-	result.splice(sourceIndex, 1);
-
-	// Calculate insertion position (targetIndex may have shifted if sourceIndex < targetIndex)
-	let adjustedTargetIndex;
-
-	if (position === 'after') {
-		adjustedTargetIndex = sourceIndex < targetIndex ? targetIndex : targetIndex + 1;
-	} else if (position === 'before') {
-		adjustedTargetIndex = sourceIndex < targetIndex ? targetIndex - 1 : targetIndex;
-	}
-
-	// Insert item at new position
-	result.splice(adjustedTargetIndex, 0, itemToMove);
-
-	return result;
-};
-
-/**
- * Select menu.
+ * Async multi-select menu.
  *
  * @component
  * @param {Object} props - Component props.
@@ -79,22 +40,19 @@ const moveArrayItem = (array, itemToMove, targetItem, position = 'before') => {
  * @param {boolean} [props.noMinWidth=false] - If `true`, the select menu will not have a minimum width.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
- * @returns {JSX.Element} The SelectNext component.
+ * @returns {JSX.Element} The __AsyncMultiSelectNext component.
  *
  * @example
  * const [value, setValue] = useState(null);
  *
- * const options = [
- * 	{ label: 'Option 1', value: 'option-1' },
- * 	{ label: 'Option 2', value: 'option-2' },
- * 	{ label: 'Option 3', value: 'option-3' },
- * ];
- *
- * <AsyncMultiSelectNext
+ * <__AsyncMultiSelectNext
  * 	label='Select items'
- * 	options={loadOptions}
  * 	value={value}
  * 	onChange={setValue}
+ * 	fetchUrl={(searchText) => `https://api.example.com/items?search=${searchText}`}
+ * 	getLabel={(item) => item?.label}
+ * 	getValue={(item) => item?.id}
+ * 	getIcon={() => icons.emptyCircle}
  * />
  *
  * @preserve

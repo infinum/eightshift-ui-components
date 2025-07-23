@@ -21,51 +21,11 @@ import { OptionItemBase } from './shared';
 import { useRef } from 'react';
 import { RichLabel } from '../../rich-label/rich-label';
 import clsx from 'clsx';
-import { getValue } from '../shared';
+import { getValue, moveArrayItem } from '../shared';
 import { truncateEnd } from '../../../utilities';
 
 /**
- * Moves an array item before or after another item in the array.
- *
- * @param {Array} array - The array to modify
- * @param {*} itemToMove - The item to move
- * @param {*} targetItem - The target item to move relative to
- * @param {'before'|'after'} position - Where to place the moved item ('before' or 'after')
- * @returns {Array} - New array with the item moved
- */
-const moveArrayItem = (array, itemToMove, targetItem, position = 'before') => {
-	// Create a copy to avoid modifying the original array
-	const result = [...array];
-
-	// Find indexes
-	const sourceIndex = result.indexOf(itemToMove);
-	const targetIndex = result.indexOf(targetItem);
-
-	// Handle invalid cases
-	if (sourceIndex === -1 || targetIndex === -1) {
-		return result; // Item not found, return unchanged array
-	}
-
-	// Remove item from current position
-	result.splice(sourceIndex, 1);
-
-	// Calculate insertion position (targetIndex may have shifted if sourceIndex < targetIndex)
-	let adjustedTargetIndex;
-
-	if (position === 'after') {
-		adjustedTargetIndex = sourceIndex < targetIndex ? targetIndex : targetIndex + 1;
-	} else if (position === 'before') {
-		adjustedTargetIndex = sourceIndex < targetIndex ? targetIndex - 1 : targetIndex;
-	}
-
-	// Insert item at new position
-	result.splice(adjustedTargetIndex, 0, itemToMove);
-
-	return result;
-};
-
-/**
- * Select menu.
+ * Multi-select menu.
  *
  * @component
  * @param {Object} props - Component props.
@@ -101,7 +61,7 @@ const moveArrayItem = (array, itemToMove, targetItem, position = 'before') => {
  * 	{ label: 'Option 3', value: 'option-3' },
  * ];
  *
- * <SelectNext
+ * <__MultiSelectNext
  * 	label='Select items'
  * 	options={loadOptions}
  * 	value={value}
