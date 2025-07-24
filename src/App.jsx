@@ -73,6 +73,8 @@ import {
 	AsyncSelectNext,
 	SelectNext,
 	OptionsPanelIntro,
+	__MultiSelectNext,
+	__AsyncMultiSelectNext,
 } from '../lib';
 import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
@@ -240,8 +242,17 @@ function App() {
 				}
 
 				resolve(data.filter(filterData));
-			}, 3000);
+			}, 30);
 		});
+	};
+
+	const getDataAlt = async (searchText) => {
+		const url = searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia';
+
+		const data = await fetch(url);
+		const json = await data.json();
+
+		return json.map((item) => ({ label: item?.name, value: slugify(item?.name) }));
 	};
 
 	const CustomMenuOption = (props) => (
@@ -646,7 +657,7 @@ function App() {
 					{ value: 'purple', label: 'Purple' },
 					{ value: 'mono', label: 'Monochrome' },
 				]}
-				className='es:my-10'
+				className='es:my-5'
 				inline
 			/>
 
@@ -1685,9 +1696,46 @@ function App() {
 						onChange={setMulSel}
 						options={data}
 					/>
-					<pre>{JSON.stringify(mulSel, null, 2)}</pre>
+
+					<__MultiSelectNext
+						label='Multi basic NEXT'
+						value={mulSel}
+						onChange={setMulSel}
+						options={data}
+					/>
+
+					<__MultiSelectNext
+						label='Multi basic NEXT'
+						value={mulSel}
+						onChange={setMulSel}
+						options={data}
+						customValueDisplay={(label, item) => (
+							<HStack
+								className='es:icon:size-[1em]'
+								slot='label'
+							>
+								{item.icon}
+								{label}
+							</HStack>
+						)}
+					/>
+
+					<pre>
+						{JSON.stringify(
+							mulSel.map((item) => ({ ...item, icon: null })),
+							null,
+							2,
+						)}
+					</pre>
 					<MultiSelect
 						label='Multi basic - simpleValue'
+						value={mulSelSimple}
+						onChange={setMulSelSimple}
+						options={data}
+						simpleValue
+					/>
+					<__MultiSelectNext
+						label='Multi basic - simpleValue NEXT'
 						value={mulSelSimple}
 						onChange={setMulSelSimple}
 						options={data}
@@ -2043,6 +2091,45 @@ function App() {
 					/>
 
 					{JSON.stringify(sinASel2)}
+
+					<hr />
+
+					<AsyncMultiSelect
+						label='Multi async'
+						value={mulASel}
+						onChange={setMulASel}
+						loadOptions={getDataAlt}
+					/>
+
+					<__AsyncMultiSelectNext
+						label='Multi async NEXT'
+						value={mulASel}
+						onChange={setMulASel}
+						// loadOptions={getData}
+						fetchUrl={(searchText) =>
+							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
+						}
+						getLabel={(item) => item?.name}
+						getValue={(item) => item?.value}
+						getSubtitle={(item) => item?.country}
+						getIcon={() => icons.emptyCircle}
+						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
+					/>
+
+					<__AsyncMultiSelectNext
+						label='Multi async NEXT'
+						value={mulASel}
+						onChange={setMulASel}
+						fetchUrl={(searchText) =>
+							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
+						}
+						getLabel={(item) => item?.name}
+						getValue={(item) => item?.value}
+						getSubtitle={(item) => item?.country}
+						getIcon={() => icons.emptyCircle}
+						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
+						clearable
+					/>
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Tabs>

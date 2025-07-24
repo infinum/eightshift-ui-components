@@ -3645,7 +3645,7 @@ export const icons = {
 			<path
 				d='M6.5 6.5L13.5 13.5M13.5 6.5L6.5 13.5'
 				stroke='currentColor'
-				stroke-linecap='round'
+				strokeLinecap='round'
 			/>
 		</svg>
 	),
