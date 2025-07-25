@@ -32,6 +32,10 @@ import clsx from 'clsx';
  * @param {Function} [props.getIcon] - Function to get the icon for the item from the fetched data. `(item: Object<string, any>) => JSX.Element | string`
  * @param {Function} [props.getSubtitle] - Function to get the subtitle for the item from the fetched data. `(item: Object<string, any>) => string`
  * @param {Function} [props.getData] - Function to pre-process the fetched data before it is used in the select. `(data: Object<string, any>[]) => Object<string, any>[]`
+ * @param {Function} [props.fetchUrl] - Function to get the URL for fetching data. Provides typed search text if entered. `(searchText: string) => string`
+ * @param {Object} [props.fetchConfig] - Configuration object for the fetch request, passed to the `fetch` function.
+ * @param {Function} [props.fetchFunction] - Allows overriding the default fetch function. `fetchFunction: (url: string, fetchOptions: Object<string, any>, searchText?: string) => Promise<Object<string, any>>`
+ * @param {Function} [props.processLoadedOptions] - Allows processing the options fetched from the source. `(options: Object<string, any>[]) => Object<string, any>[]`
  * @param {JSX.Element} [props.customMenuOption] - If provided, replaces the default item in the dropdown menu. `({ value: string, label: string, subtitle: string, metadata: any }) => JSX.Element`
  * @param {JSX.Element} [props.customValueDisplay] - If provided, replaces the default current value display of each selected item. `({ value: string, label: string, subtitle: string, metadata: any }) => JSX.Element`
  * @param {JSX.Element} [props.customDropdownArrow] - If provided, replaces the default dropdown arrow indicator.
@@ -81,9 +85,10 @@ export const AsyncSelectNext = (props) => {
 
 		fetchUrl,
 		fetchConfig = {},
+		fetchFunction,
 
-		getLabel,
-		getValue,
+		getLabel = (item) => item?.label,
+		getValue = (item) => item?.value,
 		getMeta,
 		getIcon,
 		getSubtitle,
@@ -99,8 +104,15 @@ export const AsyncSelectNext = (props) => {
 	const list = useAsyncList({
 		getKey: (item) => item.value,
 		async load({ signal, filterText }) {
-			const res = await fetch(fetchUrl(filterText), { ...fetchConfig, signal });
-			const json = processLoadedOptions(getData(await res.json()));
+			let json = [];
+
+			if (fetchFunction) {
+				const res = await fetchFunction(filterText, signal);
+				json = processLoadedOptions ? processLoadedOptions(getData(res)) : getData(res);
+			} else {
+				const res = await fetch(fetchUrl(filterText), { ...fetchConfig, signal });
+				json = processLoadedOptions ? processLoadedOptions(getData(await res.json())) : getData(res);
+			}
 
 			const output = json?.map((item, index) => {
 				const id = getValue?.(item) ?? index;
