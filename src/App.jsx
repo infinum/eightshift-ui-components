@@ -242,7 +242,21 @@ function App() {
 				}
 
 				resolve(data.filter(filterData));
-			}, 30);
+			}, 300);
+		});
+	};
+
+	const getDataNew = (searchText) => {
+		const filterData = ({ label }) => label.toLowerCase().includes(searchText?.toLowerCase());
+
+		return new Promise((resolve) => {
+			setTimeout(() => {
+				if ((searchText ?? '').length < 3) {
+					resolve(data);
+				}
+
+				resolve(data.filter(filterData));
+			}, 300);
 		});
 	};
 
@@ -1908,7 +1922,6 @@ function App() {
 						getData={(data) => data?.jokes}
 						customDropdownArrow={icons.experiment}
 					/>
-
 					<AsyncSelectNext
 						label='Async single select'
 						value={sinASel2}
@@ -1925,7 +1938,6 @@ function App() {
 						getData={(data) => data?.jokes}
 						disabled
 					/>
-
 					<AsyncSelectNext
 						label='Async single select - clearable'
 						value={sinASel3}
@@ -1950,18 +1962,14 @@ function App() {
 						)}
 						clearable
 					/>
-
 					<hr />
-
 					<SelectNext
 						label='Single basic'
 						value={sinSel}
 						onChange={setSinSel}
 						options={data}
 					/>
-
 					<hr />
-
 					<SelectNext
 						label='Single basic - simpleValue'
 						value={sinSelSimple}
@@ -1969,7 +1977,6 @@ function App() {
 						options={data}
 						simpleValue
 					/>
-
 					<SelectNext
 						label='Single basic - simpleValue SRCH'
 						value={sinSelSimple}
@@ -1978,9 +1985,7 @@ function App() {
 						simpleValue
 						searchable
 					/>
-
 					<pre>{JSON.stringify(sinSelSimple, null, 2)}</pre>
-
 					<SelectNext
 						label='Single basic - simpleValue with clear'
 						value={sinSelSimple}
@@ -1989,9 +1994,7 @@ function App() {
 						simpleValue
 						clearable
 					/>
-
 					<hr />
-
 					<SelectNext
 						label='Single basic - simpleValue with custom value display'
 						value={sinSelSimple}
@@ -2000,7 +2003,6 @@ function App() {
 						simpleValue
 						customValueDisplay={(item) => <span className='es:font-bold es:text-blue-400'>{item?.label}</span>}
 					/>
-
 					<SelectNext
 						label='Single basic - simpleValue with custom menu item'
 						value={sinSelSimple}
@@ -2009,14 +2011,12 @@ function App() {
 						simpleValue
 						customMenuOption={(item) => <span className='es:font-bold es:text-blue-400'>{item?.label}</span>}
 					/>
-
 					<SelectNext
 						label='Single basic'
 						value={sinSel}
 						onChange={setSinSel}
 						options={data}
 					/>
-
 					<AsyncSelectNext
 						label='Async single select PROD'
 						value={sinASel2}
@@ -2030,7 +2030,6 @@ function App() {
 						getIcon={() => icons.emptyCircle}
 						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
 					/>
-
 					<AsyncSelectNext
 						label='Async single select PROD'
 						value={sinASel2}
@@ -2057,7 +2056,6 @@ function App() {
 						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
 						clearable
 					/>
-
 					<AsyncSelectNext
 						label='Async single select PROD'
 						value={sinASel2}
@@ -2071,7 +2069,6 @@ function App() {
 						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
 						clearable
 					/>
-
 					<AsyncSelectNext
 						label='Async single select PROD LOGGEr2'
 						value={sinASel2}
@@ -2089,33 +2086,14 @@ function App() {
 						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
 						clearable
 					/>
-
 					{JSON.stringify(sinASel2)}
-
 					<hr />
-
 					<AsyncMultiSelect
 						label='Multi async'
 						value={mulASel}
 						onChange={setMulASel}
 						loadOptions={getDataAlt}
 					/>
-
-					<__AsyncMultiSelectNext
-						label='Multi async NEXT'
-						value={mulASel}
-						onChange={setMulASel}
-						// loadOptions={getData}
-						fetchUrl={(searchText) =>
-							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
-						}
-						getLabel={(item) => item?.name}
-						getValue={(item) => item?.value}
-						getSubtitle={(item) => item?.country}
-						getIcon={() => icons.emptyCircle}
-						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
-					/>
-
 					<__AsyncMultiSelectNext
 						label='Multi async NEXT'
 						value={mulASel}
@@ -2129,6 +2107,20 @@ function App() {
 						getIcon={() => icons.emptyCircle}
 						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
 						clearable
+					/>
+					<hr />
+					Custom
+					<__AsyncMultiSelectNext
+						label='Multi async NEXT CSTM'
+						value={mulASel}
+						onChange={setMulASel}
+						fetchFunction={getDataNew}
+					/>
+					<AsyncSelectNext
+						label='Async single select NEXT CSTM'
+						value={sinASel2}
+						onChange={setSinASel2}
+						fetchFunction={getDataNew}
 					/>
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>

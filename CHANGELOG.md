@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [5.2.1] - 2025-07-28
+- Added the option for custom fetch functions in `AsyncSelectNext` and `__AsyncMultiSelectNext`.
+
 ## [5.2.0] - 2025-07-23
 - Updated dependencies.
 - Added experimental MultiSelect and async MultiSelect components (`__MultiSelectNext` and `__AsyncMultiSelectNext`).
@@ -390,7 +393,8 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
-[5.1.4]: https://github.com/infinum/eightshift-ui-components/compare/5.1.4...5.2.0
+[5.2.1]: https://github.com/infinum/eightshift-ui-components/compare/5.2.0...5.2.1
+[5.2.0]: https://github.com/infinum/eightshift-ui-components/compare/5.1.4...5.2.0
 [5.1.4]: https://github.com/infinum/eightshift-ui-components/compare/5.1.3...5.1.4
 [5.1.3]: https://github.com/infinum/eightshift-ui-components/compare/5.1.2...5.1.3
 [5.1.2]: https://github.com/infinum/eightshift-ui-components/compare/5.1.1...5.1.2
