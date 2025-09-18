@@ -17,6 +17,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - `Checkbox` now support `icon` even without `alignEnd`.
 - Tweaked some animations in `AnimatedVisibility`.
 - Slightly adjusted `Notice` spacing.
+- Added ability to pass `labelClassName`, `subtitleClassName` and `labelSubtitleWrapClassName` to `RichLabel`.
 
 ## [5.2.1] - 2025-07-28
 - Added the option for custom fetch functions in `AsyncSelectNext` and `__AsyncMultiSelectNext`.
