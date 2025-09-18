@@ -50,45 +50,45 @@ export const AnimatedVisibility = (props) => {
 
 	const transitions = {
 		fade: {
-			inClassName: 'es:motion-opacity-in es:motion-duration-300',
-			outClassName: 'es:motion-opacity-out es:motion-duration-200',
+			inClassName: 'es:motion-opacity-in es:motion-duration-500',
+			outClassName: 'es:motion-opacity-out es:motion-duration-300',
 		},
 		slideFade: {
-			inClassName: 'es:motion-safe:motion-translate-y-in-[-5%] es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+			inClassName: 'es:motion-safe:motion-translate-y-in-[-5%] es:motion-opacity-in es:motion-duration-500 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 			outClassName:
-				'es:motion-safe:motion-translate-y-out-[-5%] es:motion-opacity-out es:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+				'es:motion-safe:motion-translate-y-out-[-5%] es:motion-opacity-out es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 		},
 		slideInFadeOut: {
-			inClassName: 'es:motion-safe:motion-translate-y-in-[-5%] es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
-			outClassName: 'es:motion-opacity-out es:motion-duration-200',
+			inClassName: 'es:motion-safe:motion-translate-y-in-[-5%] es:motion-opacity-in es:motion-duration-500 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+			outClassName: 'es:motion-opacity-out es:motion-duration-300',
 		},
 		slideFadeUpSlight: {
 			inClassName:
-				'es:motion-safe:motion-translate-y-in-[0.25rem] es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+				'es:motion-safe:motion-translate-y-in-[0.25rem] es:motion-opacity-in es:motion-duration-500 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 			outClassName:
-				'es:motion-safe:motion-translate-y-out-[0.25rem] es:motion-opacity-out es:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+				'es:motion-safe:motion-translate-y-out-[0.25rem] es:motion-opacity-out es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 		},
 		slideFadeDownSlight: {
 			inClassName:
-				'es:motion-safe:motion-translate-y-in-[-0.25rem] es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+				'es:motion-safe:motion-translate-y-in-[-0.25rem] es:motion-opacity-in es:motion-duration-500 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 			outClassName:
-				'es:motion-safe:motion-translate-y-out-[-0.25rem] es:motion-opacity-out es:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+				'es:motion-safe:motion-translate-y-out-[-0.25rem] es:motion-opacity-out es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 		},
 		scaleFade: {
-			inClassName: 'es:motion-safe:motion-scale-in-95 es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
-			outClassName: 'es:motion-safe:motion-scale-out-90 es:motion-opacity-out es:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+			inClassName: 'es:motion-safe:motion-scale-in-95 es:motion-opacity-in es:motion-duration-500 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+			outClassName: 'es:motion-safe:motion-scale-out-90 es:motion-opacity-out es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 		},
 		scaleSlideFade: {
 			inClassName:
-				'es:motion-safe:motion-translate-y-in-[-5%] es:motion-safe:motion-scale-in-95 es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+				'es:motion-safe:motion-translate-y-in-[-5%] es:motion-safe:motion-scale-in-95 es:motion-opacity-in es:motion-duration-500 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 			outClassName:
-				'es:motion-safe:motion-translate-y-out-[-5%] es:motion-safe:motion-scale-out-90 es:motion-opacity-out es:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+				'es:motion-safe:motion-translate-y-out-[-5%] es:motion-safe:motion-scale-out-90 es:motion-opacity-out es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 		},
 		scaleRotateFade: {
 			inClassName:
-				'es:motion-rotate-in es:motion-safe:motion-scale-in-95 es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+				'es:motion-rotate-in es:motion-safe:motion-scale-in-95 es:motion-opacity-in es:motion-duration-500 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 			outClassName:
-				'es:motion-rotate-out es:motion-safe:motion-scale-out-90 es:motion-opacity-out es:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+				'es:motion-rotate-out es:motion-safe:motion-scale-out-90 es:motion-opacity-out es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 		},
 	};
 
