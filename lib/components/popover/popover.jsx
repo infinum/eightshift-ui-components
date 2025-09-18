@@ -121,7 +121,8 @@ export const Popover = (props) => {
 			containerPadding={containerPadding}
 			className={({ isEntering, isExiting }) =>
 				clsx(
-					'es:rounded-2xl es:border es:border-secondary-300 es:bg-white es:inset-ring es:inset-ring-secondary-100 es:shadow-xl es:outline-hidden',
+					'es:rounded-2xl es:border es:border-secondary-300 es:bg-white/85 es:inset-ring es:inset-ring-secondary-100 es:shadow-xl es:outline-hidden',
+					'es:backdrop-blur-2xl es:backdrop-brightness-125 es:backdrop-saturate-150',
 					'es:inset-shadow-xs es:inset-shadow-secondary-100',
 					'es:motion-safe:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy',
 					'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',

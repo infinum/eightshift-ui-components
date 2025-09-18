@@ -192,7 +192,7 @@ export const MenuSection = (props) => {
  * @preserve
  */
 export const MenuSeparator = () => {
-	return <ReactAriaSeparator className='es:my-1 es:border-b es:border-secondary-200' />;
+	return <ReactAriaSeparator className='es:my-1 es:border-b es:border-secondary-300' />;
 };
 
 /**
@@ -260,13 +260,14 @@ export const MenuItem = (props) => {
 				!disabled && 'es:focus-visible:inset-ring',
 				!disabled &&
 					!(danger || primary) &&
-					'es:hover:bg-secondary-100 es:focus-visible:inset-ring-secondary-100/30 es:focus-visible:bg-secondary-100 es:contrast-more:focus-visible:bg-accent-500/15',
+					'es:hover:bg-secondary-950/5 es:focus-visible:inset-ring-secondary-950/10 es:focus-visible:bg-secondary-950/5 es:contrast-more:focus-visible:bg-accent-800',
 				!disabled &&
 					danger &&
-					'es:hover:bg-red-50 es:focus-visible:inset-ring-red-100/30 es:focus-visible:bg-red-100 es:contrast-more:focus-visible:bg-red-500/15 es:hover:text-red-900 es:focus-visible:text-red-950',
+					'es:hover:bg-red-500/5 es:focus-visible:inset-ring-red-600/30 es:focus-visible:bg-red-600/5 es:hover:text-red-900 es:focus-visible:text-red-950 es:contrast-more:focus-visible:bg-red-800',
 				!disabled &&
 					primary &&
-					'es:hover:bg-accent-50 es:focus-visible:inset-ring-accent-100/30 es:focus-visible:bg-accent-100 es:contrast-more:focus-visible:bg-accent-500/15 es:hover:text-accent-900 es:focus-visible:text-accent-950',
+					'es:hover:bg-accent-500/5 es:focus-visible:inset-ring-accent-600/30 es:focus-visible:bg-accent-600/5 es:hover:text-accent-900 es:focus-visible:text-accent-950 es:contrast-more:focus-visible:bg-accent-700',
+				!disabled && 'es:contrast-more:focus-visible:text-white! es:contrast-more:focus-visible:icon:text-white!',
 				disabled ? 'es:text-secondary-400' : 'es:text-secondary-800',
 				className,
 			)}
@@ -276,11 +277,11 @@ export const MenuItem = (props) => {
 				icon={itemIcon}
 				label={children}
 				subtitle={subtitle}
-				iconClassName={clsx(danger && 'es:icon:text-red-700!', primary && 'es:icon:text-accent-600!')}
+				iconClassName={clsx(danger && 'es:not-contrast-more:icon:text-red-700!', primary && 'es:not-contrast-more:icon:text-accent-600!')}
 				noColor
 			/>
 
-			{shortcut && <div className='es:ml-auto es:pl-2 es:text-[0.6875rem] es:tracking-tight es:text-secondary-400 es:shrink-0'>{shortcut}</div>}
+			{shortcut && <div className='es:ml-auto es:pl-2 es:text-[0.6875rem] es:tracking-tight es:text-secondary-400 es:contrast-more:text-current es:shrink-0'>{shortcut}</div>}
 			{endIcon && <div className={clsx('es:shrink-0 es:icon:shrink-0', !shortcut && 'es:ml-auto es:pl-2')}>{endIcon}</div>}
 		</ReactAriaMenuItem>
 	);
@@ -320,7 +321,7 @@ export const SubMenuItem = (props) => {
 	return (
 		<SubmenuTrigger>
 			{cloneElement(trigger, {
-				endIcon: <span className='es:text-secondary-400'>{icons.caretRightFill}</span>,
+				endIcon: <span className='es:text-secondary-400 es:contrast-more:text-current'>{icons.caretRightFill}</span>,
 			})}
 			<Popover
 				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}

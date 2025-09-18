@@ -291,7 +291,11 @@ export const Responsive = (props) => {
 							)}
 
 							{Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined') && (
-								<SubMenuItem trigger={<MenuItem icon={icons.previewResponsive}>{__('Responsive preview', 'eightshift-ui-components')}</MenuItem>}>
+								<SubMenuItem
+									manualWidth
+									popoverProps={{ className: 'es:max-w-full!' }}
+									trigger={<MenuItem icon={icons.previewResponsive}>{__('Responsive preview', 'eightshift-ui-components')}</MenuItem>}
+								>
 									<MenuItem disabled>
 										<ResponsivePreview
 											value={value}

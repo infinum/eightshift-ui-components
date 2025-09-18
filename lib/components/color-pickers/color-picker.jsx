@@ -148,6 +148,7 @@ export const ColorPicker = (props) => {
 				<RichLabel
 					label={name.replaceAll('-', ' ')}
 					subtitle={color.toUpperCase()}
+					subtitleClassName='es:font-mono'
 				/>
 			)}
 		</MenuItem>
