@@ -7,11 +7,11 @@ import {
 	Header,
 	SubmenuTrigger,
 } from 'react-aria-components';
+import { RichLabel } from '../rich-label/rich-label';
 import { icons } from '../../icons/icons';
 import { Button } from '../button/button';
 import { Popover } from '../popover/popover';
 import { clsx } from 'clsx/lite';
-
 import { cloneElement } from 'react';
 import { __ } from '@wordpress/i18n';
 
@@ -28,6 +28,7 @@ import { __ } from '@wordpress/i18n';
  * @param {boolean} [props.openOnLongPress=false] - If `true`, the menu will open on long press instead of click. If enabled, a regular `onPress` event can also be passed to the trigger button to enable dual behavior.
  * @param {Object} [props.popoverProps] - Props to pass to the popover.
  * @param {boolean} [props.disabled] - If `true`, the trigger button is disabled.
+ * @param {boolean} [props.manualWidth=false] - If `true`, the popover will not have a fixed width.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Menu component.
@@ -88,6 +89,8 @@ export const Menu = (props) => {
 
 		disabled,
 
+		manualWidth,
+
 		hidden,
 	} = props;
 
@@ -127,10 +130,10 @@ export const Menu = (props) => {
 				{triggerLabel}
 			</Button>
 			<Popover
-				className='es:p-0! es:any-focus:outline-hidden'
 				aria-label={ariaLabel}
-				wrapperClassName={clsx(!hasSubmenuItems && 'es:overflow-y-auto')}
 				{...popoverProps}
+				className={clsx('es:p-0! es:any-focus:outline-hidden', !manualWidth && 'es:w-56', manualWidth && 'es:max-w-80', popoverProps?.className)}
+				wrapperClassName={clsx(!hasSubmenuItems && 'es:overflow-y-auto', popoverProps?.wrapperClassName)}
 			>
 				<ReactAriaMenu
 					className='es:outline-hidden'
@@ -166,11 +169,11 @@ export const MenuSection = (props) => {
 		<ReactAriaMenuSection
 			className={clsx(
 				'es:space-y-1 es:border-b es:border-b-secondary-200 es:last:border-b-0',
-				label && 'es:pt-2 es:first:pt-1.5 es:last:pb-0',
+				label && 'es:pt-2 es:first:pt-2.5 es:last:pb-0',
 				!label && 'es:has-[>_:only-child]:pb-0',
 			)}
 		>
-			{label && <Header className='es:ml-1.5 es:text-xs es:font-medium es:text-secondary-400'>{label}</Header>}
+			{label && <Header className='es:ml-2.5 es:text-sm es:text-secondary-500'>{label}</Header>}
 			{children}
 		</ReactAriaMenuSection>
 	);
@@ -186,7 +189,7 @@ export const MenuSection = (props) => {
  * @preserve
  */
 export const MenuSeparator = () => {
-	return <ReactAriaSeparator className='es:mb-1 es:border-b es:border-secondary-200' />;
+	return <ReactAriaSeparator className='es:my-1 es:border-b es:border-secondary-200' />;
 };
 
 /**
@@ -200,7 +203,10 @@ export const MenuSeparator = () => {
  * @param {boolean} [props.selected] - If `true`, the item is marked as selected. This is visually represented by a circle.
  * @param {boolean} [props.disabled] - If `true`, the item will be disabled.
  * @param {JSX.Element} [props.endIcon] - The icon at the right side of the item.
+ * @param {string|JSX.Element} [props.subtitle] - The subtitle below the main label.
  * @param {Function} [props.onClick] - Function to run when the item is clicked.
+ * @param {boolean} [props.danger] - If `true`, the item appearance is tweaked to indicate a dangerous action.
+ * @param {boolean} [props.primary] - If `true`, the item appearance is tweaked to indicate a primary action.
  * @param {string} [props.className] - Classes to pass to the menu item.
  *
  * @returns {JSX.Element} The MenuItem component.
@@ -213,15 +219,28 @@ export const MenuItem = (props) => {
 	const {
 		icon,
 		children,
+		subtitle,
 		checked,
 		selected,
 		disabled,
 		endIcon,
 		onClick,
 		shortcut,
+		danger,
+		primary,
 		className,
 		'aria-label': ariaLabel = typeof children === 'string' ? children : __('Menu item', 'eightshift-ui-components'),
 	} = props;
+
+	let itemIcon = icon;
+
+	if (checked === true) {
+		itemIcon = icons.menuItemCheck;
+	} else if (selected === true) {
+		itemIcon = icons.menuItemCircle;
+	} else if (selected === false || checked === false) {
+		itemIcon = icons.dummySpacer;
+	}
 
 	return (
 		<ReactAriaMenuItem
@@ -229,24 +248,37 @@ export const MenuItem = (props) => {
 			aria-label={ariaLabel}
 			isDisabled={disabled}
 			className={clsx(
-				'es:mx-1 es:mb-1 es:flex es:min-w-44 es:min-h-9 es:items-center es:gap-1.5',
-				'es:first:mt-1 es:icon:size-5 es:icon:text-secondary-500',
+				'es:mx-1 es:mb-0.5 es:flex es:min-w-44 es:min-h-9.5 es:items-center es:gap-1.5',
+				'es:first:mt-1',
+				'es:last:mb-1',
 				'es:select-none es:rounded-xl es:py-1.5 es:px-2.5 es:text-sm es:transition',
 				'es:any-focus:outline-hidden',
+				'es:icon:shrink-0',
+				!disabled && 'es:focus-visible:inset-ring',
 				!disabled &&
-					'es:hover:bg-secondary-100 es:focus-visible:inset-ring es:focus-visible:inset-ring-secondary-100/30 es:focus-visible:bg-secondary-100 es:contrast-more:focus-visible:bg-accent-500/15',
+					!(danger || primary) &&
+					'es:hover:bg-secondary-100 es:focus-visible:inset-ring-secondary-100/30 es:focus-visible:bg-secondary-100 es:contrast-more:focus-visible:bg-accent-500/15',
+				!disabled &&
+					danger &&
+					'es:hover:bg-red-50 es:focus-visible:inset-ring-red-100/30 es:focus-visible:bg-red-100 es:contrast-more:focus-visible:bg-red-500/15 es:hover:text-red-900 es:focus-visible:text-red-950',
+				!disabled &&
+					primary &&
+					'es:hover:bg-accent-50 es:focus-visible:inset-ring-accent-100/30 es:focus-visible:bg-accent-100 es:contrast-more:focus-visible:bg-accent-500/15 es:hover:text-accent-900 es:focus-visible:text-accent-950',
 				disabled ? 'es:text-secondary-400' : 'es:text-secondary-800',
 				className,
 			)}
 			onAction={onClick}
 		>
-			{checked === true && icons.menuItemCheck}
-			{selected === true && icons.menuItemCircle}
-			{(selected === false || checked === false) && icons.dummySpacer}
-			{icon}
-			{children}
-			{shortcut && <div className='es:ml-auto es:pl-2 es:text-[0.6875rem] es:tracking-tight es:text-secondary-400'>{shortcut}</div>}
-			{endIcon && <div className={clsx(!shortcut && 'es:ml-auto es:pl-2')}>{endIcon}</div>}
+			<RichLabel
+				icon={itemIcon}
+				label={children}
+				subtitle={subtitle}
+				iconClassName={clsx(danger && 'es:icon:text-red-700!', primary && 'es:icon:text-accent-600!')}
+				noColor
+			/>
+
+			{shortcut && <div className='es:ml-auto es:pl-2 es:text-[0.6875rem] es:tracking-tight es:text-secondary-400 es:shrink-0'>{shortcut}</div>}
+			{endIcon && <div className={clsx('es:shrink-0 es:icon:shrink-0', !shortcut && 'es:ml-auto es:pl-2')}>{endIcon}</div>}
 		</ReactAriaMenuItem>
 	);
 };
@@ -258,6 +290,7 @@ export const MenuItem = (props) => {
  * @param {Object} props - Component props.
  * @param {JSX.Element} props.trigger - The trigger button for the submenu. **This should be a `MenuItem`.**
  * @param {boolean} [props.keepOpen=false] - If `true`, the submenu will not close when an item is selected.
+ * @param {boolean} [props.manualWidth=false] - If `true`, the popover will not have a fixed width.
  * @param {Object} [props.popoverProps] - Props to pass to the popover.
  *
  * @returns {JSX.Element} The SubMenuItem component.
@@ -267,7 +300,7 @@ export const MenuItem = (props) => {
  * @preserve
  */
 export const SubMenuItem = (props) => {
-	const { children, trigger, popoverProps, keepOpen } = props;
+	const { children, trigger, popoverProps, keepOpen, manualWidth } = props;
 
 	let additionalProps = {};
 
@@ -288,9 +321,9 @@ export const SubMenuItem = (props) => {
 			})}
 			<Popover
 				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
-				className='es:p-0! es:any-focus:outline-hidden'
 				offset={-1}
 				{...popoverProps}
+				className={clsx('es:p-0! es:any-focus:outline-hidden', !manualWidth && 'es:w-56', manualWidth && 'es:max-w-80', popoverProps?.className)}
 			>
 				<ReactAriaMenu
 					aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
@@ -305,3 +338,48 @@ export const SubMenuItem = (props) => {
 };
 
 SubMenuItem.displayName = 'SubMenuItem';
+
+/**
+ * A decorative menu section header, used to label groups of menu items.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
+ *
+ * @returns {JSX.Element} The MenuSectionHeader component.
+ *
+ * @example
+ * <MenuSectionHeader>Section</MenuSectionHeader>
+ *
+ * @preserve
+ */
+export const MenuSectionHeader = (props) => {
+	const {
+		children,
+		className,
+
+		hidden,
+	} = props;
+
+	if (hidden) {
+		return null;
+	}
+
+	return (
+		<ReactAriaMenuItem
+			{...props}
+			className={clsx(
+				'es:mx-1 es:p-2.5 es:pb-1 es:flex es:min-w-44 es:items-center es:gap-1.5',
+				'es:select-none es:text-sm',
+				'es:icon:shrink-0',
+				'es:text-secondary-500',
+				className,
+			)}
+			isDisabled
+		>
+			{children}
+		</ReactAriaMenuItem>
+	);
+};
+
+MenuSectionHeader.displayName = 'MenuSectionHeader';
