@@ -25,6 +25,7 @@ const fixIds = (items, itemIdBase) => {
  * @param {Function} props.onChange - Function to run when the items change.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {boolean} [props.disabled] - If `true`, item reordering is disabled.
+ * @param {Function} [props.onAfterItemRemove] - Function to run after an item is removed.
  * @param {string} [props.className] - Classes to pass to the item wrapper.
  *
  * @returns {JSX.Element} The DraggableList component.
@@ -76,6 +77,8 @@ export const DraggableList = (props) => {
 
 		labelAsHandle,
 
+		onAfterItemRemove,
+
 		hidden,
 
 		...rest
@@ -117,7 +120,7 @@ export const DraggableList = (props) => {
 						</ul>
 					);
 				}}
-				renderItem={({ value, index, isDisabled, isDragged, isSelected, isOutOfBounds, props }) => {
+				renderItem={({ value, index, isDisabled, isDragged, isSelected, props }) => {
 					const { key, ...rest } = props;
 
 					return (
@@ -146,7 +149,7 @@ export const DraggableList = (props) => {
 								deleteItem: () => {
 									onChange(items.filter((i) => i.id !== value.id));
 
-									if (value.onAfterItemRemove) {
+									if (onAfterItemRemove) {
 										onAfterItemRemove(value);
 									}
 								},

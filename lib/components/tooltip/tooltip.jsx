@@ -5,6 +5,28 @@ import { useTooltipTriggerState } from 'react-stately';
 import { useTooltipTrigger } from 'react-aria';
 
 /**
+ * @typedef {Object} TooltipProps
+ * @property {string|JSX.Element} props.text - The text to display in the tooltip.
+ * @property {TooltipTheme} [props.theme='dark'] - The theme of the tooltip.
+ * @property {number} [props.offset=0] - Additional offset between the tooltip and the element on the main axis (same axis as element).
+ * @property {number} [props.crossOffset=0] - Additional offset between the tooltip and the element on the cross axis (opposite axis as element).
+ * @property {number} [props.containerPadding=12] - Space that should be left between the tooltip and the main containing element (usually browser window).
+ * @property {number} [props.openDelay=1500] - Duration before the tooltip is shown, in milliseconds.
+ * @property {number} [props.closeDelay=500] - Duration before the tooltip is hidden, in milliseconds.
+ * @property {boolean} [props.shouldFlip=true] - If `false`, the tooltip will not flip to the opposite side if there is not enough space.
+ * @property {boolean} [props.defaultOpen] - (**Uncontrolled mode**) Whether the tooltip is initially open.
+ * @property {boolean} [props.open] - (**Controlled mode**) Whether the tooltip is open.
+ * @property {Function} [props.onOpenChange] - (**Controlled mode**) Function to run when the tooltip is opened or closed.
+ * @property {TooltipPlacement} [props.placement] - The side of the trigger element where the tooltip will be displayed.
+ * @property {string} [props.className] - Classes to pass to the tooltip.
+ * @property {RefObject<Element>} [props.triggerRef] - Ref to anchor the tooltip to. If not provided, the tooltip will be anchored to the trigger element.
+ * @property {boolean} [props.arrow] - If `true`, an arrow is shown on the tooltip.
+ *
+ * @typedef {'light' | 'dark'} TooltipTheme
+ * @typedef {'bottom' | 'bottom left' | 'bottom right' | 'bottom start' | 'bottom end' | 'top' | 'top left' | 'top right' | 'top start' | 'top end' | 'left' | 'left top' | 'left bottom' | 'start' | 'start top' | 'start bottom' | 'right' | 'right top' | 'right bottom' | 'end' | 'end top' | 'end bottom'} TooltipPlacement
+ */
+
+/**
  * A simple tooltip component.
  *
  * It can be used in two modes:
@@ -12,27 +34,9 @@ import { useTooltipTrigger } from 'react-aria';
  * - **Uncontrolled mode**: The tooltip will be open by default with the `defaultOpen` prop.
  *
  * @component
- * @param {Object} props - Component props.
- * @param {string|JSX.Element} props.text - The text to display in the tooltip.
- * @param {TooltipTheme} [props.theme='dark'] - The theme of the tooltip.
- * @param {number} [props.offset=0] - Additional offset between the tooltip and the element on the main axis (same axis as element).
- * @param {number} [props.crossOffset=0] - Additional offset between the tooltip and the element on the cross axis (opposite axis as element).
- * @param {number} [props.containerPadding=12] - Space that should be left between the tooltip and the main containing element (usually browser window).
- * @param {number} [props.openDelay=1500] - Duration before the tooltip is shown, in milliseconds.
- * @param {number} [props.closeDelay=500] - Duration before the tooltip is hidden, in milliseconds.
- * @param {boolean} [props.shouldFlip=true] - If `false`, the tooltip will not flip to the opposite side if there is not enough space.
- * @param {boolean} [props.defaultOpen] - (**Uncontrolled mode**) Whether the tooltip is initially open.
- * @param {boolean} [props.open] - (**Controlled mode**) Whether the tooltip is open.
- * @param {Function} [props.onOpenChange] - (**Controlled mode**) Function to run when the tooltip is opened or closed.
- * @param {TooltipPlacement} [props.placement] - The side of the trigger element where the tooltip will be displayed.
- * @param {string} [props.className] - Classes to pass to the tooltip.
- * @param {RefObject<Element>} [props.triggerRef] - Ref to anchor the tooltip to. If not provided, the tooltip will be anchored to the trigger element.
- * @param {boolean} [props.arrow] - If `true`, an arrow is shown on the tooltip.
+ * @param {TooltipProps} props - Component props.
  *
  * @returns {JSX.Element} The Tooltip component.
- *
- * @typedef {'light' | 'dark'} TooltipTheme
- * @typedef {'bottom' | 'bottom left' | 'bottom right' | 'bottom start' | 'bottom end' | 'top' | 'top left' | 'top right' | 'top start' | 'top end' | 'left' | 'left top' | 'left bottom' | 'start' | 'start top' | 'start bottom' | 'right' | 'right top' | 'right bottom' | 'end' | 'end top' | 'end bottom'} TooltipPlacement
  *
  * @example
  * <Tooltip text='My tooltip'>

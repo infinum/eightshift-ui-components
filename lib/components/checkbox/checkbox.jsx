@@ -83,7 +83,7 @@ export const Checkbox = (props) => {
 					icon={icon}
 					label={label}
 					subtitle={subtitle}
-					className={clsx('es:ml-1', labelClassName)}
+					className={labelClassName}
 					inlineSubtitle={inlineSubtitle}
 					fullSizeSubtitle
 					fullWidth
@@ -118,13 +118,14 @@ export const Checkbox = (props) => {
 				<AnimatedVisibility
 					transition='scaleRotateFade'
 					visible={!indeterminate && checked}
-					className='es:transition-none es:icon:size-3 es:icon:stroke-3'
+					className='es:transition-none es:icon:size-4 es:icon:stroke-2'
 					noInitial
 				>
 					{icons.check}
 				</AnimatedVisibility>
 			</div>
-			{!icon && !alignEnd && (label || subtitle) && (
+
+			{!icon && (label || subtitle) && (
 				<RichLabel
 					label={label}
 					subtitle={subtitle}
@@ -134,6 +135,7 @@ export const Checkbox = (props) => {
 					as={Label}
 				/>
 			)}
+
 			{!(icon || label || subtitle) && children}
 		</ReactAriaCheckbox>
 	);

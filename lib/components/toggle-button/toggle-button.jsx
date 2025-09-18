@@ -2,6 +2,8 @@ import { ToggleButton as ReactAriaToggleButton } from 'react-aria-components';
 import { cva } from 'class-variance-authority';
 import { Tooltip } from '../tooltip/tooltip';
 
+/** @typedef {import('../tooltip/tooltip').TooltipProps} TooltipProps */
+
 /**
  * A simple toggle button component.
  *
@@ -16,7 +18,7 @@ import { Tooltip } from '../tooltip/tooltip';
  * @param {boolean} props.selected - Whether the button is selected.
  * @param {Function} [props.onChange] - Function to run when the toggle state changes.
  * @param {string} [props.wrapperClassName] - Classes to pass to the tooltip wrapper.
- * @param {Object} [props.tooltipProps] - Props to pass to the tooltip.
+ * @param {TooltipProps} [props.tooltipProps] - Props to pass to the tooltip.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The ToggleButton component.
@@ -83,8 +85,8 @@ export const ToggleButton = (props) => {
 		{
 			variants: {
 				size: {
-					small: 'es:icon:size-4.5 es:rounded-7',
-					default: 'es:icon:size-5.5 es:rounded-10',
+					small: 'es:icon:size-5 es:rounded-7',
+					default: 'es:icon:size-5 es:rounded-10',
 					large: 'es:icon:size-6 es:rounded-xl',
 				},
 				type: {

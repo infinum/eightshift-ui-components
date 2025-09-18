@@ -48,6 +48,15 @@
 	--color-accent-800: var(--es-color-teal-800);
 	--color-accent-900: var(--es-color-teal-900);
 	--color-accent-950: var(--es-color-teal-950);
+
+	/* Easings */
+
+	--ease-spring-smooth: var(--motion-spring-smooth);
+	--ease-spring-snappy: var(--motion-spring-snappy);
+	--ease-spring-bouncy: var(--motion-spring-bouncy);
+	--ease-spring-bouncier: var(--motion-spring-bouncier);
+	--ease-spring-bounciest: var(--motion-spring-bounciest);
+	--ease-bounce: var(--motion-bounce);
 }
 
 @custom-variant focus-visible {

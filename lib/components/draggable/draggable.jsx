@@ -51,6 +51,7 @@ const SortableItem = ({ id, index, disabled, children, axis }) => {
  * @param {Function} props.onChange - Function to run when the items change.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {boolean} [props.noReorder] - If `true`, item reordering is disabled.
+ * @param {Function} [props.onAfterItemRemove] - Function to run after an item is removed.
  * @param {'both' | 'horizontal' | 'vertical'} [props.axis='both'] - Which axis to allow dragging on.
  * @param {string} [props.className] - Classes to pass to the component.
  *
@@ -90,6 +91,8 @@ export const Draggable = (props) => {
 		axis = 'both',
 
 		className,
+
+		onAfterItemRemove,
 
 		hidden,
 		...rest
