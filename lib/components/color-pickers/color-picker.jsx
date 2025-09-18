@@ -136,7 +136,7 @@ export const ColorPicker = (props) => {
 			{...rest}
 			endIcon={
 				<ColorSwatch
-					className='es:size-5.5!'
+					className='es:size-5!'
 					color={color}
 				/>
 			}
@@ -235,7 +235,7 @@ export const ColorPicker = (props) => {
 						<MenuItem
 							onClick={() => onChange(undefined)}
 							selected={typeof value === 'undefined'}
-							endIcon={<ColorSwatch className='es:size-5.5!' />}
+							endIcon={<ColorSwatch className='es:size-5!' />}
 						>
 							{clearItemLabel}
 						</MenuItem>

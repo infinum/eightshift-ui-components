@@ -89,8 +89,8 @@ export const Button = (props) => {
 		{
 			variants: {
 				size: {
-					small: 'es:icon:size-4.5 es:rounded-7',
-					default: 'es:icon:size-5.5 es:rounded-10',
+					small: 'es:icon:size-5 es:rounded-7',
+					default: 'es:icon:size-5 es:rounded-10',
 					large: 'es:icon:size-6 es:rounded-xl',
 				},
 				type: {
@@ -122,7 +122,7 @@ export const Button = (props) => {
 					disabled: false,
 					class: [
 						'es:text-black',
-						'es:from-secondary-50 es:to-white',
+						'es:from-white es:to-secondary-50',
 						'es:border-secondary-300',
 						'es:inset-ring-secondary-100',
 						'es:inset-shadow-secondary-100/50',

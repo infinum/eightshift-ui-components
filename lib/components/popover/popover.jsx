@@ -118,6 +118,7 @@ export const Popover = (props) => {
 			className={({ isEntering, isExiting }) =>
 				clsx(
 					'es:rounded-2xl es:border es:border-secondary-300 es:bg-white es:inset-ring es:inset-ring-secondary-100 es:shadow-xl es:outline-hidden',
+					'es:inset-shadow-xs es:inset-shadow-secondary-100',
 					'es:motion-safe:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy',
 					'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
 					'es:placement-left:origin-right es:placement-right:origin-left',

@@ -311,7 +311,7 @@ export const AsyncSelectNext = (props) => {
 
 						{list.isLoading && (
 							<div className='es:p-3 es:min-h-16 es:flex es:items-center es:justify-center'>
-								{cloneElement(icons.loader, { className: 'es:text-accent-600! es:size-5.5 es:motion-preset-spin es:motion-duration-1500' })}
+								{cloneElement(icons.loader, { className: 'es:text-accent-600! es:size-5 es:motion-preset-spin es:motion-duration-1500' })}
 							</div>
 						)}
 

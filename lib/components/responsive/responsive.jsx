@@ -5,7 +5,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { upperFirst } from '../../utilities';
 import { icons } from '../../icons/icons';
-import { Menu, MenuItem, MenuSeparator, SubMenuItem } from '../menu/menu';
+import { Menu, MenuItem, MenuSectionHeader, MenuSeparator, SubMenuItem } from '../menu/menu';
 import { ResponsivePreview } from '../responsive-preview/responsive-preview';
 import { Button, ButtonGroup } from '../button/button';
 import { RichLabel } from '../rich-label/rich-label';
@@ -259,12 +259,7 @@ export const Responsive = (props) => {
 						>
 							{!noModeSelect && (
 								<>
-									<MenuItem
-										className='es:pb-0! es:pt-1!'
-										disabled
-									>
-										{__('Breakpoint mode', 'eightshift-ui-components')}
-									</MenuItem>
+									<MenuSectionHeader>{__('Breakpoint mode', 'eightshift-ui-components')}</MenuSectionHeader>
 									<MenuItem
 										selected={!isDesktopFirst}
 										onClick={() => {

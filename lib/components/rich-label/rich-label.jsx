@@ -40,7 +40,7 @@ export const RichLabel = (props) => {
 	if (contentsOnly) {
 		return (
 			<>
-				{icon && <span className={clsx('es:icon:size-5.5', !noColor && 'es:text-slate-500')}>{icon}</span>}
+				{icon && <span className={clsx('es:icon:size-5', !noColor && 'es:text-slate-500')}>{icon}</span>}
 				{label && <span className={clsx('es:text-balance', !noColor && 'es:text-secondary-800')}>{label}</span>}
 				{subtitle && <span className={clsx('es:text-balance es:text-xs es:opacity-65', !noColor && 'es:text-secondary-800')}>{subtitle}</span>}
 			</>
@@ -50,14 +50,14 @@ export const RichLabel = (props) => {
 	return (
 		<ComponentToRender
 			className={clsx(
-				'es:flex es:items-center es:gap-1.5 es:text-sm',
+				'es:flex es:items-center es:gap-2 es:text-sm',
 				!noColor && 'es:text-secondary-800 es:[&>span>svg]:text-slate-500',
 				noColor && 'es:[&>span>svg]:opacity-80',
 				fullWidth && 'es:grow',
 				className,
 			)}
 		>
-			{icon && <span className={clsx('es:icon:size-5.5', iconClassName)}>{icon}</span>}
+			{icon && <span className={clsx('es:icon:size-5 es:shrink-0', iconClassName)}>{icon}</span>}
 			{(label || subtitle) && (
 				<div className={clsx('es:flex es:items-start es:text-balance es:text-start', inlineSubtitle ? 'es:gap-1.5' : 'es:flex-col')}>
 					{label && <span>{label}</span>}

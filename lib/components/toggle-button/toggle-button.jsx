@@ -83,8 +83,8 @@ export const ToggleButton = (props) => {
 		{
 			variants: {
 				size: {
-					small: 'es:icon:size-4.5 es:rounded-7',
-					default: 'es:icon:size-5.5 es:rounded-10',
+					small: 'es:icon:size-5 es:rounded-7',
+					default: 'es:icon:size-5 es:rounded-10',
 					large: 'es:icon:size-6 es:rounded-xl',
 				},
 				type: {
