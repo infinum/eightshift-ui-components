@@ -1151,6 +1151,14 @@ function App() {
 					>
 						<MenuSection label='Demo'>
 							<MenuItem
+								danger
+								icon={icons.trash}
+								id='del'
+							>
+								Delete
+							</MenuItem>
+							<MenuItem
+								primary
 								icon={icons.save}
 								id='save'
 							>
@@ -1160,6 +1168,7 @@ function App() {
 								checked={menuThingy2}
 								onClick={() => setMenuThingy2(!menuThingy2)}
 								id='save-as'
+								subtitle='Very unlike "Save"'
 							>
 								Save as…
 							</MenuItem>
@@ -3397,9 +3406,10 @@ function App() {
 						items={draggableItems}
 						onChange={setDraggableItems}
 						className='es:grid es:auto-rows-auto es:grid-cols-3 es:gap-1'
+						onAfterItemRemove={(item) => console.log('Removed item:', item)}
 					>
 						{(item) => {
-							const { toggle, title, updateData } = item;
+							const { toggle, title, updateData, deleteItem } = item;
 
 							return (
 								<div className='es:relative es:size-full es:rounded es:border es:bg-white es:p-2'>
@@ -3410,6 +3420,7 @@ function App() {
 										checked={toggle}
 										onChange={(value) => updateData({ toggle: value })}
 									/>
+									<Button onPress={deleteItem}>Del</Button>
 								</div>
 							);
 						}}
@@ -3420,9 +3431,10 @@ function App() {
 						label='My draggable list'
 						items={draggableListItems}
 						onChange={setDraggableListItems}
+						onAfterItemRemove={(item) => console.log('Removed item:', item)}
 					>
 						{(item) => {
-							const { toggle, title, icon, updateData } = item;
+							const { toggle, title, icon, updateData, deleteItem } = item;
 
 							return (
 								<DraggableListItem
@@ -3434,6 +3446,7 @@ function App() {
 										checked={toggle}
 										onChange={(value) => updateData({ toggle: value })}
 									/>
+									<Button onPress={deleteItem}>Del</Button>
 								</DraggableListItem>
 							);
 						}}
