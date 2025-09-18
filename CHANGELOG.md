@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [5.3.0] - 2025-09-18
+- Updated dependencies.
+- Fixed `RichLabel` and `MenuItem` icon shrinking in some instances.
+- Made `Menu` size fixed to prevent layout shifts. You can remove the fixed width with `manualWidth` prop, but there will still be a max limit.
+- Tweaked Popover classname passing in `Menu`.
+- `MenuItem` now supports `subtitle`.
+- Slightly adjusted icon sizes across components to improve sharpness.
+- Fixed `onAfterItemRemove` errors in `Draggable` and `DraggableList`.
+- Added new `MenuSectionHeader` component (decorative)
+- Added 4 UI icons
+- Improved code completion for nested prop passthroughs in various components (e.g. `triggerProps` in `Menu`)
+
 ## [5.2.1] - 2025-07-28
 - Added the option for custom fetch functions in `AsyncSelectNext` and `__AsyncMultiSelectNext`.
 
@@ -393,6 +405,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[5.3.0]: https://github.com/infinum/eightshift-ui-components/compare/5.2.1...5.3.0
 [5.2.1]: https://github.com/infinum/eightshift-ui-components/compare/5.2.0...5.2.1
 [5.2.0]: https://github.com/infinum/eightshift-ui-components/compare/5.1.4...5.2.0
 [5.1.4]: https://github.com/infinum/eightshift-ui-components/compare/5.1.3...5.1.4
