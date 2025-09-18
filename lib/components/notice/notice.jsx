@@ -81,15 +81,16 @@ export const Notice = (props) => {
 				className={clsx(
 					'es:grid es:grid-cols-[auto_1fr] es:grid-rows-[auto_auto] es:rounded-xl es:border es:bg-linear-to-tr es:shadow-sm es:inset-ring-1',
 					styles[type].className,
-					icon || styles[type].icon ? 'es:gap-x-1.5 es:p-2 es:pr-3 es:pl-2.5' : 'es:px-2.5 es:py-2',
+					'es:icon:shrink-0',
+					icon || styles[type].icon ? 'es:gap-x-2 es:py-2 es:pl-2 es:pr-3' : 'es:py-2.5 es:px-3',
 					className,
 				)}
 			>
 				{(icon || styles[type].icon) && (
 					<div
 						className={clsx(
-							'es:col-span-1 es:col-start-1 es:row-span-2 es:row-start-1 es:shrink-0 es:icon:size-5',
-							alignIconToTitle ? 'es:self-baseline' : 'es:self-center',
+							'es:col-span-1 es:col-start-1 es:row-span-2 es:row-start-1 es:shrink-0 es:icon:size-6',
+							alignIconToTitle ? 'es:self-baseline' : 'es:self-center-safe',
 							styles[type].iconColorClassName,
 						)}
 					>
@@ -101,7 +102,7 @@ export const Notice = (props) => {
 					<span
 						className={clsx(
 							'es:col-span-2 es:col-start-2 es:text-balance es:text-sm es:leading-tight',
-							subtitle ? 'es:self-end' : 'es:row-span-2 es:self-center',
+							subtitle ? 'es:self-end' : 'es:row-span-2 es:self-center-safe',
 							styles[type].textColorClassName,
 						)}
 					>
@@ -114,7 +115,7 @@ export const Notice = (props) => {
 						className={clsx(
 							'es:col-span-2 es:col-start-2 es:text-balance es:text-xs es:leading-tight es:pt-0.5',
 							styles[type].subtitleColorClassName,
-							label ? 'es:self-start' : 'es:row-span-2 es:self-center',
+							label ? 'es:self-start' : 'es:row-span-2 es:self-center-safe',
 						)}
 					>
 						{subtitle}
