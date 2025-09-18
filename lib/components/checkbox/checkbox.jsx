@@ -83,7 +83,7 @@ export const Checkbox = (props) => {
 					icon={icon}
 					label={label}
 					subtitle={subtitle}
-					className={clsx('es:ml-1', labelClassName)}
+					className={labelClassName}
 					inlineSubtitle={inlineSubtitle}
 					fullSizeSubtitle
 					fullWidth
@@ -124,7 +124,8 @@ export const Checkbox = (props) => {
 					{icons.check}
 				</AnimatedVisibility>
 			</div>
-			{!icon && !alignEnd && (label || subtitle) && (
+
+			{!icon && (label || subtitle) && (
 				<RichLabel
 					label={label}
 					subtitle={subtitle}
@@ -134,6 +135,7 @@ export const Checkbox = (props) => {
 					as={Label}
 				/>
 			)}
+
 			{!(icon || label || subtitle) && children}
 		</ReactAriaCheckbox>
 	);
