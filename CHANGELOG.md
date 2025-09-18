@@ -11,9 +11,12 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - `MenuItem` now supports `subtitle`.
 - Slightly adjusted icon sizes across components to improve sharpness.
 - Fixed `onAfterItemRemove` errors in `Draggable` and `DraggableList`.
-- Added new `MenuSectionHeader` component (decorative)
-- Added 4 UI icons
-- Improved code completion for nested prop passthroughs in various components (e.g. `triggerProps` in `Menu`)
+- Added new `MenuSectionHeader` component (decorative).
+- Added 4 UI icons.
+- Improved code completion for nested prop passthroughs in various components (e.g. `triggerProps` in `Menu`).
+- `Checkbox` now support `icon` even without `alignEnd`.
+- Tweaked some animations in `AnimatedVisibility`.
+- Slightly adjusted `Notice` spacing.
 
 ## [5.2.1] - 2025-07-28
 - Added the option for custom fetch functions in `AsyncSelectNext` and `__AsyncMultiSelectNext`.
