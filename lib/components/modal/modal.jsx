@@ -5,6 +5,8 @@ import { clsx } from 'clsx/lite';
 import { icons } from '../../icons';
 import { HStack } from '../layout/hstack';
 
+/** @typedef {import('../button/button').ButtonProps} ButtonProps */
+
 /**
  * Modal dialog.
  *
@@ -16,7 +18,7 @@ import { HStack } from '../layout/hstack';
  * @param {JSX.Element|JSX.Element[]} [props.headerActions] - Actions to display in the modal header, next to the close button (if enabled).
  * @param {string|JSX.Element} [props.triggerLabel] - Label for the trigger button.
  * @param {JSX.Element} [props.triggerIcon] - Trigger button icon.
- * @param {Object} [props.triggerProps] - Props to pass to the trigger button.
+ * @param {ButtonProps} [props.triggerProps] - Props to pass to the trigger button.
  * @param {ReactNode} [props.customTrigger] - If provided, replaces the default trigger button. The passed component should be something button-related that can open the modal.
  * @param {string|JSX.Element} [props.title] - Title of the modal.
  * @param {boolean} [props.noCloseButton] - If `true`, the close button will not be displayed.

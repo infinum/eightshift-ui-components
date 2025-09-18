@@ -7,29 +7,35 @@ import { __ } from '@wordpress/i18n';
 import { cloneElement } from 'react';
 import { icons } from '../../icons';
 
+/** @typedef {import('../tooltip/tooltip').TooltipProps} TooltipProps */
+
+/**
+ * @typedef {Object} ButtonProps
+ * @property {JSX.Element} [props.icon] - Icon to display within the button.
+ * @property {ButtonSize} [props.size='default'] - The size of the button.
+ * @property {ButtonType} [props.type='default'] - The type of the button.
+ * @property {boolean} [props.disabled] - If `true`, the button is disabled.
+ * @property {string} [props.className] - Classes to pass to the button.
+ * @property {string|boolean} [props.tooltip] - Tooltip text to display on hover. If set to `true` and an `aria-label` is not provided, the tooltip text will be used as the `aria-label`.
+ * @property {Function} [props.onPress] - Function to run when the button is pressed.
+ * @property {React.Ref} [props.forwardedRef] - Ref to forward to the button. Use the same as the `ref` prop.
+ * @property {string} [props.wrapperClassName] - Classes to pass to the tooltip wrapper.
+ * @property {TooltipProps} [props.tooltipProps] - Props to pass to the tooltip.
+ * @property {boolean} [props.pending] - If `true`, the button is in a pending state, which can be used to indicate that an action is being processed.
+ * @property {string} [props.pendingAriaLabel='Loading'] - ARIA label for the pending state, used for screen readers.
+ * @property {boolean} [props.hidden] - If `true`, the component is not rendered.
+ *
+ * @typedef {'small' | 'default' | 'large'} ButtonSize
+ * @typedef {'default' | 'selected' | 'selectedGhost' | 'ghost' | 'danger' | 'dangerGhost'} ButtonType
+ */
+
 /**
  * A simple button component.
  *
  * @component
- * @param {Object} props - Component props.
- * @param {JSX.Element} [props.icon] - Icon to display within the button.
- * @param {ButtonSize} [props.size='default'] - The size of the button.
- * @param {ButtonType} [props.type='default'] - The type of the button.
- * @param {boolean} [props.disabled] - If `true`, the button is disabled.
- * @param {string} [props.className] - Classes to pass to the button.
- * @param {string|boolean} [props.tooltip] - Tooltip text to display on hover. If set to `true` and an `aria-label` is not provided, the tooltip text will be used as the `aria-label`.
- * @param {Function} [props.onPress] - Function to run when the button is pressed.
- * @param {React.Ref} [props.forwardedRef] - Ref to forward to the button. Use the same as the `ref` prop.
- * @param {string} [props.wrapperClassName] - Classes to pass to the tooltip wrapper.
- * @param {Object} [props.tooltipProps] - Props to pass to the tooltip.
- * @param {boolean} [props.pending] - If `true`, the button is in a pending state, which can be used to indicate that an action is being processed.
- * @param {string} [props.pendingAriaLabel='Loading'] - ARIA label for the pending state, used for screen readers.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
+ * @param {ButtonProps} props - Component props.
  *
  * @returns {JSX.Element} The Button component.
- *
- * @typedef {'small' | 'default' | 'large'} ButtonSize
- * @typedef {'default' | 'selected' | 'selectedGhost' | 'ghost' | 'danger' | 'dangerGhost'} ButtonType
  *
  * @example
  * <Button onPress={() => console.log('Hi!')} icon={icons.myIcon} />

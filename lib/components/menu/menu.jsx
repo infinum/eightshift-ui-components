@@ -15,6 +15,9 @@ import { clsx } from 'clsx/lite';
 import { cloneElement } from 'react';
 import { __ } from '@wordpress/i18n';
 
+/** @typedef {import('../button/button').ButtonProps} ButtonProps */
+/** @typedef {import('../popover/popover').PopoverProps} PopoverProps */
+
 /**
  * A simple menu component.
  *
@@ -22,11 +25,11 @@ import { __ } from '@wordpress/i18n';
  * @param {Object} props - Component props.
  * @param {string} [props.triggerLabel] - The label of the trigger button.
  * @param {JSX.Element} [props.triggerIcon] - The icon of the trigger button.
- * @param {Object} [props.triggerProps] - Props to pass to the trigger button.
+ * @param {ButtonProps} [props.triggerProps] - Props to pass to the trigger button.
  * @param {string} [props.tooltip] - Tooltip text to display on the trigger button.
  * @param {boolean} [props.keepOpen=false] - If `true`, the menu will not close when an item is selected.
  * @param {boolean} [props.openOnLongPress=false] - If `true`, the menu will open on long press instead of click. If enabled, a regular `onPress` event can also be passed to the trigger button to enable dual behavior.
- * @param {Object} [props.popoverProps] - Props to pass to the popover.
+ * @param {PopoverProps} [props.popoverProps] - Props to pass to the popover.
  * @param {boolean} [props.disabled] - If `true`, the trigger button is disabled.
  * @param {boolean} [props.manualWidth=false] - If `true`, the popover will not have a fixed width.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
@@ -291,7 +294,7 @@ export const MenuItem = (props) => {
  * @param {JSX.Element} props.trigger - The trigger button for the submenu. **This should be a `MenuItem`.**
  * @param {boolean} [props.keepOpen=false] - If `true`, the submenu will not close when an item is selected.
  * @param {boolean} [props.manualWidth=false] - If `true`, the popover will not have a fixed width.
- * @param {Object} [props.popoverProps] - Props to pass to the popover.
+ * @param {PopoverProps} [props.popoverProps] - Props to pass to the popover.
  *
  * @returns {JSX.Element} The SubMenuItem component.
  *
