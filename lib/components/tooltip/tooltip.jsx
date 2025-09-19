@@ -24,6 +24,8 @@ import { useTooltipTrigger } from 'react-aria';
  *
  * @typedef {'light' | 'dark'} TooltipTheme
  * @typedef {'bottom' | 'bottom left' | 'bottom right' | 'bottom start' | 'bottom end' | 'top' | 'top left' | 'top right' | 'top start' | 'top end' | 'left' | 'left top' | 'left bottom' | 'start' | 'start top' | 'start bottom' | 'right' | 'right top' | 'right bottom' | 'end' | 'end top' | 'end bottom'} TooltipPlacement
+ *
+ * @preserve
  */
 
 /**
