@@ -1,6 +1,6 @@
 {
 	"name": "@eightshift/ui-components",
-	"version": "5.3.0",
+	"version": "5.3.1",
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
@@ -35,7 +35,7 @@
 		"dev": "vite",
 		"start": "vite",
 		"build": "vite build",
-		"lint": "npx eslint",
+		"lint": "bun x eslint",
 		"preview": "vite preview"
 	},
 	"peerDependencies": {
