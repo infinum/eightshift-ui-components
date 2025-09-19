@@ -27,6 +27,8 @@ import { icons } from '../../icons';
  *
  * @typedef {'small' | 'default' | 'large'} ButtonSize
  * @typedef {'default' | 'selected' | 'selectedGhost' | 'ghost' | 'danger' | 'dangerGhost'} ButtonType
+ *
+ * @preserve
  */
 
 /**
