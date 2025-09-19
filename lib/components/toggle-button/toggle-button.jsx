@@ -2,7 +2,11 @@ import { ToggleButton as ReactAriaToggleButton } from 'react-aria-components';
 import { cva } from 'class-variance-authority';
 import { Tooltip } from '../tooltip/tooltip';
 
-/** @typedef {import('../tooltip/tooltip').TooltipProps} TooltipProps */
+/**
+ * @typedef {import('../tooltip/tooltip').TooltipProps} TooltipProps
+ *
+ * @preserve
+ * */
 
 /**
  * A simple toggle button component.

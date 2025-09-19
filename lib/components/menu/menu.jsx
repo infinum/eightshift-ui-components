@@ -15,8 +15,12 @@ import { clsx } from 'clsx/lite';
 import { cloneElement } from 'react';
 import { __ } from '@wordpress/i18n';
 
-/** @typedef {import('../button/button').ButtonProps} ButtonProps */
-/** @typedef {import('../popover/popover').PopoverProps} PopoverProps */
+/**
+ * @typedef {import('../button/button').ButtonProps} ButtonProps
+ * @typedef {import('../popover/popover').PopoverProps} PopoverProps
+ *
+ * @preserve
+ * */
 
 /**
  * A simple menu component.

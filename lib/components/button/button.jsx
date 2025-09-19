@@ -7,7 +7,11 @@ import { __ } from '@wordpress/i18n';
 import { cloneElement } from 'react';
 import { icons } from '../../icons';
 
-/** @typedef {import('../tooltip/tooltip').TooltipProps} TooltipProps */
+/**
+ * @typedef {import('../tooltip/tooltip').TooltipProps} TooltipProps
+ *
+ * @preserve
+ * */
 
 /**
  * @typedef {Object} ButtonProps

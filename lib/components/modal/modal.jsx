@@ -5,7 +5,11 @@ import { clsx } from 'clsx/lite';
 import { icons } from '../../icons';
 import { HStack } from '../layout/hstack';
 
-/** @typedef {import('../button/button').ButtonProps} ButtonProps */
+/**
+ * @typedef {import('../button/button').ButtonProps} ButtonProps
+ *
+ * @preserve
+ * */
 
 /**
  * Modal dialog.
