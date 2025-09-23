@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
 ## [5.3.2] - 2025-09-23
+- Updated dependencies.
 - Fixed some JSDoc typedef imports not being preserved in production bundles.
 
 ## [5.3.1] - 2025-09-19
