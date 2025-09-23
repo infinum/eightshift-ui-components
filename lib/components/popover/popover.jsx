@@ -152,7 +152,11 @@ export const Popover = (props) => {
 	);
 };
 
-/** @typedef {import('../button/button').ButtonProps} ButtonProps */
+/**
+ * @typedef {import('../button/button').ButtonProps} ButtonProps
+ *
+ * @preserve
+ * */
 
 /**
  * A simple version of the Popover component that includes a trigger button.

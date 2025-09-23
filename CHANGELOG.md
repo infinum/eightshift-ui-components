@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [5.3.2] - 2025-09-23
+- Updated dependencies.
+- Fixed some JSDoc typedef imports not being preserved in production bundles.
+
 ## [5.3.1] - 2025-09-19
 - Fixed some JSDoc typedefs not being preserved in production bundles.
 
@@ -412,6 +416,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[5.3.2]: https://github.com/infinum/eightshift-ui-components/compare/5.3.1...5.3.2
 [5.3.1]: https://github.com/infinum/eightshift-ui-components/compare/5.3.0...5.3.1
 [5.3.0]: https://github.com/infinum/eightshift-ui-components/compare/5.2.1...5.3.0
 [5.2.1]: https://github.com/infinum/eightshift-ui-components/compare/5.2.0...5.2.1
