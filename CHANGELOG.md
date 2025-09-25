@@ -7,6 +7,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Added `event.stopPropagation` by default on `MenuItem`s. This can be overridden with the new `onClickNative` prop, which receives the native click event.
 - Fixed `ToggleButton` styles.
 - Added 8 UI icons.
+- Tweaked `pending` behavior in `Button` to prevent layout shifts.
 
 ## [5.3.2] - 2025-09-23
 - Updated dependencies.
