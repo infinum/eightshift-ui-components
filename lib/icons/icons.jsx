@@ -5133,6 +5133,59 @@ export const icons = {
 			<path d='M6.5 12v2.25c0 .138.112.25.25.25H8.5' stroke='currentColor' strokeLinecap='round' fill='none' />
 		</svg>
 	),
+	folderSolid: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 20' width='21' height='20' fill='none'>
+			<path d='M17.5 5a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-14a2 2 0 0 1-1.99-1.796L1.5 15V8h5.8a.501.501 0 0 0 .298-.099l2.7-2-.008-.01L11.484 5H17.5ZM6.805 3a2 2 0 0 1 1.19.393l1.993 1.476L7.135 7H1.5V5a2 2 0 0 1 2-2h3.305Z' fill='currentColor' />
+		</svg>
+	),
+	folderOpenSolid: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 20' width='21' height='20' fill='none'>
+			<path d='M19.27 8c.256.44.348.979.2 1.522l-1.623 6A2 2 0 0 1 15.916 17H3.5c-.207 0-.407-.033-.595-.092l.076-.277 2.196-7.899A1 1 0 0 1 6.14 8h13.13ZM6.4 3c.513 0 1.008.197 1.38.55l1.234 1.175c.186.176.433.275.69.275H15.5a2 2 0 0 1 2 2H6.14a2 2 0 0 0-1.927 1.465l-2.194 7.901.004-.021A1.99 1.99 0 0 1 1.5 15V5a2 2 0 0 1 2-2h2.9Z' fill='currentColor' />
+		</svg>
+	),
+	plusSquare: (
+		<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'>
+			<rect x='1.5' y='1.5' width='17' height='17' rx='2' stroke='currentColor' fill='none' />
+			<path d='M5.5 10H10m0 0h4.5M10 10V5.5m0 4.5v4.5' stroke='currentColor' strokeLinecap='round' fill='none' />
+		</svg>
+	),
+	plusSquareFill: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M16.5 19a2.5 2.5 0 0 0 2.5-2.5v-13A2.5 2.5 0 0 0 16.5 1h-13A2.5 2.5 0 0 0 1 3.5v13A2.5 2.5 0 0 0 3.5 19h13ZM10 15a.5.5 0 0 1-.5-.5v-4h-4a.5.5 0 0 1 0-1h4v-4a.5.5 0 0 1 1 0v4h4a.5.5 0 0 1 0 1h-4v4a.5.5 0 0 1-.5.5Z' fill='currentColor' />
+		</svg>
+	),
+	plusSquareFillTransparent: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect x='1' y='1' width='18' height='18' rx='2.5' fill='currentColor' fillOpacity='0.12' />
+			<path d='M5.5 10H10m0 0h4.5M10 10V5.5m0 4.5v4.5' stroke='currentColor' strokeLinecap='round' fill='none' />
+		</svg>
+	),
+	sortGeneric: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='m1 14 4.5 4.52m0 0L10 14m-4.5 4.52V3' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<path d='M9 3.5h10m-10 3h8m-8 3h6' stroke='currentColor' strokeLinecap='round' fill='none' />
+		</svg>
+	),
+	musicNote: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<ellipse cx='5' cy='17' rx='2.5' ry='2' fill='currentColor' stroke='currentColor' />
+			<ellipse cx='16' cy='14' rx='2.5' ry='2' fill='currentColor' stroke='currentColor' />
+			<path d='M18.5 2.698V4l-11 2V4.335a1 1 0 0 1 .821-.984l9-1.637a1 1 0 0 1 1.179.984Z' fill='currentColor' />
+			<path d='M18.5 14V2.698a1 1 0 0 0-1.179-.984l-9 1.637a1 1 0 0 0-.821.984V17.25M18.5 4l-11 2' stroke='currentColor' fill='none' />
+		</svg>
+	),
+	wordpress: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M17.1 6.118A8.052 8.052 0 0 1 18.091 10a8.087 8.087 0 0 1-4.023 6.994l2.472-7.146c.461-1.154.615-2.077.615-2.898 0-.298-.02-.575-.055-.832Zm-5.985.088c.487-.026.926-.077.926-.077.436-.052.385-.692-.051-.667 0 0-1.311.103-2.157.103-.795 0-2.131-.103-2.131-.103-.437-.025-.488.641-.052.667 0 0 .413.051.85.077L9.76 9.66l-1.771 5.31-2.947-8.764c.488-.026.926-.077.926-.077.436-.052.385-.692-.051-.667 0 0-1.31.103-2.157.103-.152 0-.33-.004-.52-.01A8.082 8.082 0 0 1 10 1.908c2.106 0 4.024.806 5.464 2.125-.035-.003-.069-.007-.105-.007-.794 0-1.358.692-1.358 1.436 0 .667.384 1.231.794 1.898.308.539.668 1.231.668 2.232 0 .692-.267 1.496-.616 2.615l-.808 2.697-2.924-8.698ZM10 18.092a8.09 8.09 0 0 1-2.286-.33l2.428-7.055 2.487 6.815a.76.76 0 0 0 .058.111 8.074 8.074 0 0 1-2.687.459ZM1.908 10a8.06 8.06 0 0 1 .701-3.293l3.86 10.575A8.092 8.092 0 0 1 1.909 10ZM10 1c-4.963 0-9 4.037-9 9 0 4.962 4.037 9 9 9s9-4.038 9-9c0-4.963-4.037-9-9-9Z' fill='currentColor' />
+		</svg>
+	),
+	filePdf: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='m9.5.5 5 5H10a.5.5 0 0 1-.5-.5V.5Z' fill='currentColor' fillOpacity='0.3' />
+			<path d='m14.5 5.5-5-5m5 5H10a.5.5 0 0 1-.5-.5V.5m5 5v2m-5-7H2A1.5 1.5 0 0 0 .5 2v16A1.5 1.5 0 0 0 2 19.5h11a1.5 1.5 0 0 0 1.5-1.5v-.5' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<path d='M11.236 15.5H9.499v-6h1.737s2.316 0 2.316 2.842v.316c0 2.842-2.316 2.842-2.316 2.842Zm4.263 0v-3m3.184-3H15.5v3m0 0h3.04m-15.04 3v-3m0 0v-3h1.882c.434 0 2.119 0 2.118 1.5-.001 1.5-1.566 1.5-2 1.5h-2Z' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+		</svg>
+	),
 };
 
 /**

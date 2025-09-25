@@ -259,8 +259,8 @@ export const Button = (props) => {
 			isPending={pending}
 			className={componentClasses({
 				disabled: !pending && disabled,
-				hasIcon: pending || Boolean(icon),
-				iconOnly: pending || Boolean(icon && !children),
+				hasIcon: Boolean(icon),
+				iconOnly: Boolean(icon && !children),
 				size: size,
 				type: type,
 			})}
@@ -277,14 +277,18 @@ export const Button = (props) => {
 						</>
 					)}
 					{isPending && (
-						<>
+						<div className='es:relative'>
+							<div className='es:invisible'>
+								{icon}
+								{children}
+							</div>
 							<ProgressBar
 								aria-label={pendingAriaLabel}
 								className='es:sr-only'
 								isIndeterminate
 							/>
-							{cloneElement(icons.loader, { className: 'es:motion-preset-spin es:motion-duration-1750' })}
-						</>
+							{cloneElement(icons.loader, { className: 'es:motion-preset-spin es:motion-duration-2000 es:absolute es:inset-0 es:m-auto' })}
+						</div>
 					)}
 				</>
 			)}

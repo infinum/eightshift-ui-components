@@ -232,6 +232,7 @@ export const MenuItem = (props) => {
 		disabled,
 		endIcon,
 		onClick,
+		onClickNative = (event) => event?.stopPropagation(),
 		shortcut,
 		danger,
 		primary,
@@ -276,6 +277,7 @@ export const MenuItem = (props) => {
 				className,
 			)}
 			onAction={onClick}
+			onClick={onClickNative}
 		>
 			<RichLabel
 				icon={itemIcon}
@@ -325,7 +327,7 @@ export const SubMenuItem = (props) => {
 	return (
 		<SubmenuTrigger>
 			{cloneElement(trigger, {
-				endIcon: <span className='es:text-secondary-400 es:contrast-more:text-current'>{icons.caretRightFill}</span>,
+				endIcon: <span className='es:text-secondary-500 es:contrast-more:text-current es:icon:size-3! es:icon:stroke-2!'>{icons.chevronRight}</span>,
 			})}
 			<Popover
 				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
