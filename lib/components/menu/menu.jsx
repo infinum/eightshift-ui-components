@@ -327,7 +327,7 @@ export const SubMenuItem = (props) => {
 	return (
 		<SubmenuTrigger>
 			{cloneElement(trigger, {
-				endIcon: <span className='es:text-secondary-400 es:contrast-more:text-current'>{icons.caretRightFill}</span>,
+				endIcon: <span className='es:text-secondary-500 es:contrast-more:text-current es:icon:size-3! es:icon:stroke-2!'>{icons.chevronRight}</span>,
 			})}
 			<Popover
 				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
