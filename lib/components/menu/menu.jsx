@@ -232,6 +232,7 @@ export const MenuItem = (props) => {
 		disabled,
 		endIcon,
 		onClick,
+		onClickNative = (event) => event?.stopPropagation(),
 		shortcut,
 		danger,
 		primary,
@@ -276,6 +277,7 @@ export const MenuItem = (props) => {
 				className,
 			)}
 			onAction={onClick}
+			onClick={onClickNative}
 		>
 			<RichLabel
 				icon={itemIcon}
