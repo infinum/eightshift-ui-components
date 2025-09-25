@@ -84,6 +84,7 @@ export const ToggleButton = (props) => {
 			'es:enabled:not-pending:cursor-pointer',
 			'es:shrink-0',
 			'es:pending:shadow-none! es:pending:cursor-wait',
+			'es:bg-radial-[at_50%_125%]',
 			icon && children ? 'es:justify-start' : 'es:justify-center',
 			className,
 		],
@@ -93,9 +94,6 @@ export const ToggleButton = (props) => {
 					small: 'es:icon:size-5 es:rounded-7',
 					default: 'es:icon:size-5 es:rounded-10',
 					large: 'es:icon:size-6 es:rounded-xl',
-				},
-				type: {
-					default: 'es:bg-radial-[at_50%_125%] es:inset-ring es:inset-shadow-xs',
 				},
 			},
 			compoundVariants: [
@@ -107,8 +105,8 @@ export const ToggleButton = (props) => {
 						'es:text-black',
 						'es:from-white es:to-secondary-50',
 						'es:border-secondary-300',
-						'es:inset-ring-secondary-100',
-						'es:inset-shadow-secondary-100/50',
+						'es:inset-ring es:inset-ring-secondary-100',
+						'es:inset-shadow-xs es:inset-shadow-secondary-100/50',
 						'es:shadow-sm',
 						'es:enabled:hover:shadow-md es:enabled:active:shadow-sm es:enabled:pressed:shadow-sm es:hover:inset-shadow-secondary-100 es:hover:to-secondary-100 es:hover:inset-ring-secondary-100',
 						'es:hover:text-accent-950',
@@ -116,7 +114,7 @@ export const ToggleButton = (props) => {
 					],
 				},
 				{
-					type: 'default',
+					type: ['default', 'ghost'],
 					disabled: false,
 					selected: true,
 					class: [
@@ -136,22 +134,17 @@ export const ToggleButton = (props) => {
 					disabled: false,
 					selected: false,
 					class: [
-						'es:border-transparent es:text-secondary-700 es:hover:bg-accent-500/10 es:hover:text-accent-700 es:active:bg-accent-50 es:pressed:bg-accent-50 es:active:text-accent-950 es:pressed:text-accent-950 es:disabled:border-transparent! es:focus-visible:text-accent-700',
+						'es:border-accent-500/0 es:text-secondary-700',
+						'es:hover:bg-accent-500/10 es:hover:text-accent-700',
+						'es:active:bg-accent-50 es:pressed:bg-accent-50 es:active:text-accent-950 es:pressed:text-accent-950',
+						'es:focus-visible:text-accent-700',
+						'es:inset-ring es:inset-ring-accent-600/0',
+						'es:inset-shadow-xs es:inset-shadow-accent-400/0',
 					],
 				},
 				{
 					disabled: true,
 					class: 'es:disabled:border-zinc-300 es:disabled:text-zinc-400 es:border es:shadow-none es:disabled:inset-shadow-transparent es:disabled:inset-ring-0',
-				},
-				{
-					type: 'ghost',
-					disabled: false,
-					selected: true,
-					class: [
-						'es:border-transparent es:bg-accent-600 es:text-white',
-						'es:hover:bg-accent-700 es:active:bg-accent-800 es:pressed:bg-accent-900',
-						'es:focus-visible:ring-accent-500/30 es:focus-visible:border-accent-700 es:focus-visible:inset-ring-accent-100',
-					],
 				},
 				// Sizes.
 				{
