@@ -75,6 +75,7 @@ import {
 	OptionsPanelIntro,
 	__MultiSelectNext,
 	__AsyncMultiSelectNext,
+	FilePickerShell,
 } from '../lib';
 import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
@@ -721,6 +722,7 @@ function App() {
 					<Tab>ResponsivePreview</Tab>
 					<Tab>Modal</Tab>
 					<Tab>ItemCollection</Tab>
+					<Tab>FilePickerShell</Tab>
 				</TabList>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Toggle
@@ -3829,6 +3831,32 @@ function App() {
 							);
 						}}
 					</ItemCollection>
+				</TabPanel>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
+					<FilePickerShell
+						className='es:w-full'
+						url='#'
+						noUrlContent={<Button size='large'>Upload</Button>}
+						fileName='myfile.json'
+					>
+						<Button flat>Replace</Button>
+						<Button flat>Remove</Button>
+					</FilePickerShell>
+
+					<FilePickerShell
+						className='es:w-full'
+						url='https://picsum.photos/300/200'
+						noUrlContent={<Button size='large'>Upload</Button>}
+						type='image'
+					>
+						<Button type='glass'>Replace</Button>
+						<Button type='glass'>Remove</Button>
+					</FilePickerShell>
+
+					<FilePickerShell
+						className='es:w-full'
+						noUrlContent={<Button size='large'>Upload</Button>}
+					/>
 				</TabPanel>
 			</Tabs>
 		</div>
