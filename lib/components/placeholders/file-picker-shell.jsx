@@ -3,7 +3,7 @@ import { icons } from '../../icons';
 import { truncateMiddle } from '../../utilities';
 
 /**
- * A shell for a file picker UI, handling both rich visual presentation (e.g. images) and simple file placeholders,
+ * A shell for a file picker UI, handling both rich visual presentation (e.g. images) and simple file placeholders.
  *
  * @component
  * @param {Object} props - Component props.
@@ -17,13 +17,29 @@ import { truncateMiddle } from '../../utilities';
  *
  * @typedef {'image' | 'file'} ShellType
  *
- * @returns {JSX.Element} The FilePlaceholder component.
+ * @returns {JSX.Element} The FilePickerShell component.
  *
  * @example
- * <FilePlaceholder />
+ * <FilePickerShell
+ *     className='es:w-full'
+ *     url='#'
+ *     noUrlContent={<Button size='large'>Upload</Button>}
+ *     fileName='myfile.json'
+ * >
+ *     <Button flat>Replace</Button>
+ *     <Button flat>Remove</Button>
+ * </FilePickerShell>
  *
  * @example
- * <FilePlaceholder fileName='demo.json' />
+ * <FilePickerShell
+ *     className='es:w-full'
+ *     url='https://picsum.photos/300/200'
+ *     noUrlContent={<Button size='large'>Upload</Button>}
+ *     type='image'
+ * >
+ *     <Button type='glass'>Replace</Button>
+ *     <Button type='glass'>Remove</Button>
+ * </FilePickerShell>
  *
  * @preserve
  */
