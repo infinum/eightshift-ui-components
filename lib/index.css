@@ -24,6 +24,9 @@
 	--radius-7: 0.4375rem; /* 7px */
 	--radius-10: 0.625rem; /* 10px */
 
+	--aspect-3-2: 3 / 2;
+	--aspect-cinema: 21 / 9;
+
 	/* Theme colors */
 	--color-secondary-50: var(--es-color-zinc-50);
 	--color-secondary-100: var(--es-color-zinc-100);
