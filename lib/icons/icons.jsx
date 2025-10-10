@@ -5186,6 +5186,20 @@ export const icons = {
 			<path d='M11.236 15.5H9.499v-6h1.737s2.316 0 2.316 2.842v.316c0 2.842-2.316 2.842-2.316 2.842Zm4.263 0v-3m3.184-3H15.5v3m0 0h3.04m-15.04 3v-3m0 0v-3h1.882c.434 0 2.119 0 2.118 1.5-.001 1.5-1.566 1.5-2 1.5h-2Z' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
 		</svg>
 	),
+	fileError: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='m16.5 5.5-5-5m5 5H12a.5.5 0 0 1-.5-.5V.5m5 5V18a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 18V2A1.5 1.5 0 0 1 5 .5h6.5' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<path d='m7 9.5 3 3m3 3-3-3m0 0-3 3m3-3 3-3' stroke='currentColor' strokeLinecap='round' fill='none' />
+		</svg>
+	),
+	imageError: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M15.5 11.5V2A1.5 1.5 0 0 0 14 .5H2A1.5 1.5 0 0 0 .5 2v12A1.5 1.5 0 0 0 2 15.5h9.5' stroke='currentColor' fill='none' />
+			<circle cx='5.25' cy='5.25' r='1.75' fill='currentColor' fillOpacity='0.5' />
+			<path d='M18 11a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h5Zm-.12 2.12a.537.537 0 0 0-.76 0l-1.62 1.62-1.62-1.62a.537.537 0 1 0-.76.76l1.62 1.62-1.62 1.62a.537.537 0 1 0 .76.76l1.62-1.62 1.62 1.62a.537.537 0 1 0 .76-.76l-1.62-1.62 1.62-1.62c.21-.21.21-.55 0-.76Z' fill='currentColor' />
+			<path d='M3.475 10.705 1 12.79V15h10.5l1.5-2.5 1.241-.863-2.436-2.518a1.5 1.5 0 0 0-2.16.004l-1.78 1.854a1.5 1.5 0 0 1-2.114.05l-.278-.263a1.5 1.5 0 0 0-1.998-.059Z' fill='currentColor' fillOpacity='0.5' />
+		</svg>
+	),
 };
 
 /**
