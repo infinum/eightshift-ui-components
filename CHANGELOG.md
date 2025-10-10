@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [5.5.0] - 2025-10-10
+- Added `SmartImage`
+- Updated `FilePickerShell` to use `SmartImage`
+- `FilePickerShell` no longer uses the `fileName` prop, use `url` instead (full URL or filename with extension can be provided)
+- Added 4 new general helpers (available in the `utilities` export):
+  - `analyzeImage` - analyzes an image and returns its dominant colors and whether it has transparency
+  - `checkTransparency` - checks if an image has transparency
+  - `getFileExtension` - extracts the file extension from a URL or filename
+  - `isColorDark` - checks if a color is dark or light
+- Added 2 new UI icons
+
 ## [5.4.0] - 2025-10-07
 - Added `FilePickerShell` component
 - Added 4 new `Button` types: `glass`, `glassDark`, `dangerGlass`, and `selectedGlass`
@@ -428,6 +439,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[5.5.0]: https://github.com/infinum/eightshift-ui-components/compare/5.4.0...5.5.0
 [5.4.0]: https://github.com/infinum/eightshift-ui-components/compare/5.3.3...5.4.0
 [5.3.3]: https://github.com/infinum/eightshift-ui-components/compare/5.3.2...5.3.3
 [5.3.2]: https://github.com/infinum/eightshift-ui-components/compare/5.3.1...5.3.2

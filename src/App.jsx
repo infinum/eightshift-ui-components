@@ -76,6 +76,7 @@ import {
 	__MultiSelectNext,
 	__AsyncMultiSelectNext,
 	FilePickerShell,
+	SmartImage,
 } from '../lib';
 import { icons } from '../lib/icons';
 import { clsx } from 'clsx/lite';
@@ -723,6 +724,7 @@ function App() {
 					<Tab>Modal</Tab>
 					<Tab>ItemCollection</Tab>
 					<Tab>FilePickerShell</Tab>
+					<Tab>SmartImage</Tab>
 				</TabList>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Toggle
@@ -3835,27 +3837,93 @@ function App() {
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<FilePickerShell
 						className='es:w-full'
-						url='#'
+						url='myfile.json'
 						noUrlContent={<Button size='large'>Upload</Button>}
-						fileName='myfile.json'
 					>
-						<Button flat>Replace</Button>
-						<Button flat>Remove</Button>
+						<Button className='es:grow'>Replace</Button>
+						<Button className='es:grow'>Remove</Button>
 					</FilePickerShell>
 
 					<FilePickerShell
 						className='es:w-full'
-						url='https://picsum.photos/300/200'
+						// url='https://picsum.photos/600/400.jpg'
+						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg'
 						noUrlContent={<Button size='large'>Upload</Button>}
 						type='image'
 					>
-						<Button type='glass'>Replace</Button>
-						<Button type='glass'>Remove</Button>
+						{({ isDark, dominantColors, isTransparent }) => {
+							let buttonType = 'default';
+
+							if (!isTransparent) {
+								buttonType = isDark ? 'glass' : 'glassDark';
+							}
+
+							return (
+								<>
+									<Button
+										className='es:grow'
+										type={buttonType}
+									>
+										Replace
+									</Button>
+									<Button
+										className='es:grow'
+										type={buttonType}
+									>
+										Remove
+									</Button>
+
+									<TriggeredPopover
+										triggerButtonIcon={icons.info}
+										triggerButtonProps={{ type: buttonType }}
+									>
+										<ul className='es:flex es:items-center es:justify-center es:gap-2 es:p-2'>
+											<li
+												className='es:flex es:px-2 es:py-0.5 es:items-center es:justify-center es:rounded-sm es:border es:border-dotted es:border-secondary-300'
+												style={{ backgroundColor: isDark ? '#000' : '#fff' }}
+											>
+												<span className={clsx('es:text-xs es:font-mono es:font-medium', isDark ? 'es:text-white' : 'es:text-black')}>{isDark ? 'dark' : 'light'}</span>
+											</li>
+											{dominantColors?.map(({ color, area, isDark }, index) => (
+												<li
+													key={index}
+													className='es:flex es:px-1 es:py-0.5 es:items-center es:justify-center es:rounded-sm es:border es:border-dotted es:border-secondary-300'
+													style={{ backgroundColor: color }}
+												>
+													<span className={clsx('es:text-xs es:font-mono es:font-medium', isDark ? 'es:text-white' : 'es:text-black')}>{(area * 100).toFixed(2)}%</span>
+												</li>
+											))}
+										</ul>
+									</TriggeredPopover>
+								</>
+							);
+						}}
+					</FilePickerShell>
+
+					<FilePickerShell
+						className='es:w-full'
+						url='https://example.com/fakeimage.jpg'
+						noUrlContent={<Button size='large'>Upload</Button>}
+						type='image'
+					>
+						{({ isDark }) => (
+							<>
+								<Button type={isDark ? 'glassDark' : 'glass'}>Replace</Button>
+								<Button type={isDark ? 'glassDark' : 'glass'}>Remove</Button>
+							</>
+						)}
 					</FilePickerShell>
 
 					<FilePickerShell
 						className='es:w-full'
 						noUrlContent={<Button size='large'>Upload</Button>}
+					/>
+				</TabPanel>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
+					<SmartImage
+						// src='https://picsum.photos/600/400.jpg'
+						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg'
+						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
 					/>
 				</TabPanel>
 			</Tabs>
