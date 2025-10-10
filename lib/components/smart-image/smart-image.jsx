@@ -11,7 +11,7 @@ import { DecorativeTooltip } from '../tooltip/tooltip';
  * @property {string} [props.errorClassName] - Classes to pass to the default error view.
  * @property {string} [props.processingClassName] - Classes to apply while the image is loading / being processed.
  * @property {boolean} [props.hidden] - If `true`, the component is not rendered.
- * @property {import('../../utilities/image').ImageAnalysisSettings} [imageAnalysisSettings] - Settings to pass to the image analysis function.
+ * @property {import('../../utilities/general').ImageAnalysisSettings} [imageAnalysisSettings] - Settings to pass to the image analysis function.
  *
  * @preserve
  */
