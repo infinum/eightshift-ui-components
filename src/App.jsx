@@ -3902,6 +3902,90 @@ function App() {
 
 					<FilePickerShell
 						className='es:w-full'
+						// url='https://picsum.photos/600/400.jpg'
+						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg'
+						noUrlContent={<Button size='large'>Upload</Button>}
+						type='image'
+						analysisData={{
+							isDark: false,
+							isTransparent: false,
+							transparencyInfo: {
+								any: false,
+								left: false,
+								right: false,
+								top: false,
+								bottom: false,
+							},
+							dominantColors: [
+								{
+									color: '#e64f63',
+									area: 0.42140625,
+									isDark: true,
+								},
+								{
+									color: '#6bc754',
+									area: 0.292265625,
+									isDark: false,
+								},
+								{
+									color: '#de9ede',
+									area: 0.286328125,
+									isDark: false,
+								},
+							],
+						}}
+					>
+						{({ isDark, dominantColors, isTransparent }) => {
+							let buttonType = 'default';
+
+							if (!isTransparent) {
+								buttonType = isDark ? 'glass' : 'glassDark';
+							}
+
+							return (
+								<>
+									<Button
+										className='es:grow'
+										type={buttonType}
+									>
+										Replace
+									</Button>
+									<Button
+										className='es:grow'
+										type={buttonType}
+									>
+										Remove
+									</Button>
+
+									<TriggeredPopover
+										triggerButtonIcon={icons.info}
+										triggerButtonProps={{ type: buttonType }}
+									>
+										<ul className='es:flex es:items-center es:justify-center es:gap-2 es:p-2'>
+											<li
+												className='es:flex es:px-2 es:py-0.5 es:items-center es:justify-center es:rounded-sm es:border es:border-dotted es:border-secondary-300'
+												style={{ backgroundColor: isDark ? '#000' : '#fff' }}
+											>
+												<span className={clsx('es:text-xs es:font-mono es:font-medium', isDark ? 'es:text-white' : 'es:text-black')}>{isDark ? 'dark' : 'light'}</span>
+											</li>
+											{dominantColors?.map(({ color, area, isDark }, index) => (
+												<li
+													key={index}
+													className='es:flex es:px-1 es:py-0.5 es:items-center es:justify-center es:rounded-sm es:border es:border-dotted es:border-secondary-300'
+													style={{ backgroundColor: color }}
+												>
+													<span className={clsx('es:text-xs es:font-mono es:font-medium', isDark ? 'es:text-white' : 'es:text-black')}>{(area * 100).toFixed(2)}%</span>
+												</li>
+											))}
+										</ul>
+									</TriggeredPopover>
+								</>
+							);
+						}}
+					</FilePickerShell>
+
+					<FilePickerShell
+						className='es:w-full'
 						url='https://example.com/fakeimage.jpg'
 						noUrlContent={<Button size='large'>Upload</Button>}
 						type='image'
