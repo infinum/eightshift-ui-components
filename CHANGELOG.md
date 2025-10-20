@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [5.5.1] - 2025-10-21
+## [5.6.0] - 2025-10-21
 - Updated dependencies.
 - Added new helpers for checking transparency/image dominant colors that run on separate threads using web workers.
 - Image analysis will now cache results in LocalStorage for faster subsequent loads.
@@ -450,7 +450,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
-[5.5.1]: https://github.com/infinum/eightshift-ui-components/compare/5.5.0...5.5.1
+[5.6.0]: https://github.com/infinum/eightshift-ui-components/compare/5.5.0...5.6.0
 [5.5.0]: https://github.com/infinum/eightshift-ui-components/compare/5.4.0...5.5.0
 [5.4.0]: https://github.com/infinum/eightshift-ui-components/compare/5.3.3...5.4.0
 [5.3.3]: https://github.com/infinum/eightshift-ui-components/compare/5.3.2...5.3.3
