@@ -1,9 +1,23 @@
 import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx/lite';
-import { cloneElement, useState } from 'react';
-import { analyzeImage } from '../../utilities';
+import { cloneElement, useState, useRef, useCallback, useEffect } from 'react';
 import { icons } from '../../icons';
 import { DecorativeTooltip } from '../tooltip/tooltip';
+import workerInline from './worker-inline.js';
+
+// Get the worker URL - this will resolve correctly whether in dev, build, or when installed as a package
+const getWorkerUrl = () => {
+	try {
+		// Use new URL with import.meta.url to get the correct path relative to this file
+		const url = new URL('../../workers/image-analysis.worker.js', import.meta.url);
+
+		return url.href;
+	} catch (e) {
+		console.error('Failed to resolve worker URL:', e);
+
+		return null;
+	}
+};
 
 /**
  * @typedef {Object} CustomImageProps
@@ -63,6 +77,74 @@ export const SmartImage = (props) => {
 	const [isDark, setIsDark] = useState(false);
 	const [error, setError] = useState(null);
 
+	const workerRef = useRef(null);
+
+	// Cleanup worker on unmount
+	useEffect(() => {
+		return () => {
+			if (workerRef.current) {
+				workerRef.current.terminate();
+				workerRef.current = null;
+			}
+		};
+	}, []);
+
+	const createWorker = () => {
+		// Try to use the inlined worker if available (built as a string)
+		if (workerInline && typeof workerInline === 'string' && workerInline.length > 100) {
+			const blob = new Blob([workerInline], { type: 'application/javascript' });
+
+			return new Worker(URL.createObjectURL(blob), { type: 'module' });
+		}
+		// Fallback to URL-based worker (dev mode or if inlining fails)
+		const workerUrl = getWorkerUrl();
+
+		if (!workerUrl) throw new Error('Worker URL could not be resolved');
+
+		return new Worker(workerUrl, { type: 'module' });
+	};
+
+	const analyzeWithWorker = useCallback(async (imageBitmap, settings) => {
+		return new Promise((resolve, reject) => {
+			if (!workerRef.current) {
+				try {
+					workerRef.current = createWorker();
+				} catch (error) {
+					reject(error);
+
+					return;
+				}
+				workerRef.current.addEventListener('error', (e) => {
+					console.error('Worker error event:', e);
+				});
+			}
+			const worker = workerRef.current;
+
+			const handleMessage = (event) => {
+				const { success, data, error } = event.data;
+
+				if (success) {
+					resolve(data);
+				} else {
+					reject(new Error(error));
+				}
+
+				worker.removeEventListener('message', handleMessage);
+				worker.removeEventListener('error', handleError);
+			};
+
+			const handleError = (error) => {
+				reject(error);
+				worker.removeEventListener('message', handleMessage);
+				worker.removeEventListener('error', handleError);
+			};
+
+			worker.addEventListener('message', handleMessage);
+			worker.addEventListener('error', handleError);
+			worker.postMessage({ imageBitmap, settings }, [imageBitmap]);
+		});
+	}, []);
+
 	if (hidden) {
 		return null;
 	}
@@ -96,15 +178,22 @@ export const SmartImage = (props) => {
 					return;
 				}
 
-				const result = analyzeImage(e.target, imageAnalysisSettings);
+				try {
+					// Convert HTMLImageElement to ImageBitmap for web worker
+					const imageBitmap = await createImageBitmap(e.target);
+					const result = await analyzeWithWorker(imageBitmap, imageAnalysisSettings);
 
-				if (result) {
-					const { isDark: dark, dominantColors: colors, isTransparent: transparent, transparencyInfo } = result;
+					if (result) {
+						const { isDark: dark, dominantColors: colors, isTransparent: transparent, transparencyInfo } = result;
 
-					setIsDark(dark);
-					setDominantColors(colors);
-					setIsTransparent(transparent);
-					setTransparencyInfo(transparencyInfo);
+						setIsDark(dark);
+						setDominantColors(colors);
+						setIsTransparent(transparent);
+						setTransparencyInfo(transparencyInfo);
+					}
+				} catch (err) {
+					console.error('Error analyzing image:', err);
+					setError(err);
 				}
 
 				setHasAnalysed(true);

@@ -11,10 +11,11 @@ export default defineConfig({
 	plugins: [react(), libInjectCss(), tailwindcss()],
 	worker: {
 		format: 'es',
+		plugins: () => [react()],
 		rollupOptions: {
 			output: {
 				entryFileNames: 'workers/[name].js',
-				chunkFileNames: 'workers/[name].js',
+				chunkFileNames: 'workers/[name]-[hash].js',
 			},
 		},
 	},
@@ -34,21 +35,25 @@ export default defineConfig({
 		// },
 		rollupOptions: {
 			external: ['react', 'react/jsx-runtime'],
-			input: Object.fromEntries(
-				// https://rollupjs.org/configuration-options/#input
-				glob
-					.sync('lib/**/*.{js,jsx,woff2}', {
-						ignore: ['lib/**/*.d.ts'],
-					})
-					.map((file) => [
-						// 1. The name of the entry point
-						// lib/nested/foo.js becomes nested/foo
-						relative('lib', file.slice(0, file.length - extname(file).length)),
-						// 2. The absolute path to the entry file
-						// lib/nested/foo.ts becomes /project/lib/nested/foo.ts
-						fileURLToPath(new URL(file, import.meta.url)),
-					]),
-			),
+			input: {
+				...Object.fromEntries(
+					// https://rollupjs.org/configuration-options/#input
+					glob
+						.sync('lib/**/*.{js,jsx,woff2}', {
+							ignore: ['lib/**/*.d.ts', 'lib/**/*.worker.js'],
+						})
+						.map((file) => [
+							// 1. The name of the entry point
+							// lib/nested/foo.js becomes nested/foo
+							relative('lib', file.slice(0, file.length - extname(file).length)),
+							// 2. The absolute path to the entry file
+							// lib/nested/foo.ts becomes /project/lib/nested/foo.ts
+							fileURLToPath(new URL(file, import.meta.url)),
+						]),
+				),
+				// Add worker files as separate entries
+				'workers/image-analysis.worker': resolve(__dirname, 'lib/workers/image-analysis.worker.js'),
+			},
 			output: {
 				assetFileNames: 'assets/[name][extname]',
 				entryFileNames: '[name].js',

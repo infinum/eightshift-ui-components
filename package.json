@@ -34,7 +34,8 @@
 	"scripts": {
 		"dev": "vite",
 		"start": "vite",
-		"build": "vite build",
+		"build": "bun run update-scripts && vite build",
+		"update-scripts": "vite build --config vite.worker.config.js && node scripts/inline-worker.js",
 		"lint": "bun x eslint",
 		"preview": "vite preview"
 	},
@@ -96,11 +97,13 @@
 		"vite-plugin-lib-inject-css": "^2.2.2"
 	},
 	"dependencies": {
+		"@atom-universe/use-web-worker": "^2.2.1",
 		"@fontsource-variable/geist": "^5.2.8",
 		"@fontsource-variable/geist-mono": "^5.2.7",
 		"@thi.ng/color": "^5.7.62",
 		"@thi.ng/pixel": "^7.5.10",
 		"@thi.ng/pixel-analysis": "^2.0.9",
-		"@thi.ng/pixel-dominant-colors": "^2.0.14"
+		"@thi.ng/pixel-dominant-colors": "^2.0.14",
+		"scripts": "^0.1.0"
 	}
 }
