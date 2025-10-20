@@ -7,40 +7,29 @@ import { libInjectCss } from 'vite-plugin-lib-inject-css';
 import tailwindcss from '@tailwindcss/vite';
 
 // https://vitejs.dev/config/
-export default defineConfig({
-	plugins: [react(), libInjectCss(), tailwindcss()],
-	worker: {
-		format: 'es',
-		plugins: () => [react()],
-		rollupOptions: {
-			output: {
-				entryFileNames: 'workers/[name].js',
-				chunkFileNames: 'workers/[name]-[hash].js',
+export default defineConfig(({ mode }) => {
+	const isProd = mode === 'production';
+
+	return {
+		plugins: [react(), libInjectCss(), tailwindcss()],
+		build: {
+			copyPublicDir: true,
+			lib: {
+				name: 'EightshiftUiComponents',
+				entry: {
+					index: resolve(__dirname, 'lib/index.js'),
+				},
+				formats: ['es'],
 			},
-		},
-	},
-	build: {
-		copyPublicDir: true,
-		lib: {
-			name: 'EightshiftUiComponents',
-			entry: {
-				index: resolve(__dirname, 'lib/index.js'),
-			},
-			formats: ['es'],
-		},
-		cssMinify: false, // 'lightningcss',
-		minify: 'keepNames',
-		// commonjsOptions: {
-		// 	transformMixedEsModules: true,
-		// },
-		rollupOptions: {
-			external: ['react', 'react/jsx-runtime'],
-			input: {
-				...Object.fromEntries(
+			cssMinify: isProd ? 'lightningcss' : false,
+			minify: 'keepNames',
+			rollupOptions: {
+				external: ['react', 'react/jsx-runtime'],
+				input: Object.fromEntries(
 					// https://rollupjs.org/configuration-options/#input
 					glob
 						.sync('lib/**/*.{js,jsx,woff2}', {
-							ignore: ['lib/**/*.d.ts', 'lib/**/*.worker.js'],
+							ignore: ['lib/**/*.d.ts'],
 						})
 						.map((file) => [
 							// 1. The name of the entry point
@@ -51,13 +40,11 @@ export default defineConfig({
 							fileURLToPath(new URL(file, import.meta.url)),
 						]),
 				),
-				// Add worker files as separate entries
-				'workers/image-analysis.worker': resolve(__dirname, 'lib/workers/image-analysis.worker.js'),
-			},
-			output: {
-				assetFileNames: 'assets/[name][extname]',
-				entryFileNames: '[name].js',
+				output: {
+					assetFileNames: 'assets/[name][extname]',
+					entryFileNames: '[name].js',
+				},
 			},
 		},
-	},
+	};
 });
