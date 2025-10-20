@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Misc.
+lib/components/smart-image/worker-inline.js
