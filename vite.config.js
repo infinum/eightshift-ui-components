@@ -9,6 +9,15 @@ import tailwindcss from '@tailwindcss/vite';
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [react(), libInjectCss(), tailwindcss()],
+	worker: {
+		format: 'es',
+		rollupOptions: {
+			output: {
+				entryFileNames: 'workers/[name].js',
+				chunkFileNames: 'workers/[name].js',
+			},
+		},
+	},
 	build: {
 		copyPublicDir: true,
 		lib: {
