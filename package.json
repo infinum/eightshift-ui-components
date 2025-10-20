@@ -66,7 +66,7 @@
 		"css-gradient-parser": "^0.0.18",
 		"eslint": "^9.37.0",
 		"eslint-config-prettier": "^10.1.8",
-		"eslint-plugin-jsdoc": "^61.1.0",
+		"eslint-plugin-jsdoc": "^61.1.4",
 		"eslint-plugin-prettier": "^5.5.4",
 		"glob": "^11.0.3",
 		"globals": "^16.4.0",
@@ -92,7 +92,7 @@
 		"tailwindcss": "^4.1.14",
 		"tailwindcss-motion": "^1.1.1",
 		"tailwindcss-react-aria-components": "^2.0.1",
-		"vite": "^7.1.9",
+		"vite": "^7.1.10",
 		"vite-plugin-lib-inject-css": "^2.2.2"
 	},
 	"dependencies": {
