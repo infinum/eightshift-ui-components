@@ -3921,8 +3921,47 @@ function App() {
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<SmartImage
-						// src='https://picsum.photos/600/400.jpg'
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg'
+						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+					/>
+					<SmartImage
+						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-normal-map.jpg'
+						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+					/>
+					<SmartImage
+						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-sorting.png'
+						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+					/>
+					<SmartImage
+						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/poisson-image.avif'
+						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+					/>
+					<SmartImage
+						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/unbiased-normals.png'
+						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+					/>
+					<SmartImage
+						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ascii-raymarch.jpg'
+						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+					/>
+					<SmartImage
+						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/geom-extra-hiccup.jpg'
+						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+					/>
+					<SmartImage
+						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/bitmap-font.gif'
+						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+					/>
+					<SmartImage
+						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ellipse-proximity.png'
+						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+					/>
+					<SmartImage
+						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/banners/thing-rdom.svg'
+						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+					/>
+					<SmartImage
+						src=''
 						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
 					/>
 				</TabPanel>
