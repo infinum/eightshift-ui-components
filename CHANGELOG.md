@@ -9,6 +9,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Changed `SmartImage` analysis to use new async helpers.
 - Tweaked `FilePickerShell` file style.
 - Added `Spinner` component (from the `icons` import).
+- Tweaked library production build minification options.
 
 ## [5.5.0] - 2025-10-10
 - Added `SmartImage`
