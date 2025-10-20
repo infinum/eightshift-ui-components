@@ -5,6 +5,7 @@ import { icons } from '../../icons';
 import { DecorativeTooltip } from '../tooltip/tooltip';
 import { useImageAnalysisWorker } from '../../utilities/web-workers.js';
 import workerInline from './worker-inline.js';
+import { sha256 } from 'js-sha256';
 
 /**
  * @typedef {Object} CustomImageProps
@@ -13,6 +14,7 @@ import workerInline from './worker-inline.js';
  * @property {string} [props.processingClassName] - Classes to apply while the image is loading / being processed.
  * @property {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @property {import('../../utilities/general').ImageAnalysisSettings} [imageAnalysisSettings] - Settings to pass to the image analysis function.
+ * @property {import('../../utilities/general').ImageAnalysisResult} [analysisData] - Previous analysis result to pass in directly, skipping analysis.
  *
  * @preserve
  */
@@ -54,7 +56,7 @@ import workerInline from './worker-inline.js';
  * @preserve
  */
 export const SmartImage = (props) => {
-	const { imageAnalysisSettings, errorClassName, processingClassName = 'es:opacity-0 es:fixed', hidden, renderError, children, ...imageProps } = props;
+	const { imageAnalysisSettings, errorClassName, processingClassName = 'es:opacity-0 es:fixed', hidden, renderError, analysisData, children, ...imageProps } = props;
 
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [hasAnalysed, setHasAnalysed] = useState(false);
@@ -84,6 +86,10 @@ export const SmartImage = (props) => {
 
 	const classFetchProps = { isLoaded, hasAnalysed, isTransparent, dominantColors, isDark, transparencyInfo };
 
+	if (analysisData) {
+		delete imageProps.analysisData;
+	}
+
 	const imageElement = (
 		<img
 			decoding='async'
@@ -111,6 +117,33 @@ export const SmartImage = (props) => {
 					return;
 				}
 
+				if (analysisData) {
+					const { isDark: dark, dominantColors: colors, isTransparent: transparent, transparencyInfo } = analysisData;
+
+					setIsDark(dark);
+					setDominantColors(colors);
+					setIsTransparent(transparent);
+					setTransparencyInfo(transparencyInfo);
+					setHasAnalysed(true);
+
+					return;
+				}
+
+				// Cache results in localstorage.
+				const cacheKey = `es-uic-img-analysis-${sha256(imageProps.src)}`;
+
+				if (localStorage?.getItem(cacheKey)) {
+					const { isDark: dark, dominantColors: colors, isTransparent: transparent, transparencyInfo } = JSON.parse(localStorage.getItem(cacheKey));
+
+					setIsDark(dark);
+					setDominantColors(colors);
+					setIsTransparent(transparent);
+					setTransparencyInfo(transparencyInfo);
+					setHasAnalysed(true);
+
+					return;
+				}
+
 				try {
 					// Convert HTMLImageElement to ImageBitmap for web worker
 					const imageBitmap = await createImageBitmap(e.target);
@@ -124,6 +157,8 @@ export const SmartImage = (props) => {
 						setDominantColors(colors);
 						setIsTransparent(transparent);
 						setTransparencyInfo(transparencyInfo);
+
+						localStorage?.setItem(cacheKey, JSON.stringify(result));
 					}
 				} catch (err) {
 					console.error('Error analyzing image:', err);

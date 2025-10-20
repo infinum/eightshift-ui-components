@@ -55,6 +55,8 @@ export const FilePickerShell = (props) => {
 		noUrlContent,
 
 		hidden,
+
+		...rest
 	} = props;
 
 	if (hidden) {
@@ -68,6 +70,7 @@ export const FilePickerShell = (props) => {
 	if (type !== 'image') {
 		return (
 			<div
+				{...rest}
 				className={clsx(
 					'es:border es:border-secondary-200 es:bg-white es:flex es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-2 es:overflow-clip es:aspect-cinema es:group es:p-2',
 					className,
@@ -104,6 +107,7 @@ export const FilePickerShell = (props) => {
 			}
 			errorClassName='es:aspect-3-2 es:rounded-2xl es:bg-gradient-to-br es:from-white es:to-secondary-50 es:border es:border-dashed es:border-secondary-200'
 			imageAnalysisSettings={{ yFrom: 0.25, yTo: 0.75 }}
+			{...rest}
 		>
 			{({ image, dominantColors, isDark, hasAnalysed, isTransparent }) => (
 				<div
