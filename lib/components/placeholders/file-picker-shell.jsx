@@ -55,6 +55,8 @@ export const FilePickerShell = (props) => {
 		noUrlContent,
 
 		hidden,
+
+		...rest
 	} = props;
 
 	if (hidden) {
@@ -68,8 +70,9 @@ export const FilePickerShell = (props) => {
 	if (type !== 'image') {
 		return (
 			<div
+				{...rest}
 				className={clsx(
-					'es:border es:border-secondary-200 es:bg-white es:flex es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-2 es:overflow-clip es:aspect-3-2 es:group es:p-2',
+					'es:border es:border-secondary-200 es:bg-white es:flex es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-2 es:overflow-clip es:aspect-cinema es:group es:p-2',
 					className,
 				)}
 			>
@@ -96,21 +99,24 @@ export const FilePickerShell = (props) => {
 					hasAnalysed && transparencyInfo?.top && url && 'es:pt-3',
 					hasAnalysed && transparencyInfo?.bottom && url && 'es:pb-3',
 					hasAnalysed && isTransparent && 'es:bg-white/60 es:object-contain es:mx-auto',
-					hasAnalysed && isTransparent && (transparencyInfo?.left || transparencyInfo?.right) && 'es:w-full',
-					hasAnalysed && isTransparent && (transparencyInfo?.top || transparencyInfo?.bottom) && 'es:h-full',
+					hasAnalysed && isTransparent && (transparencyInfo?.left || transparencyInfo?.right) && 'es:w-full!',
+					hasAnalysed && isTransparent && (transparencyInfo?.top || transparencyInfo?.bottom) && 'es:h-full!',
 					hasAnalysed && !isTransparent && 'es:w-full es:aspect-3-2 es:object-cover',
 					hasAnalysed && 'es:grow es:rounded-xl',
 				)
 			}
-			errorClassName='es:aspect-3-2 es:rounded-2xl es:bg-gradient-to-br es:from-secondary-50 es:to-secondary-100 es:border es:border-secondary-200'
+			errorClassName='es:aspect-3-2 es:rounded-2xl es:bg-gradient-to-br es:from-white es:to-secondary-50 es:border es:border-dashed es:border-secondary-200'
 			imageAnalysisSettings={{ yFrom: 0.25, yTo: 0.75 }}
+			{...rest}
 		>
 			{({ image, dominantColors, isDark, hasAnalysed, isTransparent }) => (
 				<div
 					className={clsx(
-						'es:border es:border-secondary-200 es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-y-2 es:grid es:grid-cols-1 es:overflow-clip es:aspect-3-2 es:transition',
+						'es:border es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-y-2 es:grid es:grid-cols-1 es:overflow-clip es:aspect-3-2 es:transition',
+						hasAnalysed ? 'es:border-secondary-200' : 'es:border-secondary-200/0',
 						hasAnalysed && !isTransparent && 'es:group es:grid-rows-1',
 						hasAnalysed && isTransparent && 'es:p-2 es:grid-rows-[minmax(0,_1fr)_auto] es:h-fit',
+						!hasAnalysed && 'es:shimmer-dark es:bg-secondary-50',
 						className,
 					)}
 					style={
@@ -118,8 +124,6 @@ export const FilePickerShell = (props) => {
 					}
 				>
 					{image}
-
-					{!hasAnalysed && cloneElement(icons.loader, { className: 'es:animate-spin es:size-8 es:text-accent-600 es:m-auto es:duration-3000' })}
 
 					{hasAnalysed && children && (
 						<div

@@ -1,9 +1,11 @@
 import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx/lite';
-import { cloneElement, useState } from 'react';
-import { analyzeImage } from '../../utilities';
+import { cloneElement, useState, useRef, useEffect } from 'react';
 import { icons } from '../../icons';
 import { DecorativeTooltip } from '../tooltip/tooltip';
+import { useImageAnalysisWorker } from '../../utilities/web-workers.js';
+import workerInline from './worker-inline.js';
+import { sha256 } from 'js-sha256';
 
 /**
  * @typedef {Object} CustomImageProps
@@ -12,6 +14,7 @@ import { DecorativeTooltip } from '../tooltip/tooltip';
  * @property {string} [props.processingClassName] - Classes to apply while the image is loading / being processed.
  * @property {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @property {import('../../utilities/general').ImageAnalysisSettings} [imageAnalysisSettings] - Settings to pass to the image analysis function.
+ * @property {import('../../utilities/general').ImageAnalysisResult} [analysisData] - Previous analysis result to pass in directly, skipping analysis.
  *
  * @preserve
  */
@@ -53,7 +56,7 @@ import { DecorativeTooltip } from '../tooltip/tooltip';
  * @preserve
  */
 export const SmartImage = (props) => {
-	const { imageAnalysisSettings, errorClassName, processingClassName = 'es:opacity-0 es:fixed', hidden, renderError, children, ...imageProps } = props;
+	const { imageAnalysisSettings, errorClassName, processingClassName = 'es:opacity-0 es:fixed', hidden, renderError, analysisData, children, ...imageProps } = props;
 
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [hasAnalysed, setHasAnalysed] = useState(false);
@@ -63,11 +66,29 @@ export const SmartImage = (props) => {
 	const [isDark, setIsDark] = useState(false);
 	const [error, setError] = useState(null);
 
+	const workerRef = useRef(null);
+
+	// Cleanup worker on unmount
+	useEffect(() => {
+		return () => {
+			if (workerRef.current) {
+				workerRef.current.terminate();
+				workerRef.current = null;
+			}
+		};
+	}, []);
+
+	const { analyzeWithWorkerCb } = useImageAnalysisWorker(workerRef, workerInline);
+
 	if (hidden) {
 		return null;
 	}
 
 	const classFetchProps = { isLoaded, hasAnalysed, isTransparent, dominantColors, isDark, transparencyInfo };
+
+	if (analysisData) {
+		delete imageProps.analysisData;
+	}
 
 	const imageElement = (
 		<img
@@ -96,15 +117,52 @@ export const SmartImage = (props) => {
 					return;
 				}
 
-				const result = analyzeImage(e.target, imageAnalysisSettings);
-
-				if (result) {
-					const { isDark: dark, dominantColors: colors, isTransparent: transparent, transparencyInfo } = result;
+				if (analysisData) {
+					const { isDark: dark, dominantColors: colors, isTransparent: transparent, transparencyInfo } = analysisData;
 
 					setIsDark(dark);
 					setDominantColors(colors);
 					setIsTransparent(transparent);
 					setTransparencyInfo(transparencyInfo);
+					setHasAnalysed(true);
+
+					return;
+				}
+
+				// Cache results in localstorage.
+				const cacheKey = `es-uic-img-analysis-${sha256(imageProps.src)}`;
+
+				if (localStorage?.getItem(cacheKey)) {
+					const { isDark: dark, dominantColors: colors, isTransparent: transparent, transparencyInfo } = JSON.parse(localStorage.getItem(cacheKey));
+
+					setIsDark(dark);
+					setDominantColors(colors);
+					setIsTransparent(transparent);
+					setTransparencyInfo(transparencyInfo);
+					setHasAnalysed(true);
+
+					return;
+				}
+
+				try {
+					// Convert HTMLImageElement to ImageBitmap for web worker
+					const imageBitmap = await createImageBitmap(e.target);
+
+					const result = await analyzeWithWorkerCb(imageBitmap, imageAnalysisSettings);
+
+					if (result) {
+						const { isDark: dark, dominantColors: colors, isTransparent: transparent, transparencyInfo } = result;
+
+						setIsDark(dark);
+						setDominantColors(colors);
+						setIsTransparent(transparent);
+						setTransparencyInfo(transparencyInfo);
+
+						localStorage?.setItem(cacheKey, JSON.stringify(result));
+					}
+				} catch (err) {
+					console.error('Error analyzing image:', err);
+					setError(err);
 				}
 
 				setHasAnalysed(true);

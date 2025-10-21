@@ -7,43 +7,44 @@ import { libInjectCss } from 'vite-plugin-lib-inject-css';
 import tailwindcss from '@tailwindcss/vite';
 
 // https://vitejs.dev/config/
-export default defineConfig({
-	plugins: [react(), libInjectCss(), tailwindcss()],
-	build: {
-		copyPublicDir: true,
-		lib: {
-			name: 'EightshiftUiComponents',
-			entry: {
-				index: resolve(__dirname, 'lib/index.js'),
+export default defineConfig(({ mode }) => {
+	const isProd = mode === 'production';
+
+	return {
+		plugins: [react(), libInjectCss(), tailwindcss()],
+		build: {
+			copyPublicDir: true,
+			lib: {
+				name: 'EightshiftUiComponents',
+				entry: {
+					index: resolve(__dirname, 'lib/index.js'),
+				},
+				formats: ['es'],
 			},
-			formats: ['es'],
-		},
-		cssMinify: false, // 'lightningcss',
-		minify: 'keepNames',
-		// commonjsOptions: {
-		// 	transformMixedEsModules: true,
-		// },
-		rollupOptions: {
-			external: ['react', 'react/jsx-runtime'],
-			input: Object.fromEntries(
-				// https://rollupjs.org/configuration-options/#input
-				glob
-					.sync('lib/**/*.{js,jsx,woff2}', {
-						ignore: ['lib/**/*.d.ts'],
-					})
-					.map((file) => [
-						// 1. The name of the entry point
-						// lib/nested/foo.js becomes nested/foo
-						relative('lib', file.slice(0, file.length - extname(file).length)),
-						// 2. The absolute path to the entry file
-						// lib/nested/foo.ts becomes /project/lib/nested/foo.ts
-						fileURLToPath(new URL(file, import.meta.url)),
-					]),
-			),
-			output: {
-				assetFileNames: 'assets/[name][extname]',
-				entryFileNames: '[name].js',
+			cssMinify: isProd ? 'lightningcss' : false,
+			minify: 'keepNames',
+			rollupOptions: {
+				external: ['react', 'react/jsx-runtime'],
+				input: Object.fromEntries(
+					// https://rollupjs.org/configuration-options/#input
+					glob
+						.sync('lib/**/*.{js,jsx,woff2}', {
+							ignore: ['lib/**/*.d.ts'],
+						})
+						.map((file) => [
+							// 1. The name of the entry point
+							// lib/nested/foo.js becomes nested/foo
+							relative('lib', file.slice(0, file.length - extname(file).length)),
+							// 2. The absolute path to the entry file
+							// lib/nested/foo.ts becomes /project/lib/nested/foo.ts
+							fileURLToPath(new URL(file, import.meta.url)),
+						]),
+				),
+				output: {
+					assetFileNames: 'assets/[name][extname]',
+					entryFileNames: '[name].js',
+				},
 			},
 		},
-	},
+	};
 });
