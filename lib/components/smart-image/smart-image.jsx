@@ -5,7 +5,7 @@ import { icons } from '../../icons';
 import { DecorativeTooltip } from '../tooltip/tooltip';
 import { useImageAnalysisWorker } from '../../utilities/web-workers.js';
 import workerInline from './worker-inline.js';
-import { sha256 } from 'js-sha256';
+import { cyrb64Hash } from '../../utilities/hash.js';
 
 /**
  * @typedef {Object} CustomImageProps
@@ -130,7 +130,7 @@ export const SmartImage = (props) => {
 				}
 
 				// Cache results in localstorage.
-				const cacheKey = `es-uic-img-analysis-${sha256(imageProps.src)}`;
+				const cacheKey = `es-uic-img-analysis-${cyrb64Hash(imageProps.src)}`;
 
 				if (localStorage?.getItem(cacheKey)) {
 					const { isDark: dark, dominantColors: colors, isTransparent: transparent, transparencyInfo } = JSON.parse(localStorage.getItem(cacheKey));
