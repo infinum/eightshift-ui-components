@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [5.7.0] - 2025-10-
+- `OptionSelect` now supports `sectionIcon`, `sectionSubtitle`, and `sectionEndIcon` in the `menu`, `submenu`, and `standaloneMenuItems` variants to expand options for section headers.
+
 ## [5.6.1] - 2025-10-21
 - Removed `sha256` and `sha224` from `utilities` export due to compatibility issues.
 - Added `simpleHash` and `cyrb64Hash` hash functions.
@@ -455,6 +458,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[5.7.0]: https://github.com/infinum/eightshift-ui-components/compare/5.6.1...5.7.0
 [5.6.1]: https://github.com/infinum/eightshift-ui-components/compare/5.6.0...5.6.1
 [5.6.0]: https://github.com/infinum/eightshift-ui-components/compare/5.5.0...5.6.0
 [5.5.0]: https://github.com/infinum/eightshift-ui-components/compare/5.4.0...5.5.0

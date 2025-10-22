@@ -146,12 +146,24 @@ export const OptionSelect = (props) => {
 						subtitle: optionSubtitle,
 						separator: optionHasSeparator,
 						sectionTitle: optionSectionTitle,
+						sectionIcon: optionSectionIcon,
+						sectionSubtitle: optionSectionSubtitle,
+						sectionEndIcon: optionSectionEndIcon,
 						shortcut: optionShortcut,
 						disabled: optionDisabled,
 					}) => (
 						<Fragment key={optionValue}>
 							{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
-							{optionSectionTitle && <MenuItem disabled>{optionSectionTitle}</MenuItem>}
+							{optionSectionTitle && (
+								<MenuItem
+									icon={typeof optionSectionIcon === 'string' ? icons?.[optionSectionIcon] : optionSectionIcon}
+									endIcon={typeof optionSectionEndIcon === 'string' ? icons?.[optionSectionEndIcon] : optionSectionEndIcon}
+									subtitle={optionSectionSubtitle}
+									disabled
+								>
+									{optionSectionTitle}
+								</MenuItem>
+							)}
 							<MenuItem
 								selected={value === optionValue}
 								disabled={optionDisabled || disabled}
@@ -194,12 +206,24 @@ export const OptionSelect = (props) => {
 						subtitle: optionSubtitle,
 						separator: optionHasSeparator,
 						sectionTitle: optionSectionTitle,
+						sectionIcon: optionSectionIcon,
+						sectionSubtitle: optionSectionSubtitle,
+						sectionEndIcon: optionSectionEndIcon,
 						shortcut: optionShortcut,
 						disabled: optionDisabled,
 					}) => (
 						<Fragment key={optionValue}>
 							{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
-							{optionSectionTitle && <MenuItem disabled>{optionSectionTitle}</MenuItem>}
+							{optionSectionTitle && (
+								<MenuItem
+									icon={typeof optionSectionIcon === 'string' ? icons?.[optionSectionIcon] : optionSectionIcon}
+									endIcon={typeof optionSectionEndIcon === 'string' ? icons?.[optionSectionEndIcon] : optionSectionEndIcon}
+									subtitle={optionSectionSubtitle}
+									disabled
+								>
+									{optionSectionTitle}
+								</MenuItem>
+							)}
 							<MenuItem
 								selected={value === optionValue}
 								disabled={optionDisabled || disabled}
@@ -344,12 +368,24 @@ export const OptionSelect = (props) => {
 							subtitle: optionSubtitle,
 							separator: optionHasSeparator,
 							sectionTitle: optionSectionTitle,
+							sectionIcon: optionSectionIcon,
+							sectionSubtitle: optionSectionSubtitle,
+							sectionEndIcon: optionSectionEndIcon,
 							shortcut: optionShortcut,
 							disabled: optionDisabled,
 						}) => (
 							<Fragment key={optionValue}>
 								{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
-								{optionSectionTitle && <MenuItem disabled>{optionSectionTitle}</MenuItem>}
+								{optionSectionTitle && (
+									<MenuItem
+										icon={typeof optionSectionIcon === 'string' ? icons?.[optionSectionIcon] : optionSectionIcon}
+										endIcon={typeof optionSectionEndIcon === 'string' ? icons?.[optionSectionEndIcon] : optionSectionEndIcon}
+										subtitle={optionSectionSubtitle}
+										disabled
+									>
+										{optionSectionTitle}
+									</MenuItem>
+								)}
 								<MenuItem
 									selected={value === optionValue}
 									disabled={optionDisabled || disabled}
