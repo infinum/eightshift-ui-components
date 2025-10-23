@@ -492,7 +492,7 @@ export const ButtonGroup = ({ children, className, vertical, hidden, type = 'seg
 		<Toolbar
 			className={clsx(
 				'es:flex',
-				type === 'segmented' && !vertical && 'es:gap-0.75',
+				type === 'segmented' && !vertical && 'es:gap-0.5',
 				type === 'segmented' && vertical && 'es:flex-col es:gap-0.75',
 				type === 'segmented' && !vertical && 'es-button-group-h',
 				type === 'segmented' && vertical && 'es-button-group-v',
