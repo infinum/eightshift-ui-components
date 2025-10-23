@@ -119,6 +119,7 @@ function App() {
 	let [radioValue, setRadioValue] = useState(null);
 	let [modalOpen, setModalOpen] = useState(false);
 	let [buttonPending, setButtonPending] = useState(false);
+	let [buttonDisabled, setButtonDisabled] = useState(false);
 
 	let [sinSel, setSinSel] = useState(null);
 	let [sinSelSimple, setSinSelSimple] = useState(null);
@@ -735,6 +736,14 @@ function App() {
 					/>
 
 					<Toggle
+						checked={toggled}
+						onChange={(value) => setToggled(value)}
+						icon={icons.experiment}
+						label='Airplane mode flat'
+						flat
+					/>
+
+					<Toggle
 						checked
 						onChange={(value) => setToggled(value)}
 						icon={icons.experiment}
@@ -968,6 +977,24 @@ function App() {
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Button>Hello</Button>
 
+					<ButtonGroup>
+						<Button>Hello</Button>
+						<Button>Hello</Button>
+						<Button>Hello</Button>
+					</ButtonGroup>
+
+					<ButtonGroup>
+						<Button flat>Flatllo</Button>
+						<Button flat>Flatllo</Button>
+						<Button flat>Flatllo</Button>
+					</ButtonGroup>
+
+					<ButtonGroup>
+						<Button type='simple'>Flatllo</Button>
+						<Button type='simple'>Flatllo</Button>
+						<Button type='simple'>Flatllo</Button>
+					</ButtonGroup>
+
 					<hr />
 
 					<Checkbox
@@ -976,37 +1003,113 @@ function App() {
 						label='Pending?'
 					/>
 
-					<Button pending={buttonPending}>Pending button</Button>
+					<Checkbox
+						checked={buttonDisabled}
+						onChange={setButtonDisabled}
+						label='Disabled?'
+					/>
+
+					<Button
+						pending={buttonPending}
+						disabled={buttonDisabled}
+					>
+						Pending button
+					</Button>
+
+					<Button
+						pending={buttonPending}
+						disabled={buttonDisabled}
+						type='simple'
+					>
+						Pending button
+					</Button>
+
+					<Button
+						pending={buttonPending}
+						disabled={buttonDisabled}
+						type='selectedSimple'
+					>
+						Pending button
+					</Button>
+
+					<Button
+						pending={buttonPending}
+						disabled={buttonDisabled}
+						type='dangerSimple'
+					>
+						Pending button
+					</Button>
+
 					<Button
 						type='ghost'
 						pending={buttonPending}
+						disabled={buttonDisabled}
 					>
 						Pending button
 					</Button>
 					<Button
 						type='danger'
 						pending={buttonPending}
+						disabled={buttonDisabled}
 					>
 						Pending button
 					</Button>
 					<Button
 						type='dangerGhost'
 						pending={buttonPending}
+						disabled={buttonDisabled}
 					>
 						Pending button
 					</Button>
 					<Button
 						type='selected'
 						pending={buttonPending}
+						disabled={buttonDisabled}
+						icon={icons.magicFill}
 					>
 						Pending button
 					</Button>
 					<Button
 						type='selectedGhost'
 						pending={buttonPending}
+						disabled={buttonDisabled}
 					>
 						Pending button
 					</Button>
+
+					<div
+						style={{ backgroundImage: 'url(https://fastly.picsum.photos/id/328/600/800.jpg?hmac=BZ-xPwUADtXzjRoS5pt6s9NZob3vvu89cOu6DYICMQE' }}
+						className='es:bg-cover es:p-8 es:space-y-5 es:bg-right-bottom'
+					>
+						<Button
+							type='glass'
+							pending={buttonPending}
+							disabled={buttonDisabled}
+						>
+							Pending button
+						</Button>
+						<Button
+							type='glassDark'
+							pending={buttonPending}
+							disabled={buttonDisabled}
+						>
+							Pending button
+						</Button>
+						<Button
+							type='dangerGlass'
+							pending={buttonPending}
+							disabled={buttonDisabled}
+						>
+							Pending button
+						</Button>
+						<Button
+							type='selectedGlass'
+							pending={buttonPending}
+							disabled={buttonDisabled}
+						>
+							Pending button
+						</Button>
+					</div>
 
 					<hr />
 
@@ -1102,6 +1205,8 @@ function App() {
 
 					<Button icon={icons.emptyRect}>Hello</Button>
 
+					<hr />
+
 					<OptionSelect
 						value={loremIpsum2}
 						onChange={(v) => setLoremIpsum2(v)}
@@ -1111,6 +1216,100 @@ function App() {
 							{ label: 'Large', value: 2, icon: icons.large },
 						]}
 					/>
+
+					<OptionSelect
+						value={loremIpsum2}
+						onChange={(v) => setLoremIpsum2(v)}
+						itemProps={{ type: 'simple' }}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+					/>
+
+					<OptionSelect
+						value={loremIpsum2}
+						onChange={(v) => setLoremIpsum2(v)}
+						itemProps={{ type: 'ghost' }}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+					/>
+
+					<hr />
+
+					<OptionSelect
+						value={loremIpsum2}
+						onChange={(v) => setLoremIpsum2(v)}
+						itemProps={{ size: 'small' }}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+					/>
+
+					<OptionSelect
+						value={loremIpsum2}
+						onChange={(v) => setLoremIpsum2(v)}
+						itemProps={{ type: 'simple', size: 'small' }}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+					/>
+
+					<OptionSelect
+						value={loremIpsum2}
+						onChange={(v) => setLoremIpsum2(v)}
+						itemProps={{ type: 'ghost', size: 'small' }}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+					/>
+
+					<hr />
+
+					<OptionSelect
+						value={loremIpsum2}
+						onChange={(v) => setLoremIpsum2(v)}
+						itemProps={{ size: 'large' }}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+					/>
+
+					<OptionSelect
+						value={loremIpsum2}
+						onChange={(v) => setLoremIpsum2(v)}
+						itemProps={{ type: 'simple', size: 'large' }}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+					/>
+
+					<OptionSelect
+						value={loremIpsum2}
+						onChange={(v) => setLoremIpsum2(v)}
+						itemProps={{ type: 'ghost', size: 'large' }}
+						options={[
+							{ label: 'Small', value: 0, icon: icons.small },
+							{ label: 'Medium', value: 1, icon: icons.medium },
+							{ label: 'Large', value: 2, icon: icons.large },
+						]}
+					/>
+
+					<hr />
 
 					<OptionSelect
 						value={loremIpsum2}
