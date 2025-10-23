@@ -1,12 +1,15 @@
 /* Fonts */
 @import '@fontsource-variable/geist';
 @import '@fontsource-variable/geist-mono';
+@import '@fontsource-variable/readex-pro/hexp.css';
+@import '@fontsource-variable/playpen-sans';
+@import '@fontsource-variable/roboto-flex/full.css';
 
 /* Tailwind */
 @source '../safelist.txt';
 
 @theme {
-	--font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+	--font-sans: 'Roboto Flex Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 	--font-mono: 'Geist Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
 	--default-transition-duration: 300ms;
@@ -16,6 +19,9 @@
 
 	--text-xs: 0.71875rem;
 	--text-xs--line-height: 1.3;
+
+	--text-13: 0.8125rem;
+	--text-13--line-height: 1.25;
 
 	--spacing-3_25: 0.8125rem; /* 13px */
 	--spacing-5_5: 1.375rem;
@@ -52,6 +58,18 @@
 	--color-accent-900: var(--es-color-teal-900);
 	--color-accent-950: var(--es-color-teal-950);
 
+	--color-surface-50:  color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
+	--color-surface-100: color-mix(in oklab, var(--es-color-accent-100) 20%, var(--es-color-secondary-100));
+	--color-surface-200: color-mix(in oklab, var(--es-color-accent-200) 20%, var(--es-color-secondary-200));
+	--color-surface-300: color-mix(in oklab, var(--es-color-accent-300) 20%, var(--es-color-secondary-300));
+	--color-surface-400: color-mix(in oklab, var(--es-color-accent-400) 20%, var(--es-color-secondary-400));
+	--color-surface-500: color-mix(in oklab, var(--es-color-accent-500) 20%, var(--es-color-secondary-500));
+	--color-surface-600: color-mix(in oklab, var(--es-color-accent-600) 20%, var(--es-color-secondary-600));
+	--color-surface-700: color-mix(in oklab, var(--es-color-accent-700) 20%, var(--es-color-secondary-700));
+	--color-surface-800: color-mix(in oklab, var(--es-color-accent-800) 20%, var(--es-color-secondary-800));
+	--color-surface-900: color-mix(in oklab, var(--es-color-accent-900) 20%, var(--es-color-secondary-900));
+	--color-surface-950: color-mix(in oklab, var(--es-color-accent-950) 20%, var(--es-color-secondary-950));
+
 	/* Easings */
 
 	--ease-spring-smooth: var(--motion-spring-smooth);
@@ -60,6 +78,10 @@
 	--ease-spring-bouncier: var(--motion-spring-bouncier);
 	--ease-spring-bounciest: var(--motion-spring-bounciest);
 	--ease-bounce: var(--motion-bounce);
+
+	/* Shadows */
+
+	--drop-shadow-2xs: 0 1px rgb(0 0 0 / 0.05);
 }
 
 @custom-variant focus-visible {
@@ -110,8 +132,37 @@
 	}
 }
 
+@custom-variant any-icon {
+	& svg {
+		@slot;
+	}
+}
+
 @custom-variant btn-group {
 	:where(.es-button-group-h, .es-button-group-v) & {
+		@slot;
+	}
+}
+
+@custom-variant btn-group-h {
+	.es-button-group-h & {
+		@slot;
+	}
+}
+@custom-variant btn-group-v {
+	.es-button-group-v & {
+		@slot;
+	}
+}
+
+@custom-variant before-selected {
+	&:has(+ :where(&:pressed, &:active, &[data-selected="true"], &[aria-expanded="true"])) {
+		@slot;
+	}
+}
+
+@custom-variant after-selected {
+	:where(&:pressed, &:active, &[data-selected="true"], &[aria-expanded="true"]) + & {
 		@slot;
 	}
 }
@@ -157,24 +208,52 @@
 	text-shadow: 0 1px 0 color-mix(in oklab, var(--es-color-accent-900) 25%, transparent);
 }
 
+@utility transition-plus {
+	transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events, border-radius;
+	transition-duration: var(--es-default-transition-duration);
+	transition-timing-function: var(--es-default-transition-timing-function);
+}
+
 @keyframes es-uic-shimmer {
 	to {
 		background-position-x: 0%;
 	}
 }
 
+@utility shimmer-animation {
+	background-size: 300%;
+	background-position-x: 100%;
+	animation: es-uic-shimmer 2s infinite linear;
+}
+
 @utility shimmer {
 	background-image: linear-gradient(-45deg, transparent 40%, rgb(255 255 255 / 0.4) 50%, transparent 60%);
 	background-size: 300%;
 	background-position-x: 100%;
-	animation: es-uic-shimmer 2s infinite linear;
+	animation: es-uic-shimmer 3s infinite linear;
 }
 
 @utility shimmer-dark {
 	background-image: linear-gradient(-45deg, transparent 40%, rgb(20 20 20 / 0.05) 50%, transparent 60%);
 	background-size: 300%;
 	background-position-x: 100%;
-	animation: es-uic-shimmer 2s infinite linear;
+	animation: es-uic-shimmer 3s infinite linear;
+}
+
+@utility font-variation-* {
+	font-variation-settings: --value([*]);
+}
+
+@utility squircle {
+	@supports (corner-shape: squircle) {
+		corner-shape: squircle;
+	}
+}
+
+@utility text-box-trim {
+	@supports (text-box: trim-both cap alphabetic) {
+		text-box: trim-both cap alphabetic;
+	}
 }
 
 @import './themes.css';
