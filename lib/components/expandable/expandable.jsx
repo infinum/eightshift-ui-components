@@ -4,8 +4,8 @@ import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
 import { clsx } from 'clsx/lite';
-import { __ } from '@wordpress/i18n';
 import { Label, Disclosure, DisclosurePanel } from 'react-aria-components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * A component that allows hiding content in an expandable panel, to declutter the UI.
@@ -26,6 +26,7 @@ import { Label, Disclosure, DisclosurePanel } from 'react-aria-components';
  * @param {Function} [props.onOpenChange] - Function is called when the panel is opened or closed.
  * @param {object} [props.headerProps] - Props to pass to the header (label + trigger).
  * @param {JSX.Element} [props.customOpenButton] - Allows adding a custom open button. **IMPORTANT**: make sure to set `slot='trigger'` on the passed element!
+ * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Expandable component.
@@ -65,6 +66,8 @@ export const Expandable = (props) => {
 
 		headerProps,
 
+		flat,
+
 		hidden,
 
 		...other
@@ -83,34 +86,43 @@ export const Expandable = (props) => {
 	return (
 		<Disclosure
 			isExpanded={isOpen}
-			className={clsx('es:w-full es:rounded-xl es:border es:border-secondary-300/0 es:text-sm es:transition', isOpen && 'es:border-secondary-300/100 es:shadow-lg', className)}
+			className={clsx('es:text-sm', className)}
 			{...other}
 		>
 			<div
-				className={clsx('es:flex es:h-10 es:items-center es:gap-1 es:transition-[padding]', isOpen && 'es:py-1 es:pl-2 es:pr-1', headerClassName)}
+				className={clsx(
+					'es:flex es:items-center es:h-10 es:gap-1 es:p-1 es:pl-1.5',
+					'es:rounded-t-xl',
+					'es:inset-ring',
+					isOpen && 'es:rounded-b-sm es:bg-surface-100 es:inset-ring-surface-300/30',
+					!isOpen && 'es:rounded-b-xl es:bg-secondary-50 es:inset-ring-secondary-200/40',
+					!flat && 'es:shadow-xs es:shadow-black/5',
+					'es:transition-plus',
+					headerClassName,
+				)}
 				{...headerProps}
 			>
 				<RichLabel
 					icon={icon}
 					label={label}
 					subtitle={subtitle}
-					className={labelClassName}
+					className={clsx('es:grow', labelClassName)}
 					as={Label}
-					fullWidth
 				/>
 
 				{actions && !keepActionsOnExpand && (
 					<AnimatedVisibility
 						visible={!isOpen}
-						className='es:ml-auto es:flex es:gap-2'
-						transition='slideFadeDownSlight'
+						className='es:flex es:gap-1 es:shrink-0'
+						transition='scaleFade'
+						decreaseBounce
 						noInitial
 					>
 						{actions}
 					</AnimatedVisibility>
 				)}
 
-				{actions && keepActionsOnExpand && <div className='es:ml-auto es:flex es:gap-2'>{actions}</div>}
+				{actions && keepActionsOnExpand && <div className='es:flex es:gap-1 es:shrink-0'>{actions}</div>}
 
 				{customOpenButton &&
 					customOpenButton({
@@ -130,7 +142,7 @@ export const Expandable = (props) => {
 					<Button
 						slot='trigger'
 						type='ghost'
-						icon={isOpen ? icons.caretDownFill : icons.caretDown}
+						icon={icons.dropdownCaretAlt}
 						onPress={() => {
 							setIsOpen(!isOpen);
 
@@ -140,21 +152,27 @@ export const Expandable = (props) => {
 						}}
 						tooltip={isOpen ? __('Close', 'eightshift-ui-components') : __('Open', 'eightshift-ui-components')}
 						disabled={disabled}
-						className={clsx('es:icon:size-5 es:icon:transition-transform', isOpen && 'es:icon:-scale-y-100')}
+						className={clsx(
+							'es:icon:transition-transform es:ease-spring-bouncier es:duration-400',
+							isOpen && 'es:icon:-scale-y-100 es:icon:text-surface-600',
+							!isOpen && 'es:icon:text-secondary-500',
+						)}
 						size='small'
 					/>
 				)}
 			</div>
 
-			<DisclosurePanel
-				className={clsx(
-					isOpen && 'es:space-y-2.5 es:border-t es:border-t-secondary-200 es:p-2',
-					isOpen &&
-						'es:motion-safe:motion-preset-slide-down-sm es:motion-safe:motion-ease-spring-smooth es:motion-safe:motion-ease-linear/opacity es:motion-safe:motion-duration-300 es:motion-reduce:motion-preset-fade-md',
-					contentClassName,
-				)}
-			>
-				{children}
+			<DisclosurePanel className={clsx(contentClassName)}>
+				<AnimatedVisibility
+					visible={isOpen}
+					transition='scaleSlideFadeSlight'
+					className={clsx(
+						'es:space-y-1 es:p-2 es:bg-secondary-50 es:mt-0.5 es:rounded-b-xl es:rounded-t-sm es:inset-ring es:inset-ring-secondary-200/40',
+						!flat && 'es:shadow-xs es:shadow-black/5',
+					)}
+				>
+					{children}
+				</AnimatedVisibility>
 			</DisclosurePanel>
 		</Disclosure>
 	);
