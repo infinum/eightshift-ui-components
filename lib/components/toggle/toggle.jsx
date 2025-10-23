@@ -16,6 +16,7 @@ import { RichLabel } from '../rich-label/rich-label';
  * @param {string} [props.className] - Classes to pass to the toggle switch.
  * @param {string} [props.labelClassName] - Classes to pass to the label.
  * @param {boolean} [props.isIndeterminate] - If `true`, the switch will render in an indeterminate state.
+ * @property {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Toggle component.
@@ -33,7 +34,7 @@ import { RichLabel } from '../rich-label/rich-label';
  * @preserve
  */
 export const Toggle = (props) => {
-	const { checked, onChange, icon, label, subtitle, disabled, className, labelClassName, isIndeterminate, hidden } = props;
+	const { checked, onChange, icon, label, subtitle, disabled, className, labelClassName, isIndeterminate, flat, hidden } = props;
 
 	if (hidden) {
 		return null;
@@ -46,6 +47,7 @@ export const Toggle = (props) => {
 			disabled={disabled}
 			className={className}
 			isIndeterminate={isIndeterminate}
+			flat={flat}
 		>
 			<RichLabel
 				as={Label}
