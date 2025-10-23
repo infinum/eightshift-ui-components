@@ -4,8 +4,6 @@ import { clsx } from 'clsx/lite';
 import { cva } from 'class-variance-authority';
 import { Tooltip } from '../tooltip/tooltip';
 import { __ } from '@wordpress/i18n';
-import { cloneElement } from 'react';
-import { icons } from '../../icons';
 
 /**
  * @typedef {import('../tooltip/tooltip').TooltipProps} TooltipProps
@@ -27,11 +25,11 @@ import { icons } from '../../icons';
  * @property {TooltipProps} [props.tooltipProps] - Props to pass to the tooltip.
  * @property {boolean} [props.pending] - If `true`, the button is in a pending state, which can be used to indicate that an action is being processed.
  * @property {string} [props.pendingAriaLabel='Loading'] - ARIA label for the pending state, used for screen readers.
- * @property {boolean} [props.flat] - If `true`, the button will be render with a more flat look. (applies only to `default`, `selected`, and `danger` types)
+ * @property {boolean} [props.flat] - If `true`, component will look more flat (applies only to `default`, `selected`, and `danger` types). Useful for nested layer of controls.
  * @property {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @typedef {'small' | 'default' | 'large'} ButtonSize
- * @typedef {'default' | 'selected' | 'selectedGhost' | 'ghost' | 'danger' | 'dangerGhost' | 'glass' | 'glassDark' | 'dangerGlass' | 'selectedGlass'} ButtonType
+ * @typedef {'default' | 'selected' | 'selectedGhost' | 'ghost' | 'danger' | 'dangerGhost' | 'glass' | 'glassDark' | 'dangerGlass' | 'selectedGlass' | 'simple' | 'selectedSimple' | 'dangerSimple' } ButtonType
  *
  * @preserve
  */
@@ -86,96 +84,28 @@ export const Button = (props) => {
 
 	const componentClasses = cva(
 		[
-			'es:flex es:items-center es:gap-1',
-			'es:transition es:duration-300 es:border es:text-sm',
-			'es:any-focus:outline-hidden es:focus-visible:z-10',
-			'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
-			'es:focus-visible:border-accent-500',
-			'es:btn-group-mid:rounded-none',
-			'es:btn-group-h-start:rounded-r-none es:btn-group-v-start:rounded-b-none',
-			'es:btn-group-h-end:rounded-l-none es:btn-group-v-end:rounded-t-none',
-			'es:enabled:not-pending:cursor-pointer',
+			'es:font-variation-["wdth"_80,"YTLC"_520,"wdth"_64,"wght"_375]',
+			'es:flex es:items-center',
+			'es:transition-plus es:duration-300 es:ease-spring-smooth es:text-13',
+			'es:any-focus:outline-hidden',
+			'es:focus-visible:ring-2',
 			'es:shrink-0',
-			'es:pending:shadow-none! es:pending:cursor-wait',
-			icon && children ? 'es:justify-start' : 'es:justify-center',
+			'es:text-box-trim',
+			'es:btn-group-h:not-pressed:not-after-selected:not-first:rounded-l-sm',
+			'es:btn-group-h:not-pressed:not-before-selected:not-last:rounded-r-sm',
+			'es:btn-group-v:not-pressed:not-after-selected:not-first:rounded-t-sm',
+			'es:btn-group-v:not-pressed:not-before-selected:not-last:rounded-b-sm',
+			!pending && !disabled && 'es:cursor-pointer',
+			pending && 'es:cursor-wait',
+			icon && children ? 'es:justify-start' : 'es:justify-center-safe',
 			className,
 		],
 		{
 			variants: {
 				size: {
-					small: 'es:icon:size-5 es:rounded-7',
-					default: 'es:icon:size-5 es:rounded-10',
-					large: 'es:icon:size-6 es:rounded-xl',
-				},
-				type: {
-					default: ['es:bg-radial-[at_50%_125%]', !flat && 'es:inset-ring es:inset-shadow-xs'],
-					selected: ['es:bg-radial-[at_50%_125%]', !flat && 'es:inset-ring es:inset-shadow-xs'],
-					danger: ['es:bg-radial-[at_50%_125%]', !flat && 'es:inset-ring es:inset-shadow-xs'],
-					ghost:
-						'es:border-transparent es:text-secondary-700 es:hover:bg-secondary-100 es:enabled:active:bg-accent-50 es:enabled:pressed:bg-accent-50 es:enabled:active:text-accent-950 es:enabled:pressed:text-accent-950 es:disabled:border-transparent!',
-					dangerGhost: [
-						'es:border-transparent es:text-red-700',
-						'es:hover:bg-red-500/5 es:enabled:active:bg-red-500/10 es:enabled:pressed:bg-red-500/10',
-						'es:focus-visible:text-red-700',
-						'es:focus-visible:ring-red-500/30 es:focus-visible:border-red-600 es:focus-visible:inset-ring-red-100',
-						'es:disabled:border-transparent!',
-					],
-					selectedGhost: [
-						'es:border-transparent es:text-accent-600',
-						'es:hover:bg-accent-500/5 es:enabled:active:bg-accent-500/10 es:enabled:pressed:bg-accent-500/10',
-						'es:focus-visible:text-accent-700',
-						'es:focus-visible:ring-accent-500/30 es:focus-visible:border-accent-500 es:focus-visible:inset-ring-accent-100',
-						'es:disabled:border-transparent!',
-					],
-					glass: [
-						'es:backdrop-blur-md',
-						'es:backdrop-saturate-120 es:hover:backdrop-saturate-130',
-						'es:bg-radial-[at_50%_75%] es:from-white/20 es:to-white/15',
-						'es:hover:from-white/30 es:hover:to-white/25',
-						'es:focus-visible:from-white/90 es:focus-visible:to-white/85',
-						'es:border-none es:text-white es:focus-visible:text-black',
-						'es:inset-shadow-sm es:inset-shadow-white/5 es:hover:inset-shadow-white/10',
-						'es:shadow-xs es:shadow-black/10',
-						'es:inset-ring es:inset-ring-white/2',
-						'es:text-shadow-2xs es:text-shadow-black/30',
-					],
-					glassDark: [
-						'es:backdrop-blur-md',
-						'es:backdrop-saturate-115 es:hover:backdrop-saturate-125',
-						'es:bg-radial-[at_50%_75%] es:from-black/40 es:to-black/35',
-						'es:hover:from-black/50 es:hover:to-black/45',
-						'es:focus-visible:from-black/95 es:focus-visible:to-black/90',
-						'es:border-none es:text-white',
-						'es:inset-shadow-sm es:inset-shadow-white/5 es:hover:inset-shadow-white/10',
-						'es:shadow-xs es:shadow-black/10',
-						'es:inset-ring es:inset-ring-black/10',
-						'es:text-shadow-2xs es:text-shadow-black/30 es:focus-visible:text-shadow-black/0',
-					],
-					dangerGlass: [
-						'es:backdrop-blur-md',
-						'es:backdrop-saturate-115 es:hover:backdrop-saturate-125',
-						'es:bg-radial-[at_50%_75%] es:from-red-700/50 es:to-red-700/45',
-						'es:hover:from-red-700/60 es:hover:to-red-700/55',
-						'es:enabled:focus-visible:from-red-700/95 es:enabled:focus-visible:to-red-700/90',
-						'es:border-none es:text-white',
-						'es:inset-shadow-sm es:inset-shadow-white/5 es:hover:inset-shadow-white/10',
-						'es:shadow-xs es:shadow-red-700/10',
-						'es:inset-ring es:inset-ring-red-700/10',
-						'es:text-shadow-2xs es:text-shadow-black/30',
-						'es:focus-visible:ring-red-500/30',
-					],
-					selectedGlass: [
-						'es:backdrop-blur-md',
-						'es:backdrop-saturate-120 es:hover:backdrop-saturate-130',
-						'es:bg-radial-[at_50%_75%] es:from-accent-400/35 es:to-accent-400/30',
-						'es:hover:from-accent-400/45 es:hover:to-accent-400/40',
-						'es:focus-visible:from-accent-600/95 es:focus-visible:to-accent-600/90',
-						'es:border-none es:text-white',
-						'es:inset-shadow-sm es:inset-shadow-white/5 es:hover:inset-shadow-white/10',
-						'es:shadow-xs es:shadow-black/10',
-						'es:inset-ring es:inset-ring-white/2',
-						'es:text-shadow-2xs es:text-shadow-black/30',
-					],
+					small: 'es:gap-0.75 es:icon:size-5 es:rounded-lg es:pressed:rounded-10 ',
+					default: 'es:gap-1.25 es:icon:size-5 es:rounded-10 es:pressed:rounded-xl',
+					large: 'es:gap-1.5 es:icon:size-6 es:rounded-xl es:pressed:rounded-2xl',
 				},
 			},
 			compoundVariants: [
@@ -185,62 +115,238 @@ export const Button = (props) => {
 					disabled: false,
 					class: [
 						'es:text-black',
-						'es:from-white es:to-secondary-50',
-						'es:border-secondary-300',
-						!flat && 'es:inset-ring-secondary-100',
-						!flat && 'es:inset-shadow-secondary-100/50 es:hover:inset-shadow-secondary-100',
-						!flat && 'es:shadow-sm',
-						!flat && 'es:hover:shadow-md es:enabled:active:shadow-sm es:enabled:pressed:shadow-sm',
-						flat ? 'es:hover:from-secondary-100 es:hover:to-secondary-100 es:hover:inset-ring-secondary-100' : 'es:hover:to-secondary-100 es:hover:inset-ring-secondary-100',
-						'es:hover:text-accent-950',
-						'es:focus-visible:text-accent-950',
+						!pending && 'es:bg-linear-to-b es:from-black/2 es:to-black/4 es:from-25% es:bg-white',
+						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-accent-400/0 es:via-accent-400/25 es:to-accent-400/0 es:from-35% es:via-50% es:to-65% es:bg-surface-100',
+						'es:inset-ring',
+						pending ? 'es:inset-ring-accent-600/20' : 'es:inset-ring-secondary-800/15',
+						'es:inset-shadow-sm es:inset-shadow-white/75',
+						!flat && 'es:shadow-xs es:shadow-black/5',
+						'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10',
+						'es:pressed:bg-surface-100 es:pressed:text-accent-950 es:pressed:inset-ring-surface-300 es:pressed:inset-shadow-white/10',
+						'es:focus-visible:ring-accent-500/30 es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
 					],
+				},
+				{
+					type: 'simple',
+					disabled: false,
+					class: [
+						'es:text-black',
+						!pending && 'es:bg-secondary-100 es:bg-linear-to-br es:from-black/0 es:to-black/2',
+						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-accent-400/0 es:via-accent-400/25 es:to-accent-400/0 es:from-35% es:via-50% es:to-65% es:bg-surface-100',
+						'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:to-accent-700/5',
+						'es:pressed:bg-surface-100 es:pressed:text-accent-950 es:pressed:inset-ring-surface-300 es:pressed:inset-shadow-white/10',
+						'es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
+					],
+				},
+				{
+					type: 'selectedSimple',
+					disabled: false,
+					class: [
+						'es:text-black',
+						!pending && 'es:bg-surface-100 es:bg-linear-to-br es:from-accent-700/0 es:to-accent-700/15',
+						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-accent-400/5 es:via-accent-400/25 es:to-accent-400/5 es:from-35% es:via-50% es:to-65% es:bg-surface-100',
+						'es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:from-accent-700/2 es:hover:to-accent-700/12',
+						' es:pressed:text-accent-950 es:pressed:from-accent-700/10 es:pressed:to-accent-700/20',
+						'es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
+					],
+				},
+				{
+					type: 'dangerSimple',
+					disabled: false,
+					class: [
+						'es:text-red-600',
+						!pending && 'es:bg-red-50 es:bg-linear-to-br es:from-black/0 es:to-red-500/10',
+						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-red-500/0 es:via-red-500/30 es:to-red-500/0 es:from-35% es:via-50% es:to-65% es:bg-red-50',
+						'es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:from-red-700/2 es:hover:to-red-700/12',
+						' es:pressed:text-red-700 es:pressed:from-red-600/5 es:pressed:to-red-600/15',
+						'es:focus-visible:inset-ring es:focus-visible:ring-red-500/30 es:focus-visible:text-red-700 es:focus-visible:inset-ring-red-500 es:focus-visible:inset-shadow-red-300/10 es:focus-visible:bg-red-50',
+					],
+				},
+				{
+					disabled: false,
+					type: ['selected', 'danger'],
+					class: ['es:font-variation-["wdth"_80,"YTLC"_520,"wdth"_64,"wght"_375,"GRAD"_150]', 'es:any-icon:drop-shadow-xs es:any-icon:drop-shadow-accent-800/25'],
 				},
 				{
 					type: 'selected',
 					disabled: false,
 					class: [
-						'es:text-white',
-						flat ? 'es:from-accent-500 es:to-accent-600 es:hover:from-accent-600 es:hover:to-accent-700' : 'es:from-accent-500 es:to-accent-600',
-						'es:border-accent-700',
-						!flat && 'es:inset-ring es:inset-ring-accent-600',
-						!flat && 'es:inset-shadow-xs es:inset-shadow-accent-400/75',
-						'es:focus-visible:border-accent-700',
-						'es:focus-visible:inset-ring es:focus-visible:inset-ring-accent-600',
-						'es:focus-visible:inset-shadow-xs es:focus-visible:inset-shadow-accent-400',
-						!flat && 'es:shadow es:shadow-accent-600/30 es:hover:shadow-md es:enabled:active:shadow-sm es:enabled:pressed:shadow-sm',
-						'es:text-shadow-2xs es:text-shadow-black/20',
+						'es:text-white es:text-shadow-xs es:text-shadow-accent-900/30',
+						!pending && 'es:bg-linear-to-b es:from-accent-800/10 es:to-accent-800/30 es:bg-accent-500 es:from-30%',
+						pending && 'es:bg-accent-600 es:shimmer-animation es:bg-linear-to-r es:from-accent-50/0 es:via-accent-50/35 es:to-accent-50/0 es:from-35% es:via-50% es:to-65%',
+						'es:inset-ring es:inset-ring-accent-600',
+						'es:inset-shadow-sm es:inset-shadow-accent-50/25',
+						!flat && 'es:shadow-xs es:shadow-accent-900/30',
+						'es:hover:from-accent-800/20 es:hover:to-accent-800/40',
+						'es:pressed:from-accent-800/30 es:pressed:to-accent-800/50',
+						'es:focus-visible:ring-accent-500/30 es:focus-visible:inset-ring-accent-700 es:focus-visible:bg-accent-600',
 					],
 				},
 				{
 					type: 'danger',
 					disabled: false,
 					class: [
-						'es:text-red-700',
-						flat ? 'es:from-red-600/5 es:to-red-600/2 es:hover:from-red-600/10 es:hover:to-red-600/5' : 'es:from-red-50/75 es:to-white',
-						'es:border-red-700/50',
-						!flat && 'es:inset-ring-red-100',
-						!flat && 'es:inset-shadow-red-50',
-						!flat && 'es:hover:inset-shadow-red-100 es:hover:inset-ring-red-100 es:hover:text-red-800 es:hover:border-red-600',
-						'es:focus-visible:text-red-900',
-						'es:focus-visible:ring-red-500/30 es:focus-visible:border-red-600 es:focus-visible:inset-ring-red-100',
-						!flat && 'es:shadow es:shadow-red-700/20 es:hover:shadow-md es:enabled:active:shadow-sm es:enabled:pressed:shadow-sm',
+						'es:text-white es:text-shadow-xs es:text-shadow-red-900/30',
+						!pending && 'es:bg-linear-to-b es:from-red-800/10 es:to-red-800/30 es:bg-red-500 es:from-30%',
+						pending && 'es:bg-red-600 es:shimmer-animation es:bg-linear-to-r es:from-red-50/0 es:via-red-50/35 es:to-red-50/0 es:from-35% es:via-50% es:to-65%',
+						'es:inset-ring es:inset-ring-red-700',
+						'es:inset-shadow-sm es:inset-shadow-red-50/25',
+						!flat && 'es:shadow-xs es:shadow-red-900/30',
+						'es:hover:from-red-800/20 es:hover:to-red-800/40',
+						'es:pressed:from-red-800/30 es:pressed:to-red-800/50',
+						'es:focus-visible:ring-red-500/30 es:focus-visible:inset-ring-red-900 es:focus-visible:bg-red-600',
 					],
 				},
 				{
+					type: 'ghost',
+					disabled: false,
+					class: [
+						'es:bg-white',
+						!pending && 'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-secondary-700',
+						pending &&
+							'es:shimmer-animation es:-bg-linear-75 es:from-accent-600/0 es:via-accent-600/15 es:to-accent-600/0 es:from-35% es:via-50% es:to-65% es:bg-surface-50 es:inset-ring es:inset-ring-accent-600/5 es:text-accent-900',
+						'es:hover:from-surface-200/30 es:hover:to-surface-200/50 es:hover:text-accent-950',
+						'es:pressed:from-accent-600/5 es:pressed:to-accent-600/15 es:pressed:text-accent-900',
+						'es:focus-visible:bg-accent-50 es:focus-visible:text-accent-950 es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:inset-ring-accent-500',
+					],
+				},
+				{
+					type: 'dangerGhost',
+					disabled: false,
+					class: [
+						'es:bg-white',
+						!pending && 'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-red-600',
+						pending &&
+							'es:shimmer-animation es:-bg-linear-75 es:from-red-600/0 es:via-red-600/10 es:to-red-600/0 es:from-35% es:via-50% es:to-65% es:bg-secondary-50 es:inset-ring es:inset-ring-red-600/10 es:text-red-700',
+						'es:hover:from-red-500/4 es:hover:to-red-500/7 ',
+						'es:pressed:from-red-500/10 es:pressed:to-red-500/15 es:pressed:text-red-700',
+						'es:focus-visible:bg-red-50 es:focus-visible:text-red-950 es:focus-visible:inset-ring es:focus-visible:ring-red-500/30 es:focus-visible:inset-shadow-red-300/10 es:focus-visible:inset-ring-red-500',
+					],
+				},
+				{
+					type: 'selectedGhost',
+					disabled: false,
+					class: [
+						'es:bg-white',
+						!pending && 'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-accent-600',
+						pending &&
+							'es:shimmer-animation es:-bg-linear-75 es:from-accent-600/0 es:via-accent-600/15 es:to-accent-600/0 es:from-35% es:via-50% es:to-65% es:bg-surface-50 es:inset-ring es:inset-ring-accent-600/15 es:text-accent-700',
+						'es:hover:from-accent-500/5 es:hover:to-accent-500/15 ',
+						'es:pressed:from-accent-500/10 es:pressed:to-accent-500/20 es:pressed:text-accent-700',
+						'es:focus-visible:bg-accent-50 es:focus-visible:text-accent-950 es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:inset-ring-accent-500',
+					],
+				},
+				{
+					type: 'glass',
+					disabled: false,
+					class: [
+						'es:backdrop-blur-md',
+						'es:backdrop-saturate-120 es:backdrop-brightness-120 es:backdrop-contrast-95',
+						!pending && 'es:bg-radial-[at_50%_75%] es:from-white/25 es:to-white/0',
+						pending &&
+							'es:shimmer-animation es:-bg-linear-75 es:from-accent-500/0 es:via-accent-500/20 es:to-accent-500/0 es:from-35% es:via-50% es:to-65% es:text-accent-700 es:bg-white/15',
+						'es:hover:from-white/35 es:hover:to-white/15',
+						'es:text-black/95',
+						'es:inset-shadow-sm es:inset-shadow-white/40',
+						!flat && 'es:shadow-black/15 es:shadow-xs',
+						'es:inset-ring es:inset-ring-white/5',
+						'es:text-shadow-xs es:text-shadow-white/15',
+						'es:focus-visible:ring-accent-500/30 es:focus-visible:inset-ring-accent-700/50 es:focus-visible:bg-accent-300/30',
+					],
+				},
+				{
+					type: 'glassDark',
+					disabled: false,
+					class: [
+						'es:backdrop-blur-md',
+						'es:backdrop-saturate-115 es:backdrop-brightness-75 es:backdrop-contrast-95',
+						!pending && 'es:bg-radial-[at_50%_75%] es:from-black/40 es:to-black/20',
+						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-accent-50/0 es:via-accent-50/20 es:to-accent-50/0 es:from-35% es:via-50% es:to-65% es:bg-accent-950/10',
+						'es:hover:from-black/50 es:hover:to-black/35',
+						'es:text-white',
+						'es:inset-shadow-sm es:inset-shadow-white/20',
+						!flat && 'es:shadow-xs es:shadow-black/15',
+						'es:inset-ring es:inset-ring-black/20',
+						'es:text-shadow-xs es:text-shadow-black/15 es:focus-visible:text-shadow-accent-950/15',
+						'es:focus-visible:ring-accent-500/30 es:focus-visible:inset-ring-accent-700/50 es:focus-visible:bg-accent-300/30',
+					],
+				},
+				{
+					type: 'dangerGlass',
+					disabled: false,
+					class: [
+						'es:backdrop-blur-md',
+						'es:backdrop-saturate-125 es:backdrop-brightness-95 es:backdrop-contrast-95',
+						!pending && 'es:bg-radial-[at_50%_75%] es:from-red-500/30 es:to-red-500/5 es:bg-red-600/15',
+						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-red-400/0 es:via-red-500/35 es:to-red-400/5 es:from-35% es:via-50% es:to-65% es:bg-red-700/25',
+						'es:hover:from-red-400/30 es:hover:to-red-400/25',
+						'es:text-red-50/95',
+						'es:inset-shadow-sm es:inset-shadow-red-300/40',
+						!flat && 'es:shadow-xs es:shadow-black/15',
+						'es:inset-ring es:inset-ring-red-200/5',
+						'es:text-shadow-xs es:text-shadow-red-950/15',
+						'es:focus-visible:ring-red-500/30 es:focus-visible:inset-ring-red-700/50 es:focus-visible:bg-red-700/30',
+					],
+				},
+				{
+					type: 'selectedGlass',
+					disabled: false,
+					class: [
+						'es:backdrop-blur-md',
+						'es:backdrop-saturate-120 es:backdrop-brightness-120 es:backdrop-contrast-95',
+						!pending && 'es:bg-radial-[at_50%_75%] es:from-accent-500/30 es:to-accent-500/5 es:bg-accent-600/10',
+						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-accent-400/0 es:via-accent-400/50 es:to-accent-400/0 es:from-35% es:via-50% es:to-65% es:bg-accent-700/25',
+						'es:hover:from-accent-400/30 es:hover:to-accent-400/25',
+						'es:text-accent-50/95',
+						'es:inset-shadow-sm es:inset-shadow-accent-200/40',
+						!flat && 'es:shadow-xs es:shadow-black/15',
+						'es:inset-ring es:inset-ring-accent-200/5',
+						'es:text-shadow-xs es:text-shadow-accent-950/15',
+						'es:focus-visible:ring-accent-500/30 es:focus-visible:inset-ring-accent-700/50 es:focus-visible:bg-accent-600/30',
+					],
+				},
+				{
+					type: ['default', 'selected', 'danger'],
 					disabled: true,
-					class: 'es:disabled:border-zinc-300 es:disabled:text-zinc-400 es:border es:shadow-none es:disabled:inset-shadow-transparent es:disabled:inset-ring-0',
+					class: [
+						'es:bg-linear-to-br es:from-secondary-50 es:to-secondary-100',
+						'es:text-secondary-400 es:any-icon:text-secondary-400/50',
+						'es:inset-ring es:inset-ring-secondary-200',
+					],
+				},
+				{
+					type: ['simple', 'selectedSimple', 'dangerSimple'],
+					disabled: true,
+					class: [
+						'es:bg-linear-to-br es:from-secondary-50 es:to-secondary-100',
+						'es:text-secondary-400 es:any-icon:text-secondary-400/50',
+						'es:inset-ring es:inset-ring-secondary-100',
+					],
+				},
+				{
+					type: ['ghost', 'dangerGhost', 'selectedGhost'],
+					disabled: true,
+					class: ['es:text-secondary-500 es:any-icon:text-secondary-500/50'],
+				},
+				{
+					type: ['glass', 'glassDark', 'dangerGlass', 'selectedGlass'],
+					disabled: true,
+					class: [
+						'es:backdrop-blur-md es:backdrop-brightness-105 es:backdrop-contrast-30 es:backdrop-saturate-25',
+						'es:text-secondary-300 es:any-icon:text-secondary-300/50',
+						'es:inset-ring es:inset-ring-black/5',
+					],
 				},
 				// Sizes.
 				{
 					size: 'small',
 					iconOnly: false,
-					class: 'es:h-7 es:min-w-7',
+					class: 'es:h-8 es:min-w-8',
 				},
 				{
 					size: 'small',
 					iconOnly: true,
-					class: 'es:size-7',
+					class: 'es:size-8',
 				},
 				{
 					size: 'small',
@@ -252,7 +358,7 @@ export const Button = (props) => {
 					size: 'small',
 					hasIcon: true,
 					iconOnly: false,
-					class: 'es:px-1',
+					class: 'es:px-1.5',
 				},
 				{
 					size: 'default',
@@ -268,13 +374,13 @@ export const Button = (props) => {
 					size: 'default',
 					hasIcon: false,
 					iconOnly: false,
-					class: 'es:px-2',
+					class: 'es:px-2.5',
 				},
 				{
 					size: 'default',
 					hasIcon: true,
 					iconOnly: false,
-					class: 'es:px-1.5',
+					class: 'es:px-2',
 				},
 				{
 					size: 'large',
@@ -290,13 +396,13 @@ export const Button = (props) => {
 					size: 'large',
 					hasIcon: false,
 					iconOnly: false,
-					class: 'es:px-4',
+					class: 'es:px-3',
 				},
 				{
 					size: 'large',
 					hasIcon: true,
 					iconOnly: false,
-					class: 'es:px-2',
+					class: 'es:px-2.5',
 				},
 			],
 			defaultVariants: {
@@ -323,25 +429,14 @@ export const Button = (props) => {
 		>
 			{({ isPending }) => (
 				<>
-					{!isPending && (
-						<>
-							{icon}
-							{children}
-						</>
-					)}
+					{icon}
+					{children}
 					{isPending && (
-						<div className='es:relative'>
-							<div className='es:invisible'>
-								{icon}
-								{children}
-							</div>
-							<ProgressBar
-								aria-label={pendingAriaLabel}
-								className='es:sr-only'
-								isIndeterminate
-							/>
-							{cloneElement(icons.loader, { className: 'es:motion-preset-spin es:motion-duration-2000 es:absolute es:inset-0 es:m-auto' })}
-						</div>
+						<ProgressBar
+							aria-label={pendingAriaLabel}
+							className='es:sr-only'
+							isIndeterminate
+						/>
 					)}
 				</>
 			)}
@@ -397,11 +492,12 @@ export const ButtonGroup = ({ children, className, vertical, hidden, type = 'seg
 		<Toolbar
 			className={clsx(
 				'es:flex',
-				vertical && 'es:flex-col',
-				type === 'segmented' && vertical && 'es-button-group-v es:-space-y-px!',
-				type === 'segmented' && !vertical && 'es-button-group-h es:-space-x-px!',
-				type === 'split' && vertical && 'es:space-y-1',
-				type === 'split' && !vertical && 'es:space-x-1.5',
+				type === 'segmented' && !vertical && 'es:gap-0.75',
+				type === 'segmented' && vertical && 'es:flex-col es:gap-0.75',
+				type === 'segmented' && !vertical && 'es-button-group-h',
+				type === 'segmented' && vertical && 'es-button-group-v',
+				type === 'split' && !vertical && 'es:gap-1.25',
+				type === 'split' && vertical && 'es:flex-col es:gap-1',
 				className,
 			)}
 			orientation={vertical ? 'vertical' : 'horizontal'}
