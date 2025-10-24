@@ -253,10 +253,10 @@ export const LinkInput = (props) => {
 							'es:backdrop-blur-md es:backdrop-brightness-105 es:backdrop-saturate-125',
 							'es:shadow-lg es:shadow-black/10',
 							'es:transition-plus',
-							'es:motion-safe:motion-duration-300 es:motion-safe:motion-ease-spring-bouncy',
+							'es:motion-safe:motion-duration-250 es:motion-ease-spring-bouncy',
 							'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
 							(isEntering || !(suggestionList.isLoading || !shouldShowSuggestions)) &&
-								'es:motion-safe:motion-scale-x-in-95 es:motion-safe:motion-scale-y-in-85 es:motion-opacity-in-0 es:motion-safe:motion-blur-in-xs',
+								'es:motion-safe:motion-scale-x-in-95 es:motion-safe:motion-scale-y-in-85 es:motion-opacity-in-0 es:motion-safe:motion-blur-in-[2px]',
 							(isEntering || !(suggestionList.isLoading || !shouldShowSuggestions)) &&
 								'es:motion-safe:placement-top:motion-translate-y-in-[0.5rem] es:motion-safe:placement-bottom:motion-translate-y-in-[-0.5rem]',
 							isExiting && 'es:motion-safe:motion-scale-x-out-95 es:motion-safe:motion-scale-y-out-85 es:motion-opacity-out-0 es:motion-safe:motion-blur-out-xs',

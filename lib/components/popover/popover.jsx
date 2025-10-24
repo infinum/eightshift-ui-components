@@ -126,16 +126,15 @@ export const Popover = (props) => {
 					'es:rounded-2xl es:border es:border-secondary-300 es:bg-white/85 es:inset-ring es:inset-ring-secondary-100 es:shadow-xl es:outline-hidden',
 					'es:backdrop-blur-2xl es:backdrop-brightness-125 es:backdrop-saturate-150',
 					'es:inset-shadow-xs es:inset-shadow-secondary-100',
-					'es:motion-safe:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy',
 					'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
 					'es:placement-left:origin-right es:placement-right:origin-left',
-					isEntering || (isExiting && 'es:pointer-events-none'),
-					isEntering && 'es:motion-safe:motion-scale-in-95 es:motion-opacity-in-0',
-					isEntering &&
-						'es:motion-safe:placement-top:motion-translate-y-in-[5%] es:motion-safe:placement-bottom:motion-translate-y-in-[-5%] es:motion-safe:placement-left:motion-translate-x-in-[5%] es:motion-safe:placement-right:motion-translate-x-in-[-5%]',
-					isExiting && 'es:motion-safe:motion-scale-out-95 es:motion-opacity-out-0',
-					isExiting &&
-						'es:motion-safe:placement-top:motion-translate-y-out-[5%] es:motion-safe:placement-bottom:motion-translate-y-out-[-5%] es:motion-safe:placement-left:motion-translate-x-out-[5%] es:motion-safe:placement-right:motion-translate-x-out-[-5%]',
+					'es:motion-safe:motion-duration-250 es:motion-ease-spring-bouncy',
+					isEntering && 'es:*:pointer-events-none',
+					'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
+					isEntering && 'es:motion-safe:motion-scale-x-in-95 es:motion-safe:motion-scale-y-in-85 es:motion-opacity-in-0 es:motion-safe:motion-blur-in-[1px]',
+					isEntering && 'es:motion-safe:placement-top:motion-translate-y-in-[0.5rem] es:motion-safe:placement-bottom:motion-translate-y-in-[-0.5rem]',
+					isExiting && 'es:motion-safe:motion-scale-x-out-95 es:motion-safe:motion-scale-y-out-85 es:motion-opacity-out-0 es:motion-safe:motion-blur-out-xs',
+					isExiting && 'es:motion-safe:placement-top:motion-translate-y-out-[0.5rem] es:motion-safe:placement-bottom:motion-translate-y-out-[-0.5rem]',
 					wrapperClassName,
 				)
 			}
