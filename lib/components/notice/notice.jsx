@@ -13,6 +13,7 @@ import { icons } from '../../icons/icons';
  * @param {string} [props.className] - Classes to pass to the notice.
  * @param {NoticeType} [props.type='default'] - The type of the notice.
  * @param {boolean} [props.alignIconToTitle=false] - If `true`, the icon will be aligned to the first row of title, instead of vertically centered.
+ * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Notice component.
@@ -25,7 +26,7 @@ import { icons } from '../../icons/icons';
  * @preserve
  */
 export const Notice = (props) => {
-	const { icon, label, subtitle, className, type = 'default', alignIconToTitle = false, hidden } = props;
+	const { icon, label, subtitle, className, type = 'default', alignIconToTitle = false, flat, hidden } = props;
 
 	if (hidden) {
 		return null;
@@ -34,44 +35,44 @@ export const Notice = (props) => {
 	const styles = {
 		info: {
 			icon: icons.info,
-			className: 'es:border-blue-500/75 es:shadow-blue-500/15 es:bg-blue-200/5 es:inset-ring-blue-100',
-			iconColorClassName: 'es:text-blue-500',
-			textColorClassName: 'es:text-blue-500 es:saturate-75',
-			subtitleColorClassName: 'es:text-blue-950/60',
+			className: 'es:inset-ring-blue-600/15 es:shadow-blue-800/5 es:from-blue-400/2 es:to-blue-600/5 es:inset-shadow-blue-500/10',
+			iconColorClassName: 'es:text-blue-600',
+			textColorClassName: 'es:text-blue-600',
+			subtitleColorClassName: 'es:text-blue-950/55',
 		},
 		success: {
 			icon: icons.checkSquare,
-			className: 'es:border-green-600/75 es:shadow-green-500/15 es:bg-green-200/5 es:inset-ring-green-100',
+			className: 'es:inset-ring-green-800/15 es:shadow-green-800/5 es:from-green-400/2 es:to-green-600/5 es:inset-shadow-green-500/10',
 			iconColorClassName: 'es:text-green-600',
-			textColorClassName: 'es:text-green-700',
-			subtitleColorClassName: 'es:text-green-950/60',
+			textColorClassName: 'es:text-green-600',
+			subtitleColorClassName: 'es:text-green-950/55',
 		},
 		warning: {
 			icon: icons.warning,
-			className: 'es:border-orange-500/75 es:shadow-orange-500/15 es:bg-orange-200/5 es:inset-ring-orange-100',
-			iconColorClassName: 'es:text-orange-500',
-			textColorClassName: 'es:text-orange-700',
-			subtitleColorClassName: 'es:text-orange-950/60',
+			className: 'es:inset-ring-orange-800/15 es:shadow-orange-800/5 es:from-orange-400/2 es:to-orange-600/5 es:inset-shadow-orange-500/10',
+			iconColorClassName: 'es:text-orange-600',
+			textColorClassName: 'es:text-orange-600',
+			subtitleColorClassName: 'es:text-orange-950/55',
 		},
 		error: {
 			icon: icons.errorCircle,
-			className: 'es:border-red-600/60 es:shadow-red-500/15 es:bg-red-200/5 es:inset-ring-red-100',
+			className: 'es:inset-ring-red-800/15 es:shadow-red-800/5 es:from-red-400/2 es:to-red-600/5 es:inset-shadow-red-500/10',
 			iconColorClassName: 'es:text-red-600',
-			textColorClassName: 'es:text-red-700',
-			subtitleColorClassName: 'es:text-red-900/70',
+			textColorClassName: 'es:text-red-600',
+			subtitleColorClassName: 'es:text-red-950/55',
 		},
 		placeholder: {
 			icon: icons.componentGeneric,
-			className: 'es:border-indigo-600/60 es:shadow-indigo-500/15 es:bg-white es:outline-2 es:outline-white es:inset-ring-indigo-100/0 es:border-dashed',
+			className: 'es:inset-ring-indigo-700/15 es:shadow-indigo-800/5 es:from-indigo-400/2 es:to-indigo-600/5 es:inset-shadow-indigo-500/10',
 			iconColorClassName: 'es:text-indigo-600',
-			textColorClassName: 'es:text-indigo-700',
-			subtitleColorClassName: 'es:text-indigo-800/70',
+			textColorClassName: 'es:text-indigo-600',
+			subtitleColorClassName: 'es:text-indigo-900/55',
 		},
 		default: {
-			className: 'es:border-secondary-400 es:shadow-secondary-300/25 es:bg-secondary-200/5 es:inset-ring-secondary-100',
-			iconColorClassName: 'es:text-secondary-500',
-			textColorClassName: 'es:text-secondary-900',
-			subtitleColorClassName: 'es:text-secondary-500',
+			className: 'es:inset-ring-surface-700/10 es:shadow-surface-800/5 es:from-surface-400/2 es:to-surface-600/5 es:inset-shadow-surface-500/10',
+			iconColorClassName: 'es:text-surface-500',
+			textColorClassName: 'es:text-surface-500',
+			subtitleColorClassName: 'es:text-surface-800/50',
 		},
 	};
 
@@ -79,10 +80,17 @@ export const Notice = (props) => {
 		<div>
 			<div
 				className={clsx(
-					'es:grid es:grid-cols-[auto_1fr] es:grid-rows-[auto_auto] es:rounded-xl es:border es:bg-linear-to-tr es:shadow-sm es:inset-ring-1',
+					'es:grid es:grid-cols-[auto_1fr] es:grid-rows-[auto_auto]',
+					'es:rounded-xl',
+					// 'es:ring',
+					'es:bg-white',
+					'es:inset-ring',
+					'es:bg-linear-to-b es:from-35%',
+					'es:inset-shadow-sm',
+					flat ? 'es:shadow-2xs' : 'es:shadow-sm',
 					styles[type].className,
 					'es:icon:shrink-0',
-					icon || styles[type].icon ? 'es:gap-x-2 es:py-2 es:pl-2 es:pr-3' : 'es:py-2.5 es:px-3',
+					icon || styles[type].icon ? 'es:gap-x-2 es:py-3 es:pl-2.5 es:pr-3' : 'es:py-3 es:px-3.5',
 					className,
 				)}
 			>
@@ -101,8 +109,9 @@ export const Notice = (props) => {
 				{label && (
 					<span
 						className={clsx(
-							'es:col-span-2 es:col-start-2 es:text-balance es:text-sm es:leading-tight',
+							'es:col-span-2 es:col-start-2 es:text-balance es:text-14',
 							subtitle ? 'es:self-end' : 'es:row-span-2 es:self-center-safe',
+							'es:font-variation-["wdth"_110,"wght"_375,"YTLC"_520]',
 							styles[type].textColorClassName,
 						)}
 					>
@@ -113,7 +122,8 @@ export const Notice = (props) => {
 				{subtitle && (
 					<span
 						className={clsx(
-							'es:col-span-2 es:col-start-2 es:text-balance es:text-xs es:leading-tight es:pt-0.5',
+							'es:col-span-2 es:col-start-2 es:text-balance es:text-xs es:leading-tight es:pt-0.25',
+							'es:font-variation-["wdth"_76,"wght"_350]',
 							styles[type].subtitleColorClassName,
 							label ? 'es:self-start' : 'es:row-span-2 es:self-center-safe',
 						)}
