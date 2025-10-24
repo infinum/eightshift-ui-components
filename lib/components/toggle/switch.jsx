@@ -117,7 +117,7 @@ export const Switch = (props) => {
 				{
 					checked: true,
 					disabled: false,
-					class: ['es:bg-accent-50', 'es:bg-linear-to-br es:from-white/5 es:to-accent-900/10', 'es:shadow-xs es:shadow-accent-950/20'],
+					class: ['es:bg-accent-50', 'es:bg-linear-to-br es:from-white/10 es:to-white/30', 'es:shadow-xs es:shadow-accent-950/20'],
 				},
 				{
 					checked: false,

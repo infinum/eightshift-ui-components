@@ -1,6 +1,7 @@
 import { Label } from 'react-aria-components';
 import { Switch } from './switch';
 import { RichLabel } from '../rich-label/rich-label';
+import { clsx } from 'clsx/lite';
 
 /**
  * A toggle switch with a label and optional icon and subtitle.
@@ -54,7 +55,7 @@ export const Toggle = (props) => {
 				icon={icon}
 				label={label}
 				subtitle={subtitle}
-				className={labelClassName}
+				className={clsx('es:py-2.5', labelClassName)}
 				fullWidth
 			/>
 		</Switch>
