@@ -196,7 +196,7 @@ export const Repeater = (props) => {
 					return (
 						<ul
 							key={key}
-							className={clsx('es:w-full es:list-none', className)}
+							className={clsx('es:w-full es:list-none es:space-y-1', className)}
 							{...rest}
 						>
 							{children}
