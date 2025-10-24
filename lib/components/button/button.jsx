@@ -84,7 +84,7 @@ export const Button = (props) => {
 
 	const componentClasses = cva(
 		[
-			'es:font-variation-["wdth"_80,"YTLC"_520,"wdth"_64,"wght"_375]',
+			'es:font-variation-["wdth"_64,"YTLC"_520,"wght"_375]',
 			'es:flex es:items-center',
 			'es:transition-plus es:duration-300 es:ease-spring-smooth es:text-13',
 			'es:any-focus:outline-hidden',
@@ -165,7 +165,7 @@ export const Button = (props) => {
 				{
 					disabled: false,
 					type: ['selected', 'danger'],
-					class: ['es:font-variation-["wdth"_80,"YTLC"_520,"wdth"_64,"wght"_375,"GRAD"_150]', 'es:any-icon:drop-shadow-xs es:any-icon:drop-shadow-accent-800/25'],
+					class: ['es:font-variation-["wdth"_64,"YTLC"_520,"wght"_375,"GRAD"_150]', 'es:any-icon:drop-shadow-xs es:any-icon:drop-shadow-accent-800/25'],
 				},
 				{
 					type: 'selected',
@@ -201,7 +201,6 @@ export const Button = (props) => {
 					type: 'ghost',
 					disabled: false,
 					class: [
-						'es:bg-white',
 						!pending && 'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-secondary-700',
 						pending &&
 							'es:shimmer-animation es:-bg-linear-75 es:from-accent-600/0 es:via-accent-600/15 es:to-accent-600/0 es:from-35% es:via-50% es:to-65% es:bg-surface-50 es:inset-ring es:inset-ring-accent-600/5 es:text-accent-900',
@@ -214,7 +213,6 @@ export const Button = (props) => {
 					type: 'dangerGhost',
 					disabled: false,
 					class: [
-						'es:bg-white',
 						!pending && 'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-red-600',
 						pending &&
 							'es:shimmer-animation es:-bg-linear-75 es:from-red-600/0 es:via-red-600/10 es:to-red-600/0 es:from-35% es:via-50% es:to-65% es:bg-secondary-50 es:inset-ring es:inset-ring-red-600/10 es:text-red-700',
@@ -227,7 +225,6 @@ export const Button = (props) => {
 					type: 'selectedGhost',
 					disabled: false,
 					class: [
-						'es:bg-white',
 						!pending && 'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-accent-600',
 						pending &&
 							'es:shimmer-animation es:-bg-linear-75 es:from-accent-600/0 es:via-accent-600/15 es:to-accent-600/0 es:from-35% es:via-50% es:to-65% es:bg-surface-50 es:inset-ring es:inset-ring-accent-600/15 es:text-accent-700',

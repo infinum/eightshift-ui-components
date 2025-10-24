@@ -23,7 +23,7 @@ import { Tooltip } from '../tooltip/tooltip';
  * @param {Function} [props.onChange] - Function to run when the toggle state changes.
  * @param {string} [props.wrapperClassName] - Classes to pass to the tooltip wrapper.
  * @param {TooltipProps} [props.tooltipProps] - Props to pass to the tooltip.
- * @property {boolean} [props.flat] - If `true`, component will look more flat (applies only to `default` type). Useful for nested layer of controls.
+ * @param {boolean} [props.flat] - If `true`, component will look more flat (applies only to `default` type). Useful for nested layer of controls.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The ToggleButton component.
