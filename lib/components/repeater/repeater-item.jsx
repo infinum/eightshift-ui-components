@@ -41,7 +41,7 @@ export const RepeaterItem = (props) => {
 			subtitle={isOutOfBounds ? null : subtitle}
 			labelClassName={clsx(className, isDragged && 'es:cursor-grabbing', !isDragged && !isItemOpen && 'es:cursor-grab')}
 			headerClassName={clsx(
-				!isItemOpen && !isDragged && 'es:not-group-first:not-group-after-selected:rounded-t-md! es:not-group-last:not-group-before-selected:rounded-b-md!',
+				!isItemOpen && !isDragged && 'es:not-group-first:not-group-before-selected:rounded-t-md es:not-group-last:not-group-after-selected:rounded-b-md',
 				!isItemOpen && isOutOfBounds && 'es:inset-ring-red-200! es:text-red-900! es:bg-red-50! es:[&_button]:invisible es:[&_svg_path]:stroke-red-600',
 				isDragged && 'es:rounded-2xl! es:bg-surface-50! es:inset-ring-surface-100',
 			)}
@@ -91,7 +91,7 @@ export const RepeaterItem = (props) => {
 						</Menu>
 						<Button
 							type='ghost'
-							icon={open ? icons.caretDownFill : icons.caretDown}
+							icon={icons.dropdownCaretAlt}
 							onPress={toggleOpen}
 							tooltip={tooltip}
 							disabled={disabled}
