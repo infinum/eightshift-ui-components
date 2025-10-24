@@ -68,7 +68,7 @@ export const RichLabel = (props) => {
 
 	return (
 		<ComponentToRender
-			className={clsx('es:flex es:items-center es:gap-1.25 es:text-sm', !noColor && 'es:text-secondary-700 es:any-icon:text-secondary-500', fullWidth && 'es:grow', className)}
+			className={clsx('es:flex es:items-center es:gap-1.75 es:text-sm', !noColor && 'es:text-secondary-700 es:any-icon:text-secondary-500', fullWidth && 'es:grow', className)}
 		>
 			{icon && <span className={clsx('es:icon:size-5 es:shrink-0', noColor && 'es:not-contrast-more:opacity-80', iconClassName)}>{icon}</span>}
 
