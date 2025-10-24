@@ -2540,7 +2540,7 @@ export const icons = {
 	),
 	dropdownCaretAlt: (
 		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='m10.53 12.97 4.19-4.19a.75.75 0 0 0-.53-1.28H5.81a.75.75 0 0 0-.53 1.28l4.19 4.19a.75.75 0 0 0 1.06 0Z' fill='currentColor' />
+			<path d='m10.354 12.646 4.792-4.792A.5.5 0 0 0 14.793 7H5.207a.5.5 0 0 0-.353.854l4.792 4.792a.5.5 0 0 0 .708 0Z' fill='currentColor' />
 		</svg>
 	),
 	layoutMasonry: (
