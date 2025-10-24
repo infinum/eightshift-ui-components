@@ -51,52 +51,40 @@ export const AnimatedVisibility = (props) => {
 
 	const transitions = {
 		fade: {
-			inClassName: 'es:motion-opacity-in es:motion-duration-300',
-			outClassName: 'es:motion-opacity-out es:motion-duration-300',
+			inClassName: 'es:motion-opacity-in',
+			outClassName: 'es:motion-opacity-out',
 		},
 		slideFade: {
-			inClassName:
-				'es:motion-safe:motion-translate-y-in-[-5%] es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
+			inClassName: 'es:motion-safe:motion-translate-y-in-[-5%] es:motion-opacity-in',
 			outClassName: 'es:motion-safe:motion-translate-y-out-[-5%] es:motion-opacity-out es:motion-duration-300',
 		},
 		slideInFadeOut: {
-			inClassName:
-				'es:motion-safe:motion-translate-y-in-[-5%] es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
+			inClassName: 'es:motion-safe:motion-translate-y-in-[-5%] es:motion-opacity-in',
 			outClassName: 'es:motion-opacity-out es:motion-duration-300',
 		},
 		slideFadeUpSlight: {
-			inClassName:
-				'es:motion-safe:motion-translate-y-in-[0.25rem] es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
-			outClassName:
-				'es:motion-safe:motion-translate-y-out-[0.25rem] es:motion-opacity-out es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
+			inClassName: 'es:motion-safe:motion-translate-y-in-[0.25rem] es:motion-opacity-in',
+			outClassName: 'es:motion-safe:motion-translate-y-out-[0.25rem] es:motion-opacity-out',
 		},
 		slideFadeDownSlight: {
-			inClassName:
-				'es:motion-safe:motion-translate-y-in-[-0.25rem] es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
-			outClassName:
-				'es:motion-safe:motion-translate-y-out-[-0.25rem] es:motion-opacity-out es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
+			inClassName: 'es:motion-safe:motion-translate-y-in-[-0.25rem] es:motion-opacity-in',
+			outClassName: 'es:motion-safe:motion-translate-y-out-[-0.25rem] es:motion-opacity-out',
 		},
 		scaleFade: {
-			inClassName: 'es:motion-safe:motion-scale-in-95 es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
-			outClassName: 'es:motion-safe:motion-scale-out-90 es:motion-opacity-out es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
+			inClassName: 'es:motion-safe:motion-scale-in-95 es:motion-opacity-in',
+			outClassName: 'es:motion-safe:motion-scale-out-90 es:motion-opacity-out',
 		},
 		scaleSlideFade: {
-			inClassName:
-				'es:motion-safe:motion-translate-y-in-[-5%] es:motion-safe:motion-scale-in-95 es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
-			outClassName:
-				'es:motion-safe:motion-translate-y-out-[-5%] es:motion-safe:motion-scale-out-90 es:motion-opacity-out es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
+			inClassName: 'es:motion-safe:motion-translate-y-in-[-5%] es:motion-safe:motion-scale-in-95 es:motion-opacity-in',
+			outClassName: 'es:motion-safe:motion-translate-y-out-[-5%] es:motion-safe:motion-scale-out-90 es:motion-opacity-out',
 		},
 		scaleSlideFadeSlight: {
-			inClassName:
-				'es:motion-safe:motion-translate-y-in-[-0.25rem] es:motion-safe:motion-scale-in-95 es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
-			outClassName:
-				'es:motion-safe:motion-translate-y-out-[-0.25rem] es:motion-safe:motion-scale-out-90 es:motion-opacity-out es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
+			inClassName: 'es:motion-safe:motion-translate-y-in-[-0.25rem] es:motion-safe:motion-scale-in-95 es:motion-opacity-in',
+			outClassName: 'es:motion-safe:motion-translate-y-out-[-0.25rem] es:motion-safe:motion-scale-out-90 es:motion-opacity-out',
 		},
 		scaleRotateFade: {
-			inClassName:
-				'es:motion-rotate-in es:motion-safe:motion-scale-in-95 es:motion-opacity-in es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
-			outClassName:
-				'es:motion-rotate-out es:motion-safe:motion-scale-out-90 es:motion-opacity-out es:motion-duration-300 es:motion-safe:motion-ease-spring-bouncier es:motion-ease-linear/opacity',
+			inClassName: 'es:motion-rotate-in es:motion-safe:motion-scale-in-95 es:motion-opacity-in',
+			outClassName: 'es:motion-rotate-out es:motion-safe:motion-scale-out-90 es:motion-opacity-out',
 		},
 	};
 
@@ -108,6 +96,7 @@ export const AnimatedVisibility = (props) => {
 						!noEnterAnimation && visible && noInitial && visible && canAnimate && transitions[transition].inClassName,
 						!noEnterAnimation && visible && !noInitial && transitions[transition].inClassName,
 						!noExitAnimation && !visible && transitions[transition].outClassName,
+						'es:motion-duration-300',
 						decreaseBounce && 'es:motion-safe:motion-ease-spring-snappy es:motion-ease-linear/opacity',
 						!decreaseBounce && 'es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 						'es:fill-mode-forwards',
