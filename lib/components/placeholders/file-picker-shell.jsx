@@ -72,18 +72,18 @@ export const FilePickerShell = (props) => {
 			<div
 				{...rest}
 				className={clsx(
-					'es:border es:border-secondary-200 es:bg-white es:flex es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-2 es:overflow-clip es:aspect-cinema es:group es:p-2',
+					'es:border es:border-surface-200 es:bg-white es:bg-linear-to-br es:from-surface-50/5 es:to-surface-50/30 es:flex es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-2 es:overflow-clip es:aspect-cinema es:group es:p-2',
 					className,
 				)}
 			>
 				{type === 'file' && (
-					<div className='es:grow es:flex es:flex-col es:gap-2 es:text-sm es:items-center-safe es:justify-center-safe es:font-mono es:icon:size-6 es:rounded-xl es:bg-secondary-50 es:inset-ring es:inset-ring-secondary-100 es:icon:text-secondary-500'>
+					<div className='es:grow es:flex es:flex-col es:gap-2 es:text-sm es:items-center-safe es:justify-center-safe es:font-mono es:icon:size-6 es:rounded-xl es:bg-surface-50 es:inset-ring es:inset-ring-surface-100 es:icon:text-surface-500 es:text-surface-700'>
 						{icon}
 						<span className='es:line-clamp-1'>{truncateMiddle(url, 34)}</span>
 					</div>
 				)}
 
-				{children && <div className='es:flex es:items-center-safe es:gap-2'>{children}</div>}
+				{children && <div className='es:flex es:items-center-safe es:gap-0.75 es-button-group-h'>{children}</div>}
 			</div>
 		);
 	}
@@ -105,7 +105,7 @@ export const FilePickerShell = (props) => {
 					hasAnalysed && 'es:grow es:rounded-xl',
 				)
 			}
-			errorClassName='es:aspect-3-2 es:rounded-2xl es:bg-gradient-to-br es:from-white es:to-secondary-50 es:border es:border-dashed es:border-secondary-200'
+			errorClassName='es:aspect-3-2 es:rounded-2xl es:bg-linear-to-br es:from-white es:to-secondary-50 es:border es:border-dashed es:border-secondary-200'
 			imageAnalysisSettings={{ yFrom: 0.25, yTo: 0.75 }}
 			{...rest}
 		>
@@ -115,7 +115,7 @@ export const FilePickerShell = (props) => {
 						'es:border es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-y-2 es:grid es:grid-cols-1 es:overflow-clip es:aspect-3-2 es:transition',
 						hasAnalysed ? 'es:border-secondary-200' : 'es:border-secondary-200/0',
 						hasAnalysed && !isTransparent && 'es:group es:grid-rows-1',
-						hasAnalysed && isTransparent && 'es:p-2 es:grid-rows-[minmax(0,_1fr)_auto] es:h-fit',
+						hasAnalysed && isTransparent && 'es:p-2 es:grid-rows-[minmax(0,1fr)_auto] es:h-fit',
 						!hasAnalysed && 'es:shimmer-dark es:bg-secondary-50',
 						className,
 					)}
@@ -128,7 +128,8 @@ export const FilePickerShell = (props) => {
 					{hasAnalysed && children && (
 						<div
 							className={clsx(
-								'es:flex es:items-center-safe es:gap-2',
+								'es:flex es:items-center-safe es:gap-0.75',
+								'es-button-group-h',
 								!isTransparent &&
 									'es:absolute es:bottom-2 es:left-2 es:right-2 es:translate-y-[125%] es:group-hover:translate-y-0 es:has-aria-expanded:translate-y-0 es:has-focus-visible:translate-y-0 es:transition-transform es:ease-spring-smooth',
 							)}
