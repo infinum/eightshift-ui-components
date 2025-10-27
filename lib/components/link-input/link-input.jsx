@@ -36,7 +36,7 @@ import { cva } from 'class-variance-authority';
  * @param {InputSize} [props.size='default'] - Sets the size of the input field.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
- * @typedef {'small' | 'default' | 'large'} InputSize
+ * @typedef {'small' | 'medium' | 'default' | 'large'} InputSize
  *
  * @returns {JSX.Element} The LinkInput component.
  *
@@ -117,6 +117,7 @@ export const LinkInput = (props) => {
 
 	const inputClass = cva(
 		[
+			'es:text-13 es:leading-none',
 			'es:w-fill',
 			'es:rounded-lg es:focus:rounded-xl es:aria-[controls]:rounded-xl',
 			'es:transition-plus',
@@ -125,7 +126,7 @@ export const LinkInput = (props) => {
 			'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/30',
 			'es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500',
 			'es:placeholder-shown:pr-0 es:pr-10',
-			' es:focus:placeholder:text-surface-400',
+			'es:focus:placeholder:text-surface-400',
 			'es:font-variation-["wdth"_80,"YTLC"_520,"wght"_300,"slnt"_0] es:tracking-wide es:placeholder-shown:font-variation-["wdth"_100,"YTLC"_500,"wght"_250,"slnt"_-8]',
 			className,
 		],
