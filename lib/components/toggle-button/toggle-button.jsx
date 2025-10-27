@@ -77,12 +77,12 @@ export const ToggleButton = (props) => {
 		[
 			'es:font-variation-["wdth"_80,"YTLC"_520,"wdth"_64,"wght"_375]',
 			'es:flex es:items-center',
-			'es:transition-plus es:duration-300 es:ease-spring-smooth es:text-13',
+			'es:transition-plus es:duration-300 es:ease-spring-snappy es:text-13',
 			'es:any-focus:outline-hidden',
 			'es:focus-visible:ring-2',
 			'es:shrink-0',
 			'es:text-box-trim',
-
+			'es:leading-none',
 			!disabled && 'es:cursor-pointer',
 			icon && children ? 'es:justify-start' : 'es:justify-center-safe',
 			className,
@@ -107,12 +107,12 @@ export const ToggleButton = (props) => {
 				{
 					size: 'small',
 					selected: true,
-					class: 'es:rounded-xl',
+					class: 'es:rounded-14',
 				},
 				{
 					size: 'default',
 					selected: true,
-					class: 'es:rounded-2xl',
+					class: 'es:rounded-18',
 				},
 				{
 					size: 'large',
@@ -122,17 +122,17 @@ export const ToggleButton = (props) => {
 				{
 					size: 'small',
 					selected: false,
-					class: 'es:rounded-lg es:pressed:rounded-10',
+					class: 'es:rounded-md es:hover:rounded-10! es:pressed:rounded-14!',
 				},
 				{
 					size: 'default',
 					selected: false,
-					class: 'es:rounded-10 es:pressed:rounded-xl',
+					class: 'es:rounded-10 es:hover:rounded-xl! es:pressed:rounded-18!',
 				},
 				{
 					size: 'large',
 					selected: false,
-					class: 'es:rounded-xl es:pressed:rounded-2xl',
+					class: 'es:rounded-xl es:hover:rounded-2xl! es:pressed:rounded-3xl!',
 				},
 				// Default
 				{
@@ -187,8 +187,9 @@ export const ToggleButton = (props) => {
 					selected: true,
 					class: [
 						'es:text-white',
-						'es:bg-surface-600 es:bg-linear-to-br es:from-accent-200/10 es:to-accent-200/30',
+						'es:bg-linear-to-br es:from-accent-600/70 es:to-accent-600/90 es:text-white',
 						'es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
+						'es:inset-ring es:inset-ring-accent-800/15',
 					],
 				},
 				// Ghost

@@ -86,11 +86,12 @@ export const Button = (props) => {
 		[
 			'es:font-variation-["wdth"_64,"YTLC"_520,"wght"_375]',
 			'es:flex es:items-center',
-			'es:transition-plus es:duration-300 es:ease-spring-smooth es:text-13',
+			'es:transition-plus es:duration-300 es:ease-spring-snappy es:text-13',
 			'es:any-focus:outline-hidden',
 			'es:focus-visible:ring-2',
 			'es:shrink-0',
 			'es:text-box-trim',
+			'es:leading-none',
 			'es:btn-group-h:not-pressed:not-after-selected:not-first:rounded-l-sm',
 			'es:btn-group-h:not-pressed:not-before-selected:not-last:rounded-r-sm',
 			'es:btn-group-v:not-pressed:not-after-selected:not-first:rounded-t-sm',
@@ -103,9 +104,9 @@ export const Button = (props) => {
 		{
 			variants: {
 				size: {
-					small: 'es:gap-0.75 es:icon:size-5 es:rounded-lg es:pressed:rounded-10 ',
-					default: 'es:gap-1.25 es:icon:size-5 es:rounded-10 es:pressed:rounded-xl',
-					large: 'es:gap-1.5 es:icon:size-6 es:rounded-xl es:pressed:rounded-2xl',
+					small: 'es:gap-0.75 es:icon:size-5 es:rounded-md es:hover:rounded-10! es:pressed:rounded-14!',
+					default: 'es:gap-1.25 es:icon:size-5 es:rounded-10 es:hover:rounded-xl! es:pressed:rounded-18!',
+					large: 'es:gap-1.5 es:icon:size-6 es:rounded-xl es:hover:rounded-2xl! es:pressed:rounded-3xl!',
 				},
 			},
 			compoundVariants: [
