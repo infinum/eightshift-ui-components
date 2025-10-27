@@ -174,6 +174,8 @@ export const LinkInput = (props) => {
 		return null;
 	}
 
+	const noResults = shouldShowSuggestions && !suggestionList.isLoading && suggestionList.items.length === 0;
+
 	return (
 		<ComboBox
 			items={suggestionList.items}
@@ -246,11 +248,15 @@ export const LinkInput = (props) => {
 					className={({ isEntering, isExiting }) =>
 						clsx(
 							'es:w-(--trigger-width)',
-							'es:rounded-xl es:bg-surface-100/10 es:outline-hidden es:min-w-72',
+							'es:rounded-xl es:outline-hidden es:min-w-72',
 							'es:has-first-selected:rounded-t-18!',
 							'es:has-last-selected:rounded-b-18!',
 							'es:inset-ring es:inset-ring-surface-500/10',
-							'es:backdrop-blur-md es:backdrop-brightness-105 es:backdrop-saturate-125',
+							'es:inset-shadow-sm es:inset-shadow-white/50',
+							noResults ? 'es:bg-surface-50/50' : 'es:bg-surface-50/65',
+							noResults ? 'es:backdrop-blur-sm' : 'es:backdrop-blur-md',
+							noResults ? 'es:backdrop-brightness-105' : 'es:backdrop-brightness-110',
+							'es:backdrop-saturate-125',
 							'es:shadow-lg es:shadow-black/10',
 							'es:transition-plus',
 							'es:motion-safe:motion-duration-250 es:motion-ease-spring-bouncy',
@@ -267,7 +273,7 @@ export const LinkInput = (props) => {
 					offset={3}
 					maxHeight={0.8 * (window?.innerWidth ?? 1000)}
 				>
-					{shouldShowSuggestions && !suggestionList.isLoading && suggestionList.items.length === 0 && (
+					{noResults && (
 						<RichLabel
 							icon={icons.searchEmpty}
 							label={__('No results', 'eightshift-ui-components')}
@@ -321,7 +327,7 @@ export const LinkInput = (props) => {
 											className={clsx(
 												'es:transition-plus es:ease-spring-bouncy es:duration-400',
 												'es:px-2 es:py-2.5',
-												'es:bg-surface-200/30 es:rounded-sm es:first:rounded-t-lg es:last:rounded-b-lg es:after-selected:rounded-t-lg es:before-selected:rounded-b-lg',
+												'es:bg-accent-900/4 es:rounded-sm es:first:rounded-t-lg es:last:rounded-b-lg es:after-selected:rounded-t-lg es:before-selected:rounded-b-lg',
 												'es:focus-visible:bg-surface-200/65 es:focus-visible:rounded-2xl es:focus-visible:text-accent-950',
 												'es:hover:bg-surface-200/50 es:hover:rounded-2xl es:hover:text-accent-900',
 												'es:pressed:rounded-3xl!',
