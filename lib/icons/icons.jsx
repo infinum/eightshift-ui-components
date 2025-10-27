@@ -5200,6 +5200,26 @@ export const icons = {
 			<path d='M3.475 10.705 1 12.79V15h10.5l1.5-2.5 1.241-.863-2.436-2.518a1.5 1.5 0 0 0-2.16.004l-1.78 1.854a1.5 1.5 0 0 1-2.114.05l-.278-.263a1.5 1.5 0 0 0-1.998-.059Z' fill='currentColor' fillOpacity='0.5' />
 		</svg>
 	),
+	responsiveOverridesAltFill: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M11.5 14.5v-3m0 3H9.179m2.321 0h2.321m-2.321-3H17a1.5 1.5 0 0 0 1.5-1.5V3A1.5 1.5 0 0 0 17 1.5H7A1.5 1.5 0 0 0 5.5 3v8.5h6Z' stroke='currentColor' strokeLinecap='round' fill='none' />
+			<rect x='1' y='7' width='7' height='12' rx='1.5' fill='currentColor' />
+		</svg>
+	),
+	responsiveOverridesAlt2Fill: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M17 1.5H7A1.5 1.5 0 0 0 5.5 3v4.5h1a1 1 0 0 1 1 1v3H17a1.5 1.5 0 0 0 1.5-1.5V3A1.5 1.5 0 0 0 17 1.5Z' fill='currentColor' />
+			<path d='M11.5 14.5v-3m0 3H9.179m2.321 0h2.321m-2.321-3H17a1.5 1.5 0 0 0 1.5-1.5V3A1.5 1.5 0 0 0 17 1.5H7A1.5 1.5 0 0 0 5.5 3v4.5h1a1 1 0 0 1 1 1v3h4Z' stroke='currentColor' strokeLinecap='round' fill='none' />
+			<rect x='1.5' y='7.5' width='6' height='11' rx='1' stroke='currentColor' fill='none' />
+		</svg>
+	),
+	responsiveOverridesAlt3Fill: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M17 1.5H7A1.5 1.5 0 0 0 5.5 3v2.5H7A2.5 2.5 0 0 1 9.5 8v3.5H17a1.5 1.5 0 0 0 1.5-1.5V3A1.5 1.5 0 0 0 17 1.5Z' fill='currentColor' />
+			<path d='M11.5 14.5v-3m0 3H9.179m2.321 0h2.321m-2.321-3H17a1.5 1.5 0 0 0 1.5-1.5V3A1.5 1.5 0 0 0 17 1.5H7A1.5 1.5 0 0 0 5.5 3v2.5H7A2.5 2.5 0 0 1 9.5 8v3.5h2Z' stroke='currentColor' strokeLinecap='round' fill='none' />
+			<rect x='1' y='7' width='7' height='12' rx='1.5' fill='currentColor' />
+		</svg>
+	),
 };
 
 /**
