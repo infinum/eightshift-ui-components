@@ -52,7 +52,7 @@ export const Switch = (props) => {
 					checked: false,
 					disabled: false,
 					class: [
-						'es:inset-ring-secondary-400 es:bg-white es:bg-linear-to-r es:from-secondary-950/1 es:to-secondary-950/4',
+						'es:inset-ring-secondary-400 es:bg-white es:bg-linear-to-r es:from-secondary-800/1 es:to-secondary-800/3',
 						'es:hover:bg-surface-100',
 						'es:group-hover:inset-ring-surface-400',
 					],
@@ -61,11 +61,11 @@ export const Switch = (props) => {
 					checked: true,
 					disabled: false,
 					class: [
-						'es:bg-accent-600',
-						'es:bg-linear-to-r es:from-accent-900/0 es:to-accent-900/50',
-						'es:inset-ring-accent-700/35',
-						'es:inset-shadow-xs es:inset-shadow-accent-50/20',
-						'es:group-focus-visible:inset-ring-accent-900',
+						'es:bg-accent-500',
+						'es:bg-linear-to-r es:from-accent-800/0 es:to-accent-800/25',
+						'es:inset-ring-accent-800/30',
+						'es:inset-shadow-xs es:inset-shadow-accent-50/25',
+						'es:group-focus-visible:inset-ring-accent-800',
 					],
 				},
 				{
@@ -117,7 +117,7 @@ export const Switch = (props) => {
 				{
 					checked: true,
 					disabled: false,
-					class: ['es:bg-accent-50', 'es:bg-linear-to-br es:from-white/10 es:to-white/30', 'es:shadow-xs es:shadow-accent-950/20'],
+					class: ['es:bg-accent-50', 'es:bg-linear-to-br es:from-white/10 es:to-white/20', 'es:shadow-xs es:shadow-accent-950/20'],
 				},
 				{
 					checked: false,
