@@ -80,10 +80,10 @@ export const ContainerPanel = (props) => {
 						{closable && (
 							<Button
 								onPress={() => setOpen(!open)}
-								icon={(typeof use !== 'undefined' ? open && use : open) ? icons.caretDownFill : icons.caretDown}
+								icon={icons.chevronDown}
 								type='ghost'
 								size='small'
-								className={clsx('es:icon:size-5 es:icon:transition-transform', (typeof use !== 'undefined' ? open && use : open) && 'es:icon:-scale-y-100')}
+								className={clsx('es:icon:size-4! es:icon:transition-transform', (typeof use !== 'undefined' ? open && use : open) && 'es:icon:-scale-y-100')}
 								disabled={typeof use !== 'undefined' && !use}
 							/>
 						)}
