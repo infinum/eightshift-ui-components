@@ -226,6 +226,12 @@
 	}
 }
 
+@custom-variant focus-visible-within {
+	&:has(:focus-visible:not(:focus), [data-rac][data-focus-visible]) {
+		@slot;
+	}
+}
+
 @plugin 'tailwindcss-motion';
 @plugin 'tailwindcss-react-aria-components';
 
@@ -239,6 +245,24 @@
 
 @utility transition-plus {
 	transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events, border-radius, font-variation-settings;
+	transition-duration: var(--es-default-transition-duration);
+	transition-timing-function: var(--es-default-transition-timing-function);
+}
+
+@utility transition-plus-w {
+	transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events, border-radius, font-variation-settings, width;
+	transition-duration: var(--es-default-transition-duration);
+	transition-timing-function: var(--es-default-transition-timing-function);
+}
+
+@utility transition-plus-h {
+	transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events, border-radius, font-variation-settings, height;
+	transition-duration: var(--es-default-transition-duration);
+	transition-timing-function: var(--es-default-transition-timing-function);
+}
+
+@utility transition-plus-size {
+	transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events, border-radius, font-variation-settings, width, height;
 	transition-duration: var(--es-default-transition-duration);
 	transition-timing-function: var(--es-default-transition-timing-function);
 }
@@ -319,6 +343,22 @@
 	max-height: -moz-available;
 	max-height: -webkit-fill-available;
 	max-height: stretch;
+}
+
+@utility h-calc-auto {
+	height: auto;
+
+	@supports (height: calc-size(auto, size)) {
+		height: calc-size(auto, size);
+	}
+}
+
+@utility w-calc-auto {
+	width: auto;
+
+	@supports (width: calc-size(auto, size)) {
+		width: calc-size(auto, size);
+	}
 }
 
 @import './themes.css';
