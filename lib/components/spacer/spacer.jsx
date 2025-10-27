@@ -83,7 +83,7 @@ export const Spacer = (props) => {
 					className='es:shrink-0 es:text-secondary-500'
 				/>
 
-				{border && <div className='es:h-px es:w-full es:bg-secondary-300 es:leading-3' />}
+				{border && <div className='es:h-px es:w-full es:bg-surface-300 es:leading-3' />}
 			</div>
 		);
 	}
@@ -92,7 +92,7 @@ export const Spacer = (props) => {
 		return (
 			<div className={className}>
 				{size !== 'px' && <div className={spaceClass} />}
-				<div className={clsx('es:bg-secondary-300', vertical ? 'es:h-full es:w-px' : 'es:h-px es:w-full')} />
+				<div className={clsx('es:bg-surface-500/15', vertical ? 'es:h-full es:w-px' : 'es:h-px es:w-full')} />
 				{size !== 'px' && <div className={spaceClass} />}
 			</div>
 		);
