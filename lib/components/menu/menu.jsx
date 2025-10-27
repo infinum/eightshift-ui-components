@@ -371,7 +371,7 @@ export const MenuSectionHeader = (props) => {
 		<ReactAriaMenuItem
 			{...props}
 			className={clsx(
-				'es:mx-1 es:px-1 es:py-1.5 es:first:pt-2 es:flex es:min-w-44 es:items-center es:gap-1.5',
+				'es:mx-1 es:px-1 es:pt-1.5 es:pb-2 es:first:pt-2 es:flex es:min-w-44 es:items-center es:gap-1.5 es:font-variation-["wdth"_144,"wght"_350]',
 				'es:select-none es:text-sm',
 				'es:icon:shrink-0',
 				'es:text-surface-500/80',
