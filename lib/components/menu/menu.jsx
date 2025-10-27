@@ -4,7 +4,6 @@ import {
 	MenuTrigger,
 	Separator as ReactAriaSeparator,
 	MenuSection as ReactAriaMenuSection,
-	Header,
 	SubmenuTrigger,
 } from 'react-aria-components';
 import { RichLabel } from '../rich-label/rich-label';
@@ -139,7 +138,7 @@ export const Menu = (props) => {
 			<Popover
 				aria-label={ariaLabel}
 				{...popoverProps}
-				className={clsx('es:p-0! es:any-focus:outline-hidden', !manualWidth && 'es:w-56', manualWidth && 'es:max-w-80', popoverProps?.className)}
+				className={clsx('es:p-1.5 es:any-focus:outline-hidden', !manualWidth && 'es:w-56', manualWidth && 'es:max-w-80', popoverProps?.className)}
 				wrapperClassName={clsx(!hasSubmenuItems && 'es:overflow-y-auto', popoverProps?.wrapperClassName)}
 			>
 				<ReactAriaMenu
@@ -173,16 +172,11 @@ export const MenuSection = (props) => {
 	const { children, label } = props;
 
 	return (
-		<ReactAriaMenuSection
-			className={clsx(
-				'es:space-y-1 es:border-b es:border-b-secondary-200 es:last:border-b-0',
-				label && 'es:pt-2 es:first:pt-2.5 es:last:pb-0',
-				!label && 'es:has-[>_:only-child]:pb-0',
-			)}
-		>
-			{label && <Header className='es:ml-2.5 es:text-sm es:text-secondary-500'>{label}</Header>}
-			{children}
-		</ReactAriaMenuSection>
+		<>
+			<MenuSectionHeader hidden={!label}>{label}</MenuSectionHeader>
+			<ReactAriaMenuSection className='es:flex es:flex-col es:gap-1'>{children}</ReactAriaMenuSection>
+			<MenuSeparator className='es:last:hidden' />
+		</>
 	);
 };
 
@@ -195,8 +189,8 @@ export const MenuSection = (props) => {
  *
  * @preserve
  */
-export const MenuSeparator = () => {
-	return <ReactAriaSeparator className='es:my-1 es:border-b es:border-secondary-300' />;
+export const MenuSeparator = ({ className }) => {
+	return <ReactAriaSeparator className={clsx('es:my-1.5 es:w-fill es:h-px es:bg-surface-500/15 es:mx-1.5 es:rounded-full', className)} />;
 };
 
 /**
@@ -256,24 +250,22 @@ export const MenuItem = (props) => {
 			aria-label={ariaLabel}
 			isDisabled={disabled}
 			className={clsx(
-				'es:mx-1 es:mb-0.5 es:flex es:min-w-44 es:min-h-9.5 es:items-center es:gap-1.5',
-				'es:first:mt-1',
-				'es:last:mb-1',
-				'es:select-none es:rounded-xl es:py-1.5 es:px-2.5 es:text-sm es:transition',
+				'es:flex es:min-w-44 es:min-h-10 es:items-center es:gap-1.5',
+				'es:select-none es:rounded-xl es:py-1 es:px-3 es:text-sm es:transition',
 				'es:any-focus:outline-hidden',
 				'es:icon:shrink-0',
 				!disabled && 'es:focus-visible:inset-ring',
 				!disabled &&
 					!(danger || primary) &&
-					'es:hover:bg-secondary-950/5 es:focus-visible:inset-ring-secondary-950/10 es:focus-visible:bg-secondary-950/5 es:contrast-more:focus-visible:bg-accent-800',
+					'es:hover:bg-surface-600/5 es:focus-visible:inset-ring-secondary-950/10 es:focus-visible:bg-secondary-950/5 es:contrast-more:focus-visible:bg-accent-800',
 				!disabled &&
 					danger &&
 					'es:hover:bg-red-500/5 es:focus-visible:inset-ring-red-600/30 es:focus-visible:bg-red-600/5 es:hover:text-red-900 es:focus-visible:text-red-950 es:contrast-more:focus-visible:bg-red-800',
 				!disabled &&
 					primary &&
-					'es:hover:bg-accent-500/5 es:focus-visible:inset-ring-accent-600/30 es:focus-visible:bg-accent-600/5 es:hover:text-accent-900 es:focus-visible:text-accent-950 es:contrast-more:focus-visible:bg-accent-700',
+					'es:hover:bg-accent-600/6 es:focus-visible:inset-ring-accent-600/20 es:focus-visible:bg-accent-600/5 es:hover:text-accent-900 es:focus-visible:text-accent-950 es:contrast-more:focus-visible:bg-accent-700',
 				!disabled && 'es:contrast-more:focus-visible:text-white! es:contrast-more:focus-visible:icon:text-white!',
-				disabled ? 'es:text-secondary-400' : 'es:text-secondary-800',
+				disabled ? 'es:text-surface-400' : 'es:text-surface-700',
 				className,
 			)}
 			onAction={onClick}
@@ -283,11 +275,11 @@ export const MenuItem = (props) => {
 				icon={itemIcon}
 				label={children}
 				subtitle={subtitle}
-				iconClassName={clsx(danger && 'es:not-contrast-more:icon:text-red-700!', primary && 'es:not-contrast-more:icon:text-accent-600!')}
+				iconClassName={clsx(danger && 'es:not-contrast-more:icon:text-red-700!', primary && 'es:not-contrast-more:icon:text-accent-700!')}
 				noColor
 			/>
 
-			{shortcut && <div className='es:ml-auto es:pl-2 es:text-[0.6875rem] es:tracking-tight es:text-secondary-400 es:contrast-more:text-current es:shrink-0'>{shortcut}</div>}
+			{shortcut && <div className='es:ml-auto es:pl-2 es:text-[0.6875rem] es:tracking-tight es:text-surface-400 es:contrast-more:text-current es:shrink-0'>{shortcut}</div>}
 			{endIcon && <div className={clsx('es:shrink-0 es:icon:shrink-0', !shortcut && 'es:ml-auto es:pl-2')}>{endIcon}</div>}
 		</ReactAriaMenuItem>
 	);
@@ -327,13 +319,13 @@ export const SubMenuItem = (props) => {
 	return (
 		<SubmenuTrigger>
 			{cloneElement(trigger, {
-				endIcon: <span className='es:text-secondary-500 es:contrast-more:text-current es:icon:size-3! es:icon:stroke-2!'>{icons.chevronRight}</span>,
+				endIcon: <span className='es:text-surface-500 es:contrast-more:text-current es:icon:size-3! es:icon:stroke-2!'>{icons.chevronRight}</span>,
 			})}
 			<Popover
 				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
 				offset={-1}
 				{...popoverProps}
-				className={clsx('es:p-0! es:any-focus:outline-hidden', !manualWidth && 'es:w-56', manualWidth && 'es:max-w-80', popoverProps?.className)}
+				className={clsx('es:any-focus:outline-hidden', !manualWidth && 'es:w-56', manualWidth && 'es:max-w-80', popoverProps?.className)}
 			>
 				<ReactAriaMenu
 					aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
@@ -379,10 +371,10 @@ export const MenuSectionHeader = (props) => {
 		<ReactAriaMenuItem
 			{...props}
 			className={clsx(
-				'es:mx-1 es:p-2.5 es:pb-1 es:flex es:min-w-44 es:items-center es:gap-1.5',
+				'es:mx-1 es:px-1 es:py-1.5 es:first:pt-2 es:flex es:min-w-44 es:items-center es:gap-1.5',
 				'es:select-none es:text-sm',
 				'es:icon:shrink-0',
-				'es:text-secondary-500',
+				'es:text-surface-500/80',
 				className,
 			)}
 			isDisabled
