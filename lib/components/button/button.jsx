@@ -85,7 +85,7 @@ export const Button = (props) => {
 	const componentClasses = cva(
 		[
 			'es:font-variation-["wdth"_64,"YTLC"_520,"wght"_375]',
-			'es:flex es:items-center',
+			'es:flex es:items-center es:justify-center-safe',
 			'es:transition-plus es:duration-300 es:ease-spring-snappy es:text-13',
 			'es:any-focus:outline-hidden',
 			'es:focus-visible:ring-2',
@@ -98,7 +98,6 @@ export const Button = (props) => {
 			'es:btn-group-v:not-pressed:not-before-selected:not-last:rounded-b-sm',
 			!pending && !disabled && 'es:cursor-pointer',
 			pending && 'es:cursor-wait',
-			icon && children ? 'es:justify-start' : 'es:justify-center-safe',
 			className,
 		],
 		{
@@ -143,8 +142,8 @@ export const Button = (props) => {
 					type: 'selectedSimple',
 					disabled: false,
 					class: [
-						'es:text-black',
-						!pending && 'es:bg-surface-100 es:bg-linear-to-br es:from-accent-700/0 es:to-accent-700/15',
+						'es:text-accent-600',
+						!pending && 'es:bg-secondary-100 es:bg-linear-to-br es:from-accent-900/1 es:to-accent-900/5',
 						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-accent-400/5 es:via-accent-400/25 es:to-accent-400/5 es:from-35% es:via-50% es:to-65% es:bg-surface-100',
 						'es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:from-accent-700/2 es:hover:to-accent-700/12',
 						' es:pressed:text-accent-950 es:pressed:from-accent-700/10 es:pressed:to-accent-700/20',
@@ -155,12 +154,12 @@ export const Button = (props) => {
 					type: 'dangerSimple',
 					disabled: false,
 					class: [
-						'es:text-red-600',
-						!pending && 'es:bg-red-50 es:bg-linear-to-br es:from-black/0 es:to-red-500/10',
+						'es:text-red-700',
+						!pending && 'es:bg-secondary-100 es:bg-linear-to-br es:from-red-900/0 es:to-red-900/5',
 						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-red-500/0 es:via-red-500/30 es:to-red-500/0 es:from-35% es:via-50% es:to-65% es:bg-red-50',
-						'es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:from-red-700/2 es:hover:to-red-700/12',
+						'es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:from-red-500/8 es:hover:to-red-500/15',
 						' es:pressed:text-red-700 es:pressed:from-red-600/5 es:pressed:to-red-600/15',
-						'es:focus-visible:inset-ring es:focus-visible:ring-red-500/30 es:focus-visible:text-red-700 es:focus-visible:inset-ring-red-500 es:focus-visible:inset-shadow-red-300/10 es:focus-visible:bg-red-50',
+						'es:focus-visible:inset-ring es:focus-visible:ring-red-500/30 es:focus-visible:text-red-700 es:focus-visible:inset-ring-red-700 es:focus-visible:inset-shadow-red-300/10 es:focus-visible:bg-red-50',
 					],
 				},
 				{
@@ -214,7 +213,7 @@ export const Button = (props) => {
 					type: 'dangerGhost',
 					disabled: false,
 					class: [
-						!pending && 'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-red-600',
+						!pending && 'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-red-700',
 						pending &&
 							'es:shimmer-animation es:-bg-linear-75 es:from-red-600/0 es:via-red-600/10 es:to-red-600/0 es:from-35% es:via-50% es:to-65% es:bg-secondary-50 es:inset-ring es:inset-ring-red-600/10 es:text-red-700',
 						'es:hover:from-red-500/4 es:hover:to-red-500/7 ',
