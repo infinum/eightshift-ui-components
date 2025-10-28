@@ -18,10 +18,6 @@ import {
 	NumberPicker,
 	Responsive,
 	BaseControl,
-	Select,
-	AsyncSelect,
-	MultiSelect,
-	AsyncMultiSelect,
 	RSOption,
 	RSSingleValue,
 	RSMultiValue,
@@ -160,7 +156,7 @@ function App() {
 	const linkData = [
 		{ label: 'Eightshift', value: 'https://eightshift.com', metadata: { subtype: 'url' } },
 		{
-			label: 'This is a demo post',
+			label: 'This is a demo top post',
 			value: 'https://your-website.com/demo-post',
 			metadata: { subtype: 'post' },
 		},
@@ -171,12 +167,12 @@ function App() {
 			metadata: { subtype: 'attachment' },
 		},
 		{
-			label: 'Services archive',
+			label: 'Services archive top',
 			value: 'https://your-website.com/services/',
 			metadata: { subtype: 'category' },
 		},
 		{
-			label: 'Sign up form',
+			label: 'Sign top up form',
 			value: 'https://your-website.com/forms/signup',
 			metadata: { subtype: 'eightshift-forms' },
 		},
@@ -656,7 +652,7 @@ function App() {
 	const [colConfig5, setColConfig5] = useState([2, 4]);
 
 	return (
-		<div className='es:font-sans es:flex es:min-h-screen es:flex-col es:items-center es:justify-center es:overscroll-contain es:bg-neutral-100 es:p-2'>
+		<div className='es:font-sans es:flex es:min-h-screen es:flex-col es:items-center es:justify-center es:overscroll-contain es:bg-neutral-100 es:p-1'>
 			<OptionSelect
 				label='Control theme'
 				value={controlTheme}
@@ -678,7 +674,7 @@ function App() {
 				inline
 			/>
 
-			<div className='es:mx-auto es:flex es:w-96 es:flex-col es:items-center es:justify-center es:gap-2.5 es:p-10 es:empty:hidden'></div>
+			<div className='es:mx-auto es:flex es:w-140 es:flex-col es:items-center es:justify-center es:gap-2.5 es:p-10 es:empty:hidden'></div>
 
 			<Tabs
 				vertical
@@ -686,46 +682,45 @@ function App() {
 				className='es:h-[90vh] es:w-fit es:overflow-y-auto es:rounded-lg es:bg-white es:shadow-sm'
 			>
 				<TabList className='es:sticky es:top-0 es:self-start es:border-r-0 es:p-5'>
-					<Tab>Toggle / Switch</Tab>
-					<Tab>Spacer</Tab>
-					<Tab>AnimatedVisibility</Tab>
-					<Tab>Expandable</Tab>
-					<Tab>LinkInput</Tab>
-					<Tab>Notice</Tab>
-					<Tab>TriggeredPopover</Tab>
-					<Tab>Button</Tab>
-					<Tab>MatrixAlign</Tab>
-					<Tab>Menu</Tab>
-					<Tab>Tooltip</Tab>
-					<Tab>NumberPicker</Tab>
-					<Tab>Responsive 2.0</Tab>
-					<Tab>BaseControl</Tab>
-					<Tab>Select</Tab>
-					<Tab badge='BETA'>Select next</Tab>
-					<Tab>Tabs</Tab>
-					<Tab>InputField</Tab>
-					<Tab>ComponentToggle</Tab>
-					<Tab>Repeater</Tab>
-					<Tab>Checkbox</Tab>
-					<Tab>RadioButton</Tab>
-					<Tab>Slider</Tab>
-					<Tab>SolidColorPicker</Tab>
-					<Tab>GradientEditor</Tab>
-					<Tab>ColorSwatch</Tab>
-					<Tab>ColorPicker</Tab>
-					<Tab>ResponsiveLegacy</Tab>
-					<Tab>ColumnConfigSlider</Tab>
-					<Tab>ContainerPanel</Tab>
-					<Tab>Layout components</Tab>
-					<Tab>Placeholders</Tab>
-					<Tab>Draggable</Tab>
-					<Tab>DraggableList</Tab>
-					<Tab>OptionsPanel</Tab>
-					<Tab>ResponsivePreview</Tab>
-					<Tab>Modal</Tab>
-					<Tab>ItemCollection</Tab>
-					<Tab>FilePickerShell</Tab>
-					<Tab>SmartImage</Tab>
+					<Tab icon={icons.toggleOnAlt}>Toggle / Switch</Tab>
+					<Tab icon={icons.verticalSpacing}>Spacer</Tab>
+					<Tab icon={icons.animationGeneric}>Animated visibility</Tab>
+					<Tab icon={icons.dropdownClose}>Expandable</Tab>
+					<Tab icon={icons.link}>LinkInput</Tab>
+					<Tab icon={icons.info}>Notice</Tab>
+					<Tab icon={icons.componentGeneric}>Triggered popover</Tab>
+					<Tab icon={icons.buttonOutline}>Button</Tab>
+					<Tab icon={icons.position3x3CenterCenter}>Matrix align</Tab>
+					<Tab icon={icons.componentGeneric}>Menu</Tab>
+					<Tab icon={icons.componentGeneric}>Tooltip</Tab>
+					<Tab icon={icons.componentGeneric}>Number picker</Tab>
+					<Tab icon={icons.componentGeneric}>Responsive 2.0</Tab>
+					<Tab icon={icons.componentGeneric}>Base control</Tab>
+					<Tab icon={icons.componentGeneric}>Select</Tab>
+					<Tab icon={icons.componentGeneric}>Tabs</Tab>
+					<Tab icon={icons.componentGeneric}>Input field</Tab>
+					<Tab icon={icons.componentGeneric}>Component toggle</Tab>
+					<Tab icon={icons.componentGeneric}>Repeater</Tab>
+					<Tab icon={icons.checkSquare}>Checkbox</Tab>
+					<Tab icon={icons.componentGeneric}>Radio button</Tab>
+					<Tab icon={icons.slider}>Slider</Tab>
+					<Tab icon={icons.solidCircleFilled}>Solid color picker</Tab>
+					<Tab icon={icons.gradient}>Gradient editor</Tab>
+					<Tab icon={icons.color}>Color swatch</Tab>
+					<Tab icon={icons.eyedropper}>Color picker</Tab>
+					<Tab icon={icons.componentGeneric}>Responsive (legacy)</Tab>
+					<Tab icon={icons.componentGeneric}>Column config slider</Tab>
+					<Tab icon={icons.componentGeneric}>Container panel</Tab>
+					<Tab icon={icons.layoutAlt}>Layout components</Tab>
+					<Tab icon={icons.emptyCircle}>Placeholders</Tab>
+					<Tab icon={icons.cursorMove}>Draggable</Tab>
+					<Tab icon={icons.cursorMove}>Draggable list</Tab>
+					<Tab icon={icons.options}>Options panel</Tab>
+					<Tab icon={icons.previewResponsive}>Responsive preview</Tab>
+					<Tab icon={icons.componentGeneric}>Modal</Tab>
+					<Tab icon={icons.multiple}>Item collection</Tab>
+					<Tab icon={icons.file}>File picker shell</Tab>
+					<Tab icon={icons.componentGeneric}>Smart image</Tab>
 				</TabList>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Toggle
@@ -840,7 +835,7 @@ function App() {
 						</span>
 					</div>
 				</TabPanel>
-				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
+				<TabPanel className='es:m-5 es:w-96 es:space-y-1! es:p-5!'>
 					<Expandable
 						icon={icons.experiment}
 						label='Lorem ipsum dolor'
@@ -892,6 +887,7 @@ function App() {
 								size='small'
 							/>
 						}
+						flat
 					>
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>lorem</div>
 					</Expandable>
@@ -902,6 +898,65 @@ function App() {
 						help='Help, not sure how to input this'
 						onChange={({ url }) => setLinkTxt(url)}
 						fetchSuggestions={getLinkData}
+					/>
+
+					<LinkInput
+						url={linkTxt}
+						help='Help, not sure how to input this'
+						onChange={({ url }) => setLinkTxt(url)}
+						fetchSuggestions={getLinkData}
+						flat
+					/>
+
+					<LinkInput
+						url={linkTxt}
+						help='Help, not sure how to input this'
+						onChange={({ url }) => setLinkTxt(url)}
+						fetchSuggestions={getLinkData}
+						size='small'
+					/>
+
+					<LinkInput
+						url={linkTxt}
+						help='Help, not sure how to input this'
+						onChange={({ url }) => setLinkTxt(url)}
+						fetchSuggestions={getLinkData}
+						size='small'
+						flat
+					/>
+
+					<LinkInput
+						url={linkTxt}
+						help='Help, not sure how to input this'
+						onChange={({ url }) => setLinkTxt(url)}
+						fetchSuggestions={getLinkData}
+						size='medium'
+					/>
+
+					<LinkInput
+						url={linkTxt}
+						help='Help, not sure how to input this'
+						onChange={({ url }) => setLinkTxt(url)}
+						fetchSuggestions={getLinkData}
+						size='medium'
+						flat
+					/>
+
+					<LinkInput
+						url={linkTxt}
+						help='Help, not sure how to input this'
+						onChange={({ url }) => setLinkTxt(url)}
+						fetchSuggestions={getLinkData}
+						size='large'
+					/>
+
+					<LinkInput
+						url={linkTxt}
+						help='Help, not sure how to input this'
+						onChange={({ url }) => setLinkTxt(url)}
+						fetchSuggestions={getLinkData}
+						size='large'
+						flat
 					/>
 
 					<LinkInput
@@ -947,6 +1002,19 @@ function App() {
 					/>
 
 					<Notice
+						label='Post meta'
+						subtitle='will be shown here'
+						type='placeholder'
+					/>
+
+					<Notice
+						label='Post meta'
+						subtitle='will be shown here'
+						type='placeholder'
+						flat
+					/>
+
+					<Notice
 						icon={icons.person}
 						label='Post meta'
 						subtitle='will be shown here'
@@ -972,7 +1040,7 @@ function App() {
 					/>
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
-					<TriggeredPopover className='es:bg-purple-50 es:p-5'>Hello</TriggeredPopover>
+					<TriggeredPopover className='es:bg-purple-50 es:p-5 es:rounded-2xl'>Hello</TriggeredPopover>
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
 					<Button>Hello</Button>
@@ -1599,7 +1667,7 @@ function App() {
 						label='Not set demo'
 					/>
 				</TabPanel>
-				<TabPanel className='es:m-5 es:flex es:flex-col es:items-center es:space-y-4 es:p-5!'>
+				<TabPanel className='es:m-5 es:w-96 es:flex es:flex-col es:items-center es:space-y-4 es:p-5!'>
 					<DecorativeTooltip text='Hello'>Hover me</DecorativeTooltip>
 					<DecorativeTooltip
 						text='Hello'
@@ -1653,7 +1721,69 @@ function App() {
 						prefix='$'
 						suffix='%'
 						icon={icons.rangeMid}
+						placeholder='abc'
+						flat
 					/>
+
+					<hr />
+
+					<NumberPicker
+						label='Pick a number'
+						value={num}
+						onChange={(value) => setNum(value)}
+						max={200}
+						prefix='$'
+						suffix='%'
+						icon={icons.rangeMid}
+						placeholder='abc'
+						size='small'
+						flat
+						inline
+					/>
+
+					<NumberPicker
+						label='Pick a number'
+						value={num}
+						onChange={(value) => setNum(value)}
+						max={200}
+						prefix='$'
+						suffix='%'
+						icon={icons.rangeMid}
+						placeholder='abc'
+						size='medium'
+						flat
+						inline
+					/>
+
+					<NumberPicker
+						label='Pick a number'
+						value={num}
+						onChange={(value) => setNum(value)}
+						max={200}
+						prefix='$'
+						suffix='%'
+						icon={icons.rangeMid}
+						placeholder='abc'
+						size='default'
+						flat
+						inline
+					/>
+
+					<NumberPicker
+						label='Pick a number'
+						value={num}
+						onChange={(value) => setNum(value)}
+						max={200}
+						prefix='$'
+						suffix='%'
+						icon={icons.rangeMid}
+						placeholder='abc'
+						size='large'
+						flat
+						inline
+					/>
+
+					<hr />
 
 					<NumberPicker
 						label='Pick a number'
@@ -1715,8 +1845,10 @@ function App() {
 					>
 						<Button
 							onPress={() => setNum(0)}
-							type='ghost'
+							type='simple'
+							size='large'
 							icon={icons.resetToZero}
+							slot={null}
 						/>
 					</NumberPicker>
 					<NumberPicker
@@ -1729,9 +1861,11 @@ function App() {
 					>
 						<Button
 							onPress={() => setNum(0)}
-							type='ghost'
+							type='simple'
+							size='large'
 							icon={icons.resetToZero}
 							disabled={num === 0}
+							slot={null}
 						/>
 					</NumberPicker>
 				</TabPanel>
@@ -1793,6 +1927,7 @@ function App() {
 								onChange={(value) => handleChange(value)}
 								value={currentValue}
 								type={isInlineCollapsedView ? 'menu' : 'toggleButtons'}
+								itemProps={!isInlineCollapsedView && { type: 'simple' }}
 							/>
 						)}
 					</MiniResponsive>
@@ -1816,6 +1951,7 @@ function App() {
 								value={currentValue}
 								type={isInlineCollapsedView ? 'menu' : 'toggleButtons'}
 								aria-label='Font family'
+								itemProps={!isInlineCollapsedView && { type: 'simple' }}
 								tooltip
 							/>
 						)}
@@ -1901,35 +2037,33 @@ function App() {
 					</BaseControl>
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
-					<Select
+					{/* <Select
 						label='Single basic'
 						value={sinSel}
 						onChange={setSinSel}
 						options={data}
-					/>
+					/> */}
 					<pre>{JSON.stringify(sinSel, null, 2)}</pre>
-					<Select
+					{/* <Select
 						label='Single basic - simpleValue'
 						value={sinSelSimple}
 						onChange={setSinSelSimple}
 						options={data}
 						simpleValue
-					/>
+					/> */}
 					<pre>{JSON.stringify(sinSelSimple, null, 2)}</pre>
-					<MultiSelect
+					{/* <MultiSelect
 						label='Multi basic'
 						value={mulSel}
 						onChange={setMulSel}
 						options={data}
-					/>
-
+					/> */}
 					<__MultiSelectNext
 						label='Multi basic NEXT'
 						value={mulSel}
 						onChange={setMulSel}
 						options={data}
 					/>
-
 					<__MultiSelectNext
 						label='Multi basic NEXT'
 						value={mulSel}
@@ -1945,7 +2079,6 @@ function App() {
 							</HStack>
 						)}
 					/>
-
 					<pre>
 						{JSON.stringify(
 							mulSel.map((item) => ({ ...item, icon: null })),
@@ -1953,103 +2086,104 @@ function App() {
 							2,
 						)}
 					</pre>
-					<MultiSelect
+					{/* <MultiSelect
 						label='Multi basic - simpleValue'
 						value={mulSelSimple}
 						onChange={setMulSelSimple}
 						options={data}
 						simpleValue
-					/>
-					<__MultiSelectNext
+					/> */}
+					{/* <__MultiSelectNext
 						label='Multi basic - simpleValue NEXT'
 						value={mulSelSimple}
 						onChange={setMulSelSimple}
 						options={data}
 						simpleValue
-					/>
+					/> */}
 					<pre>{JSON.stringify(mulSelSimple, null, 2)}</pre>
-					<AsyncSelect
+					{/* <AsyncSelect
 						label='Single async'
 						value={sinASel}
 						onChange={setSinASel}
 						loadOptions={getData}
-					/>
+					/> */}
 					<pre>{JSON.stringify(sinASel, null, 2)}</pre>
-					<AsyncMultiSelect
+					{/* <AsyncMultiSelect
 						label='Multi async'
 						value={mulASel}
 						onChange={setMulASel}
 						loadOptions={getData}
-					/>
+					/> */}
 					<pre>{JSON.stringify(mulASel, null, 2)}</pre>
 					<Spacer border />
-					<Select
+					{/* <Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
 						onChange={(v) => setV(v)}
 						value={v}
 						options={data}
-					/>
-					<Select
+					/> */}
+					{/* <Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
 						onChange={(v) => setV(v)}
 						value={v}
 						options={data}
 						noSearch
-					/>
-					<Select
+					/> */}
+					{/* <Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
 						onChange={(v) => setV(v)}
 						value={v}
 						options={data}
 						placeholder='Pick me!'
-					/>
-					<Select
+					/> */}
+					{/* <Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
 						onChange={(v) => setV(v)}
 						value={v}
 						options={data}
 						clearable
-					/>
-					<Select
+					/> */}
+					{/* <Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
 						onChange={(v) => setV(v)}
 						value={v}
 						options={data}
 						closeMenuAfterSelect
-					/>
-					<Select
+					/> */}
+					{/* <Select
 						icon={icons.emptyCircle}
 						label='Default'
 						onChange={(v) => setV(v)}
 						value={v}
 						options={data}
-					/>
-					<AsyncSelect
+					/> */}
+					{/* <AsyncSelect
 						icon={icons.emptyCircle}
 						label='Pick an item'
 						onChange={(v) => setV3(v)}
 						value={v3}
 						loadOptions={getData}
-					/>
-					<MultiSelect
+					/> */}
+					{/* <MultiSelect
 						icon={icons.emptyCircle}
 						label='Select items'
 						onChange={(v) => setV4(v)}
 						value={v4}
 						options={data}
-					/>
-					<AsyncMultiSelect
+					/> */}
+					{/* <AsyncMultiSelect
 						icon={icons.emptyCircle}
 						label='Select items'
 						onChange={(v) => setV5(v)}
 						value={v5}
 						loadOptions={getData}
-					/>
+					/> */}
+					{/*
 					<Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
@@ -2057,16 +2191,16 @@ function App() {
 						value={v}
 						options={data}
 						customDropdownArrow={CustomDropdownIndicator}
-					/>
-					<Select
+					/> */}
+					{/* <Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
 						onChange={(v) => setV(v)}
 						value={v}
 						options={data}
 						customMenuOption={CustomMenuOption}
-					/>
-					<Select
+					/> */}
+					{/* <Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
 						onChange={(v) => setV(v)}
@@ -2074,48 +2208,46 @@ function App() {
 						options={data}
 						clearable
 						customClearIndicator={CustomClearIndicator}
-					/>
-					<Select
+					/> */}
+					{/* <Select
 						icon={icons.emptyCircle}
 						label='Pick an item'
 						onChange={(v) => setV(v)}
 						value={v}
 						options={data}
 						customValueDisplay={CustomValueDisplay}
-					/>
-					<MultiSelect
+					/> */}
+					{/* <MultiSelect
 						icon={icons.emptyCircle}
 						label='Pick an item'
 						onChange={(v) => setV4(v)}
 						value={v4}
 						options={data}
 						customValueRemove={CustomMultiValueRemoveButton}
-					/>
-					<MultiSelect
+					/> */}
+					{/* <MultiSelect
 						icon={icons.emptyCircle}
 						label='Pick an item'
 						onChange={(v) => setV4(v)}
 						value={v4}
 						options={data}
 						customValueDisplay={CustomMultiValueDisplay}
-					/>
-					<MultiSelect
+					/> */}
+					{/* <MultiSelect
 						icon={icons.emptyCircle}
 						label='Pick an item'
 						onChange={(v) => setV6(v)}
 						value={v6}
 						options={data}
 						customValueContainer={CustomMultiValueContainer}
-					/>
-					<Select
+					/> */}
+					{/* <Select
 						onChange={(v) => setV7(v)}
 						value={v7}
 						options={groupedOptions}
 						label='Groups'
 						icon={icons.group}
-					/>
-				</TabPanel>
-				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
+					/> */}
 					<AsyncSelectNext
 						label='Async single select LOGGER'
 						value={sinASel2}
@@ -2300,12 +2432,12 @@ function App() {
 					/>
 					{JSON.stringify(sinASel2)}
 					<hr />
-					<AsyncMultiSelect
+					{/* <AsyncMultiSelect
 						label='Multi async'
 						value={mulASel}
 						onChange={setMulASel}
 						loadOptions={getDataAlt}
-					/>
+					/> */}
 					<__AsyncMultiSelectNext
 						label='Multi async NEXT'
 						value={mulASel}
@@ -2335,7 +2467,7 @@ function App() {
 						fetchFunction={getDataNew}
 					/>
 				</TabPanel>
-				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
+				<TabPanel className='es:m-5 es:w-4xl es:max-w-[90vw] es:space-y-4 es:p-5!'>
 					<Tabs>
 						<TabList />
 						<TabPanel>Abc</TabPanel>
@@ -2346,6 +2478,7 @@ function App() {
 						onChange={setTabVar}
 						options={[
 							{ label: 'Underline', value: 'underline' },
+							{ label: 'Underline (secondary)', value: 'underlineSecondary' },
 							{ label: 'Pill', value: 'pill' },
 							{ label: 'Pill (inverse)', value: 'pillInverse' },
 							{ label: 'Pill (outlined)', value: 'pillOutline' },
@@ -2379,7 +2512,44 @@ function App() {
 						<TabList>
 							<Tab>Founding of Rome</Tab>
 							<Tab badge='2'>Monarchy and Republic</Tab>
-							<Tab icon={icons.emptyCircle}>Monarchy and Republic</Tab>
+							<Tab>Monarchy and Republic</Tab>
+							<Tab disabled>Empire of Something Else</Tab>
+						</TabList>
+						<TabPanel>Arma virumque cano, Troiae qui primus ab oris.</TabPanel>
+						<TabPanel>Senatus Populusque Romanus.</TabPanel>
+						<TabPanel>Alea jacta est.</TabPanel>
+						<TabPanel>Nešto.</TabPanel>
+					</Tabs>
+
+					<Tabs
+						vertical
+						type={tabVar}
+					>
+						<TabList>
+							<Tab>Founding of Rome</Tab>
+							<Tab badge='2'>Monarchy and Republic</Tab>
+							<Tab
+								icon={icons.emptyCircle}
+								badge={<DecorativeTooltip text='Requires attention'>{cloneElement(icons.warning, { className: 'es:size-4 es:stroke-[1.2] es:text-red-600' })}</DecorativeTooltip>}
+							>
+								Monarchy and Republic
+							</Tab>
+							<Tab disabled>Empire of Something Else</Tab>
+						</TabList>
+						<TabPanel>Arma virumque cano, Troiae qui primus ab oris.</TabPanel>
+						<TabPanel>Senatus Populusque Romanus.</TabPanel>
+						<TabPanel>Alea jacta est.</TabPanel>
+						<TabPanel>Nešto.</TabPanel>
+					</Tabs>
+
+					<Tabs
+						vertical
+						type={tabVar}
+					>
+						<TabList>
+							<Tab>Founding of Rome</Tab>
+							<Tab badge='2'>Monarchy and Republic</Tab>
+							<Tab>Monarchy and Republic</Tab>
 							<Tab disabled>Empire of Something Else</Tab>
 						</TabList>
 						<TabPanel>Arma virumque cano, Troiae qui primus ab oris.</TabPanel>
@@ -2396,6 +2566,54 @@ function App() {
 						inline
 						disabled
 					/>
+
+					<InputField
+						value={txt1}
+						onChange={setTxt1}
+						label='Lorem'
+						inline
+						flat
+					/>
+
+					<hr />
+
+					<InputField
+						value={txt1}
+						onChange={setTxt1}
+						label='Lorem'
+						inline
+						flat
+						size='small'
+					/>
+
+					<InputField
+						value={txt1}
+						onChange={setTxt1}
+						label='Lorem'
+						inline
+						flat
+						size='medium'
+					/>
+
+					<InputField
+						value={txt1}
+						onChange={setTxt1}
+						label='Lorem'
+						inline
+						flat
+						size='default'
+					/>
+
+					<InputField
+						value={txt1}
+						onChange={setTxt1}
+						label='Lorem'
+						inline
+						flat
+						size='large'
+					/>
+
+					<hr />
 
 					<InputField
 						value={txt1}
@@ -2420,6 +2638,39 @@ function App() {
 						icon={icons.emptyRect}
 						label='Lorem'
 						readOnly
+					/>
+
+					<InputField
+						type='multiline'
+						value={txt2}
+						onChange={setTxt2}
+						help={txt2?.length < 5 ? 'Nema dovoljno znakova?' : 'Iiiiima'}
+						icon={icons.emptyRect}
+						label='Lorem'
+						readOnly
+						flat
+					/>
+
+					<InputField
+						type='multiline'
+						value={txt2}
+						onChange={setTxt2}
+						help={txt2?.length < 5 ? 'Nema dovoljno znakova?' : 'Iiiiima'}
+						icon={icons.emptyRect}
+						label='Lorem'
+						flat
+						monospaceFont
+						placeholder='Type here...'
+					/>
+
+					<InputField
+						type='multiline'
+						value={txt2}
+						onChange={setTxt2}
+						help={txt2?.length < 5 ? 'Nema dovoljno znakova?' : 'Iiiiima'}
+						icon={icons.emptyRect}
+						label='Lorem'
+						placeholder='Type here...'
 					/>
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
@@ -3114,10 +3365,22 @@ function App() {
 					<code className='es:max-w-60 es:rounded-md es:border es:bg-secondary-50 es:p-1 es:font-mono es:text-xs'>{grad}</code>
 				</TabPanel>
 				<TabPanel className='es:m-5 es:w-96 es:space-y-4 es:p-5!'>
-					<ColorSwatch color='red' />
-					<ColorSwatch color='transparent' />
-					<ColorSwatch color='#4433EE80' />
-					<ColorSwatch color='#0D3636' />
+					<ColorSwatch
+						flat
+						color='red'
+					/>
+					<ColorSwatch
+						flat
+						color='transparent'
+					/>
+					<ColorSwatch
+						flat
+						color='#4433EE80'
+					/>
+					<ColorSwatch
+						flat
+						color='#0D3636'
+					/>
 					<ColorSwatch
 						gradient='linear-gradient(#0D3636, rgb(249 250 251))'
 						colorName='Linear gradient'
@@ -3678,7 +3941,7 @@ function App() {
 						}}
 					</DraggableList>
 				</TabPanel>
-				<TabPanel className='es:m-5 es:w-[50rem] es:space-y-4 es:p-5! es:bg-[#f1f1f1]'>
+				<TabPanel className='es:m-5 es:w-4xl es:max-w-[90vw] es:space-y-4 es:p-5! es:bg-[#f1f1f1]'>
 					<OptionsPanelHeader
 						title='Global settings'
 						actions={
@@ -3703,7 +3966,7 @@ function App() {
 							/>
 							<OptionsPanel>
 								<OptionsPanelSection>
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3716,7 +3979,7 @@ function App() {
 
 							<OptionsPanel title='Header & footer'>
 								<OptionsPanelSection>
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3733,7 +3996,7 @@ function App() {
 								help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
 							>
 								<OptionsPanelSection>
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3748,7 +4011,7 @@ function App() {
 								help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
 							>
 								<OptionsPanelSection>
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3756,7 +4019,7 @@ function App() {
 										options={data}
 									/>
 
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3777,7 +4040,7 @@ function App() {
 								help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
 							>
 								<OptionsPanelSection>
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3786,7 +4049,7 @@ function App() {
 									/>
 								</OptionsPanelSection>
 								<OptionsPanelSection>
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3795,7 +4058,7 @@ function App() {
 									/>
 								</OptionsPanelSection>
 								<OptionsPanelSection>
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3820,7 +4083,7 @@ function App() {
 							/>
 							<OptionsPanel>
 								<OptionsPanelSection>
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3833,7 +4096,7 @@ function App() {
 
 							<OptionsPanel title='Header & footer'>
 								<OptionsPanelSection>
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3850,7 +4113,7 @@ function App() {
 								help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
 							>
 								<OptionsPanelSection>
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3865,7 +4128,7 @@ function App() {
 								help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
 							>
 								<OptionsPanelSection>
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3873,7 +4136,7 @@ function App() {
 										options={data}
 									/>
 
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3895,7 +4158,7 @@ function App() {
 								help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
 							>
 								<OptionsPanelSection>
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3904,7 +4167,7 @@ function App() {
 									/>
 								</OptionsPanelSection>
 								<OptionsPanelSection>
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3913,7 +4176,7 @@ function App() {
 									/>
 								</OptionsPanelSection>
 								<OptionsPanelSection>
-									<Select
+									<SelectNext
 										icon={icons.emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
@@ -3976,7 +4239,14 @@ function App() {
 						title='My modal'
 						triggerLabel='No close button'
 						noCloseButton
-						actions={<Button slot='close'>Close</Button>}
+						actions={
+							<Button
+								type='simple'
+								slot='close'
+							>
+								Close
+							</Button>
+						}
 					>
 						<p>
 							Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet,
@@ -4039,8 +4309,18 @@ function App() {
 						url='myfile.json'
 						noUrlContent={<Button size='large'>Upload</Button>}
 					>
-						<Button className='es:grow'>Replace</Button>
-						<Button className='es:grow'>Remove</Button>
+						<Button
+							type='simple'
+							className='es:grow'
+						>
+							Replace
+						</Button>
+						<Button
+							type='simple'
+							className='es:grow'
+						>
+							Remove
+						</Button>
 					</FilePickerShell>
 
 					<FilePickerShell
@@ -4051,7 +4331,7 @@ function App() {
 						type='image'
 					>
 						{({ isDark, dominantColors, isTransparent }) => {
-							let buttonType = 'default';
+							let buttonType = 'simple';
 
 							if (!isTransparent) {
 								buttonType = isDark ? 'glass' : 'glassDark';
