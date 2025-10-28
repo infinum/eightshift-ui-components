@@ -58,7 +58,7 @@ export const Notice = (props) => {
 			icon: icons.errorCircle,
 			className: 'es:inset-ring-red-800/15 es:shadow-red-800/5 es:from-red-400/2 es:to-red-600/5 es:inset-shadow-red-500/10',
 			iconColorClassName: 'es:text-red-600',
-			textColorClassName: 'es:text-red-600',
+			textColorClassName: 'es:text-red-700',
 			subtitleColorClassName: 'es:text-red-950/55',
 		},
 		placeholder: {
