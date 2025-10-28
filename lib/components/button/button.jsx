@@ -131,7 +131,7 @@ export const Button = (props) => {
 					disabled: false,
 					class: [
 						'es:text-black',
-						!pending && 'es:bg-secondary-100 es:bg-linear-to-br es:from-black/0 es:to-black/2',
+						!pending && 'es:bg-surface-50 es:bg-linear-to-br es:from-secondary-900/4 es:to-secondary-900/8',
 						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-accent-400/0 es:via-accent-400/25 es:to-accent-400/0 es:from-35% es:via-50% es:to-65% es:bg-surface-100',
 						'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:to-accent-700/5',
 						'es:pressed:bg-surface-100 es:pressed:text-accent-950 es:pressed:inset-ring-surface-300 es:pressed:inset-shadow-white/10',
@@ -143,7 +143,7 @@ export const Button = (props) => {
 					disabled: false,
 					class: [
 						'es:text-accent-600',
-						!pending && 'es:bg-secondary-100 es:bg-linear-to-br es:from-accent-900/1 es:to-accent-900/5',
+						!pending && 'es:bg-surface-50 es:bg-linear-to-br es:from-accent-900/2 es:to-accent-900/5',
 						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-accent-400/5 es:via-accent-400/25 es:to-accent-400/5 es:from-35% es:via-50% es:to-65% es:bg-surface-100',
 						'es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:from-accent-700/2 es:hover:to-accent-700/12',
 						' es:pressed:text-accent-950 es:pressed:from-accent-700/10 es:pressed:to-accent-700/20',
@@ -155,7 +155,7 @@ export const Button = (props) => {
 					disabled: false,
 					class: [
 						'es:text-red-700',
-						!pending && 'es:bg-secondary-100 es:bg-linear-to-br es:from-red-900/0 es:to-red-900/5',
+						!pending && 'es:bg-surface-50 es:bg-linear-to-br es:from-red-900/2 es:to-red-900/5',
 						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-red-500/0 es:via-red-500/30 es:to-red-500/0 es:from-35% es:via-50% es:to-65% es:bg-red-50',
 						'es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:from-red-500/8 es:hover:to-red-500/15',
 						' es:pressed:text-red-700 es:pressed:from-red-600/5 es:pressed:to-red-600/15',
