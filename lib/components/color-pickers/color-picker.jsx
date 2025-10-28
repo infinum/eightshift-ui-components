@@ -138,6 +138,7 @@ export const ColorPicker = (props) => {
 				<ColorSwatch
 					className='es:size-5!'
 					color={color}
+					flat
 				/>
 			}
 			onClick={() => onChange(slug)}
@@ -209,7 +210,8 @@ export const ColorPicker = (props) => {
 						{(type === 'default' || icon) && (
 							<ColorSwatch
 								color={currentColor}
-								className='es:size-6! es:shadow-none!'
+								className='es:size-6!'
+								flat
 							/>
 						)}
 						{!icon && type !== 'default' && (
@@ -217,7 +219,8 @@ export const ColorPicker = (props) => {
 								{menuTriggerIcon}
 								<ColorSwatch
 									color={currentColor}
-									className='es:absolute es:-bottom-0.5 es:left-0 es:h-2! es:shadow-none!'
+									className='es:absolute es:-bottom-0.5 es:left-0 es:h-2!'
+									flat
 								/>
 							</div>
 						)}
@@ -236,7 +239,12 @@ export const ColorPicker = (props) => {
 						<MenuItem
 							onClick={() => onChange(undefined)}
 							selected={typeof value === 'undefined'}
-							endIcon={<ColorSwatch className='es:size-5!' />}
+							endIcon={
+								<ColorSwatch
+									className='es:size-5!'
+									flat
+								/>
+							}
 						>
 							{clearItemLabel}
 						</MenuItem>
