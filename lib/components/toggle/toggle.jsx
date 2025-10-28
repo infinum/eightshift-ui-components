@@ -55,7 +55,7 @@ export const Toggle = (props) => {
 				icon={icon}
 				label={label}
 				subtitle={subtitle}
-				className={clsx('es:py-2.5', labelClassName)}
+				className={clsx('es:py-2', labelClassName)}
 				fullWidth
 			/>
 		</Switch>
