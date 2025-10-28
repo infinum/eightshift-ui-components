@@ -89,16 +89,15 @@ export const NumberPicker = ({
 			'es:focus-visible-within:text-accent-950 es:focus-visible-within:inset-ring-accent-500',
 			'es:focus:placeholder:text-surface-400',
 			'es:text-13',
-			'es:py-1.5',
 			className,
 		],
 		{
 			variants: {
 				size: {
-					small: ['es:min-h-8', 'es:px-2.5'],
-					medium: ['es:min-h-9', 'es:px-3'],
-					default: ['es:min-h-10', 'es:px-3'],
-					large: ['es:min-h-12', 'es:px-4'],
+					small: ['es:min-h-8', 'es:px-2.5 es:py-1'],
+					medium: ['es:min-h-9', 'es:px-3 es:py-1'],
+					default: ['es:min-h-10', 'es:px-3 es:py-1.5'],
+					large: ['es:min-h-12', 'es:px-4 es:py-1.5'],
 				},
 				disabled: {
 					false: 'es:selection:bg-surface-100 es:selection:text-accent-800',
@@ -183,23 +182,29 @@ export const NumberPicker = ({
 
 						<ButtonGroup
 							className={clsx(
-								'es:hidden es:opacity-0 es:blur-xs es:transition-discrete es:gap-0! es:transition-plus-w es:pl-0.5 es:ease-spring-snappy es:duration-300 es:origin-left es:translate-x-0.5',
-								!disabled &&
-									!readOnly &&
-									'es:group-hover:flex es:group-focus-within:flex es:group-hover:blur-none es:group-focus-within:blur-none es:group-hover:opacity-100 es:group-focus-within:opacity-100 es:group-hover:translate-x-0 es:group-focus-within:translate-x-0',
+								'es:hidden es:transition-discrete es:gap-0! es:transition es:pl-0.5 es:ease-spring-smooth es:duration-300 es:origin-left',
+								'es:starting:opacity-0 es:starting:blur-[2px] es:starting:translate-x-2',
+								'es:opacity-100 es:blur-none es:translate-x-0',
+								!disabled && !readOnly && 'es:group-hover:flex es:group-focus-within:flex',
 								disabled && 'es:hidden',
 							)}
 							vertical
 						>
 							<Button
 								type='ghost'
-								className='es:col-start-4 es:h-3.5 es:w-4 es:disabled:opacity-40 es:text-current/80 es:group-focus-within:text-surface-500 es:icon:size-[0.65rem] es:icon:stroke-2'
+								className={clsx(
+									'es:col-start-4 es:w-4 es:disabled:opacity-40 es:text-current/80 es:group-focus-within:text-surface-500 es:icon:size-[0.65rem] es:icon:stroke-2',
+									size === 'small' ? 'es:h-3' : 'es:h-3.5',
+								)}
 								slot='increment'
 								icon={icons.chevronUp}
 							/>
 							<Button
 								type='ghost'
-								className='es:col-start-4 es:h-3.5 es:w-4 es:disabled:opacity-40 es:text-current/80 es:group-focus-within:text-surface-500 es:icon:size-[0.65rem] es:icon:stroke-2'
+								className={clsx(
+									'es:col-start-4 es:w-4 es:disabled:opacity-40 es:text-current/80 es:group-focus-within:text-surface-500 es:icon:size-[0.65rem] es:icon:stroke-2',
+									size === 'small' ? 'es:h-3' : 'es:h-3.5',
+								)}
 								slot='decrement'
 								icon={icons.chevronDown}
 							/>
@@ -215,7 +220,8 @@ export const NumberPicker = ({
 						)}
 					</Group>
 
-					{children && (Array.isArray(children) ? children.map((child) => cloneElement(child, { slot: null })) : cloneElement(children, { slot: null }))}
+					{children}
+					{/* {children && (Array.isArray(children) ? children.map((child) => cloneElement(child, { slot: null })) : cloneElement(children, { slot: null }))} */}
 				</div>
 			</BaseControl>
 		</NumberField>
