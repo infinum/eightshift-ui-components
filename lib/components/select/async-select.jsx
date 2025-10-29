@@ -1,18 +1,17 @@
-import { __, _n } from '@wordpress/i18n';
-import { BaseControl } from '../../base-control/base-control';
-import { Label, ListBox, Popover, Button, Autocomplete, SearchField, Input, DialogTrigger, useDragAndDrop, ListBoxItem, Text, DropIndicator } from 'react-aria-components';
-import { cloneElement } from 'react';
-import { icons } from '../../../icons';
+import { __ } from '@wordpress/i18n';
+import { BaseControl } from '../base-control/base-control';
+import { Select, Label, ListBox, Popover, Button, SelectValue, SelectStateContext, Autocomplete, SearchField, Input } from 'react-aria-components';
+import { useContext, cloneElement, useEffect } from 'react';
+import { icons } from '../../icons';
 import { OptionItemBase } from './shared';
-import { useRef, useEffect } from 'react';
-import { RichLabel } from '../../rich-label/rich-label';
-import clsx from 'clsx';
+import { useRef } from 'react';
+import { RichLabel } from '../rich-label/rich-label';
 import { useAsyncList } from 'react-stately';
-import { truncateEnd, unescapeHTML } from '../../../utilities';
-import { moveArrayItem } from '../shared';
+import { unescapeHTML } from '../../utilities';
+import clsx from 'clsx';
 
 /**
- * Async multi-select menu.
+ * Select menu with async loading.
  *
  * @component
  * @param {Object} props - Component props.
@@ -22,7 +21,7 @@ import { moveArrayItem } from '../shared';
  * @param {string} [props.subtitle] - Subtitle of the component.
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to show to the right of the label.
  * @param {boolean} [props.inline] - Whether the Select menu is displayed inline with the label, to the right.
- * @param {{label: string, value: string, metadata: Object<string, any>?}[]} props.value - Current value of the select.
+ * @param {{label: string, value: string, metadata: Object<string, any>?}} props.value - Current value of the select.
  * @param {Function} props.onChange - Function to call when the value changes.
  * @param {boolean} [props.clearable=false] - Whether the select is clearable.
  * @param {boolean} [props.disabled=false] - Whether the select is disabled.
@@ -44,25 +43,23 @@ import { moveArrayItem } from '../shared';
  * @param {boolean} [props.noMinWidth=false] - If `true`, the select menu will not have a minimum width.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
- * @returns {JSX.Element} The __AsyncMultiSelectNext component.
+ * @returns {JSX.Element} The AsyncSelectNext component.
  *
  * @example
  * const [value, setValue] = useState(null);
  *
- * <__AsyncMultiSelectNext
+ * <AsyncSelectNext
  * 	label='Select items'
+ * 	fetchUrl={(searchText) => `https://api.example.com/items?q=${searchText}`}
  * 	value={value}
  * 	onChange={setValue}
- * 	fetchUrl={(searchText) => `https://api.example.com/items?search=${searchText}`}
- * 	getLabel={(item) => item?.label}
+ * 	getLabel={(item) => item?.name}
  * 	getValue={(item) => item?.id}
- * 	getIcon={() => icons.emptyCircle}
  * />
  *
  * @preserve
  */
-// eslint-disable-next-line no-underscore-dangle
-export const __AsyncMultiSelectNext = (props) => {
+export const AsyncSelect = (props) => {
 	const {
 		label,
 		help,
@@ -74,9 +71,17 @@ export const __AsyncMultiSelectNext = (props) => {
 		value,
 		onChange,
 
-		clearable,
-		disabled,
+		disabled = false,
+		clearable = false,
+
+		className,
 		placeholder = __('Select...', 'eightshift-ui-components'),
+
+		customMenuOption,
+		customValueDisplay,
+		customDropdownArrow,
+
+		processLoadedOptions = (options) => options,
 
 		fetchUrl,
 		fetchConfig = {},
@@ -89,23 +94,14 @@ export const __AsyncMultiSelectNext = (props) => {
 		getSubtitle,
 		getData = (data) => data,
 
-		customMenuOption,
-		customValueDisplay,
-		customDropdownArrow,
-
-		className,
-
-		noMinWidth,
-
 		hidden,
 
-		processLoadedOptions,
+		noMinWidth = false,
 
 		...rest
 	} = props;
 
 	const list = useAsyncList({
-		initialSelectedKeys: Array.isArray(value) ? value.map((item) => item?.value) : [],
 		getKey: (item) => item.value,
 		async load({ signal, filterText }) {
 			let json = [];
@@ -134,134 +130,78 @@ export const __AsyncMultiSelectNext = (props) => {
 				return entry;
 			});
 
-			if (filterText.length > 0) {
+			if (value && value?.value && (filterText ?? '').length < 1 && output.length > 0 && !output?.find((item) => item.value === value?.value)) {
 				return {
-					items: output,
+					items: [value, ...output.slice(0, -1)],
+					selectedKeys: [value?.value],
 				};
 			}
 
-			const extra =
-				value
-					?.map((val) => {
-						if (output?.find((item) => item.value === val?.value)) {
-							return null;
-						}
-
-						return val;
-					})
-					?.filter(Boolean) ?? [];
-
 			return {
-				items: [...output, ...extra],
+				items: output,
 			};
 		},
 	});
 
-	const handleSelectionChange = (rawSelected) => {
-		const selected = list.filterText.length > 0 ? new Set([...(value?.map((item) => item?.value) ?? []), ...rawSelected]) : rawSelected;
-
-		list.filterText = '';
-
-		if (selected === null || selected === undefined) {
-			onChange(null);
-
-			return;
-		}
-
-		if (selected.size === 0) {
-			onChange([]);
-
-			return;
-		}
-
-		const selectedValues = [...selected]
-			.map((item) => {
-				const option = list.items.find((option) => option.value === item) || value.find((option) => option.value === item);
-
-				if (!option) {
-					return null;
-				}
-
-				return {
-					...option,
-				};
-			})
-			.filter(Boolean);
-
-		onChange(selectedValues);
-	};
-
 	const ref = useRef();
 
-	let { dragAndDropHooks } = useDragAndDrop({
-		getItems: (keys) => [...keys].map((key) => ({ 'text/plain': key, text: value.find((item) => item.value === key)?.label ?? key })),
-		onReorder(e) {
-			handleSelectionChange(
-				new Set(
-					moveArrayItem(
-						value?.map((item) => item?.value),
-						[...e.keys][0],
-						e.target.key,
-						e.target.dropPosition,
-					),
-				),
-			);
-		},
-		renderDragPreview(items) {
-			return (
-				<div className='es:bg-accent-700 es:rounded-md es:px-1.5 es:py-0.5 es:text-white es:translate-x-7 es:translate-y-6'>
-					{truncateEnd(items[0]['text'], 20)}
-					{items.length > 1 && <span className='badge'>{items.length}</span>}
-				</div>
-			);
-		},
-		renderDropIndicator(target) {
-			return (
-				<DropIndicator
-					target={target}
-					className='es:w-0.75 es:h-5.5 es:rounded-md es:transition es:inset-ring-0 es:drop-target:bg-accent-600 es:bg-accent-700/30 es:any-focus:outline-hidden es:any-focus:inset-ring-0'
-				/>
-			);
-		},
-		isDisabled: disabled || value.length < 2,
-	});
-
-	// Handle external value changes.
 	useEffect(() => {
-		if (list.selectedKeys.size !== (value ?? []).length) {
-			list.setSelectedKeys(new Set(value?.map((item) => item?.value)));
-			list.setFilterText('');
+		// Overwrite first item if the current value is not in the list.
+		if (value?.value && !list.getItem(value?.value)) {
+			list.items[0] = value;
 		}
-	}, [value]);
+
+		list.setSelectedKeys(value?.value ? [value.value] : []);
+		list.setFilterText('');
+	}, [value?.value]);
 
 	if (hidden) {
 		return null;
 	}
 
 	return (
-		<BaseControl
-			label={label}
-			icon={icon}
-			subtitle={subtitle}
-			actions={actions}
-			help={help}
-			inline={inline}
-			labelAs={Label}
+		<Select
+			isDisabled={disabled}
+			selectedKey={value?.value ?? null}
+			onSelectionChange={(selected) => {
+				list.filterText = '';
+
+				if (selected === null || selected === undefined) {
+					onChange(null);
+
+					return;
+				}
+
+				const item = list.items.find((item) => item.value === selected);
+
+				if (!item) {
+					onChange(null);
+
+					return;
+				}
+
+				if (item && 'id' in item) {
+					delete item.id;
+				}
+
+				onChange(item);
+			}}
+			placeholder={placeholder}
 			{...rest}
 		>
-			<DialogTrigger
-				onOpenChange={(isOpen) => {
-					if (!isOpen) {
-						list.setFilterText('');
-					}
-				}}
+			<BaseControl
+				label={label}
+				icon={icon}
+				subtitle={subtitle}
+				actions={actions}
+				help={help}
+				inline={inline}
+				labelAs={Label}
 			>
-				<Button
-					aria-label={__('Select items', 'eightshift-ui-components')}
+				<div
 					className={clsx(
-						'es:group',
-						'es:relative es:flex es:items-center es:gap-1 es:py-0.75 es:pl-0.75 es:pr-1.5 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
-						'es:min-h-9 es:rounded-10 es:border es:border-secondary-300 es:bg-white es:text-sm es:shadow-sm es:transition',
+						'es:relative es:flex es:items-center es:gap-1 es:px-1.5 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+						'es:h-9 es:rounded-10 es:border es:border-secondary-300 es:bg-white es:text-sm es:shadow-sm es:transition',
 						'es:inset-ring es:inset-ring-secondary-100',
 						'es:any-focus:outline-hidden',
 						!noMinWidth && 'es:min-w-48',
@@ -272,49 +212,57 @@ export const __AsyncMultiSelectNext = (props) => {
 					)}
 					ref={ref}
 				>
-					<ListBox
-						aria-label={__('Selected items', 'eightshift-ui-components')}
-						layout='grid'
-						items={value}
-						selectionMode='none'
-						dependencies={[value]}
-						className='es:peer es:w-full es:flex es:items-center es:flex-wrap es:gap-0.75 es:has-dragging:inset-ring-1 es:has-dragging:inset-ring-accent-500/10 es:rounded-md es:transition es:leading-tight'
-						renderEmptyState={() => <div className='es:text-secondary-500 es:pl-1.5 es:flex es:items-center'>{placeholder}</div>}
-						dragAndDropHooks={dragAndDropHooks}
-					>
-						{(item) => (
-							<ListBoxItem
-								id={item?.value}
-								textValue={item?.label}
-								className={clsx(
-									'es:inset-ring es:inset-ring-secondary-200/30 es:h-7 es:bg-secondary-100 es:focus-visible:inset-ring-accent-500 es:dragging:cursor-grabbing es:focus:outline-hidden es:py-1 es:px-1.5 es:rounded-7 es:dragging:inset-ring-accent-600/20 es:dragging:bg-transparent es:dragging:text-accent-600/40 es:transition es:flex es:items-center es:gap-1',
-									!disabled && value.size >= 2 && 'es:cursor-move',
-								)}
-							>
-								{customValueDisplay && customValueDisplay(truncateEnd(item?.label, 20), item)}
-								{!customValueDisplay && <Text slot='label'>{truncateEnd(item?.label, 20)}</Text>}
-							</ListBoxItem>
-						)}
-					</ListBox>
+					<Button className='es:any-focus:outline-hidden es:text-start es:size-full es:inline-block es:group es:overflow-x-clip'>
+						<SelectValue>
+							{({ selectedItem }) => {
+								if (!value?.value) {
+									return <span className='es:pointer-events-none es:pr-6 es:text-sm es:text-secondary-500'>{placeholder}</span>;
+								}
 
-					<div className='es:shrink-0 es:ml-auto es:peer-has-dragging:hidden'>
-						{!customDropdownArrow &&
-							cloneElement(icons.dropdownCaretAlt, {
-								className: 'es:shrink-0 es:w-4 es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
-							})}
+								if (customValueDisplay) {
+									return customValueDisplay(selectedItem);
+								}
 
-						{customDropdownArrow && (
-							<div
-								aria-hidden='true'
-								className='es:shrink-0 es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200'
-							>
-								{customDropdownArrow}
-							</div>
-						)}
-					</div>
-				</Button>
+								let icon = getIcon ? getIcon(selectedItem) : (selectedItem?.icon ?? null);
+
+								if (typeof selectedItem?.icon === 'string') {
+									icon = icons?.[selectedItem.icon] ?? null;
+								}
+
+								return (
+									<RichLabel
+										icon={icon}
+										label={<span className='es:line-clamp-1'>{selectedItem?.label}</span>}
+										subtitle={<span className='es:line-clamp-1'>{selectedItem?.subtitle}</span>}
+										className={clsx('es:pr-6 es:grow es:w-full', disabled && 'es:grayscale es:pointer-events-none')}
+										iconClassName='es:pointer-events-none es:select-none'
+									/>
+								);
+							}}
+						</SelectValue>
+
+						<div
+							className={clsx('es:absolute es:bottom-0 es:right-1 es:top-0 es:my-auto es:flex es:items-center', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}
+							aria-hidden='true'
+						>
+							{!customDropdownArrow &&
+								cloneElement(icons.dropdownCaretAlt, {
+									className: 'es:w-4 es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
+								})}
+
+							{customDropdownArrow && (
+								<div
+									aria-hidden='true'
+									className='es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200'
+								>
+									{customDropdownArrow}
+								</div>
+							)}
+						</div>
+					</Button>
+					{clearable && <SelectClearButton />}
+				</div>
 				<Popover
-					aria-label={__('Items', 'eightshift-ui-components')}
 					className={({ isEntering, isExiting }) =>
 						clsx(
 							'es:flex es:w-76 es:min-w-9 es:max-w-76 es:flex-col es:overflow-hidden es:rounded-2xl es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-xl es:inset-ring es:inset-ring-secondary-100',
@@ -331,7 +279,7 @@ export const __AsyncMultiSelectNext = (props) => {
 						)
 					}
 					placement='bottom left'
-					maxHeight={360}
+					maxHeight={300}
 					triggerRef={ref}
 				>
 					<Autocomplete
@@ -370,14 +318,6 @@ export const __AsyncMultiSelectNext = (props) => {
 						<ListBox
 							className={clsx('es:space-y-0.5 es:p-1 es:any-focus:outline-hidden es:min-h-16', list.isLoading && 'es:hidden', list?.items?.length > 0 && 'es:overflow-y-auto')}
 							items={list.items}
-							selectedKeys={list.selectedKeys}
-							selectionMode='multiple'
-							selectionBehavior='toggle'
-							onSelectionChange={(selected) => {
-								list.setSelectedKeys(selected);
-								handleSelectionChange(selected);
-							}}
-							dependencies={[value]}
 							renderEmptyState={() => (
 								<RichLabel
 									icon={icons.searchEmpty}
@@ -400,7 +340,6 @@ export const __AsyncMultiSelectNext = (props) => {
 									<OptionItemBase
 										id={item?.value}
 										className={item?.className}
-										selectIndicator
 									>
 										{customMenuOption && customMenuOption(item)}
 										{!customMenuOption && (
@@ -415,34 +354,29 @@ export const __AsyncMultiSelectNext = (props) => {
 								);
 							}}
 						</ListBox>
-
-						{clearable && value.length > 0 && (
-							<>
-								<div className='es:w-full es:h-px es:bg-secondary-200 es:shrink-0' />
-
-								<Button
-									slot='close'
-									onPress={() => handleSelectionChange([])}
-									className={clsx(
-										'es:flex es:h-10 es:m-1 es:select-none es:items-center es:gap-1 es:rounded-xl es:px-2 es:py-1.5 es:transition es:scroll-m-1',
-										'es:any-focus:outline-hidden es:overflow-clip',
-										'es:not-selected:hover:bg-secondary-100 es:not-selected:hover:outline-hidden',
-										'es:selected:bg-accent-600/15 es:selected:text-accent-950',
-										'es:selected:focus-visible:inset-ring es:selected:focus-visible:inset-ring-accent-600/30',
-										'es:not-selected:focus-visible:bg-secondary-100 es:not-selected:focus-visible:outline-hidden',
-										'es:active:bg-accent-700/15',
-									)}
-								>
-									<RichLabel
-										icon={icons.clearAlt}
-										label={__('Clear selection', 'eightshift-ui-components')}
-									/>
-								</Button>
-							</>
-						)}
 					</Autocomplete>
 				</Popover>
-			</DialogTrigger>
-		</BaseControl>
+			</BaseControl>
+		</Select>
+	);
+};
+
+const SelectClearButton = () => {
+	const state = useContext(SelectStateContext);
+
+	const isEmpty = state?.selectedKey === null;
+
+	return (
+		<Button
+			aria-label={__('Clear value', 'eightshift-ui-components')}
+			className={clsx(
+				'es:mr-6 es:flex es:h-6 es:w-8 es:items-center es:justify-center es:rounded es:text-sm es:text-secondary-600 es:transition es:hover:bg-red-50 es:hover:text-red-900 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
+				isEmpty ? 'es:hidden' : 'es:flex',
+			)}
+			onPress={() => state?.setSelectedKey(null)}
+			slot={null}
+		>
+			{icons.clearAlt}
+		</Button>
 	);
 };
