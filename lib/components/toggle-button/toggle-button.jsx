@@ -142,8 +142,7 @@ export const ToggleButton = (props) => {
 					class: [
 						'es:text-black',
 						'es:bg-linear-to-b es:from-black/2 es:to-black/4 es:from-25% es:bg-white',
-						'es:inset-ring',
-						'es:inset-ring-secondary-800/15',
+						'es:inset-ring es:inset-ring-secondary-800/20',
 						'es:inset-shadow-sm es:inset-shadow-white/75',
 						!flat && 'es:shadow-xs es:shadow-black/5',
 						'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10',

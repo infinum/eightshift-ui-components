@@ -118,7 +118,7 @@ export const Button = (props) => {
 						!pending && 'es:bg-linear-to-b es:from-black/2 es:to-black/4 es:from-25% es:bg-white',
 						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-accent-400/0 es:via-accent-400/25 es:to-accent-400/0 es:from-35% es:via-50% es:to-65% es:bg-surface-100',
 						'es:inset-ring',
-						pending ? 'es:inset-ring-accent-600/20' : 'es:inset-ring-secondary-800/15',
+						pending ? 'es:inset-ring-accent-600/20' : 'es:inset-ring-secondary-800/20',
 						'es:inset-shadow-sm es:inset-shadow-white/75',
 						!flat && 'es:shadow-xs es:shadow-black/5',
 						'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10',
