@@ -96,6 +96,7 @@ export const Button = (props) => {
 			'es:btn-group-h:not-pressed:not-before-selected:not-last:rounded-r-sm',
 			'es:btn-group-v:not-pressed:not-after-selected:not-first:rounded-t-sm',
 			'es:btn-group-v:not-pressed:not-before-selected:not-last:rounded-b-sm',
+			'es:icon:size-5',
 			!pending && !disabled && 'es:cursor-pointer',
 			pending && 'es:cursor-wait',
 			className,
@@ -103,9 +104,9 @@ export const Button = (props) => {
 		{
 			variants: {
 				size: {
-					small: 'es:gap-0.75 es:icon:size-5 es:rounded-md es:hover:rounded-10! es:pressed:rounded-14!',
-					default: 'es:gap-1.25 es:icon:size-5 es:rounded-10 es:hover:rounded-xl! es:pressed:rounded-18!',
-					large: 'es:gap-1.5 es:icon:size-6 es:rounded-xl es:hover:rounded-2xl! es:pressed:rounded-3xl!',
+					small: 'es:gap-0.75 es:rounded-md es:hover:rounded-10! es:pressed:rounded-14!',
+					default: 'es:gap-1.25 es:rounded-10 es:hover:rounded-xl! es:pressed:rounded-18!',
+					large: 'es:gap-1.5 es:rounded-xl es:hover:rounded-2xl! es:pressed:rounded-3xl!',
 				},
 			},
 			compoundVariants: [
@@ -233,11 +234,16 @@ export const Button = (props) => {
 						'es:focus-visible:bg-accent-50 es:focus-visible:text-accent-950 es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:inset-ring-accent-500',
 					],
 				},
+				//
+				{
+					type: ['glass', 'glassDark', 'dangerGlass', 'selectedGlass'],
+					disabled: false,
+					class: 'es:overflow-clip es:backdrop-blur-md',
+				},
 				{
 					type: 'glass',
 					disabled: false,
 					class: [
-						'es:backdrop-blur-md',
 						'es:backdrop-saturate-120 es:backdrop-brightness-120 es:backdrop-contrast-95',
 						!pending && 'es:bg-radial-[at_50%_75%] es:from-white/25 es:to-white/0',
 						pending &&
@@ -255,7 +261,6 @@ export const Button = (props) => {
 					type: 'glassDark',
 					disabled: false,
 					class: [
-						'es:backdrop-blur-md',
 						'es:backdrop-saturate-115 es:backdrop-brightness-75 es:backdrop-contrast-95',
 						!pending && 'es:bg-radial-[at_50%_75%] es:from-black/40 es:to-black/20',
 						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-accent-50/0 es:via-accent-50/20 es:to-accent-50/0 es:from-35% es:via-50% es:to-65% es:bg-accent-950/10',
@@ -272,12 +277,11 @@ export const Button = (props) => {
 					type: 'dangerGlass',
 					disabled: false,
 					class: [
-						'es:backdrop-blur-md',
-						'es:backdrop-saturate-125 es:backdrop-brightness-95 es:backdrop-contrast-95',
-						!pending && 'es:bg-radial-[at_50%_75%] es:from-red-500/30 es:to-red-500/5 es:bg-red-600/15',
+						'es:backdrop-saturate-125 es:backdrop-brightness-75 es:backdrop-contrast-95',
+						!pending && 'es:bg-radial-[at_50%_75%] es:from-red-500/30 es:to-red-500/10 es:bg-red-600/25',
 						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-red-400/0 es:via-red-500/35 es:to-red-400/5 es:from-35% es:via-50% es:to-65% es:bg-red-700/25',
 						'es:hover:from-red-400/30 es:hover:to-red-400/25',
-						'es:text-red-50/95',
+						'es:text-red-50',
 						'es:inset-shadow-sm es:inset-shadow-red-300/40',
 						!flat && 'es:shadow-xs es:shadow-black/15',
 						'es:inset-ring es:inset-ring-red-200/5',
@@ -289,7 +293,6 @@ export const Button = (props) => {
 					type: 'selectedGlass',
 					disabled: false,
 					class: [
-						'es:backdrop-blur-md',
 						'es:backdrop-saturate-120 es:backdrop-brightness-120 es:backdrop-contrast-95',
 						!pending && 'es:bg-radial-[at_50%_75%] es:from-accent-500/30 es:to-accent-500/5 es:bg-accent-600/10',
 						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-accent-400/0 es:via-accent-400/50 es:to-accent-400/0 es:from-35% es:via-50% es:to-65% es:bg-accent-700/25',

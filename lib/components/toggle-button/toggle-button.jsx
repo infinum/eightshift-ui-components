@@ -83,6 +83,7 @@ export const ToggleButton = (props) => {
 			'es:shrink-0',
 			'es:text-box-trim',
 			'es:leading-none',
+			'es:icon:size-5',
 			!disabled && 'es:cursor-pointer',
 			icon && children ? 'es:justify-start' : 'es:justify-center-safe',
 			className,
@@ -90,9 +91,9 @@ export const ToggleButton = (props) => {
 		{
 			variants: {
 				size: {
-					small: 'es:gap-0.75 es:icon:size-5',
-					default: 'es:gap-1.25 es:icon:size-5',
-					large: 'es:gap-1.5 es:icon:size-6',
+					small: 'es:gap-0.75',
+					default: 'es:gap-1.25',
+					large: 'es:gap-1.5',
 				},
 				selected: {
 					false: [
