@@ -26,6 +26,7 @@ import { __ } from '@wordpress/i18n';
  * @param {Function} [props.onOpenChange] - Function is called when the panel is opened or closed.
  * @param {object} [props.headerProps] - Props to pass to the header (label + trigger).
  * @param {JSX.Element} [props.customOpenButton] - Allows adding a custom open button. **IMPORTANT**: make sure to set `slot='trigger'` on the passed element!
+ * @param {boolean} [props.standalone] - If `true`, component's border radius will not adapt to the surrounding components.
  * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
@@ -66,6 +67,8 @@ export const Expandable = (props) => {
 
 		headerProps,
 
+		standalone,
+
 		flat,
 
 		hidden,
@@ -86,20 +89,22 @@ export const Expandable = (props) => {
 	return (
 		<Disclosure
 			isExpanded={isOpen}
-			className={clsx('es:text-sm', className)}
+			className={clsx('es:text-sm', !standalone && 'es:group', className)}
 			{...other}
 		>
 			<div
 				className={clsx(
 					'es:flex es:items-center es:gap-1 es:pr-1.25 es:py-1 es:pl-2.5',
-					'es:rounded-t-xl',
+					standalone && 'es:rounded-xl',
+					!standalone && 'es:rounded-md es:group-first:rounded-t-xl es:group-after-selected:rounded-t-xl',
 					'es:inset-ring',
-					'es:inset-shadow-sm',
-					isOpen && 'es:rounded-b-sm es:bg-surface-100 es:inset-ring-surface-300/75 es:inset-shadow-surface-50/50',
-					!isOpen &&
-						'es:rounded-b-xl es:bg-white es:bg-linear-to-b es:from-25% es:from-secondary-100/5 es:to-secondary-300/10 es:inset-ring-secondary-300/45 es:inset-shadow-secondary-200/50',
+					'es:inset-shadow-xs',
+					isOpen && 'es:bg-surface-100 es:inset-ring-surface-300/75 es:inset-shadow-surface-100/30',
+					isOpen && 'es:rounded-b-md es:rounded-t-xl',
+					!isOpen && 'es:bg-white es:bg-linear-to-b es:from-25% es:from-secondary-100/5 es:to-secondary-300/10 es:inset-ring-secondary-300/45 es:inset-shadow-secondary-200/50',
+					!isOpen && !standalone && 'es:rounded-b-md es:group-last:rounded-b-xl es:group-before-selected:rounded-b-xl',
 					!flat && 'es:shadow-xs es:shadow-black/5',
-					'es:transition-plus es:duration-300 es:motion-ease-spring-bouncy',
+					'es:transition-plus es:duration-200 es:motion-ease-spring-bouncy',
 					headerClassName,
 				)}
 				{...headerProps}
@@ -167,12 +172,15 @@ export const Expandable = (props) => {
 			<DisclosurePanel className={clsx(contentClassName)}>
 				<AnimatedVisibility
 					visible={isOpen}
-					transition='slideInFadeOut'
+					transition='slideFade'
 					className={clsx(
+						!isOpen && 'es:rounded-t-xl',
+						isOpen && 'es:rounded-t-sm',
 						'es:origin-top',
-						'es:space-y-1 es:px-3 es:py-3.5 es:bg-white es:mt-0.5 es:rounded-b-xl es:rounded-t-sm es:inset-ring es:inset-ring-surface-200',
+						'es:space-y-1 es:px-3 es:py-3.5 es:bg-white es:mt-0.5 es:rounded-b-xl es:inset-ring es:inset-ring-surface-200',
 						'es:inset-shadow-sm es:inset-shadow-accent-600/5',
 						!flat && 'es:shadow-xs es:shadow-black/5',
+						'es:transition-plus',
 					)}
 				>
 					{children}
