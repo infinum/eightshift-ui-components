@@ -13,6 +13,8 @@ import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 /**
  * A component that provides a nice way to toggle a component on and off, and display its content in an expandable panel.
  *
+ * @deprecated since 6.0.0 - Suggested replacement is toggle in one panel/tab, that shows/hides other content when on.
+ *
  * @component
  * @param {Object} props - Component props.
  * @param {JSX.Element} [props.icon] - Icon to display in the label.
@@ -148,6 +150,7 @@ export const ComponentToggle = (props) => {
 
 	return (
 		<Expandable
+			standalone
 			icon={icon ?? icons.componentGeneric}
 			label={!noLabel && label}
 			subtitle={subtitle}
