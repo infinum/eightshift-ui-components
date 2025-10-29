@@ -304,7 +304,6 @@ export const RadioButtonGroup = (props) => {
 	return (
 		<RadioGroup
 			className={clsx('es:w-full', className)}
-			// className={className}
 			isDisabled={disabled}
 			isReadOnly={readOnly}
 			onChange={onChange}
