@@ -142,8 +142,8 @@ export const RadioButton = (props) => {
 				class: 'es:bg-surface-100 es:text-accent-900 es:inset-ring-accent-600/10 es:rounded-3xl',
 			},
 			//
-			{ design: 'segmented', checked: false, class: 'es:first:rounded-t-xl es:last:rounded-b-xl es:before-selected:rounded-b-xl es:after-selected:rounded-t-xl' },
-			{ design: 'segmentedHorizontal', checked: false, class: 'es:first:rounded-l-xl es:last:rounded-r-xl es:before-selected:rounded-l-xl es:after-selected:rounded-r-xl' },
+			{ design: 'segmented', checked: false, class: 'es:first:rounded-t-xl es:last:rounded-b-xl es:before-current:rounded-b-xl es:after-current:rounded-t-xl' },
+			{ design: 'segmentedHorizontal', checked: false, class: 'es:first:rounded-l-xl es:last:rounded-r-xl es:before-current:rounded-l-xl es:after-current:rounded-r-xl' },
 		],
 		defaultVariants: {
 			design: 'default',

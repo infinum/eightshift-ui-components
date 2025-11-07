@@ -1,7 +1,7 @@
 import { useId } from 'react';
 import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { List, arrayMove, arrayRemove } from 'react-movable';
 
 const fixIds = (items, itemIdBase) => {
@@ -73,7 +73,10 @@ export const DraggableList = (props) => {
 		actions,
 
 		disabled,
+
 		className,
+		itemClassName,
+		itemContainerClassName,
 
 		labelAsHandle,
 
@@ -101,7 +104,7 @@ export const DraggableList = (props) => {
 			subtitle={subtitle}
 			help={help}
 			actions={actions}
-			className='es:w-full'
+			className={clsx('es:w-full', className)}
 			{...rest}
 		>
 			<List
@@ -113,7 +116,7 @@ export const DraggableList = (props) => {
 					return (
 						<ul
 							key={key}
-							className='es:w-full es:list-none'
+							className={clsx('es:w-full es:list-none', itemContainerClassName)}
 							{...rest}
 						>
 							{children}
@@ -125,19 +128,18 @@ export const DraggableList = (props) => {
 
 					return (
 						<li
+							key={`${value?.id}-${props?.style?.position}`}
 							className={clsx(
-								'es:group',
-								'es:min-h-8 es:w-full',
-								'es:flex es:items-center es:gap-1 es:rounded-lg',
-								'es:transition-[box-shadow,background-color,filter,opacity,border-color]',
-								'es:border es:border-transparent',
-								'es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:focus:border-accent-500',
+								'es:flex es:items-center es:gap-2',
+								'es:w-fill es:py-1.5 es:px-2 es:min-h-9',
+								'es:transition-[box-shadow,color,background-color,filter,border-radius] es:duration-300',
+								!(isDragged || isSelected) && ['es:bg-secondary-100', 'es:cursor-move', 'es:rounded-md es:first:rounded-t-xl es:last:rounded-b-xl', 'es:cursor-grab'],
+								(isDragged || isSelected) && ['es-is-dragging', 'es:rounded-3xl', 'es:cursor-grabbing', 'es:bg-surface-100/50 es:backdrop-blur-sm es:shadow-lg es:shadow-black/10'],
 								isDisabled && 'es:grayscale',
-								isDragged && 'es:bg-white es:opacity-50',
-								isSelected && 'es:bg-accent-50',
-								isDragged ? 'es:cursor-grabbing' : 'es:cursor-grab',
+								!isDisabled && ['es:any-focus:outline-hidden', 'es:focus:inset-ring es:focus:inset-ring-accent-500 es:focus:ring-2 es:focus:ring-accent-500/30'],
+								itemClassName,
 							)}
-							key={value?.id ?? key}
+							data-selected={isDragged || isSelected || props?.style?.position === 'fixed'}
 							{...rest}
 						>
 							{children({

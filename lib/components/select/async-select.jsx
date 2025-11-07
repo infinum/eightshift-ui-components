@@ -265,17 +265,26 @@ export const AsyncSelect = (props) => {
 				<Popover
 					className={({ isEntering, isExiting }) =>
 						clsx(
-							'es:flex es:w-76 es:min-w-9 es:max-w-76 es:flex-col es:overflow-hidden es:rounded-2xl es:border es:border-secondary-200 es:bg-white es:text-sm es:shadow-xl es:inset-ring es:inset-ring-secondary-100',
-							'es:any-focus:outline-hidden',
-							'es:motion-safe:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy',
+							'es:w-(--trigger-width) es:min-w-72',
+							'es:outline-hidden',
+							'es:rounded-b-xl es:rounded-t-3xl',
+							'es:overflow-clip es:grid es:grid-cols-1',
+							'es:grid-rows-[auto_minmax(0,1fr)]',
+							'es:has-last-selected:rounded-b-20!',
+							'es:inset-ring es:inset-ring-surface-500/10',
+							'es:inset-shadow-sm es:inset-shadow-white/30',
+							!list?.items?.length ? 'es:bg-surface-50/50' : 'es:bg-surface-300/50',
+							!list?.items?.length ? 'es:backdrop-blur-sm' : 'es:backdrop-blur-md',
+							!list?.items?.length ? 'es:backdrop-brightness-105' : 'es:backdrop-brightness-110',
+							'es:backdrop-saturate-125',
+							'es:shadow-lg es:shadow-black/10',
+							'es:transition-plus',
+							'es:motion-duration-300 es:motion-ease-spring-bouncy',
 							'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
-							'es:placement-left:origin-right es:placement-right:origin-left',
-							isEntering && 'es:motion-safe:motion-scale-in-95 es:motion-opacity-in-0',
-							isEntering &&
-								'es:motion-safe:placement-top:motion-translate-y-in-[5%] es:motion-safe:placement-bottom:motion-translate-y-in-[-5%] es:motion-safe:placement-left:motion-translate-x-in-[5%] es:motion-safe:placement-right:motion-translate-x-in-[-5%]',
-							isExiting && 'es:motion-safe:motion-scale-out-95 es:motion-opacity-out-0',
-							isExiting &&
-								'es:motion-safe:placement-top:motion-translate-y-out-[5%] es:motion-safe:placement-bottom:motion-translate-y-out-[-5%] es:motion-safe:placement-left:motion-translate-x-out-[5%] es:motion-safe:placement-right:motion-translate-x-out-[-5%]',
+							isEntering && 'es:motion-scale-x-in-95 es:motion-scale-y-in-85 es:motion-opacity-in-0 es:motion-blur-in-[2px]',
+							isEntering && 'es:placement-top:motion-translate-y-in-[0.5rem] es:placement-bottom:motion-translate-y-in-[-0.5rem]',
+							isExiting && 'es:motion-scale-x-out-95 es:motion-scale-y-out-85 es:motion-opacity-out-0 es:motion-blur-out-xs',
+							isExiting && 'es:placement-top:motion-translate-y-out-[0.5rem] es:placement-bottom:motion-translate-y-out-[-0.5rem]',
 						)
 					}
 					placement='bottom left'
@@ -288,26 +297,24 @@ export const AsyncSelect = (props) => {
 					>
 						<SearchField
 							aria-label={__('Search', 'eightshift-ui-components')}
-							className='es:flex es:items-center es:bg-secondary-100 es:m-2 es:rounded-lg es:relative es:placeholder:text-secondary-500'
+							className='es:flex es:items-center es:bg-accent-900/9 es:m-1.5 es:rounded-3xl es:relative es:inset-ring es:inset-ring-accent-950/4'
 							autoFocus
 						>
 							<Input
 								placeholder={__('Search...', 'eightshift-ui-components')}
-								className='es:peer es:size-full es:h-9 es:outline-hidden es:shadow-none es:px-2.5 es:text-sm es:py-0 es:[&::-webkit-search-cancel-button]:hidden'
+								className='es:peer es:size-full es:h-9.5 es:outline-hidden es:px-3.5 es:shadow-none es:text-sm es:placeholder:text-surface-500 es:[&::-webkit-search-cancel-button]:hidden'
 							/>
 							<Button
 								aria-label={__('Clear', 'eightshift-ui-components')}
 								className={clsx(
-									'es:absolute es:right-2 es:top-0 es:bottom-0 es:my-auto',
-									'es:flex es:size-6 es:items-center es:justify-center es:rounded es:text-sm es:text-secondary-600 es:transition es:hover:bg-red-50 es:hover:text-red-900 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
+									'es:absolute es:right-1.5 es:top-0 es:bottom-0 es:my-auto',
+									'es:flex es:size-7 es:items-center es:justify-center es:rounded-3xl es:text-sm es:text-secondary-600 es:transition es:hover:bg-accent-50 es:hover:text-accent-800 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
 									'es:peer-placeholder-shown:opacity-0',
 								)}
 							>
 								{icons.clearAlt}
 							</Button>
 						</SearchField>
-
-						<div className='es:w-full es:h-px es:bg-secondary-200 es:shrink-0' />
 
 						{list.isLoading && (
 							<div className='es:p-3 es:min-h-16 es:flex es:items-center es:justify-center'>
@@ -316,7 +323,7 @@ export const AsyncSelect = (props) => {
 						)}
 
 						<ListBox
-							className={clsx('es:space-y-0.5 es:p-1 es:any-focus:outline-hidden es:min-h-16', list.isLoading && 'es:hidden', list?.items?.length > 0 && 'es:overflow-y-auto')}
+							className='es:space-y-0.75 es:p-1.5 es:pt-0 es:any-focus:outline-hidden es:h-full es:overflow-y-auto es:rounded-t-xl'
 							items={list.items}
 							renderEmptyState={() => (
 								<RichLabel
@@ -364,7 +371,7 @@ export const AsyncSelect = (props) => {
 const SelectClearButton = () => {
 	const state = useContext(SelectStateContext);
 
-	const isEmpty = state?.selectedKey === null;
+	const isEmpty = state?.value === null;
 
 	return (
 		<Button
@@ -373,7 +380,7 @@ const SelectClearButton = () => {
 				'es:mr-6 es:flex es:h-6 es:w-8 es:items-center es:justify-center es:rounded es:text-sm es:text-secondary-600 es:transition es:hover:bg-red-50 es:hover:text-red-900 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
 				isEmpty ? 'es:hidden' : 'es:flex',
 			)}
-			onPress={() => state?.setSelectedKey(null)}
+			onPress={() => state?.setValue(null)}
 			slot={null}
 		>
 			{icons.clearAlt}

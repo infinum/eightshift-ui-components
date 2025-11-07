@@ -96,6 +96,8 @@ export const Popover = (props) => {
 
 		hidden,
 
+		popoverProps,
+
 		...other
 	} = props;
 
@@ -128,17 +130,18 @@ export const Popover = (props) => {
 					'es:inset-shadow-xs es:inset-shadow-white/50',
 					'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
 					'es:placement-left:origin-right es:placement-right:origin-left',
-					'es:motion-safe:motion-duration-250 es:motion-ease-spring-bouncy',
+					'es:motion-duration-250 es:motion-ease-spring-bouncy',
 					isEntering && 'es:*:pointer-events-none',
 					'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
-					isEntering && 'es:motion-safe:motion-scale-x-in-95 es:motion-safe:motion-scale-y-in-85 es:motion-opacity-in-0 es:motion-safe:motion-blur-in-[1px]',
-					isEntering && 'es:motion-safe:placement-top:motion-translate-y-in-[0.5rem] es:motion-safe:placement-bottom:motion-translate-y-in-[-0.5rem]',
-					isExiting && 'es:motion-safe:motion-scale-x-out-95 es:motion-safe:motion-scale-y-out-85 es:motion-opacity-out-0 es:motion-safe:motion-blur-out-xs',
-					isExiting && 'es:motion-safe:placement-top:motion-translate-y-out-[0.5rem] es:motion-safe:placement-bottom:motion-translate-y-out-[-0.5rem]',
+					isEntering && 'es:motion-scale-x-in-95 es:motion-scale-y-in-85 es:motion-opacity-in-0 es:motion-blur-in-[1px]',
+					isEntering && 'es:placement-top:motion-translate-y-in-[0.5rem] es:placement-bottom:motion-translate-y-in-[-0.5rem]',
+					isExiting && 'es:motion-scale-x-out-95 es:motion-scale-y-out-85 es:motion-opacity-out-0 es:motion-blur-out-xs',
+					isExiting && 'es:placement-top:motion-translate-y-out-[0.5rem] es:placement-bottom:motion-translate-y-out-[-0.5rem]',
 					wrapperClassName,
 				)
 			}
 			style={style}
+			{...popoverProps}
 		>
 			<Dialog
 				className={clsx('es:p-1 es:text-sm es:outline-hidden', className)}

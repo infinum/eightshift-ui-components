@@ -68,8 +68,8 @@ export const BaseControl = (props) => {
 	}
 
 	return (
-		<div className={clsx('es:space-y-1', className)}>
-			<div className={clsx('es:flex es:items-center es:gap-1', !inline && !icon && 'es:pb-0.5', labelContainerClassName)}>
+		<div className={className}>
+			<div className={clsx('es:flex es:items-center es:gap-1', !inline && 'es:mb-1.5', labelContainerClassName)}>
 				{(label || icon || subtitle) && (
 					<RichLabel
 						icon={icon}
@@ -91,7 +91,7 @@ export const BaseControl = (props) => {
 
 			{help && (
 				<Text
-					className={clsx('es:inline-block es:text-sm es:text-secondary-400 es:mt-0.5 es:font-variation-["wdth"_76,"wght"_350]', !noHelpInset && 'es:pl-1')}
+					className={clsx('es:inline-block es:text-sm es:text-secondary-400 es:mt-1.5 es:font-variation-["wdth"_76,"wght"_350]', !noHelpInset && 'es:pl-1')}
 					slot='description'
 				>
 					{help}

@@ -260,14 +260,14 @@ export const LinkInput = (props) => {
 							'es:backdrop-saturate-125',
 							'es:shadow-lg es:shadow-black/10',
 							'es:transition-plus',
-							'es:motion-safe:motion-duration-250 es:motion-ease-spring-bouncy',
+							'es:motion-duration-250 es:motion-ease-spring-bouncy',
 							'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
 							(isEntering || !(suggestionList.isLoading || !shouldShowSuggestions)) &&
-								'es:motion-safe:motion-scale-x-in-95 es:motion-safe:motion-scale-y-in-85 es:motion-opacity-in-0 es:motion-safe:motion-blur-in-[2px]',
+								'es:motion-scale-x-in-95 es:motion-scale-y-in-85 es:motion-opacity-in-0 es:motion-blur-in-[2px]',
 							(isEntering || !(suggestionList.isLoading || !shouldShowSuggestions)) &&
-								'es:motion-safe:placement-top:motion-translate-y-in-[0.5rem] es:motion-safe:placement-bottom:motion-translate-y-in-[-0.5rem]',
-							isExiting && 'es:motion-safe:motion-scale-x-out-95 es:motion-safe:motion-scale-y-out-85 es:motion-opacity-out-0 es:motion-safe:motion-blur-out-xs',
-							isExiting && 'es:motion-safe:placement-top:motion-translate-y-out-[0.5rem] es:motion-safe:placement-bottom:motion-translate-y-out-[-0.5rem]',
+								'es:placement-top:motion-translate-y-in-[0.5rem] es:placement-bottom:motion-translate-y-in-[-0.5rem]',
+							isExiting && 'es:motion-scale-x-out-95 es:motion-scale-y-out-85 es:motion-opacity-out-0 es:motion-blur-out-xs',
+							isExiting && 'es:placement-top:motion-translate-y-out-[0.5rem] es:placement-bottom:motion-translate-y-out-[-0.5rem]',
 							(suggestionList.isLoading || !shouldShowSuggestions) && 'es:invisible',
 						)
 					}
@@ -328,7 +328,7 @@ export const LinkInput = (props) => {
 											className={clsx(
 												'es:transition-plus es:ease-spring-bouncy es:duration-400',
 												'es:px-2 es:py-2.5',
-												'es:bg-accent-900/4 es:rounded-sm es:first:rounded-t-lg es:last:rounded-b-lg es:after-selected:rounded-t-lg es:before-selected:rounded-b-lg',
+												'es:bg-accent-900/4 es:rounded-sm es:first:rounded-t-lg es:last:rounded-b-lg es:after-current:rounded-t-lg es:before-current:rounded-b-lg',
 												'es:focus-visible:bg-surface-200/65 es:focus-visible:rounded-2xl es:focus-visible:text-accent-950',
 												'es:hover:bg-surface-200/50 es:hover:rounded-2xl es:hover:text-accent-900',
 												'es:pressed:rounded-3xl!',

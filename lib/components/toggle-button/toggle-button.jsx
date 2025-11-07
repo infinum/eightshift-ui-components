@@ -97,10 +97,10 @@ export const ToggleButton = (props) => {
 				},
 				selected: {
 					false: [
-						'es:btn-group-h:not-pressed:not-after-selected:not-first:rounded-l-sm',
-						'es:btn-group-h:not-pressed:not-before-selected:not-last:rounded-r-sm',
-						'es:btn-group-v:not-pressed:not-after-selected:not-first:rounded-t-sm',
-						'es:btn-group-v:not-pressed:not-before-selected:not-last:rounded-b-sm',
+						'es:btn-group-h:not-pressed:not-after-current:not-first:rounded-l-sm',
+						'es:btn-group-h:not-pressed:not-before-current:not-last:rounded-r-sm',
+						'es:btn-group-v:not-pressed:not-after-current:not-first:rounded-t-sm',
+						'es:btn-group-v:not-pressed:not-before-current:not-last:rounded-b-sm',
 					],
 				},
 			},

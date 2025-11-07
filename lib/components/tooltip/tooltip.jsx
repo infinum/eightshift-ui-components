@@ -100,9 +100,9 @@ export const Tooltip = (props) => {
 						theme === 'light' && 'es:inset-ring-surface-800/5 es:bg-surface-50/90 es:text-secondary-700',
 						theme === 'dark' && 'es:inset-ring-surface-200/15 es:bg-surface-800/80 es:text-secondary-100',
 						isEntering &&
-							'es:motion-opacity-in es:motion-duration-300 es:motion-safe:placement-left:motion-translate-x-in-[5%] es:motion-safe:placement-right:-motion-translate-x-in-[5%] es:motion-safe:placement-top:motion-translate-y-in-[5%] es:motion-safe:placement-bottom:-motion-translate-y-in-[5%] es:motion-ease-spring-smooth es:motion-ease-linear/opacity es:motion-safe:motion-blur-in-[1px]',
+							'es:motion-opacity-in es:motion-duration-300 es:placement-left:motion-translate-x-in-[5%] es:placement-right:-motion-translate-x-in-[5%] es:placement-top:motion-translate-y-in-[5%] es:placement-bottom:-motion-translate-y-in-[5%] es:motion-ease-spring-smooth es:motion-ease-linear/opacity es:motion-blur-in-[1px]',
 						isExiting &&
-							'es:motion-opacity-out es:motion-duration-200 es:motion-safe:placement-left:motion-translate-x-out-[12.5%] es:motion-safe:placement-right:motion-translate-x-out-[-12.5%] es:motion-safe:placement-top:motion-translate-y-out-[12.5%] es:motion-safe:placement-bottom:motion-translate-y-out-[-12.5%] es:motion-ease-spring-smooth es:motion-ease-linear/opacity es:motion-safe:motion-blur-out-[2px]',
+							'es:motion-opacity-out es:motion-duration-200 es:placement-left:motion-translate-x-out-[12.5%] es:placement-right:motion-translate-x-out-[-12.5%] es:placement-top:motion-translate-y-out-[12.5%] es:placement-bottom:motion-translate-y-out-[-12.5%] es:motion-ease-spring-smooth es:motion-ease-linear/opacity es:motion-blur-out-[2px]',
 						className,
 					)
 				}

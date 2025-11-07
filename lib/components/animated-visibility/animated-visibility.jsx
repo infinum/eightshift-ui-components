@@ -55,36 +55,36 @@ export const AnimatedVisibility = (props) => {
 			outClassName: 'es:motion-opacity-out',
 		},
 		slideFade: {
-			inClassName: 'es:motion-safe:motion-translate-y-in-[-5%] es:motion-opacity-in',
-			outClassName: 'es:motion-safe:motion-translate-y-out-[-5%] es:motion-opacity-out es:motion-duration-300',
+			inClassName: 'es:motion-translate-y-in-[-5%] es:motion-opacity-in',
+			outClassName: 'es:motion-translate-y-out-[-5%] es:motion-opacity-out es:motion-duration-300',
 		},
 		slideInFadeOut: {
-			inClassName: 'es:motion-safe:motion-translate-y-in-[-5%] es:motion-opacity-in',
+			inClassName: 'es:motion-translate-y-in-[-5%] es:motion-opacity-in',
 			outClassName: 'es:motion-opacity-out es:motion-duration-300',
 		},
 		slideFadeUpSlight: {
-			inClassName: 'es:motion-safe:motion-translate-y-in-[0.25rem] es:motion-opacity-in',
-			outClassName: 'es:motion-safe:motion-translate-y-out-[0.25rem] es:motion-opacity-out',
+			inClassName: 'es:motion-translate-y-in-[0.25rem] es:motion-opacity-in',
+			outClassName: 'es:motion-translate-y-out-[0.25rem] es:motion-opacity-out',
 		},
 		slideFadeDownSlight: {
-			inClassName: 'es:motion-safe:motion-translate-y-in-[-0.25rem] es:motion-opacity-in',
-			outClassName: 'es:motion-safe:motion-translate-y-out-[-0.25rem] es:motion-opacity-out',
+			inClassName: 'es:motion-translate-y-in-[-0.25rem] es:motion-opacity-in',
+			outClassName: 'es:motion-translate-y-out-[-0.25rem] es:motion-opacity-out',
 		},
 		scaleFade: {
-			inClassName: 'es:motion-safe:motion-scale-in-95 es:motion-opacity-in',
-			outClassName: 'es:motion-safe:motion-scale-out-90 es:motion-opacity-out',
+			inClassName: 'es:motion-scale-in-95 es:motion-opacity-in',
+			outClassName: 'es:motion-scale-out-90 es:motion-opacity-out',
 		},
 		scaleSlideFade: {
-			inClassName: 'es:motion-safe:motion-translate-y-in-[-5%] es:motion-safe:motion-scale-in-95 es:motion-opacity-in',
-			outClassName: 'es:motion-safe:motion-translate-y-out-[-5%] es:motion-safe:motion-scale-out-90 es:motion-opacity-out',
+			inClassName: 'es:motion-translate-y-in-[-5%] es:motion-scale-in-95 es:motion-opacity-in',
+			outClassName: 'es:motion-translate-y-out-[-5%] es:motion-scale-out-90 es:motion-opacity-out',
 		},
 		scaleSlideFadeSlight: {
-			inClassName: 'es:motion-safe:motion-translate-y-in-[-0.25rem] es:motion-safe:motion-scale-in-95 es:motion-opacity-in',
-			outClassName: 'es:motion-safe:motion-translate-y-out-[-0.25rem] es:motion-safe:motion-scale-out-90 es:motion-opacity-out',
+			inClassName: 'es:motion-translate-y-in-[-0.25rem] es:motion-scale-in-95 es:motion-opacity-in',
+			outClassName: 'es:motion-translate-y-out-[-0.25rem] es:motion-scale-out-90 es:motion-opacity-out',
 		},
 		scaleRotateFade: {
-			inClassName: 'es:motion-rotate-in es:motion-safe:motion-scale-in-95 es:motion-opacity-in es:motion-blur-in-[1px]',
-			outClassName: 'es:motion-rotate-out es:motion-safe:motion-scale-out-90 es:motion-opacity-out es:motion-blur-out-[1px]',
+			inClassName: 'es:motion-rotate-in es:motion-scale-in-95 es:motion-opacity-in es:motion-blur-in-[1px]',
+			outClassName: 'es:motion-rotate-out es:motion-scale-out-90 es:motion-opacity-out es:motion-blur-out-[1px]',
 		},
 	};
 
@@ -97,8 +97,8 @@ export const AnimatedVisibility = (props) => {
 						!noEnterAnimation && visible && !noInitial && transitions[transition].inClassName,
 						!noExitAnimation && !visible && transitions[transition].outClassName,
 						'es:motion-duration-300',
-						decreaseBounce && 'es:motion-safe:motion-ease-spring-snappy es:motion-ease-linear/opacity',
-						!decreaseBounce && 'es:motion-safe:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
+						decreaseBounce && 'es:motion-ease-spring-snappy es:motion-ease-linear/opacity',
+						!decreaseBounce && 'es:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 						'es:fill-mode-forwards',
 						className,
 					)}

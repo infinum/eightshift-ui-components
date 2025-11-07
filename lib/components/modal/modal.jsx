@@ -28,6 +28,7 @@ import { HStack } from '../layout/hstack';
  * @param {boolean} [props.noCloseButton] - If `true`, the close button will not be displayed.
  * @param {boolean} [props.noClickToDismiss] - If `true`, the modal will not close when clicking outside of it.
  * @param {boolean} [props.noKeyboardDismiss] - If `true`, the modal will not close when pressing the `Esc` key.
+ * @param {boolean} [props.noBackdrop] - If `true`, the modal will not have a visible backdrop. Functionally, it'll still be there. For an experience without a backdrop, consider using the `Popover` component instead.
  * @param {string} [props.className] - Classes to pass to the modal container.
  * @param {string} [props.overlayClassName] - Classes to pass to the modal backdrop.
  * @param {string} [props.actionsClassName] - Classes to pass to the modal footer (actions) container.
@@ -86,6 +87,8 @@ const ModalInternal = (props) => {
 		noClickToDismiss,
 		noKeyboardDismiss,
 
+		noBackdrop,
+
 		'aria-label': ariaLabel,
 
 		className,
@@ -108,7 +111,8 @@ const ModalInternal = (props) => {
 			isKeyboardDismissDisabled={noKeyboardDismiss}
 			className={({ isEntering, isExiting }) =>
 				clsx(
-					'es:fixed es:inset-0 es:z-9999 es:flex es:min-h-full es:items-center es:justify-center es:overflow-y-auto es:p-4 es:text-center es:bg-accent-950/20 es:backdrop-blur-xs',
+					'es:fixed es:inset-0 es:z-9999 es:flex es:min-h-full es:items-center es:justify-center es:overflow-y-auto es:p-4',
+					!noBackdrop && 'es:bg-accent-950/20 es:backdrop-blur-xs',
 					isEntering && 'es:motion-opacity-in es:motion-duration-150',
 					isExiting && 'es:motion-opacity-out es:motion-duration-150',
 					overlayClassName,
@@ -121,8 +125,9 @@ const ModalInternal = (props) => {
 					clsx(
 						'es:w-full es:max-w-lg es:overflow-hidden es:rounded-3xl es:inset-ring es:inset-ring-surface-400/30 es:bg-white es:bg-linear-to-b es:from-accent-300/3 es:to-accent-300/1 es:text-left es:align-middle es:shadow-xl es:text-surface-900',
 
-						isEntering && 'es:motion-safe:motion-scale-in-95 es:motion-fade-in es:motion-duration-300 es:motion-ease-spring-smooth/scale',
-						isExiting && 'es:motion-safe:motion-scale-out-95 es:motion-fade-out es:motion-duration-250 es:motion-ease-spring-smooth/scale',
+						isEntering && 'es:motion-scale-in-95 es:motion-fade-in es:motion-blur-in-xs es:motion-translate-y-in-[2rem] es:motion-duration-300 es:motion-ease-spring-smooth/scale',
+						isExiting &&
+							'es:motion-scale-out-95 es:motion-fade-out es:motion-blur-out-xs es:motion-translate-y-out-[2rem] es:motion-duration-250 es:motion-ease-spring-smooth/scale',
 						className,
 					)
 				}

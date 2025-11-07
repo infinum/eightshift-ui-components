@@ -188,7 +188,7 @@ export const Repeater = (props) => {
 			className='es:w-full'
 		>
 			<List
-				values={items.map((item) => ({ ...item, disabled: openItems[item.id] }))}
+				values={items.map((item) => ({ ...item, disabled: openItems?.[item?.id] }))}
 				onChange={({ oldIndex, newIndex }) => onChange(newIndex === -1 ? arrayRemove(items, oldIndex) : arrayMove(items, oldIndex, newIndex))}
 				renderList={({ children, props }) => {
 					const { key, ...rest } = props;

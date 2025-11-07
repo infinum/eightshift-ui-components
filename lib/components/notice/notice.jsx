@@ -39,6 +39,7 @@ export const Notice = (props) => {
 			iconColorClassName: 'es:text-blue-600',
 			textColorClassName: 'es:text-blue-600',
 			subtitleColorClassName: 'es:text-blue-950/55',
+			selectionClassName: 'es:selection:bg-blue-100 es:selection:text-blue-700',
 		},
 		success: {
 			icon: icons.checkSquare,
@@ -46,6 +47,7 @@ export const Notice = (props) => {
 			iconColorClassName: 'es:text-green-600',
 			textColorClassName: 'es:text-green-600',
 			subtitleColorClassName: 'es:text-green-950/55',
+			selectionClassName: 'es:selection:bg-green-100 es:selection:text-green-700',
 		},
 		warning: {
 			icon: icons.warning,
@@ -53,6 +55,7 @@ export const Notice = (props) => {
 			iconColorClassName: 'es:text-orange-600',
 			textColorClassName: 'es:text-orange-600',
 			subtitleColorClassName: 'es:text-orange-950/55',
+			selectionClassName: 'es:selection:bg-orange-100 es:selection:text-orange-700',
 		},
 		error: {
 			icon: icons.errorCircle,
@@ -60,6 +63,7 @@ export const Notice = (props) => {
 			iconColorClassName: 'es:text-red-600',
 			textColorClassName: 'es:text-red-700',
 			subtitleColorClassName: 'es:text-red-950/55',
+			selectionClassName: 'es:selection:bg-red-100 es:selection:text-red-700',
 		},
 		placeholder: {
 			icon: icons.componentGeneric,
@@ -67,71 +71,72 @@ export const Notice = (props) => {
 			iconColorClassName: 'es:text-indigo-600',
 			textColorClassName: 'es:text-indigo-600',
 			subtitleColorClassName: 'es:text-indigo-900/55',
+			selectionClassName: 'es:selection:bg-indigo-100 es:selection:text-indigo-700',
 		},
 		default: {
 			className: 'es:inset-ring-surface-700/10 es:shadow-surface-800/5 es:from-surface-400/2 es:to-surface-600/5 es:inset-shadow-surface-500/10',
 			iconColorClassName: 'es:text-surface-500',
 			textColorClassName: 'es:text-surface-500',
 			subtitleColorClassName: 'es:text-surface-800/50',
+			selectionClassName: 'es:selection:bg-accent-100 es:selection:text-accent-700',
 		},
 	};
 
 	return (
-		<div>
-			<div
-				className={clsx(
-					'es:grid es:grid-cols-[auto_1fr] es:grid-rows-[auto_auto]',
-					'es:rounded-xl',
-					// 'es:ring',
-					'es:bg-white',
-					'es:inset-ring',
-					'es:bg-linear-to-b es:from-35%',
-					'es:inset-shadow-sm',
-					flat ? 'es:shadow-2xs' : 'es:shadow-sm',
-					styles[type].className,
-					'es:icon:shrink-0',
-					icon || styles[type].icon ? 'es:gap-x-2 es:py-3 es:pl-2.5 es:pr-3' : 'es:py-3 es:px-3.5',
-					className,
-				)}
-			>
-				{(icon || styles[type].icon) && (
-					<div
-						className={clsx(
-							'es:col-span-1 es:col-start-1 es:row-span-2 es:row-start-1 es:shrink-0 es:icon:size-6',
-							alignIconToTitle ? 'es:self-baseline' : 'es:self-center-safe',
-							styles[type].iconColorClassName,
-						)}
-					>
-						{icon ?? styles[type].icon}
-					</div>
-				)}
+		<div
+			className={clsx(
+				'es:grid es:grid-cols-[auto_1fr] es:grid-rows-[auto_auto]',
+				'es:rounded-xl',
+				'es:bg-white',
+				'es:inset-ring',
+				'es:bg-linear-to-b es:from-35%',
+				'es:inset-shadow-sm',
+				flat ? 'es:shadow-2xs' : 'es:shadow-sm',
+				styles[type].className,
+				'es:icon:shrink-0',
+				'es:selection:p-2',
+				styles[type].selectionClassName,
+				icon || styles[type].icon ? 'es:gap-x-2 es:py-3 es:pl-2.5 es:pr-3' : 'es:py-3 es:px-3.5',
+				className,
+			)}
+		>
+			{(icon || styles[type].icon) && (
+				<div
+					className={clsx(
+						'es:col-span-1 es:col-start-1 es:row-span-2 es:row-start-1 es:shrink-0 es:icon:size-6',
+						alignIconToTitle ? 'es:self-baseline' : 'es:self-center-safe',
+						styles[type].iconColorClassName,
+					)}
+				>
+					{icon ?? styles[type].icon}
+				</div>
+			)}
 
-				{label && (
-					<span
-						className={clsx(
-							'es:col-span-2 es:col-start-2 es:text-balance es:text-14',
-							subtitle ? 'es:self-end' : 'es:row-span-2 es:self-center-safe',
-							'es:font-variation-["wdth"_110,"wght"_375,"YTLC"_520]',
-							styles[type].textColorClassName,
-						)}
-					>
-						{label}
-					</span>
-				)}
+			{label && (
+				<span
+					className={clsx(
+						'es:col-span-2 es:col-start-2 es:text-balance es:text-14',
+						subtitle ? 'es:self-end' : 'es:row-span-2 es:self-center-safe',
+						'es:font-variation-["wdth"_110,"wght"_375,"YTLC"_520]',
+						styles[type].textColorClassName,
+					)}
+				>
+					{label}
+				</span>
+			)}
 
-				{subtitle && (
-					<span
-						className={clsx(
-							'es:col-span-2 es:col-start-2 es:text-balance es:text-xs es:leading-tight es:pt-0.25',
-							'es:font-variation-["wdth"_76,"wght"_350]',
-							styles[type].subtitleColorClassName,
-							label ? 'es:self-start' : 'es:row-span-2 es:self-center-safe',
-						)}
-					>
-						{subtitle}
-					</span>
-				)}
-			</div>
+			{subtitle && (
+				<span
+					className={clsx(
+						'es:col-span-2 es:col-start-2 es:text-balance es:text-xs es:leading-tight es:pt-0.25',
+						'es:font-variation-["wdth"_76,"wght"_350]',
+						styles[type].subtitleColorClassName,
+						label ? 'es:self-start' : 'es:row-span-2 es:self-center-safe',
+					)}
+				>
+					{subtitle}
+				</span>
+			)}
 		</div>
 	);
 };

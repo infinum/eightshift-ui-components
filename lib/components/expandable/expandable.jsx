@@ -96,13 +96,13 @@ export const Expandable = (props) => {
 				className={clsx(
 					'es:flex es:items-center es:gap-1 es:pr-1.25 es:py-1 es:pl-2.5',
 					standalone && 'es:rounded-xl',
-					!standalone && 'es:rounded-md es:group-first:rounded-t-xl es:group-after-selected:rounded-t-xl',
+					!standalone && 'es:rounded-md es:group-first:rounded-t-xl es:group-after-current:rounded-t-xl',
 					'es:inset-ring',
 					'es:inset-shadow-xs',
 					isOpen && 'es:bg-surface-100 es:inset-ring-surface-300/75 es:inset-shadow-surface-100/30',
 					isOpen && 'es:rounded-b-md es:rounded-t-xl',
 					!isOpen && 'es:bg-white es:bg-linear-to-b es:from-25% es:from-secondary-100/5 es:to-secondary-300/10 es:inset-ring-secondary-300/45 es:inset-shadow-secondary-200/50',
-					!isOpen && !standalone && 'es:rounded-b-md es:group-last:rounded-b-xl es:group-before-selected:rounded-b-xl',
+					!isOpen && !standalone && 'es:rounded-b-md es:group-last:rounded-b-xl es:group-before-current:rounded-b-xl',
 					!flat && 'es:shadow-xs es:shadow-black/5',
 					'es:transition-plus es:duration-200 es:motion-ease-spring-bouncy',
 					headerClassName,
@@ -170,10 +170,9 @@ export const Expandable = (props) => {
 			</div>
 
 			<DisclosurePanel className={clsx(contentClassName)}>
-				<AnimatedVisibility
-					visible={isOpen}
-					transition='slideFade'
+				<div
 					className={clsx(
+						'es:h-0 es:open:h-(--disclosure-panel-height) es:opacity-0 es:open:opacity-100 es:transition-discrete',
 						!isOpen && 'es:rounded-t-xl',
 						isOpen && 'es:rounded-t-sm',
 						'es:origin-top',
@@ -184,7 +183,7 @@ export const Expandable = (props) => {
 					)}
 				>
 					{children}
-				</AnimatedVisibility>
+				</div>
 			</DisclosurePanel>
 		</Disclosure>
 	);

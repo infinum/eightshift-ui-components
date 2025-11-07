@@ -67,7 +67,6 @@ export const NumberPicker = ({
 	size = 'default',
 	flat,
 	className,
-	'aria-label': ariaLabel,
 	hidden,
 	...props
 }) => {
@@ -177,7 +176,6 @@ export const NumberPicker = ({
 							style={{
 								width: fixedWidth ? `calc(${fixedWidth}ch + 2px)` : `calc(${min < 0 ? '0.75ch + ' : '0.5ch + '}${(max ?? 1000)?.toString()?.length} * 1ch)`,
 							}}
-							aria-label={ariaLabel ?? __('Enter a number', 'eightshift-ui-components')}
 						/>
 
 						<ButtonGroup
