@@ -4,15 +4,13 @@ import {
 	SliderTrack as ReactAriaSliderTrack,
 	SliderThumb as ReactAriaSliderThumb,
 	Label,
-	useSlottedContext,
-	SliderStateContext,
-	LabelContext,
 } from 'react-aria-components';
 import { BaseControl } from '../base-control/base-control';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { NumberPicker } from '../number-picker/number-picker';
-import { useContext, useState } from 'react';
-import { generateMarkers } from './utils';
+import { generateMarkers, generateGridTemplate } from './utils';
+import { HStack } from '../layout/hstack';
+import { AnimatePresence, motion } from 'motion/react';
 
 /**
  * A single/multi-thumb slider component.
@@ -29,7 +27,6 @@ import { generateMarkers } from './utils';
  * @param {Number} [props.step=1] - The step value of the slider.
  * @param {Number} [props.startPoint] - The starting point of the slider.
  * @param {SliderMarkerType} [props.markers] - The markers to display on the slider. If `true`, markers are auto-generated, with labels. If set to `dots`, markers are auto-generated, but do not show labels next to dots. If an object is provided, the keys are the values of the markers, and the values are the labels.
- * @param {boolean} [props.noActiveHighlight=false] - If `true`, the highlight of the active value will not be displayed.
  * @param {Number | Number[]} props.value - The current value of the slider.
  * @param {Function} props.onChange - Function to run when the value changes.
  * @param {Function} props.onChangeEnd - Function to run when the value change ends.
@@ -43,6 +40,8 @@ import { generateMarkers } from './utils';
  * @param {string} [props.labelClassName] - Additional classes to pass to the label.
  * @param {Object<string, any>} [props.trackStyle] - Additional style for the track.
  * @param {Number} [props.markerStep] - If provided, this value is used to generate markers instead of the step value. Useful when using small steps with a larger range.
+ * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
+ * @param {boolean} [props.trackBgGradientSupport] - If `true`, parts of the track will get additional background size and position settings to make the gradient more seamless. Supported only in horizontal mode. BETA!
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Slider component.
@@ -74,7 +73,6 @@ export const Slider = (props) => {
 		startPoint,
 
 		markers,
-		noActiveHighlight = false,
 
 		value,
 		onChange,
@@ -94,18 +92,25 @@ export const Slider = (props) => {
 
 		labelClassName,
 		trackStyle,
+		trackContainerStyle,
+
+		trackBgGradientSupport,
 
 		markerStep = step,
+
+		flat,
 
 		hidden,
 
 		...other
 	} = props;
 
-	const [currentThumbIndex, setCurrentThumbIndex] = useState(-1);
-
 	if (hidden) {
 		return null;
+	}
+
+	if (Array.isArray(value) && startPoint) {
+		startPoint = null;
 	}
 
 	let generatedMarkers = {};
@@ -118,9 +123,11 @@ export const Slider = (props) => {
 		generatedMarkers = generateMarkers(min, max, markerStep);
 	}
 
-	const markerEntries = Object.entries(generatedMarkers);
+	const markerEntries = Object.entries(generatedMarkers).toSorted((a, b) => parseFloat(a[0]) - parseFloat(b[0]));
 
 	const markerData = vertical ? markerEntries.toReversed() : markerEntries;
+
+	const isRange = Array.isArray(value);
 
 	return (
 		<ReactAriaSlider
@@ -144,20 +151,21 @@ export const Slider = (props) => {
 					<>
 						{actions}
 
-						{!inputField && (
+						{(!inputField || (inputField && isRange)) && (
 							<ReactAriaSliderOutput className={clsx('es:text-xs es:tabular-nums es:text-secondary-600')}>
 								{({ state }) => state.values.map((_, i) => state.getThumbValueLabel(i)).join(' – ')}
 							</ReactAriaSliderOutput>
 						)}
 
-						{inputField && (
-							<NumberInputField
-								fieldIndex={Array.isArray(value) ? currentThumbIndex : 0}
+						{inputField && !isRange && (
+							<NumberPicker
+								aria-label={label || __('Slider value', 'eightshift-ui-components')}
+								value={value}
+								onChange={onChange}
 								min={min}
 								max={max}
 								step={step}
-								focusedThumb={currentThumbIndex}
-								setFocusedThumb={setCurrentThumbIndex}
+								size='small'
 							/>
 						)}
 					</>
@@ -166,156 +174,113 @@ export const Slider = (props) => {
 				className={labelClassName}
 			>
 				<div className={clsx('es:flex es:items-center es:gap-2.5 es:space-y-0!', vertical && 'es:flex-col')}>
-					{before && <div className='es:flex es:shrink-0 es:items-center es:gap-1'>{before}</div>}
+					{before && <HStack>{before}</HStack>}
 
-					<ReactAriaSliderTrack className={clsx('es:isolate es:grid es:grid-cols-1 es:grid-rows-1', vertical ? 'es:mx-auto es:h-40 es:w-4' : 'es:h-4 es:w-full es:grow')}>
+					<ReactAriaSliderTrack className={clsx('es:isolate', vertical && 'es:mx-auto es:h-48', !vertical && 'es:grow')}>
 						{({ state }) => {
-							let activeBarLeft;
-							let activeBarBottom;
-							let activeBarWidth;
-							let activeBarHeight;
+							const thumbPositions = state.values.map((_, i) => Math.round(state.getThumbPercent(i) * 100));
 
-							let activeBarOffset = false;
-							let shouldRoundStart = false;
-							let shouldRoundEnd = false;
+							let gridTemplate = generateGridTemplate(thumbPositions, startPoint ? [startPoint] : [], { spaceBetween: 3 });
 
-							const currValue = state.getThumbValue(0);
+							if (vertical) {
+								gridTemplate.reverse();
+							}
 
-							if (vertical && !noActiveHighlight) {
-								if (Array.isArray(value)) {
-									activeBarBottom = state.getThumbPercent(0) * 100;
-									activeBarHeight = state.getThumbPercent(value.length - 1) * 100 - activeBarBottom;
-								} else if (startPoint && currValue >= startPoint) {
-									activeBarBottom = state.getValuePercent(startPoint) * 100;
-									activeBarHeight = state.getThumbPercent(0) * 100 - activeBarBottom;
-									activeBarOffset = true;
-								} else if (startPoint && currValue < startPoint) {
-									activeBarBottom = state.getThumbPercent(0) * 100;
-									activeBarHeight = state.getValuePercent(startPoint) * 100 - activeBarBottom;
-								} else if (min < 0 && currValue >= 0) {
-									activeBarBottom = state.getValuePercent(0) * 100;
-									activeBarHeight = state.getThumbPercent(0) * 100 - activeBarBottom;
-								} else if (min < 0 && currValue < 0) {
-									activeBarBottom = state.getThumbPercent(0) * 100;
-									activeBarHeight = state.getValuePercent(0) * 100 - activeBarBottom;
-								} else {
-									activeBarBottom = state.getValuePercent(min) * 100;
-									activeBarHeight = state.getThumbPercent(0) * 100;
-									shouldRoundEnd = true;
+							const tracks = gridTemplate.map((v) => {
+								if (v.startsWith('minmax')) {
+									return parseFloat(v.replace('minmax(0, ', '').replace('fr)', ''));
 								}
-							} else if (!noActiveHighlight) {
-								if (Array.isArray(value)) {
-									activeBarLeft = state.getThumbPercent(0) * 100;
-									activeBarWidth = state.getThumbPercent(value.length - 1) * 100 - activeBarLeft;
-								} else if (startPoint && currValue >= startPoint) {
-									activeBarLeft = state.getValuePercent(startPoint) * 100;
-									activeBarWidth = state.getThumbPercent(0) * 100 - activeBarLeft;
-								} else if (startPoint && currValue < startPoint) {
-									activeBarLeft = state.getThumbPercent(0) * 100;
-									activeBarWidth = state.getValuePercent(startPoint) * 100 - activeBarLeft;
-								} else if (min < 0 && currValue >= 0) {
-									activeBarLeft = state.getValuePercent(0) * 100;
-									activeBarWidth = state.getThumbPercent(0) * 100 - activeBarLeft;
-									activeBarOffset = true;
-								} else if (min < 0 && currValue < 0) {
-									activeBarLeft = state.getThumbPercent(0) * 100;
-									activeBarWidth = state.getValuePercent(0) * 100 - activeBarLeft;
-								} else {
-									activeBarLeft = state.getValuePercent(min) * 100;
-									activeBarWidth = state.getThumbPercent(0) * 100;
-									shouldRoundStart = true;
+
+								if (v.endsWith('fr')) {
+									return parseFloat(v.replace('fr', ''));
 								}
+
+								return null;
+							});
+
+							const trackIndices = gridTemplate
+								.map((v, index) => {
+									if (v.startsWith('minmax') || v.endsWith('fr')) {
+										return index;
+									}
+
+									return null;
+								})
+								.filter(Boolean);
+
+							const markerIndices = gridTemplate
+								.map((colWidth, index) => {
+									if (colWidth === 'auto' || colWidth.endsWith('px')) {
+										return index + 1;
+									}
+
+									return null;
+								})
+								.filter(Boolean);
+
+							if (vertical) {
+								markerIndices.reverse();
 							}
 
 							return (
-								<>
-									<div
-										className={clsx(
-											'es:relative es:col-start-1 es:row-start-1 es:rounded-full es:border',
-											!vertical && 'es:h-1.5 es:w-full es:self-center',
-											vertical && 'es:h-full es:w-1.5 es:flex-col es:justify-self-center',
-											disabled ? 'es:border-secondary-200 es:bg-white' : 'es:border-secondary-300 es:bg-secondary-50 es:shadow-sm',
-										)}
-										style={trackStyle}
-									/>
-
-									{!noActiveHighlight && (
-										<div
-											className={clsx(
-												'es:absolute es:col-start-1 es:row-start-1 es:border',
-												!vertical && 'es:h-1.5 es:w-full es:self-center',
-												vertical && 'es:h-full es:w-1.5 es:flex-col es:justify-self-center',
-												!vertical && shouldRoundStart && 'es:rounded-l-full',
-												!vertical && shouldRoundEnd && 'es:rounded-r-full',
-												vertical && shouldRoundStart && 'es:rounded-t-full',
-												vertical && shouldRoundEnd && 'es:rounded-b-full',
-												!vertical && activeBarOffset && 'es:-translate-x-px',
-												vertical && activeBarOffset && 'es:translate-y-px',
-												disabled ? 'es:border-secondary-200 es:bg-secondary-50' : 'es:border-accent-500 es:bg-accent-500/30',
-											)}
-											style={{
-												bottom: vertical ? `${activeBarBottom}%` : null,
-												height: vertical ? `${activeBarHeight}%` : null,
-												width: vertical ? null : `${activeBarWidth}%`,
-												left: vertical ? null : `${activeBarLeft}%`,
-											}}
-										/>
-									)}
-
+								<div
+									className={clsx('es:grid', trackBgGradientSupport && 'es:@container', vertical && 'es:justify-items-center es:h-full', !vertical && 'es:items-center')}
+									style={{
+										gridTemplateColumns: vertical ? '1fr' : gridTemplate.join(' '),
+										gridTemplateRows: vertical ? gridTemplate.join(' ') : '1fr',
+										...trackContainerStyle,
+									}}
+								>
 									{markers && (
 										<div
 											className={clsx(
-												'es:relative es:col-start-1 es:row-start-1',
-												!vertical && 'es:h-1 es:w-full es:self-center',
-												vertical && 'es:h-full es:w-1 es:flex-col es:justify-self-center',
+												'es:flex es:justify-between',
+												!vertical && ['es:w-fill es:self-center', 'es:row-1 es:mx-0.75'],
+												vertical && ['es:h-fill es:flex es:flex-col es:justify-self-center', 'es:col-1 es:my-0.75'],
 											)}
+											style={{
+												gridColumn: vertical ? null : `1 / span ${gridTemplate.length}`,
+												gridRow: vertical ? `1 / span ${gridTemplate.length}` : null,
+											}}
 										>
 											{markerData.map(([rawDotValue, labelData], index) => {
 												const dotValue = parseFloat(rawDotValue);
 
 												let isWithinActiveBar = false;
 
-												if (Array.isArray(value)) {
-													isWithinActiveBar = value[0] <= dotValue && dotValue <= value[value.length - 1];
-												} else if (startPoint && dotValue >= startPoint) {
-													isWithinActiveBar = dotValue >= startPoint && dotValue <= currValue && dotValue !== startPoint;
-												} else if (startPoint && dotValue < startPoint) {
-													isWithinActiveBar = dotValue <= startPoint && dotValue >= currValue && dotValue !== startPoint;
-												} else if (min < 0 && dotValue >= 0) {
-													isWithinActiveBar = dotValue >= 0 && dotValue <= currValue && dotValue !== 0;
-												} else if (min < 0 && dotValue < 0) {
-													isWithinActiveBar = dotValue <= 0 && dotValue >= currValue && dotValue !== 0;
+												if (isRange) {
+													isWithinActiveBar = dotValue > state.values[0] && dotValue < state.values.at(-1);
+												} else if (startPoint) {
+													if (state.values[0] < startPoint) {
+														isWithinActiveBar = dotValue > state.values[0] && dotValue <= startPoint;
+													} else {
+														isWithinActiveBar = dotValue >= startPoint && dotValue < state.values[0];
+													}
 												} else {
-													isWithinActiveBar = dotValue <= currValue && dotValue > min && dotValue < max;
+													isWithinActiveBar = dotValue < state.values[0];
 												}
 
 												return (
 													<div
 														key={index}
 														className={clsx(
-															'es:absolute',
-															vertical ? 'es:h-px es:w-1' : 'es:h-1 es:w-px es:translate-x-1/2',
-															!(
-																dotValue === min ||
-																dotValue === max ||
-																(dotValue === startPoint && !noActiveHighlight) ||
-																(min < 0 && dotValue === 0 && !noActiveHighlight) ||
-																isWithinActiveBar
-															) && 'es:bg-secondary-300',
-															!noActiveHighlight && isWithinActiveBar && 'es:bg-accent-500/75',
+															'es:relative',
+															'es:size-0.75 es:place-self-center es:rounded-2xl',
+															!disabled && isWithinActiveBar && 'es:bg-accent-50',
+															!disabled && !isWithinActiveBar && 'es:bg-surface-500',
+															disabled && isWithinActiveBar && 'es:bg-secondary-300',
+															disabled && !isWithinActiveBar && 'es:bg-secondary-400',
+															state.values.includes(dotValue) && 'es:opacity-0',
 														)}
-														style={{
-															left: vertical ? null : `${state.getValuePercent(dotValue) * 100}%`,
-															top: vertical ? `calc(${state.getValuePercent(dotValue) * 100}%)` : null,
-														}}
 													>
 														<span
 															className={clsx(
-																'es:absolute es:select-none es:text-xs es:transition-colors',
-																vertical ? 'es:left-3.5 es:top-0 es:-translate-y-1/2' : 'es:left-0 es:top-2.5 es:-translate-x-1/2',
-																(Array.isArray(value) ? value.includes(Number(dotValue)) : value === Number(dotValue) && !disabled)
-																	? 'es:text-accent-700'
-																	: 'es:text-secondary-300',
+																'es:absolute es:transition',
+																!vertical && 'es:top-5 es:-translate-x-1/4 es:-rotate-90 es:text-end',
+																vertical && 'es:left-5 es:-translate-y-1/4 es:text-start',
+																'es:select-none es:text-10 es:tracking-wide es:tabular-nums',
+																isWithinActiveBar ? 'es:text-surface-400' : 'es:text-surface-300',
+																disabled && 'es:opacity-0',
 															)}
 														>
 															{markers && markers !== 'dots' && labelData}
@@ -326,80 +291,185 @@ export const Slider = (props) => {
 										</div>
 									)}
 
-									<div className='es:relative es:col-start-1 es:row-start-1 es:p-px'>
-										{state.values.map((_, i) => (
+									{state.values.map((_, i) => {
+										return (
 											<ReactAriaSliderThumb
 												key={i}
 												index={i}
 												aria-label={thumbLabels?.[i]}
 												className={clsx(
-													'es:absolute es:size-3.5 es:rounded-full es:border es:transition es:duration-300',
-													vertical ? 'es:translate-x-1/2!' : 'es:translate-y-1/2!',
-													'es:shadow dragging:es:bg-accent-600 es:disabled:border-secondary-200 es:disabled:bg-secondary-100 es:disabled:shadow-none',
-													'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
-													'es:border-accent-600 es:bg-accent-500 es:shadow-accent-600/50',
-													'es:hover:cursor-grab dragging:es:cursor-grabbing',
-												)}
-												onFocus={() => {
-													if (state.values.length < 2) {
-														return;
-													}
+													// 'es:absolute es:size-3.5 es:rounded-full es:border es:transition es:duration-300',
+													// vertical ? 'es:translate-x-1/2!' : 'es:translate-y-1/2!',
+													// 'es:shadow dragging:es:bg-accent-600 es:disabled:border-secondary-200 es:disabled:bg-secondary-100 es:disabled:shadow-none',
+													// 'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+													// 'es:border-accent-600 es:bg-accent-500 es:shadow-accent-600/50',
+													// 'es:hover:cursor-grab dragging:es:cursor-grabbing',
+													!vertical && ['es:h-10 es:w-0.75', 'es:row-1'],
+													vertical && ['es:w-10 es:h-0.75', 'es:col-1'],
+													'es:z-20',
 
-													setCurrentThumbIndex(i);
+													'es:static! es:rounded-md es:transition es:duration-300',
+													'es:origin-center',
+													'es:hover:ring-[0.25px] es:focus-visible:ring-[0.5px] es:dragging:ring-[1px] es:ring-accent-500',
+													'es:transform-none!',
+													'es:dragging:es:bg-accent-600 es:disabled:bg-secondary-400',
+													'es:focus-visible:outline-2 es:outline-offset-2 es:outline-accent-500/40',
+													'es:bg-accent-500',
+													'es:hover:ring-accent-600',
+													'es:dragging:bg-accent-600 es:dragging:ring-accent-600',
+													!disabled && 'es:hover:not-dragging:cursor-grab',
+													'es:justify-self-center',
+													!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
+												)}
+												// onFocus={() => {
+												// 	if (state.values.length < 2) {
+												// 		return;
+												// 	}
+
+												// 	setCurrentThumbIndex(i);
+												// }}
+												style={{
+													gridColumn: vertical ? null : markerIndices[i],
+													gridRow: vertical ? markerIndices[i] : null,
 												}}
 											>
-												{inputField && state.values.length > 1 && currentThumbIndex === i && <div className='es:m-0.5 es:size-2 es:rounded-full es:bg-accent-100' />}
+												{/* {inputField && state.values.length > 1 && currentThumbIndex === i && <div className='es:m-0.5 es:size-2 es:rounded-full es:bg-accent-100' />}
 
-												{thumbContent && thumbContent(i)}
+            {thumbContent && thumbContent(i)} */}
+
+												<AnimatePresence>
+													{i === state.focusedThumb && (
+														<motion.div
+															className={clsx(
+																'es:absolute es:text-nowrap es:w-fit es:min-w-5 es:h-6',
+																!vertical && 'es:bottom-12 es:-translate-x-1/2',
+																vertical && 'es:left-12 es:-translate-y-1/2',
+																// !vertical && 'es:absolute es:-top-8 es:-translate-x-1/2 es:w-fit es:min-w-5 es:h-6 es:mb-2.5 es:text-nowrap',
+																'es:bg-surface-50/80 es:text-surface-700',
+																'es:backdrop-blur-xs',
+																'es:text-12 es:leading-none',
+																'es:py-1 es:px-2 es:rounded-lg',
+																'es:text-center',
+																'es:line-clamp-1',
+																'es:flex es:items-center es:justify-center es:gap-1',
+																'es:shadow',
+																'es:icon:size-2 es:icon:stroke-3',
+															)}
+															initial={{ y: 2, opacity: 0, scale: 0.85 }}
+															animate={{ y: 0, opacity: 1, scale: 1 }}
+															exit={{ y: 6, opacity: 0, scale: 0.85 }}
+														>
+															{state.values[i]}
+														</motion.div>
+													)}
+												</AnimatePresence>
 											</ReactAriaSliderThumb>
-										))}
-									</div>
-								</>
+										);
+									})}
+
+									{gridTemplate.map((colWidth, i) => {
+										if (colWidth === 'auto' || colWidth.endsWith('px')) {
+											return null;
+										}
+
+										if (colWidth.endsWith('rem')) {
+											return null;
+										}
+
+										let val = i + 1;
+
+										const activeStyle = [
+											'es:transition es:duration-300',
+											!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
+											!disabled && [
+												'es:bg-accent-500 es:from-accent-100/15 es:to-accent-100/0 es:from-25%',
+												vertical ? 'es:bg-linear-to-r' : 'es:bg-linear-to-b',
+												'es:inset-ring es:inset-ring-accent-700/10',
+												'es:inset-shadow-sm es:inset-shadow-accent-50/30',
+											],
+											disabled && 'es:bg-secondary-400',
+										];
+
+										const inactiveStyle = [
+											!disabled && [
+												'es:bg-surface-200',
+												vertical ? 'es:bg-linear-to-r' : 'es:bg-linear-to-b',
+												'es:from-surface-700/0 es:to-surface-700/5 es:from-25%',
+												'es:inset-ring es:inset-ring-surface-300/20',
+											],
+											disabled && 'es:bg-secondary-200',
+										];
+
+										const extraStyles = {};
+
+										if (trackBgGradientSupport) {
+											let bgOffset = 0;
+
+											if (i === trackIndices.at(-1)) {
+												bgOffset = 100;
+											} else if (i > 0) {
+												bgOffset = tracks.slice(0, startPoint && state.values[0] > startPoint ? i + 1 : i).reduce((acc, val) => (val ? acc + val : acc), 0);
+											}
+
+											extraStyles.backgroundSize = '100cqw 100%';
+											extraStyles.backgroundPositionX = `${bgOffset}%`;
+										}
+
+										return (
+											<div
+												key={i}
+												className={clsx(
+													'es:rounded-sm',
+													'es:transition es:duration-300 es:ease-spring-smooth',
+													!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
+													!vertical && [
+														'es:h-6 es:row-1',
+														i === 0 && 'es:rounded-l-xl',
+														i === gridTemplate.length - 1 && 'es:rounded-r-xl',
+														!isRange && [
+															!startPoint && [state.values[0] > min && i < markerIndices[0] && activeStyle, i > markerIndices[0] && inactiveStyle],
+															startPoint && [
+																state.values[0] < startPoint && i === markerIndices[0] + 1 && activeStyle,
+																state.values[0] > startPoint && i === markerIndices[0] - 3 && activeStyle,
+																state.values[0] <= startPoint && i !== markerIndices[0] + 1 && inactiveStyle,
+																state.values[0] >= startPoint && i !== markerIndices[0] - 3 && inactiveStyle,
+															],
+														],
+														isRange && [i > markerIndices[0] && i < markerIndices.at(-1) && activeStyle, (i < markerIndices[0] || i > markerIndices.at(-1)) && inactiveStyle],
+													],
+													vertical && [
+														'es:w-6 es:col-1',
+														i === 0 && 'es:rounded-t-xl',
+														i === gridTemplate.length - 1 && 'es:rounded-b-xl',
+														!isRange && [
+															!startPoint && [state.values[0] > min && i > markerIndices[0] && activeStyle, i < markerIndices.at(-1) && inactiveStyle],
+															startPoint && [
+																state.values.at(-1) > startPoint && i === markerIndices.at(-1) + 1 && activeStyle,
+																state.values.at(-1) < startPoint && i === markerIndices.at(-1) - 3 && activeStyle,
+																state.values.at(-1) >= startPoint && i !== markerIndices.at(-1) + 1 && inactiveStyle,
+																state.values.at(-1) <= startPoint && i !== markerIndices.at(-1) - 3 && inactiveStyle,
+															],
+														],
+														isRange && [i < markerIndices[0] && i > markerIndices.at(-1) && activeStyle, (i > markerIndices[0] || i < markerIndices.at(-1)) && inactiveStyle],
+													],
+												)}
+												style={{
+													gridColumn: vertical ? null : val,
+													gridRow: vertical ? val : null,
+													...extraStyles,
+													...trackStyle,
+												}}
+											/>
+										);
+									})}
+								</div>
 							);
 						}}
 					</ReactAriaSliderTrack>
 
-					{after && <div className='es:flex es:shrink-0 es:items-center es:gap-1'>{after}</div>}
+					{after && <HStack>{after}</HStack>}
 				</div>
 			</BaseControl>
 		</ReactAriaSlider>
-	);
-};
-
-const NumberInputField = (props) => {
-	const { ...other } = props;
-
-	const state = useContext(SliderStateContext);
-	const labelProps = useSlottedContext(LabelContext);
-
-	const isSingleValue = state.values.length === 1;
-	const fieldIndex = isSingleValue ? 0 : (props.focusedThumb ?? 0);
-
-	return (
-		<>
-			<NumberPicker
-				aria-labelledby={labelProps.id}
-				value={state.values[fieldIndex] ?? null}
-				onChange={(v) => state.setThumbValue(fieldIndex, v)}
-				size='compact'
-				min={state.getThumbMinValue(fieldIndex)}
-				max={state.getThumbMaxValue(fieldIndex)}
-				onBlur={() => {
-					if (isSingleValue) {
-						return;
-					}
-
-					props.setFocusedThumb(-1);
-				}}
-				className={fieldIndex === -1 && !isSingleValue ? 'es:invisible' : ''}
-				{...other}
-			/>
-
-			{fieldIndex === -1 && !isSingleValue && (
-				<ReactAriaSliderOutput className={clsx('es:text-xs es:tabular-nums es:text-secondary-600')}>
-					{({ state }) => state.values.map((_, i) => state.getThumbValueLabel(i)).join(' – ')}
-				</ReactAriaSliderOutput>
-			)}
-		</>
 	);
 };

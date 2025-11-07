@@ -246,7 +246,7 @@ export const ColumnConfigSlider = (props) => {
 												{i === state.focusedThumb && (
 													<motion.div
 														className={clsx(
-															'es:absolute es:-top-8 es:-translate-x-1/2 es:w-fit es:min-w-5 es:h-6 es:mb-2.5 es:text-nowrap',
+															'es:absolute es:bottom-12 es:w-fit es:min-w-5 es:h-6 es:text-nowrap es:-translate-x-1/2',
 															'es:bg-surface-50/80 es:text-surface-700',
 															'es:backdrop-blur-xs',
 															'es:text-12 es:leading-none',
