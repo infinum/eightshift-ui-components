@@ -132,7 +132,7 @@ export const Button = (props) => {
 					disabled: false,
 					class: [
 						'es:text-black',
-						!pending && 'es:bg-surface-50 es:bg-linear-to-br es:from-secondary-900/4 es:to-secondary-900/8',
+						!pending && 'es:bg-secondary-50 es:bg-linear-to-br es:from-surface-500/2 es:to-surface-500/10',
 						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-accent-400/0 es:via-accent-400/25 es:to-accent-400/0 es:from-35% es:via-50% es:to-65% es:bg-surface-100',
 						'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:to-accent-700/5',
 						'es:pressed:bg-surface-100 es:pressed:text-accent-950 es:pressed:inset-ring-surface-300 es:pressed:inset-shadow-white/10',
