@@ -1,7 +1,31 @@
 import { cva } from 'class-variance-authority';
 import { clsx } from 'clsx/lite';
+import { forwardRef } from 'react';
 
-export const Container = (props) => {
+/**
+ * A container component to wrap other components, providing consistent styling and spacing.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string} [props.className] - Classes to pass to the container.
+ * @param {JSX.Element|JSX.Element[]} props.children - Child elements to be wrapped by the container.
+ * @param {string} [props.as] - The HTML element or React component to render as the container.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
+ * @param {boolean} [props.accent] - If `true`, applies accent styling to the container.
+ * @param {boolean} [props.elevated] - If `true`, applies elevated styling (shadow) to the container.
+ * @param {boolean} [props.primary] - If `true`, applies primary styling (rounded full) to the container.
+ * @param {boolean} [props.isChild] - If `true`, applies child-specific styling for nested containers.
+ *
+ * @returns {JSX.Element} The Container component.
+ *
+ * @example
+ * <Container accent elevated>
+ *   <p>This is a container with accent and elevated styles.</p>
+ * </Container>
+ *
+ * @preserve
+ */
+export const Container = forwardRef((props, ref) => {
 	const { className, children, as, hidden, accent, elevated, primary, isChild, ...rest } = props;
 
 	const ComponentToRender = as || 'div';
@@ -64,14 +88,35 @@ export const Container = (props) => {
 	return (
 		<ComponentToRender
 			{...rest}
+			ref={ref}
 			className={containerClasses({ accent, elevated, primary, isChild })}
 		>
 			{children}
 		</ComponentToRender>
 	);
-};
+});
 
-export const ContainerGroup = (props) => {
+/**
+ * A container group component to wrap multiple Container components, providing consistent spacing between them.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string} [props.className] - Classes to pass to the container group.
+ * @param {JSX.Element|JSX.Element[]} props.children - Child elements to be wrapped by the container group.
+ * @param {string} [props.as] - The HTML element or React component to render as the container group.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
+ *
+ * @returns {JSX.Element} The ContainerGroup component.
+ *
+ * @example
+ * <ContainerGroup>
+ *   <Container>First container</Container>
+ *   <Container>Second container</Container>
+ * </ContainerGroup>
+ *
+ * @preserve
+ */
+export const ContainerGroup = forwardRef((props, ref) => {
 	const { className, children, as, hidden, ...rest } = props;
 
 	const ComponentToRender = as || 'div';
@@ -83,9 +128,10 @@ export const ContainerGroup = (props) => {
 	return (
 		<ComponentToRender
 			{...rest}
+			ref={ref}
 			className={clsx('es:flex es:flex-col es:gap-0.75', className)}
 		>
 			{children}
 		</ComponentToRender>
 	);
-};
+});
