@@ -40,6 +40,7 @@
 	--radius-10: 0.625rem; /* 10px */
 	--radius-14: 1.125rem; /* 18px */
 	--radius-18: 1.125rem; /* 18px */
+	--radius-20: 1.25rem; /* 20px */
 
 	--aspect-3-2: 3 / 2;
 	--aspect-cinema: 21 / 9;
@@ -184,14 +185,26 @@
 	}
 }
 
-@custom-variant before-selected {
+@custom-variant before-current {
 	&:has(+ :where(:pressed, :active, [data-selected="true"], [data-focus-visible="true"], [data-hovered="true"], [aria-expanded="true"], [data-expanded="true"])) {
 		@slot;
 	}
 }
 
-@custom-variant after-selected {
+@custom-variant after-current {
 	:where(:pressed, :active, [data-selected="true"], [data-focus-visible="true"], [data-hovered="true"], [aria-expanded="true"], [data-expanded="true"]) + & {
+		@slot;
+	}
+}
+
+@custom-variant before-selected {
+	&:has(+ :where([data-selected="true"])) {
+		@slot;
+	}
+}
+
+@custom-variant after-selected {
+	:where([data-selected="true"]) + & {
 		@slot;
 	}
 }
@@ -257,6 +270,12 @@
 
 @utility transition-plus-h {
 	transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events, border-radius, font-variation-settings, height;
+	transition-duration: var(--es-default-transition-duration);
+	transition-timing-function: var(--es-default-transition-timing-function);
+}
+
+@utility transition-plus-m {
+	transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events, border-radius, font-variation-settings, margin;
 	transition-duration: var(--es-default-transition-duration);
 	transition-timing-function: var(--es-default-transition-timing-function);
 }
