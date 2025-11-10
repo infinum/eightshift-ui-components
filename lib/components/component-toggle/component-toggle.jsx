@@ -151,18 +151,21 @@ export const ComponentToggle = (props) => {
 	return (
 		<Expandable
 			standalone
-			icon={icon ?? icons.componentGeneric}
-			label={!noLabel && label}
-			subtitle={subtitle}
-			keepActionsOnExpand={!hideUseToggleOnExpand}
-			actions={
-				!noUseToggle && (
+			icon={
+				!noUseToggle ? (
 					<Switch
 						checked={useComponent}
 						onChange={onChange}
+						aria-label={switchAriaLabel}
+						size='medium'
 					/>
+				) : (
+					(icon ?? icons.componentGeneric)
 				)
 			}
+			label={!noLabel && label}
+			subtitle={subtitle}
+			keepActionsOnExpand={!hideUseToggleOnExpand}
 			disabled={!useComponent || expandButtonDisabled}
 			noFocusHandling
 		>

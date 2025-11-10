@@ -169,21 +169,21 @@ export const Expandable = (props) => {
 				)}
 			</div>
 
-			<DisclosurePanel className={clsx(contentClassName)}>
-				<div
-					className={clsx(
-						'es:h-0 es:open:h-(--disclosure-panel-height) es:opacity-0 es:open:opacity-100 es:transition-discrete',
-						!isOpen && 'es:rounded-t-xl',
-						isOpen && 'es:rounded-t-sm',
-						'es:origin-top',
-						'es:space-y-1 es:px-3 es:py-3.5 es:bg-white es:mt-0.5 es:rounded-b-xl es:inset-ring es:inset-ring-surface-200',
-						'es:inset-shadow-sm es:inset-shadow-accent-600/5',
-						!flat && 'es:shadow-xs es:shadow-black/5',
-						'es:transition-plus',
-					)}
-				>
-					{children}
-				</div>
+			<DisclosurePanel
+				className={clsx(
+					'es:h-(--disclosure-panel-height) es:mt-0.5',
+					'es:opacity-0 es:blur-[1px] es:-translate-y-2',
+					!isOpen && 'es:rounded-t-xl',
+					isOpen && 'es:rounded-t-sm es:opacity-100 es:blur-none es:translate-y-0',
+					'es:origin-top',
+					'es:bg-white es:rounded-b-xl es:inset-ring es:inset-ring-surface-200',
+					'es:inset-shadow-sm es:inset-shadow-accent-600/5',
+					!flat && 'es:shadow-xs es:shadow-black/5',
+					'es:transition-plus-h',
+					contentClassName,
+				)}
+			>
+				<div className='es:space-y-1 es:px-3 es:py-3.5'>{children}</div>
 			</DisclosurePanel>
 		</Disclosure>
 	);

@@ -53,7 +53,23 @@ export const ContainerPanel = (props) => {
 
 	return (
 		<BaseControl
-			icon={icon}
+			icon={
+				onUseChange ? (
+					<Switch
+						checked={use}
+						onChange={(value) => {
+							if (!value) {
+								setOpen(false);
+							}
+
+							onUseChange(value);
+						}}
+						size='medium'
+					/>
+				) : (
+					icon
+				)
+			}
 			label={title}
 			subtitle={subtitle}
 			actions={
@@ -64,19 +80,6 @@ export const ContainerPanel = (props) => {
 						hidden={!closable && !onUseChange}
 						className='es:ml-auto'
 					>
-						{onUseChange && (
-							<Switch
-								checked={use}
-								onChange={(value) => {
-									if (!value) {
-										setOpen(false);
-									}
-
-									onUseChange(value);
-								}}
-							/>
-						)}
-
 						{closable && (
 							<Button
 								onPress={() => setOpen(!open)}

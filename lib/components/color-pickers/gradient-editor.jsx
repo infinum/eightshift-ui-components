@@ -9,17 +9,16 @@ import { NumberPicker } from '../number-picker/number-picker';
 import { ColorSwatch } from 'react-aria-components';
 import { Menu, MenuItem } from '../menu/menu';
 import { MatrixAlign } from '../matrix-align/matrix-align';
-import { Spacer } from '../spacer/spacer';
 import { Toggle } from '../toggle/toggle';
 import { OptionSelect } from '../option-select/option-select';
-import { Draggable } from '../draggable/draggable';
-import { DraggableHandle } from '../draggable/draggable-handle';
 import { DraggableList } from '../draggable-list/draggable-list';
 import { DraggableListItem } from '../draggable-list/draggable-list-item';
 import { TriggeredPopover } from '../popover/popover';
 import { clsx } from 'clsx/lite';
 import { Container, ContainerGroup } from '../base-control/container';
 import { BaseControl } from '../base-control/base-control';
+import { isColorDark } from '../../utilities';
+import { srgb } from '@thi.ng/color';
 
 const getGradientResult = (input, type) => {
 	if (!input || !type) {
@@ -203,15 +202,72 @@ export const GradientEditor = (props) => {
 
 	return (
 		<div className='es:w-full es:space-y-2.5'>
-			<button
-				className={clsx(
-					'es:shadow-sm, es:mx-auto es:block es:h-40 es:cursor-pointer es:rounded-2xl es:border es:border-secondary-300 es:transition-[width] es:duration-300 es:ease-spring-snappy',
-					squarePreview ? 'es:w-40' : 'es:w-full',
-				)}
-				style={{ backgroundImage: outputGradient }}
-				onClick={() => setSquarePreview((prev) => !prev)}
-				aria-label={__('Toggle preview size', 'eightshift-ui-components')}
-			/>
+			<ContainerGroup>
+				<Container>
+					<button
+						className={clsx(
+							'es:shadow-sm, es:mx-auto es:block es:h-40 es:cursor-pointer es:rounded-lg es:border es:border-secondary-300 es:transition-[width] es:duration-300 es:ease-spring-snappy',
+							'es:mb-2',
+							squarePreview ? 'es:w-40' : 'es:w-full',
+						)}
+						style={{ backgroundImage: outputGradient }}
+						onClick={() => setSquarePreview((prev) => !prev)}
+						aria-label={__('Toggle preview size', 'eightshift-ui-components')}
+					/>
+
+					<Slider
+						className='es:mb-5'
+						aria-label={__('Stop positions', 'eightshift-ui-components')}
+						min={0}
+						max={100}
+						step={1}
+						value={gradientData?.stops?.map(({ offset }, i) => {
+							if (!offset) {
+								return (i * 100) / (gradientData.stops.length - 1);
+							}
+
+							return parseInt(offset?.value);
+						})}
+						onChange={(value) => {
+							setGradientData({
+								...gradientData,
+								stops: gradientData.stops.map((stop, i) => {
+									return {
+										...stop,
+										offset: { value: value[i], unit: '%' },
+									};
+								}),
+							});
+						}}
+						thumbContent={(index) => {
+							const colorData = srgb(gradientData.stops[index]?.color);
+
+							let foregroundColor = 'black';
+
+							if (colorData.alpha >= 0.5 && isColorDark(colorData.r, colorData.g, colorData.b)) {
+								foregroundColor = 'white';
+							}
+
+							return (
+								<div
+									className='es:pointer-events-none es:absolute es:-bottom-4.5 es:-translate-x-1/3 es:flex es:w-3 es:items-center es:justify-center es:text-center es:text-12 es:leading-none es:py-0.25 es:rounded-sm es:font-semibold es:tabular-nums es:font-mono es:ring es:ring-accent-600'
+									style={{
+										backgroundColor: gradientData.stops[index]?.color,
+										color: foregroundColor,
+									}}
+								>
+									{index + 1}
+								</div>
+							);
+						}}
+						noActiveHighlight
+						// trackStyle={{
+						// 	backgroundImage: getGradientResult({ orientation: { type: 'directional', value: 'right' }, stops: gradientData.stops }, 'linear'),
+						// }}
+						// trackBgGradientSupport
+					/>
+				</Container>
+			</ContainerGroup>
 
 			<ContainerGroup>
 				<Container>
@@ -376,13 +432,13 @@ export const GradientEditor = (props) => {
 							stops: [...gradientData.stops, { color: '#000000FF' }],
 						});
 					}}
-					type='ghost'
+					type='simple'
 					aria-label={__('Add stop', 'eightshift-ui-components')}
 				/>
 			</BaseControl>
 
 			<ContainerGroup>
-				<Draggable
+				<DraggableList
 					items={gradientData?.stops}
 					onChange={(items) => {
 						setGradientData({
@@ -393,7 +449,6 @@ export const GradientEditor = (props) => {
 							})),
 						});
 					}}
-					// key={gradientData?.stops?.length}
 					orientation='vertical'
 					className='es:contents'
 				>
@@ -401,92 +456,48 @@ export const GradientEditor = (props) => {
 						const { color, updateData, itemIndex } = item;
 
 						return (
-							<Container isChild>
-								<BaseControl
-									label={sprintf(__('Stop %s', 'eightshift-ui-components'), itemIndex + 1)}
-									subtitle={color}
-									icon={
-										<ColorSwatch
-											className='es:size-5 es:rounded-full es:border es:border-white es:ring-1 es:ring-black'
-											color={color}
-										/>
-									}
-									inline
-								>
-									<DraggableHandle />
-									<ButtonGroup>
-										<TriggeredPopover
-											triggerButtonIcon={icons.color}
-											triggerButtonProps={{ size: 'small', type: 'simple' }}
-										>
-											<SolidColorPicker
-												value={color}
-												onChange={(color) => {
-													updateData({ color });
-												}}
-												allowTransparency
-												outputFormat='rgba'
-											/>
-										</TriggeredPopover>
-										<Button
-											onPress={() => {
-												setGradientData({
-													...gradientData,
-													stops: gradientData.stops.filter((_, i) => i !== itemIndex),
-												});
+							<DraggableListItem
+								label={sprintf(__('Stop %s', 'eightshift-ui-components'), itemIndex + 1)}
+								subtitle={color}
+								icon={
+									<ColorSwatch
+										className='es:size-5 es:rounded-full es:border es:border-white es:ring-1 es:ring-black'
+										color={color}
+									/>
+								}
+							>
+								<ButtonGroup>
+									<TriggeredPopover
+										triggerButtonIcon={icons.color}
+										triggerButtonProps={{ size: 'small', type: 'ghost' }}
+									>
+										<SolidColorPicker
+											value={color}
+											onChange={(color) => {
+												updateData({ color });
 											}}
-											icon={icons.trash}
-											size='small'
-											aria-label={__('Delete stop', 'eightshift-ui-components')}
-											disabled={gradientData.stops.length <= 2}
-											type='dangerSimple'
+											allowTransparency
+											outputFormat='rgba'
 										/>
-									</ButtonGroup>
-								</BaseControl>
-							</Container>
+									</TriggeredPopover>
+									<Button
+										onPress={() => {
+											setGradientData({
+												...gradientData,
+												stops: gradientData.stops.filter((_, i) => i !== itemIndex),
+											});
+										}}
+										icon={icons.trash}
+										size='small'
+										aria-label={__('Delete stop', 'eightshift-ui-components')}
+										disabled={gradientData.stops.length <= 2}
+										type='dangerGhost'
+									/>
+								</ButtonGroup>
+							</DraggableListItem>
 						);
 					}}
-				</Draggable>
-			</ContainerGroup>
-
-			<ContainerGroup>
-				<Container className='es:px-4 es:py-4'>
-					<Slider
-						aria-label={__('Stop positions', 'eightshift-ui-components')}
-						min={0}
-						max={100}
-						step={1}
-						value={gradientData?.stops?.map(({ offset }, i) => {
-							if (!offset) {
-								return (i * 100) / (gradientData.stops.length - 1);
-							}
-
-							return parseInt(offset?.value);
-						})}
-						onChange={(value) => {
-							setGradientData({
-								...gradientData,
-								stops: gradientData.stops.map((stop, i) => {
-									return {
-										...stop,
-										offset: { value: value[i], unit: '%' },
-									};
-								}),
-							});
-						}}
-						thumbContent={(index) => (
-							<div className='es:pointer-events-none es:absolute es:inset-0 es:flex es:size-3 es:items-center es:justify-center es:text-center es:text-xs es:font-semibold es:text-white'>
-								{index + 1}
-							</div>
-						)}
-						trackStyle={{
-							backgroundImage: getGradientResult({ orientation: { type: 'directional', value: 'right' }, stops: gradientData.stops }, 'linear'),
-							height: '1.125rem',
-							borderRadius: '0.5rem',
-						}}
-						noActiveHighlight
-					/>
-				</Container>
+				</DraggableList>
 			</ContainerGroup>
 		</div>
 	);

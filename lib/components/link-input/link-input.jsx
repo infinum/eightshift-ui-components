@@ -326,7 +326,7 @@ export const LinkInput = (props) => {
 										<ListBoxItem
 											id={item.value}
 											className={clsx(
-												'es:transition-plus es:ease-spring-bouncy es:duration-400',
+												'es:transition-plus',
 												'es:px-2 es:py-2.5',
 												'es:bg-accent-900/4 es:rounded-sm es:first:rounded-t-lg es:last:rounded-b-lg es:after-current:rounded-t-lg es:before-current:rounded-b-lg',
 												'es:focus-visible:bg-surface-200/65 es:focus-visible:rounded-2xl es:focus-visible:text-accent-950',

@@ -42,6 +42,7 @@ import { AnimatePresence, motion } from 'motion/react';
  * @param {Number} [props.markerStep] - If provided, this value is used to generate markers instead of the step value. Useful when using small steps with a larger range.
  * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
  * @param {boolean} [props.trackBgGradientSupport] - If `true`, parts of the track will get additional background size and position settings to make the gradient more seamless. Supported only in horizontal mode. BETA!
+ * @param {boolean} [props.noActiveHighlight] - If `true`, the active area highlight will not be shown.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Slider component.
@@ -95,6 +96,8 @@ export const Slider = (props) => {
 		trackContainerStyle,
 
 		trackBgGradientSupport,
+
+		noActiveHighlight,
 
 		markerStep = step,
 
@@ -321,21 +324,12 @@ export const Slider = (props) => {
 													'es:justify-self-center',
 													!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
 												)}
-												// onFocus={() => {
-												// 	if (state.values.length < 2) {
-												// 		return;
-												// 	}
-
-												// 	setCurrentThumbIndex(i);
-												// }}
 												style={{
 													gridColumn: vertical ? null : markerIndices[i],
 													gridRow: vertical ? markerIndices[i] : null,
 												}}
 											>
-												{/* {inputField && state.values.length > 1 && currentThumbIndex === i && <div className='es:m-0.5 es:size-2 es:rounded-full es:bg-accent-100' />}
-
-            {thumbContent && thumbContent(i)} */}
+												{thumbContent && thumbContent(i)}
 
 												<AnimatePresence>
 													{i === state.focusedThumb && (
@@ -378,7 +372,7 @@ export const Slider = (props) => {
 
 										let val = i + 1;
 
-										const activeStyle = [
+										let activeStyle = [
 											'es:transition es:duration-300',
 											!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
 											!disabled && [
@@ -399,6 +393,10 @@ export const Slider = (props) => {
 											],
 											disabled && 'es:bg-secondary-200',
 										];
+
+										if (noActiveHighlight) {
+											activeStyle = inactiveStyle;
+										}
 
 										const extraStyles = {};
 
