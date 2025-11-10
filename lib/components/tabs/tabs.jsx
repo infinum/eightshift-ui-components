@@ -19,7 +19,7 @@ import { RichLabel } from '../rich-label/rich-label';
  *
  * @returns {JSX.Element} The Tabs component.
  *
- * @typedef {'underline' | 'underlineSecondary' | 'pill' | 'pillCompact' | 'bubble' } TabsType
+ * @typedef {'underline' | 'underlineSecondary' | 'pill' | 'pillCompact' | 'bubble' | 'chips'} TabsType
  *
  * @example
  * <Tabs>
@@ -201,6 +201,12 @@ export const TabList = (props) => {
 				orientation: 'vertical',
 				class: 'es:rounded-3xl es:p-3',
 			},
+			//
+			{
+				type: ['chips'],
+				orientation: 'horizontal',
+				class: 'es:flex es:gap-0.75 es:rounded-xl',
+			},
 			// Flat.
 			{
 				type: ['pill', 'pillCompact'],
@@ -362,6 +368,21 @@ export const Tab = (props) => {
 					vertical: true,
 					class: ['es:pl-4 es:has-any-icon:pl-3 es:pr-3'],
 				},
+				//
+				{
+					type: ['chips'],
+					class: [
+						'es:bg-secondary-50 es:selected:bg-accent-500',
+						'es:inset-ring es:inset-ring-secondary-200/30 es:selected:inset-ring-accent-600/30',
+						'es:bg-linear-to-b es:from-25% es:from-accent-700/0 es:to-accent-700/0 es:selected:from-accent-700/10 es:selected:to-accent-700/30',
+						'es:selected:inset-shadow-sm es:selected:inset-shadow-accent-50/30',
+						'es:text-secondary-700 es:selected:text-white',
+						'es:min-h-7.5 es:rounded-lg es:selected:rounded-xl',
+						'es:transition-plus',
+						'es:pl-3 es:has-any-icon:pl-2 es:pr-3 es:py-1.5',
+						!flat && 'es:selected:shadow-xs es:selected:shadow-black/5',
+					],
+				},
 			],
 		},
 	);
@@ -448,6 +469,16 @@ export const Tab = (props) => {
 					vertical: true,
 					class: 'es:top-1.5 es:right-6',
 				},
+				//
+				{
+					type: ['chips'],
+					class: 'es:bg-secondary-200/50 es:group-selected:bg-accent-600 es:group-selected:text-white',
+				},
+				{
+					type: ['chips'],
+					vertical: true,
+					class: 'es:ml-auto',
+				},
 			],
 			defaultVariants: {
 				vertical: false,
@@ -509,7 +540,8 @@ export const TabPanel = (props) => {
 			{ type: ['underline', 'underlineSecondary'], vertical: false, class: 'es:rounded-b-lg es:px-3 es:py-5' },
 			{ type: ['underline', 'underlineSecondary'], vertical: true, class: 'es:rounded-3xl es:p-5' },
 			{ type: ['bubble'], class: 'es:rounded-3xl es:p-5' },
-			{ type: ['bubble'], vertical: false, class: 'es:mt-2' },
+			{ type: ['bubble', 'chips'], vertical: false, class: 'es:mt-2' },
+			{ type: ['chips'], vertical: true, class: 'es:py-2' },
 		],
 		defaultVariants: {
 			flat: false,
