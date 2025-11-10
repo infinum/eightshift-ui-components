@@ -9,10 +9,7 @@ import {
 	SearchField,
 	Input,
 	useFilter,
-	DialogTrigger,
 	useDragAndDrop,
-	ListBoxItem,
-	Text,
 	DropIndicator,
 	SelectStateContext,
 	Select as ReactAriaSelect,
@@ -198,7 +195,7 @@ export const MultiSelect = (props) => {
 	const selectClass = cva(
 		[
 			'es:relative',
-			'es:flex es:items-center es:gap-1',
+			'es:flex es:items-center es:gap-0.5',
 			'es:leading-none',
 			'es:rounded-lg es:hover:rounded-xl es:has-focus-visible:rounded-2xl es:group-open:rounded-2xl',
 			'es:transition-plus',
@@ -267,38 +264,10 @@ export const MultiSelect = (props) => {
 				selectionMode='multiple'
 				isDisabled={disabled}
 				value={currentValueKeys}
-				onChange={(selected) => {
-					console.log('selected', selected);
-					handleSelectionChange(selected);
-					// if (selected === null || selected === undefined) {
-					// 	onChange(null);
-
-					// 	return;
-					// }
-
-					// if (simpleValue) {
-					// 	onChange(selected);
-
-					// 	return;
-					// }
-
-					// const item = options.find((item) => item.value === selected);
-
-					// if (!item) {
-					// 	onChange(null);
-
-					// 	return;
-					// }
-
-					// if (item && 'id' in item) {
-					// 	delete item.id;
-					// }
-
-					// onChange(item);
-				}}
+				onChange={(selected) => handleSelectionChange(selected)}
 				placeholder={placeholder}
 				{...rest}
-				className={clsx('es:group', rest?.className)}
+				className={clsx('es:group es:w-fill', rest?.className)}
 			>
 				<BaseControl
 					label={label}
@@ -316,10 +285,7 @@ export const MultiSelect = (props) => {
 						<Button className='es:any-focus:outline-hidden es:text-start es:size-full es:inline-block es:group es:overflow-x-clip'>
 							<SelectValue className='es:select-none es:pointer-events-none'>
 								{({ isPlaceholder, selectedItems }) => {
-									console.log('selectedItems', selectedItems);
 									const [selectedItem] = selectedItems;
-
-									console.log('selectedItem', selectedItem);
 
 									if (!currentValueKeys?.length || isPlaceholder) {
 										return <span className='es:select-none es:pointer-events-none es:pr-6 es:text-sm es:text-surface-500'>{placeholder}</span>;
@@ -337,7 +303,7 @@ export const MultiSelect = (props) => {
 												icon={icons.multiple}
 												label={sprintf(_n('%s item', '%s items', selectedItems.length, 'eightshift-ui-components'), selectedItems.length)}
 												subtitle={selectedItems.map((item) => item?.label ?? item).join(', ')}
-												subtitleClassName='es:line-clamp-1'
+												subtitleClassName='es:line-clamp-1 es:max-w-56'
 											/>
 										);
 									}
@@ -380,24 +346,31 @@ export const MultiSelect = (props) => {
 							</div>
 						</Button>
 
+						{clearable && <SelectClearButton />}
+
 						<TriggeredPopover
-							triggerButtonIcon={icons.swap}
-							triggerButtonProps={{ size: 'small', type: 'ghost', slot: null }}
-							className='es:h-fill es:grid es:grid-cols-1 es:grid-rows-[auto_minmax(0,1fr)] es:p-0!'
-							popoverProps={{ maxHeight: 260 }}
-							wrapperClassName='es:w-72 es:px-1.5 es:pt-2 es:h-fill'
+							triggerButtonIcon={icons.reorder}
+							triggerButtonProps={{
+								size: 'small',
+								type: 'ghost',
+								className: 'es:icon:opacity-80',
+								'aria-label': __('Reorder', 'eightshift-ui-components'),
+								tooltip: true,
+								slot: null,
+							}}
+							className='es:grid es:grid-cols-1 es:grid-rows-[auto_minmax(0,1fr)] es:p-0!'
+							wrapperClassName='es:w-72 es:px-1.5 es:h-fit es:from-surface-300/35 es:to-surface-300/35 es:overflow-clip'
 							hidden={noReorder || disabled || currentValue?.length < 2}
 						>
+							<span className='es:text-lg es:mx-auto es:my-1 es:font-variation-["wdth"_140,"wght"_320] es:text-surface-600'>{__('Item order', 'eightshift-ui-components')}</span>
+
 							<DraggableList
-								label={__('Item order', 'eightshift-ui-components')}
-								labelClassName='es:pl-1 es:text-lg!'
 								items={value}
 								onChange={(value) => {
 									handleSelectionChange(new Set(value?.map((item) => item?.value ?? item)));
 								}}
-								// className='es:overflow-y-auto'
 								className='es:contents'
-								itemContainerClassName='es:space-y-0.75 es:h-fill es:overflow-y-auto es:pb-1.5'
+								itemContainerClassName='es:h-full es:max-h-60 es:overflow-y-auto es:pb-1.5 es:mt-0'
 								itemClassName='es:z-999999'
 							>
 								{(item) => {
@@ -415,13 +388,12 @@ export const MultiSelect = (props) => {
 											iconClassName='es:pointer-events-none es:select-none'
 											labelClassName='es:line-clamp-1'
 											subtitleClassName='es:line-clamp-1'
+											className={clsx('es:min-h-8 es:flex es:items-center es:justify-between', realItem?.icon ? 'es:pl-1' : 'es:pl-2')}
 										/>
 									);
 								}}
 							</DraggableList>
 						</TriggeredPopover>
-
-						{clearable && <SelectClearButton />}
 					</div>
 
 					<Popover
