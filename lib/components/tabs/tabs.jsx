@@ -19,7 +19,7 @@ import { RichLabel } from '../rich-label/rich-label';
  *
  * @returns {JSX.Element} The Tabs component.
  *
- * @typedef {'underline' | 'underlineSecondary' | 'pill' | 'pillInverse' | 'pillCompact' | 'pillCompactInverse' | 'pillOutline' | 'pillCompactOutline'} TabsType
+ * @typedef {'underline' | 'underlineSecondary' | 'pill' | 'pillCompact' | 'bubble' } TabsType
  *
  * @example
  * <Tabs>
@@ -116,8 +116,8 @@ export const Tabs = (props) => {
 			orientation={vertical ? 'vertical' : 'horizontal'}
 			className={clsx(
 				vertical ? 'es:grid es:gap-4' : 'es:flex-col',
-				vertical && (type === 'underline' || type === 'underlineSecondary') && 'es:grid-cols-[minmax(0,7.5rem)_minmax(0,1fr)]',
-				vertical && !(type === 'underline' || type === 'underlineSecondary') && 'es:grid-cols-[minmax(0,20rem)_minmax(0,1fr)]',
+				vertical && ['underline', 'underlineSecondary', 'bubble'].includes(type) && 'es:grid-cols-[minmax(0,7.5rem)_minmax(0,1fr)]',
+				vertical && !['underline', 'underlineSecondary', 'bubble'].includes(type) && 'es:grid-cols-[minmax(0,20rem)_minmax(0,1fr)]',
 				className,
 			)}
 		>
@@ -153,8 +153,8 @@ export const TabList = (props) => {
 		},
 		compoundVariants: [
 			{
-				type: ['underline', 'underlineSecondary'],
-				class: 'es:bg-white ',
+				type: ['underline', 'underlineSecondary', 'bubble'],
+				class: 'es:bg-white',
 			},
 			{
 				type: ['underline', 'underlineSecondary'],
@@ -164,7 +164,7 @@ export const TabList = (props) => {
 			{
 				type: ['underline', 'underlineSecondary'],
 				orientation: 'vertical',
-				class: 'es:rounded-4xl es:p-1.5',
+				class: 'es:rounded-28 es:p-1.5',
 			},
 			{
 				type: 'underline',
@@ -173,27 +173,37 @@ export const TabList = (props) => {
 			},
 			//
 			{
-				type: ['pill', 'pillInverse', 'pillCompact', 'pillCompactInverse', 'pillOutline', 'pillCompactOutline'],
+				type: ['bubble'],
+				class: 'es:rounded-28 es:p-1.5 es:gap-px',
+			},
+			{
+				type: ['bubble'],
+				orientation: 'horizontal',
+				class: 'es:h-15 es:has-any-icon:h-20',
+			},
+			//
+			{
+				type: ['pill', 'pillCompact'],
 				class: 'es:bg-secondary-50',
 			},
 			{
-				type: ['pill', 'pillInverse', 'pillCompact', 'pillCompactInverse', 'pillOutline', 'pillCompactOutline'],
+				type: ['pill', 'pillCompact'],
 				orientation: 'horizontal',
 				class: 'es:rounded-full es:gap-0.5 es:mx-auto es:w-fit',
 			},
 			{
-				type: ['pill', 'pillInverse', 'pillOutline'],
+				type: ['pill'],
 				orientation: 'vertical',
 				class: 'es:rounded-4xl es:p-3',
 			},
 			{
-				type: ['pillCompact', 'pillCompactInverse', 'pillCompactOutline'],
+				type: ['pillCompact'],
 				orientation: 'vertical',
 				class: 'es:rounded-3xl es:p-3',
 			},
 			// Flat.
 			{
-				type: ['pill', 'pillInverse', 'pillCompact', 'pillCompactInverse', 'pillOutline', 'pillCompactOutline'],
+				type: ['pill', 'pillCompact'],
 				flat: false,
 				class: 'es:shadow es:shadow-black/5',
 			},
@@ -248,9 +258,6 @@ export const Tab = (props) => {
 			'es:any-focus:outline-hidden',
 			'es:contrast-more:inset-ring es:contrast-more:inset-ring-accent-500/0 es:contrast-more:focus-visible:inset-ring-accent-500',
 			'es:disabled:text-secondary-400',
-			// 'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/30',
-			// !(type === 'pillCompact' || type === 'pillCompactInverse' || type === 'pillCompactOutline') && 'es:min-h-9.5',
-			// isParentVertical && (type === 'pillCompact' || type === 'pillCompactInverse' || type === 'pillCompactOutline') && 'es:min-h-8',
 			'es:font-variation-["wdth"_120,"YTLC"_560,"wght"_375] es:selected:font-variation-["wdth"_120,"YTLC"_560,"wght"_375,"GRAD"_80]',
 			invisible && 'es:hidden',
 			className,
@@ -258,9 +265,9 @@ export const Tab = (props) => {
 		{
 			variants: {},
 			compoundVariants: [
-				{ type: ['underline', 'underlineSecondary'], class: ['es:flex-col es:justify-center-safe', 'es:text-secondary-700 es:selected:text-accent-700'] },
+				{ type: ['underline', 'underlineSecondary', 'bubble'], class: ['es:flex-col es:justify-center-safe', 'es:text-secondary-700 es:selected:text-accent-700'] },
 				{
-					type: ['pill', 'pillInverse', 'pillCompact', 'pillCompactInverse', 'pillOutline', 'pillCompactOutline'],
+					type: ['pill', 'pillCompact'],
 					vertical: true,
 					flat: false,
 					class: 'es:selected:shadow-md es:selected:shadow-accent-700/10',
@@ -299,7 +306,26 @@ export const Tab = (props) => {
 				},
 				//
 				{
-					type: ['pill', 'pillInverse', 'pillCompact', 'pillCompactInverse', 'pillOutline', 'pillCompactOutline'],
+					type: ['bubble'],
+					class: [
+						'es:rounded-xl es:not-has-any-icon:rounded-3xl',
+						'es:text-secondary-500 es:selected:text-accent-800',
+						'es:not-has-any-icon:selected:bg-accent-600/5 es:not-has-any-icon:not-selected:hover:bg-secondary-50',
+					],
+				},
+				{
+					type: ['bubble'],
+					vertical: false,
+					class: 'es:px-2 es:py-0.5 es:grow',
+				},
+				{
+					type: ['bubble'],
+					vertical: true,
+					class: 'es:p-2 es:has-any-icon:aspect-4/3 es:not-has-any-icon:aspect-5/3',
+				},
+				//
+				{
+					type: ['pill', 'pillCompact'],
 					class: [
 						'es:rounded-full',
 						'es:selected:bg-accent-50 es:not-selected:hover:bg-secondary-100 es:selected:text-accent-900',
@@ -308,31 +334,31 @@ export const Tab = (props) => {
 					],
 				},
 				{
-					type: ['pill', 'pillInverse', 'pillOutline'],
+					type: ['pill'],
 					class: ['es:py-3 es:min-h-12'],
 				},
 				{
-					type: ['pillCompact', 'pillCompactInverse', 'pillCompactOutline'],
+					type: ['pillCompact'],
 					class: ['es:py-2 es:min-h-9.5'],
 				},
 				//
 				{
-					type: ['pill', 'pillInverse', 'pillOutline'],
+					type: ['pill'],
 					vertical: false,
 					class: ['es:justify-center es:px-6'],
 				},
 				{
-					type: ['pillCompact', 'pillCompactInverse', 'pillCompactOutline'],
+					type: ['pillCompact'],
 					vertical: false,
 					class: ['es:justify-center es:px-3'],
 				},
 				{
-					type: ['pill', 'pillInverse', 'pillOutline'],
+					type: ['pill'],
 					vertical: true,
 					class: ['es:pl-5 es:has-any-icon:pl-4 es:pr-6'],
 				},
 				{
-					type: ['pillCompact', 'pillCompactInverse', 'pillCompactOutline'],
+					type: ['pillCompact'],
 					vertical: true,
 					class: ['es:pl-4 es:has-any-icon:pl-3 es:pr-3'],
 				},
@@ -353,6 +379,15 @@ export const Tab = (props) => {
 					'es:group-hover:group-selected:ring es:group-hover:group-selected:ring-accent-500/10',
 				],
 			},
+			{
+				type: ['bubble'],
+				class: [
+					'es:bg-white es:px-3.5 es:py-1.25 es:rounded-full',
+					'es:group-hover:bg-surface-500/7',
+					'es:group-selected:bg-accent-500/10 es:group-selected:text-accent-800',
+					'es:group-hover:group-selected:ring es:group-hover:group-selected:ring-accent-500/10',
+				],
+			},
 		],
 	});
 
@@ -360,24 +395,16 @@ export const Tab = (props) => {
 		[
 			'es:transition-plus',
 			'es:flex es:items-center-safe es:justify-center-safe',
-			// isParentVertical && (type === 'underline' || type === 'underlineSecondary') && 'es:absolute es:top-2 es:right-2',
 			'es:min-h-4.5 es:min-w-4.5 es:leading-none es:rounded-full es:shrink-0',
 			'es:text-12 es:leading-none es:text-box-trim',
 			'es:any-icon:size-2.5',
-			// type === 'pill' && ,
-			// type === 'pillInverse' && 'es:bg-secondary-100 es:group-selected:bg-accent-50 es:group-selected:text-accent-900',
-			// type === 'pillCompact' && 'es:bg-secondary-100 es:group-selected:bg-accent-600 es:group-selected:text-white',
-			// type === 'pillCompactInverse' && 'es:bg-secondary-100 es:group-selected:bg-accent-50 es:group-selected:text-accent-900',
-			// (type === 'pillOutline' || type === 'pillCompactOutline') && 'es:bg-secondary-100 es:text-secondary-900 es:group-selected:bg-accent-500 es:group-selected:text-white',
-			// (type === 'pillCompact' || type === 'pillCompactInverse' || type === 'pillCompactOutline') && 'es:any-icon:size-4!',
 			badgeClassName,
 		],
 		{
 			variants: {},
 			compoundVariants: [
 				{
-					// simple: true,
-					type: ['underline', 'underlineSecondary'],
+					type: ['underline', 'underlineSecondary', 'bubble'],
 					class: ['es:bg-secondary-100 es:group-selected:bg-accent-600 es:group-selected:text-white', 'es:group-hover:ring es:group-hover:ring-white'],
 				},
 				{
@@ -390,12 +417,36 @@ export const Tab = (props) => {
 					vertical: true,
 					icon: true,
 					type: ['underline', 'underlineSecondary'],
-					class: 'es:absolute es:top-2.5 es:right-7 es:group-hover:bg-surface-100',
+					class: 'es:absolute es:top-1.5 es:right-6 es:group-hover:bg-surface-100',
+				},
+				//
+				{
+					type: ['pill', 'pillCompact'],
+					class: 'es:ml-auto es:bg-white es:group-selected:bg-accent-600 es:group-selected:text-white',
+				},
+				//
+				{
+					icon: false,
+					type: ['bubble'],
+					vertical: true,
+					class: 'es:absolute es:top-0 es:right-0',
 				},
 				{
-					// simple: true,
-					type: ['pill', 'pillInverse', 'pillCompact', 'pillCompactInverse', 'pillOutline', 'pillCompactOutline'],
-					class: 'es:ml-auto es:bg-white es:group-selected:bg-accent-600 es:group-selected:text-white',
+					icon: true,
+					type: ['bubble'],
+					class: 'es:absolute es:group-hover:bg-surface-100',
+				},
+				{
+					icon: true,
+					type: ['bubble'],
+					vertical: false,
+					class: 'es:top-1 es:right-11.5',
+				},
+				{
+					icon: true,
+					type: ['bubble'],
+					vertical: true,
+					class: 'es:top-1.5 es:right-6',
 				},
 			],
 			defaultVariants: {
@@ -454,9 +505,11 @@ export const TabPanel = (props) => {
 	const tabPanelClasses = cva(['es:space-y-3 es:text-13 es:any-focus:outline-hidden', className], {
 		variants: {},
 		compoundVariants: [
-			{ type: ['underline', 'underlineSecondary'], class: 'es:bg-white' },
+			{ type: ['underline', 'underlineSecondary', 'bubble'], class: 'es:bg-white' },
 			{ type: ['underline', 'underlineSecondary'], vertical: false, class: 'es:rounded-b-lg es:px-3 es:py-5' },
 			{ type: ['underline', 'underlineSecondary'], vertical: true, class: 'es:rounded-3xl es:p-5' },
+			{ type: ['bubble'], class: 'es:rounded-3xl es:p-5' },
+			{ type: ['bubble'], vertical: false, class: 'es:mt-2' },
 		],
 		defaultVariants: {
 			flat: false,
