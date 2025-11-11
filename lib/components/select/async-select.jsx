@@ -1,9 +1,9 @@
 import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
-import { Select, Label, ListBox, Popover, Button, SelectValue, SelectStateContext, Autocomplete, SearchField, Input } from 'react-aria-components';
-import { useContext, cloneElement, useEffect } from 'react';
+import { Select, Label, ListBox, Popover, Button, SelectValue, Autocomplete, SearchField, Input } from 'react-aria-components';
+import { cloneElement, useEffect } from 'react';
 import { icons, Spinner } from '../../icons';
-import { OptionItemBase } from './shared';
+import { OptionItemBase, SelectClearButton } from './shared';
 import { useRef } from 'react';
 import { RichLabel } from '../rich-label/rich-label';
 import { useAsyncList } from 'react-stately';
@@ -168,7 +168,7 @@ export const AsyncSelect = (props) => {
 	const selectClass = cva(
 		[
 			'es:relative',
-			'es:flex es:items-center es:gap-1',
+			'es:flex es:items-center es:gap-px',
 			'es:leading-none',
 			'es:rounded-lg es:hover:rounded-xl es:has-focus-visible:rounded-2xl es:group-open:rounded-2xl',
 			'es:transition-plus',
@@ -307,7 +307,7 @@ export const AsyncSelect = (props) => {
 						</SelectValue>
 
 						<div
-							className={clsx('es:absolute es:bottom-0 es:right-2.5 es:top-0 es:my-auto es:flex es:items-center', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}
+							className={clsx('es:absolute es:bottom-0 es:right-3 es:top-0 es:my-auto es:flex es:items-center', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}
 							aria-hidden='true'
 						>
 							{!customDropdownArrow &&
@@ -439,25 +439,5 @@ export const AsyncSelect = (props) => {
 				</Popover>
 			</BaseControl>
 		</Select>
-	);
-};
-
-const SelectClearButton = () => {
-	const state = useContext(SelectStateContext);
-
-	const isEmpty = state?.value === null;
-
-	return (
-		<Button
-			aria-label={__('Clear value', 'eightshift-ui-components')}
-			className={clsx(
-				'es:mr-0 es:flex es:h-7 es:pl-1 es:pr-1.25 es:items-center es:justify-center es:rounded-lg es:text-secondary-600 es:transition es:hover:bg-red-700/4 es:hover:text-red-600 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
-				isEmpty ? 'es:hidden' : 'es:flex',
-			)}
-			onPress={() => state?.setValue(null)}
-			slot={null}
-		>
-			{icons.clearAlt}
-		</Button>
 	);
 };
