@@ -613,47 +613,164 @@ function App() {
 				className='es:self-start es:m-5'
 			>
 				<TabList className='es:sticky es:top-16'>
-					<Tab icon={icons.toggleOnAlt}>Toggle / Switch</Tab>
-					<Tab icon={icons.verticalSpacing}>Spacer</Tab>
-					<Tab icon={icons.animationGeneric}>Animated visibility</Tab>
-					<Tab icon={icons.dropdownClose}>Expandable</Tab>
-					<Tab icon={icons.link}>LinkInput</Tab>
-					<Tab icon={icons.info}>Notice</Tab>
-					<Tab icon={icons.chatBubble}>Triggered popover</Tab>
-					<Tab icon={icons.buttonOutline}>Button</Tab>
-					<Tab icon={icons.position3x3CenterCenter}>Matrix align</Tab>
-					<Tab icon={icons.hamburgerMenu}>Menu</Tab>
-					<Tab icon={icons.hoverBackgroundGlow}>Tooltip</Tab>
-					<Tab icon={icons.num2CircleAlt}>Number picker</Tab>
-					<Tab icon={icons.responsive}>Responsive 2.0</Tab>
-					<Tab icon={icons.fieldLabel}>Base control</Tab>
-					<Tab icon={icons.dropdown}>Select</Tab>
-					<Tab icon={icons.newTab}>Tabs</Tab>
-					<Tab icon={icons.inputField}>Input field</Tab>
-					<Tab icon={icons.componentOptions}>Component toggle</Tab>
-					<Tab icon={icons.gridAutoRows}>Repeater</Tab>
-					<Tab icon={icons.checkSquare}>Checkbox</Tab>
-					<Tab icon={icons.listUnordered}>Radio button</Tab>
-					<Tab icon={icons.slider}>Slider</Tab>
-					<Tab icon={icons.solidCircleFilled}>Solid color picker</Tab>
-					<Tab icon={icons.gradient}>Gradient editor</Tab>
-					<Tab icon={icons.color}>Color swatch</Tab>
-					<Tab icon={icons.eyedropper}>Color picker</Tab>
-					<Tab icon={icons.responsiveOverridesAlt}>Responsive (legacy)</Tab>
-					<Tab icon={icons.columnGuttersLR}>Column config slider</Tab>
-					<Tab icon={icons.group}>Container panel</Tab>
-					<Tab icon={icons.layoutAlt}>Layout components</Tab>
-					<Tab icon={icons.emptyCircle}>Placeholders</Tab>
-					<Tab icon={icons.cursorMove}>Draggable</Tab>
-					<Tab icon={icons.cursorMove}>Draggable list</Tab>
-					<Tab icon={icons.options}>Options panel</Tab>
-					<Tab icon={icons.previewResponsive}>Responsive preview</Tab>
-					<Tab icon={icons.browser}>Modal</Tab>
-					<Tab icon={icons.multiple}>Item collection</Tab>
-					<Tab icon={icons.file}>File picker shell</Tab>
-					<Tab icon={icons.imageLazyLoad}>Smart image</Tab>
+					<Tab
+						icon={icons.toggleOnAlt}
+						label='Toggle / Switch'
+					/>
+					<Tab
+						icon={icons.verticalSpacing}
+						label='Spacer'
+					/>
+					<Tab
+						icon={icons.animationGeneric}
+						label='Animated visibility'
+					/>
+					<Tab
+						icon={icons.dropdownClose}
+						label='Expandable'
+					/>
+					<Tab
+						icon={icons.link}
+						label='LinkInput'
+					/>
+					<Tab
+						icon={icons.info}
+						label='Notice'
+					/>
+					<Tab
+						icon={icons.chatBubble}
+						label='Triggered popover'
+					/>
+					<Tab
+						icon={icons.buttonOutline}
+						label='Button'
+					/>
+					<Tab
+						icon={icons.position3x3CenterCenter}
+						label='Matrix align'
+					/>
+					<Tab
+						icon={icons.hamburgerMenu}
+						label='Menu'
+					/>
+					<Tab
+						icon={icons.hoverBackgroundGlow}
+						label='Tooltip'
+					/>
+					<Tab
+						icon={icons.num2CircleAlt}
+						label='Number picker'
+					/>
+					<Tab
+						icon={icons.responsive}
+						label='Responsive 2.0'
+					/>
+					<Tab
+						icon={icons.fieldLabel}
+						label='Base control'
+					/>
+					<Tab
+						icon={icons.dropdown}
+						label='Select'
+					/>
+					<Tab
+						icon={icons.newTab}
+						label='Tabs'
+					/>
+					<Tab
+						icon={icons.inputField}
+						label='Input field'
+					/>
+					<Tab
+						icon={icons.componentOptions}
+						label='Component toggle'
+					/>
+					<Tab
+						icon={icons.gridAutoRows}
+						label='Repeater'
+					/>
+					<Tab
+						icon={icons.checkSquare}
+						label='Checkbox'
+					/>
+					<Tab
+						icon={icons.listUnordered}
+						label='Radio button'
+					/>
+					<Tab
+						icon={icons.slider}
+						label='Slider'
+					/>
+					<Tab
+						icon={icons.solidCircleFilled}
+						label='Solid color picker'
+					/>
+					<Tab
+						icon={icons.gradient}
+						label='Gradient editor'
+					/>
+					<Tab
+						icon={icons.color}
+						label='Color swatch'
+					/>
+					<Tab
+						icon={icons.eyedropper}
+						label='Color picker'
+					/>
+					<Tab
+						icon={icons.responsiveOverridesAlt}
+						label='Responsive (legacy)'
+					/>
+					<Tab
+						icon={icons.columnGuttersLR}
+						label='Column config slider'
+					/>
+					<Tab
+						icon={icons.group}
+						label='Container panel'
+					/>
+					<Tab
+						icon={icons.layoutAlt}
+						label='Layout components'
+					/>
+					<Tab
+						icon={icons.emptyCircle}
+						label='Placeholders'
+					/>
+					<Tab
+						icon={icons.cursorMove}
+						label='Draggable'
+					/>
+					<Tab
+						icon={icons.cursorMove}
+						label='Draggable list'
+					/>
+					<Tab
+						icon={icons.options}
+						label='Options panel'
+					/>
+					<Tab
+						icon={icons.previewResponsive}
+						label='Responsive preview'
+					/>
+					<Tab
+						icon={icons.browser}
+						label='Modal'
+					/>
+					<Tab
+						icon={icons.multiple}
+						label='Item collection'
+					/>
+					<Tab
+						icon={icons.file}
+						label='File picker shell'
+					/>
+					<Tab
+						icon={icons.imageLazyLoad}
+						label='Smart image'
+					/>
 				</TabList>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<Toggle
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
@@ -716,7 +833,7 @@ function App() {
 						isIndeterminate={toggled2 === null}
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<Spacer
 						size='s'
 						className='es:bg-violet-50'
@@ -752,7 +869,7 @@ function App() {
 						border
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<div className='es:flex es:min-h-56 es:flex-col es:gap-2 es:rounded-md es:border es:border-dotted es:border-secondary-300 es:p-2'>
 						<ToggleButton
 							className='mx-auto'
@@ -782,7 +899,7 @@ function App() {
 						</span>
 					</div>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:p-5!'>
 					<Expandable
 						standalone
 						icon={icons.experiment}
@@ -923,7 +1040,7 @@ function App() {
 						</Expandable>
 					</div>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<LinkInput
 						url={linkTxt}
 						help='Help, not sure how to input this'
@@ -1000,7 +1117,7 @@ function App() {
 
 					<pre>{JSON.stringify(linkTxt)}</pre>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<Notice
 						label='Lorem ipsum dolor'
 						subtitle='Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
@@ -1070,10 +1187,10 @@ function App() {
 						alignIconToTitle
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<TriggeredPopover className='es:bg-purple-50 es:p-5 es:rounded-2xl'>Hello</TriggeredPopover>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<Button>Hello</Button>
 
 					<ButtonGroup>
@@ -1463,7 +1580,7 @@ function App() {
 						vertical
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<MatrixAlign
 						value={matrixVal}
 						onChange={(value) => setMatrixVal(value)}
@@ -1477,7 +1594,7 @@ function App() {
 						label='Position'
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<Menu
 						aria-label='Bok i tebi'
 						keepOpen
@@ -1729,7 +1846,7 @@ function App() {
 						label='Not set demo'
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:flex es:flex-col es:items-center es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:flex es:flex-col es:items-center es:space-y-4 es:p-5!'>
 					<DecorativeTooltip text='Hello'>Hover me</DecorativeTooltip>
 					<DecorativeTooltip
 						text='Hello'
@@ -1774,7 +1891,7 @@ function App() {
 						<Button>Hover me</Button>
 					</Tooltip>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<NumberPicker
 						label='Pick a number'
 						value={num}
@@ -1941,7 +2058,7 @@ function App() {
 						/>
 					</NumberPicker>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<Responsive
 						icon={icons.emptyRect}
 						label='Font family'
@@ -2059,7 +2176,7 @@ function App() {
 
 					<pre className='es:w-full es:text-xs'>{JSON.stringify(resp2, null, 2)}</pre>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<BaseControl>
 						<Button>Hi</Button>
 					</BaseControl>
@@ -2125,7 +2242,7 @@ function App() {
 						<Button>Hi</Button>
 					</BaseControl>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					{/* <Select
 						label='Single basic'
 						value={sinSel}
@@ -2574,28 +2691,34 @@ function App() {
 						fetchFunction={getDataNew}
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-4xl es:max-h-[85vh] es:h-fit es:overflow-y-auto es:max-w-[90vw] es:space-y-4 es:p-5! es:bg-secondary-50/0!'>
-					<Tabs>
-						<TabList />
-						<TabPanel>Abc</TabPanel>
-					</Tabs>
+				<TabPanel className='es:w-4xl es:max-h-[85vh] es:h-fit es:overflow-y-auto es:max-w-[90vw] es:space-y-4 es:p-5!'>
+					<ContainerGroup>
+						<Container>
+							<Tabs>
+								<TabList />
+								<TabPanel>Abc</TabPanel>
+							</Tabs>
+						</Container>
 
-					<OptionSelect
-						value={tabVar}
-						onChange={setTabVar}
-						options={[
-							{ label: 'Underline', value: 'underline' },
-							{ label: 'Underline (secondary)', value: 'underlineSecondary' },
-							{ label: 'Pill', value: 'pill' },
-							{ label: 'Pill (compact)', value: 'pillCompact' },
-							{ label: 'Bubble', value: 'bubble' },
-							{ label: 'Chips', value: 'chips' },
-						]}
-						type='radios'
-						vertical
-					/>
+						<Container>
+							<OptionSelect
+								value={tabVar}
+								onChange={setTabVar}
+								options={[
+									{ label: 'Underline', value: 'underline' },
+									{ label: 'Underline (secondary)', value: 'underlineSecondary' },
+									{ label: 'Pill', value: 'pill' },
+									{ label: 'Pill (compact)', value: 'pillCompact' },
+									{ label: 'Bubble', value: 'bubble' },
+									{ label: 'Chips', value: 'chips' },
+								]}
+								type='radios'
+								vertical
+							/>
+						</Container>
+					</ContainerGroup>
 
-					<Tabs type={tabVar}>
+					<Tabs className='es:outline es:outline-red-500 es:outline-dashed' type={tabVar}>
 						<TabList>
 							<Tab>Founding of Rome</Tab>
 							<Tab badge='2'>Monarchy and Republic</Tab>
@@ -2622,7 +2745,7 @@ function App() {
 						<TabPanel>Nešto.</TabPanel>
 					</Tabs>
 
-					<Tabs type={tabVar}>
+					<Tabs className='es:outline es:outline-red-500 es:outline-dashed' type={tabVar}>
 						<TabList>
 							<Tab>Founding of Rome</Tab>
 							<Tab badge='2'>Monarchy and Republic</Tab>
@@ -2635,7 +2758,7 @@ function App() {
 						<TabPanel>Nešto.</TabPanel>
 					</Tabs>
 
-					<Tabs type={tabVar}>
+					<Tabs className='es:outline es:outline-red-500 es:outline-dashed' type={tabVar}>
 						<TabList>
 							<Tab>Founding of Rome</Tab>
 							<Tab badge='2'>Monarchy and Republic</Tab>
@@ -2649,6 +2772,7 @@ function App() {
 					<Tabs
 						vertical
 						type={tabVar}
+						className='es:outline es:outline-red-500 es:outline-dashed'
 					>
 						<TabList>
 							<Tab>Founding of Rome</Tab>
@@ -2679,6 +2803,7 @@ function App() {
 					<Tabs
 						vertical
 						type={tabVar}
+						className='es:outline es:outline-red-500 es:outline-dashed'
 					>
 						<TabList>
 							<Tab>Founding of Rome</Tab>
@@ -2697,7 +2822,7 @@ function App() {
 
 				<hr className='es:my-2' />
 
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<InputField
 						value={txt1}
 						onChange={setTxt1}
@@ -2812,7 +2937,7 @@ function App() {
 						placeholder='Type here...'
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<ComponentToggle
 						icon={icons.paragraph}
 						label='Paragraph'
@@ -2883,7 +3008,7 @@ function App() {
 						</div>
 					</ComponentToggle>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<Repeater
 						items={repeaterItems}
 						onChange={setRepeaterItems}
@@ -3025,7 +3150,7 @@ function App() {
 						)}
 					</pre>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<Checkbox
 						checked={toggled && toggled3 && toggled4 && toggled5}
 						indeterminate={(toggled || toggled3 || toggled4 || toggled5) && !(toggled && toggled3 && toggled4 && toggled5)}
@@ -3089,7 +3214,7 @@ function App() {
 						Hello
 					</Checkbox>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<RadioButtonGroup
 						label='Hello'
 						value={radioValue}
@@ -3237,7 +3362,7 @@ function App() {
 						itemProps={{ alignEnd: true }}
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<Slider
 						label='Slider'
 						value={sliderValue}
@@ -3471,7 +3596,7 @@ function App() {
 						markers
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<SolidColorPicker
 						value={currColor}
 						onChange={setCurrColor}
@@ -3503,7 +3628,7 @@ function App() {
 						disabled
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<GradientEditor
 						value={grad}
 						onChange={setGrad}
@@ -3511,7 +3636,7 @@ function App() {
 
 					<code className='es:max-w-60 es:rounded-md es:border es:bg-secondary-50 es:p-1 es:font-mono es:text-xs'>{grad}</code>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<ColorSwatch
 						flat
 						color='red'
@@ -3547,7 +3672,7 @@ function App() {
 						customGradient
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<ColorPicker
 						value={color1}
 						onChange={setColor1}
@@ -3600,7 +3725,7 @@ function App() {
 						showColorCode
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<ResponsiveLegacy
 						icon={icons.help}
 						label='Lorem or ipsum?'
@@ -3709,7 +3834,7 @@ function App() {
 
 					<pre className='es:w-full es:text-xs'>{JSON.stringify(responsiveState3, null, 2)}</pre>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<ColumnConfigSlider
 						icon={icons.columns}
 						label='Column configuration'
@@ -3778,7 +3903,7 @@ function App() {
 					/>
 				</TabPanel>
 
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-0 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-0 es:p-5!'>
 					<ContainerPanel>
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
 					</ContainerPanel>
@@ -3880,7 +4005,7 @@ function App() {
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-300' />
 					</ContainerPanel>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<HStack className='es:max-w-72'>
 						<Button icon={icons.emptyCircle} />
 						<Button icon={icons.emptyCircle} />
@@ -3935,7 +4060,7 @@ function App() {
 						<Button icon={icons.emptyCircle} />
 					</VStack>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<ImagePlaceholder />
 					simple
 					<ImagePlaceholder style='simple' />
@@ -4011,7 +4136,7 @@ function App() {
 						<Button type='simple'>Or don't</Button>
 					</MediaPlaceholder>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<Draggable
 						items={draggableItems}
 						onChange={setDraggableItems}
@@ -4036,7 +4161,7 @@ function App() {
 						}}
 					</Draggable>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<DraggableList
 						label='My draggable list'
 						items={draggableListItems}
@@ -4085,7 +4210,7 @@ function App() {
 						}}
 					</DraggableList>
 				</TabPanel>
-				<TabPanel className='es:w-4xl es:max-h-[85vh] es:h-fit es:overflow-y-auto es:max-w-[90vw] es:space-y-4 es:p-5! es:bg-[#f1f1f1]'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-4xl es:max-h-[85vh] es:h-fit es:overflow-y-auto es:max-w-[90vw] es:space-y-4 es:p-5! es:bg-[#f1f1f1]'>
 					<OptionsPanelHeader
 						title='Global settings'
 						actions={
@@ -4341,7 +4466,7 @@ function App() {
 						</TabPanel>
 					</Tabs>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<ResponsivePreview
 						value={{
 							_default: 'sans',
@@ -4364,7 +4489,7 @@ function App() {
 						breakpointData={globalManifest.globalVariables.breakpoints}
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<p>Auto</p>
 
 					<Modal
@@ -4440,7 +4565,7 @@ function App() {
 						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
 					</Modal>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<ItemCollection
 						items={draggableItems}
 						onChange={setDraggableItems}
@@ -4469,7 +4594,7 @@ function App() {
 						}}
 					</ItemCollection>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<FilePickerShell
 						className='es:w-full'
 						url='myfile.json'
@@ -4655,7 +4780,7 @@ function App() {
 						}
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg'
 						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
