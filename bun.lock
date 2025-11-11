@@ -6,8 +6,6 @@
       "dependencies": {
         "@fontsource-variable/geist": "^5.2.8",
         "@fontsource-variable/geist-mono": "^5.2.7",
-        "@fontsource-variable/playpen-sans": "^5.2.9",
-        "@fontsource-variable/readex-pro": "^5.2.11",
         "@fontsource-variable/roboto-flex": "^5.2.8",
         "motion": "^12.23.24",
       },
@@ -208,10 +206,6 @@
     "@fontsource-variable/geist": ["@fontsource-variable/geist@5.2.8", "", {}, "sha512-cJ6m9e+8MQ5dCYJsLylfZrgBh6KkG4bOLckB35Tr9J/EqdkEM6QllH5PxqP1dhTvFup+HtMRPuz9xOjxXJggxw=="],
 
     "@fontsource-variable/geist-mono": ["@fontsource-variable/geist-mono@5.2.7", "", {}, "sha512-ZKlZ5sjtalb2TwXKs400mAGDlt/+2ENLNySPx0wTz3bP3mWARCsUW+rpxzZc7e05d2qGch70pItt3K4qttbIYA=="],
-
-    "@fontsource-variable/playpen-sans": ["@fontsource-variable/playpen-sans@5.2.9", "", {}, "sha512-MET5qmJ9izZUhS5eQICWmofUDc8Muuf7sXLqN0NxSpdrpVfKaP6DY/dOeVBLqU6D6lyMh9KRuDEQ4UfpszN+ig=="],
-
-    "@fontsource-variable/readex-pro": ["@fontsource-variable/readex-pro@5.2.11", "", {}, "sha512-qBMhvaJ3yiMEhPmo0UPJA61i08+gFEHbu65WblSENvMYy1zB8ntpNjdXgUbKHCW5LYkaMReWAMD4q+B6LU8Q7Q=="],
 
     "@fontsource-variable/roboto-flex": ["@fontsource-variable/roboto-flex@5.2.8", "", {}, "sha512-Q9zbz+P2VrDeIxBu9YAIG+eYpLmQF5FIJEEwAWn8En9Lao1TOISnoYcywGV+jSv7LGsHEndCR8hveXPnvCBEQQ=="],
 

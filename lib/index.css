@@ -1,8 +1,6 @@
 /* Fonts */
 @import '@fontsource-variable/geist';
 @import '@fontsource-variable/geist-mono';
-@import '@fontsource-variable/readex-pro/hexp.css';
-@import '@fontsource-variable/playpen-sans';
 @import '@fontsource-variable/roboto-flex/full.css';
 
 /* Tailwind */
@@ -10,6 +8,7 @@
 
 @theme {
 	--font-sans: 'Roboto Flex Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+	--font-geist: 'Geist Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 	--font-mono: 'Geist Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
 	--default-transition-duration: 300ms;

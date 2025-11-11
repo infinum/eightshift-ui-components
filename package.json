@@ -103,8 +103,6 @@
 	"dependencies": {
 		"@fontsource-variable/geist": "^5.2.8",
 		"@fontsource-variable/geist-mono": "^5.2.7",
-		"@fontsource-variable/playpen-sans": "^5.2.9",
-		"@fontsource-variable/readex-pro": "^5.2.11",
 		"@fontsource-variable/roboto-flex": "^5.2.8",
 		"motion": "^12.23.24"
 	}
