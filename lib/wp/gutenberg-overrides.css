@@ -49,14 +49,7 @@ button.components-toggle-group-control-option-base,
 .components-base-control__label,
 .components-input-control__label,
 .components-custom-select-control__label {
-	@apply es:normal-case! es:text-[13px]! es:tracking-normal! es:font-normal!;
-}
-
-/* Increase sidebar width */
-.edit-post-sidebar,
-.interface-interface-skeleton__sidebar:not(:empty) > .interface-complementary-area__fill[style='width: 280px;'], /* WP6.6 is weird. */
-.interface-complementary-area.editor-sidebar {
-	@apply es:w-80!;
+	@apply es:normal-case! es:text-13! es:tracking-normal! es:font-normal!;
 }
 
 /* Make block crash message nicer. */
@@ -85,7 +78,7 @@ button.components-toggle-group-control-option-base,
 
 /* Tweak inserter buttons */
 .block-editor-block-types-list .block-editor-block-types-list__item {
-	@apply es:rounded-lg! es:after:rounded-lg! es:[&_svg]:scale-125;
+	@apply es:rounded-lg! es:after:rounded-lg! es:any-icon:scale-125;
 }
 
 /* Tweak list view block icons */
@@ -118,11 +111,6 @@ button.components-toggle-group-control-option-base,
 	.components-button {
 		@apply es:min-h-9! es:min-w-9!;
 	}
-}
-
-/* Allow blocks to expand to full-width. */
-.editor-styles-wrapper .wp-block:not(.editor-post-title, .block-list-appender) {
-	@apply es:max-w-full!;
 }
 
 /* Nicer-looking Gutenberg tooltip. */
