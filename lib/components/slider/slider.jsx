@@ -72,7 +72,7 @@ export const Slider = (props) => {
 		max = 100,
 		step = 1,
 
-		startPoint,
+		startPoint: rawStartPoint,
 
 		markers,
 
@@ -114,7 +114,9 @@ export const Slider = (props) => {
 		return null;
 	}
 
-	if (Array.isArray(value) && startPoint) {
+	let startPoint = rawStartPoint;
+
+	if (Array.isArray(value) && rawStartPoint) {
 		startPoint = null;
 	}
 
