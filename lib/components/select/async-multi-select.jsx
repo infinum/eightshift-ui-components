@@ -1,15 +1,18 @@
-import { __, _n } from '@wordpress/i18n';
+import { __, _n, sprintf } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
-import { Label, ListBox, Popover, Button, Autocomplete, SearchField, Input, DialogTrigger, useDragAndDrop, ListBoxItem, Text, DropIndicator } from 'react-aria-components';
+import { Label, ListBox, Popover, Button, Autocomplete, SearchField, Input, Select, SelectValue } from 'react-aria-components';
 import { cloneElement } from 'react';
-import { icons } from '../../icons';
-import { OptionItemBase } from './shared';
-import { useRef, useEffect } from 'react';
+import { icons, Spinner } from '../../icons';
+import { OptionItemBase, SelectClearButton } from './shared';
+import { useRef } from 'react';
 import { RichLabel } from '../rich-label/rich-label';
-import clsx from 'clsx';
 import { useAsyncList } from 'react-stately';
-import { truncateEnd, unescapeHTML } from '../../utilities';
-import { moveArrayItem } from './shared';
+import { unescapeHTML } from '../../utilities';
+import { cva } from 'class-variance-authority';
+import { TriggeredPopover } from '../popover/popover';
+import { DraggableList } from '../draggable-list/draggable-list';
+import { DraggableListItem } from '../draggable-list/draggable-list-item';
+import clsx from 'clsx';
 
 /**
  * Async multi-select menu.
@@ -42,14 +45,19 @@ import { moveArrayItem } from './shared';
  * @param {JSX.Element} [props.customDropdownArrow] - If provided, replaces the default dropdown arrow indicator.
  * @param {string} props.className - Classes to pass to the select menu.
  * @param {boolean} [props.noMinWidth=false] - If `true`, the select menu will not have a minimum width.
+ * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
+ * @param {boolean} [props.noReorder] - If `true`, the option for reordering selected items is disabled.
+ * @param {SelectSize} [props.size='default'] - Sets the size of the input field.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
- * @returns {JSX.Element} The __AsyncMultiSelectNext component.
+ * @typedef {'small' | 'medium' | 'default' | 'large'} SelectSize
+ *
+ * @returns {JSX.Element} The AsyncMultiSelect component.
  *
  * @example
  * const [value, setValue] = useState(null);
  *
- * <__AsyncMultiSelectNext
+ * <AsyncMultiSelect
  * 	label='Select items'
  * 	value={value}
  * 	onChange={setValue}
@@ -94,7 +102,11 @@ export const AsyncMultiSelect = (props) => {
 
 		className,
 
-		noMinWidth,
+		flat,
+		size = 'default',
+		noMinWidth = false,
+
+		noReorder,
 
 		hidden,
 
@@ -120,7 +132,7 @@ export const AsyncMultiSelect = (props) => {
 			const output = json?.map((item, index) => {
 				const id = getValue?.(item) ?? index;
 
-				const entry = { label: unescapeHTML(getLabel?.(item) ?? ''), value: id };
+				const entry = { ...item, label: unescapeHTML(getLabel?.(item) ?? ''), value: id };
 
 				if (getMeta) {
 					entry.meta = getMeta(item);
@@ -192,136 +204,232 @@ export const AsyncMultiSelect = (props) => {
 
 	const ref = useRef();
 
-	let { dragAndDropHooks } = useDragAndDrop({
-		getItems: (keys) => [...keys].map((key) => ({ 'text/plain': key, text: value.find((item) => item.value === key)?.label ?? key })),
-		onReorder(e) {
-			handleSelectionChange(
-				new Set(
-					moveArrayItem(
-						value?.map((item) => item?.value),
-						[...e.keys][0],
-						e.target.key,
-						e.target.dropPosition,
-					),
-				),
-			);
-		},
-		renderDragPreview(items) {
-			return (
-				<div className='es:bg-accent-700 es:rounded-md es:px-1.5 es:py-0.5 es:text-white es:translate-x-7 es:translate-y-6'>
-					{truncateEnd(items[0]['text'], 20)}
-					{items.length > 1 && <span className='badge'>{items.length}</span>}
-				</div>
-			);
-		},
-		renderDropIndicator(target) {
-			return (
-				<DropIndicator
-					target={target}
-					className='es:w-0.75 es:h-5.5 es:rounded-md es:transition es:inset-ring-0 es:drop-target:bg-accent-600 es:bg-accent-700/30 es:any-focus:outline-hidden es:any-focus:inset-ring-0'
-				/>
-			);
-		},
-		isDisabled: disabled || value.length < 2,
-	});
+	const currentValueKeys = value?.map((item) => item?.value ?? item);
 
 	// Handle external value changes.
-	useEffect(() => {
-		if (list.selectedKeys.size !== (value ?? []).length) {
-			list.setSelectedKeys(new Set(value?.map((item) => item?.value)));
-			list.setFilterText('');
-		}
-	}, [value]);
+	// useEffect(() => {
+	// 	if (list.selectedKeys.size !== (value ?? []).length) {
+	// 		list.setSelectedKeys(new Set(value?.map((item) => item?.value)));
+	// 		list.setFilterText('');
+	// 	}
+	// }, [value]);
+
+	const selectClass = cva(
+		[
+			'es:relative',
+			'es:flex es:items-center es:gap-px',
+			'es:leading-none',
+			'es:rounded-lg es:hover:rounded-xl es:has-focus-visible:rounded-2xl es:group-open:rounded-2xl',
+			'es:transition-plus',
+			'es:any-focus:outline-hidden',
+			'es:inset-ring',
+			'es:has-focus-visible:ring-2 es:has-focus-visible:ring-accent-500/30',
+			'es:has-focus-visible:text-accent-950 es:has-focus-visible:inset-ring-accent-500',
+			'es:pr-8',
+			'es:focus:placeholder:text-surface-400',
+			!noMinWidth && 'es:min-w-48',
+			!inline && 'es:w-fill',
+			className,
+		],
+		{
+			variants: {
+				size: {
+					small: ['es:min-h-8', 'es:px-2.5'],
+					medium: ['es:min-h-9', 'es:px-3'],
+					default: ['es:min-h-10', 'es:px-3'],
+					large: ['es:min-h-12', 'es:px-4'],
+				},
+				disabled: {
+					false: 'es:selection:bg-surface-100 es:selection:text-accent-800',
+					true: 'es:selection:bg-secondary-200 es:selection:text-secondary-600',
+				},
+			},
+			compoundVariants: [
+				{
+					flat: false,
+					disabled: false,
+					class: [
+						'es:bg-white',
+						'es:bg-linear-to-b es:from-secondary-100/0 es:to-secondary-100/50 es:from-25%',
+						'es:hover:from-surface-100/0 es:hover:to-surface-100/50',
+						'es:inset-ring-secondary-400/50 es:hover:inset-ring-surface-300 es:focus:inset-ring-surface-400',
+						'es:inset-shadow-sm es:inset-shadow-secondary-100/50',
+						'es:hover:placeholder:text-surface-400',
+						'es:placeholder:text-secondary-400',
+						'es:shadow-xs es:shadow-black/5',
+					],
+				},
+				{
+					flat: true,
+					disabled: false,
+					class: [
+						'es:inset-ring-secondary-100',
+						'es:focus:text-accent-950',
+						'es:placeholder:text-secondary-500/80',
+						'es:bg-secondary-100 es:focus:bg-surface-50',
+						'es:inset-ring-secondary-200/15 es:hover:inset-ring-secondary-200/65 es:focus:inset-ring-surface-200',
+					],
+				},
+				{ disabled: true, class: ['es:bg-secondary-50 es:inset-ring-secondary-200 es:text-secondary-400'] },
+				{ readOnly: true, flat: false, class: ['es:bg-secondary-50 es:inset-ring-secondary-300 es:text-secondary-400'] },
+				{ readOnly: true, flat: true, class: ['es:bg-secondary-50 es:inset-ring-secondary-300/60 es:text-secondary-400'] },
+			],
+			defaultVariants: { disabled: false, flat: false, size: 'default' },
+		},
+	);
 
 	if (hidden) {
 		return null;
 	}
 
 	return (
-		<BaseControl
-			label={label}
-			icon={icon}
-			subtitle={subtitle}
-			actions={actions}
-			help={help}
-			inline={inline}
-			labelAs={Label}
+		<Select
+			selectionMode='multiple'
+			isDisabled={disabled}
+			value={currentValueKeys}
+			onChange={(selected) => handleSelectionChange(selected)}
+			placeholder={placeholder}
 			{...rest}
+			className={clsx('es:group es:w-fill', rest?.className)}
 		>
-			<DialogTrigger
-				onOpenChange={(isOpen) => {
-					if (!isOpen) {
-						list.setFilterText('');
-					}
-				}}
+			<BaseControl
+				label={label}
+				icon={icon}
+				subtitle={subtitle}
+				actions={actions}
+				help={help}
+				inline={inline}
+				labelAs={Label}
 			>
-				<Button
-					aria-label={__('Select items', 'eightshift-ui-components')}
-					className={clsx(
-						'es:group',
-						'es:relative es:flex es:items-center es:gap-1 es:py-0.75 es:pl-0.75 es:pr-1.5 es:focus-visible:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
-						'es:min-h-9 es:rounded-10 es:border es:border-secondary-300 es:bg-white es:text-sm es:shadow-sm es:transition',
-						'es:inset-ring es:inset-ring-secondary-100',
-						'es:any-focus:outline-hidden',
-						!noMinWidth && 'es:min-w-48',
-						!inline && 'es:w-full',
-						disabled && 'es:select-none es:shadow-none!',
-						'es:has-[[aria-haspopup=listbox][data-focus-visible=true],[aria-autocomplete=list][data-focus-visible=true]]:border-accent-500 es:has-[[aria-haspopup=listbox][data-focus-visible=true],[aria-autocomplete=list][data-focus-visible=true]]:ring-2 es:has-[[aria-haspopup=listbox][data-focus-visible=true],[aria-autocomplete=list][data-focus-visible=true]]:ring-accent-500/50',
-						className,
-					)}
+				<div
+					className={selectClass({ disabled, flat, size })}
 					ref={ref}
 				>
-					<ListBox
-						aria-label={__('Selected items', 'eightshift-ui-components')}
-						layout='grid'
-						items={value}
-						selectionMode='none'
-						dependencies={[value]}
-						className='es:peer es:w-full es:flex es:items-center es:flex-wrap es:gap-0.75 es:has-dragging:inset-ring-1 es:has-dragging:inset-ring-accent-500/10 es:rounded-md es:transition es:leading-tight'
-						renderEmptyState={() => <div className='es:text-secondary-500 es:pl-1.5 es:flex es:items-center'>{placeholder}</div>}
-						dragAndDropHooks={dragAndDropHooks}
+					<Button className='es:any-focus:outline-hidden es:text-start es:size-full es:inline-block es:group es:overflow-x-clip'>
+						<SelectValue className='es:select-none es:pointer-events-none'>
+							{({ isPlaceholder, selectedItems }) => {
+								const [selectedItem] = selectedItems;
+
+								if (!currentValueKeys?.length || isPlaceholder) {
+									return <span className='es:select-none es:pointer-events-none es:pr-6 es:text-sm es:text-surface-500'>{placeholder}</span>;
+								}
+
+								let icon = getIcon ? getIcon(selectedItem) : (selectedItem?.icon ?? null);
+
+								if (typeof selectedItem?.icon === 'string') {
+									icon = icons?.[selectedItem.icon] ?? null;
+								}
+
+								if (selectedItems.length > 1) {
+									return (
+										<RichLabel
+											icon={icons.multiple}
+											label={sprintf(_n('%s item', '%s items', selectedItems.length, 'eightshift-ui-components'), selectedItems.length)}
+											subtitle={selectedItems.map((item) => item?.label ?? item).join(', ')}
+											subtitleClassName='es:line-clamp-1 es:max-w-56'
+										/>
+									);
+								}
+
+								if (!isPlaceholder && value && customValueDisplay) {
+									return customValueDisplay(selectedItem);
+								}
+
+								return (
+									<RichLabel
+										icon={icon}
+										label={selectedItem?.label}
+										subtitle={selectedItem?.subtitle}
+										className={clsx('es:pr-6 es:grow es:w-full', disabled && 'es:grayscale es:pointer-events-none')}
+										iconClassName='es:pointer-events-none es:select-none'
+										labelClassName='es:line-clamp-1'
+										subtitleClassName='es:line-clamp-1'
+									/>
+								);
+							}}
+						</SelectValue>
+
+						<div
+							className={clsx('es:absolute es:bottom-0 es:right-3 es:top-0 es:my-auto es:flex es:items-center', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}
+							aria-hidden='true'
+						>
+							{!customDropdownArrow &&
+								cloneElement(icons.dropdownCaret, {
+									className: 'es:w-4 es:stroke-[1.2] es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
+								})}
+
+							{customDropdownArrow && (
+								<div
+									aria-hidden='true'
+									className='es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200'
+								>
+									{customDropdownArrow}
+								</div>
+							)}
+						</div>
+					</Button>
+
+					{clearable && <SelectClearButton multi />}
+
+					<TriggeredPopover
+						aria-label={__('Item order', 'eightshift-ui-components')}
+						triggerButtonIcon={icons.reorder}
+						triggerButtonProps={{
+							size: 'small',
+							type: 'ghost',
+							className: 'es:icon:opacity-80 es:size-7!',
+							'aria-label': __('Reorder', 'eightshift-ui-components'),
+							tooltip: true,
+							slot: null,
+						}}
+						className='es:grid es:grid-cols-1 es:grid-rows-[auto_minmax(0,1fr)] es:p-0!'
+						wrapperClassName='es:w-72 es:px-1.5 es:h-fit es:from-surface-300/35 es:to-surface-300/35 es:overflow-clip'
+						hidden={noReorder || disabled || value?.length < 2}
 					>
-						{(item) => (
-							<ListBoxItem
-								id={item?.value}
-								textValue={item?.label}
-								className={clsx(
-									'es:inset-ring es:inset-ring-secondary-200/30 es:h-7 es:bg-secondary-100 es:focus-visible:inset-ring-accent-500 es:dragging:cursor-grabbing es:focus:outline-hidden es:py-1 es:px-1.5 es:rounded-7 es:dragging:inset-ring-accent-600/20 es:dragging:bg-transparent es:dragging:text-accent-600/40 es:transition es:flex es:items-center es:gap-1',
-									!disabled && value.size >= 2 && 'es:cursor-move',
-								)}
-							>
-								{customValueDisplay && customValueDisplay(truncateEnd(item?.label, 20), item)}
-								{!customValueDisplay && <Text slot='label'>{truncateEnd(item?.label, 20)}</Text>}
-							</ListBoxItem>
-						)}
-					</ListBox>
+						<span className='es:text-lg es:mx-auto es:my-1 es:font-variation-["wdth"_140,"wght"_320] es:text-surface-600'>{__('Item order', 'eightshift-ui-components')}</span>
 
-					<div className='es:shrink-0 es:ml-auto es:peer-has-dragging:hidden'>
-						{!customDropdownArrow &&
-							cloneElement(icons.dropdownCaretAlt, {
-								className: 'es:shrink-0 es:w-4 es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
-							})}
+						<DraggableList
+							items={value}
+							onChange={(value) => {
+								handleSelectionChange(new Set(value?.map((item) => item?.value ?? item)));
+							}}
+							className='es:contents'
+							itemContainerClassName='es:h-full es:max-h-60 es:overflow-y-auto es:pb-1.5 es:mt-0'
+							itemClassName='es:z-999999'
+						>
+							{(item) => {
+								const realItem = list.getItem(item?.value);
 
-						{customDropdownArrow && (
-							<div
-								aria-hidden='true'
-								className='es:shrink-0 es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200'
-							>
-								{customDropdownArrow}
-							</div>
-						)}
-					</div>
-				</Button>
+								let icon = getIcon ? getIcon(realItem) : (realItem?.icon ?? null);
+
+								if (typeof realItem?.icon === 'string') {
+									icon = icons?.[realItem.icon] ?? null;
+								}
+
+								return (
+									<DraggableListItem
+										icon={icon}
+										label={realItem?.label}
+										subtitle={realItem?.subtitle}
+										iconClassName='es:pointer-events-none es:select-none'
+										labelClassName='es:line-clamp-1'
+										subtitleClassName='es:line-clamp-1'
+										className={clsx('es:min-h-8 es:flex es:items-center es:justify-between', realItem?.icon ? 'es:pl-1' : 'es:pl-2')}
+									/>
+								);
+							}}
+						</DraggableList>
+					</TriggeredPopover>
+				</div>
 
 				<Popover
-					aria-label={__('Items', 'eightshift-ui-components')}
 					className={({ isEntering, isExiting }) =>
 						clsx(
 							'es:w-(--trigger-width) es:min-w-72',
 							'es:outline-hidden',
 							'es:rounded-b-xl es:rounded-t-3xl',
 							'es:overflow-clip es:grid es:grid-cols-1',
-							'es:grid-rows-[auto_auto_minmax(0,1fr)]',
+							'es:grid-rows-[auto_minmax(0,1fr)]',
 							'es:has-last-selected:rounded-b-20!',
 							'es:inset-ring es:inset-ring-surface-500/10',
 							'es:inset-shadow-sm es:inset-shadow-white/30',
@@ -340,7 +448,7 @@ export const AsyncMultiSelect = (props) => {
 						)
 					}
 					placement='bottom left'
-					maxHeight={360}
+					maxHeight={260}
 					triggerRef={ref}
 				>
 					<Autocomplete
@@ -349,21 +457,23 @@ export const AsyncMultiSelect = (props) => {
 					>
 						<SearchField
 							aria-label={__('Search', 'eightshift-ui-components')}
-							className={clsx(
-								'es:flex es:items-center es:bg-accent-900/9 es:m-1.5 es:rounded-3xl es:relative es:inset-ring es:inset-ring-accent-950/4',
-								// clearable && value.length > 0 && 'es:mb-0!',
-							)}
-							autoFocus
+							className='es:flex es:items-center es:relative'
 						>
 							<Input
 								placeholder={__('Search...', 'eightshift-ui-components')}
-								className='es:peer es:size-full es:h-9.5 es:outline-hidden es:px-3.5 es:shadow-none es:text-sm es:placeholder:text-surface-500 es:[&::-webkit-search-cancel-button]:hidden'
+								className={clsx(
+									'es:peer es:size-full es:h-9.5 es:outline-hidden es:pl-3.5 es:pr-9 es:shadow-none es:text-13 es:placeholder:text-surface-500 es:[&::-webkit-search-cancel-button]:hidden',
+									'es:bg-accent-900/8 es:m-1.5 es:rounded-3xl',
+									'es:inset-ring es:inset-ring-accent-950/7 es:focus:inset-ring-accent-950/20',
+									'es:text-accent-950 es:placeholder:text-accent-700/50',
+									'es:transition',
+								)}
 							/>
 
 							<Button
 								aria-label={__('Clear', 'eightshift-ui-components')}
 								className={clsx(
-									'es:absolute es:right-1.5 es:top-0 es:bottom-0 es:my-auto',
+									'es:absolute es:right-3 es:top-0 es:bottom-0 es:my-auto',
 									'es:flex es:size-7 es:items-center es:justify-center es:rounded-3xl es:text-sm es:text-secondary-600 es:transition es:hover:bg-accent-50 es:hover:text-accent-800 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
 									'es:peer-placeholder-shown:opacity-0',
 								)}
@@ -372,33 +482,14 @@ export const AsyncMultiSelect = (props) => {
 							</Button>
 						</SearchField>
 
-						{/* {clearable && value.length > 0 && (
-							<Button
-								slot='close'
-								onPress={() => handleSelectionChange([])}
-								className={clsx(
-									'es:flex es:h-10 es:m-1.5 es:select-none es:items-center es:gap-1 es:rounded-xl',
-									'es:transition es:scroll-m-1.5',
-									'es:px-3 es:py-1.75',
-									'es:any-focus:outline-hidden es:overflow-clip',
-									'es:bg-white/40',
-								)}
-							>
-								<RichLabel
-									icon={icons.clearAlt}
-									label={__('Clear selection', 'eightshift-ui-components')}
-								/>
-							</Button>
-						)} */}
-
 						{list.isLoading && (
 							<div className='es:p-3 es:min-h-16 es:flex es:items-center es:justify-center'>
-								{cloneElement(icons.loader, { className: 'es:text-accent-600! es:size-5 es:motion-preset-spin es:motion-duration-1500' })}
+								<Spinner />
 							</div>
 						)}
 
 						<ListBox
-							className='es:space-y-0.75 es:p-1.5 es:pt-0 es:any-focus:outline-hidden es:h-full es:overflow-y-auto es:rounded-t-xl'
+							className={clsx('es:space-y-0.75 es:p-1.5 es:pt-0 es:any-focus:outline-hidden es:h-full es:overflow-y-auto es:rounded-t-xl', list?.isLoading && 'es:hidden')}
 							items={list.items}
 							selectedKeys={list.selectedKeys}
 							selectionMode='multiple'
@@ -407,7 +498,6 @@ export const AsyncMultiSelect = (props) => {
 								list.setSelectedKeys(selected);
 								handleSelectionChange(selected);
 							}}
-							dependencies={[value]}
 							renderEmptyState={() => (
 								<RichLabel
 									icon={icons.searchEmpty}
@@ -438,6 +528,8 @@ export const AsyncMultiSelect = (props) => {
 												icon={icon}
 												label={item?.label}
 												subtitle={item?.subtitle}
+												labelClassName='es:line-clamp-1'
+												subtitleClassName='es:line-clamp-1'
 												noColor
 											/>
 										)}
@@ -447,7 +539,7 @@ export const AsyncMultiSelect = (props) => {
 						</ListBox>
 					</Autocomplete>
 				</Popover>
-			</DialogTrigger>
-		</BaseControl>
+			</BaseControl>
+		</Select>
 	);
 };
