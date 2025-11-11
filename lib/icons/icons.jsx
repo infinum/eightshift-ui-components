@@ -2008,7 +2008,7 @@ export const icons = {
 	),
 	clear: (
 		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='m2 2 8 8m0 0 8 8m-8-8 8-8m-8 8-8 8' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<path d='m3 3 7 7m0 0 7 7m-7-7 7-7m-7 7-7 7' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
 		</svg>
 	),
 	dropdownCaret: (
@@ -5218,6 +5218,17 @@ export const icons = {
 			<path d='M17 1.5H7A1.5 1.5 0 0 0 5.5 3v2.5H7A2.5 2.5 0 0 1 9.5 8v3.5H17a1.5 1.5 0 0 0 1.5-1.5V3A1.5 1.5 0 0 0 17 1.5Z' fill='currentColor' />
 			<path d='M11.5 14.5v-3m0 3H9.179m2.321 0h2.321m-2.321-3H17a1.5 1.5 0 0 0 1.5-1.5V3A1.5 1.5 0 0 0 17 1.5H7A1.5 1.5 0 0 0 5.5 3v2.5H7A2.5 2.5 0 0 1 9.5 8v3.5h2Z' stroke='currentColor' strokeLinecap='round' fill='none' />
 			<rect x='1' y='7' width='7' height='12' rx='1.5' fill='currentColor' />
+		</svg>
+	),
+	reorder: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path stroke='currentColor' strokeLinecap='round' d='M2.5 5.5h15m-15 3h15m-15 3h15m-15 3h15' fill='none' />
+			<path d='M12.148 3H7.852a.5.5 0 0 1-.326-.88L9.675.28a.5.5 0 0 1 .65 0l2.149 1.841a.5.5 0 0 1-.326.88Zm0 14H7.852a.5.5 0 0 0-.326.88l2.149 1.841a.5.5 0 0 0 .65 0l2.149-1.841a.5.5 0 0 0-.326-.88Z' fill='currentColor' />
+		</svg>
+	),
+	loaderAlt: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M10 19v-2m-9-7h2m13.367 6.367-1.414-1.414m-11.32 1.414 1.414-1.414M10 3V1m7 9h2M5.047 5.047 3.633 3.633m11.32 1.414 1.414-1.414M10 17v-1.555M3 10h1.555m10.396 4.951-1.1-1.1m-8.803 1.1 1.1-1.1M10 4.556V3m5.444 7H17M6.147 6.147l-1.1-1.1m8.806 1.1 1.1-1.1' stroke='currentColor' strokeLinecap='round' fill='none' />
 		</svg>
 	),
 };
