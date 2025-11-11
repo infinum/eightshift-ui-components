@@ -1,6 +1,7 @@
 import { clsx } from 'clsx/lite';
 import { __ } from '@wordpress/i18n';
-import { BaseControl } from '../base-control/base-control';
+import { HStack } from '../layout/hstack';
+import { RichLabel } from '../rich-label/rich-label';
 import { icons } from '../../icons';
 import { cloneElement } from 'react';
 
@@ -23,24 +24,30 @@ import { cloneElement } from 'react';
  * @preserve
  */
 export const DraggableListItem = (props) => {
-	const { children, icon, label, subtitle, className, ...rest } = props;
+	const { children, icon, label, subtitle, className, iconClassName, labelClassName, subtitleClassName, labelContainerClassName, ...rest } = props;
 
 	return (
-		<BaseControl
-			icon={icon}
-			label={label}
-			subtitle={subtitle}
+		<HStack
 			className={clsx('es:w-fill es:group', className)}
-			fullWidthLabel
-			inline
 			{...rest}
 		>
+			<RichLabel
+				icon={icon}
+				label={label}
+				subtitle={subtitle}
+				className={labelContainerClassName}
+				iconClassName={iconClassName}
+				labelClassName={labelClassName}
+				subtitleClassName={subtitleClassName}
+				fullWidthLabel
+				inline
+			/>
+			{children}
+
 			{cloneElement(icons.reorderGrabberV, {
 				className: 'es:opacity-0 es:transition-opacity es:group-focus-visible:opacity-100 es:text-secondary-400 es:size-4 es:group-hover:opacity-100 es:ml-auto',
 			})}
-
-			{children}
-		</BaseControl>
+		</HStack>
 	);
 };
 
