@@ -137,6 +137,10 @@ export const Menu = (props) => {
 			</Button>
 			<Popover
 				aria-label={ariaLabel}
+				popoverProps={{
+					maxHeight: Math.max(240, window.innerHeight * 0.42),
+					...popoverProps,
+				}}
 				{...popoverProps}
 				className={clsx('es:p-1.5 es:any-focus:outline-hidden', !manualWidth && 'es:w-56', manualWidth && 'es:max-w-80', popoverProps?.className)}
 				wrapperClassName={clsx(!hasSubmenuItems && 'es:overflow-y-auto', popoverProps?.wrapperClassName)}
