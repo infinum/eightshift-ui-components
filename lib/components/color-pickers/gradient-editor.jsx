@@ -261,10 +261,7 @@ export const GradientEditor = (props) => {
 							);
 						}}
 						noActiveHighlight
-						// trackStyle={{
-						// 	backgroundImage: getGradientResult({ orientation: { type: 'directional', value: 'right' }, stops: gradientData.stops }, 'linear'),
-						// }}
-						// trackBgGradientSupport
+						tooltipContent={(value) => `${Math.round(value)}%`}
 					/>
 				</Container>
 			</ContainerGroup>
@@ -277,7 +274,6 @@ export const GradientEditor = (props) => {
 						onChange={(value) => onChange(getGradientResult({ stops: gradientData.stops }, value))}
 						options={gradientTypes}
 						type='toggleButtons'
-						itemProps={{ type: 'simple' }}
 						inline
 					/>
 				</Container>
@@ -306,7 +302,6 @@ export const GradientEditor = (props) => {
 							triggerIcon={icons.sliders}
 							triggerProps={{
 								tooltip: __('Presets', 'eightshift-ui-components'),
-								type: 'simple',
 								slot: null,
 							}}
 							keepOpen
@@ -470,6 +465,7 @@ export const GradientEditor = (props) => {
 									<TriggeredPopover
 										triggerButtonIcon={icons.color}
 										triggerButtonProps={{ size: 'small', type: 'ghost' }}
+										className='es:p-2.5'
 									>
 										<SolidColorPicker
 											value={color}
