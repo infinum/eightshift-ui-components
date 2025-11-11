@@ -1,9 +1,9 @@
 import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
-import { Select as ReactAriaSelect, Label, ListBox, Popover, Button, SelectValue, SelectStateContext, Autocomplete, SearchField, Input, useFilter } from 'react-aria-components';
-import { useContext, cloneElement } from 'react';
+import { Select as ReactAriaSelect, Label, ListBox, Popover, Button, SelectValue, Autocomplete, SearchField, Input, useFilter } from 'react-aria-components';
+import { cloneElement } from 'react';
 import { icons } from '../../icons';
-import { OptionItemBase } from './shared';
+import { OptionItemBase, SelectClearButton } from './shared';
 import { useRef } from 'react';
 import { RichLabel } from '../rich-label/rich-label';
 import { cva } from 'class-variance-authority';
@@ -37,7 +37,7 @@ import { clsx } from 'clsx/lite';
  * @param {SelectSize} [props.size='default'] - Sets the size of the input field.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
- * @returns {JSX.Element} The SelectNext component.
+ * @returns {JSX.Element} The Select component.
  *
  * @typedef {'small' | 'medium' | 'default' | 'large'} SelectSize
  *
@@ -50,7 +50,7 @@ import { clsx } from 'clsx/lite';
  * 	{ label: 'Option 3', value: 'option-3' },
  * ];
  *
- * <SelectNext
+ * <Select
  * 	label='Select items'
  * 	options={loadOptions}
  * 	value={value}
@@ -109,7 +109,7 @@ export const Select = (props) => {
 	const selectClass = cva(
 		[
 			'es:relative',
-			'es:flex es:items-center es:gap-1',
+			'es:flex es:items-center es:gap-px',
 			'es:leading-none',
 			'es:rounded-lg es:hover:rounded-xl es:has-focus-visible:rounded-2xl es:group-open:rounded-2xl',
 			'es:transition-plus',
@@ -250,7 +250,7 @@ export const Select = (props) => {
 						</SelectValue>
 
 						<div
-							className={clsx('es:absolute es:bottom-0 es:right-2.5 es:top-0 es:my-auto es:flex es:items-center', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}
+							className={clsx('es:absolute es:bottom-0 es:right-3 es:top-0 es:my-auto es:flex es:items-center', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}
 							aria-hidden='true'
 						>
 							{!customDropdownArrow &&
@@ -350,6 +350,7 @@ export const Select = (props) => {
 										<OptionItemBase
 											id={item.value}
 											className={item?.className}
+											selectIndicator
 										>
 											{customMenuOption && customMenuOption(item)}
 
@@ -394,6 +395,7 @@ export const Select = (props) => {
 									<OptionItemBase
 										id={item.value}
 										className={item?.className}
+										selectIndicator
 									>
 										{customMenuOption && customMenuOption(item)}
 										{!customMenuOption && (
@@ -412,25 +414,5 @@ export const Select = (props) => {
 				</Popover>
 			</BaseControl>
 		</ReactAriaSelect>
-	);
-};
-
-const SelectClearButton = () => {
-	const state = useContext(SelectStateContext);
-
-	const isEmpty = state?.value === null;
-
-	return (
-		<Button
-			aria-label={__('Clear value', 'eightshift-ui-components')}
-			className={clsx(
-				'es:mr-0 es:flex es:h-7 es:pl-1 es:pr-1.25 es:items-center es:justify-center es:rounded-lg es:text-secondary-600 es:transition es:hover:bg-red-700/4 es:hover:text-red-600 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
-				isEmpty ? 'es:hidden' : 'es:flex',
-			)}
-			onPress={() => state?.setValue(null)}
-			slot={null}
-		>
-			{icons.clearAlt}
-		</Button>
 	);
 };
