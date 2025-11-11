@@ -13,7 +13,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Added `flat` prop to most components, to allow disabling shadow when e.g. nesting components.
 - **(Semi-breaking)** changed `NumberPicker` sizes to match `InputField` sizes. `'compact' | 'small' | 'default'` -> `'small' | 'medium' | 'default' | 'large'`
 - `Button` will now horizontally center its content, regardless of whether an icon is set
-- Added 3 UI icons
+- Added 5 UI icons, updated 1.
 - Deprecated `ComponentToggle` component. Use an alternate toggle + layout solution instead.
 - `Expandable` will now adapt its border radius to surrounding components. You can disable this with the `standalone` prop.
 - `SmartImage` will now fallback to synchronous analysis if async (web worker-based) analysis fails.
@@ -86,7 +86,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Slightly adjusted icon sizes across components to improve sharpness.
 - Fixed `onAfterItemRemove` errors in `Draggable` and `DraggableList`.
 - Added new `MenuSectionHeader` component (decorative).
-- Added 5 UI icons, updated 1.
+- Added 4 UI icons.
 - Improved code completion for nested prop passthroughs in various components (e.g. `triggerProps` in `Menu`).
 - `Checkbox` now support `icon` even without `alignEnd`.
 - Tweaked some animations in `AnimatedVisibility`.
