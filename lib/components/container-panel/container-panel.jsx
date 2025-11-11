@@ -22,6 +22,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {Function} [props.onUseChange] - Function to call when the use toggle is toggled. `(value: boolean) => void`.
  * @param {boolean} [props.closable] - If `true`, the panel can be closed. Will not show if `title` is not set.
  * @param {boolean} [props.startOpen=false] - Controls whether the panel is open by default.
+ * @param {boolean} [props.noTopBorder=false] - If `true`, the top border is not shown.
  * @param {JSX.Element} [props.actions] - Actions to show at the end
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
@@ -35,7 +36,7 @@ import { BaseControl } from '../base-control/base-control';
  * @preserve
  */
 export const ContainerPanel = (props) => {
-	const { children, className, title, icon, subtitle, use, onUseChange, closable, startOpen = false, actions, hidden } = props;
+	const { children, className, title, icon, subtitle, use, onUseChange, closable, startOpen = false, noTopBorder = false, actions, hidden } = props;
 
 	const [open, setOpen] = useState(startOpen);
 
@@ -44,7 +45,7 @@ export const ContainerPanel = (props) => {
 	}
 
 	if (!title && typeof use === 'undefined') {
-		return <div className={clsx('es:space-y-2 es:border-t es:border-t-secondary-200 es:p-4', className)}>{children}</div>;
+		return <div className={clsx('es:space-y-2 es:p-4', !noTopBorder && 'es:border-t es:border-t-secondary-200', className)}>{children}</div>;
 	}
 
 	const justUse = !closable && typeof onUseChange !== 'undefined';
@@ -94,7 +95,7 @@ export const ContainerPanel = (props) => {
 				</>
 			}
 			className={clsx(
-				'es:border-t es:border-t-secondary-200',
+				!noTopBorder && 'es:border-t es:border-t-secondary-200',
 				!closable && typeof use === 'undefined' && 'es:space-y-2',
 				justClosable && open && 'es:pb-4',
 				justUse && use && 'es:pb-4',

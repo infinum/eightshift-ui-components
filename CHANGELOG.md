@@ -30,6 +30,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - `Tabs` updates
   - Added `underlineSecondary`, `chips`, and `bubble` layouts.
   - Removed `pillInverse`, `pillCompactInverse`, `pillOutline`, and `pillCompactOutline` layouts.
+- `ContainerPanel` now has a `noTopBorder` prop.
 
 ## [5.6.1] - 2025-10-21
 - Removed `sha256` and `sha224` from `utilities` export due to compatibility issues.
