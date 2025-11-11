@@ -175,7 +175,7 @@ export const ToggleButton = (props) => {
 					selected: false,
 					class: [
 						'es:text-black',
-						'es:bg-surface-50 es:bg-linear-to-br es:from-secondary-950/4 es:to-secondary-950/8',
+						'es:bg-secondary-50 es:bg-linear-to-br es:from-surface-500/2 es:to-surface-500/10',
 						'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:to-accent-700/5',
 						'es:pressed:bg-surface-100 es:pressed:text-accent-950 es:pressed:inset-ring-surface-300 es:pressed:inset-shadow-white/10',
 						'es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
@@ -188,7 +188,7 @@ export const ToggleButton = (props) => {
 					class: [
 						'es:text-white',
 						'es:bg-linear-to-br es:from-accent-600/55 es:to-accent-600/90 es:text-white',
-						'es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
+						'es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
 						'es:inset-ring es:inset-ring-accent-800/15',
 					],
 				},
