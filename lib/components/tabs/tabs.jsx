@@ -146,6 +146,9 @@ export const TabList = (props) => {
 
 	const tabListClasses = cva(['es:flex', className], {
 		variants: {
+			type: {
+				bubble: 'es:bg-white es:rounded-28 es:p-1.5 es:gap-px',
+			},
 			orientation: {
 				horizontal: 'es:overflow-x-auto es:overflow-y-visible es:max-h-none es:items-stretch',
 				vertical: 'es:flex-col es:gap-0.75 es:overflow-y-auto es:self-start es:max-h-[85vh]',
@@ -153,13 +156,19 @@ export const TabList = (props) => {
 		},
 		compoundVariants: [
 			{
-				type: ['underline', 'underlineSecondary', 'bubble'],
+				type: ['underline', 'underlineSecondary'],
+				orientation: 'vertical',
 				class: 'es:bg-white',
 			},
 			{
 				type: ['underline', 'underlineSecondary'],
 				orientation: 'horizontal',
 				class: 'es:border-b es:border-b-secondary-200 es:justify-center-safe es:rounded-t-lg',
+			},
+			{
+				type: ['underlineSecondary'],
+				orientation: 'horizontal',
+				class: 'es:px-1',
 			},
 			{
 				type: ['underline', 'underlineSecondary'],
@@ -172,10 +181,6 @@ export const TabList = (props) => {
 				class: 'es:gap-px',
 			},
 			//
-			{
-				type: ['bubble'],
-				class: 'es:rounded-28 es:p-1.5 es:gap-px',
-			},
 			{
 				type: ['bubble'],
 				orientation: 'horizontal',
@@ -494,7 +499,6 @@ export const Tab = (props) => {
 			{...other}
 			isDisabled={disabled || invisible}
 			className={componentClasses({ vertical: Boolean(isParentVertical), type, flat: Boolean(flat) })}
-			textValue={label ?? children}
 		>
 			{icon && <div className={iconClasses({ vertical: Boolean(isParentVertical), type })}>{icon}</div>}
 
@@ -536,12 +540,16 @@ export const TabPanel = (props) => {
 	const tabPanelClasses = cva(['es:space-y-3 es:text-13 es:any-focus:outline-hidden', className], {
 		variants: {},
 		compoundVariants: [
-			{ type: ['underline', 'underlineSecondary', 'bubble'], class: 'es:bg-white' },
-			{ type: ['underline', 'underlineSecondary'], vertical: false, class: 'es:rounded-b-lg es:px-3 es:py-5' },
-			{ type: ['underline', 'underlineSecondary'], vertical: true, class: 'es:rounded-3xl es:p-5' },
-			{ type: ['bubble'], class: 'es:rounded-3xl es:p-5' },
-			{ type: ['bubble', 'chips'], vertical: false, class: 'es:mt-2' },
-			{ type: ['chips'], vertical: true, class: 'es:py-2' },
+			{
+				type: ['underline', 'underlineSecondary'],
+				vertical: false,
+				class: 'es:mt-2.5',
+			},
+			{
+				type: ['pill', 'pillCompact', 'bubble', 'chips'],
+				vertical: false,
+				class: 'es:mt-4',
+			},
 		],
 		defaultVariants: {
 			flat: false,
