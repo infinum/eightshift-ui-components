@@ -34,32 +34,35 @@ export const Container = forwardRef((props, ref) => {
 		return null;
 	}
 
-	const containerClasses = cva([' es:inset-ring', className], {
+	const containerClasses = cva([' es:inset-ring es:p-2.5', className], {
 		variants: {
 			elevated: {
 				true: 'es:inset-shadow-sm es:shadow-sm es:shadow-black/5',
 			},
 			primary: {
-				true: 'es:rounded-full es:p-2.5',
-				false: 'es:rounded-sm es:p-1.5',
+				true: 'es:rounded-full',
+				false: 'es:rounded-sm',
 			},
 		},
 		compoundVariants: [
 			{
 				isChild: false,
 				primary: false,
-				class: 'es:first:rounded-t-xl es:last:rounded-b-xl',
+				class: 'es:first:rounded-t-2xl es:last:rounded-b-2xl',
 			},
 			{
 				isChild: true,
 				primary: false,
-				class: 'es:[:first-child_>_&]:rounded-t-xl es:[:last-child_>_&]:rounded-b-xl',
+				class: 'es:[:first-child_>_&]:rounded-t-2xl es:[:last-child_>_&]:rounded-b-2xl',
 			},
 			//
 			{
 				accent: false,
 				elevated: false,
-				class: 'es:bg-secondary-50 es:inset-ring-secondary-100',
+				class: [
+					'es:bg-white es:bg-linear-to-b es:from-secondary-50/75 es:to-secondary-100/50 es:from-25% es:inset-ring-secondary-200/50',
+					'es:inset-shadow-sm es:inset-shadow-white/30',
+				],
 			},
 			{
 				accent: true,
