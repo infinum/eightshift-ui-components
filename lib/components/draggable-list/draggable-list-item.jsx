@@ -13,7 +13,6 @@ import { cloneElement } from 'react';
  * @param {JSX.Element} [props.icon] - Icon to display in the label.
  * @param {string} [props.label] - Label to display.
  * @param {string} [props.subtitle] - Subtitle to display.
- * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display to the right of the label.
  * @param {string} [props.textValue] - The text value of the item.
  * @param {string} [props.className] - Classes to pass to the label.
  *
@@ -28,24 +27,25 @@ export const DraggableListItem = (props) => {
 
 	return (
 		<HStack
-			className={clsx('es:w-fill es:group', className)}
+			className={clsx('es:w-fill es:group es:pl-1', className)}
 			{...rest}
 		>
 			<RichLabel
 				icon={icon}
 				label={label}
 				subtitle={subtitle}
-				className={labelContainerClassName}
+				className={clsx('es:mr-auto', labelContainerClassName)}
 				iconClassName={iconClassName}
 				labelClassName={labelClassName}
 				subtitleClassName={subtitleClassName}
 				fullWidthLabel
 				inline
 			/>
+
 			{children}
 
 			{cloneElement(icons.reorderGrabberV, {
-				className: 'es:opacity-0 es:transition-opacity es:group-focus-visible:opacity-100 es:text-secondary-400 es:size-4 es:group-hover:opacity-100 es:ml-auto',
+				className: 'es:opacity-0 es:transition-opacity es:group-focus-visible:opacity-100 es:text-secondary-400 es:size-4 es:group-hover:opacity-100',
 			})}
 		</HStack>
 	);
