@@ -71,7 +71,7 @@
 	--color-accent-900: var(--es-color-teal-900);
 	--color-accent-950: var(--es-color-teal-950);
 
-	--color-surface-50:  color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
+	--color-surface-50: color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
 	--color-surface-100: color-mix(in oklab, var(--es-color-accent-100) 20%, var(--es-color-secondary-100));
 	--color-surface-200: color-mix(in oklab, var(--es-color-accent-200) 20%, var(--es-color-secondary-200));
 	--color-surface-300: color-mix(in oklab, var(--es-color-accent-300) 20%, var(--es-color-secondary-300));
@@ -169,43 +169,43 @@
 }
 
 @custom-variant has-selected {
-	&:has(:where(:pressed, :active, [data-selected="true"], [data-focus-visible="true"], [data-hovered="true"], [aria-expanded="true"], [data-expanded="true"])) {
+	&:has(:where(:pressed, :active, [data-selected='true'], [data-focus-visible='true'], [data-hovered='true'], [aria-expanded='true'], [data-expanded='true'])) {
 		@slot;
 	}
 }
 
 @custom-variant has-first-selected {
-	&:has(:first-child:where(:pressed, :active, [data-selected="true"], [data-focus-visible="true"], [data-hovered="true"], [aria-expanded="true"], [data-expanded="true"])) {
+	&:has(:first-child:where(:pressed, :active, [data-selected='true'], [data-focus-visible='true'], [data-hovered='true'], [aria-expanded='true'], [data-expanded='true'])) {
 		@slot;
 	}
 }
 
 @custom-variant has-last-selected {
-	&:has(:last-child:where(:pressed, :active, [data-selected="true"], [data-focus-visible="true"], [data-hovered="true"], [aria-expanded="true"], [data-expanded="true"])) {
+	&:has(:last-child:where(:pressed, :active, [data-selected='true'], [data-focus-visible='true'], [data-hovered='true'], [aria-expanded='true'], [data-expanded='true'])) {
 		@slot;
 	}
 }
 
 @custom-variant before-current {
-	&:has(+ :where(:pressed, :active, [data-selected="true"], [data-focus-visible="true"], [data-hovered="true"], [aria-expanded="true"], [data-expanded="true"])) {
+	&:has(+ :where(:pressed, :active, [data-selected='true'], [data-focus-visible='true'], [data-hovered='true'], [aria-expanded='true'], [data-expanded='true'])) {
 		@slot;
 	}
 }
 
 @custom-variant after-current {
-	:where(:pressed, :active, [data-selected="true"], [data-focus-visible="true"], [data-hovered="true"], [aria-expanded="true"], [data-expanded="true"]) + & {
+	:where(:pressed, :active, [data-selected='true'], [data-focus-visible='true'], [data-hovered='true'], [aria-expanded='true'], [data-expanded='true']) + & {
 		@slot;
 	}
 }
 
 @custom-variant before-selected {
-	&:has(+ :where([data-selected="true"])) {
+	&:has(+ :where([data-selected='true'])) {
 		@slot;
 	}
 }
 
 @custom-variant after-selected {
-	:where([data-selected="true"]) + & {
+	:where([data-selected='true']) + & {
 		@slot;
 	}
 }
@@ -389,4 +389,16 @@
 
 input[data-rac]::-webkit-search-cancel-button {
 	display: none;
+}
+
+@utility anim-duration-* {
+	animation-duration: --value(integer) ms;
+}
+
+@utility spinner-* {
+	background:
+		radial-gradient(farthest-side, currentColor 94%, color-mix(in srgb, currentColor 0%, transparent 100%)) top/calc(--value(integer) * 0.0625rem) calc(--value(integer) * 0.0625rem) no-repeat,
+		conic-gradient(color-mix(in srgb, currentColor 0%, transparent 100%) 30%, currentColor);
+
+	mask: radial-gradient(farthest-side, color-mix(in srgb, currentColor 0%, transparent 100%) calc(100% - calc(--value(integer) * 0.0625rem)), #000 0);
 }
