@@ -37,6 +37,7 @@ import { AnimatePresence, motion } from 'motion/react';
  * @param {JSX.Element} [props.after] - Element to display after the slider.
  * @param {string[]} [props.thumbLabels] - ARIA labels for the thumbs.
  * @param {Function} [props.thumbContent] - If provided, the function will be called with the current value of the thumb, and the return value will be displayed within the thumb. `(currentIndex: number) => JSX.Element`.
+ * @param {Function} [props.tooltipContent] - If provided, the function will format the tooltip content. `(value) => JSX.Element`.
  * @param {string} [props.labelClassName] - Additional classes to pass to the label.
  * @param {Object<string, any>} [props.trackStyle] - Additional style for the track.
  * @param {Number} [props.markerStep] - If provided, this value is used to generate markers instead of the step value. Useful when using small steps with a larger range.
@@ -90,6 +91,7 @@ export const Slider = (props) => {
 
 		thumbLabels,
 		thumbContent,
+		tooltipContent = (value) => value,
 
 		labelClassName,
 		trackStyle,
@@ -353,7 +355,7 @@ export const Slider = (props) => {
 															animate={{ y: 0, opacity: 1, scale: 1 }}
 															exit={{ y: 6, opacity: 0, scale: 0.85 }}
 														>
-															{state.values[i]}
+															{tooltipContent(state.values[i])}
 														</motion.div>
 													)}
 												</AnimatePresence>
