@@ -97,7 +97,6 @@ export const Button = (props) => {
 			'es:btn-group-v:not-pressed:not-after-current:not-first:rounded-t-sm',
 			'es:btn-group-v:not-pressed:not-before-current:not-last:rounded-b-sm',
 			'es:icon:size-5',
-			!pending && !disabled && 'es:cursor-pointer',
 			pending && 'es:cursor-wait',
 			className,
 		],
