@@ -101,7 +101,6 @@
 		"vite-plugin-lib-inject-css": "^2.2.2"
 	},
 	"dependencies": {
-		"@fontsource-variable/geist": "^5.2.8",
 		"@fontsource-variable/geist-mono": "^5.2.7",
 		"@fontsource-variable/roboto-flex": "^5.2.8",
 		"motion": "^12.23.24"
