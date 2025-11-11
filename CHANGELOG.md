@@ -3,8 +3,33 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [5.7.0] - 2025-10-
+## [6.0.0] - 2025-11-11
+- Reworked visuals of most controls.
+- **(BREAKING)** Removed legacy `react-select`-based `Select`, `AsyncSelect`, `MultiSelect`, and `AsyncMultiSelect` components. `SelectNext`/`AsyncSelectNext`/`MultiSelectNext`/`AsyncMultiSelectNext` are dropping the `Next` suffix and becoming the main select components. Please check all usages and update accordingly.
 - `OptionSelect` now supports `sectionIcon`, `sectionSubtitle`, and `sectionEndIcon` in the `menu`, `submenu`, and `standaloneMenuItems` variants to expand options for section headers.
+- Added 3 `Button` types: `simple`, `selectedSimple`, and `dangerSimple`
+- Added `simple` style to `ToggleButton`
+- Added new `AnimatedVisibility` animation: `scaleSlideFadeSlight`
+- Added `flat` prop to most components, to allow disabling shadow when e.g. nesting components.
+- **(Semi-breaking)** changed `NumberPicker` sizes to match `InputField` sizes. `'compact' | 'small' | 'default'` -> `'small' | 'medium' | 'default' | 'large'`
+- `Button` will now horizontally center its content, regardless of whether an icon is set
+- Added 3 UI icons
+- Deprecated `ComponentToggle` component. Use an alternate toggle + layout solution instead.
+- `Expandable` will now adapt its border radius to surrounding components. You can disable this with the `standalone` prop.
+- `SmartImage` will now fallback to synchronous analysis if async (web worker-based) analysis fails.
+- `SmartImage` now has a `verbose` prop to optionally log extra debug info in case of errors.
+- Removed `border` prop from `OptionsPanelIntro`.
+- Added `noBackdrop` prop to `Modal`.
+- `Slider` updates (besides new design)
+  - `trackBgGradientSupport` prop to enable gradient backgrounds support for tracks.
+  - `trackContainerStyle` prop to pass custom styles to the track container.
+  - Improved marker generation for negative values.
+  - Added tooltip while dragging slider handles (customizable with the `tooltipContent` prop).
+- `Switch` now supports `small` and `medium` sizes.
+- Added `Container` and `ContainerGroup` components for visually grouping controls.
+- `Tabs` updates
+  - Added `underlineSecondary`, `chips`, and `bubble` layouts.
+  - Removed `pillInverse`, `pillCompactInverse`, `pillOutline`, and `pillCompactOutline` layouts.
 
 ## [5.6.1] - 2025-10-21
 - Removed `sha256` and `sha224` from `utilities` export due to compatibility issues.
@@ -61,7 +86,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Slightly adjusted icon sizes across components to improve sharpness.
 - Fixed `onAfterItemRemove` errors in `Draggable` and `DraggableList`.
 - Added new `MenuSectionHeader` component (decorative).
-- Added 4 UI icons.
+- Added 5 UI icons, updated 1.
 - Improved code completion for nested prop passthroughs in various components (e.g. `triggerProps` in `Menu`).
 - `Checkbox` now support `icon` even without `alignEnd`.
 - Tweaked some animations in `AnimatedVisibility`.
@@ -458,7 +483,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
-[5.7.0]: https://github.com/infinum/eightshift-ui-components/compare/5.6.1...5.7.0
+[6.0.0]: https://github.com/infinum/eightshift-ui-components/compare/5.6.1...6.0.0
 [5.6.1]: https://github.com/infinum/eightshift-ui-components/compare/5.6.0...5.6.1
 [5.6.0]: https://github.com/infinum/eightshift-ui-components/compare/5.5.0...5.6.0
 [5.5.0]: https://github.com/infinum/eightshift-ui-components/compare/5.4.0...5.5.0
