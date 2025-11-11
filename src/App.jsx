@@ -3915,6 +3915,7 @@ function App() {
 					<ContainerPanel
 						title='Component name'
 						icon={icons.emptyCircle}
+						accentLabel
 					>
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
 					</ContainerPanel>

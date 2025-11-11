@@ -78,6 +78,7 @@ export const BaseControl = (props) => {
 						fullWidth={fullWidthLabel}
 						as={labelAs}
 						className={labelClassName}
+						noColor
 					/>
 				)}
 

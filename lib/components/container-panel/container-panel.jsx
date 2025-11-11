@@ -23,6 +23,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {boolean} [props.closable] - If `true`, the panel can be closed. Will not show if `title` is not set.
  * @param {boolean} [props.startOpen=false] - Controls whether the panel is open by default.
  * @param {boolean} [props.topBorder=false] - If `true`, a border is added to the top of the panel.
+ * @param {boolean} [props.accentLabel=false] - If `true`, the title and icon are tinted.
  * @param {JSX.Element} [props.actions] - Actions to show at the end
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
@@ -36,7 +37,7 @@ import { BaseControl } from '../base-control/base-control';
  * @preserve
  */
 export const ContainerPanel = (props) => {
-	const { children, className, title, icon, subtitle, use, onUseChange, closable, startOpen = false, topBorder = false, actions, hidden } = props;
+	const { children, className, title, icon, subtitle, use, onUseChange, closable, startOpen = false, topBorder = false, accentLabel = false, actions, hidden } = props;
 
 	const [open, setOpen] = useState(startOpen);
 
@@ -106,7 +107,7 @@ export const ContainerPanel = (props) => {
 			)}
 			labelContainerClassName={clsx((closable || onUseChange) && 'es:pl-4 es:pr-3 es:min-h-12', !(closable || onUseChange) && 'es:mt-3 es:mb-3', 'es:pb-0!')}
 			controlContainerClassName='es:px-4'
-			labelClassName='es:text-secondary-600!'
+			labelClassName={clsx(accentLabel && 'es:text-accent-800 es:any-icon:text-accent-600', !accentLabel && 'es:text-surface-600')}
 		>
 			{!closable && !onUseChange && typeof use === 'undefined' && children}
 			{closable && typeof use === 'undefined' && (
