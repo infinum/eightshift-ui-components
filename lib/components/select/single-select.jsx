@@ -203,7 +203,7 @@ export const Select = (props) => {
 			}}
 			placeholder={placeholder}
 			{...rest}
-			className={clsx('es:group', rest?.className)}
+			className={clsx('es:group es:w-fill', rest?.className)}
 		>
 			<BaseControl
 				label={label}
