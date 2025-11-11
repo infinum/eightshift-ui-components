@@ -1,7 +1,9 @@
-import { ListBoxItem } from 'react-aria-components';
-import clsx from 'clsx';
+import { __ } from '@wordpress/i18n';
+import { ListBoxItem, Button, SelectStateContext } from 'react-aria-components';
 import { icons } from '../../icons';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
+import { useContext } from 'react';
+import clsx from 'clsx';
 
 export const OptionItemBase = (props) => (
 	<ListBoxItem
@@ -12,7 +14,7 @@ export const OptionItemBase = (props) => (
 				'es:select-none',
 				'es:min-h-11',
 				'es:scroll-m-2 es:scroll-p-2',
-				'es:flex es:items-center-safe',
+				'es:flex es:items-center-safe es:gap-2',
 				'es:transition-plus es:ease-out es:duration-400',
 				'es:px-3 es:py-1.75',
 				'es:not-has-any-icon:pl-3.5',
@@ -142,4 +144,29 @@ export const moveArrayItem = (array, itemToMove, targetItem, position = 'before'
 	result.splice(adjustedTargetIndex, 0, itemToMove);
 
 	return result;
+};
+
+export const SelectClearButton = ({ multi = false }) => {
+	const state = useContext(SelectStateContext);
+
+	const isEmpty = multi ? state?.value === null || state?.value?.length === 0 : state?.value === null;
+
+	return (
+		<Button
+			aria-label={__('Clear value', 'eightshift-ui-components')}
+			className={clsx(
+				'es:flex es:items-center es:justify-center',
+				'es:rounded-md es:hover:rounded-lg es:pressed:rounded-xl',
+				'es:text-secondary-600 es:hover:bg-red-700/4 es:hover:text-red-700 es:disabled:text-secondary-300',
+				'es:h-7 es:px-1',
+				'es:any-focus:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+				'es:transition-plus',
+				isEmpty ? 'es:hidden' : 'es:flex',
+			)}
+			onPress={() => state?.setValue(null)}
+			slot={null}
+		>
+			{icons.clear}
+		</Button>
+	);
 };
