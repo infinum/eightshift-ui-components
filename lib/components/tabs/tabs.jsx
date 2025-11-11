@@ -541,11 +541,6 @@ export const TabPanel = (props) => {
 		variants: {},
 		compoundVariants: [
 			{
-				type: ['underline', 'underlineSecondary'],
-				vertical: false,
-				class: 'es:mt-2.5',
-			},
-			{
 				type: ['pill', 'pillCompact', 'bubble', 'chips'],
 				vertical: false,
 				class: 'es:mt-4',
