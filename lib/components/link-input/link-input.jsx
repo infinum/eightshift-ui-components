@@ -1,8 +1,8 @@
 import { Label, Button as ReactAriaButton, Input, Group, ListBox, ListBoxItem, Popover } from 'react-aria-components';
 import { __ } from '@wordpress/i18n';
 import { icons } from '../../icons/icons';
+import { Spinner } from '../../icons/spinner';
 import { clsx } from 'clsx/lite';
-import { cloneElement } from 'react';
 import { useAsyncList } from 'react-stately';
 import { Tooltip } from '../tooltip/tooltip';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
@@ -235,9 +235,7 @@ export const LinkInput = (props) => {
 								</Tooltip>
 							)}
 
-							{shouldShowSuggestions && suggestionList.isLoading && (
-								<div className='es:p-1.5'>{cloneElement(icons.loader, { className: 'es:text-accent-600! es:stroke-2 es:motion-preset-spin es:motion-duration-1500' })}</div>
-							)}
+							{shouldShowSuggestions && suggestionList.isLoading && <Spinner className='es:size-5! es:m-1.5 es:spinner-4!' />}
 						</ReactAriaButton>
 					</AnimatedVisibility>
 				</Group>
