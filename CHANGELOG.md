@@ -31,6 +31,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
   - Added `underlineSecondary`, `chips`, and `bubble` layouts.
   - Removed `pillInverse`, `pillCompactInverse`, `pillOutline`, and `pillCompactOutline` layouts.
 - `ContainerPanel` now has no border by default, can be re-enabled with the `topBorder` prop.
+- `ContainerPanel` now has `accentLabel` and `accentIcon` props to optionally tint title and icon.
 
 ## [5.6.1] - 2025-10-21
 - Removed `sha256` and `sha224` from `utilities` export due to compatibility issues.
