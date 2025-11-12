@@ -44,8 +44,8 @@ export const Container = forwardRef((props, ref) => {
 				false: 'es:rounded-sm',
 			},
 			compact: {
-				false: 'es:py-2.5',
-				true: 'es:py-1',
+				false: 'es:py-2.5 es:min-h-13.5',
+				true: 'es:py-1 es:min-h-9',
 			},
 		},
 		compoundVariants: [
