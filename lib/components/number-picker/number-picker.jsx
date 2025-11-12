@@ -219,7 +219,6 @@ export const NumberPicker = ({
 					</Group>
 
 					{children}
-					{/* {children && (Array.isArray(children) ? children.map((child) => cloneElement(child, { slot: null })) : cloneElement(children, { slot: null }))} */}
 				</div>
 			</BaseControl>
 		</NumberField>

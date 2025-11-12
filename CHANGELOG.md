@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [6.0.0] - 2025-11-11
+## [6.0.0] - 2025-11-12
 - Reworked visuals of most controls.
 - **(BREAKING)** Removed legacy `react-select`-based `Select`, `AsyncSelect`, `MultiSelect`, and `AsyncMultiSelect` components. `SelectNext`/`AsyncSelectNext`/`MultiSelectNext`/`AsyncMultiSelectNext` are dropping the `Next` suffix and becoming the main select components. Please check all usages and update accordingly.
 - `OptionSelect` now supports `sectionIcon`, `sectionSubtitle`, and `sectionEndIcon` in the `menu`, `submenu`, and `standaloneMenuItems` variants to expand options for section headers.

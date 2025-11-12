@@ -605,7 +605,55 @@ function App() {
 				inline
 			/>
 
-			<div className='es:mx-auto es:flex es:w-90 es:flex-col es:items-center es:justify-center es:gap-2.5 es:p-10 es:empty:hidden'></div>
+			<div className='es:mx-auto es:flex es:w-90 es:flex-col es:items-center es:justify-center es:gap-2.5 es:p-10 es:empty:hidden'>
+				<AsyncSelect
+					label='Async single select PROD'
+					value={sinASel2}
+					onChange={setSinASel2}
+					fetchUrl={(searchText) =>
+						searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
+					}
+					getLabel={(item) => item?.name}
+					getValue={(item) => item?.value}
+					getSubtitle={(item) => item?.country}
+					getIcon={(item) => {
+						let codePoints = (item?.countryCode ?? 'eu')
+							.toUpperCase()
+							.split('')
+							.map((char) => 127397 + char.charCodeAt());
+
+						return <span className='es:text-lg'>{String.fromCodePoint(...codePoints)}</span>;
+					}}
+					processLoadedOptions={(items) => items.map((item) => ({ name: item?.name, country: item?.country, value: slugify(item?.name), countryCode: item?.alpha_two_code }))}
+					clearable
+				/>
+
+				<pre>{JSON.stringify(sinASel2, null, 2)}</pre>
+
+				<AsyncMultiSelect
+					label='Multi async NEXT'
+					value={mulASel}
+					onChange={setMulASel}
+					fetchUrl={(searchText) =>
+						searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
+					}
+					getLabel={(item) => item?.name}
+					getValue={(item) => item?.value}
+					getSubtitle={(item) => item?.country}
+					getIcon={(item) => {
+						let codePoints = (item?.countryCode ?? 'eu')
+							.toUpperCase()
+							.split('')
+							.map((char) => 127397 + char.charCodeAt());
+
+						return <span className='es:text-lg'>{String.fromCodePoint(...codePoints)}</span>;
+					}}
+					processLoadedOptions={(items) => items.map((item) => ({ name: item?.name, country: item?.country, value: slugify(item?.name), countryCode: item?.alpha_two_code }))}
+					clearable
+				/>
+
+				<pre>{JSON.stringify(mulASel, null, 2)}</pre>
+			</div>
 
 			<Tabs
 				vertical
@@ -2718,7 +2766,10 @@ function App() {
 						</Container>
 					</ContainerGroup>
 
-					<Tabs className='es:outline es:outline-red-500 es:outline-dashed' type={tabVar}>
+					<Tabs
+						className='es:outline es:outline-red-500 es:outline-dashed'
+						type={tabVar}
+					>
 						<TabList>
 							<Tab>Founding of Rome</Tab>
 							<Tab badge='2'>Monarchy and Republic</Tab>
@@ -2745,7 +2796,10 @@ function App() {
 						<TabPanel>Nešto.</TabPanel>
 					</Tabs>
 
-					<Tabs className='es:outline es:outline-red-500 es:outline-dashed' type={tabVar}>
+					<Tabs
+						className='es:outline es:outline-red-500 es:outline-dashed'
+						type={tabVar}
+					>
 						<TabList>
 							<Tab>Founding of Rome</Tab>
 							<Tab badge='2'>Monarchy and Republic</Tab>
@@ -2758,7 +2812,10 @@ function App() {
 						<TabPanel>Nešto.</TabPanel>
 					</Tabs>
 
-					<Tabs className='es:outline es:outline-red-500 es:outline-dashed' type={tabVar}>
+					<Tabs
+						className='es:outline es:outline-red-500 es:outline-dashed'
+						type={tabVar}
+					>
 						<TabList>
 							<Tab>Founding of Rome</Tab>
 							<Tab badge='2'>Monarchy and Republic</Tab>

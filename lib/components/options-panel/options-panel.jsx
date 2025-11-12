@@ -48,12 +48,7 @@ export const OptionsPanel = (props) => {
 					/>
 				)}
 
-				<div className='es:flex es:flex-col es:gap-1'>
-					{/* {Array.isArray(children) && [...children]?.map((child) => <div className='es:bg-secondary-50 es:p-4 es:rounded-xl'>{child}</div>)}
-
-					{!Array.isArray(children) && <div className='es:bg-surface-50 es:p-4 es:rounded-xl'>{children}</div>} */}
-					{children}
-				</div>
+				<div className='es:flex es:flex-col es:gap-1'>{children}</div>
 			</div>
 
 			{help && <span className='es:mx-1 es:mt-2 es:block es:text-sm es:text-secondary-400'>{help}</span>}

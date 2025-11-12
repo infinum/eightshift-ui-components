@@ -305,16 +305,9 @@ export const Slider = (props) => {
 												index={i}
 												aria-label={thumbLabels?.[i]}
 												className={clsx(
-													// 'es:absolute es:size-3.5 es:rounded-full es:border es:transition es:duration-300',
-													// vertical ? 'es:translate-x-1/2!' : 'es:translate-y-1/2!',
-													// 'es:shadow dragging:es:bg-accent-600 es:disabled:border-secondary-200 es:disabled:bg-secondary-100 es:disabled:shadow-none',
-													// 'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
-													// 'es:border-accent-600 es:bg-accent-500 es:shadow-accent-600/50',
-													// 'es:hover:cursor-grab dragging:es:cursor-grabbing',
 													!vertical && ['es:h-10 es:w-0.75', 'es:row-1'],
 													vertical && ['es:w-10 es:h-0.75', 'es:col-1'],
 													'es:z-20',
-
 													'es:static! es:rounded-md es:transition es:duration-300',
 													'es:origin-center',
 													'es:hover:ring-[0.25px] es:focus-visible:ring-[0.5px] es:dragging:ring-[1px] es:ring-accent-500',
@@ -342,7 +335,6 @@ export const Slider = (props) => {
 																'es:absolute es:text-nowrap es:w-fit es:min-w-5 es:h-6',
 																!vertical && 'es:bottom-12 es:-translate-x-1/2',
 																vertical && 'es:left-12 es:-translate-y-1/2',
-																// !vertical && 'es:absolute es:-top-8 es:-translate-x-1/2 es:w-fit es:min-w-5 es:h-6 es:mb-2.5 es:text-nowrap',
 																'es:bg-surface-50/80 es:text-surface-700',
 																'es:backdrop-blur-xs',
 																'es:text-12 es:leading-none',

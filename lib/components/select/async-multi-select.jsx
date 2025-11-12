@@ -199,20 +199,19 @@ export const AsyncMultiSelect = (props) => {
 			})
 			.filter(Boolean);
 
-		onChange(selectedValues);
+		onChange(
+			selectedValues.map((item) => ({
+				label: item?.label,
+				value: item?.value,
+				subtitle: item?.subtitle,
+				meta: item?.meta,
+			})),
+		);
 	};
 
 	const ref = useRef();
 
 	const currentValueKeys = value?.map((item) => item?.value ?? item);
-
-	// Handle external value changes.
-	// useEffect(() => {
-	// 	if (list.selectedKeys.size !== (value ?? []).length) {
-	// 		list.setSelectedKeys(new Set(value?.map((item) => item?.value)));
-	// 		list.setFilterText('');
-	// 	}
-	// }, [value]);
 
 	const selectClass = cva(
 		[

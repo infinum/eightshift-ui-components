@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
 import { Select, Label, ListBox, Popover, Button, SelectValue, Autocomplete, SearchField, Input } from 'react-aria-components';
-import { cloneElement, useEffect } from 'react';
+import { cloneElement } from 'react';
 import { icons, Spinner } from '../../icons';
 import { OptionItemBase, SelectClearButton } from './shared';
 import { useRef } from 'react';
@@ -112,7 +112,8 @@ export const AsyncSelect = (props) => {
 	} = props;
 
 	const list = useAsyncList({
-		getKey: (item) => item.value,
+		initialSelectedKeys: value?.value ? [value?.value] : [],
+		getKey: (item) => item?.value,
 		async load({ signal, filterText }) {
 			let json = [];
 
@@ -129,6 +130,10 @@ export const AsyncSelect = (props) => {
 
 				const entry = { ...item, label: unescapeHTML(getLabel?.(item) ?? ''), value: id };
 
+				if (getMeta) {
+					entry.meta = getMeta(item);
+				}
+
 				if (getSubtitle) {
 					entry.subtitle = unescapeHTML(getSubtitle(item));
 				}
@@ -136,30 +141,26 @@ export const AsyncSelect = (props) => {
 				return entry;
 			});
 
-			if (value && value?.value && (filterText ?? '').length < 1 && output.length > 0 && !output?.find((item) => item.value === value?.value)) {
+			if (filterText.length > 0) {
 				return {
-					items: [value, ...output.slice(0, -1)],
-					selectedKeys: [value?.value],
+					items: output,
 				};
 			}
 
+			let extra = [];
+
+			if (value && !output?.find((item) => item.value === value?.value)) {
+				extra = [value];
+				output.pop();
+			}
+
 			return {
-				items: output,
+				items: [...extra, ...output],
 			};
 		},
 	});
 
 	const ref = useRef();
-
-	useEffect(() => {
-		// Overwrite first item if the current value is not in the list.
-		if (value?.value && !list.getItem(value?.value)) {
-			list.items[0] = value;
-		}
-
-		list.setSelectedKeys(value?.value ? [value.value] : []);
-		list.setFilterText('');
-	}, [value?.value]);
 
 	if (hidden) {
 		return null;
@@ -229,33 +230,40 @@ export const AsyncSelect = (props) => {
 		},
 	);
 
+	const handleSelectionChange = (selected) => {
+		list.filterText = '';
+
+		if (selected === null || selected === undefined) {
+			onChange(null);
+
+			return;
+		}
+
+		const item = list.items.find((item) => item.value === selected);
+
+		if (!item) {
+			onChange(null);
+
+			return;
+		}
+
+		if (item && 'id' in item) {
+			delete item.id;
+		}
+
+		onChange({
+			label: item?.label,
+			value: item?.value,
+			subtitle: item?.subtitle,
+			meta: item?.meta,
+		});
+	};
+
 	return (
 		<Select
 			isDisabled={disabled}
 			value={value?.value ?? null}
-			onChange={(selected) => {
-				list.filterText = '';
-
-				if (selected === null || selected === undefined) {
-					onChange(null);
-
-					return;
-				}
-
-				const item = list.items.find((item) => item.value === selected);
-
-				if (!item) {
-					onChange(null);
-
-					return;
-				}
-
-				if (item && 'id' in item) {
-					delete item.id;
-				}
-
-				onChange(item);
-			}}
+			onChange={(selected) => handleSelectionChange(selected)}
 			placeholder={placeholder}
 			{...rest}
 			className={clsx('es:group es:w-fill', rest?.className)}
@@ -278,11 +286,11 @@ export const AsyncSelect = (props) => {
 							{({ isPlaceholder, selectedItems }) => {
 								const [selectedItem] = selectedItems;
 
-								if (!isPlaceholder && value && customValueDisplay) {
+								if (!isPlaceholder && selectedItem && customValueDisplay) {
 									return customValueDisplay(selectedItem);
 								}
 
-								if (!value) {
+								if (!selectedItem) {
 									return <span className='es:select-none es:pointer-events-none es:text-sm es:text-surface-500'>{placeholder}</span>;
 								}
 
@@ -396,6 +404,11 @@ export const AsyncSelect = (props) => {
 						<ListBox
 							className={clsx('es:space-y-0.75 es:p-1.5 es:pt-0 es:any-focus:outline-hidden es:h-full es:overflow-y-auto es:rounded-t-xl', list?.isLoading && 'es:hidden')}
 							items={list.items}
+							selectedKeys={list.selectedKeys}
+							onSelectionChange={(selected) => {
+								list.setSelectedKeys(selected);
+								handleSelectionChange(selected);
+							}}
 							renderEmptyState={() => (
 								<RichLabel
 									icon={icons.searchEmpty}

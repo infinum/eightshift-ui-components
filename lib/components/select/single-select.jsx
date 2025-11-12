@@ -199,7 +199,12 @@ export const Select = (props) => {
 					delete item.id;
 				}
 
-				onChange(item);
+				onChange({
+					label: item?.label,
+					value: item?.value,
+					subtitle: item?.subtitle,
+					meta: item?.meta,
+				});
 			}}
 			placeholder={placeholder}
 			{...rest}

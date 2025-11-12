@@ -261,20 +261,20 @@ export const ColumnConfigSlider = (props) => {
 														animate={{ y: 0, opacity: 1, scale: 1 }}
 														exit={{ y: 2, opacity: 0, scale: 0.85 }}
 													>
-														{i === 0 && showOuterAsGutter && state.values[0] > 1 && sprintf(__('From %d', 'infobip2024'), state.values[i] - 1)}
-														{i === 0 && showOuterAsGutter && state.values[0] === 1 && __('From start gutter', 'infobip2024')}
-														{i === 1 && showOuterAsGutter && state.values[1] < columns && sprintf(__('To %d', 'infobip2024'), state.values[i])}
-														{i === 1 && showOuterAsGutter && state.values[1] === columns && __('To end gutter', 'infobip2024')}
+														{i === 0 && showOuterAsGutter && state.values[0] > 1 && sprintf(__('From %d', 'eightshfit-ui-components'), state.values[i] - 1)}
+														{i === 0 && showOuterAsGutter && state.values[0] === 1 && __('From start gutter', 'eightshfit-ui-components')}
+														{i === 1 && showOuterAsGutter && state.values[1] < columns && sprintf(__('To %d', 'eightshfit-ui-components'), state.values[i])}
+														{i === 1 && showOuterAsGutter && state.values[1] === columns && __('To end gutter', 'eightshfit-ui-components')}
 														{!showOuterAsGutter && i === 0 && (
 															<>
-																{state.values[0] > 1 && sprintf(__('From %d', 'infobip2024'), state.values[i])}
-																{state.values[0] === 1 && __('From start', 'infobip2024')}
+																{state.values[0] > 1 && sprintf(__('From %d', 'eightshfit-ui-components'), state.values[i])}
+																{state.values[0] === 1 && __('From start', 'eightshfit-ui-components')}
 															</>
 														)}
 														{!showOuterAsGutter && i === 1 && (
 															<>
-																{state.values[1] < columns && sprintf(__('To %d', 'infobip2024'), state.values[i])}
-																{state.values[1] === columns && __('To end', 'infobip2024')}
+																{state.values[1] < columns && sprintf(__('To %d', 'eightshfit-ui-components'), state.values[i])}
+																{state.values[1] === columns && __('To end', 'eightshfit-ui-components')}
 															</>
 														)}
 													</motion.div>

@@ -146,7 +146,14 @@ export const MultiSelect = (props) => {
 			})
 			?.filter(Boolean);
 
-		onChange(selectedValues);
+		onChange(
+			selectedValues.map((item) => ({
+				label: item?.label,
+				value: item?.value,
+				subtitle: item?.subtitle,
+				meta: item?.meta,
+			})),
+		);
 	};
 
 	if (hidden) {
