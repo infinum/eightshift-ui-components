@@ -72,12 +72,12 @@ export const FilePickerShell = (props) => {
 			<div
 				{...rest}
 				className={clsx(
-					'es:border es:border-surface-200 es:bg-white es:bg-linear-to-br es:from-surface-50/5 es:to-surface-50/30 es:flex es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-2 es:overflow-clip es:aspect-cinema es:group es:p-2',
+					'es:border es:border-surface-200 es:bg-white es:bg-linear-to-br es:from-surface-50/5 es:to-surface-50/30 es:flex es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-2 es:overflow-clip es:group es:p-2',
 					className,
 				)}
 			>
 				{type === 'file' && (
-					<div className='es:grow es:flex es:flex-col es:gap-2 es:text-sm es:items-center-safe es:justify-center-safe es:font-mono es:icon:size-6 es:rounded-xl es:bg-surface-50 es:inset-ring es:inset-ring-surface-100 es:icon:text-surface-500 es:text-surface-700'>
+					<div className='es:grow es:flex es:flex-col es:gap-2 es:text-sm es:items-center-safe es:justify-center-safe es:font-mono es:icon:size-6 es:rounded-xl es:bg-surface-50 es:inset-ring es:inset-ring-surface-100 es:icon:text-surface-500 es:text-surface-700 es:p-2'>
 						{icon}
 						<span className='es:line-clamp-1'>{truncateMiddle(url, 34)}</span>
 					</div>
