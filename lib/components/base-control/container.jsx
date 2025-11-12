@@ -26,7 +26,7 @@ import { forwardRef } from 'react';
  * @preserve
  */
 export const Container = forwardRef((props, ref) => {
-	const { className, children, as, hidden, accent, elevated, primary, isChild, ...rest } = props;
+	const { className, children, as, hidden, accent, elevated, primary, isChild, compact, ...rest } = props;
 
 	const ComponentToRender = as || 'div';
 
@@ -34,7 +34,7 @@ export const Container = forwardRef((props, ref) => {
 		return null;
 	}
 
-	const containerClasses = cva([' es:inset-ring es:p-2.5', className], {
+	const containerClasses = cva([' es:inset-ring es:px-2.5', className], {
 		variants: {
 			elevated: {
 				true: 'es:inset-shadow-sm es:shadow-sm es:shadow-black/5',
@@ -42,6 +42,10 @@ export const Container = forwardRef((props, ref) => {
 			primary: {
 				true: 'es:rounded-full',
 				false: 'es:rounded-sm',
+			},
+			compact: {
+				false: 'es:py-2.5',
+				true: 'es:py-1',
 			},
 		},
 		compoundVariants: [
@@ -85,6 +89,7 @@ export const Container = forwardRef((props, ref) => {
 			elevated: false,
 			primary: false,
 			isChild: false,
+			compact: false,
 		},
 	});
 
@@ -92,7 +97,7 @@ export const Container = forwardRef((props, ref) => {
 		<ComponentToRender
 			{...rest}
 			ref={ref}
-			className={containerClasses({ accent, elevated, primary, isChild })}
+			className={containerClasses({ accent, elevated, primary, isChild, compact })}
 		>
 			{children}
 		</ComponentToRender>
