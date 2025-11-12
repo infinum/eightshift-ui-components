@@ -175,12 +175,12 @@ export const OptionsPanelIntro = ({ icon, title, subtitle, className, iconClassN
 			)}
 		>
 			<Heading
-				className='es:text-2xl es:text-accent-900 es:font-variation-["wdth"_180,"YTLC"_540,"wght"_350]'
+				className='es:text-2xl es:my-0! es:text-accent-900 es:font-variation-["wdth"_180,"YTLC"_540,"wght"_350]'
 				level={level}
 			>
 				{title}
 			</Heading>
-			{subtitle && <p className='es:text-13 es:text-surface-500 es:mt-0.75 es:font-variation-["wdth"_90,"YTLC"_560,"wght"_325]'>{subtitle}</p>}
+			{subtitle && <p className='es:text-13 es:my-0! es:text-surface-500 es:mt-0.75 es:font-variation-["wdth"_90,"YTLC"_560,"wght"_325]'>{subtitle}</p>}
 
 			{icon && cloneElement(icon, { className: clsx('es:absolute es:-top-2 es:right-2.5 es:rotate-12 es:text-surface-500/10 es:size-18', iconClassName) })}
 		</div>
