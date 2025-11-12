@@ -166,7 +166,7 @@ export const TabList = (props) => {
 				class: 'es:border-b es:border-b-secondary-200 es:justify-center-safe es:rounded-t-lg',
 			},
 			{
-				type: ['underlineSecondary'],
+				type: ['underline', 'underlineSecondary'],
 				orientation: 'horizontal',
 				class: 'es:px-1',
 			},
