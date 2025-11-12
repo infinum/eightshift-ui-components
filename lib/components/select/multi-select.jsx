@@ -391,19 +391,25 @@ export const MultiSelect = (props) => {
 						<Autocomplete filter={contains}>
 							<SearchField
 								aria-label={__('Search', 'eightshift-ui-components')}
-								className='es:flex es:items-center es:bg-accent-900/9 es:m-1.5 es:rounded-3xl es:relative es:inset-ring es:inset-ring-accent-950/4'
+								className='es:flex es:items-center es:relative'
 								autoFocus
 							>
 								<Input
 									placeholder={__('Search...', 'eightshift-ui-components')}
-									className='es:peer es:size-full es:h-9.5 es:outline-hidden es:px-3.5 es:shadow-none es:text-sm es:placeholder:text-surface-500 es:[&::-webkit-search-cancel-button]:hidden'
+									className={clsx(
+										'es:peer es:size-full es:h-9.5 es:outline-hidden es:pl-3.5 es:pr-9 es:shadow-none es:text-13 es:placeholder:text-surface-500 es:[&::-webkit-search-cancel-button]:hidden',
+										'es:bg-accent-900/8 es:m-1.5 es:rounded-3xl es:border-none',
+										'es:inset-ring es:inset-ring-accent-950/7 es:focus:inset-ring-accent-950/20',
+										'es:text-accent-950 es:placeholder:text-accent-700/50',
+										'es:transition',
+									)}
 								/>
 
 								<Button
 									aria-label={__('Clear', 'eightshift-ui-components')}
 									className={clsx(
-										'es:absolute es:right-1.5 es:top-0 es:bottom-0 es:my-auto',
-										'es:flex es:size-7 es:items-center es:justify-center es:rounded-3xl es:text-sm es:text-secondary-600 es:transition es:hover:bg-accent-50 es:hover:text-accent-800 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
+										'es:absolute es:right-3 es:top-0 es:bottom-0 es:my-auto es:border-none es:bg-transparent',
+										'es:flex es:size-7 es:items-center es:justify-center es:rounded-3xl es:text-sm es:text-surface-700 es:transition es:hover:bg-accent-50 es:hover:text-accent-800 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
 										'es:peer-placeholder-shown:opacity-0',
 									)}
 								>
