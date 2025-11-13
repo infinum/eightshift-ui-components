@@ -24,11 +24,14 @@
 		"./dist/assets/style.css": "./dist/assets/style.css",
 		"./dist/assets/style-editor.css": "./dist/assets/style-editor.css",
 		"./dist/assets/style-admin.css": "./dist/assets/style-admin.css",
-		"./dist/assets/wp-font-enhancements.css": "./dist/assets/wp-font-enhancements.css",
-		"./dist/assets/wp-ui-enhancements.css": "./dist/assets/wp-ui-enhancements.css",
+		"./dist/assets/wp-overrides/fix-label-text-case.css": "./dist/assets/wp-overrides/fix-label-text-case.css",
+		"./dist/assets/wp-overrides/increase-sidebar-width.css": "./dist/assets/wp-overrides/increase-sidebar-width.css",
+		"./dist/assets/wp-overrides/make-block-messages-nicer.css": "./dist/assets/wp-overrides/make-block-messages-nicer.css",
+		"./dist/assets/wp-overrides/restyle-tooltips.css": "./dist/assets/wp-overrides/restyle-tooltips.css",
+		"./dist/assets/wp-overrides/round-corners.css": "./dist/assets/wp-overrides/round-corners.css",
+		"./dist/assets/wp-overrides/unify-button-sizes.css": "./dist/assets/wp-overrides/unify-button-sizes.css",
+		"./dist/assets/wp-overrides/replace-fonts.css": "./dist/assets/wp-overrides/replace-fonts.css",
 		"./styles": "./dist/assets/style.css",
-		"./wp-font-enhancements": "./dist/assets/wp-font-enhancements.css",
-		"./wp-ui-enhancements": "./dist/assets/wp-ui-enhancements.css",
 		"./wp-overrides": "./dist/assets/wp.css"
 	},
 	"scripts": {
