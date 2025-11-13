@@ -1,0 +1,8 @@
+@reference '../style-editor.css';
+
+/* Increase sidebar width */
+.edit-post-sidebar,
+.interface-interface-skeleton__sidebar:not(:empty) > .interface-complementary-area__fill[style='width: 280px;'], /* WP6.6 is weird. */
+.interface-complementary-area.editor-sidebar {
+	@apply es:w-86!;
+}

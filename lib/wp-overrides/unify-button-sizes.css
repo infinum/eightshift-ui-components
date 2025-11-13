@@ -1,0 +1,12 @@
+@reference '../style-editor.css';
+
+/* Unify buttons in top toolbar */
+.edit-post-header__toolbar,
+.edit-post-header__settings,
+.editor-document-tools__left,
+.editor-header__center,
+.editor-header__settings {
+	.components-button {
+		@apply es:min-h-9! es:min-w-9!;
+	}
+}

@@ -1,0 +1,6 @@
+@reference '../style-editor.css';
+
+/* Nicer-looking Gutenberg tooltip. */
+.components-tooltip {
+	@apply es:px-1 es:py-0.5 es:text-white es:backdrop-blur-xl es:backdrop-brightness-105 es:backdrop-saturate-150 es:bg-gray-950/70 es:border es:border-gray-800 es:shadow-md es:rounded-md! es:has-[>_:first-child]:text-gray-700 es:has-[>_:first-child]:bg-white/80 es:has-[>_:first-child]:border-gray-200;
+}
