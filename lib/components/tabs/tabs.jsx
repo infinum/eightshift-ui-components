@@ -263,7 +263,7 @@ export const Tab = (props) => {
 	const componentClasses = cva(
 		[
 			'es:group es:relative es:shrink-0',
-			'es:flex es:items-center es:gap-1.25',
+			'es:flex es:items-center es:gap-1.5',
 			'es:select-none es:not-disabled:cursor-pointer',
 			'es:transition-plus es:text-center es:text-12 es:leading-[1.15] es:text-box-trim',
 			'es:any-focus:outline-hidden',
