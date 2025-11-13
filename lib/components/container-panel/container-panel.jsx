@@ -123,7 +123,12 @@ export const ContainerPanel = (props) => {
 			)}
 			labelContainerClassName={clsx((closable || onUseChange) && 'es:pl-4 es:pr-3 es:min-h-12', !(closable || onUseChange) && 'es:mt-3 es:mb-3', 'es:pb-0!')}
 			controlContainerClassName='es:px-4'
-			labelClassName={clsx(accentLabel && 'es:text-accent-800 es:any-icon:text-accent-600', accentIcon && 'es:any-icon:text-accent-600', !accentLabel && 'es:text-surface-600')}
+			labelClassName={clsx(
+				'es:px-1',
+				accentLabel && 'es:text-accent-800 es:any-icon:text-accent-700',
+				accentIcon && 'es:any-icon:text-accent-700',
+				!accentLabel && 'es:text-surface-700',
+			)}
 		>
 			{!closable && !onUseChange && typeof use === 'undefined' && children}
 			{closable && typeof use === 'undefined' && (

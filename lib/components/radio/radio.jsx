@@ -60,7 +60,7 @@ export const RadioButton = (props) => {
 
 	const radioClasses = cva(
 		[
-			'es:size-5',
+			'es:size-5 es:shrink-0',
 			'es:grid es:place-items-center es:grid-cols-1 es:grid-rows-1',
 			'es:*:row-start-1 es:*:col-start-1',
 			'es:rounded-full',

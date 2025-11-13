@@ -101,8 +101,8 @@ export const FilePickerShell = (props) => {
 					hasAnalysed && isTransparent && 'es:bg-white/60 es:object-contain es:mx-auto',
 					hasAnalysed && isTransparent && (transparencyInfo?.left || transparencyInfo?.right) && 'es:w-full!',
 					hasAnalysed && isTransparent && (transparencyInfo?.top || transparencyInfo?.bottom) && 'es:h-full!',
-					hasAnalysed && !isTransparent && 'es:w-full es:aspect-3-2 es:object-cover',
-					hasAnalysed && 'es:grow es:rounded-xl',
+					hasAnalysed && !isTransparent && 'es:w-full! es:aspect-3-2 es:object-cover',
+					hasAnalysed && 'es:grow es:rounded-xl es:h-fill!',
 				)
 			}
 			errorClassName='es:aspect-3-2 es:rounded-2xl es:bg-linear-to-br es:from-white es:to-secondary-50 es:border es:border-dashed es:border-secondary-200'
