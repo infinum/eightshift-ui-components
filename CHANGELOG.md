@@ -32,7 +32,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
   - Removed `pillInverse`, `pillCompactInverse`, `pillOutline`, and `pillCompactOutline` layouts.
 - `ContainerPanel` now has no border by default, can be re-enabled with the `topBorder` prop.
 - `ContainerPanel` now has `accentLabel` and `accentIcon` props to optionally tint title and icon.
-- Gutenberg override styles are now modular - you can import only what you need:
+- **(BREAKING)** Gutenberg override styles are now modular - you can import only what you need:
   - `@eightshift/ui-components/dist/assets/wp-font-enhancements.css` -> `@eightshift/ui-components/dist/assets/wp-overrides/replace-fonts.css`
   - `@eightshift/ui-components/dist/assets/wp-ui-enhancements.css` ->
     - `@eightshift/ui-components/dist/assets/wp-overrides/fix-label-text-case.css`
