@@ -119,7 +119,7 @@ export const DraggableList = (props) => {
 						<ContainerGroup
 							as='ul'
 							key={key}
-							className={clsx('es:w-full es:list-none', itemContainerClassName)}
+							className={clsx('es:w-full es:list-none es:m-0!', itemContainerClassName)}
 							{...rest}
 						>
 							{children}
@@ -135,7 +135,7 @@ export const DraggableList = (props) => {
 							key={key}
 							accent={isDragged || isSelected}
 							elevated={isDragged || isSelected}
-							className={clsx('es:list-none', itemClassName)}
+							className={clsx('es:list-none es:m-0!', itemClassName)}
 							data-selected={isDragged || isSelected || props?.style?.position === 'fixed'}
 							{...rest}
 						>

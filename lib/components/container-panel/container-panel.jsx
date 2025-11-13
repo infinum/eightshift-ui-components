@@ -25,6 +25,7 @@ import { BaseControl } from '../base-control/base-control';
  * @param {boolean} [props.topBorder=false] - If `true`, a border is added to the top of the panel.
  * @param {boolean} [props.accentLabel=false] - If `true`, the title and icon are tinted.
  * @param {boolean} [props.accentIcon=false] - If `true`, the icon is tinted.
+ * @param {boolean} [props.noLabelInset=false] - If `true`, the label is not slightly inset, to better align with rounded containers.
  * @param {JSX.Element} [props.actions] - Actions to show at the end
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
@@ -51,6 +52,7 @@ export const ContainerPanel = (props) => {
 		topBorder = false,
 		accentLabel = false,
 		accentIcon = false,
+		noLabelInset = false,
 		actions,
 		hidden,
 	} = props;
@@ -62,7 +64,7 @@ export const ContainerPanel = (props) => {
 	}
 
 	if (!title && typeof use === 'undefined') {
-		return <div className={clsx('es:space-y-2 es:p-4', topBorder && 'es:border-t es:border-t-secondary-200', className)}>{children}</div>;
+		return <div className={clsx('es:flex es:flex-col es:gap-3 es:p-4', topBorder && 'es:border-t es:border-t-secondary-200', className)}>{children}</div>;
 	}
 
 	const justUse = !closable && typeof onUseChange !== 'undefined';
@@ -124,7 +126,7 @@ export const ContainerPanel = (props) => {
 			labelContainerClassName={clsx((closable || onUseChange) && 'es:pl-4 es:pr-3 es:min-h-12', !(closable || onUseChange) && 'es:mt-3 es:mb-3', 'es:pb-0!')}
 			controlContainerClassName='es:px-4'
 			labelClassName={clsx(
-				'es:px-1',
+				!noLabelInset && 'es:px-1',
 				accentLabel && 'es:text-accent-800 es:any-icon:text-accent-700',
 				accentIcon && 'es:any-icon:text-accent-700',
 				!accentLabel && 'es:text-surface-700',

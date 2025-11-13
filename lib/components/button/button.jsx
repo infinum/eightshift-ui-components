@@ -248,11 +248,11 @@ export const Button = (props) => {
 						pending &&
 							'es:shimmer-animation es:-bg-linear-75 es:from-accent-500/0 es:via-accent-500/20 es:to-accent-500/0 es:from-35% es:via-50% es:to-65% es:text-accent-700 es:bg-white/15',
 						'es:hover:from-white/35 es:hover:to-white/15',
-						'es:text-black/95',
+						'es:text-white',
 						'es:inset-shadow-sm es:inset-shadow-white/40',
 						!flat && 'es:shadow-black/15 es:shadow-xs',
 						'es:inset-ring es:inset-ring-white/5',
-						'es:text-shadow-xs es:text-shadow-white/15',
+						'es:text-shadow-xs es:text-shadow-black/15',
 						'es:focus-visible:ring-accent-500/30 es:focus-visible:inset-ring-accent-700/50 es:focus-visible:bg-accent-300/30',
 					],
 				},

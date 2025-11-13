@@ -545,6 +545,11 @@ export const TabPanel = (props) => {
 				vertical: false,
 				class: 'es:mt-4',
 			},
+			{
+				type: ['underline', 'underlineSecondary'],
+				vertical: false,
+				class: 'es:mt-1',
+			},
 		],
 		defaultVariants: {
 			flat: false,

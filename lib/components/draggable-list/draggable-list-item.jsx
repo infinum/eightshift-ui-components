@@ -42,11 +42,11 @@ export const DraggableListItem = (props) => {
 				inline
 			/>
 
-			{children}
-
 			{cloneElement(icons.reorderGrabberV, {
 				className: 'es:opacity-0 es:transition-opacity es:group-focus-visible:opacity-100 es:text-secondary-400 es:size-4 es:group-hover:opacity-100',
 			})}
+
+			{children}
 		</HStack>
 	);
 };

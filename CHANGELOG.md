@@ -30,8 +30,10 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - `Tabs` updates
   - Added `underlineSecondary`, `chips`, and `bubble` layouts.
   - Removed `pillInverse`, `pillCompactInverse`, `pillOutline`, and `pillCompactOutline` layouts.
-- `ContainerPanel` now has no border by default, can be re-enabled with the `topBorder` prop.
-- `ContainerPanel` now has `accentLabel` and `accentIcon` props to optionally tint title and icon.
+- `ContainerPanel` updates:
+  - - no border by default, can be re-enabled with the `topBorder` prop.
+  - `accentLabel` and `accentIcon` props to optionally tint title and icon.
+  - `noLabelInset` prop to not inset the label slightly, for better alignment with rounded containers.
 - **(BREAKING)** Gutenberg override styles are now modular - you can import only what you need:
   - `@eightshift/ui-components/dist/assets/wp-font-enhancements.css` -> `@eightshift/ui-components/dist/assets/wp-overrides/replace-fonts.css`
   - `@eightshift/ui-components/dist/assets/wp-ui-enhancements.css` ->
@@ -41,6 +43,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
     - `@eightshift/ui-components/dist/assets/wp-overrides/restyle-tooltips.css`
     - `@eightshift/ui-components/dist/assets/wp-overrides/round-corners.css`
     - `@eightshift/ui-components/dist/assets/wp-overrides/unify-button-sizes.css`
+    - `@eightshift/ui-components/dist/assets/wp-overrides/allow-full-width-blocks.css`
 
 ## [5.6.1] - 2025-10-21
 - Removed `sha256` and `sha224` from `utilities` export due to compatibility issues.

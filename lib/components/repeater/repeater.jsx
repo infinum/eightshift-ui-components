@@ -188,7 +188,7 @@ export const Repeater = (props) => {
 					return (
 						<ul
 							key={key}
-							className={clsx('es:w-full es:list-none', className)}
+							className={clsx('es:w-full es:list-none es:m-0! es:flex es:flex-col es:gap-1', className)}
 							{...rest}
 						>
 							{children}
@@ -200,7 +200,7 @@ export const Repeater = (props) => {
 
 					return (
 						<li
-							className='es:group es:w-full es:list-none es:any-focus:outline-hidden'
+							className='es:group es:w-full es:list-none es:any-focus:outline-hidden es:m-0!'
 							key={key}
 							{...rest}
 						>

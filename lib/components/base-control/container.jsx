@@ -11,6 +11,7 @@ import { forwardRef } from 'react';
  * @property {boolean} [props.primary] - If `true`, applies primary styling (rounded full) to the container.
  * @property {boolean} [props.isChild] - If `true`, applies child-specific styling for nested containers.
  * @property {boolean} [props.compact] - If `true`, the vertical padding is reduced for a more compact appearance.
+ * @property {boolean} [props.standalone] - If `true`, the border radius is not adjusted automatically, based on neightboring containers.
  * @property {string|JSX.Element} [props.as] - The HTML element or React component to render as the container.
  *
  * @preserve
@@ -35,7 +36,7 @@ import { forwardRef } from 'react';
  * @preserve
  */
 export const Container = forwardRef((props, ref) => {
-	const { className, children, as, hidden, accent, elevated, primary, isChild, compact, ...rest } = props;
+	const { className, children, as, hidden, accent, elevated, primary, isChild, compact, standalone, ...rest } = props;
 
 	const ComponentToRender = as || 'div';
 
@@ -50,7 +51,6 @@ export const Container = forwardRef((props, ref) => {
 			},
 			primary: {
 				true: 'es:rounded-full',
-				false: 'es:rounded-sm',
 			},
 			compact: {
 				false: 'es:py-2 es:min-h-13',
@@ -59,14 +59,29 @@ export const Container = forwardRef((props, ref) => {
 		},
 		compoundVariants: [
 			{
+				primary: false,
+				standalone: false,
+				class: 'es:rounded-md',
+			},
+			//
+			{
 				isChild: false,
 				primary: false,
+				standalone: false,
 				class: 'es:first:rounded-t-2xl es:last:rounded-b-2xl',
 			},
 			{
 				isChild: true,
 				primary: false,
+				standalone: false,
 				class: 'es:[:first-child_>_&]:rounded-t-2xl es:[:last-child_>_&]:rounded-b-2xl',
+			},
+			//
+			{
+				isChild: false,
+				primary: false,
+				standalone: true,
+				class: 'es:rounded-2xl',
 			},
 			//
 			{
@@ -99,6 +114,7 @@ export const Container = forwardRef((props, ref) => {
 			primary: false,
 			isChild: false,
 			compact: false,
+			standalone: false,
 		},
 	});
 
@@ -106,7 +122,7 @@ export const Container = forwardRef((props, ref) => {
 		<ComponentToRender
 			{...rest}
 			ref={ref}
-			className={containerClasses({ accent, elevated, primary, isChild, compact })}
+			className={containerClasses({ accent, elevated, primary, isChild, compact, standalone })}
 		>
 			{children}
 		</ComponentToRender>
@@ -154,7 +170,7 @@ export const ContainerGroup = forwardRef((props, ref) => {
 		<ComponentToRender
 			{...rest}
 			ref={ref}
-			className={clsx('es:flex es:flex-col es:gap-0.75', className)}
+			className={clsx('es:flex es:flex-col es:gap-1', className)}
 		>
 			{children}
 		</ComponentToRender>

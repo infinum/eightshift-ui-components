@@ -31,6 +31,7 @@
 		"./dist/assets/wp-overrides/round-corners.css": "./dist/assets/wp-overrides/round-corners.css",
 		"./dist/assets/wp-overrides/unify-button-sizes.css": "./dist/assets/wp-overrides/unify-button-sizes.css",
 		"./dist/assets/wp-overrides/replace-fonts.css": "./dist/assets/wp-overrides/replace-fonts.css",
+		"./dist/assets/wp-overrides/allow-full-width-blocks.css": "./dist/assets/wp-overrides/allow-full-width-blocks.css",
 		"./styles": "./dist/assets/style.css",
 		"./wp-overrides": "./dist/assets/wp.css"
 	},
