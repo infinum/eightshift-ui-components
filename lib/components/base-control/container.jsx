@@ -3,18 +3,27 @@ import { clsx } from 'clsx/lite';
 import { forwardRef } from 'react';
 
 /**
+ * @typedef {Object} ContainerProps
+ * @property {string} [props.className] - Classes to pass to the container.
+ * @property {boolean} [props.hidden] - If `true`, the component is not rendered.
+ * @property {boolean} [props.accent] - If `true`, applies accent styling to the container.
+ * @property {boolean} [props.elevated] - If `true`, applies elevated styling (shadow) to the container.
+ * @property {boolean} [props.primary] - If `true`, applies primary styling (rounded full) to the container.
+ * @property {boolean} [props.isChild] - If `true`, applies child-specific styling for nested containers.
+ * @property {boolean} [props.compact] - If `true`, the vertical padding is reduced for a more compact appearance.
+ * @property {string|JSX.Element} [props.as] - The HTML element or React component to render as the container.
+ *
+ * @preserve
+ */
+
+/**
  * A container component to wrap other components, providing consistent styling and spacing.
  *
  * @component
- * @param {Object} props - Component props.
- * @param {string} [props.className] - Classes to pass to the container.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- * @param {boolean} [props.accent] - If `true`, applies accent styling to the container.
- * @param {boolean} [props.elevated] - If `true`, applies elevated styling (shadow) to the container.
- * @param {boolean} [props.primary] - If `true`, applies primary styling (rounded full) to the container.
- * @param {boolean} [props.isChild] - If `true`, applies child-specific styling for nested containers.
- * @param {boolean} [props.compact] - If `true`, the vertical padding is reduced for a more compact appearance.
- * @param {string|JSX.Element} [props.as] - The HTML element or React component to render as the container.
+ * @param {ContainerProps} props
+ * @param {React.Ref<HTMLDivElement>} ref
+ *
+ * @type React.ForwardRefRenderFunction<HTMLDivElement, ContainerProps>
  *
  * @returns {JSX.Element} The Container component.
  *
@@ -105,13 +114,22 @@ export const Container = forwardRef((props, ref) => {
 });
 
 /**
+ * @typedef {Object} ContainerGroupProps
+ * @property {string} [className] - Classes to pass to the container group.
+ * @property {boolean} [hidden] - If `true`, the component is not rendered.
+ * @property {string|JSX.Element} [as] - The HTML element or React component to render as the container group.
+ *
+ * @preserve
+ */
+
+/**
  * A container group component to wrap multiple Container components, providing consistent spacing between them.
  *
  * @component
- * @param {Object} props - Component props.
- * @param {string} [props.className] - Classes to pass to the container group.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- * @param {string|JSX.Element} [props.as] - The HTML element or React component to render as the container group.
+ * @param {ContainerGroupProps} props
+ * @param {React.Ref<HTMLDivElement>} ref
+ *
+ * @type React.ForwardRefRenderFunction<HTMLDivElement, ContainerGroupProps>
  *
  * @returns {JSX.Element} The ContainerGroup component.
  *
