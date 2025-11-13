@@ -8,13 +8,13 @@ import { forwardRef } from 'react';
  * @component
  * @param {Object} props - Component props.
  * @param {string} [props.className] - Classes to pass to the container.
- * @param {JSX.Element|JSX.Element[]} props.children - Child elements to be wrapped by the container.
- * @param {string} [props.as] - The HTML element or React component to render as the container.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {boolean} [props.accent] - If `true`, applies accent styling to the container.
  * @param {boolean} [props.elevated] - If `true`, applies elevated styling (shadow) to the container.
  * @param {boolean} [props.primary] - If `true`, applies primary styling (rounded full) to the container.
  * @param {boolean} [props.isChild] - If `true`, applies child-specific styling for nested containers.
+ * @param {boolean} [props.compact] - If `true`, the vertical padding is reduced for a more compact appearance.
+ * @param {string|JSX.Element} [props.as] - The HTML element or React component to render as the container.
  *
  * @returns {JSX.Element} The Container component.
  *
@@ -110,9 +110,8 @@ export const Container = forwardRef((props, ref) => {
  * @component
  * @param {Object} props - Component props.
  * @param {string} [props.className] - Classes to pass to the container group.
- * @param {JSX.Element|JSX.Element[]} props.children - Child elements to be wrapped by the container group.
- * @param {string} [props.as] - The HTML element or React component to render as the container group.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
+ * @param {string|JSX.Element} [props.as] - The HTML element or React component to render as the container group.
  *
  * @returns {JSX.Element} The ContainerGroup component.
  *
