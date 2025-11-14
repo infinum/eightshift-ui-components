@@ -169,7 +169,7 @@ const ModalInternal = (props) => {
 
 							{children && <div className={clsx('es:p-6 es:space-y-2.5', contentContainerClassName)}>{children}</div>}
 
-							{actions && <HStack className={clsx('es:justify-end es:px-6 es:py-4 es-button-group-h', actionsClassName)}>{actions}</HStack>}
+							{actions && <HStack className={clsx('es:justify-end es:px-6 es:py-4', actionsClassName)}>{actions}</HStack>}
 						</>
 					)}
 				</Dialog>
