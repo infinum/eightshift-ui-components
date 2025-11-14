@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [6.0.1] - 2025-11-14
+- Fix output issue with `ContainerGroup` passed components.
+
 ## [6.0.0] - 2025-11-14
 - Updated dependencies.
 - Reworked visuals of most controls.
@@ -498,6 +501,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[6.0.1]: https://github.com/infinum/eightshift-ui-components/compare/6.0.0...6.0.1
 [6.0.0]: https://github.com/infinum/eightshift-ui-components/compare/5.6.1...6.0.0
 [5.6.1]: https://github.com/infinum/eightshift-ui-components/compare/5.6.0...5.6.1
 [5.6.0]: https://github.com/infinum/eightshift-ui-components/compare/5.5.0...5.6.0
