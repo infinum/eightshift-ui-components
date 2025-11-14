@@ -198,7 +198,7 @@ export const ContainerGroup = forwardRef((props, ref) => {
 					];
 				}
 
-				return acc;
+				return [...acc, child];
 			}, [])
 		: children;
 
