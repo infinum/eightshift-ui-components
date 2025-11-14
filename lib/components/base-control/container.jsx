@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
 import { clsx } from 'clsx/lite';
-import { forwardRef } from 'react';
+import { cloneElement, forwardRef } from 'react';
 
 /**
  * @typedef {Object} ContainerProps
@@ -36,7 +36,7 @@ import { forwardRef } from 'react';
  * @preserve
  */
 export const Container = forwardRef((props, ref) => {
-	const { className, children, as, hidden, accent, elevated, primary, isChild, compact, standalone, ...rest } = props;
+	const { className, children, as, hidden, accent, elevated, primary, isChild, compact, standalone, horizontal, ...rest } = props;
 
 	const ComponentToRender = as || 'div';
 
@@ -68,13 +68,29 @@ export const Container = forwardRef((props, ref) => {
 				isChild: false,
 				primary: false,
 				standalone: false,
+				horizontal: false,
 				class: 'es:first:rounded-t-2xl es:last:rounded-b-2xl',
 			},
 			{
 				isChild: true,
 				primary: false,
 				standalone: false,
+				horizontal: false,
 				class: 'es:[:first-child_>_&]:rounded-t-2xl es:[:last-child_>_&]:rounded-b-2xl',
+			},
+			{
+				isChild: false,
+				primary: false,
+				standalone: false,
+				horizontal: true,
+				class: 'es:first:rounded-l-2xl es:last:rounded-r-2xl',
+			},
+			{
+				isChild: true,
+				primary: false,
+				standalone: false,
+				horizontal: true,
+				class: 'es:[:first-child_>_&]:rounded-l-2xl es:[:last-child_>_&]:rounded-r-2xl',
 			},
 			//
 			{
@@ -115,6 +131,7 @@ export const Container = forwardRef((props, ref) => {
 			isChild: false,
 			compact: false,
 			standalone: false,
+			horizontal: false,
 		},
 	});
 
@@ -122,17 +139,20 @@ export const Container = forwardRef((props, ref) => {
 		<ComponentToRender
 			{...rest}
 			ref={ref}
-			className={containerClasses({ accent, elevated, primary, isChild, compact, standalone })}
+			className={containerClasses({ accent, elevated, primary, isChild, compact, horizontal, standalone })}
 		>
 			{children}
 		</ComponentToRender>
 	);
 });
 
+Container.displayName = 'Container';
+
 /**
  * @typedef {Object} ContainerGroupProps
  * @property {string} [className] - Classes to pass to the container group.
  * @property {boolean} [hidden] - If `true`, the component is not rendered.
+ * @property {boolean} [horizontal] - If `true`, the component uses a horizontal orientation.
  * @property {string|JSX.Element} [as] - The HTML element or React component to render as the container group.
  *
  * @preserve
@@ -158,7 +178,7 @@ export const Container = forwardRef((props, ref) => {
  * @preserve
  */
 export const ContainerGroup = forwardRef((props, ref) => {
-	const { className, children, as, hidden, ...rest } = props;
+	const { className, children, as, hidden, horizontal, ...rest } = props;
 
 	const ComponentToRender = as || 'div';
 
@@ -166,13 +186,31 @@ export const ContainerGroup = forwardRef((props, ref) => {
 		return null;
 	}
 
+	const processedChildren = Array.isArray(children)
+		? children.reduce((acc, child, index) => {
+				if (child.type.displayName === 'Container') {
+					return [
+						...acc,
+						cloneElement(child, {
+							horizontal,
+							key: index,
+						}),
+					];
+				}
+
+				return acc;
+			}, [])
+		: children;
+
 	return (
 		<ComponentToRender
 			{...rest}
 			ref={ref}
-			className={clsx('es:flex es:flex-col es:gap-1', className)}
+			className={clsx('es:flex es:gap-0.5', !horizontal && 'es:flex-col', className)}
 		>
-			{children}
+			{processedChildren}
 		</ComponentToRender>
 	);
 });
+
+ContainerGroup.displayName = 'ContainerGroup';

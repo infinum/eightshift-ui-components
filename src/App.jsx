@@ -606,6 +606,18 @@ function App() {
 			/>
 
 			<div className='es:mx-auto es:flex es:w-90 es:flex-col es:items-center es:justify-center es:gap-2.5 es:p-10 es:empty:hidden'>
+				<ContainerGroup>
+					<Container>A</Container>
+					<Container>B</Container>
+					<Container>C</Container>
+				</ContainerGroup>
+
+				<ContainerGroup horizontal>
+					<Container>A</Container>
+					<Container>B</Container>
+					<Container>C</Container>
+				</ContainerGroup>
+
 				<AsyncSelect
 					label='Async single select PROD'
 					value={sinASel2}
