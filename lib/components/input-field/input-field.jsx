@@ -129,6 +129,7 @@ export const InputField = (props) => {
 						'es:placeholder:text-secondary-500/80',
 						'es:bg-secondary-100 es:focus:bg-surface-50',
 						'es:inset-ring-secondary-200/15 es:hover:inset-ring-secondary-200/65 es:focus:inset-ring-surface-200',
+						'es:shadow-none',
 					],
 				},
 				{ disabled: true, class: ['es:bg-secondary-50 es:inset-ring-secondary-200 es:text-secondary-400'] },

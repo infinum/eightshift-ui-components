@@ -173,6 +173,7 @@ export const SolidColorPicker = (props) => {
 							'es:placeholder:text-secondary-400',
 							'es:shadow-xs es:shadow-black/5',
 							'es:rounded-lg es:focus:rounded-xl',
+							'es:border-none!',
 						)}
 					/>
 				</ColorField>
