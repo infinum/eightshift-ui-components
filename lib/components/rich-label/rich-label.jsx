@@ -59,22 +59,23 @@ export const RichLabel = (props) => {
 	if (contentsOnly) {
 		return (
 			<>
-				{icon && <span className={clsx('es:icon:size-5', !noColor && 'es:text-slate-500', iconClassName)}>{icon}</span>}
+				{icon && <span className={clsx('es:icon:size-5', !noColor && 'es:text-secondary-500', iconClassName)}>{icon}</span>}
 				{label && <span className={clsx('es:text-balance', !noColor && 'es:text-secondary-800', labelClassName)}>{label}</span>}
-				{subtitle && <span className={clsx('es:text-balance es:text-xs es:not-contrast-more:opacity-65', !noColor && 'es:text-secondary-800', subtitleClassName)}>{subtitle}</span>}
+				{subtitle && <span className={clsx('es:text-balance es:text-xs es:not-contrast-more:opacity-65', !noColor && 'es:text-secondary-700', subtitleClassName)}>{subtitle}</span>}
 			</>
 		);
 	}
 
 	return (
 		<ComponentToRender
-			className={clsx('es:flex es:items-center es:gap-2 es:text-sm', !noColor && 'es:text-secondary-800 es:[&>span>svg]:text-slate-500', fullWidth && 'es:grow', className)}
+			className={clsx('es:flex es:items-center es:gap-1.75 es:text-sm', !noColor && 'es:text-secondary-700 es:any-icon:text-secondary-500', fullWidth && 'es:grow', className)}
 		>
 			{icon && <span className={clsx('es:icon:size-5 es:shrink-0', noColor && 'es:not-contrast-more:opacity-80', iconClassName)}>{icon}</span>}
+
 			{(label || subtitle) && (
 				<div className={clsx('es:flex es:items-start es:text-balance es:text-start', inlineSubtitle ? 'es:gap-1.5' : 'es:flex-col', labelSubtitleWrapClassName)}>
-					{label && <span className={labelClassName}>{label}</span>}
-					{subtitle && <span className={clsx(!fullSizeSubtitle && 'es:text-xs', 'es:not-contrast-more:opacity-65', subtitleClassName)}>{subtitle}</span>}
+					{label && <span className={clsx('es:font-variation-["wdth"_120,"wght"_400]', labelClassName)}>{label}</span>}
+					{subtitle && <span className={clsx(!fullSizeSubtitle && 'es:text-12', 'es:not-contrast-more:opacity-65', subtitleClassName)}>{subtitle}</span>}
 				</div>
 			)}
 		</ComponentToRender>

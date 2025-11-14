@@ -28,6 +28,7 @@ import { HStack } from '../layout/hstack';
  * @param {boolean} [props.noCloseButton] - If `true`, the close button will not be displayed.
  * @param {boolean} [props.noClickToDismiss] - If `true`, the modal will not close when clicking outside of it.
  * @param {boolean} [props.noKeyboardDismiss] - If `true`, the modal will not close when pressing the `Esc` key.
+ * @param {boolean} [props.noBackdrop] - If `true`, the modal will not have a visible backdrop. Functionally, it'll still be there. For an experience without a backdrop, consider using the `Popover` component instead.
  * @param {string} [props.className] - Classes to pass to the modal container.
  * @param {string} [props.overlayClassName] - Classes to pass to the modal backdrop.
  * @param {string} [props.actionsClassName] - Classes to pass to the modal footer (actions) container.
@@ -86,6 +87,8 @@ const ModalInternal = (props) => {
 		noClickToDismiss,
 		noKeyboardDismiss,
 
+		noBackdrop,
+
 		'aria-label': ariaLabel,
 
 		className,
@@ -108,7 +111,8 @@ const ModalInternal = (props) => {
 			isKeyboardDismissDisabled={noKeyboardDismiss}
 			className={({ isEntering, isExiting }) =>
 				clsx(
-					'es:fixed es:inset-0 es:z-9999 es:flex es:min-h-full es:items-center es:justify-center es:overflow-y-auto es:p-4 es:text-center es:bg-black/30 es:backdrop-blur-sm',
+					'es:fixed es:inset-0 es:z-9999 es:flex es:min-h-full es:items-center es:justify-center es:overflow-y-auto es:p-4',
+					!noBackdrop && 'es:bg-accent-950/20 es:backdrop-blur-xs',
 					isEntering && 'es:motion-opacity-in es:motion-duration-150',
 					isExiting && 'es:motion-opacity-out es:motion-duration-150',
 					overlayClassName,
@@ -119,23 +123,25 @@ const ModalInternal = (props) => {
 			<ReactAriaModal
 				className={({ isEntering, isExiting }) =>
 					clsx(
-						'es:w-full es:max-w-lg es:overflow-hidden es:rounded-3xl es:border es:border-secondary-100 es:bg-white es:text-left es:align-middle es:shadow-xl es:inset-ring es:inset-ring-secondary-50',
-						isEntering && 'es:motion-safe:motion-scale-in-95 es:motion-fade-in es:motion-duration-300 es:motion-ease-spring-smooth/scale',
-						isExiting && 'es:motion-safe:motion-scale-out-95 es:motion-fade-out es:motion-duration-250 es:motion-ease-spring-smooth/scale',
+						'es:w-full es:max-w-lg es:overflow-hidden es:rounded-3xl es:inset-ring es:inset-ring-surface-400/30 es:bg-white es:bg-linear-to-b es:from-accent-300/3 es:to-accent-300/1 es:text-left es:align-middle es:shadow-xl es:text-surface-900',
+
+						isEntering && 'es:motion-scale-in-95 es:motion-fade-in es:motion-blur-in-xs es:motion-translate-y-in-[2rem] es:motion-duration-300 es:motion-ease-spring-smooth/scale',
+						isExiting &&
+							'es:motion-scale-out-95 es:motion-fade-out es:motion-blur-out-xs es:motion-translate-y-out-[2rem] es:motion-duration-250 es:motion-ease-spring-smooth/scale',
 						className,
 					)
 				}
 			>
 				<Dialog
-					className='es:relative es:text-sm es:outline-hidden'
+					className={clsx('es:relative es:text-sm es:outline-hidden', (!title || headerActions) && 'es:pt-8')}
 					aria-label={ariaLabel}
 				>
 					{({ close }) => (
 						<>
-							<HStack className={clsx(title && 'es:px-5 es:py-3 es:justify-between es:bg-secondary-50 es:border-b es:border-secondary-200', headerClassName)}>
+							<HStack className={clsx(title && 'es:px-6 es:pt-6 es:justify-between', headerClassName)}>
 								{title && (
 									<Heading
-										className='es:text-balance es:text-base! es:my-0! es:font-medium!'
+										className='es:text-balance es:text-xl! es:my-0! es:text-accent-800 es:font-variation-["wdth"_200,"YTLC"_520,"wght"_425]'
 										slot='title'
 									>
 										{title}
@@ -143,12 +149,12 @@ const ModalInternal = (props) => {
 								)}
 
 								{(!noCloseButton || headerActions) && (
-									<HStack className={!title && 'es:absolute es:top-4 es:right-4 es:z-20'}>
+									<HStack className={!title && 'es:absolute es:top-3 es:right-3 es:z-20'}>
 										{headerActions}
 
 										{!noCloseButton && (
 											<Button
-												className={!title && 'es:bg-white/60 es:backdrop-blur-lg'}
+												className={!title && 'es:bg-surface-50/60 es:backdrop-blur-lg'}
 												onPress={close}
 												type='ghost'
 												size='small'
@@ -161,9 +167,9 @@ const ModalInternal = (props) => {
 								)}
 							</HStack>
 
-							{children && <div className={clsx('es:p-5 es:space-y-2.5', contentContainerClassName)}>{children}</div>}
+							{children && <div className={clsx('es:p-6 es:space-y-2.5', contentContainerClassName)}>{children}</div>}
 
-							{actions && <HStack className={clsx('es:justify-end es:px-5 es:py-3 es:border-t es:border-secondary-100', actionsClassName)}>{actions}</HStack>}
+							{actions && <HStack className={clsx('es:justify-end es:px-6 es:py-4', actionsClassName)}>{actions}</HStack>}
 						</>
 					)}
 				</Dialog>

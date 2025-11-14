@@ -12,6 +12,7 @@ import { __ } from '@wordpress/i18n';
  * @param {string} [props.gradient] - The gradient to display.
  * @param {string} [props.className] - Additional clsx to apply.
  * @param {string} [props.colorName] - The name of the color. Should be auto-generated for colors.
+ * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
  * @param {boolean} [props.customGradient=false] - Set to `true` if using a custom gradient.
  *
  * @returns {JSX.Element} The ColorSwatch component.
@@ -25,7 +26,7 @@ import { __ } from '@wordpress/i18n';
  * @preserve
  */
 export const ColorSwatch = (props) => {
-	const { color: rawColor, gradient, className, colorName, customGradient = false } = props;
+	const { color: rawColor, gradient, className, colorName, flat, customGradient = false } = props;
 
 	const checkerPattern = 'repeating-conic-gradient(#CCC 0% 25%, white 0% 50%) 50% / 0.75rem 0.75rem';
 
@@ -51,7 +52,9 @@ export const ColorSwatch = (props) => {
 			style={{
 				background: (color || gradient) && backgroundGradient,
 			}}
-			className={() => clsx('es:size-6 es:rounded-md es:border es:border-secondary-300 es:shadow-sm', !color && !gradient && !customGradient && 'es:bg-white', className)}
+			className={() =>
+				clsx('es:size-6 es:rounded-md es:border es:border-secondary-300', !color && !gradient && !customGradient && 'es:bg-white', !flat && 'es:shadow-sm', className)
+			}
 			colorName={!color && !gradient && !customGradient ? __('No color', 'eightshift-ui-components') : colorName}
 			color={color}
 		>

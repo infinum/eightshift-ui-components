@@ -1,4 +1,4 @@
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { icons } from '../../icons/icons';
 
 /**
@@ -11,6 +11,7 @@ import { icons } from '../../icons/icons';
  * @param {string} [props.className] - Classes to pass to the component.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {JSX.Element} [props.icon] - Icon to show within the placeholder.
+ * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
  * @param {string|JSX.Element} [props.helpText] - Text to show below the icon.
  *
  * @returns {JSX.Element} The MediaPlaceholder component.
@@ -24,15 +25,21 @@ import { icons } from '../../icons/icons';
  * @preserve
  */
 export const MediaPlaceholder = (props) => {
-	const { style = 'default', size = 'default', className, icon, helpText, children, hidden } = props;
+	const { style = 'default', size = 'default', className, icon, helpText, children, flat, hidden } = props;
 
 	if (hidden) {
 		return null;
 	}
 
 	const styleClassName = {
-		default: 'es:rounded-2xl es:border es:border-secondary-300 es:bg-secondary-50 es:text-secondary-400 es:shadow-sm',
-		simple: 'es:rounded-2xl es:border es:border-secondary-300 es:border-dashed es:text-secondary-400',
+		default: [
+			'es:rounded-2xl es:bg-surface-100 es:text-surface-700',
+			'es:inset-ring es:inset-ring-surface-300/60',
+			'es:bg-linear-to-b es:from-surface-600/2 es:to-surface-500/16 es:from-25%',
+			'es:inset-shadow-sm es:inset-shadow-surface-50/30',
+			!flat && 'es:shadow-xs es:shadow-black/5',
+		],
+		simple: 'es:rounded-2xl es:inset-ring es:inset-ring-surface-200/75 es:bg-surface-50 es:text-surface-700 es:bg-linear-to-br es:from-surface-100/5 es:to-surface-100/40',
 	};
 
 	const sizeClassName = {

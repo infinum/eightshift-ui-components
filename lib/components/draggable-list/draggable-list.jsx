@@ -1,8 +1,9 @@
 import { useId } from 'react';
 import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { List, arrayMove, arrayRemove } from 'react-movable';
+import { Container, ContainerGroup } from '../base-control/container';
 
 const fixIds = (items, itemIdBase) => {
 	return items?.map((item, i) => ({
@@ -73,7 +74,10 @@ export const DraggableList = (props) => {
 		actions,
 
 		disabled,
+
 		className,
+		itemClassName,
+		itemContainerClassName,
 
 		labelAsHandle,
 
@@ -101,43 +105,38 @@ export const DraggableList = (props) => {
 			subtitle={subtitle}
 			help={help}
 			actions={actions}
-			className='es:w-full'
+			className={clsx('es:w-full', className)}
 			{...rest}
 		>
 			<List
+				transitionDuration={200}
 				values={items}
 				onChange={({ oldIndex, newIndex }) => onChange(newIndex === -1 ? arrayRemove(items, oldIndex) : arrayMove(items, oldIndex, newIndex))}
 				renderList={({ children, props }) => {
 					const { key, ...rest } = props;
 
 					return (
-						<ul
+						<ContainerGroup
+							as='ul'
 							key={key}
-							className='es:w-full es:list-none'
+							className={clsx('es:w-full es:list-none es:m-0!', itemContainerClassName)}
 							{...rest}
 						>
 							{children}
-						</ul>
+						</ContainerGroup>
 					);
 				}}
-				renderItem={({ value, index, isDisabled, isDragged, isSelected, props }) => {
+				renderItem={({ value, index, isDragged, isSelected, props }) => {
 					const { key, ...rest } = props;
 
 					return (
-						<li
-							className={clsx(
-								'es:group',
-								'es:min-h-8 es:w-full',
-								'es:flex es:items-center es:gap-1 es:rounded-lg',
-								'es:transition-[box-shadow,background-color,filter,opacity,border-color]',
-								'es:border es:border-transparent',
-								'es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:focus:border-accent-500',
-								isDisabled && 'es:grayscale',
-								isDragged && 'es:bg-white es:opacity-50',
-								isSelected && 'es:bg-accent-50',
-								isDragged ? 'es:cursor-grabbing' : 'es:cursor-grab',
-							)}
-							key={value?.id ?? key}
+						<Container
+							as='li'
+							key={key}
+							accent={isDragged || isSelected}
+							elevated={isDragged || isSelected}
+							className={clsx('es:list-none es:m-0!', itemClassName)}
+							data-selected={isDragged || isSelected || props?.style?.position === 'fixed'}
 							{...rest}
 						>
 							{children({
@@ -154,7 +153,7 @@ export const DraggableList = (props) => {
 									}
 								},
 							})}
-						</li>
+						</Container>
 					);
 				}}
 			/>

@@ -924,7 +924,7 @@ export const icons = {
 	),
 	check: (
 		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='m4 11 4.5 4.5L16 5' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<path d='M2 10.79 7.143 16 18 5' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
 		</svg>
 	),
 	textHighlightColorSwatchAlt: (
@@ -2008,7 +2008,7 @@ export const icons = {
 	),
 	clear: (
 		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='m2 2 8 8m0 0 8 8m-8-8 8-8m-8 8-8 8' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<path d='m3 3 7 7m0 0 7 7m-7-7 7-7m-7 7-7 7' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
 		</svg>
 	),
 	dropdownCaret: (
@@ -2540,7 +2540,7 @@ export const icons = {
 	),
 	dropdownCaretAlt: (
 		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='m10.53 12.97 4.19-4.19a.75.75 0 0 0-.53-1.28H5.81a.75.75 0 0 0-.53 1.28l4.19 4.19a.75.75 0 0 0 1.06 0Z' fill='currentColor' />
+			<path d='m10.354 12.646 4.792-4.792A.5.5 0 0 0 14.793 7H5.207a.5.5 0 0 0-.353.854l4.792 4.792a.5.5 0 0 0 .708 0Z' fill='currentColor' />
 		</svg>
 	),
 	layoutMasonry: (
@@ -4947,14 +4947,14 @@ export const icons = {
 	doorOut: (
 		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
 			<path d='M14 10.5V3a1.5 1.5 0 0 0-1.5-1.5h-7A1.5 1.5 0 0 0 4 3v13a1.5 1.5 0 0 0 1.5 1.5H8' stroke='currentColor' fill='none' />
-			<path clip-rule='evenodd' fillRule='evenodd' d='M17 18a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 9 18v-5a1.5 1.5 0 0 1 1.5-1.5h5A1.5 1.5 0 0 1 17 13v5Zm-1.646-2.146a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708.708L13.793 15H11a.5.5 0 0 0 0 1h2.793l-1.147 1.146a.5.5 0 0 0 .708.708l2-2Z' fill='currentColor' />
+			<path clipRule='evenodd' fillRule='evenodd' d='M17 18a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 9 18v-5a1.5 1.5 0 0 1 1.5-1.5h5A1.5 1.5 0 0 1 17 13v5Zm-1.646-2.146a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708.708L13.793 15H11a.5.5 0 0 0 0 1h2.793l-1.147 1.146a.5.5 0 0 0 .708.708l2-2Z' fill='currentColor' />
 			<circle cx='6.5' cy='9.5' r='1' fill='currentColor' />
 		</svg>
 	),
 	doorIn: (
 		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
 			<path d='M6 10.5V3a1.5 1.5 0 0 1 1.5-1.5h7A1.5 1.5 0 0 1 16 3v13a1.5 1.5 0 0 1-1.5 1.5H12' stroke='currentColor' fill='none' />
-			<path clip-rule='evenodd' fillRule='evenodd' d='M11 18a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 3 18v-5a1.5 1.5 0 0 1 1.5-1.5h5A1.5 1.5 0 0 1 11 13v5Zm-1.646-2.146a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708.708L7.793 15H5a.5.5 0 0 0 0 1h2.793l-1.147 1.146a.5.5 0 0 0 .708.708l2-2Z' fill='currentColor' />
+			<path clipRule='evenodd' fillRule='evenodd' d='M11 18a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 3 18v-5a1.5 1.5 0 0 1 1.5-1.5h5A1.5 1.5 0 0 1 11 13v5Zm-1.646-2.146a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708.708L7.793 15H5a.5.5 0 0 0 0 1h2.793l-1.147 1.146a.5.5 0 0 0 .708.708l2-2Z' fill='currentColor' />
 			<circle cx='13.5' cy='9.5' r='1' fill='currentColor' />
 		</svg>
 	),
@@ -5046,7 +5046,7 @@ export const icons = {
 			<rect x='4' y='4' width='9' height='2' rx='0.75' fill='currentColor' fillOpacity='0.3' />
 			<rect x='4' y='7' width='4' height='6' rx='0.75' fill='currentColor' fillOpacity='0.12' />
 			<rect x='9' y='7' width='4' height='4' rx='0.75' fill='currentColor' fillOpacity='0.12' />
-			<path clip-rule='evenodd' fillRule='evenodd' d='M14.075 11.47a1.176 1.176 0 0 1-1.687 1.06c-.111-.054-.251-.04-.326.058-.226.3-.412.632-.548.99-.05.134.042.276.175.329a1.177 1.177 0 0 1 0 2.186c-.133.053-.226.195-.175.33.136.357.322.69.548.989.075.099.215.112.326.058a1.176 1.176 0 0 1 1.685 1.126c-.007.123.06.247.18.278a4.004 4.004 0 0 0 1.5.095c.143-.018.225-.167.21-.31a1.176 1.176 0 0 1 1.927-1.029c.108.094.276.108.37 0a3.99 3.99 0 0 0 .726-1.207c.05-.135-.042-.276-.175-.33a1.177 1.177 0 0 1 0-2.186c.133-.053.226-.195.175-.33a4.002 4.002 0 0 0-.725-1.207c-.095-.108-.263-.093-.372 0a1.176 1.176 0 0 1-1.927-1.029c.016-.143-.066-.292-.208-.31a4.026 4.026 0 0 0-1.502.095c-.12.03-.186.155-.18.279a.697.697 0 0 1 .003.066Zm1.175 4.942a1.411 1.411 0 1 0-.002-2.822 1.411 1.411 0 0 0 .002 2.822Z' fill='currentColor' />
+			<path clipRule='evenodd' fillRule='evenodd' d='M14.075 11.47a1.176 1.176 0 0 1-1.687 1.06c-.111-.054-.251-.04-.326.058-.226.3-.412.632-.548.99-.05.134.042.276.175.329a1.177 1.177 0 0 1 0 2.186c-.133.053-.226.195-.175.33.136.357.322.69.548.989.075.099.215.112.326.058a1.176 1.176 0 0 1 1.685 1.126c-.007.123.06.247.18.278a4.004 4.004 0 0 0 1.5.095c.143-.018.225-.167.21-.31a1.176 1.176 0 0 1 1.927-1.029c.108.094.276.108.37 0a3.99 3.99 0 0 0 .726-1.207c.05-.135-.042-.276-.175-.33a1.177 1.177 0 0 1 0-2.186c.133-.053.226-.195.175-.33a4.002 4.002 0 0 0-.725-1.207c-.095-.108-.263-.093-.372 0a1.176 1.176 0 0 1-1.927-1.029c.016-.143-.066-.292-.208-.31a4.026 4.026 0 0 0-1.502.095c-.12.03-.186.155-.18.279a.697.697 0 0 1 .003.066Zm1.175 4.942a1.411 1.411 0 1 0-.002-2.822 1.411 1.411 0 0 0 .002 2.822Z' fill='currentColor' />
 		</svg>
 	),
 	captionGeneric: (
@@ -5057,7 +5057,7 @@ export const icons = {
 	),
 	componentOptions: (
 		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path clip-rule='evenodd' fillRule='evenodd' d='M14.575 11.97a1.176 1.176 0 0 1-1.687 1.06c-.111-.054-.251-.04-.326.058-.226.3-.412.632-.548.99-.05.134.042.276.175.329a1.177 1.177 0 0 1 0 2.186c-.133.053-.226.195-.175.33.136.357.322.69.548.989.075.099.215.112.326.058a1.176 1.176 0 0 1 1.685 1.126c-.007.123.06.247.18.278a4.004 4.004 0 0 0 1.5.095c.143-.018.225-.167.21-.31a1.176 1.176 0 0 1 1.927-1.029c.108.094.276.108.37 0a3.99 3.99 0 0 0 .726-1.207c.05-.135-.042-.276-.175-.33a1.177 1.177 0 0 1 0-2.186c.133-.053.226-.195.175-.33a4.002 4.002 0 0 0-.725-1.207c-.095-.108-.263-.093-.372 0a1.176 1.176 0 0 1-1.927-1.029c.016-.143-.066-.292-.208-.31a4.026 4.026 0 0 0-1.502.095c-.12.03-.186.155-.18.279a.697.697 0 0 1 .003.066Zm1.175 4.942a1.411 1.411 0 1 0-.002-2.822 1.411 1.411 0 0 0 .002 2.822Z' fill='currentColor' />
+			<path clipRule='evenodd' fillRule='evenodd' d='M14.575 11.97a1.176 1.176 0 0 1-1.687 1.06c-.111-.054-.251-.04-.326.058-.226.3-.412.632-.548.99-.05.134.042.276.175.329a1.177 1.177 0 0 1 0 2.186c-.133.053-.226.195-.175.33.136.357.322.69.548.989.075.099.215.112.326.058a1.176 1.176 0 0 1 1.685 1.126c-.007.123.06.247.18.278a4.004 4.004 0 0 0 1.5.095c.143-.018.225-.167.21-.31a1.176 1.176 0 0 1 1.927-1.029c.108.094.276.108.37 0a3.99 3.99 0 0 0 .726-1.207c.05-.135-.042-.276-.175-.33a1.177 1.177 0 0 1 0-2.186c.133-.053.226-.195.175-.33a4.002 4.002 0 0 0-.725-1.207c-.095-.108-.263-.093-.372 0a1.176 1.176 0 0 1-1.927-1.029c.016-.143-.066-.292-.208-.31a4.026 4.026 0 0 0-1.502.095c-.12.03-.186.155-.18.279a.697.697 0 0 1 .003.066Zm1.175 4.942a1.411 1.411 0 1 0-.002-2.822 1.411 1.411 0 0 0 .002 2.822Z' fill='currentColor' />
 			<path d='m9.912 19-6.656-3.803a1.5 1.5 0 0 1-.756-1.303V5.235l7.412 4.236V19Z' fill='currentColor' fillOpacity='0.12' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' />
 			<path d='M17.324 11V5.235L9.912 9.471V19l.926-.53.464-.264m6.021-12.971-6.667-3.81a1.5 1.5 0 0 0-1.488 0L2.5 5.235l7.412 4.236 7.411-4.236Z' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
 		</svg>
@@ -5198,6 +5198,37 @@ export const icons = {
 			<circle cx='5.25' cy='5.25' r='1.75' fill='currentColor' fillOpacity='0.5' />
 			<path d='M18 11a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h5Zm-.12 2.12a.537.537 0 0 0-.76 0l-1.62 1.62-1.62-1.62a.537.537 0 1 0-.76.76l1.62 1.62-1.62 1.62a.537.537 0 1 0 .76.76l1.62-1.62 1.62 1.62a.537.537 0 1 0 .76-.76l-1.62-1.62 1.62-1.62c.21-.21.21-.55 0-.76Z' fill='currentColor' />
 			<path d='M3.475 10.705 1 12.79V15h10.5l1.5-2.5 1.241-.863-2.436-2.518a1.5 1.5 0 0 0-2.16.004l-1.78 1.854a1.5 1.5 0 0 1-2.114.05l-.278-.263a1.5 1.5 0 0 0-1.998-.059Z' fill='currentColor' fillOpacity='0.5' />
+		</svg>
+	),
+	responsiveOverridesAltFill: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M11.5 14.5v-3m0 3H9.179m2.321 0h2.321m-2.321-3H17a1.5 1.5 0 0 0 1.5-1.5V3A1.5 1.5 0 0 0 17 1.5H7A1.5 1.5 0 0 0 5.5 3v8.5h6Z' stroke='currentColor' strokeLinecap='round' fill='none' />
+			<rect x='1' y='7' width='7' height='12' rx='1.5' fill='currentColor' />
+		</svg>
+	),
+	responsiveOverridesAlt2Fill: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M17 1.5H7A1.5 1.5 0 0 0 5.5 3v4.5h1a1 1 0 0 1 1 1v3H17a1.5 1.5 0 0 0 1.5-1.5V3A1.5 1.5 0 0 0 17 1.5Z' fill='currentColor' />
+			<path d='M11.5 14.5v-3m0 3H9.179m2.321 0h2.321m-2.321-3H17a1.5 1.5 0 0 0 1.5-1.5V3A1.5 1.5 0 0 0 17 1.5H7A1.5 1.5 0 0 0 5.5 3v4.5h1a1 1 0 0 1 1 1v3h4Z' stroke='currentColor' strokeLinecap='round' fill='none' />
+			<rect x='1.5' y='7.5' width='6' height='11' rx='1' stroke='currentColor' fill='none' />
+		</svg>
+	),
+	responsiveOverridesAlt3Fill: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M17 1.5H7A1.5 1.5 0 0 0 5.5 3v2.5H7A2.5 2.5 0 0 1 9.5 8v3.5H17a1.5 1.5 0 0 0 1.5-1.5V3A1.5 1.5 0 0 0 17 1.5Z' fill='currentColor' />
+			<path d='M11.5 14.5v-3m0 3H9.179m2.321 0h2.321m-2.321-3H17a1.5 1.5 0 0 0 1.5-1.5V3A1.5 1.5 0 0 0 17 1.5H7A1.5 1.5 0 0 0 5.5 3v2.5H7A2.5 2.5 0 0 1 9.5 8v3.5h2Z' stroke='currentColor' strokeLinecap='round' fill='none' />
+			<rect x='1' y='7' width='7' height='12' rx='1.5' fill='currentColor' />
+		</svg>
+	),
+	reorder: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path stroke='currentColor' strokeLinecap='round' d='M2.5 5.5h15m-15 3h15m-15 3h15m-15 3h15' fill='none' />
+			<path d='M12.148 3H7.852a.5.5 0 0 1-.326-.88L9.675.28a.5.5 0 0 1 .65 0l2.149 1.841a.5.5 0 0 1-.326.88Zm0 14H7.852a.5.5 0 0 0-.326.88l2.149 1.841a.5.5 0 0 0 .65 0l2.149-1.841a.5.5 0 0 0-.326-.88Z' fill='currentColor' />
+		</svg>
+	),
+	loaderAlt: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M10 19v-2m-9-7h2m13.367 6.367-1.414-1.414m-11.32 1.414 1.414-1.414M10 3V1m7 9h2M5.047 5.047 3.633 3.633m11.32 1.414 1.414-1.414M10 17v-1.555M3 10h1.555m10.396 4.951-1.1-1.1m-8.803 1.1 1.1-1.1M10 4.556V3m5.444 7H17M6.147 6.147l-1.1-1.1m8.806 1.1 1.1-1.1' stroke='currentColor' strokeLinecap='round' fill='none' />
 		</svg>
 	),
 };

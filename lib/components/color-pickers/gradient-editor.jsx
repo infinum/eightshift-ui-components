@@ -9,13 +9,16 @@ import { NumberPicker } from '../number-picker/number-picker';
 import { ColorSwatch } from 'react-aria-components';
 import { Menu, MenuItem } from '../menu/menu';
 import { MatrixAlign } from '../matrix-align/matrix-align';
-import { Spacer } from '../spacer/spacer';
 import { Toggle } from '../toggle/toggle';
 import { OptionSelect } from '../option-select/option-select';
 import { DraggableList } from '../draggable-list/draggable-list';
 import { DraggableListItem } from '../draggable-list/draggable-list-item';
 import { TriggeredPopover } from '../popover/popover';
 import { clsx } from 'clsx/lite';
+import { Container, ContainerGroup } from '../base-control/container';
+import { BaseControl } from '../base-control/base-control';
+import { isColorDark } from '../../utilities';
+import { srgb } from '@thi.ng/color';
 
 const getGradientResult = (input, type) => {
 	if (!input || !type) {
@@ -199,27 +202,83 @@ export const GradientEditor = (props) => {
 
 	return (
 		<div className='es:w-full es:space-y-2.5'>
-			<button
-				className={clsx(
-					'es:shadow-sm, es:mx-auto es:block es:h-40 es:cursor-pointer es:rounded-lg es:border es:border-secondary-300 es:transition-[width]',
-					squarePreview ? 'es:w-40' : 'es:w-full',
-				)}
-				style={{ backgroundImage: outputGradient }}
-				onClick={() => setSquarePreview((prev) => !prev)}
-				aria-label={__('Toggle preview size', 'eightshift-ui-components')}
-			/>
+			<ContainerGroup>
+				<Container>
+					<button
+						className={clsx(
+							'es:shadow-sm, es:mx-auto es:block es:h-40 es:cursor-pointer es:rounded-lg es:border es:border-secondary-300 es:transition-[width] es:duration-300 es:ease-spring-snappy',
+							'es:mb-2',
+							squarePreview ? 'es:w-40' : 'es:w-full',
+						)}
+						style={{ backgroundImage: outputGradient }}
+						onClick={() => setSquarePreview((prev) => !prev)}
+						aria-label={__('Toggle preview size', 'eightshift-ui-components')}
+					/>
 
-			<OptionSelect
-				aria-label={__('Gradient type', 'eightshift-ui-components')}
-				value={gradientType}
-				onChange={(value) => onChange(getGradientResult({ stops: gradientData.stops }, value))}
-				options={gradientTypes}
-				wrapperProps={{ className: 'es:mx-auto es:w-fit' }}
-				type='toggleButtons'
-			/>
+					<Slider
+						className='es:mb-5'
+						aria-label={__('Stop positions', 'eightshift-ui-components')}
+						min={0}
+						max={100}
+						step={1}
+						value={gradientData?.stops?.map(({ offset }, i) => {
+							if (!offset) {
+								return (i * 100) / (gradientData.stops.length - 1);
+							}
 
-			{gradientType === 'linear' && (
-				<div className='es:flex es:items-center es:gap-1'>
+							return parseInt(offset?.value);
+						})}
+						onChange={(value) => {
+							setGradientData({
+								...gradientData,
+								stops: gradientData.stops.map((stop, i) => {
+									return {
+										...stop,
+										offset: { value: value[i], unit: '%' },
+									};
+								}),
+							});
+						}}
+						thumbContent={(index) => {
+							const colorData = srgb(gradientData.stops[index]?.color);
+
+							let foregroundColor = 'black';
+
+							if (colorData.alpha >= 0.5 && isColorDark(colorData.r, colorData.g, colorData.b)) {
+								foregroundColor = 'white';
+							}
+
+							return (
+								<div
+									className='es:pointer-events-none es:absolute es:-bottom-4.5 es:-translate-x-1/3 es:flex es:w-3 es:items-center es:justify-center es:text-center es:text-12 es:leading-none es:py-0.25 es:rounded-sm es:font-semibold es:tabular-nums es:font-mono es:ring es:ring-accent-600'
+									style={{
+										backgroundColor: gradientData.stops[index]?.color,
+										color: foregroundColor,
+									}}
+								>
+									{index + 1}
+								</div>
+							);
+						}}
+						noActiveHighlight
+						tooltipContent={(value) => `${Math.round(value)}%`}
+					/>
+				</Container>
+			</ContainerGroup>
+
+			<ContainerGroup>
+				<Container>
+					<OptionSelect
+						label={__('Type', 'eightshift-ui-components')}
+						value={gradientType}
+						onChange={(value) => onChange(getGradientResult({ stops: gradientData.stops }, value))}
+						options={gradientTypes}
+						type='toggleButtons'
+						inline
+					/>
+				</Container>
+
+				<Container hidden={gradientType !== 'linear'}>
 					<NumberPicker
 						inline
 						icon={icons.angle}
@@ -235,40 +294,39 @@ export const GradientEditor = (props) => {
 							});
 						}}
 						suffix='°'
-						size='small'
+						size='medium'
 						className='es:grow'
 						placeholder={linearDirections.find(({ value }) => value === gradientData?.orientation?.value)?.valueDegrees ?? ''}
-					/>
-
-					<Menu
-						triggerIcon={icons.sliders}
-						triggerProps={{
-							tooltip: __('Presets', 'eightshift-ui-components'),
-						}}
-						keepOpen
 					>
-						{linearDirections.map(({ label, value, iconClass }) => {
-							return (
-								<MenuItem
-									key={value}
-									icon={<div className={clsx('es:size-5 es:rounded-sm es:from-secondary-700 es:to-secondary-200', iconClass)} />}
-									onClick={() => {
-										setGradientData({
-											...gradientData,
-											orientation: { type: 'directional', value: value },
-										});
-									}}
-								>
-									{label}
-								</MenuItem>
-							);
-						})}
-					</Menu>
-				</div>
-			)}
+						<Menu
+							triggerIcon={icons.sliders}
+							triggerProps={{
+								tooltip: __('Presets', 'eightshift-ui-components'),
+								slot: null,
+							}}
+							keepOpen
+						>
+							{linearDirections.map(({ label, value, iconClass }) => {
+								return (
+									<MenuItem
+										key={value}
+										icon={<div className={clsx('es:size-5 es:rounded-sm es:from-secondary-700 es:to-secondary-200', iconClass)} />}
+										onClick={() => {
+											setGradientData({
+												...gradientData,
+												orientation: { type: 'directional', value: value },
+											});
+										}}
+									>
+										{label}
+									</MenuItem>
+								);
+							})}
+						</Menu>
+					</NumberPicker>
+				</Container>
 
-			{gradientType === 'radial' && (
-				<div className='es:space-y-2'>
+				<Container hidden={gradientType !== 'radial'}>
 					<OptionSelect
 						label={__('Shape', 'eightshift-ui-components')}
 						icon={icons.genericShapesAlt}
@@ -285,7 +343,9 @@ export const GradientEditor = (props) => {
 							});
 						}}
 					/>
+				</Container>
 
+				<Container hidden={gradientType !== 'radial'}>
 					<MatrixAlign
 						icon={icons.centerPoint}
 						label={__('Center point', 'eightshift-ui-components')}
@@ -302,11 +362,9 @@ export const GradientEditor = (props) => {
 							});
 						}}
 					/>
-				</div>
-			)}
+				</Container>
 
-			{gradientType === 'conic' && (
-				<div className='es:space-y-2'>
+				<Container hidden={gradientType !== 'conic'}>
 					<NumberPicker
 						inline
 						icon={icons.angle}
@@ -314,18 +372,19 @@ export const GradientEditor = (props) => {
 						min={0}
 						max={360}
 						step={1}
-						value={parseInt(gradientData?.angle.replace('deg', ''))}
+						value={parseInt(gradientData?.angle?.replace('deg', ''))}
 						onChange={(value) => {
 							setGradientData({
 								...gradientData,
 								angle: `${value}deg`,
 							});
 						}}
-						size='small'
+						size='medium'
 						suffix='°'
-						className='es:grow'
 					/>
+				</Container>
 
+				<Container hidden={gradientType !== 'conic'}>
 					<MatrixAlign
 						icon={icons.centerPoint}
 						label={__('Center point', 'eightshift-ui-components')}
@@ -337,133 +396,105 @@ export const GradientEditor = (props) => {
 							});
 						}}
 					/>
-				</div>
-			)}
+				</Container>
 
-			<Toggle
-				checked={gradientData.repeating}
-				onChange={(value) => {
-					setGradientData({
-						...gradientData,
-						repeating: value,
-					});
-				}}
-				label={__('Repeating', 'eightshift-ui-components')}
-				icon={icons.gradientRepeat}
-			/>
-
-			<Spacer border />
-
-			<DraggableList
-				items={gradientData?.stops}
-				onChange={(items) => {
-					setGradientData({
-						...gradientData,
-						stops: items.map(({ color }, i) => ({
-							...(gradientData.stops[i] ?? {}),
-							color,
-						})),
-					});
-				}}
-				icon={icons.gradientStop}
-				label={__('Gradient stops', 'eightshift-ui-components')}
-				key={gradientData?.stops?.length}
-				actions={
-					<Button
-						icon={icons.add}
-						size='small'
-						onPress={() => {
+				<Container>
+					<Toggle
+						checked={gradientData.repeating}
+						onChange={(value) => {
 							setGradientData({
 								...gradientData,
-								stops: [...gradientData.stops, { color: '#000000FF' }],
+								repeating: value,
 							});
 						}}
-						aria-label={__('Add stop', 'eightshift-ui-components')}
+						label={__('Repeating', 'eightshift-ui-components')}
+						icon={icons.gradientRepeat}
 					/>
-				}
+				</Container>
+			</ContainerGroup>
+
+			<BaseControl
+				icon={icons.gradientStop}
+				label={__('Gradient stops', 'eightshift-ui-components')}
+				inline
 			>
-				{(item) => {
-					const { color, updateData, itemIndex } = item;
+				<Button
+					icon={icons.add}
+					size='small'
+					onPress={() => {
+						setGradientData({
+							...gradientData,
+							stops: [...gradientData.stops, { color: '#000000FF' }],
+						});
+					}}
+					type='simple'
+					aria-label={__('Add stop', 'eightshift-ui-components')}
+				/>
+			</BaseControl>
 
-					return (
-						<DraggableListItem
-							label={sprintf(__('Stop %s', 'eightshift-ui-components'), itemIndex + 1)}
-							subtitle={color}
-							icon={
-								<ColorSwatch
-									className='es:size-5 es:rounded-full es:border es:border-white es:ring-1 es:ring-black'
-									color={color}
-								/>
-							}
-							textValue={sprintf(__('Stop %s', 'eightshift-ui-components'), itemIndex + 1)}
-						>
-							<ButtonGroup>
-								<TriggeredPopover
-									triggerButtonIcon={icons.color}
-									triggerButtonProps={{ size: 'small' }}
-								>
-									<SolidColorPicker
-										value={color}
-										onChange={(color) => {
-											updateData({ color });
-										}}
-										allowTransparency
-										outputFormat='rgba'
+			<ContainerGroup>
+				<DraggableList
+					items={gradientData?.stops}
+					onChange={(items) => {
+						setGradientData({
+							...gradientData,
+							stops: items.map(({ color }, i) => ({
+								...(gradientData.stops[i] ?? {}),
+								color,
+							})),
+						});
+					}}
+					orientation='vertical'
+					className='es:contents'
+				>
+					{(item) => {
+						const { color, updateData, itemIndex } = item;
+
+						return (
+							<DraggableListItem
+								label={sprintf(__('Stop %s', 'eightshift-ui-components'), itemIndex + 1)}
+								subtitle={color}
+								icon={
+									<ColorSwatch
+										className='es:size-5 es:rounded-full es:border es:border-white es:ring-1 es:ring-black'
+										color={color}
 									/>
-								</TriggeredPopover>
-								<Button
-									onPress={() => {
-										setGradientData({
-											...gradientData,
-											stops: gradientData.stops.filter((_, i) => i !== itemIndex),
-										});
-									}}
-									icon={icons.trash}
-									size='small'
-									aria-label={__('Delete stop', 'eightshift-ui-components')}
-									disabled={gradientData.stops.length <= 2}
-								/>
-							</ButtonGroup>
-						</DraggableListItem>
-					);
-				}}
-			</DraggableList>
-
-			<Slider
-				aria-label={__('Stop positions', 'eightshift-ui-components')}
-				min={0}
-				max={100}
-				step={1}
-				value={gradientData?.stops?.map(({ offset }, i) => {
-					if (!offset) {
-						return (i * 100) / (gradientData.stops.length - 1);
-					}
-
-					return parseInt(offset?.value);
-				})}
-				onChange={(value) => {
-					setGradientData({
-						...gradientData,
-						stops: gradientData.stops.map((stop, i) => {
-							return {
-								...stop,
-								offset: { value: value[i], unit: '%' },
-							};
-						}),
-					});
-				}}
-				thumbContent={(index) => (
-					<div className='es:pointer-events-none es:absolute es:inset-0 es:flex es:size-3 es:items-center es:justify-center es:text-center es:text-xs es:font-semibold es:text-white'>
-						{index + 1}
-					</div>
-				)}
-				trackStyle={{
-					backgroundImage: getGradientResult({ orientation: { type: 'directional', value: 'right' }, stops: gradientData.stops }, 'linear'),
-					height: '1.125rem',
-					borderRadius: '0.5rem',
-				}}
-				noActiveHighlight
-			/>
+								}
+							>
+								<ButtonGroup>
+									<TriggeredPopover
+										triggerButtonIcon={icons.color}
+										triggerButtonProps={{ size: 'small', type: 'ghost' }}
+										className='es:p-2.5'
+									>
+										<SolidColorPicker
+											value={color}
+											onChange={(color) => {
+												updateData({ color });
+											}}
+											allowTransparency
+											outputFormat='rgba'
+										/>
+									</TriggeredPopover>
+									<Button
+										onPress={() => {
+											setGradientData({
+												...gradientData,
+												stops: gradientData.stops.filter((_, i) => i !== itemIndex),
+											});
+										}}
+										icon={icons.trash}
+										size='small'
+										aria-label={__('Delete stop', 'eightshift-ui-components')}
+										disabled={gradientData.stops.length <= 2}
+										type='dangerGhost'
+									/>
+								</ButtonGroup>
+							</DraggableListItem>
+						);
+					}}
+				</DraggableList>
+			</ContainerGroup>
 		</div>
 	);
 };

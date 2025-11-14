@@ -10,13 +10,6 @@ import { clsx } from 'clsx/lite';
 import { List, arrayMove, arrayRemove } from 'react-movable';
 import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
 
-const fixIds = (items, itemIdBase) => {
-	return items?.map((item, i) => ({
-		...item,
-		id: item?.id ?? `${itemIdBase}-${i}`,
-	}));
-};
-
 /**
  * A component that allows re-ordering a list of items with additional sub-options.
  *
@@ -80,7 +73,7 @@ export const Repeater = (props) => {
 	const {
 		children,
 		onChange,
-		items: rawItems,
+		items,
 		icon,
 		label,
 		subtitle,
@@ -111,8 +104,6 @@ export const Repeater = (props) => {
 	if (typeof rawItems === 'undefined' || rawItems === null || !Array.isArray(rawItems)) {
 		console.warn(__("Repeater: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
 	}
-
-	const items = fixIds(rawItems ?? [], itemIdBase);
 
 	const canDelete = items.length > (minItems ?? 0);
 	const canAdd = items.length < (maxItems ?? Number.MAX_SAFE_INTEGER) && !addDisabled;
@@ -165,6 +156,7 @@ export const Repeater = (props) => {
 							className={clsx('es:icon:size-4', !hideEmptyState && items.length < 1 && 'es:invisible')}
 							tooltip={__('Add item', 'eightshift-ui-components')}
 							disabled={addDisabled || !canAdd}
+							type='simple'
 						/>
 					)}
 
@@ -188,7 +180,7 @@ export const Repeater = (props) => {
 			className='es:w-full'
 		>
 			<List
-				values={items.map((item) => ({ ...item, disabled: openItems[item.id] }))}
+				values={items.map((item) => ({ ...item, disabled: openItems?.[item?.id] }))}
 				onChange={({ oldIndex, newIndex }) => onChange(newIndex === -1 ? arrayRemove(items, oldIndex) : arrayMove(items, oldIndex, newIndex))}
 				renderList={({ children, props }) => {
 					const { key, ...rest } = props;
@@ -196,7 +188,7 @@ export const Repeater = (props) => {
 					return (
 						<ul
 							key={key}
-							className={clsx('es:w-full es:list-none', className)}
+							className={clsx('es:w-full es:list-none es:m-0! es:flex es:flex-col es:gap-1', className)}
 							{...rest}
 						>
 							{children}
@@ -208,8 +200,8 @@ export const Repeater = (props) => {
 
 					return (
 						<li
-							className='es:group es:w-full es:list-none es:any-focus:outline-hidden'
-							key={item?.id ?? key}
+							className='es:group es:w-full es:list-none es:any-focus:outline-hidden es:m-0!'
+							key={key}
 							{...rest}
 						>
 							<RepeaterContext.Provider

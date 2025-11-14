@@ -53,12 +53,12 @@ export const Tooltip = (props) => {
 		text,
 		theme = 'dark',
 
-		offset = 0,
+		offset = 5,
 		crossOffset = 0,
 
 		containerPadding = 12,
 
-		openDelay = 1500,
+		openDelay = 1200,
 		closeDelay = 500,
 
 		shouldFlip = true,
@@ -95,13 +95,14 @@ export const Tooltip = (props) => {
 				className={({ isEntering, isExiting }) =>
 					clsx(
 						'es:group es:pointer-events-none',
-						'es:z-20 es:select-none es:rounded-md es:border es:px-1.5 es:py-0.5 es:text-sm es:shadow es:backdrop-blur-3xl es:will-change-[transform,opacity] es:fill-mode-forwards',
-						theme === 'light' && 'es:border-secondary-200 es:bg-white/90 es:text-secondary-700',
-						theme === 'dark' && 'es:border-secondary-600 es:bg-black/80 es:text-secondary-100',
+						'es:font-variation-["wdth"_72,"YTLC"_520,"wght"_380]',
+						'es:z-40 es:select-none es:rounded-lg es:inset-ring es:px-2.5 es:py-2 es:text-13 es:leading-none es:shadow es:backdrop-blur-xl es:backdrop-brightness-105 es:backdrop-saturate-125 es:will-change-[transform,opacity] es:fill-mode-forwards',
+						theme === 'light' && 'es:inset-ring-surface-800/5 es:bg-surface-50/90 es:text-secondary-700',
+						theme === 'dark' && 'es:inset-ring-surface-200/15 es:bg-surface-800/80 es:text-secondary-100',
 						isEntering &&
-							'es:motion-opacity-in es:motion-duration-300 es:motion-safe:data-[placement=left]:motion-translate-x-in-[5%] es:motion-safe:data-[placement=right]:-motion-translate-x-in-[5%] es:motion-safe:data-[placement=top]:motion-translate-y-in-[5%] es:motion-safe:data-[placement=bottom]:-motion-translate-y-in-[5%] es:motion-ease-spring-smooth es:motion-ease-linear/opacity',
+							'es:motion-opacity-in es:motion-duration-300 es:placement-left:motion-translate-x-in-[5%] es:placement-right:-motion-translate-x-in-[5%] es:placement-top:motion-translate-y-in-[5%] es:placement-bottom:-motion-translate-y-in-[5%] es:motion-ease-spring-smooth es:motion-ease-linear/opacity es:motion-blur-in-[1px]',
 						isExiting &&
-							'es:motion-opacity-out es:motion-duration-200 es:motion-safe:data-[placement=left]:motion-translate-x-out-[12.5%] es:motion-safe:data-[placement=right]:motion-translate-x-out-[-12.5%] es:motion-safe:data-[placement=top]:motion-translate-y-out-[12.5%] es:motion-safe:data-[placement=bottom]:motion-translate-y-out-[-12.5%] es:motion-ease-spring-smooth es:motion-ease-linear/opacity',
+							'es:motion-opacity-out es:motion-duration-200 es:placement-left:motion-translate-x-out-[12.5%] es:placement-right:motion-translate-x-out-[-12.5%] es:placement-top:motion-translate-y-out-[12.5%] es:placement-bottom:motion-translate-y-out-[-12.5%] es:motion-ease-spring-smooth es:motion-ease-linear/opacity es:motion-blur-out-[2px]',
 						className,
 					)
 				}
@@ -117,7 +118,7 @@ export const Tooltip = (props) => {
 								'es:pointer-events-none',
 								theme === 'light' && 'es:fill-secondary-200',
 								theme === 'dark' && 'es:fill-secondary-600',
-								'es:group-data-[placement=left]:-rotate-90 es:group-data-[placement=right]:rotate-90 es:group-data-[placement=bottom]:rotate-180',
+								'es:group-placement-left:-rotate-90 es:group-placement-right:rotate-90 es:group-placement-bottom:rotate-180',
 								'es:forced-colors:fill-[Canvas] es:forced-colors:stroke-[ButtonBorder]',
 							)}
 						>

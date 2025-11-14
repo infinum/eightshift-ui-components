@@ -23,12 +23,13 @@ import { Tooltip } from '../tooltip/tooltip';
  * @param {Function} [props.onChange] - Function to run when the toggle state changes.
  * @param {string} [props.wrapperClassName] - Classes to pass to the tooltip wrapper.
  * @param {TooltipProps} [props.tooltipProps] - Props to pass to the tooltip.
+ * @param {boolean} [props.flat] - If `true`, component will look more flat (applies only to `default` type). Useful for nested layer of controls.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The ToggleButton component.
  *
  * @typedef {'small' | 'default' | 'large'} ToggleButtonSize
- * @typedef {'default'| 'ghost'} ToggleButtonType
+ * @typedef {'default'| 'ghost' | 'simple'} ToggleButtonType
  *
  * @example
  * const [selected, setSelected] = useState(false);
@@ -62,6 +63,7 @@ export const ToggleButton = (props) => {
 		onChange,
 		wrapperClassName,
 		tooltipProps,
+		flat,
 		hidden,
 		'aria-label': ariaLabel,
 		...other
@@ -73,89 +75,171 @@ export const ToggleButton = (props) => {
 
 	const componentClasses = cva(
 		[
-			'es:flex es:items-center es:gap-1',
-			'es:transition es:duration-300 es:border es:text-sm',
-			'es:any-focus:outline-hidden es:focus-visible:z-10',
-			'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
-			'es:focus-visible:border-accent-500',
-			'es:btn-group-mid:rounded-none',
-			'es:btn-group-h-start:rounded-r-none es:btn-group-v-start:rounded-b-none',
-			'es:btn-group-h-end:rounded-l-none es:btn-group-v-end:rounded-t-none',
-			'es:enabled:not-pending:cursor-pointer',
+			'es:font-variation-["wdth"_80,"YTLC"_520,"wdth"_64,"wght"_375]',
+			'es:flex es:items-center',
+			'es:transition-plus es:duration-300 es:ease-spring-snappy es:text-13',
+			'es:any-focus:outline-hidden',
+			'es:focus-visible:ring-2',
 			'es:shrink-0',
-			'es:pending:shadow-none! es:pending:cursor-wait',
-			'es:bg-radial-[at_50%_125%]',
-			icon && children ? 'es:justify-start' : 'es:justify-center',
+			'es:text-box-trim',
+			'es:leading-none',
+			'es:icon:size-5',
+			!disabled && 'es:cursor-pointer',
+			icon && children ? 'es:justify-start' : 'es:justify-center-safe',
 			className,
 		],
 		{
 			variants: {
 				size: {
-					small: 'es:icon:size-5 es:rounded-7',
-					default: 'es:icon:size-5 es:rounded-10',
-					large: 'es:icon:size-6 es:rounded-xl',
+					small: 'es:gap-0.75',
+					default: 'es:gap-1.25',
+					large: 'es:gap-1.5',
+				},
+				selected: {
+					false: [
+						'es:btn-group-h:not-pressed:not-after-current:not-first:rounded-l-sm',
+						'es:btn-group-h:not-pressed:not-before-current:not-last:rounded-r-sm',
+						'es:btn-group-v:not-pressed:not-after-current:not-first:rounded-t-sm',
+						'es:btn-group-v:not-pressed:not-before-current:not-last:rounded-b-sm',
+					],
 				},
 			},
 			compoundVariants: [
+				{
+					size: 'small',
+					selected: true,
+					class: 'es:rounded-14',
+				},
+				{
+					size: 'default',
+					selected: true,
+					class: 'es:rounded-18',
+				},
+				{
+					size: 'large',
+					selected: true,
+					class: 'es:rounded-3xl',
+				},
+				{
+					size: 'small',
+					selected: false,
+					class: 'es:rounded-md es:hover:rounded-10! es:pressed:rounded-14!',
+				},
+				{
+					size: 'default',
+					selected: false,
+					class: 'es:rounded-10 es:hover:rounded-xl! es:pressed:rounded-18!',
+				},
+				{
+					size: 'large',
+					selected: false,
+					class: 'es:rounded-xl es:hover:rounded-2xl! es:pressed:rounded-3xl!',
+				},
+				// Default
 				{
 					type: 'default',
 					disabled: false,
 					selected: false,
 					class: [
 						'es:text-black',
-						'es:from-white es:to-secondary-50',
-						'es:border-secondary-300',
-						'es:inset-ring es:inset-ring-secondary-100',
-						'es:inset-shadow-xs es:inset-shadow-secondary-100/50',
-						'es:shadow-sm',
-						'es:enabled:hover:shadow-md es:enabled:active:shadow-sm es:enabled:pressed:shadow-sm es:hover:inset-shadow-secondary-100 es:hover:to-secondary-100 es:hover:inset-ring-secondary-100',
-						'es:hover:text-accent-950',
-						'es:focus-visible:text-accent-950',
+						'es:bg-linear-to-b es:from-black/2 es:to-black/4 es:from-25% es:bg-white',
+						'es:inset-ring es:inset-ring-secondary-800/20',
+						'es:inset-shadow-sm es:inset-shadow-white/75',
+						!flat && 'es:shadow-xs es:shadow-black/5',
+						'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10',
+						'es:pressed:bg-surface-100 es:pressed:text-accent-950 es:pressed:inset-ring-surface-300 es:pressed:inset-shadow-white/10',
+						'es:focus-visible:ring-accent-500/30 es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
 					],
 				},
 				{
-					type: ['default', 'ghost'],
+					type: 'default',
+					disabled: false,
+					selected: true,
+					class: [
+						'es:font-variation-["wdth"_80,"YTLC"_520,"wdth"_64,"wght"_375,"GRAD"_150]',
+						'es:any-icon:drop-shadow-xs es:any-icon:drop-shadow-accent-800/25',
+						'es:text-white es:text-shadow-xs es:text-shadow-accent-900/30',
+						'es:bg-linear-to-b es:from-accent-800/10 es:to-accent-800/30 es:bg-accent-500 es:from-30%',
+						'es:inset-ring es:inset-ring-accent-600',
+						'es:inset-shadow-sm es:inset-shadow-accent-50/25',
+						!flat && 'es:shadow-xs es:shadow-accent-900/30',
+						'es:hover:from-accent-800/20 es:hover:to-accent-800/40',
+						'es:pressed:from-accent-800/30 es:pressed:to-accent-800/50',
+						'es:focus-visible:ring-accent-500/30 es:focus-visible:inset-ring-accent-700 es:focus-visible:bg-accent-600',
+					],
+				},
+				// Simple
+				{
+					type: 'simple',
+					disabled: false,
+					selected: false,
+					class: [
+						'es:text-black',
+						'es:bg-secondary-50 es:bg-linear-to-br es:from-surface-500/2 es:to-surface-500/10',
+						'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:to-accent-700/5',
+						'es:pressed:bg-surface-100 es:pressed:text-accent-950 es:pressed:inset-ring-surface-300 es:pressed:inset-shadow-white/10',
+						'es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
+					],
+				},
+				{
+					type: 'simple',
 					disabled: false,
 					selected: true,
 					class: [
 						'es:text-white',
-						'es:from-accent-500 es:to-accent-600',
-						'es:border-accent-700',
-						'es:inset-ring es:inset-ring-accent-600',
-						'es:inset-shadow-xs es:inset-shadow-accent-400/75',
-						'es:focus-visible:border-accent-700',
-						'es:focus-visible:inset-ring es:focus-visible:inset-ring-accent-600',
-						'es:focus-visible:inset-shadow-xs es:focus-visible:inset-shadow-accent-400',
-						'es:shadow es:shadow-accent-600/30 es:enabled:hover:shadow-md es:enabled:active:shadow-sm es:enabled:pressed:shadow-sm',
+						'es:bg-linear-to-br es:from-accent-600/55 es:to-accent-600/90 es:text-white',
+						'es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
+						'es:inset-ring es:inset-ring-accent-800/15',
 					],
 				},
+				// Ghost
 				{
 					type: 'ghost',
 					disabled: false,
 					selected: false,
 					class: [
-						'es:border-accent-500/0 es:text-secondary-700',
-						'es:hover:bg-accent-500/10 es:hover:text-accent-700',
-						'es:active:bg-accent-50 es:pressed:bg-accent-50 es:active:text-accent-950 es:pressed:text-accent-950',
-						'es:focus-visible:text-accent-700',
-						'es:inset-ring es:inset-ring-accent-600/0',
-						'es:inset-shadow-xs es:inset-shadow-accent-400/0',
+						'es:bg-white',
+						'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-secondary-700',
+						'es:hover:from-surface-200/30 es:hover:to-surface-200/50 es:hover:text-accent-950',
+						'es:pressed:from-accent-600/5 es:pressed:to-accent-600/15 es:pressed:text-accent-900',
+						'es:focus-visible:bg-accent-50 es:focus-visible:text-accent-950 es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:inset-ring-accent-500',
 					],
 				},
 				{
+					type: 'ghost',
+					disabled: false,
+					selected: true,
+					class: [
+						'es:bg-white',
+						'es:bg-linear-to-br es:from-accent-600/70 es:to-accent-600/90 es:text-white',
+						'es:inset-ring es:inset-ring-accent-800/15',
+						'es:focus-visible:bg-accent-50 es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:inset-ring-accent-500',
+					],
+				},
+				{
+					type: ['default'],
 					disabled: true,
-					class: 'es:disabled:border-zinc-300 es:disabled:text-zinc-400 es:border es:shadow-none es:disabled:inset-shadow-transparent es:disabled:inset-ring-0',
+					class: [
+						'es:bg-linear-to-br es:from-secondary-50 es:to-secondary-100',
+						'es:text-secondary-400 es:any-icon:text-secondary-400/50',
+						'es:inset-ring es:inset-ring-secondary-200',
+					],
+				},
+				{
+					type: ['ghost'],
+					disabled: true,
+					class: ['es:text-secondary-500 es:any-icon:text-secondary-500/50'],
 				},
 				// Sizes.
 				{
 					size: 'small',
 					iconOnly: false,
-					class: 'es:h-7 es:min-w-7',
+					class: 'es:h-8 es:min-w-8',
 				},
 				{
 					size: 'small',
 					iconOnly: true,
-					class: 'es:size-7',
+					class: 'es:size-8',
 				},
 				{
 					size: 'small',
@@ -167,7 +251,7 @@ export const ToggleButton = (props) => {
 					size: 'small',
 					hasIcon: true,
 					iconOnly: false,
-					class: 'es:px-1',
+					class: 'es:px-1.5',
 				},
 				{
 					size: 'default',
@@ -183,13 +267,13 @@ export const ToggleButton = (props) => {
 					size: 'default',
 					hasIcon: false,
 					iconOnly: false,
-					class: 'es:px-2',
+					class: 'es:px-2.5',
 				},
 				{
 					size: 'default',
 					hasIcon: true,
 					iconOnly: false,
-					class: 'es:px-1.5',
+					class: 'es:px-2',
 				},
 				{
 					size: 'large',
@@ -205,13 +289,13 @@ export const ToggleButton = (props) => {
 					size: 'large',
 					hasIcon: false,
 					iconOnly: false,
-					class: 'es:px-4',
+					class: 'es:px-3',
 				},
 				{
 					size: 'large',
 					hasIcon: true,
 					iconOnly: false,
-					class: 'es:px-2',
+					class: 'es:px-2.5',
 				},
 			],
 			defaultVariants: {

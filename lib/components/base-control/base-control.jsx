@@ -19,6 +19,7 @@ import { RichLabel } from '../rich-label/rich-label';
  * @param {string} [props.labelContainerClassName] - Classes to pass to the label container.
  * @param {string} [props.labelClassName] - Classes to pass to the label.
  * @param {boolean} [props.fullWidthLabel] - If `true`, the label expands to fill up the whole width, instead of taking up only the space it needs.
+ * @param {boolean} [props.noHelpInset] - If `true`, the help text is not inset.
  * @param {JSX.Element} [props.labelAs] - If provided, the label (includes icon and subtitle) will be rendered as this element.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
@@ -50,6 +51,7 @@ export const BaseControl = (props) => {
 		labelContainerClassName,
 		labelClassName,
 
+		noHelpInset,
 		fullWidthLabel,
 
 		labelAs,
@@ -66,8 +68,8 @@ export const BaseControl = (props) => {
 	}
 
 	return (
-		<div className={clsx('es:space-y-1', className)}>
-			<div className={clsx('es:flex es:items-center es:gap-1', !inline && !icon && 'es:pb-0.5', labelContainerClassName)}>
+		<div className={className}>
+			<div className={clsx('es:flex es:items-center es:gap-1', !inline && 'es:mb-1.5', labelContainerClassName)}>
 				{(label || icon || subtitle) && (
 					<RichLabel
 						icon={icon}
@@ -76,6 +78,7 @@ export const BaseControl = (props) => {
 						fullWidth={fullWidthLabel}
 						as={labelAs}
 						className={labelClassName}
+						noColor
 					/>
 				)}
 
@@ -89,7 +92,7 @@ export const BaseControl = (props) => {
 
 			{help && (
 				<Text
-					className='es:inline-block es:text-sm es:text-secondary-500 es:mt-0.5'
+					className={clsx('es:inline-block es:text-sm es:text-secondary-400 es:mt-1.5 es:font-variation-["wdth"_76,"wght"_350]', !noHelpInset && 'es:pl-1')}
 					slot='description'
 				>
 					{help}

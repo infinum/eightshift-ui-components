@@ -1,0 +1,19 @@
+@reference '../style-editor.css';
+
+/* Make block crash message nicer. */
+.block-editor-block-list__block-crash-warning {
+	@apply es:rounded-lg! es:border-red-700/15! es:shadow! es:shadow-red-700/10!;
+
+	& .block-editor-warning__message {
+		@apply es:text-red-950!;
+	}
+}
+
+/* Make block missing message nicer. */
+.wp-block-missing div.block-editor-warning {
+	@apply es:rounded-lg! es:border-secondary-300! es:bg-secondary-50/75! es:shadow! es:shadow-secondary-700/20!;
+
+	& .block-editor-warning__message {
+		@apply es:text-secondary-950!;
+	}
+}

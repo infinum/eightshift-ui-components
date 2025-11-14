@@ -1,6 +1,7 @@
 import { clsx } from 'clsx/lite';
 import { __ } from '@wordpress/i18n';
-import { BaseControl } from '../base-control/base-control';
+import { HStack } from '../layout/hstack';
+import { RichLabel } from '../rich-label/rich-label';
 import { icons } from '../../icons';
 import { cloneElement } from 'react';
 
@@ -12,7 +13,6 @@ import { cloneElement } from 'react';
  * @param {JSX.Element} [props.icon] - Icon to display in the label.
  * @param {string} [props.label] - Label to display.
  * @param {string} [props.subtitle] - Subtitle to display.
- * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display to the right of the label.
  * @param {string} [props.textValue] - The text value of the item.
  * @param {string} [props.className] - Classes to pass to the label.
  *
@@ -23,24 +23,31 @@ import { cloneElement } from 'react';
  * @preserve
  */
 export const DraggableListItem = (props) => {
-	const { children, icon, label, subtitle, className, ...rest } = props;
+	const { children, icon, label, subtitle, className, iconClassName, labelClassName, subtitleClassName, labelContainerClassName, ...rest } = props;
 
 	return (
-		<BaseControl
-			icon={icon}
-			label={label}
-			subtitle={subtitle}
-			className={clsx('es:w-full', className)}
-			fullWidthLabel
-			inline
+		<HStack
+			className={clsx('es:w-fill es:group es:pl-1', className)}
 			{...rest}
 		>
+			<RichLabel
+				icon={icon}
+				label={label}
+				subtitle={subtitle}
+				className={clsx('es:mr-auto', labelContainerClassName)}
+				iconClassName={iconClassName}
+				labelClassName={labelClassName}
+				subtitleClassName={subtitleClassName}
+				fullWidthLabel
+				inline
+			/>
+
 			{cloneElement(icons.reorderGrabberV, {
 				className: 'es:opacity-0 es:transition-opacity es:group-focus-visible:opacity-100 es:text-secondary-400 es:size-4 es:group-hover:opacity-100',
 			})}
 
 			{children}
-		</BaseControl>
+		</HStack>
 	);
 };
 

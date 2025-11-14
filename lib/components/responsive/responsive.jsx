@@ -139,15 +139,15 @@ export const Responsive = (props) => {
 		return (
 			<DecorativeTooltip
 				placement='left'
-				className='es:p-3'
+				className='es:p-4! es:rounded-2xl!'
 				theme='light'
 				offset={7.5}
 				arrow
 				text={
 					<div className='es:max-w-64 es:p-1'>
-						<span className='es:block es:text-balance es:font-semibold es:tabular-nums'>{__('Default', 'eightshift-ui-components')}</span>
+						<span className='es:block es:font-variation-["wdth"_180,"wght"_500] es:text-base es:leading-none es:text-surface-600'>{__('Default', 'eightshift-ui-components')}</span>
 
-						<span className='es:block es:text-balance es:tabular-nums'>
+						<span className='es:block es:text-balance es:tabular-nums es:font-variation-["wdth"_60,"wght"_300] es:text-surface-500 es:mt-1'>
 							{!firstMobileFirstOverride && !lastDesktopFirstOverride && __('Always applied, regardless of browser width.', 'eightshift-ui-components')}
 
 							{firstMobileFirstOverride &&
@@ -159,7 +159,7 @@ export const Responsive = (props) => {
 								sprintf(__('Applies when the browser width is %dpx or more.', 'eightshift-ui-components'), breakpointData[lastDesktopFirstOverride.replace('max-', '')])}
 						</span>
 
-						<div className='es:mx-auto'>
+						<div className='es:mx-auto es:mt-5'>
 							{firstMobileFirstOverride && !isDesktopFirst && (
 								<BreakpointPreview
 									blocks={[
@@ -203,7 +203,7 @@ export const Responsive = (props) => {
 					</div>
 				}
 			>
-				<div className='es:flex es:size-7 es:items-center es:justify-center es:rounded es:border es:border-accent-500/10 es:bg-accent-50 es:p-0.5 es:text-accent-800 es:shadow-sm es:shadow-accent-600/25 es:icon:size-5'>
+				<div className='es:icon:size-6 es:mx-0.5 es:text-accent-700'>
 					{icons?.[overrideIcon] ?? overrideIcon ?? icons[`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`]}
 				</div>
 			</DecorativeTooltip>
@@ -244,7 +244,7 @@ export const Responsive = (props) => {
 
 					<ButtonGroup>
 						<ToggleButton
-							icon={isDesktopFirst ? icons.responsiveOverridesAlt : icons.responsiveOverridesAlt2}
+							icon={icons.responsiveOverridesAlt3Fill}
 							onChange={() => setDetailsVisible(!detailsVisible)}
 							selected={detailsVisible}
 							tooltip={detailsVisible ? __('Hide responsive overrides', 'eightshift-ui-components') : __('Show responsive overrides', 'eightshift-ui-components')}
@@ -254,7 +254,7 @@ export const Responsive = (props) => {
 							aria-label={__('Responsive options', 'eightshift-ui-components')}
 							tooltip={__('Responsive options', 'eightshift-ui-components')}
 							popoverProps={{ placement: 'bottom right' }}
-							triggerProps={{ className: 'es:w-5.5 es:stroke-[1.25]' }}
+							triggerProps={{ className: 'es:w-6 es:stroke-[1.25]' }}
 							triggerIcon={icons.dropdownCaretAlt}
 						>
 							{!noModeSelect && (
@@ -321,6 +321,7 @@ export const Responsive = (props) => {
 
 									onChange(newValue);
 								}}
+								danger
 							>
 								{__('Clear all overrides', 'eightshift-ui-components')}
 							</MenuItem>
@@ -332,12 +333,13 @@ export const Responsive = (props) => {
 			{!isDesktopFirst && !inline && (
 				<div
 					className={clsx(
-						'es:grid es:items-center es:gap-x-2 es:transition-[grid-template-columns,margin-block-end] es:duration-150',
+						'es:grid es:items-center es:gap-x-2 es:transition-[grid-template-columns,margin-block-end] es:duration-200',
+						detailsVisible && 'es:bg-white/50 es:p-1.5 es:rounded-sm es:first:rounded-t-2xl es:last:rounded-b-2xl es:inset-ring es:inset-ring-accent-600/25',
 						innerContentAlign === 'start' && 'es:justify-items-start',
 						innerContentAlign === 'center' && 'es:justify-items-center',
 						innerContentAlign === 'end' && 'es:justify-items-end',
 						innerContentAlign === 'stretch' && 'es:justify-items-stretch',
-						detailsVisible ? 'es:mb-2 es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)]' : 'es:grid-cols-[minmax(0,0rem)_minmax(0,1fr)_minmax(0,2.25rem)]',
+						detailsVisible ? 'es:mb-0.5 es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)]' : 'es:grid-cols-[minmax(0,0rem)_minmax(0,1fr)_minmax(0,2.25rem)]',
 					)}
 					key='_default-mobile-first'
 				>
@@ -361,7 +363,8 @@ export const Responsive = (props) => {
 			{!isDesktopFirst && inline && (
 				<AnimatedVisibility
 					className={clsx(
-						'es:mb-2 es:grid es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2',
+						'es:mb-0.5 es:grid es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2',
+						'es:bg-white/50 es:p-1.5 es:rounded-sm es:first:rounded-t-2xl es:last:rounded-b-2xl es:inset-ring es:inset-ring-accent-600/25',
 						innerContentAlign === 'start' && 'es:justify-items-start',
 						innerContentAlign === 'center' && 'es:justify-items-center',
 						innerContentAlign === 'end' && 'es:justify-items-end',
@@ -390,7 +393,7 @@ export const Responsive = (props) => {
 
 			<AnimatedVisibility
 				visible={detailsVisible}
-				className='es:space-y-2'
+				className='es:space-y-0.5'
 			>
 				{breakpointsToMap.map((breakpoint, i) => {
 					const realBreakpointName = breakpoint.replace('max-', '');
@@ -415,6 +418,9 @@ export const Responsive = (props) => {
 						<div
 							className={clsx(
 								'es:grid es:grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2',
+								'es:bg-white/50 es:p-1.5 es:rounded-sm es:inset-ring es:inset-ring-surface-200/60',
+								!isDesktopFirst && 'es:last:rounded-b-2xl',
+								isDesktopFirst && 'es:first:rounded-t-2xl',
 								innerContentAlign === 'start' && 'es:justify-items-start',
 								innerContentAlign === 'center' && 'es:justify-items-center',
 								innerContentAlign === 'end' && 'es:justify-items-end',
@@ -425,13 +431,16 @@ export const Responsive = (props) => {
 							<DecorativeTooltip
 								placement='left'
 								theme='light'
+								className='es:p-4! es:rounded-2xl!'
 								offset={7.5}
 								arrow
 								text={
 									<div className='es:max-w-96 es:p-1'>
-										<span className='es:block es:font-semibold'>{breakpointUiData?.[realBreakpointName]?.label ?? upperFirst(realBreakpointName)}</span>
+										<span className='es:block es:font-variation-["wdth"_180,"wght"_500] es:text-base es:leading-none es:text-surface-600'>
+											{breakpointUiData?.[realBreakpointName]?.label ?? upperFirst(realBreakpointName)}
+										</span>
 
-										<span className='es:block es:text-balance es:tabular-nums'>
+										<span className='es:block es:text-balance es:tabular-nums es:font-variation-["wdth"_60,"wght"_300] es:text-surface-500 es:mt-1'>
 											{!isDesktopFirst && (
 												<>
 													{!belowOverride &&
@@ -469,10 +478,12 @@ export const Responsive = (props) => {
 											)}
 										</span>
 
-										{typeof value[breakpoint] === 'undefined' && <span className='es:mt-2 es:block es:font-medium es:italic'>{__('Not set', 'eightshift-ui-components')}</span>}
+										{typeof value[breakpoint] === 'undefined' && (
+											<span className='es:mt-2 es:block es:font-variation-["wdth"_100,"YTLC"_520,"wght"_350,"slnt"_-10]'>{__('Not set', 'eightshift-ui-components')}</span>
+										)}
 
 										{typeof value[breakpoint] !== 'undefined' && (
-											<div className='es:mx-auto es:mt-2'>
+											<div className='es:mx-auto es:mt-5'>
 												{!isDesktopFirst && (
 													<BreakpointPreview
 														dotsStart={belowOverride}
@@ -543,14 +554,7 @@ export const Responsive = (props) => {
 									</div>
 								}
 							>
-								<div
-									className={clsx(
-										'es:flex es:size-7 es:items-center es:justify-center es:rounded es:border es:p-0.5 es:shadow-sm es:transition-colors es:icon:size-5',
-										typeof value[breakpoint] !== 'undefined'
-											? 'es:border-secondary-200 es:bg-secondary-50 es:text-secondary-700'
-											: 'es:border-secondary-100 es:bg-white es:text-secondary-500',
-									)}
-								>
+								<div className={clsx('es:transition-colors es:icon:size-6 es:mx-0.5', typeof value[breakpoint] !== 'undefined' ? 'es:text-surface-600' : 'es:text-surface-300')}>
 									{icons?.[breakpointUiData?.[realBreakpointName]?.icon] ?? breakpointUiData?.[realBreakpointName]?.icon ?? icons?.[`screen${upperFirst(realBreakpointName)}`]}
 								</div>
 							</DecorativeTooltip>
@@ -587,11 +591,12 @@ export const Responsive = (props) => {
 				<div
 					className={clsx(
 						'es:grid es:items-center es:gap-x-2 es:transition-[grid-template-columns,margin-block-start] es:duration-150',
+						detailsVisible && 'es:bg-white/50 es:p-1.5 es:rounded-sm es:first:rounded-t-2xl es:last:rounded-b-2xl es:inset-ring es:inset-ring-accent-600/25 es:transition-plus',
 						innerContentAlign === 'start' && 'es:justify-items-start',
 						innerContentAlign === 'center' && 'es:justify-items-center',
 						innerContentAlign === 'end' && 'es:justify-items-end',
 						innerContentAlign === 'stretch' && 'es:justify-items-stretch',
-						detailsVisible ? 'es:mt-2! es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)]' : 'es:grid-cols-[minmax(0,0rem)_minmax(0,1fr)_minmax(0,2.25rem)]',
+						detailsVisible ? 'es:mt-0.5 es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)]' : 'es:grid-cols-[minmax(0,0rem)_minmax(0,1fr)_minmax(0,2.25rem)]',
 					)}
 					key='_default-desktop-first'
 				>
@@ -616,6 +621,7 @@ export const Responsive = (props) => {
 				<AnimatedVisibility
 					className={clsx(
 						'es:grid es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2 es:pt-1',
+						'es:bg-white/50 es:p-1.5 es:rounded-sm es:first:rounded-t-2xl es:last:rounded-b-2xl es:inset-ring es:inset-ring-accent-600/25',
 						innerContentAlign === 'start' && 'es:justify-items-start',
 						innerContentAlign === 'center' && 'es:justify-items-center',
 						innerContentAlign === 'end' && 'es:justify-items-end',

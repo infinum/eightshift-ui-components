@@ -1,29 +1,41 @@
 .es-uic-theme-green {
-	--es-color-accent-50: var(--es-color-green-50);
-	--es-color-accent-100: var(--es-color-green-100);
-	--es-color-accent-200: var(--es-color-green-200);
-	--es-color-accent-300: var(--es-color-green-300);
-	--es-color-accent-400: var(--es-color-green-400);
-	--es-color-accent-500: var(--es-color-green-500);
-	--es-color-accent-600: var(--es-color-green-600);
-	--es-color-accent-700: var(--es-color-green-700);
-	--es-color-accent-800: var(--es-color-green-800);
-	--es-color-accent-900: var(--es-color-green-900);
-	--es-color-accent-950: var(--es-color-green-950);
+	--es-color-accent-50: var(--es-color-emerald-50);
+	--es-color-accent-100: var(--es-color-emerald-100);
+	--es-color-accent-200: var(--es-color-emerald-200);
+	--es-color-accent-300: var(--es-color-emerald-300);
+	--es-color-accent-400: var(--es-color-emerald-400);
+	--es-color-accent-500: var(--es-color-emerald-500);
+	--es-color-accent-600: var(--es-color-emerald-600);
+	--es-color-accent-700: var(--es-color-emerald-700);
+	--es-color-accent-800: var(--es-color-emerald-800);
+	--es-color-accent-900: var(--es-color-emerald-900);
+	--es-color-accent-950: var(--es-color-emerald-950);
+
+	--es-color-surface-50: color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
+	--es-color-surface-100: color-mix(in oklab, var(--es-color-accent-100) 20%, var(--es-color-secondary-100));
+	--es-color-surface-200: color-mix(in oklab, var(--es-color-accent-200) 20%, var(--es-color-secondary-200));
+	--es-color-surface-300: color-mix(in oklab, var(--es-color-accent-300) 20%, var(--es-color-secondary-300));
+	--es-color-surface-400: color-mix(in oklab, var(--es-color-accent-400) 20%, var(--es-color-secondary-400));
+	--es-color-surface-500: color-mix(in oklab, var(--es-color-accent-500) 20%, var(--es-color-secondary-500));
+	--es-color-surface-600: color-mix(in oklab, var(--es-color-accent-600) 20%, var(--es-color-secondary-600));
+	--es-color-surface-700: color-mix(in oklab, var(--es-color-accent-700) 20%, var(--es-color-secondary-700));
+	--es-color-surface-800: color-mix(in oklab, var(--es-color-accent-800) 20%, var(--es-color-secondary-800));
+	--es-color-surface-900: color-mix(in oklab, var(--es-color-accent-900) 20%, var(--es-color-secondary-900));
+	--es-color-surface-950: color-mix(in oklab, var(--es-color-accent-950) 20%, var(--es-color-secondary-950));
 }
 
 .es-uic-theme-blue {
-	--es-color-accent-50: var(--es-color-blue-50);
-	--es-color-accent-100: var(--es-color-blue-100);
-	--es-color-accent-200: var(--es-color-blue-200);
-	--es-color-accent-300: var(--es-color-blue-300);
-	--es-color-accent-400: var(--es-color-blue-400);
-	--es-color-accent-500: var(--es-color-blue-500);
-	--es-color-accent-600: var(--es-color-blue-600);
-	--es-color-accent-700: var(--es-color-blue-700);
-	--es-color-accent-800: var(--es-color-blue-800);
-	--es-color-accent-900: var(--es-color-blue-900);
-	--es-color-accent-950: var(--es-color-blue-950);
+	--es-color-accent-50: var(--es-color-sky-50);
+	--es-color-accent-100: var(--es-color-sky-100);
+	--es-color-accent-200: var(--es-color-sky-200);
+	--es-color-accent-300: var(--es-color-sky-300);
+	--es-color-accent-400: var(--es-color-sky-400);
+	--es-color-accent-500: var(--es-color-sky-500);
+	--es-color-accent-600: var(--es-color-sky-600);
+	--es-color-accent-700: var(--es-color-sky-700);
+	--es-color-accent-800: var(--es-color-sky-800);
+	--es-color-accent-900: var(--es-color-sky-900);
+	--es-color-accent-950: var(--es-color-sky-950);
 
 	--color-secondary-50: var(--es-color-slate-50);
 	--color-secondary-100: var(--es-color-slate-100);
@@ -36,34 +48,58 @@
 	--color-secondary-800: var(--es-color-slate-800);
 	--color-secondary-900: var(--es-color-slate-900);
 	--color-secondary-950: var(--es-color-slate-950);
+
+	--es-color-surface-50: color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
+	--es-color-surface-100: color-mix(in oklab, var(--es-color-accent-100) 20%, var(--es-color-secondary-100));
+	--es-color-surface-200: color-mix(in oklab, var(--es-color-accent-200) 20%, var(--es-color-secondary-200));
+	--es-color-surface-300: color-mix(in oklab, var(--es-color-accent-300) 20%, var(--es-color-secondary-300));
+	--es-color-surface-400: color-mix(in oklab, var(--es-color-accent-400) 20%, var(--es-color-secondary-400));
+	--es-color-surface-500: color-mix(in oklab, var(--es-color-accent-500) 20%, var(--es-color-secondary-500));
+	--es-color-surface-600: color-mix(in oklab, var(--es-color-accent-600) 20%, var(--es-color-secondary-600));
+	--es-color-surface-700: color-mix(in oklab, var(--es-color-accent-700) 20%, var(--es-color-secondary-700));
+	--es-color-surface-800: color-mix(in oklab, var(--es-color-accent-800) 20%, var(--es-color-secondary-800));
+	--es-color-surface-900: color-mix(in oklab, var(--es-color-accent-900) 20%, var(--es-color-secondary-900));
+	--es-color-surface-950: color-mix(in oklab, var(--es-color-accent-950) 20%, var(--es-color-secondary-950));
 }
 
 .es-uic-theme-mono {
-	--es-color-accent-50: var(--es-color-neutral-50);
-	--es-color-accent-100: var(--es-color-neutral-100);
-	--es-color-accent-200: var(--es-color-neutral-200);
-	--es-color-accent-300: var(--es-color-neutral-300);
-	--es-color-accent-400: var(--es-color-neutral-400);
-	--es-color-accent-500: var(--es-color-neutral-500);
-	--es-color-accent-600: var(--es-color-neutral-600);
-	--es-color-accent-700: var(--es-color-neutral-700);
-	--es-color-accent-800: var(--es-color-neutral-800);
-	--es-color-accent-900: var(--es-color-neutral-900);
-	--es-color-accent-950: var(--es-color-neutral-950);
+	--es-color-accent-50: var(--es-color-gray-50);
+	--es-color-accent-100: var(--es-color-gray-100);
+	--es-color-accent-200: var(--es-color-gray-200);
+	--es-color-accent-300: var(--es-color-gray-300);
+	--es-color-accent-400: var(--es-color-gray-400);
+	--es-color-accent-500: var(--es-color-gray-500);
+	--es-color-accent-600: var(--es-color-gray-600);
+	--es-color-accent-700: var(--es-color-gray-700);
+	--es-color-accent-800: var(--es-color-gray-800);
+	--es-color-accent-900: var(--es-color-gray-900);
+	--es-color-accent-950: var(--es-color-gray-950);
+
+	--es-color-surface-50: color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
+	--es-color-surface-100: color-mix(in oklab, var(--es-color-accent-100) 20%, var(--es-color-secondary-100));
+	--es-color-surface-200: color-mix(in oklab, var(--es-color-accent-200) 20%, var(--es-color-secondary-200));
+	--es-color-surface-300: color-mix(in oklab, var(--es-color-accent-300) 20%, var(--es-color-secondary-300));
+	--es-color-surface-400: color-mix(in oklab, var(--es-color-accent-400) 20%, var(--es-color-secondary-400));
+	--es-color-surface-500: color-mix(in oklab, var(--es-color-accent-500) 20%, var(--es-color-secondary-500));
+	--es-color-surface-600: color-mix(in oklab, var(--es-color-accent-600) 20%, var(--es-color-secondary-600));
+	--es-color-surface-700: color-mix(in oklab, var(--es-color-accent-700) 20%, var(--es-color-secondary-700));
+	--es-color-surface-800: color-mix(in oklab, var(--es-color-accent-800) 20%, var(--es-color-secondary-800));
+	--es-color-surface-900: color-mix(in oklab, var(--es-color-accent-900) 20%, var(--es-color-secondary-900));
+	--es-color-surface-950: color-mix(in oklab, var(--es-color-accent-950) 20%, var(--es-color-secondary-950));
 }
 
 .es-uic-theme-orange {
-	--es-color-accent-50: var(--es-color-amber-50);
-	--es-color-accent-100: var(--es-color-amber-100);
-	--es-color-accent-200: var(--es-color-amber-200);
-	--es-color-accent-300: var(--es-color-amber-300);
-	--es-color-accent-400: var(--es-color-amber-400);
-	--es-color-accent-500: var(--es-color-amber-500);
-	--es-color-accent-600: var(--es-color-amber-600);
-	--es-color-accent-700: var(--es-color-amber-700);
-	--es-color-accent-800: var(--es-color-amber-800);
-	--es-color-accent-900: var(--es-color-amber-900);
-	--es-color-accent-950: var(--es-color-amber-950);
+	--es-color-accent-50: var(--es-color-orange-50);
+	--es-color-accent-100: var(--es-color-orange-100);
+	--es-color-accent-200: var(--es-color-orange-200);
+	--es-color-accent-300: var(--es-color-orange-300);
+	--es-color-accent-400: var(--es-color-orange-400);
+	--es-color-accent-500: var(--es-color-orange-500);
+	--es-color-accent-600: var(--es-color-orange-600);
+	--es-color-accent-700: var(--es-color-orange-700);
+	--es-color-accent-800: var(--es-color-orange-800);
+	--es-color-accent-900: var(--es-color-orange-900);
+	--es-color-accent-950: var(--es-color-orange-950);
 
 	--color-secondary-50: var(--es-color-stone-50);
 	--color-secondary-100: var(--es-color-stone-100);
@@ -76,20 +112,32 @@
 	--color-secondary-800: var(--es-color-stone-800);
 	--color-secondary-900: var(--es-color-stone-900);
 	--color-secondary-950: var(--es-color-stone-950);
+
+	--es-color-surface-50: color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
+	--es-color-surface-100: color-mix(in oklab, var(--es-color-accent-100) 20%, var(--es-color-secondary-100));
+	--es-color-surface-200: color-mix(in oklab, var(--es-color-accent-200) 20%, var(--es-color-secondary-200));
+	--es-color-surface-300: color-mix(in oklab, var(--es-color-accent-300) 20%, var(--es-color-secondary-300));
+	--es-color-surface-400: color-mix(in oklab, var(--es-color-accent-400) 20%, var(--es-color-secondary-400));
+	--es-color-surface-500: color-mix(in oklab, var(--es-color-accent-500) 20%, var(--es-color-secondary-500));
+	--es-color-surface-600: color-mix(in oklab, var(--es-color-accent-600) 20%, var(--es-color-secondary-600));
+	--es-color-surface-700: color-mix(in oklab, var(--es-color-accent-700) 20%, var(--es-color-secondary-700));
+	--es-color-surface-800: color-mix(in oklab, var(--es-color-accent-800) 20%, var(--es-color-secondary-800));
+	--es-color-surface-900: color-mix(in oklab, var(--es-color-accent-900) 20%, var(--es-color-secondary-900));
+	--es-color-surface-950: color-mix(in oklab, var(--es-color-accent-950) 20%, var(--es-color-secondary-950));
 }
 
 .es-uic-theme-purple {
-	--es-color-accent-50: var(--es-color-violet-50);
-	--es-color-accent-100: var(--es-color-violet-100);
-	--es-color-accent-200: var(--es-color-violet-200);
-	--es-color-accent-300: var(--es-color-violet-300);
-	--es-color-accent-400: var(--es-color-violet-400);
-	--es-color-accent-500: var(--es-color-violet-500);
-	--es-color-accent-600: var(--es-color-violet-600);
-	--es-color-accent-700: var(--es-color-violet-700);
-	--es-color-accent-800: var(--es-color-violet-800);
-	--es-color-accent-900: var(--es-color-violet-900);
-	--es-color-accent-950: var(--es-color-violet-950);
+	--es-color-accent-50: var(--es-color-indigo-50);
+	--es-color-accent-100: var(--es-color-indigo-100);
+	--es-color-accent-200: var(--es-color-indigo-200);
+	--es-color-accent-300: var(--es-color-indigo-300);
+	--es-color-accent-400: var(--es-color-indigo-400);
+	--es-color-accent-500: var(--es-color-indigo-500);
+	--es-color-accent-600: var(--es-color-indigo-600);
+	--es-color-accent-700: var(--es-color-indigo-700);
+	--es-color-accent-800: var(--es-color-indigo-800);
+	--es-color-accent-900: var(--es-color-indigo-900);
+	--es-color-accent-950: var(--es-color-indigo-950);
 
 	--color-secondary-50: var(--es-color-gray-50);
 	--color-secondary-100: var(--es-color-gray-100);
@@ -102,4 +150,16 @@
 	--color-secondary-800: var(--es-color-gray-800);
 	--color-secondary-900: var(--es-color-gray-900);
 	--color-secondary-950: var(--es-color-gray-950);
+
+	--es-color-surface-50: color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
+	--es-color-surface-100: color-mix(in oklab, var(--es-color-accent-100) 20%, var(--es-color-secondary-100));
+	--es-color-surface-200: color-mix(in oklab, var(--es-color-accent-200) 20%, var(--es-color-secondary-200));
+	--es-color-surface-300: color-mix(in oklab, var(--es-color-accent-300) 20%, var(--es-color-secondary-300));
+	--es-color-surface-400: color-mix(in oklab, var(--es-color-accent-400) 20%, var(--es-color-secondary-400));
+	--es-color-surface-500: color-mix(in oklab, var(--es-color-accent-500) 20%, var(--es-color-secondary-500));
+	--es-color-surface-600: color-mix(in oklab, var(--es-color-accent-600) 20%, var(--es-color-secondary-600));
+	--es-color-surface-700: color-mix(in oklab, var(--es-color-accent-700) 20%, var(--es-color-secondary-700));
+	--es-color-surface-800: color-mix(in oklab, var(--es-color-accent-800) 20%, var(--es-color-secondary-800));
+	--es-color-surface-900: color-mix(in oklab, var(--es-color-accent-900) 20%, var(--es-color-secondary-900));
+	--es-color-surface-950: color-mix(in oklab, var(--es-color-accent-950) 20%, var(--es-color-secondary-950));
 }

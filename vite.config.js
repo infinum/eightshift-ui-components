@@ -6,10 +6,8 @@ import { glob } from 'glob';
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
 import tailwindcss from '@tailwindcss/vite';
 
-// https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
-	const isProd = mode === 'production';
-
+/** @type {import('vite').UserConfig} */
+export default defineConfig(() => {
 	return {
 		plugins: [react(), libInjectCss(), tailwindcss()],
 		build: {
@@ -21,30 +19,39 @@ export default defineConfig(({ mode }) => {
 				},
 				formats: ['es'],
 			},
-			cssMinify: isProd ? 'lightningcss' : false,
-			minify: 'keepNames',
+			minify: false,
+			cssMinify: false,
 			rollupOptions: {
 				external: ['react', 'react/jsx-runtime'],
 				input: Object.fromEntries(
 					// https://rollupjs.org/configuration-options/#input
-					glob
-						.sync('lib/**/*.{js,jsx,woff2}', {
-							ignore: ['lib/**/*.d.ts'],
-						})
-						.map((file) => [
-							// 1. The name of the entry point
-							// lib/nested/foo.js becomes nested/foo
-							relative('lib', file.slice(0, file.length - extname(file).length)),
-							// 2. The absolute path to the entry file
-							// lib/nested/foo.ts becomes /project/lib/nested/foo.ts
-							fileURLToPath(new URL(file, import.meta.url)),
-						]),
+					[
+						...glob
+							.sync('lib/**/*.{js,jsx,woff2}', {
+								ignore: ['lib/**/*.d.ts'],
+							})
+							.map((file) => [
+								// 1. The name of the entry point
+								// lib/nested/foo.js becomes nested/foo
+								relative('lib', file.slice(0, file.length - extname(file).length)),
+								// 2. The absolute path to the entry file
+								// lib/nested/foo.ts becomes /project/lib/nested/foo.ts
+								fileURLToPath(new URL(file, import.meta.url)),
+							]),
+						...glob
+							.sync('lib/wp-overrides/*.css')
+							.map((file) => [relative('lib', file.slice(0, file.length - extname(file).length)), fileURLToPath(new URL(file, import.meta.url))]),
+					],
 				),
 				output: {
 					assetFileNames: 'assets/[name][extname]',
 					entryFileNames: '[name].js',
 				},
 			},
+		},
+		esbuild: {
+			legalComments: 'inline',
+			minify: false,
 		},
 	};
 });

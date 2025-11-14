@@ -1,3 +1,5 @@
+import clsx from 'clsx/lite';
+
 /**
  * A simple loading indicator.
  *
@@ -12,4 +14,4 @@
  *
  * @preserve
  */
-export const Spinner = ({ className }) => cloneElement(icons.loader, { className: clsx('es:animate-spin es:size-8 es:text-accent-600', className) });
+export const Spinner = ({ className }) => <div className={clsx('es:animate-spin es:anim-duration-1000', 'es:spinner-5 es:text-accent-600 es:size-8 es:rounded-full', className)} />;

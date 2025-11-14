@@ -1,10 +1,11 @@
-import { cloneElement, useState } from 'react';
+import { cloneElement } from 'react';
 import { __ } from '@wordpress/i18n';
 import { Group, Input, Label, NumberField } from 'react-aria-components';
-import { Button } from '../button/button';
+import { Button, ButtonGroup } from '../button/button';
 import { icons } from '../../icons/icons';
 import { clsx } from 'clsx/lite';
 import { BaseControl } from '../base-control/base-control';
+import { cva } from 'class-variance-authority';
 
 /**
  * A number picker component.
@@ -28,12 +29,13 @@ import { BaseControl } from '../base-control/base-control';
  * @param {number} [props.fixedWidth] - If passed, sets the width of the input field to the provided number of characters. Useful if you have e.g. value from 1 to 1000, but you don't want the input field to change size when on lower values.
  * @param {boolean} [props.inline] - If `true`, the number picker is displayed inline.
  * @param {boolean} [props.noScrollToChange=false] - If `true`, the number picker does not change value when scrolling.
- * @param {NumberPickerSize} [props.size='default'] - Determines the input field size.
+ * @param {InputSize} [props.size='default'] - Determines the input field size.
+ * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The NumberPicker component.
  *
- * @typedef {'compact' | 'small' | 'default'} NumberPickerSize
+ * @typedef {'small' | 'medium' | 'default' | 'large'} InputSize
  *
  * @example
  * <NumberPicker
@@ -63,33 +65,79 @@ export const NumberPicker = ({
 	inline,
 	noScrollToChange = false,
 	size = 'default',
-	'aria-label': ariaLabel,
+	flat,
+	className,
 	hidden,
 	...props
 }) => {
-	const [isInputFocused, setIsInputFocused] = useState(false);
-
 	if (hidden) {
 		return null;
 	}
 
-	const sizes = {
-		compact: {
-			field: 'es:min-h-5',
-			noPrefixPadding: 'es:pl-1.5',
-			extraContentSeparator: 'es:h-[1.875rem]',
+	const inputClass = cva(
+		[
+			'es:group',
+			'es:overflow-clip',
+			'es:flex es:items-center',
+			'es:leading-none',
+			'es:w-fit',
+			'es:rounded-lg es:focus-within:rounded-xl',
+			'es:transition-plus',
+			'es:inset-ring',
+			'es:focus-visible-within:ring-2 es:focus-visible-within:ring-accent-500/30',
+			'es:focus-visible-within:text-accent-950 es:focus-visible-within:inset-ring-accent-500',
+			'es:focus:placeholder:text-surface-400',
+			'es:text-13',
+			className,
+		],
+		{
+			variants: {
+				size: {
+					small: ['es:min-h-8', 'es:px-2.5 es:py-1'],
+					medium: ['es:min-h-9', 'es:px-3 es:py-1'],
+					default: ['es:min-h-10', 'es:px-3 es:py-1.5'],
+					large: ['es:min-h-12', 'es:px-4 es:py-1.5'],
+				},
+				disabled: {
+					false: 'es:selection:bg-surface-100 es:selection:text-accent-800',
+					true: 'es:selection:bg-secondary-200 es:selection:text-secondary-600',
+				},
+			},
+			compoundVariants: [
+				{
+					flat: false,
+					disabled: false,
+					readOnly: false,
+					class: [
+						'es:bg-white',
+						'es:bg-linear-to-b es:from-secondary-100/0 es:to-secondary-100/50 es:from-25%',
+						'es:hover:from-surface-100/0 es:hover:to-surface-100/50',
+						'es:inset-ring-secondary-400/50 es:hover:inset-ring-surface-300 es:focus-within:inset-ring-surface-400',
+						'es:inset-shadow-sm es:inset-shadow-secondary-100/50',
+						'es:hover:placeholder:text-surface-400',
+						'es:placeholder:text-secondary-400',
+						'es:shadow-xs es:shadow-black/5',
+					],
+				},
+				{
+					flat: true,
+					disabled: false,
+					readOnly: false,
+					class: [
+						'es:inset-ring-secondary-100',
+						'es:focus-within:text-accent-950',
+						'es:placeholder:text-secondary-500/80',
+						'es:bg-secondary-100 es:focus-within:bg-surface-50',
+						'es:inset-ring-secondary-200/15 es:hover:inset-ring-secondary-200/65 es:focus-within:inset-ring-surface-200',
+					],
+				},
+				{ disabled: true, class: ['es:bg-secondary-50 es:inset-ring-secondary-200 es:text-secondary-400'] },
+				{ readOnly: true, flat: false, class: ['es:bg-secondary-50 es:inset-ring-secondary-300 es:text-secondary-400'] },
+				{ readOnly: true, flat: true, class: ['es:bg-secondary-50 es:inset-ring-secondary-300/60 es:text-secondary-400'] },
+			],
+			defaultVariants: { disabled: false, flat: false, size: 'default', readOnly: false },
 		},
-		small: {
-			field: 'es:min-h-9',
-			noPrefixPadding: 'es:pl-2',
-			extraContentSeparator: 'es:h-[2.125rem]',
-		},
-		default: {
-			field: 'es:min-h-10',
-			noPrefixPadding: 'es:pl-2',
-			extraContentSeparator: 'es:h-[2.375rem]',
-		},
-	};
+	);
 
 	return (
 		<NumberField
@@ -110,70 +158,68 @@ export const NumberPicker = ({
 				subtitle={subtitle}
 				help={help}
 				inline={inline}
-				className='es:text-sm'
 			>
-				<Group
-					className={clsx(
-						'es:group es:flex es:w-fit es:items-center es:rounded-10 es:border es:border-secondary-300 es:pl-1 es:pr-0.5 es:shadow-sm es:focus-within:shadow-md es:transition',
-						'es:inset-ring es:inset-ring-secondary-100',
-						isInputFocused && 'es:outline-hidden es:focus-visible:border-accent-500 es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
-						!prefix && (sizes?.[size]?.noPrefixPadding ?? sizes.default.noPrefixPadding),
-						sizes?.[size]?.field ?? sizes.default.field,
-						'es:disabled:shadow-none es:disabled:border-secondary-200 es:disabled:bg-secondary-50 es:disabled:text-secondary-500 es:disabled:cursor-default es:readonly:bg-secondary-50',
-					)}
-				>
-					{prefix && (
-						<span
-							slot='prefix'
-							className='es:col-start-1 es:row-span-2 es:mr-0.5 es:select-none es:self-center es:text-sm es:text-secondary-400'
-						>
-							{prefix}
-						</span>
-					)}
-					<Input
-						onFocus={() => setIsInputFocused(true)}
-						onBlur={() => setIsInputFocused(false)}
-						className='es:col-start-2 es:row-span-2 es:border-none! es:bg-transparent es:px-0! es:py-1! es:text-sm es:tabular-nums es:shadow-none! es:outline-hidden! es:selection:bg-accent-500/20 es:selection:text-accent-950 es:focus:shadow-none! es:any-focus:outline-hidden'
-						placeholder={placeholder}
-						style={{
-							width: fixedWidth ? `${fixedWidth}ch` : `calc(${min < 0 ? '0.75ch + ' : ''}${(max ?? 1000)?.toString()?.length} * 1ch)`,
-						}}
-						aria-label={ariaLabel ?? __('Enter a number', 'eightshift-ui-components')}
-					/>
+				<div className='es:flex es:gap-1'>
+					<Group className={inputClass({ disabled, flat, size, readOnly })}>
+						{prefix && (
+							<span
+								slot='prefix'
+								className='es:mr-1 es:select-none es:leading-none es:text-current/60 es:font-variation-["wdth"_100,"wght"_400,"slnt"_-1] es:group-focus-within:text-surface-500'
+							>
+								{prefix}
+							</span>
+						)}
 
-					<div className={clsx('es:opacity-0 es:group-hover:opacity-100 es:group-focus-visible:opacity-100 es:transition-opacity', disabled && 'es:invisible')}>
-						<Button
-							type='ghost'
-							className='es:col-start-4 es:h-3 es:w-4 es:text-secondary-500! es:disabled:text-secondary-300! es:icon:size-[0.8rem]'
-							slot='increment'
-							icon={icons.caretUpFill}
+						<Input
+							className='es:tracking-wide es:font-variation-["wdth"_84,"YTLC"_520,"wght"_325,"slnt"_0,"YTFI"_788] es:placeholder-shown:font-variation-["wdth"_100,"YTLC"_500,"wght"_250,"slnt"_-8] es:any-focus:outline-hidden! es:p-px es:border-none! es:shadow-none! es:bg-transparent'
+							placeholder={placeholder}
+							style={{
+								width: fixedWidth ? `calc(${fixedWidth}ch + 2px)` : `calc(${min < 0 ? '0.75ch + ' : '0.5ch + '}${(max ?? 1000)?.toString()?.length} * 1ch)`,
+							}}
 						/>
-						<Button
-							type='ghost'
-							className='es:col-start-4 es:h-3 es:w-4 es:text-secondary-500! es:disabled:text-secondary-300! es:icon:size-[0.8rem]'
-							slot='decrement'
-							icon={icons.caretDownFill}
-						/>
-					</div>
 
-					{suffix && (
-						<span
-							slot='suffix'
-							className='es:col-start-3 es:row-span-2 es:select-none es:self-center es:text-sm es:text-secondary-400 es:mr-0.5'
+						<ButtonGroup
+							className={clsx(
+								'es:hidden es:transition-discrete es:gap-0! es:transition es:pl-0.5 es:ease-spring-smooth es:duration-300 es:origin-left',
+								'es:starting:opacity-0 es:starting:blur-[2px] es:starting:translate-x-2',
+								'es:opacity-100 es:blur-none es:translate-x-0',
+								!disabled && !readOnly && 'es:group-hover:flex es:group-focus-within:flex',
+								disabled && 'es:hidden',
+							)}
+							vertical
 						>
-							{suffix}
-						</span>
-					)}
+							<Button
+								type='ghost'
+								className={clsx(
+									'es:col-start-4 es:w-4 es:disabled:opacity-40 es:text-current/80 es:group-focus-within:text-surface-500 es:icon:size-[0.65rem] es:icon:stroke-2',
+									size === 'small' ? 'es:h-3' : 'es:h-3.5',
+								)}
+								slot='increment'
+								icon={icons.chevronUp}
+							/>
+							<Button
+								type='ghost'
+								className={clsx(
+									'es:col-start-4 es:w-4 es:disabled:opacity-40 es:text-current/80 es:group-focus-within:text-surface-500 es:icon:size-[0.65rem] es:icon:stroke-2',
+									size === 'small' ? 'es:h-3' : 'es:h-3.5',
+								)}
+								slot='decrement'
+								icon={icons.chevronDown}
+							/>
+						</ButtonGroup>
 
-					{children && (
-						<>
-							<div className={clsx('es:w-px es:bg-secondary-300', sizes?.[size]?.extraContentSeparator ?? sizes.default.extraContentSeparator)} />
-							<div className='es:p-0.5 es:pr-0'>
-								{Array.isArray(children) ? children.map((child) => cloneElement(child, { slot: null })) : cloneElement(children, { slot: null })}
-							</div>
-						</>
-					)}
-				</Group>
+						{suffix && (
+							<span
+								slot='suffix'
+								className='es:ml-1 es:select-none es:leading-none es:text-current/60 es:font-variation-["wdth"_100,"wght"_400,"slnt"_-1] es:group-focus-within:text-surface-500'
+							>
+								{suffix}
+							</span>
+						)}
+					</Group>
+
+					{children}
+				</div>
 			</BaseControl>
 		</NumberField>
 	);

@@ -1,4 +1,4 @@
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { icons } from '../../icons/icons';
 
 /**
@@ -12,6 +12,7 @@ import { icons } from '../../icons/icons';
  * @param {ImagePlaceholderSize} [props.size='default'] - Size of the image placeholder.
  * @param {boolean} [props.noImage] - If `true`, the image within the placeholder will not be displayed, even if `url` is provided.
  * @param {string} [props.className] - Classes to pass to the component.
+ * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @param {ImagePlaceholderImageMode} [props.imageMode='cover'] - Determines inner image display mode.
  *
@@ -27,15 +28,24 @@ import { icons } from '../../icons/icons';
  * @preserve
  */
 export const ImagePlaceholder = (props) => {
-	const { url, alt, style = 'default', size = 'default', noImage, className, hidden, imageMode = 'cover' } = props;
+	const { url, alt, style = 'default', size = 'default', noImage, className, hidden, imageMode = 'cover', flat } = props;
 
 	if (hidden) {
 		return null;
 	}
 
 	const styleClassName = {
-		default: 'es:rounded-2xl es:border es:border-secondary-300 es:bg-gradient-to-br es:from-white es:to-secondary-50 es:text-secondary-300 es:shadow-sm',
-		simple: 'es:rounded-2xl es:border es:border-secondary-300 es:border-dashed es:text-secondary-300',
+		default: [
+			'es:rounded-2xl',
+			url && 'es:ring es:ring-secondary-300',
+			!url && 'es:inset-ring es:inset-ring-surface-300/30',
+			'es:bg-surface-200',
+			' es:bg-linear-to-b es:from-surface-100/50 es:to-surface-300/50 es:from-25%',
+			'es:text-surface-500',
+			'es:inset-shadow-sm es:inset-shadow-surface-50/30',
+			!flat && 'es:shadow-xs es:shadow-black/5',
+		],
+		simple: ['es:rounded-xl es:bg-surface-500 es:text-surface-50'],
 	};
 
 	const sizeClassName = {

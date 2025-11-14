@@ -39,16 +39,12 @@ export const RepeaterItem = (props) => {
 			icon={isOutOfBounds ? icons.trash : icon}
 			label={isOutOfBounds ? __('Release to delete', 'eightshift-ui-components') : label}
 			subtitle={isOutOfBounds ? null : subtitle}
-			className={clsx(
-				'es:transition',
-				!isItemOpen && isDragged && 'es:border es:border-secondary-100 es:bg-white/50 es:shadow-md es:backdrop-blur-lg',
-				!isItemOpen && isOutOfBounds && 'es:border es:border-red-200! es:bg-red-50 es:shadow-red-500/20 es:[&_button]:invisible es:[&_svg_path]:stroke-red-500',
-			)}
 			labelClassName={clsx(className, isDragged && 'es:cursor-grabbing', !isDragged && !isItemOpen && 'es:cursor-grab')}
 			headerClassName={clsx(
-				'es:transition es:rounded-lg es:border es:border-transparent',
-				isSelected && 'es:bg-accent-50 es:border-accent-100',
-				!isItemOpen && 'es:group-focus:outline-hidden es:group-focus:border-accent-500 es:group-focus:ring-2 es:group-focus:ring-accent-500/50',
+				'es:transition-plus',
+				!isItemOpen && !isDragged && 'es:not-group-first:not-group-before-current:rounded-t-md es:not-group-last:not-group-after-current:rounded-b-md',
+				!isItemOpen && isOutOfBounds && 'es:inset-ring-red-200! es:text-red-900! es:bg-red-50! es:[&_button]:invisible es:[&_svg_path]:stroke-red-600',
+				isDragged && 'es:rounded-2xl! es:bg-surface-50! es:inset-ring-surface-100',
 			)}
 			open={allOpen}
 			onOpenChange={(open) => {
@@ -96,7 +92,7 @@ export const RepeaterItem = (props) => {
 						</Menu>
 						<Button
 							type='ghost'
-							icon={open ? icons.caretDownFill : icons.caretDown}
+							icon={icons.dropdownCaretAlt}
 							onPress={toggleOpen}
 							tooltip={tooltip}
 							disabled={disabled}
@@ -109,6 +105,7 @@ export const RepeaterItem = (props) => {
 			actions={actions}
 			headerProps={{ 'data-movable-handle': true }}
 			noFocusHandling
+			standalone
 			{...rest}
 		>
 			{children}

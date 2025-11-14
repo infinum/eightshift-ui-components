@@ -4,8 +4,8 @@ import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
 import { clsx } from 'clsx/lite';
-import { __ } from '@wordpress/i18n';
 import { Label, Disclosure, DisclosurePanel } from 'react-aria-components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * A component that allows hiding content in an expandable panel, to declutter the UI.
@@ -26,6 +26,8 @@ import { Label, Disclosure, DisclosurePanel } from 'react-aria-components';
  * @param {Function} [props.onOpenChange] - Function is called when the panel is opened or closed.
  * @param {object} [props.headerProps] - Props to pass to the header (label + trigger).
  * @param {JSX.Element} [props.customOpenButton] - Allows adding a custom open button. **IMPORTANT**: make sure to set `slot='trigger'` on the passed element!
+ * @param {boolean} [props.standalone] - If `true`, component's border radius will not adapt to the surrounding components.
+ * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Expandable component.
@@ -65,6 +67,10 @@ export const Expandable = (props) => {
 
 		headerProps,
 
+		standalone,
+
+		flat,
+
 		hidden,
 
 		...other
@@ -83,34 +89,47 @@ export const Expandable = (props) => {
 	return (
 		<Disclosure
 			isExpanded={isOpen}
-			className={clsx('es:w-full es:rounded-xl es:border es:border-secondary-300/0 es:text-sm es:transition', isOpen && 'es:border-secondary-300/100 es:shadow-lg', className)}
+			className={clsx('es:text-sm', !standalone && 'es:group', className)}
 			{...other}
 		>
 			<div
-				className={clsx('es:flex es:h-10 es:items-center es:gap-1 es:transition-[padding]', isOpen && 'es:py-1 es:pl-2 es:pr-1', headerClassName)}
+				className={clsx(
+					'es:flex es:items-center es:gap-1 es:pr-1.25 es:py-1 es:pl-2.5',
+					standalone && 'es:rounded-xl',
+					!standalone && 'es:rounded-md es:group-first:rounded-t-xl es:group-after-current:rounded-t-xl',
+					'es:inset-ring',
+					'es:inset-shadow-xs',
+					isOpen && 'es:bg-surface-100 es:inset-ring-surface-300/75 es:inset-shadow-surface-100/30',
+					isOpen && 'es:rounded-b-md es:rounded-t-xl',
+					!isOpen && 'es:bg-white es:bg-linear-to-b es:from-25% es:from-secondary-100/5 es:to-secondary-300/10 es:inset-ring-secondary-300/45 es:inset-shadow-secondary-200/50',
+					!isOpen && !standalone && 'es:rounded-b-md es:group-last:rounded-b-xl es:group-before-current:rounded-b-xl',
+					!flat && 'es:shadow-xs es:shadow-black/5',
+					'es:transition-plus es:duration-200 es:motion-ease-spring-bouncy',
+					headerClassName,
+				)}
 				{...headerProps}
 			>
 				<RichLabel
 					icon={icon}
 					label={label}
 					subtitle={subtitle}
-					className={labelClassName}
+					className={clsx('es:grow', labelClassName)}
 					as={Label}
-					fullWidth
 				/>
 
 				{actions && !keepActionsOnExpand && (
 					<AnimatedVisibility
 						visible={!isOpen}
-						className='es:ml-auto es:flex es:gap-2'
-						transition='slideFadeDownSlight'
+						className='es:flex es:gap-1 es:shrink-0'
+						transition='scaleFade'
+						decreaseBounce
 						noInitial
 					>
 						{actions}
 					</AnimatedVisibility>
 				)}
 
-				{actions && keepActionsOnExpand && <div className='es:ml-auto es:flex es:gap-2'>{actions}</div>}
+				{actions && keepActionsOnExpand && <div className='es:flex es:gap-1 es:shrink-0'>{actions}</div>}
 
 				{customOpenButton &&
 					customOpenButton({
@@ -130,7 +149,7 @@ export const Expandable = (props) => {
 					<Button
 						slot='trigger'
 						type='ghost'
-						icon={isOpen ? icons.caretDownFill : icons.caretDown}
+						icon={icons.dropdownCaretAlt}
 						onPress={() => {
 							setIsOpen(!isOpen);
 
@@ -140,7 +159,11 @@ export const Expandable = (props) => {
 						}}
 						tooltip={isOpen ? __('Close', 'eightshift-ui-components') : __('Open', 'eightshift-ui-components')}
 						disabled={disabled}
-						className={clsx('es:icon:size-5 es:icon:transition-transform', isOpen && 'es:icon:-scale-y-100')}
+						className={clsx(
+							'es:icon:transition-plus es:ease-spring-bouncier es:duration-400',
+							isOpen && 'es:icon:-scale-y-100 es:icon:text-surface-600',
+							!isOpen && 'es:icon:text-secondary-500',
+						)}
 						size='small'
 					/>
 				)}
@@ -148,13 +171,19 @@ export const Expandable = (props) => {
 
 			<DisclosurePanel
 				className={clsx(
-					isOpen && 'es:space-y-2.5 es:border-t es:border-t-secondary-200 es:p-2',
-					isOpen &&
-						'es:motion-safe:motion-preset-slide-down-sm es:motion-safe:motion-ease-spring-smooth es:motion-safe:motion-ease-linear/opacity es:motion-safe:motion-duration-300 es:motion-reduce:motion-preset-fade-md',
+					'es:h-(--disclosure-panel-height)',
+					'es:opacity-0 es:blur-[1px] es:-translate-y-2',
+					!isOpen && 'es:rounded-t-xl',
+					isOpen && 'es:rounded-t-sm es:opacity-100 es:blur-none es:translate-y-0 es:mt-1',
+					'es:origin-top',
+					'es:bg-white es:rounded-b-xl es:inset-ring es:inset-ring-surface-200',
+					'es:inset-shadow-sm es:inset-shadow-accent-600/5',
+					!flat && 'es:shadow-xs es:shadow-black/5',
+					'es:transition-plus-h',
 					contentClassName,
 				)}
 			>
-				{children}
+				<div className='es:space-y-1 es:px-3 es:py-3.5'>{children}</div>
 			</DisclosurePanel>
 		</Disclosure>
 	);

@@ -96,6 +96,8 @@ export const Popover = (props) => {
 
 		hidden,
 
+		popoverProps,
+
 		...other
 	} = props;
 
@@ -123,23 +125,23 @@ export const Popover = (props) => {
 			containerPadding={containerPadding}
 			className={({ isEntering, isExiting }) =>
 				clsx(
-					'es:rounded-2xl es:border es:border-secondary-300 es:bg-white/85 es:inset-ring es:inset-ring-secondary-100 es:shadow-xl es:outline-hidden',
-					'es:backdrop-blur-2xl es:backdrop-brightness-125 es:backdrop-saturate-150',
-					'es:inset-shadow-xs es:inset-shadow-secondary-100',
-					'es:motion-safe:motion-duration-200 es:motion-safe:motion-ease-spring-bouncy',
+					'es:rounded-2xl es:bg-linear-to-br es:from-surface-50/75 es:to-surface-50/75 es:inset-ring es:inset-ring-surface-500/15 es:shadow-xl es:outline-hidden',
+					'es:backdrop-blur-lg es:backdrop-brightness-110 es:backdrop-saturate-125',
+					'es:inset-shadow-xs es:inset-shadow-white/50',
 					'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
 					'es:placement-left:origin-right es:placement-right:origin-left',
-					isEntering || (isExiting && 'es:pointer-events-none'),
-					isEntering && 'es:motion-safe:motion-scale-in-95 es:motion-opacity-in-0',
-					isEntering &&
-						'es:motion-safe:placement-top:motion-translate-y-in-[5%] es:motion-safe:placement-bottom:motion-translate-y-in-[-5%] es:motion-safe:placement-left:motion-translate-x-in-[5%] es:motion-safe:placement-right:motion-translate-x-in-[-5%]',
-					isExiting && 'es:motion-safe:motion-scale-out-95 es:motion-opacity-out-0',
-					isExiting &&
-						'es:motion-safe:placement-top:motion-translate-y-out-[5%] es:motion-safe:placement-bottom:motion-translate-y-out-[-5%] es:motion-safe:placement-left:motion-translate-x-out-[5%] es:motion-safe:placement-right:motion-translate-x-out-[-5%]',
+					'es:motion-duration-250 es:motion-ease-spring-bouncy',
+					isEntering && 'es:*:pointer-events-none',
+					'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
+					isEntering && 'es:motion-scale-x-in-95 es:motion-scale-y-in-85 es:motion-opacity-in-0 es:motion-blur-in-[1px]',
+					isEntering && 'es:placement-top:motion-translate-y-in-[0.5rem] es:placement-bottom:motion-translate-y-in-[-0.5rem]',
+					isExiting && 'es:motion-scale-x-out-95 es:motion-scale-y-out-85 es:motion-opacity-out-0 es:motion-blur-out-xs',
+					isExiting && 'es:placement-top:motion-translate-y-out-[0.5rem] es:placement-bottom:motion-translate-y-out-[-0.5rem]',
 					wrapperClassName,
 				)
 			}
 			style={style}
+			{...popoverProps}
 		>
 			<Dialog
 				className={clsx('es:p-1 es:text-sm es:outline-hidden', className)}

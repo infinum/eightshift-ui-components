@@ -6,6 +6,7 @@ import { DecorativeTooltip } from '../tooltip/tooltip';
 import { useImageAnalysisWorker } from '../../utilities/web-workers.js';
 import workerInline from './worker-inline.js';
 import { cyrb64Hash } from '../../utilities/hash.js';
+import { analyzeImage } from '../../utilities/general';
 
 /**
  * @typedef {Object} CustomImageProps
@@ -13,6 +14,7 @@ import { cyrb64Hash } from '../../utilities/hash.js';
  * @property {string} [props.errorClassName] - Classes to pass to the default error view.
  * @property {string} [props.processingClassName] - Classes to apply while the image is loading / being processed.
  * @property {boolean} [props.hidden] - If `true`, the component is not rendered.
+ * @property {boolean} [props.verbose] - If `true`, extra debug info is logged in case of errors.
  * @property {import('../../utilities/general').ImageAnalysisSettings} [imageAnalysisSettings] - Settings to pass to the image analysis function.
  * @property {import('../../utilities/general').ImageAnalysisResult} [analysisData] - Previous analysis result to pass in directly, skipping analysis.
  *
@@ -56,7 +58,7 @@ import { cyrb64Hash } from '../../utilities/hash.js';
  * @preserve
  */
 export const SmartImage = (props) => {
-	const { imageAnalysisSettings, errorClassName, processingClassName = 'es:opacity-0 es:fixed', hidden, renderError, analysisData, children, ...imageProps } = props;
+	const { imageAnalysisSettings, errorClassName, processingClassName = 'es:opacity-0 es:fixed', hidden, renderError, analysisData, children, verbose, ...imageProps } = props;
 
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [hasAnalysed, setHasAnalysed] = useState(false);
@@ -159,9 +161,33 @@ export const SmartImage = (props) => {
 						setTransparencyInfo(transparencyInfo);
 
 						localStorage?.setItem(cacheKey, JSON.stringify(result));
+					} else {
+						if (verbose) {
+							console.log('[SmartImage] Worker analysis failed, falling back to synchronous analysis.');
+						}
+
+						const syncResult = analyzeImage(e.target, imageAnalysisSettings);
+
+						if (syncResult) {
+							const { isDark: dark, dominantColors: colors, isTransparent: transparent, transparencyInfo } = syncResult;
+
+							setIsDark(dark);
+							setDominantColors(colors);
+							setIsTransparent(transparent);
+							setTransparencyInfo(transparencyInfo);
+
+							localStorage?.setItem(cacheKey, JSON.stringify(syncResult));
+						} else {
+							if (verbose) {
+								console.log('[SmartImage] Synchronous analysis failed.');
+							}
+						}
 					}
 				} catch (err) {
-					console.error('Error analyzing image:', err);
+					if (verbose) {
+						console.error('[SmartImage] Error analyzing image.', err);
+					}
+
 					setError(err);
 				}
 

@@ -1,6 +1,7 @@
 import { clsx } from 'clsx/lite';
 import { RichLabel } from '../rich-label/rich-label';
 import { Heading } from 'react-aria-components';
+import { cloneElement } from 'react';
 
 /**
  * Component that provides a container panel for options, with an optional title.
@@ -33,24 +34,24 @@ export const OptionsPanel = (props) => {
 	}
 
 	return (
-		<div className='es:not-last:mb-10'>
-			<div className={clsx('es:bg-white es:rounded-xl es:border es:border-secondary-300 es:overflow-clip es:max-w-lg es:shadow-xs', className)}>
+		<div>
+			<div className={clsx('es:overflow-clip es:max-w-lg', className)}>
 				{title && (
 					<RichLabel
 						icon={icon}
 						label={title}
 						subtitle={subtitle}
-						className={clsx(
-							'es:bg-secondary-50 es:shrink-0 es:text-secondary-700 es:px-4 es:**:first:text-base! es:border-b es:border-b-secondary-200',
-							subtitle ? 'es:py-3' : 'es:pt-2.25 es:pb-1.75',
-						)}
+						className={clsx('es:shrink-0 es:text-secondary-700 es:px-1 es:pt-5 es:pb-1')}
+						labelClassName='es:text-lg es:leading-tight'
+						subtitleClassName='es:text-base es:leading-tight'
 						noColor
 					/>
 				)}
 
-				<div className='es:divide-y es:divide-secondary-200/75 es:py-4'>{children}</div>
+				<div className='es:flex es:flex-col es:gap-1'>{children}</div>
 			</div>
-			{help && <span className='es:mx-0.5 es:mt-1 es:block es:text-sm es:text-secondary-400'>{help}</span>}
+
+			{help && <span className='es:mx-1 es:mt-2 es:block es:text-sm es:text-secondary-400'>{help}</span>}
 		</div>
 	);
 };
@@ -77,7 +78,19 @@ export const OptionsPanelSection = ({ children, className, hidden }) => {
 		return null;
 	}
 
-	return <div className={clsx('es:space-y-2.5 es:not-last:pb-4 es:not-first:pt-4 es:px-4', className)}>{children}</div>;
+	return (
+		<div
+			className={clsx(
+				'es:flex es:flex-col es:gap-5',
+				'es:p-4',
+				'es:bg-secondary-50 es:inset-ring es:inset-ring-secondary-100',
+				'es:rounded-md es:first:rounded-t-2xl es:last:rounded-b-2xl',
+				className,
+			)}
+		>
+			{children}
+		</div>
+	);
 };
 
 /**
@@ -108,14 +121,15 @@ export const OptionsPanelHeader = ({ children, sticky, title, className, actions
 	}
 
 	return (
-		<div className={clsx('es:space-y-2.5', limitWidth && 'es:max-w-md', sticky && 'es:sticky es:top-0 es:z-10 es:bg-white', className)}>
+		<div className={clsx('es:space-y-2.5', limitWidth && 'es:max-w-2xl', sticky && 'es:sticky es:top-0 es:z-10 es:bg-white', className)}>
 			<div className='es:flex es:flex-wrap es:items-center es:justify-between es:gap-x-8 es:gap-y-4'>
 				<Heading
-					className='es:text-2xl es:font-medium es:tracking-tight'
+					className='es:text-3xl es:text-surface-800 es:font-variation-["wdth"_180,"YTLC"_540,"wght"_300]'
 					level={level}
 				>
 					{title}
 				</Heading>
+
 				<div className='es:flex es:items-center es:gap-2'>{actions}</div>
 			</div>
 			{children}
@@ -128,12 +142,14 @@ export const OptionsPanelHeader = ({ children, sticky, title, className, actions
  *
  * @component
  * @param {Object} props - Component props.
+ * @param {JSX.Element} [props.icon] - Icon to show on the right.
  * @param {string} [props.title] - Title to show.
  * @param {string} [props.subtitle] - Subtitle to show.
  * @param {Number} [props.level=2] - Heading level of the title.
  * @param {string} [props.className] - Classes to pass to the container.
+ * @param {string} [props.iconClassName] - Classes to pass to the icon.
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Controls to show on the right side of the header.
- * @param {boolean} [props.border] - If `true`, a border is shown below the text.
+ * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The OptionsPanelIntro component.
@@ -143,20 +159,30 @@ export const OptionsPanelHeader = ({ children, sticky, title, className, actions
  *
  * @preserve
  */
-export const OptionsPanelIntro = ({ title, subtitle, className, level = 3, border, hidden }) => {
+export const OptionsPanelIntro = ({ icon, title, subtitle, className, iconClassName, level = 3, flat, hidden }) => {
 	if (hidden) {
 		return null;
 	}
 
 	return (
-		<div className={clsx('es:pb-2.5', border && 'es:mb-5 es:border-b es:border-b-secondary-200', className)}>
+		<div
+			className={clsx(
+				'es:relative es:overflow-clip',
+				'es:py-5 es:px-6 es:rounded-2xl es:max-w-lg',
+				'es:bg-surface-100 es:inset-ring es:inset-ring-surface-600/5',
+				!flat && 'es:shadow-xs es:shadow-black/5',
+				className,
+			)}
+		>
 			<Heading
-				className='es:text-lg es:tracking-tight es:text-secondary-800'
+				className='es:text-2xl es:my-0! es:text-accent-900 es:font-variation-["wdth"_180,"YTLC"_540,"wght"_350]'
 				level={level}
 			>
 				{title}
 			</Heading>
-			{subtitle && <p className='es:text-sm es:text-secondary-500 es:mt-0.5'>{subtitle}</p>}
+			{subtitle && <p className='es:text-13 es:my-0! es:text-surface-500 es:mt-0.75 es:font-variation-["wdth"_90,"YTLC"_560,"wght"_325]'>{subtitle}</p>}
+
+			{icon && cloneElement(icon, { className: clsx('es:absolute es:-top-2 es:right-2.5 es:rotate-12 es:text-surface-500/10 es:size-18', iconClassName) })}
 		</div>
 	);
 };

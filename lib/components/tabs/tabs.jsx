@@ -14,11 +14,12 @@ import { RichLabel } from '../rich-label/rich-label';
  * @param {boolean} [props.vertical=false] - Whether the tabs are vertical.
  * @param {string} [props.className] - Classes to pass to the tabs container.
  * @param {TabsType} [props.type='underline'] - Design of the tabs.
+ * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Tabs component.
  *
- * @typedef {'underline' | 'pill' | 'pillInverse' | 'pillCompact' | 'pillCompactInverse' | 'pillOutline' | 'pillCompactOutline'} TabsType
+ * @typedef {'underline' | 'underlineSecondary' | 'pill' | 'pillCompact' | 'bubble' | 'chips'} TabsType
  *
  * @example
  * <Tabs>
@@ -33,7 +34,7 @@ import { RichLabel } from '../rich-label/rich-label';
  * @preserve
  */
 export const Tabs = (props) => {
-	const { children, vertical, className, hidden, type = 'underline', ...rest } = props;
+	const { children, vertical, className, hidden, type = 'underline', flat, ...rest } = props;
 
 	const baseId = useId();
 
@@ -69,7 +70,8 @@ export const Tabs = (props) => {
 							id: `tab-${baseId}-${i + 1}`,
 							key: i,
 							isParentVertical: vertical,
-							type: type,
+							type,
+							flat,
 						}),
 					),
 				),
@@ -82,7 +84,10 @@ export const Tabs = (props) => {
 				cloneElement(child, {
 					id: `tab-${baseId}-${tabPanelCounter++}`,
 					key: index,
-					className: clsx(child.props.className, vertical && 'es:pl-3'),
+					className: child.props.className,
+					flat,
+					type,
+					vertical,
 				}),
 			];
 		}
@@ -109,7 +114,12 @@ export const Tabs = (props) => {
 		<ReactAriaTabs
 			{...rest}
 			orientation={vertical ? 'vertical' : 'horizontal'}
-			className={clsx(vertical ? 'es:grid es:size-full es:min-h-40 es:grid-cols-[minmax(0,15rem)_2fr] es:gap-4' : 'es:flex-col', className)}
+			className={clsx(
+				vertical ? 'es:grid es:gap-4' : 'es:flex-col',
+				vertical && ['underline', 'underlineSecondary', 'bubble'].includes(type) && 'es:grid-cols-[minmax(0,7.5rem)_minmax(0,1fr)]',
+				vertical && !['underline', 'underlineSecondary', 'bubble'].includes(type) && 'es:grid-cols-[minmax(0,20rem)_minmax(0,1fr)]',
+				className,
+			)}
 		>
 			{childrenWithIds}
 		</ReactAriaTabs>
@@ -132,25 +142,93 @@ Tabs.displayName = 'Tabs';
  * @preserve
  */
 export const TabList = (props) => {
-	const { children, 'aria-label': ariaLabel, className, type, ...other } = props;
+	const { children, 'aria-label': ariaLabel, className, type, flat, ...other } = props;
+
+	const tabListClasses = cva(['es:flex', className], {
+		variants: {
+			type: {
+				bubble: 'es:bg-white es:rounded-28 es:p-1.5 es:gap-px',
+			},
+			orientation: {
+				horizontal: 'es:overflow-x-auto es:overflow-y-visible es:max-h-none es:items-stretch',
+				vertical: 'es:flex-col es:gap-0.75 es:overflow-y-auto es:self-start es:max-h-[85vh]',
+			},
+		},
+		compoundVariants: [
+			{
+				type: ['underline', 'underlineSecondary'],
+				orientation: 'vertical',
+				class: 'es:bg-white',
+			},
+			{
+				type: ['underline', 'underlineSecondary'],
+				orientation: 'horizontal',
+				class: 'es:border-b es:border-b-secondary-200 es:justify-center-safe es:rounded-t-lg',
+			},
+			{
+				type: ['underline', 'underlineSecondary'],
+				orientation: 'horizontal',
+				class: 'es:px-1',
+			},
+			{
+				type: ['underline', 'underlineSecondary'],
+				orientation: 'vertical',
+				class: 'es:rounded-28 es:p-1.5',
+			},
+			{
+				type: 'underline',
+				orientation: 'horizontal',
+				class: 'es:gap-px',
+			},
+			//
+			{
+				type: ['bubble'],
+				orientation: 'horizontal',
+				class: 'es:h-15 es:has-any-icon:h-20',
+			},
+			//
+			{
+				type: ['pill', 'pillCompact'],
+				class: 'es:bg-secondary-50',
+			},
+			{
+				type: ['pill', 'pillCompact'],
+				orientation: 'horizontal',
+				class: 'es:rounded-full es:gap-0.5 es:mx-auto es:w-fit',
+			},
+			{
+				type: ['pill'],
+				orientation: 'vertical',
+				class: 'es:rounded-4xl es:p-3',
+			},
+			{
+				type: ['pillCompact'],
+				orientation: 'vertical',
+				class: 'es:rounded-3xl es:p-3',
+			},
+			//
+			{
+				type: ['chips'],
+				orientation: 'horizontal',
+				class: 'es:flex es:gap-0.75 es:rounded-xl',
+			},
+			// Flat.
+			{
+				type: ['pill', 'pillCompact'],
+				flat: false,
+				class: 'es:shadow es:shadow-black/5',
+			},
+		],
+		defaultVariants: {
+			orientation: 'horizontal',
+			flat: false,
+		},
+	});
 
 	return (
 		<ReactAriaTabList
 			aria-label={ariaLabel ?? __('tabs', 'eightshift-ui-components')}
-			className={({ orientation }) => {
-				const horizontal = orientation === 'horizontal';
-				const vertical = orientation === 'vertical';
-
-				return clsx(
-					'es:flex es:p-0.5 es:-m-0.5',
-					vertical && 'es:h-full es:flex-col es:gap-1.5 es:pr-1.5 es:overflow-y-auto es:overflow-x-visible',
-					horizontal && 'es:w-full es:items-stretch es:gap-1.5 es:overflow-x-auto es:overflow-y-visible es:mb-3',
-					horizontal &&
-						type === 'underline' &&
-						'es:relative es:isolate es:after:content-[""] es:after:-z-10 es:after:absolute es:after:bottom-0.5 es:after:left-0 es:after:w-full es:after:h-px es:after:bg-secondary-300',
-					className,
-				);
-			}}
+			className={({ orientation }) => tabListClasses({ orientation, type, flat })}
 			{...other}
 		>
 			{children}
@@ -180,57 +258,239 @@ TabList.displayName = 'TabList';
  * @preserve
  */
 export const Tab = (props) => {
-	const { children, disabled, isParentVertical, className, icon, label, subtitle, type, badge, invisible, ...other } = props;
+	const { children, disabled, isParentVertical, className, badgeClassName, icon, label, subtitle, type, badge, invisible, flat, ...other } = props;
 
 	const componentClasses = cva(
 		[
-			'es:group es:flex es:items-center es:gap-1.5 es:relative es:shrink-0',
-			'es:select-none es:text-sm es:transition es:not-disabled:cursor-pointer',
-			'es:any-focus:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
-			!(type === 'pillCompact' || type === 'pillCompactInverse' || type === 'pillCompactOutline') && 'es:min-h-9.5',
-			isParentVertical && (type === 'pillCompact' || type === 'pillCompactInverse' || type === 'pillCompactOutline') && 'es:min-h-8',
+			'es:group es:relative es:shrink-0',
+			'es:flex es:items-center es:gap-1.5',
+			'es:select-none es:not-disabled:cursor-pointer',
+			'es:transition-plus es:text-center es:text-12 es:leading-[1.15] es:text-box-trim',
+			'es:any-focus:outline-hidden',
+			'es:contrast-more:inset-ring es:contrast-more:inset-ring-accent-500/0 es:contrast-more:focus-visible:inset-ring-accent-500',
+			'es:disabled:text-secondary-400',
+			'es:font-variation-["wdth"_120,"YTLC"_560,"wght"_375] es:selected:font-variation-["wdth"_120,"YTLC"_560,"wght"_375,"GRAD"_80]',
 			invisible && 'es:hidden',
 			className,
 		],
 		{
-			variants: {
-				type: {
-					underline: 'es:disabled:text-secondary-400 es:selected:text-accent-950',
-					pill: 'es:font-[450] es:border es:border-transparent es:px-2.5 es:py-0.25 es:rounded-10 es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-900 es:selected:bg-gradient-to-br es:selected:from-accent-400/10 es:selected:to-accent-400/20 es:selected:border-accent-400/10 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
-					pillOutline:
-						'es:font-[450] es:border es:border-transparent es:selected:border-accent-500 es:px-2.5 es:py-0.25 es:rounded-10 es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-700 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
-					pillInverse:
-						'es:font-[450] es:border es:border-transparent es:px-2.5 es:py-0.25 es:rounded-10 es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-gradient-to-br es:selected:from-accent-500 es:selected:to-accent-600 es:selected:border-accent-600 es:has-icon:pl-2.5 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
-					pillCompact:
-						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:px-1.5 es:py-1 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-900 es:selected:bg-gradient-to-br es:selected:from-accent-400/15 es:selected:to-accent-400/20 es:selected:border-accent-400/10 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
-					pillCompactInverse:
-						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:px-1.5 es:py-1 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-white es:selected:bg-gradient-to-br es:selected:from-accent-500 es:selected:to-accent-600 es:selected:border-accent-600 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
-					pillCompactOutline:
-						'es:icon:size-4 es:font-[450] es:border es:border-transparent es:selected:border-accent-500 es:px-1.5 es:py-1 es:rounded-lg es:not-disabled:not-selected:hover:text-secondary-900 es:not-disabled:not-selected:hover:bg-secondary-100 es:text-secondary-500 es:selected:text-accent-700 es:has-icon:pl-1 es:focus-visible:border-accent-500 es:disabled:text-secondary-400/75',
-				},
-			},
+			variants: {},
 			compoundVariants: [
+				{ type: ['underline', 'underlineSecondary', 'bubble'], class: ['es:flex-col es:justify-center-safe', 'es:text-secondary-700 es:selected:text-accent-700'] },
+				{
+					type: ['pill', 'pillCompact'],
+					vertical: true,
+					flat: false,
+					class: 'es:selected:shadow-md es:selected:shadow-accent-700/10',
+				},
 				{
 					vertical: false,
 					type: 'underline',
 					class: [
-						'es:px-2 es:py-2.5 es:rounded-lg',
-						'es:after:content-[""] es:after:absolute es:after:bottom-px es:after:left-0 es:after:right-0 es:after:w-5/6 es:after:mx-auto es:after:h-0.75',
+						'es:px-3 es:not-has-any-icon:py-3 es:has-any-icon:py-2.5 es:rounded-t-lg es:min-h-12',
+						'es:after:content-[""] es:after:absolute es:after:bottom-0 es:after:left-0 es:after:right-0 es:after:w-3/5 es:after:mx-auto es:after:h-0.75 es:selected:after:bg-accent-600',
+						'es:selected:after:inset-shadow-xs es:selected:after:inset-shadow-accent-50/30',
+						'es:not-selected:hover:bg-secondary-50 es:selected:hover:bg-accent-600/5',
+						'es:selected:text-accent-600',
+						'es:after:rounded-t-full es:after:transition',
+					],
+				},
+				{
+					vertical: false,
+					type: 'underlineSecondary',
+					class: [
+						'es:px-3 es:pt-2 es:pb-2.5 es:rounded-t-sm es:min-h-12',
+						'es:not-selected:hover:bg-secondary-50 es:selected:hover:bg-accent-600/5',
+						'es:after:content-[""] es:after:absolute es:after:bottom-0 es:after:left-0 es:after:right-0 es:after:w-full es:after:mx-auto es:after:h-0.75',
 						'es:after:bg-linear-to-b es:hover:not-selected:not-disabled:after:from-secondary-200 es:hover:not-selected:not-disabled:after:to-secondary-300 es:selected:after:from-accent-500 es:selected:after:to-accent-600',
-						'es:after:rounded-t-full es:selected:after:shadow-sm es:selected:after:shadow-accent-700/30 es:after:transition',
+						'es:after:transition',
 					],
 				},
 				{
 					vertical: true,
-					type: 'underline',
+					type: ['underline', 'underlineSecondary'],
 					class: [
-						'es:pl-3 es:pr-2 es:py-2.5 es:rounded-lg es:selected:bg-accent-50/50 es:selected:text-accent-950 es:transition',
-						'es:after:content-[""] es:after:absolute es:after:-left-0 es:after:top-0 es:after:bottom-0 es:after:h-5/6 es:after:my-auto es:after:w-1',
-						'es:after:bg-linear-to-r es:hover:not-selected:not-disabled:after:from-secondary-200 es:hover:not-selected:not-disabled:after:to-secondary-300 es:selected:after:from-accent-500 es:selected:after:to-accent-600',
-						'es:after:rounded-full es:selected:after:shadow-sm es:selected:after:shadow-accent-700/30 es:after:transition',
+						'es:p-2 es:rounded-xl es:not-has-any-icon:rounded-3xl es:has-any-icon:aspect-4/3 es:not-has-any-icon:aspect-5/3',
+						'es:text-secondary-500 es:selected:text-accent-800',
+						'es:not-has-any-icon:selected:bg-accent-600/5 es:not-has-any-icon:not-selected:hover:bg-secondary-50',
+					],
+				},
+				//
+				{
+					type: ['bubble'],
+					class: [
+						'es:rounded-xl es:not-has-any-icon:rounded-3xl',
+						'es:text-secondary-500 es:selected:text-accent-800',
+						'es:not-has-any-icon:selected:bg-accent-600/5 es:not-has-any-icon:not-selected:hover:bg-secondary-50',
+					],
+				},
+				{
+					type: ['bubble'],
+					vertical: false,
+					class: 'es:px-2 es:py-0.5 es:grow',
+				},
+				{
+					type: ['bubble'],
+					vertical: true,
+					class: 'es:p-2 es:has-any-icon:aspect-4/3 es:not-has-any-icon:aspect-5/3',
+				},
+				//
+				{
+					type: ['pill', 'pillCompact'],
+					class: [
+						'es:rounded-full',
+						'es:selected:bg-accent-50 es:not-selected:hover:bg-secondary-100 es:selected:text-accent-900',
+						'es:bg-linear-to-br es:selected:from-accent-600/5 es:selected:to-accent-600/15',
+						'es:selected:inset-ring es:selected:inset-ring-accent-600/10',
+					],
+				},
+				{
+					type: ['pill'],
+					class: ['es:py-3 es:min-h-12'],
+				},
+				{
+					type: ['pillCompact'],
+					class: ['es:py-2 es:min-h-9.5'],
+				},
+				//
+				{
+					type: ['pill'],
+					vertical: false,
+					class: ['es:justify-center es:px-6'],
+				},
+				{
+					type: ['pillCompact'],
+					vertical: false,
+					class: ['es:justify-center es:px-3'],
+				},
+				{
+					type: ['pill'],
+					vertical: true,
+					class: ['es:pl-5 es:has-any-icon:pl-4 es:pr-6'],
+				},
+				{
+					type: ['pillCompact'],
+					vertical: true,
+					class: ['es:pl-4 es:has-any-icon:pl-3 es:pr-3'],
+				},
+				//
+				{
+					type: ['chips'],
+					class: [
+						'es:bg-secondary-50 es:selected:bg-accent-500',
+						'es:inset-ring es:inset-ring-secondary-200/30 es:selected:inset-ring-accent-600/30',
+						'es:bg-linear-to-b es:from-25% es:from-accent-700/0 es:to-accent-700/0 es:selected:from-accent-700/10 es:selected:to-accent-700/30',
+						'es:selected:inset-shadow-sm es:selected:inset-shadow-accent-50/30',
+						'es:text-secondary-700 es:selected:text-white',
+						'es:min-h-7.5 es:rounded-lg es:selected:rounded-xl',
+						'es:transition-plus',
+						'es:pl-3 es:has-any-icon:pl-2 es:pr-3 es:py-1.5',
+						!flat && 'es:selected:shadow-xs es:selected:shadow-black/5',
 					],
 				},
 			],
+		},
+	);
+
+	const iconClasses = cva('es:transition es:duration-200 es:ease-spring-bouncy', {
+		variants: {},
+		compoundVariants: [
+			{
+				vertical: true,
+				type: ['underline', 'underlineSecondary'],
+				class: [
+					'es:bg-white es:px-3.5 es:py-1.25 es:rounded-full',
+					'es:group-hover:bg-surface-500/7',
+					'es:group-selected:bg-accent-500/10 es:group-selected:text-accent-800',
+					'es:group-hover:group-selected:ring es:group-hover:group-selected:ring-accent-500/10',
+				],
+			},
+			{
+				type: ['bubble'],
+				class: [
+					'es:bg-white es:px-3.5 es:py-1.25 es:rounded-full',
+					'es:group-hover:bg-surface-500/7',
+					'es:group-selected:bg-accent-500/10 es:group-selected:text-accent-800',
+					'es:group-hover:group-selected:ring es:group-hover:group-selected:ring-accent-500/10',
+				],
+			},
+		],
+	});
+
+	const badgeClasses = cva(
+		[
+			'es:transition-plus',
+			'es:flex es:items-center-safe es:justify-center-safe',
+			'es:min-h-4.5 es:min-w-4.5 es:leading-none es:rounded-full es:shrink-0',
+			'es:text-12 es:leading-none es:text-box-trim',
+			'es:any-icon:size-2.5',
+			badgeClassName,
+		],
+		{
+			variants: {},
+			compoundVariants: [
+				{
+					type: ['underline', 'underlineSecondary', 'bubble'],
+					class: ['es:bg-secondary-100 es:group-selected:bg-accent-600 es:group-selected:text-white', 'es:group-hover:ring es:group-hover:ring-white'],
+				},
+				{
+					vertical: true,
+					icon: false,
+					type: ['underline', 'underlineSecondary'],
+					class: 'es:absolute es:top-0 es:right-0',
+				},
+				{
+					vertical: true,
+					icon: true,
+					type: ['underline', 'underlineSecondary'],
+					class: 'es:absolute es:top-1.5 es:right-6 es:group-hover:bg-surface-100',
+				},
+				//
+				{
+					type: ['pill', 'pillCompact'],
+					class: 'es:ml-auto es:bg-white es:group-selected:bg-accent-600 es:group-selected:text-white',
+				},
+				//
+				{
+					icon: false,
+					type: ['bubble'],
+					vertical: true,
+					class: 'es:absolute es:top-0 es:right-0',
+				},
+				{
+					icon: true,
+					type: ['bubble'],
+					class: 'es:absolute es:group-hover:bg-surface-100',
+				},
+				{
+					icon: true,
+					type: ['bubble'],
+					vertical: false,
+					class: 'es:top-1 es:right-11.5',
+				},
+				{
+					icon: true,
+					type: ['bubble'],
+					vertical: true,
+					class: 'es:top-1.5 es:right-6',
+				},
+				//
+				{
+					type: ['chips'],
+					class: 'es:bg-secondary-200/50 es:group-selected:bg-accent-600 es:group-selected:text-white',
+				},
+				{
+					type: ['chips'],
+					vertical: true,
+					class: 'es:ml-auto',
+				},
+			],
+			defaultVariants: {
+				vertical: false,
+				simple: false,
+				icon: false,
+				flat: false,
+			},
 		},
 	);
 
@@ -238,39 +498,23 @@ export const Tab = (props) => {
 		<ReactAriaTab
 			{...other}
 			isDisabled={disabled || invisible}
-			className={componentClasses({ vertical: Boolean(isParentVertical), type: type })}
+			className={componentClasses({ vertical: Boolean(isParentVertical), type, flat: Boolean(flat) })}
 		>
-			{(icon || subtitle) && (
-				<RichLabel
-					icon={icon}
-					label={label ?? children}
-					subtitle={subtitle}
-					noColor
-					iconClassName={clsx((type === 'pillCompact' || type === 'pillCompactInverse' || type === 'pillCompactOutline') && 'es:icon:size-4!')}
-				/>
-			)}
+			{icon && <div className={iconClasses({ vertical: Boolean(isParentVertical), type })}>{icon}</div>}
 
-			{!(icon || subtitle) && (label ?? children)}
+			<div className={clsx(!isParentVertical && 'es:flex es:items-center-safe es:gap-1.5', isParentVertical && 'es:contents')}>
+				{subtitle && (
+					<RichLabel
+						label={label ?? children}
+						subtitle={subtitle}
+						noColor
+					/>
+				)}
 
-			{badge && !isValidElement(badge) && (
-				<span
-					className={clsx(
-						'es:transition-colors es:px-1.5 es:py-1 es:leading-none es:rounded-md es:text-xs es:font-medium',
-						type === 'underline' &&
-							'es:inset-ring es:inset-ring-secondary-200/20 es:bg-secondary-100 es:group-selected:bg-accent-500/10 es:group-selected:text-accent-900 es:group-selected:inset-ring-accent-500/10',
-						type === 'pill' && 'es:bg-secondary-100 es:group-selected:bg-accent-600 es:group-selected:text-white',
-						type === 'pillInverse' && 'es:bg-secondary-100 es:group-selected:bg-accent-50 es:group-selected:text-accent-900',
-						type === 'pillCompact' && 'es:bg-secondary-100 es:group-selected:bg-accent-600 es:group-selected:text-white',
-						type === 'pillCompactInverse' && 'es:bg-secondary-100 es:group-selected:bg-accent-50 es:group-selected:text-accent-900',
-						(type === 'pillOutline' || type === 'pillCompactOutline') && 'es:bg-secondary-100 es:text-secondary-900 es:group-selected:bg-accent-500 es:group-selected:text-white',
-						(type === 'pillCompact' || type === 'pillCompactInverse' || type === 'pillCompactOutline') && 'es:[&_svg]:size-4!',
-					)}
-				>
-					{badge}
-				</span>
-			)}
+				{!subtitle && (label ?? children)}
 
-			{badge && isValidElement(badge) && <div>{badge}</div>}
+				{badge && <span className={badgeClasses({ vertical: Boolean(isParentVertical), type, simple: !isValidElement(badge), icon: Boolean(icon) })}>{badge}</span>}
+			</div>
 		</ReactAriaTab>
 	);
 };
@@ -291,12 +535,32 @@ Tab.displayName = 'Tab';
  * @preserve
  */
 export const TabPanel = (props) => {
-	const { children, className, ...other } = props;
+	const { children, className, type, vertical, ...other } = props;
+
+	const tabPanelClasses = cva(['es:space-y-3 es:text-13 es:any-focus:outline-hidden', className], {
+		variants: {},
+		compoundVariants: [
+			{
+				type: ['pill', 'pillCompact', 'bubble', 'chips'],
+				vertical: false,
+				class: 'es:mt-4',
+			},
+			{
+				type: ['underline', 'underlineSecondary'],
+				vertical: false,
+				class: 'es:mt-1',
+			},
+		],
+		defaultVariants: {
+			flat: false,
+			vertical: false,
+		},
+	});
 
 	return (
 		<ReactAriaTabPanel
 			{...other}
-			className={clsx('es:space-y-2.5 es:text-sm es:any-focus:outline-hidden', className)}
+			className={tabPanelClasses({ type, vertical })}
 		>
 			{children}
 		</ReactAriaTabPanel>
