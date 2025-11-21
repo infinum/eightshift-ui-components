@@ -3,6 +3,19 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [6.0.2] - 2025-11-21
+- `Container` updates
+  - Added `centered` prop to vertically center content (you might need to make inner content flex grow or fill width).
+  - Added `lessSpaceStart` and `lessSpaceEnd` props for more control over horizontal padding.
+  - Tweaked accent shade.
+- `ContainerGroup` now supports a `label` prop to label the group.
+- Fixed `DraggableList` item z-index while dragging.
+- `Menu` now supports the `hidden` prop to programmatically hide the component.
+- `OptionsPanelHeader` has set title margins to prevent overrides.
+- `RichLabel` doesn't have the `noColor` prop anymore - it's now the default behavior.
+- Improved `SmartImage` analysis reliability.
+- Updated dependencies.
+
 ## [6.0.1] - 2025-11-14
 - Fix output issue with `ContainerGroup` passed components.
 
@@ -501,6 +514,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[6.0.2]: https://github.com/infinum/eightshift-ui-components/compare/6.0.1...6.0.2
 [6.0.1]: https://github.com/infinum/eightshift-ui-components/compare/6.0.0...6.0.1
 [6.0.0]: https://github.com/infinum/eightshift-ui-components/compare/5.6.1...6.0.0
 [5.6.1]: https://github.com/infinum/eightshift-ui-components/compare/5.6.0...5.6.1
