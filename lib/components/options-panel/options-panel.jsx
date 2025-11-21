@@ -122,9 +122,9 @@ export const OptionsPanelHeader = ({ children, sticky, title, className, actions
 
 	return (
 		<div className={clsx('es:space-y-2.5', limitWidth && 'es:max-w-2xl', sticky && 'es:sticky es:top-0 es:z-10 es:bg-white', className)}>
-			<div className='es:flex es:flex-wrap es:items-center es:justify-between es:gap-x-8 es:gap-y-4'>
+			<div className='es:flex es:flex-wrap es:items-center es:justify-between es:gap-x-8 es:gap-y-4 es:mb-10'>
 				<Heading
-					className='es:text-3xl es:text-surface-800 es:font-variation-["wdth"_180,"YTLC"_540,"wght"_300]'
+					className='es:text-3xl es:text-surface-800 es:font-variation-["wdth"_180,"YTLC"_540,"wght"_300] es:m-0!'
 					level={level}
 				>
 					{title}
@@ -132,6 +132,7 @@ export const OptionsPanelHeader = ({ children, sticky, title, className, actions
 
 				<div className='es:flex es:items-center es:gap-2'>{actions}</div>
 			</div>
+
 			{children}
 		</div>
 	);
