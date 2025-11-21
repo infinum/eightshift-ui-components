@@ -88,10 +88,6 @@ export const SmartImage = (props) => {
 
 	const classFetchProps = { isLoaded, hasAnalysed, isTransparent, dominantColors, isDark, transparencyInfo };
 
-	if (analysisData) {
-		delete imageProps.analysisData;
-	}
-
 	const imageElement = (
 		<img
 			decoding='async'
@@ -122,13 +118,15 @@ export const SmartImage = (props) => {
 				if (analysisData) {
 					const { isDark: dark, dominantColors: colors, isTransparent: transparent, transparencyInfo } = analysisData;
 
-					setIsDark(dark);
-					setDominantColors(colors);
-					setIsTransparent(transparent);
-					setTransparencyInfo(transparencyInfo);
-					setHasAnalysed(true);
+					if (dark !== undefined && colors !== undefined && transparent !== undefined && transparencyInfo !== undefined) {
+						setIsDark(dark);
+						setDominantColors(colors);
+						setIsTransparent(transparent);
+						setTransparencyInfo(transparencyInfo);
+						setHasAnalysed(true);
 
-					return;
+						return;
+					}
 				}
 
 				// Cache results in localstorage.
