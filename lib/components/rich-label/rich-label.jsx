@@ -17,7 +17,6 @@ import { clsx } from 'clsx/lite';
  * @param {boolean} [props.fullWidth=false] - If `true`, the component will take up as much space as it can.
  * @param {boolean} [props.contentsOnly] - If `true`, only the label (/icon/subtitle) will be rendered, without any wrapping elements. Useful if you want to provide your own layout.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- * @param {boolean} [props.noColor] - If `true`, colors on text won't be set, opacity will be used instead.
  * @param {boolean} [props.fullSizeSubtitle] - If `true`, the subtitle is the same size as the label.
  * @param {boolean} [props.inlineSubtitle] - If `true`, the subtitle is shown after the label instead of below it.
  *
@@ -45,7 +44,6 @@ export const RichLabel = (props) => {
 		fullWidth = false,
 		contentsOnly,
 		hidden,
-		noColor,
 		fullSizeSubtitle,
 		inlineSubtitle,
 	} = props;
@@ -59,18 +57,16 @@ export const RichLabel = (props) => {
 	if (contentsOnly) {
 		return (
 			<>
-				{icon && <span className={clsx('es:icon:size-5', !noColor && 'es:text-secondary-500', iconClassName)}>{icon}</span>}
-				{label && <span className={clsx('es:text-balance', !noColor && 'es:text-secondary-800', labelClassName)}>{label}</span>}
-				{subtitle && <span className={clsx('es:text-balance es:text-xs es:not-contrast-more:opacity-65', !noColor && 'es:text-secondary-700', subtitleClassName)}>{subtitle}</span>}
+				{icon && <span className={clsx('es:icon:size-5 es:not-contrast-more:opacity-85', iconClassName)}>{icon}</span>}
+				{label && <span className={clsx('es:text-balance', labelClassName)}>{label}</span>}
+				{subtitle && <span className={clsx('es:text-balance es:text-xs es:not-contrast-more:opacity-65', subtitleClassName)}>{subtitle}</span>}
 			</>
 		);
 	}
 
 	return (
-		<ComponentToRender
-			className={clsx('es:flex es:items-center es:gap-1.75 es:text-sm', !noColor && 'es:text-secondary-700 es:any-icon:text-secondary-500', fullWidth && 'es:grow', className)}
-		>
-			{icon && <span className={clsx('es:icon:size-5 es:shrink-0', noColor && 'es:not-contrast-more:opacity-80', iconClassName)}>{icon}</span>}
+		<ComponentToRender className={clsx('es:flex es:items-center es:gap-1.75 es:text-sm', fullWidth && 'es:grow', className)}>
+			{icon && <span className={clsx('es:icon:size-5 es:shrink-0', 'es:not-contrast-more:opacity-85', iconClassName)}>{icon}</span>}
 
 			{(label || subtitle) && (
 				<div className={clsx('es:flex es:items-start es:text-balance es:text-start', inlineSubtitle ? 'es:gap-1.5' : 'es:flex-col', labelSubtitleWrapClassName)}>

@@ -213,6 +213,8 @@ export const MenuSeparator = ({ className }) => {
  * @param {boolean} [props.danger] - If `true`, the item appearance is tweaked to indicate a dangerous action.
  * @param {boolean} [props.primary] - If `true`, the item appearance is tweaked to indicate a primary action.
  * @param {string} [props.className] - Classes to pass to the menu item.
+ * @param {string} [props.aria-label] - Aria label for the menu item. Defaults to the children text or 'Menu item' if children is not a string.
+ * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The MenuItem component.
  *
@@ -236,7 +238,12 @@ export const MenuItem = (props) => {
 		primary,
 		className,
 		'aria-label': ariaLabel = typeof children === 'string' ? children : __('Menu item', 'eightshift-ui-components'),
+		hidden,
 	} = props;
+
+	if (hidden) {
+		return null;
+	}
 
 	let itemIcon = icon;
 

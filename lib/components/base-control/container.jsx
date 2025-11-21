@@ -12,6 +12,9 @@ import { cloneElement, forwardRef } from 'react';
  * @property {boolean} [props.isChild] - If `true`, applies child-specific styling for nested containers.
  * @property {boolean} [props.compact] - If `true`, the vertical padding is reduced for a more compact appearance.
  * @property {boolean} [props.standalone] - If `true`, the border radius is not adjusted automatically, based on neightboring containers.
+ * @property {boolean} [props.centered] - If `true`, the content is centered vertically.
+ * @property {boolean} [props.lessSpaceStart] - If `true`, space on the start (left) is reduced. Useful for symmetric components.
+ * @property {boolean} [props.lessSpaceEnd] - If `true`, space on the end (right) is reduced. For example, use with text fields, or taller items.
  * @property {string|JSX.Element} [props.as] - The HTML element or React component to render as the container.
  *
  * @preserve
@@ -36,7 +39,7 @@ import { cloneElement, forwardRef } from 'react';
  * @preserve
  */
 export const Container = forwardRef((props, ref) => {
-	const { className, children, as, hidden, accent, elevated, primary, isChild, compact, standalone, horizontal, ...rest } = props;
+	const { className, children, as, hidden, accent, elevated, primary, isChild, compact, standalone, horizontal, centered, lessSpaceStart, lessSpaceEnd, ...rest } = props;
 
 	const ComponentToRender = as || 'div';
 
@@ -44,7 +47,7 @@ export const Container = forwardRef((props, ref) => {
 		return null;
 	}
 
-	const containerClasses = cva([' es:inset-ring es:px-2.5', className], {
+	const containerClasses = cva(['es:inset-ring', className], {
 		variants: {
 			elevated: {
 				true: 'es:inset-shadow-sm es:shadow-sm es:shadow-black/5',
@@ -55,6 +58,17 @@ export const Container = forwardRef((props, ref) => {
 			compact: {
 				false: 'es:py-2 es:min-h-13',
 				true: 'es:py-1 es:min-h-9',
+			},
+			centered: {
+				true: 'es:flex es:items-center',
+			},
+			lessSpaceStart: {
+				true: 'es:pl-2',
+				false: 'es:pl-3',
+			},
+			lessSpaceEnd: {
+				true: 'es:pr-2',
+				false: 'es:pr-3',
 			},
 		},
 		compoundVariants: [
@@ -111,7 +125,7 @@ export const Container = forwardRef((props, ref) => {
 			{
 				accent: true,
 				elevated: false,
-				class: 'es:bg-surface-50 es:inset-ring-surface-100',
+				class: 'es:bg-surface-100/80 es:inset-ring-surface-200 es:text-accent-900',
 			},
 			{
 				accent: false,
@@ -132,6 +146,9 @@ export const Container = forwardRef((props, ref) => {
 			compact: false,
 			standalone: false,
 			horizontal: false,
+			centered: false,
+			lessSpaceStart: false,
+			lessSpaceEnd: false,
 		},
 	});
 
@@ -139,7 +156,7 @@ export const Container = forwardRef((props, ref) => {
 		<ComponentToRender
 			{...rest}
 			ref={ref}
-			className={containerClasses({ accent, elevated, primary, isChild, compact, horizontal, standalone })}
+			className={containerClasses({ accent, elevated, primary, isChild, compact, horizontal, standalone, centered, lessSpaceStart, lessSpaceEnd })}
 		>
 			{children}
 		</ComponentToRender>
@@ -151,6 +168,8 @@ Container.displayName = 'Container';
 /**
  * @typedef {Object} ContainerGroupProps
  * @property {string} [className] - Classes to pass to the container group.
+ * @property {string} [wrapClassName] - Classes to pass to the control wrapper - only if label is set.
+ * @property {string|JSX.Element} [label] - Label to show above the container group.
  * @property {boolean} [hidden] - If `true`, the component is not rendered.
  * @property {boolean} [horizontal] - If `true`, the component uses a horizontal orientation.
  * @property {string|JSX.Element} [as] - The HTML element or React component to render as the container group.
@@ -178,7 +197,7 @@ Container.displayName = 'Container';
  * @preserve
  */
 export const ContainerGroup = forwardRef((props, ref) => {
-	const { className, children, as, hidden, horizontal, ...rest } = props;
+	const { className, children, as, hidden, horizontal, label, wrapClassName, ...rest } = props;
 
 	const ComponentToRender = as || 'div';
 
@@ -188,7 +207,7 @@ export const ContainerGroup = forwardRef((props, ref) => {
 
 	const processedChildren = Array.isArray(children)
 		? children.reduce((acc, child, index) => {
-				if (child.type.displayName === 'Container') {
+				if (child?.type?.displayName === 'Container') {
 					return [
 						...acc,
 						cloneElement(child, {
@@ -202,7 +221,11 @@ export const ContainerGroup = forwardRef((props, ref) => {
 			}, [])
 		: children;
 
-	return (
+	if (!processedChildren || processedChildren?.length < 1) {
+		return null;
+	}
+
+	const inner = (
 		<ComponentToRender
 			{...rest}
 			ref={ref}
@@ -210,6 +233,21 @@ export const ContainerGroup = forwardRef((props, ref) => {
 		>
 			{processedChildren}
 		</ComponentToRender>
+	);
+
+	if (!label) {
+		return inner;
+	}
+
+	if (Array.isArray(inner?.props?.children) && !inner?.props?.children?.filter(Boolean)?.length) {
+		return null;
+	}
+
+	return (
+		<div className={wrapClassName}>
+			<span className='es:ml-1 es:mb-1 es:inline-block es:text-12 es:font-variation-["wdth"_125,"wght"_400] es:text-surface-500'>{label}</span>
+			{inner}
+		</div>
 	);
 });
 
