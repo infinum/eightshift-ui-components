@@ -135,7 +135,7 @@ export const DraggableList = (props) => {
 							key={key}
 							accent={isDragged || isSelected}
 							elevated={isDragged || isSelected}
-							className={clsx('es:list-none es:m-0!', itemClassName)}
+							className={clsx('es:list-none es:m-0!', isDragged && 'es:z-99999', itemClassName)}
 							data-selected={isDragged || isSelected || props?.style?.position === 'fixed'}
 							{...rest}
 						>
