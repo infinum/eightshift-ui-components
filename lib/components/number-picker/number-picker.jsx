@@ -174,7 +174,9 @@ export const NumberPicker = ({
 							className='es:tracking-wide es:font-variation-["wdth"_84,"YTLC"_520,"wght"_325,"slnt"_0,"YTFI"_788] es:placeholder-shown:font-variation-["wdth"_100,"YTLC"_500,"wght"_250,"slnt"_-8] es:any-focus:outline-hidden! es:p-px es:border-none! es:shadow-none! es:bg-transparent'
 							placeholder={placeholder}
 							style={{
-								width: fixedWidth ? `calc(${fixedWidth}ch + 2px)` : `calc(${min < 0 ? '0.75ch + ' : '0.5ch + '}${(max ?? 1000)?.toString()?.length} * 1ch)`,
+								width: fixedWidth
+									? `calc(${fixedWidth}ch + 2px)`
+									: `calc(${min < 0 ? '1ch + ' : '0.75ch + '}${Math.max((max ?? 1000)?.toString()?.length, (placeholder ?? '')?.length)} * 1ch)`,
 							}}
 						/>
 
