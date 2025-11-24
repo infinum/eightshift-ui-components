@@ -330,7 +330,7 @@ export const MultiSelect = (props) => {
 						<span className='es:text-lg es:mx-auto es:my-1 es:font-variation-["wdth"_140,"wght"_320] es:text-surface-600'>{__('Item order', 'eightshift-ui-components')}</span>
 
 						<DraggableList
-							items={value}
+							items={simpleValue ? value.map((item) => options.find((option) => option.value === item)) : value}
 							onChange={(value) => {
 								handleSelectionChange(new Set(value?.map((item) => item?.value ?? item)));
 							}}

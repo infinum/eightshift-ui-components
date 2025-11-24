@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [6.0.3] - 2025-11-24
+- Updated dependencies.
+- Fixed `MultiSelect` reordering when `simpleValue` is used.
+- Fixed `NumberPicker` width calculation when `placeholder` is used and some edge cases.
+
 ## [6.0.2] - 2025-11-21
 - `Container` updates
   - Added `centered` prop to vertically center content (you might need to make inner content flex grow or fill width).
@@ -514,6 +519,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[6.0.3]: https://github.com/infinum/eightshift-ui-components/compare/6.0.2...6.0.3
 [6.0.2]: https://github.com/infinum/eightshift-ui-components/compare/6.0.1...6.0.2
 [6.0.1]: https://github.com/infinum/eightshift-ui-components/compare/6.0.0...6.0.1
 [6.0.0]: https://github.com/infinum/eightshift-ui-components/compare/5.6.1...6.0.0
