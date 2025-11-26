@@ -153,8 +153,8 @@ export const ColumnConfigSlider = (props) => {
 										'es:transition es:duration-300',
 										!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
 										'es:mx-1.25',
-										value[0] === 1 && 'es:ml-4.25',
-										value[1] === columns && 'es:mr-4.25',
+										value[0] === 1 && 'es:ml-1.75',
+										value[1] === columns && 'es:mr-1.75',
 										!disabled && [
 											'es:bg-accent-500 es:bg-linear-to-b es:from-accent-100/15 es:to-accent-100/0 es:from-25%',
 											'es:inset-ring es:inset-ring-accent-700/10',
@@ -177,8 +177,8 @@ export const ColumnConfigSlider = (props) => {
 												'es:transition es:duration-300 es:ease-spring-smooth',
 												marker >= value[0] - 1 && marker < value[1] ? 'es:text-accent-900' : 'es:text-surface-400',
 												disabled && 'es:opacity-0',
-												!disableOffset && index === 0 && value[0] === 2 && 'es:-translate-x-0.25',
-												!disableWidth && index === columns - 1 && value[1] === columns - 1 && 'es:translate-x-0.25',
+												!disableOffset && index === 0 && value[0] === 2 && 'es:-translate-x-px',
+												!disableWidth && index === columns - 1 && value[1] === columns - 1 && 'es:translate-x-px',
 												!disableOffset && index === 0 && value[0] === 1 && 'es:opacity-0 es:scale-50',
 												!disableWidth && index === columns - 1 && value[1] === columns && 'es:opacity-0 es:scale-50',
 											)}
@@ -235,7 +235,10 @@ export const ColumnConfigSlider = (props) => {
 												!disabled && 'es:hover:not-dragging:cursor-grab',
 												i === 0 && disableOffset && 'es:hidden',
 												i === 1 && disableWidth && 'es:hidden',
-												'es:justify-self-center',
+												i === 0 && state.values[0] === 1 && 'es:justify-self-start',
+												i === 0 && state.values[0] > 1 && 'es:justify-self-center',
+												i === 1 && state.values[1] < columns && 'es:justify-self-center',
+												i === 1 && state.values[1] === columns && 'es:justify-self-end',
 												!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
 											)}
 											style={{
