@@ -1,4 +1,4 @@
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { RichLabel } from '../rich-label/rich-label';
 import { Heading } from 'react-aria-components';
 import { cloneElement } from 'react';

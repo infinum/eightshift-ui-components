@@ -7,7 +7,8 @@ import { OptionItemBase, SelectClearButton } from './shared';
 import { useRef } from 'react';
 import { RichLabel } from '../rich-label/rich-label';
 import { cva } from 'class-variance-authority';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
+import { randomId } from '../../utilities';
 
 /**
  * Select menu.
@@ -359,7 +360,7 @@ export const Select = (props) => {
 
 									return (
 										<OptionItemBase
-											id={item.value}
+											id={item?.value ?? randomId(8)}
 											className={item?.className}
 											selectIndicator
 										>

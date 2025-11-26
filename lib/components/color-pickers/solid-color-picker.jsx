@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ColorArea, ColorField, ColorSlider, ColorThumb, Input, Label, SliderTrack, parseColor } from 'react-aria-components';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 
 import { BaseControl } from '../base-control/base-control';
 import { __ } from '@wordpress/i18n';

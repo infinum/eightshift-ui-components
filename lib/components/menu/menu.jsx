@@ -10,7 +10,7 @@ import { RichLabel } from '../rich-label/rich-label';
 import { icons } from '../../icons/icons';
 import { Button } from '../button/button';
 import { Popover } from '../popover/popover';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { cloneElement } from 'react';
 import { __ } from '@wordpress/i18n';
 

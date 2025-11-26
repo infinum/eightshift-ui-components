@@ -1,4 +1,4 @@
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { DraggableContext } from './draggable-context';
 import { useContext } from 'react';

@@ -1,7 +1,7 @@
 import { Button } from '../button/button';
 import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
 import { icons } from '../../icons/icons';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { useContext } from 'react';
 import { Expandable } from '../expandable/expandable';
 import { __ } from '@wordpress/i18n';

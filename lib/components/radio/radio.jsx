@@ -1,5 +1,5 @@
 import { Label, Radio, RadioGroup } from 'react-aria-components';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { RichLabel } from '../rich-label/rich-label';

@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { Group, Input, Label, NumberField } from 'react-aria-components';
 import { Button, ButtonGroup } from '../button/button';
 import { icons } from '../../icons/icons';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { BaseControl } from '../base-control/base-control';
 import { cva } from 'class-variance-authority';
 

@@ -2,7 +2,7 @@ import { Label, Button as ReactAriaButton, Input, Group, ListBox, ListBoxItem, P
 import { __ } from '@wordpress/i18n';
 import { icons } from '../../icons/icons';
 import { Spinner } from '../../icons/spinner';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { useAsyncList } from 'react-stately';
 import { Tooltip } from '../tooltip/tooltip';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
@@ -10,6 +10,7 @@ import { BaseControl } from '../base-control/base-control';
 import { RichLabel } from '../rich-label/rich-label';
 import { ComboBox } from 'react-aria-components';
 import { cva } from 'class-variance-authority';
+import { randomId } from '../../utilities';
 
 /**
  * Component that allows URL selection, with a suggestionList of suggestions and type-to-search.
@@ -324,7 +325,7 @@ export const LinkInput = (props) => {
 
 									return (
 										<ListBoxItem
-											id={item.value}
+											id={item?.value ?? randomId(8)}
 											className={clsx(
 												'es:transition-plus',
 												'es:px-2 es:py-2.5',

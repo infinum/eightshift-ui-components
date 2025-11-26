@@ -3,7 +3,7 @@ import { RichLabel } from '../rich-label/rich-label';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { Label, Disclosure, DisclosurePanel } from 'react-aria-components';
 import { __ } from '@wordpress/i18n';
 

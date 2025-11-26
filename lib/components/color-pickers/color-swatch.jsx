@@ -1,5 +1,5 @@
 import { ColorSwatch as ReactAriaColorSwatch, parseColor } from 'react-aria-components';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 
 import { __ } from '@wordpress/i18n';
 

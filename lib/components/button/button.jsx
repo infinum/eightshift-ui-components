@@ -1,6 +1,6 @@
 import { useObjectRef } from 'react-aria';
 import { ProgressBar, Button as ReactAriaButton, Toolbar } from 'react-aria-components';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { cva } from 'class-variance-authority';
 import { Tooltip } from '../tooltip/tooltip';
 import { __ } from '@wordpress/i18n';

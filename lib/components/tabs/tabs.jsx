@@ -1,6 +1,6 @@
 import { Tabs as ReactAriaTabs, TabList as ReactAriaTabList, Tab as ReactAriaTab, TabPanel as ReactAriaTabPanel } from 'react-aria-components';
 import { __, sprintf } from '@wordpress/i18n';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { cloneElement, useId, isValidElement } from 'react';
 import { cva } from 'class-variance-authority';
 import { Notice } from '../notice/notice';

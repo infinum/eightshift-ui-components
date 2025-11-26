@@ -2,10 +2,15 @@
 
 :where(.es\:css-reset) {
 	@import "tailwindcss/preflight.css";
+	@apply es:font-sans es:selection:bg-accent-600/15 es:selection:text-accent-950;
 }
 
 body,
 body :is(#wpwrap) {
 	@import "tailwindcss/theme.css" prefix(es);
 	@import "tailwindcss/utilities.css" prefix(es);
+
+	&:has(.es\:css-reset) {
+		@apply es:bg-white!;
+	}
 }

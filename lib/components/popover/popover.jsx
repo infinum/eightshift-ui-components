@@ -1,5 +1,5 @@
 import { Dialog, DialogTrigger, Popover as ReactAriaPopover } from 'react-aria-components';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 
 import { __ } from '@wordpress/i18n';
 import { Button } from '../button/button';

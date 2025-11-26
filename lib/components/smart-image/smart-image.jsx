@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { cloneElement, useState, useRef, useEffect } from 'react';
 import { icons } from '../../icons';
 import { DecorativeTooltip } from '../tooltip/tooltip';

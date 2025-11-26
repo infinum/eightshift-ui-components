@@ -1,4 +1,4 @@
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 
 /**
  * Component that displays a label, with an optional icon and subtitle.

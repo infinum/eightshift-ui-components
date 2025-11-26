@@ -1,5 +1,5 @@
 import { Text } from 'react-aria-components';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 
 import { RichLabel } from '../rich-label/rich-label';
 

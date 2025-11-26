@@ -1,7 +1,7 @@
 import { Label } from 'react-aria-components';
 import { Switch } from './switch';
 import { RichLabel } from '../rich-label/rich-label';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 
 /**
  * A toggle switch with a label and optional icon and subtitle.

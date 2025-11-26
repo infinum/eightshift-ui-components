@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { DecorativeTooltip } from '../tooltip/tooltip';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { __, sprintf } from '@wordpress/i18n';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { upperFirst } from '../../utilities';

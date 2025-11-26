@@ -7,7 +7,7 @@ import { OptionItemBase, SelectClearButton } from './shared';
 import { useRef } from 'react';
 import { RichLabel } from '../rich-label/rich-label';
 import { useAsyncList } from 'react-stately';
-import { unescapeHTML } from '../../utilities';
+import { randomId, unescapeHTML } from '../../utilities';
 import { cva } from 'class-variance-authority';
 import clsx from 'clsx';
 
@@ -429,7 +429,7 @@ export const AsyncSelect = (props) => {
 
 								return (
 									<OptionItemBase
-										id={item?.value}
+										id={item?.value ?? randomId(8)}
 										className={item?.className}
 										selectIndicator
 									>

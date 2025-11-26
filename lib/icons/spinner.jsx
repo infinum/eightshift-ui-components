@@ -1,4 +1,4 @@
-import clsx from 'clsx/lite';
+import { clsx } from 'clsx';
 
 /**
  * A simple loading indicator.

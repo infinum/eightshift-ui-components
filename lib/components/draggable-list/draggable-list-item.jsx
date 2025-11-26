@@ -1,4 +1,4 @@
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { HStack } from '../layout/hstack';
 import { RichLabel } from '../rich-label/rich-label';
