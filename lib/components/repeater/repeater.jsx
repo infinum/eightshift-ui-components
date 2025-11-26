@@ -231,7 +231,7 @@ export const Repeater = (props) => {
 									allOpen,
 									setAllOpen,
 									setOpenItems,
-									isItemOpen: openItems[item.id] ?? allOpen,
+									isItemOpen: openItems?.[item?.id] ?? allOpen,
 									noDuplicateButton,
 								}}
 							>
