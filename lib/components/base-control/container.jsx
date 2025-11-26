@@ -1,5 +1,5 @@
 import { cva } from 'class-variance-authority';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { cloneElement, forwardRef } from 'react';
 
 /**

@@ -1,8 +1,7 @@
-import clsx from 'clsx/lite';
+import { clsx } from 'clsx';
 import { icons } from '../../icons';
 import { truncateMiddle } from '../../utilities';
 import { SmartImage } from '../smart-image/smart-image';
-import { cloneElement } from 'react';
 
 /**
  * A shell for a file picker UI, handling both rich visual presentation (e.g. images) and simple file placeholders.

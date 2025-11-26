@@ -1,7 +1,7 @@
 import { Modal as ReactAriaModal, ModalOverlay, Dialog, Heading, DialogTrigger } from 'react-aria-components';
 import { Button } from '../button/button';
 import { __ } from '@wordpress/i18n';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { icons } from '../../icons';
 import { HStack } from '../layout/hstack';
 

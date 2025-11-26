@@ -1,4 +1,4 @@
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 
 /**
  * Allows for stacking elements horizontally, with a gap between them.

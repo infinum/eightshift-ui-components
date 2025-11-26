@@ -11,6 +11,7 @@ import { cva } from 'class-variance-authority';
 import { TriggeredPopover } from '../popover/popover';
 import { DraggableList } from '../draggable-list/draggable-list';
 import { DraggableListItem } from '../draggable-list/draggable-list-item';
+import { randomId } from '../../utilities';
 import clsx from 'clsx';
 
 /**
@@ -440,7 +441,7 @@ export const MultiSelect = (props) => {
 
 									return (
 										<OptionItemBase
-											id={item.value}
+											id={item?.value ?? randomId(8)}
 											className={item?.className}
 											selectIndicator
 										>
@@ -485,7 +486,7 @@ export const MultiSelect = (props) => {
 
 								return (
 									<OptionItemBase
-										id={item.value}
+										id={item?.value ?? randomId(8)}
 										className={item?.className}
 										selectIndicator
 									>

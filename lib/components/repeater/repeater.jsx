@@ -6,7 +6,7 @@ import { useId } from 'react';
 import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { RepeaterContext } from './repeater-context';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { List, arrayMove, arrayRemove } from 'react-movable';
 import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
 
