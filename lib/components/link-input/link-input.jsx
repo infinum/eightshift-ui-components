@@ -120,7 +120,7 @@ export const LinkInput = (props) => {
 
 	const inputClass = cva(
 		[
-			'es:text-13 es:leading-none',
+			'es:text-13! es:leading-none',
 			'es:w-fill',
 			'es:border-none!',
 			'es:rounded-lg es:focus:rounded-xl es:aria-[controls]:rounded-xl',
