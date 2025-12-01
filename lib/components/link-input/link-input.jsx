@@ -132,6 +132,7 @@ export const LinkInput = (props) => {
 			'es:placeholder-shown:pr-0 es:pr-10',
 			'es:focus:placeholder:text-surface-400',
 			'es:font-variation-["wdth"_80,"YTLC"_520,"wght"_300,"slnt"_0] es:tracking-wide es:placeholder-shown:font-variation-["wdth"_100,"YTLC"_500,"wght"_250,"slnt"_-8]',
+			inline && 'es:min-w-48',
 			className,
 		],
 		{
