@@ -62,6 +62,7 @@ export const SolidColorPicker = (props) => {
 
 	const valueInputClassName = clsx(
 		'es:leading-none',
+		'es:border-none!',
 		'es:max-w-14',
 		'es:min-h-9',
 		'es:px-3',

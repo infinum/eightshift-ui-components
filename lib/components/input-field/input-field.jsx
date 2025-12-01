@@ -68,7 +68,7 @@ export const InputField = (props) => {
 	const inputClass = cva(
 		[
 			'es:leading-none',
-			'es:border-none',
+			'es:border-none!',
 			'es:w-fill',
 			'es:rounded-lg es:focus:rounded-xl',
 			'es:transition-plus',
