@@ -70,7 +70,7 @@ export const SolidColorPicker = (props) => {
 		'es:rounded-lg es:focus:rounded-xl es:aria-[controls]:rounded-xl',
 		'es:transition-plus',
 		'es:any-focus:outline-hidden',
-		'es:inset-ring',
+		'es:inset-ring!',
 		'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/30',
 		'es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500',
 		'es:focus:placeholder:text-surface-400',
