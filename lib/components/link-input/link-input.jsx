@@ -35,6 +35,7 @@ import { randomId } from '../../utilities';
  * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
  * @param {boolean} [props.keyboardShortcuts] - If `true`, keyboard shortcuts are shown in the suggestion list.
  * @param {InputSize} [props.size='default'] - Sets the size of the input field.
+ * @param {boolean} [props.inline] - If `true`, the component is displayed inline - icon/label/subtitle are on the left, the passed content is on the right. **Note:** not compatible with `actions`.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @typedef {'small' | 'medium' | 'default' | 'large'} InputSize
@@ -58,6 +59,7 @@ export const LinkInput = (props) => {
 		subtitle,
 		help,
 		actions,
+		inline,
 
 		placeholder = __('Type to search or enter URL', 'eightshift-ui-components'),
 
@@ -203,6 +205,7 @@ export const LinkInput = (props) => {
 				subtitle={subtitle}
 				actions={actions}
 				labelAs={Label}
+				inline={inline}
 				help={help}
 			>
 				<Group className='es:relative es:group'>

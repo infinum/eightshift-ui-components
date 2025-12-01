@@ -9,6 +9,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Added text selection styles to `es:css-reset`.
 - Added a `randomId` helper function for generating variable-length (unsecure) random IDs for things like element keys and IDs.
 - As previously, `clsx` export exports the `clsx/lite` version. If needed, the full version of `clsx` can now be imported from the `utilities` export as `clsxFull`.
+- `LinkInput` can now also be made `inline`.
 
 ## [6.0.3] - 2025-11-24
 - Updated dependencies.
