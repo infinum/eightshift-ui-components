@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 
 import { upperFirst } from '../../utilities';
 

@@ -7,7 +7,7 @@ import { ButtonGroup } from '../button/button';
 import { ToggleButton } from '../toggle-button/toggle-button';
 import { BaseControl } from '../base-control/base-control';
 import { Spacer } from '../spacer/spacer';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 
 /**

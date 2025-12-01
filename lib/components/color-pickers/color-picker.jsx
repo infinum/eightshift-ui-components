@@ -3,7 +3,7 @@ import { Menu, MenuItem, MenuSection, MenuSeparator } from '../menu/menu';
 import { ColorSwatch } from './color-swatch';
 import { RichLabel } from '../rich-label/rich-label';
 import { BaseControl } from '../base-control/base-control';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { icons } from '../../icons/icons';
 
 /**

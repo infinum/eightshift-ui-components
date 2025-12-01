@@ -1,5 +1,5 @@
 import { Checkbox as ReactAriaCheckbox } from 'react-aria-components';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { icons } from '../../icons/icons';

@@ -14,7 +14,7 @@ import { OptionSelect } from '../option-select/option-select';
 import { DraggableList } from '../draggable-list/draggable-list';
 import { DraggableListItem } from '../draggable-list/draggable-list-item';
 import { TriggeredPopover } from '../popover/popover';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { Container, ContainerGroup } from '../base-control/container';
 import { BaseControl } from '../base-control/base-control';
 import { isColorDark } from '../../utilities';

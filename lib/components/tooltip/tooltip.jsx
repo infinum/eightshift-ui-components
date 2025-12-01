@@ -1,5 +1,5 @@
 import { OverlayArrow as ReactAriaOverlayArrow, Tooltip as ReactAriaTooltip, TooltipTrigger as ReactAriaTooltipTrigger } from 'react-aria-components';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { useRef } from 'react';
 import { useTooltipTriggerState } from 'react-stately';
 import { useTooltipTrigger } from 'react-aria';

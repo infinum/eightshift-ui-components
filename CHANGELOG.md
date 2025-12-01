@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [6.0.4] - 2025-11-26
+- Fixed `ColumnConfigSlider` handle alignment when min/max values are reached.
+- Added white background color to `#wpwrap` in admin styles when `es:css-reset` is used.
+- Added text selection styles to `es:css-reset`.
+- Added a `randomId` helper function for generating variable-length (unsecure) random IDs for things like element keys and IDs.
+- As previously, `clsx` export exports the `clsx/lite` version. If needed, the full version of `clsx` can now be imported from the `utilities` export as `clsxFull`.
+- `LinkInput` can now also be made `inline`.
+
 ## [6.0.3] - 2025-11-24
 - Updated dependencies.
 - Fixed `MultiSelect` reordering when `simpleValue` is used.
@@ -519,6 +527,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[6.0.4]: https://github.com/infinum/eightshift-ui-components/compare/6.0.3...6.0.4
 [6.0.3]: https://github.com/infinum/eightshift-ui-components/compare/6.0.2...6.0.3
 [6.0.2]: https://github.com/infinum/eightshift-ui-components/compare/6.0.1...6.0.2
 [6.0.1]: https://github.com/infinum/eightshift-ui-components/compare/6.0.0...6.0.1

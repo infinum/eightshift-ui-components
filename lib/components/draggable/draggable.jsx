@@ -131,8 +131,8 @@ export const Draggable = (props) => {
 			>
 				{items.map((item, index) => (
 					<SortableItem
-						key={item.id}
-						id={item.id}
+						key={item?.id ?? index}
+						id={item?.id ?? index}
 						index={index}
 						item={item}
 						disabled={noReorder}

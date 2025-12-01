@@ -1,5 +1,5 @@
 import { Label, Radio, RadioGroup } from 'react-aria-components';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { RichLabel } from '../rich-label/rich-label';
@@ -129,12 +129,12 @@ export const RadioButton = (props) => {
 		compoundVariants: [
 			{
 				design: ['segmented', 'segmentedHorizontal'],
-				class: ['es:px-3 es:py-2 es:w-fill es:inset-ring', 'es:transition-plus es:duration-300 es:ease-spring-snappy', !flat && 'es:shadow-xs es:shadow-black/5'],
+				class: ['es:px-3 es:py-2 es:w-fill es:inset-ring es:min-h-13', 'es:transition-plus es:duration-300', !flat && 'es:shadow-xs es:shadow-black/5'],
 			},
 			{
 				checked: false,
 				design: ['segmented', 'segmentedHorizontal'],
-				class: 'es:bg-secondary-50 es:inset-ring-secondary-200/50 es:rounded-md es:hover:rounded-xl',
+				class: ['es:bg-white es:bg-linear-to-b es:from-secondary-50/75 es:to-secondary-100/50 es:from-25% es:inset-ring-secondary-200/50', 'es:rounded-md es:hover:rounded-18'],
 			},
 			{
 				checked: true,
@@ -142,8 +142,8 @@ export const RadioButton = (props) => {
 				class: 'es:bg-surface-100 es:text-accent-900 es:inset-ring-accent-600/10 es:rounded-3xl',
 			},
 			//
-			{ design: 'segmented', checked: false, class: 'es:first:rounded-t-xl es:last:rounded-b-xl es:before-current:rounded-b-xl es:after-current:rounded-t-xl' },
-			{ design: 'segmentedHorizontal', checked: false, class: 'es:first:rounded-l-xl es:last:rounded-r-xl es:before-current:rounded-l-xl es:after-current:rounded-r-xl' },
+			{ design: 'segmented', checked: false, class: 'es:first:rounded-t-2xl es:last:rounded-b-2xl es:before-current:rounded-b-2xl es:after-current:rounded-t-2xl' },
+			{ design: 'segmentedHorizontal', checked: false, class: 'es:first:rounded-l-2xl es:last:rounded-r-2xl es:before-current:rounded-r-2xl es:after-current:rounded-l-2xl' },
 		],
 		defaultVariants: {
 			design: 'default',

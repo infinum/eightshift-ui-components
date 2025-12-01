@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { Group, Input, Label, NumberField } from 'react-aria-components';
 import { Button, ButtonGroup } from '../button/button';
 import { icons } from '../../icons/icons';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { BaseControl } from '../base-control/base-control';
 import { cva } from 'class-variance-authority';
 
@@ -171,7 +171,7 @@ export const NumberPicker = ({
 						)}
 
 						<Input
-							className='es:tracking-wide es:font-variation-["wdth"_84,"YTLC"_520,"wght"_325,"slnt"_0,"YTFI"_788] es:placeholder-shown:font-variation-["wdth"_100,"YTLC"_500,"wght"_250,"slnt"_-8] es:any-focus:outline-hidden! es:p-px es:border-none! es:shadow-none! es:bg-transparent'
+							className='es:font-variation-["wdth"_84,"YTLC"_520,"wght"_325,"slnt"_0,"YTFI"_788] es:placeholder-shown:font-variation-["wdth"_100,"YTLC"_500,"wght"_250,"slnt"_-8] es:any-focus:outline-hidden! es:p-px es:border-none! es:shadow-none! es:bg-transparent es:text-13!'
 							placeholder={placeholder}
 							style={{
 								width: fixedWidth

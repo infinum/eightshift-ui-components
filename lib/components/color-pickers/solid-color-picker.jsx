@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ColorArea, ColorField, ColorSlider, ColorThumb, Input, Label, SliderTrack, parseColor } from 'react-aria-components';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 
 import { BaseControl } from '../base-control/base-control';
 import { __ } from '@wordpress/i18n';
@@ -62,6 +62,7 @@ export const SolidColorPicker = (props) => {
 
 	const valueInputClassName = clsx(
 		'es:leading-none',
+		'es:border-none!',
 		'es:max-w-14',
 		'es:min-h-9',
 		'es:px-3',
@@ -69,7 +70,7 @@ export const SolidColorPicker = (props) => {
 		'es:rounded-lg es:focus:rounded-xl es:aria-[controls]:rounded-xl',
 		'es:transition-plus',
 		'es:any-focus:outline-hidden',
-		'es:inset-ring',
+		'es:inset-ring!',
 		'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/30',
 		'es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500',
 		'es:focus:placeholder:text-surface-400',

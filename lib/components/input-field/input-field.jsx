@@ -68,7 +68,7 @@ export const InputField = (props) => {
 	const inputClass = cva(
 		[
 			'es:leading-none',
-			'es:border-none',
+			'es:border-none!',
 			'es:w-fill',
 			'es:rounded-lg es:focus:rounded-xl',
 			'es:transition-plus',
@@ -88,9 +88,9 @@ export const InputField = (props) => {
 					large: ['es:min-h-12', 'es:px-4'],
 				},
 				mono: {
-					true: 'es:font-mono es:text-12',
+					true: 'es:font-mono es:text-12!',
 					false: [
-						'es:text-13 es:font-variation-["wdth"_80,"YTLC"_520,"wght"_300,"slnt"_0]',
+						'es:text-13! es:font-variation-["wdth"_80,"YTLC"_520,"wght"_300,"slnt"_0]',
 						'es:tracking-wide es:placeholder-shown:font-variation-["wdth"_100,"YTLC"_500,"wght"_250,"slnt"_-8]',
 					],
 				},

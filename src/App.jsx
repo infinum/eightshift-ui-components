@@ -70,7 +70,7 @@ import {
 	ContainerGroup,
 } from '../lib';
 import { icons } from '../lib/icons';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { cloneElement } from 'react';
 import '../lib/style';
 

@@ -2,7 +2,7 @@ import { Label, Button as ReactAriaButton, Input, Group, ListBox, ListBoxItem, P
 import { __ } from '@wordpress/i18n';
 import { icons } from '../../icons/icons';
 import { Spinner } from '../../icons/spinner';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { useAsyncList } from 'react-stately';
 import { Tooltip } from '../tooltip/tooltip';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
@@ -10,6 +10,7 @@ import { BaseControl } from '../base-control/base-control';
 import { RichLabel } from '../rich-label/rich-label';
 import { ComboBox } from 'react-aria-components';
 import { cva } from 'class-variance-authority';
+import { randomId } from '../../utilities';
 
 /**
  * Component that allows URL selection, with a suggestionList of suggestions and type-to-search.
@@ -34,6 +35,7 @@ import { cva } from 'class-variance-authority';
  * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
  * @param {boolean} [props.keyboardShortcuts] - If `true`, keyboard shortcuts are shown in the suggestion list.
  * @param {InputSize} [props.size='default'] - Sets the size of the input field.
+ * @param {boolean} [props.inline] - If `true`, the component is displayed inline - icon/label/subtitle are on the left, the passed content is on the right. **Note:** not compatible with `actions`.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @typedef {'small' | 'medium' | 'default' | 'large'} InputSize
@@ -57,6 +59,7 @@ export const LinkInput = (props) => {
 		subtitle,
 		help,
 		actions,
+		inline,
 
 		placeholder = __('Type to search or enter URL', 'eightshift-ui-components'),
 
@@ -117,18 +120,19 @@ export const LinkInput = (props) => {
 
 	const inputClass = cva(
 		[
-			'es:text-13 es:leading-none',
+			'es:text-13! es:leading-none',
 			'es:w-fill',
-			'es:border-none',
+			'es:border-none!',
 			'es:rounded-lg es:focus:rounded-xl es:aria-[controls]:rounded-xl',
 			'es:transition-plus',
 			'es:any-focus:outline-hidden',
-			'es:inset-ring',
+			'es:inset-ring!',
 			'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/30',
 			'es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500',
 			'es:placeholder-shown:pr-0 es:pr-10',
 			'es:focus:placeholder:text-surface-400',
 			'es:font-variation-["wdth"_80,"YTLC"_520,"wght"_300,"slnt"_0] es:tracking-wide es:placeholder-shown:font-variation-["wdth"_100,"YTLC"_500,"wght"_250,"slnt"_-8]',
+			inline && 'es:min-w-48',
 			className,
 		],
 		{
@@ -152,7 +156,7 @@ export const LinkInput = (props) => {
 						'es:inset-shadow-sm es:inset-shadow-secondary-100/50',
 						'es:hover:placeholder:text-surface-400',
 						'es:placeholder:text-secondary-400',
-						'es:shadow-xs es:shadow-black/5',
+						'es:shadow-xs! es:shadow-black/5',
 					],
 				},
 				{
@@ -164,7 +168,7 @@ export const LinkInput = (props) => {
 						'es:placeholder:text-secondary-500/80',
 						'es:bg-secondary-100 es:focus:bg-surface-50',
 						'es:inset-ring-secondary-200/15 es:hover:inset-ring-secondary-200/65 es:focus:inset-ring-surface-200',
-						'es:shadow-none',
+						'es:shadow-none!',
 					],
 				},
 				{ disabled: true, class: ['es:bg-white es:inset-ring-secondary-200 es:text-secondary-400'] },
@@ -202,6 +206,7 @@ export const LinkInput = (props) => {
 				subtitle={subtitle}
 				actions={actions}
 				labelAs={Label}
+				inline={inline}
 				help={help}
 			>
 				<Group className='es:relative es:group'>
@@ -324,7 +329,7 @@ export const LinkInput = (props) => {
 
 									return (
 										<ListBoxItem
-											id={item.value}
+											id={item?.value ?? randomId(8)}
 											className={clsx(
 												'es:transition-plus',
 												'es:px-2 es:py-2.5',

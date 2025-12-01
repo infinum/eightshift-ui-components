@@ -7,7 +7,7 @@ import { OptionItemBase, SelectClearButton } from './shared';
 import { useRef } from 'react';
 import { RichLabel } from '../rich-label/rich-label';
 import { useAsyncList } from 'react-stately';
-import { unescapeHTML } from '../../utilities';
+import { randomId, unescapeHTML } from '../../utilities';
 import { cva } from 'class-variance-authority';
 import clsx from 'clsx';
 
@@ -376,9 +376,9 @@ export const AsyncSelect = (props) => {
 							<Input
 								placeholder={__('Search...', 'eightshift-ui-components')}
 								className={clsx(
-									'es:peer es:size-full es:h-9.5 es:outline-hidden es:pl-3.5 es:pr-9 es:shadow-none es:text-13 es:placeholder:text-surface-500 es:[&::-webkit-search-cancel-button]:hidden',
-									'es:bg-accent-900/8 es:m-1.5 es:rounded-3xl es:border-none',
-									'es:inset-ring es:inset-ring-accent-950/7 es:focus:inset-ring-accent-950/20',
+									'es:peer es:size-full es:h-9.5 es:outline-hidden! es:pl-3.5 es:pr-9 es:shadow-none! es:text-13! es:placeholder:text-surface-500 es:[&::-webkit-search-cancel-button]:hidden',
+									'es:bg-accent-900/8 es:m-1.5 es:rounded-3xl es:border-none!',
+									'es:inset-ring! es:inset-ring-accent-950/7 es:focus:inset-ring-accent-950/20',
 									'es:text-accent-950 es:placeholder:text-accent-700/50',
 									'es:transition',
 								)}
@@ -429,7 +429,7 @@ export const AsyncSelect = (props) => {
 
 								return (
 									<OptionItemBase
-										id={item?.value}
+										id={item?.value ?? randomId(8)}
 										className={item?.className}
 										selectIndicator
 									>

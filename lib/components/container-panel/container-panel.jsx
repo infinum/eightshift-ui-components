@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { clsx } from 'clsx/lite';
+import { clsx } from 'clsx';
 import { Switch } from '../toggle/switch';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { Button } from '../button/button';
