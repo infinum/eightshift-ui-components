@@ -107,6 +107,20 @@ export const Select = (props) => {
 		return null;
 	}
 
+	const buttonClass = cva('es:any-focus:outline-hidden es:text-start es:size-full es:inline-block es:group es:overflow-x-clip', {
+		variants: {
+			size: {
+				small: ['es:min-h-8', 'es:px-2.5'],
+				medium: ['es:min-h-9', 'es:px-3'],
+				default: ['es:min-h-10', 'es:px-3'],
+				large: ['es:min-h-12', 'es:px-4'],
+			},
+		},
+		defaultVariants: {
+			size: 'default',
+		},
+	});
+
 	const selectClass = cva(
 		[
 			'es:relative',
@@ -126,12 +140,6 @@ export const Select = (props) => {
 		],
 		{
 			variants: {
-				size: {
-					small: ['es:min-h-8', 'es:px-2.5'],
-					medium: ['es:min-h-9', 'es:px-3'],
-					default: ['es:min-h-10', 'es:px-3'],
-					large: ['es:min-h-12', 'es:px-4'],
-				},
 				disabled: {
 					false: 'es:selection:bg-surface-100 es:selection:text-accent-800',
 					true: 'es:selection:bg-secondary-200 es:selection:text-secondary-600',
@@ -224,8 +232,8 @@ export const Select = (props) => {
 					className={selectClass({ disabled, flat, size })}
 					ref={ref}
 				>
-					<Button className='es:any-focus:outline-hidden es:text-start es:size-full es:inline-block es:group es:overflow-x-clip'>
-						<SelectValue>
+					<Button className={buttonClass({ size })}>
+						<SelectValue className='es:pointer-events-none'>
 							{({ isPlaceholder, selectedItems }) => {
 								const [selectedItem] = selectedItems;
 
