@@ -38,7 +38,6 @@ export const FilePlaceholder = (props) => {
 							'es:inset-shadow-xs es:inset-shadow-surface-50/50',
 							'es:text-surface-800',
 							!flat && 'es:shadow-xs es:shadow-black/5',
-							'es:cursor-pointer',
 						],
 						!fileName && 'es:bg-secondary-100 es:text-secondary-500',
 					)}
