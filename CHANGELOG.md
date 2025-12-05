@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [6.0.5] - 2025-12-05
+- Updated dependencies.
+- Improved Select components hit targets.
+- Tweaked `FilePickerShell` to still provide children when there's an error in image loading/analysis.
+- Tweaked cursors in certain components.
+
 ## [6.0.4] - 2025-11-26
 - Fixed `ColumnConfigSlider` handle alignment when min/max values are reached.
 - Added white background color to `#wpwrap` in admin styles when `es:css-reset` is used.
@@ -527,6 +533,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[6.0.5]: https://github.com/infinum/eightshift-ui-components/compare/6.0.4...6.0.5
 [6.0.4]: https://github.com/infinum/eightshift-ui-components/compare/6.0.3...6.0.4
 [6.0.3]: https://github.com/infinum/eightshift-ui-components/compare/6.0.2...6.0.3
 [6.0.2]: https://github.com/infinum/eightshift-ui-components/compare/6.0.1...6.0.2

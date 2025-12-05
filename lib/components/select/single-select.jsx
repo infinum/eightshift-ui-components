@@ -107,6 +107,20 @@ export const Select = (props) => {
 		return null;
 	}
 
+	const buttonClass = cva('es:any-focus:outline-hidden es:text-start es:size-full es:inline-block es:group es:overflow-x-clip', {
+		variants: {
+			size: {
+				small: ['es:min-h-8', 'es:px-2.5'],
+				medium: ['es:min-h-9', 'es:px-3'],
+				default: ['es:min-h-10', 'es:px-3'],
+				large: ['es:min-h-12', 'es:px-4'],
+			},
+		},
+		defaultVariants: {
+			size: 'default',
+		},
+	});
+
 	const selectClass = cva(
 		[
 			'es:relative',
@@ -126,12 +140,6 @@ export const Select = (props) => {
 		],
 		{
 			variants: {
-				size: {
-					small: ['es:min-h-8', 'es:px-2.5'],
-					medium: ['es:min-h-9', 'es:px-3'],
-					default: ['es:min-h-10', 'es:px-3'],
-					large: ['es:min-h-12', 'es:px-4'],
-				},
 				disabled: {
 					false: 'es:selection:bg-surface-100 es:selection:text-accent-800',
 					true: 'es:selection:bg-secondary-200 es:selection:text-secondary-600',
@@ -224,8 +232,8 @@ export const Select = (props) => {
 					className={selectClass({ disabled, flat, size })}
 					ref={ref}
 				>
-					<Button className='es:any-focus:outline-hidden es:text-start es:size-full es:inline-block es:group es:overflow-x-clip'>
-						<SelectValue>
+					<Button className={buttonClass({ size })}>
+						<SelectValue className='es:pointer-events-none'>
 							{({ isPlaceholder, selectedItems }) => {
 								const [selectedItem] = selectedItems;
 
@@ -329,7 +337,7 @@ export const Select = (props) => {
 									aria-label={__('Clear', 'eightshift-ui-components')}
 									className={clsx(
 										'es:absolute es:right-3 es:top-0 es:bottom-0 es:my-auto es:border-none es:bg-transparent',
-										'es:flex es:size-7 es:items-center es:justify-center es:rounded-3xl es:text-sm es:text-surface-700 es:transition es:hover:bg-accent-50 es:hover:text-accent-800 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:cursor-pointer',
+										'es:flex es:size-7 es:items-center es:justify-center es:rounded-3xl es:text-sm es:text-surface-700 es:transition es:hover:bg-accent-50 es:hover:text-accent-800 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300',
 										'es:peer-placeholder-shown:opacity-0',
 									)}
 								>

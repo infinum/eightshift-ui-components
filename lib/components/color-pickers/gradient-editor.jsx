@@ -206,7 +206,7 @@ export const GradientEditor = (props) => {
 				<Container>
 					<button
 						className={clsx(
-							'es:shadow-sm, es:mx-auto es:block es:h-40 es:cursor-pointer es:rounded-lg es:border es:border-secondary-300 es:transition-[width] es:duration-300 es:ease-spring-snappy',
+							'es:shadow-sm, es:mx-auto es:block es:h-40 es:rounded-lg es:border es:border-secondary-300 es:transition-[width] es:duration-300 es:ease-spring-snappy',
 							'es:mb-2',
 							squarePreview ? 'es:w-40' : 'es:w-full',
 						)}

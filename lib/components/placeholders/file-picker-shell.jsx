@@ -108,32 +108,39 @@ export const FilePickerShell = (props) => {
 			imageAnalysisSettings={{ yFrom: 0.25, yTo: 0.75 }}
 			{...rest}
 		>
-			{({ image, dominantColors, isDark, hasAnalysed, isTransparent }) => (
+			{({ image, dominantColors, isDark, hasAnalysed, isTransparent, hasError, errorBadge }) => (
 				<div
 					className={clsx(
 						'es:border es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-y-2 es:grid es:grid-cols-1 es:overflow-clip es:aspect-3-2 es:transition',
-						hasAnalysed ? 'es:border-secondary-200' : 'es:border-secondary-200/0',
-						hasAnalysed && !isTransparent && 'es:group es:grid-rows-1',
-						hasAnalysed && isTransparent && 'es:p-2 es:grid-rows-[minmax(0,1fr)_auto] es:h-fit',
+						!hasError && hasAnalysed ? 'es:border-secondary-200' : 'es:border-secondary-200/0',
+						!hasError && hasAnalysed && !isTransparent && 'es:group es:grid-rows-1',
+						!hasError && hasAnalysed && isTransparent && 'es:p-2 es:grid-rows-[minmax(0,1fr)_auto] es:h-fit',
 						!hasAnalysed && 'es:shimmer-dark es:bg-secondary-50',
+						hasError && 'es:flex es:items-center es:justify-center',
 						className,
 					)}
 					style={
-						hasAnalysed && isTransparent ? { backgroundColor: `color-mix(in srgb, ${dominantColors[0]?.color || '#ffffff'} ${dominantColors[0]?.isDark ? 10 : 80}%, #ffffff)` } : {}
+						!hasError && hasAnalysed && isTransparent
+							? { backgroundColor: `color-mix(in srgb, ${dominantColors[0]?.color || '#ffffff'} ${dominantColors[0]?.isDark ? 10 : 80}%, #ffffff)` }
+							: {}
 					}
 				>
 					{image}
 
-					{hasAnalysed && children && (
+					{hasError && errorBadge}
+
+					{children && (
 						<div
 							className={clsx(
 								'es:flex es:items-center-safe es:gap-0.75',
 								'es-button-group-h',
-								!isTransparent &&
+								!hasError &&
+									!isTransparent &&
 									'es:absolute es:bottom-2 es:left-2 es:right-2 es:translate-y-[125%] es:group-hover:translate-y-0 es:has-aria-expanded:translate-y-0 es:has-focus-visible:translate-y-0 es:transition-transform es:ease-spring-smooth',
+								hasError && 'es:absolute es:bottom-2 es:left-2 es:right-2',
 							)}
 						>
-							{typeof children === 'function' ? children({ dominantColors, isDark, isTransparent }) : children}
+							{typeof children === 'function' ? children({ dominantColors, isDark, isTransparent, hasError }) : children}
 						</div>
 					)}
 				</div>

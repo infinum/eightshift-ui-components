@@ -264,7 +264,7 @@ export const Tab = (props) => {
 		[
 			'es:group es:relative es:shrink-0',
 			'es:flex es:items-center es:gap-1.5',
-			'es:select-none es:not-disabled:cursor-pointer',
+			'es:select-none',
 			'es:transition-plus es:text-center es:text-12 es:leading-[1.15] es:text-box-trim',
 			'es:any-focus:outline-hidden',
 			'es:contrast-more:inset-ring es:contrast-more:inset-ring-accent-500/0 es:contrast-more:focus-visible:inset-ring-accent-500',

@@ -50,7 +50,7 @@ export const Switch = (props) => {
 					default: 'es:h-6 es:w-10 es:p-1',
 				},
 				disabled: {
-					false: [!flat && 'es:shadow-xs es:shadow-black/5', 'es:cursor-pointer'],
+					false: [!flat && 'es:shadow-xs es:shadow-black/5'],
 				},
 			},
 			compoundVariants: [

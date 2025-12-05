@@ -84,7 +84,6 @@ export const ToggleButton = (props) => {
 			'es:text-box-trim',
 			'es:leading-none',
 			'es:icon:size-5',
-			!disabled && 'es:cursor-pointer',
 			icon && children ? 'es:justify-start' : 'es:justify-center-safe',
 			className,
 		],

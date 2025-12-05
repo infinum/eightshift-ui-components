@@ -72,7 +72,7 @@ export const DraggableListItemHandle = (props) => {
 		<button
 			className={
 				className ??
-				'es:relative es:h-6 es:w-2 es:cursor-pointer es:items-center es:justify-center es:self-center es:rounded es:border es:border-secondary-300 es:bg-secondary-50 es:transition es:after:absolute es:after:inset-0 es:after:m-auto es:after:h-4 es:after:w-px es:after:bg-secondary-200 es:after:transition es:after:content-[""] es:hover:border-accent-500 es:hover:bg-accent-400 es:hover:after:bg-accent-500'
+				'es:relative es:h-6 es:w-2 es:items-center es:justify-center es:self-center es:rounded es:border es:border-secondary-300 es:bg-secondary-50 es:transition es:after:absolute es:after:inset-0 es:after:m-auto es:after:h-4 es:after:w-px es:after:bg-secondary-200 es:after:transition es:after:content-[""] es:hover:border-accent-500 es:hover:bg-accent-400 es:hover:after:bg-accent-500'
 			}
 			{...rest}
 			data-movable-handle

@@ -201,10 +201,35 @@ export const SmartImage = (props) => {
 		return renderError(error);
 	} else if (error) {
 		return (
-			<div className={clsx('es:flex es:flex-col es:gap-2 es:items-center-safe es:justify-center-safe es:p-2 es:motion-preset-fade', errorClassName)}>
-				<DecorativeTooltip text={__('Error loading image', 'eightshift-ui-components')}>
-					{cloneElement(icons.imageError, { className: 'es:text-secondary-500 es:size-8' })}
-				</DecorativeTooltip>
+			<div
+				className={clsx(
+					typeof children !== 'function' && 'es:flex es:flex-col es:gap-2 es:items-center-safe es:justify-center-safe es:p-2',
+					'es:motion-preset-fade',
+					errorClassName,
+				)}
+			>
+				{typeof children !== 'function' && (
+					<DecorativeTooltip text={__('Error loading image', 'eightshift-ui-components')}>
+						{cloneElement(icons.imageError, { className: 'es:text-secondary-500 es:size-8' })}
+					</DecorativeTooltip>
+				)}
+
+				{typeof children === 'function'
+					? children({
+							image: cloneElement(imageElement, { crossOrigin: null }),
+							hasAnalysed: true,
+							isTransparent: false,
+							hasError: true,
+							errorBadge: (
+								<DecorativeTooltip
+									wrapperClassName='es:size-8 es:-translate-y-4 es:m-auto'
+									text={__('Error loading image', 'eightshift-ui-components')}
+								>
+									{cloneElement(icons.imageError, { className: 'es:text-secondary-500 es:size-8' })}
+								</DecorativeTooltip>
+							),
+						})
+					: cloneElement(imageElement, { crossOrigin: null })}
 			</div>
 		);
 	}

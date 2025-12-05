@@ -232,7 +232,7 @@ export const LinkInput = (props) => {
 									<div
 										className={clsx(
 											'es:opacity-0 es:group-hover:opacity-100 es:group-focus-within:opacity-100 es:focus-visible:opacity-100',
-											'es:flex es:size-8 es:items-center es:justify-center es:rounded-md es:text-secondary-600 es:backdrop-blur es:transition es:cursor-pointer',
+											'es:flex es:size-8 es:items-center es:justify-center es:rounded-md es:text-secondary-600 es:backdrop-blur es:transition',
 											'es:hover:bg-red-600/5 es:hover:text-red-600',
 											'es:icon:size-6',
 										)}
