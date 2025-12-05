@@ -4830,12 +4830,30 @@ function App() {
 						noUrlContent={<Button size='large'>Upload</Button>}
 						type='image'
 					>
-						{({ isDark }) => (
-							<>
-								<Button type={isDark ? 'glassDark' : 'glass'}>Replace</Button>
-								<Button type={isDark ? 'glassDark' : 'glass'}>Remove</Button>
-							</>
-						)}
+						{({ isDark, hasError }) => {
+							let buttonType = 'default';
+
+							if (!hasError) {
+								buttonType = isDark ? 'glass' : 'glassDark';
+							}
+
+							return (
+								<>
+									<Button
+										className='es:grow'
+										type={buttonType}
+									>
+										Replace
+									</Button>
+									<Button
+										className='es:grow'
+										type={buttonType}
+									>
+										Remove
+									</Button>
+								</>
+							);
+						}}
 					</FilePickerShell>
 
 					<FilePickerShell
