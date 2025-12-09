@@ -6,6 +6,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 ## [6.0.6] - 2025-12-09
 - Updated dependencies.
 - `Tabs` now support passing manual IDs to `Tab` components via the `id` prop. If not provided, IDs will be generated automatically.
+- Fixed a couple of UI bugs in `MultiSelect`, `AsyncMultiSelect`, and `DraggableList`.
 
 ## [6.0.5] - 2025-12-05
 - Updated dependencies.
