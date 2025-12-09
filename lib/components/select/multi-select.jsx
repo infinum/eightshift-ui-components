@@ -333,13 +333,13 @@ export const MultiSelect = (props) => {
 							slot: null,
 						}}
 						className='es:grid es:grid-cols-1 es:grid-rows-[auto_minmax(0,1fr)] es:p-0!'
-						wrapperClassName='es:w-72 es:px-1.5 es:h-fit es:from-surface-300/35 es:to-surface-300/35 es:overflow-clip'
+						wrapperClassName='es:w-72 es:px-1.5 es:h-fit es:from-surface-300/35 es:to-surface-300/35 es:overflow-clip es:rounded-20!'
 						hidden={noReorder || disabled || currentValue?.length < 2}
 					>
-						<span className='es:text-lg es:mx-auto es:my-1 es:font-variation-["wdth"_140,"wght"_320] es:text-surface-600'>{__('Item order', 'eightshift-ui-components')}</span>
+						<span className='es:text-base es:mx-auto es:my-1 es:font-variation-["wdth"_140,"wght"_320] es:text-surface-600'>{__('Item order', 'eightshift-ui-components')}</span>
 
 						<DraggableList
-							items={simpleValue ? value.map((item) => options.find((option) => option.value === item)) : value}
+							items={simpleValue ? (value?.map((item) => options.find((option) => option.value === item)) ?? []) : (value ?? [])}
 							onChange={(value) => {
 								handleSelectionChange(new Set(value?.map((item) => item?.value ?? item)));
 							}}
@@ -358,7 +358,7 @@ export const MultiSelect = (props) => {
 										iconClassName='es:pointer-events-none es:select-none'
 										labelClassName='es:line-clamp-1'
 										subtitleClassName='es:line-clamp-1'
-										className={clsx('es:min-h-8 es:flex es:items-center es:justify-between', realItem?.icon ? 'es:pl-1' : 'es:pl-2')}
+										className={clsx('es:min-h-9 es:flex es:items-center es:justify-between', realItem?.icon ? 'es:pl-1' : 'es:pl-2')}
 									/>
 								);
 							}}

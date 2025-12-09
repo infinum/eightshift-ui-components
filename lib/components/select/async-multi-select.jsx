@@ -187,7 +187,7 @@ export const AsyncMultiSelect = (props) => {
 
 		const selectedValues = [...selected]
 			.map((item) => {
-				const option = list.items.find((option) => option.value === item) || value.find((option) => option.value === item);
+				const option = list?.items?.find((option) => option.value === item) || value.find((option) => option.value === item);
 
 				if (!option) {
 					return null;
@@ -293,7 +293,7 @@ export const AsyncMultiSelect = (props) => {
 		<Select
 			selectionMode='multiple'
 			isDisabled={disabled}
-			value={currentValueKeys}
+			value={currentValueKeys ?? []}
 			onChange={(selected) => handleSelectionChange(selected)}
 			placeholder={placeholder}
 			{...rest}
@@ -390,13 +390,13 @@ export const AsyncMultiSelect = (props) => {
 							slot: null,
 						}}
 						className='es:grid es:grid-cols-1 es:grid-rows-[auto_minmax(0,1fr)] es:p-0!'
-						wrapperClassName='es:w-72 es:px-1.5 es:h-fit es:from-surface-300/35 es:to-surface-300/35 es:overflow-clip'
-						hidden={noReorder || disabled || value?.length < 2}
+						wrapperClassName='es:w-72 es:px-1.5 es:h-fit es:from-surface-300/35 es:to-surface-300/35 es:overflow-clip es:rounded-20!'
+						hidden={noReorder || disabled || (value ?? [])?.length < 2}
 					>
-						<span className='es:text-lg es:mx-auto es:my-1 es:font-variation-["wdth"_140,"wght"_320] es:text-surface-600'>{__('Item order', 'eightshift-ui-components')}</span>
+						<span className='es:text-base es:mx-auto es:my-1 es:font-variation-["wdth"_140,"wght"_320] es:text-surface-600'>{__('Item order', 'eightshift-ui-components')}</span>
 
 						<DraggableList
-							items={value}
+							items={value ?? []}
 							onChange={(value) => {
 								handleSelectionChange(new Set(value?.map((item) => item?.value ?? item)));
 							}}
@@ -421,7 +421,7 @@ export const AsyncMultiSelect = (props) => {
 										iconClassName='es:pointer-events-none es:select-none'
 										labelClassName='es:line-clamp-1'
 										subtitleClassName='es:line-clamp-1'
-										className={clsx('es:min-h-8 es:flex es:items-center es:justify-between', realItem?.icon ? 'es:pl-1' : 'es:pl-2')}
+										className={clsx('es:flex es:items-center es:justify-between', realItem?.icon ? 'es:pl-1' : 'es:pl-2')}
 									/>
 								);
 							}}
@@ -497,7 +497,7 @@ export const AsyncMultiSelect = (props) => {
 
 						<ListBox
 							className={clsx('es:space-y-0.75 es:p-1.5 es:pt-0 es:any-focus:outline-hidden es:h-full es:overflow-y-auto es:rounded-t-xl', list?.isLoading && 'es:hidden')}
-							items={list.items}
+							items={list?.items ?? []}
 							selectedKeys={list.selectedKeys}
 							selectionMode='multiple'
 							selectionBehavior='toggle'

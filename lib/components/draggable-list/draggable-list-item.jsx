@@ -34,7 +34,7 @@ export const DraggableListItem = (props) => {
 				icon={icon}
 				label={label}
 				subtitle={subtitle}
-				className={clsx('es:mr-auto', labelContainerClassName)}
+				className={clsx('es:mr-auto es:min-h-9', labelContainerClassName)}
 				iconClassName={iconClassName}
 				labelClassName={labelClassName}
 				subtitleClassName={subtitleClassName}
