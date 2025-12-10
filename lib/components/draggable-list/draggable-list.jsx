@@ -94,7 +94,7 @@ export const DraggableList = (props) => {
 
 	const items = fixIds(rawItems ?? [], itemIdBase);
 
-	if (hidden) {
+	if (hidden || !items?.length) {
 		return null;
 	}
 

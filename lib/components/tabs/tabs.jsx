@@ -15,6 +15,9 @@ import { RichLabel } from '../rich-label/rich-label';
  * @param {string} [props.className] - Classes to pass to the tabs container.
  * @param {TabsType} [props.type='underline'] - Design of the tabs.
  * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
+ * @param {string} [props.defaultSelectedKey] - **(uncontrolled mode)** The initial selected tab ID.
+ * @param {string} [props.selectedKey] - **(controlled mode)** The selected tab ID.
+ * @param {Function} [props.onSelectionChange] - Handler that is called when the selection changes. `(key: string) => void`.
  * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @returns {JSX.Element} The Tabs component.
@@ -47,6 +50,8 @@ export const Tabs = (props) => {
 
 	const preparedChildren = Array.isArray(children) ? children : [children];
 
+	let realTabIds = preparedChildren?.[0]?.props?.children?.map((tab, i) => tab?.props?.id ?? `tab-${baseId}-${i + 1}`);
+
 	const childrenWithIds = preparedChildren.reduce((acc, child, index) => {
 		if (child.type.displayName === 'TabList') {
 			const childItems = Array.isArray(child?.props?.children) ? child?.props?.children : [child?.props?.children].filter(Boolean);
@@ -67,7 +72,7 @@ export const Tabs = (props) => {
 					},
 					childItems?.map((innerChild, i) =>
 						cloneElement(innerChild, {
-							id: `tab-${baseId}-${i + 1}`,
+							id: innerChild?.props?.id ?? realTabIds?.[i] ?? `tab-${baseId}-${i + 1}`,
 							key: i,
 							isParentVertical: vertical,
 							type,
@@ -82,7 +87,7 @@ export const Tabs = (props) => {
 			return [
 				...acc,
 				cloneElement(child, {
-					id: `tab-${baseId}-${tabPanelCounter++}`,
+					id: realTabIds?.[tabPanelCounter++ - 1] ?? `tab-${baseId}-${tabPanelCounter++}`,
 					key: index,
 					className: child.props.className,
 					flat,
@@ -250,6 +255,7 @@ TabList.displayName = 'TabList';
  * @param {boolean} [props.invisible] - If `true`, the tab is disabled and not rendered, but is not unmounted from the DOM.
  * @param {string} [props.label] - Tab label. **Note**: overrides inner items!
  * @param {string} [props.subtitle] - Tab subtitle. **Note**: overrides inner items!
+ * @param {string} [props.id] - The tab unique identifier.
  *
  * @returns {JSX.Element} The Tab component.
  *

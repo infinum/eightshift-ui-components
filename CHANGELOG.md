@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [6.0.6] - 2025-12-09
+- Updated dependencies.
+- `Tabs` now support passing manual IDs to `Tab` components via the `id` prop. If not provided, IDs will be generated automatically.
+- Fixed a couple of UI bugs in `MultiSelect`, `AsyncMultiSelect`, and `DraggableList`.
+
 ## [6.0.5] - 2025-12-05
 - Updated dependencies.
 - Improved Select components hit targets.
@@ -533,6 +538,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[6.0.6]: https://github.com/infinum/eightshift-ui-components/compare/6.0.5...6.0.6
 [6.0.5]: https://github.com/infinum/eightshift-ui-components/compare/6.0.4...6.0.5
 [6.0.4]: https://github.com/infinum/eightshift-ui-components/compare/6.0.3...6.0.4
 [6.0.3]: https://github.com/infinum/eightshift-ui-components/compare/6.0.2...6.0.3
