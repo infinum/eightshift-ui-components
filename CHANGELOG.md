@@ -5,7 +5,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 ## [6.0.7] - 2025-12-11
 - Fixed issue with `Repeater` when IDs are not set or unreliable.
-- `id`s are not required in `Repeater`, `Draggable`, and `DraggableList` items.
+- `id`s are not required in `Repeater`, `Draggable`, and `DraggableList` items anymore.
 - Slightly tweaked `Expandable` animation.
 
 ## [6.0.6] - 2025-12-09
