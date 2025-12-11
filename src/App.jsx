@@ -306,36 +306,36 @@ function App() {
 
 	const repeaterDefaultItems = [
 		{
-			id: 'prvi',
+			// id: 'prvi',
 			title: 'Item 1',
-			icon: icons.num1Square,
+			// icon: icons.num1Square,
 		},
 		{
-			id: 'drugi',
+			// id: 'drugi',
 			title: 'Item 2',
-			icon: icons.num2Circle,
+			// icon: icons.num2Circle,
 		},
 		{
-			id: 'treci',
+			// id: 'treci',
 			title: 'Item 3',
-			icon: icons.num3SquareAlt,
+			// icon: icons.num3SquareAlt,
 		},
 	];
 
 	const repeaterDefaultItems2 = [
 		{
-			id: 'prvi',
+			// id: 'prvi',
 			title: 'Item 1',
 			icon: icons.num1Square,
 		},
 		{
-			id: 'drugi',
+			// id: 'drugi',
 			title: 'Item 2',
 			subtitle: 'Lorem',
 			icon: icons.num2Circle,
 		},
 		{
-			id: 'treci',
+			// id: 'treci',
 			title: 'Item 3',
 			icon: icons.num3SquareAlt,
 		},
@@ -606,65 +606,71 @@ function App() {
 			/>
 
 			<div className='es:mx-auto es:flex es:w-90 es:flex-col es:items-center es:justify-center es:gap-2.5 es:p-10 es:empty:hidden'>
-				<ContainerGroup>
-					<Container>A</Container>
-					<Container>B</Container>
-					<Container>C</Container>
-				</ContainerGroup>
-
-				<ContainerGroup horizontal>
-					<Container>A</Container>
-					<Container>B</Container>
-					<Container>C</Container>
-				</ContainerGroup>
-
-				<AsyncSelect
-					label='Async single select PROD'
-					value={sinASel2}
-					onChange={setSinASel2}
-					fetchUrl={(searchText) =>
-						searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
-					}
-					getLabel={(item) => item?.name}
-					getValue={(item) => item?.value}
-					getSubtitle={(item) => item?.country}
-					getIcon={(item) => {
-						let codePoints = (item?.countryCode ?? 'eu')
-							.toUpperCase()
-							.split('')
-							.map((char) => 127397 + char.charCodeAt());
-
-						return <span className='es:text-lg'>{String.fromCodePoint(...codePoints)}</span>;
+				<Repeater
+					items={repeaterItems}
+					onChange={setRepeaterItems}
+					itemLabelProp='title'
+					label='Hello'
+					addDefaultItem={{
+						title: 'Hello',
 					}}
-					processLoadedOptions={(items) => items.map((item) => ({ name: item?.name, country: item?.country, value: slugify(item?.name), countryCode: item?.alpha_two_code }))}
-					clearable
-				/>
+					onAfterItemAdd={(item) => console.log('Added', item)}
+					onAfterItemRemove={(items) => console.log('Removed', items)}
+				>
+					{(item) => {
+						const { title, subtitle, toggledThingy, link, updateData } = item;
 
-				<pre>{JSON.stringify(sinASel2, null, 2)}</pre>
+						return (
+							<RepeaterItem
+								label={title ?? 'New item'}
+								icon={icons.emptyCircle}
+								className={clsx(!title && 'es:text-secondary-400!')}
+								menuOptions={
+									<MenuItem
+										onClick={() => {
+											const name = prompt('Name', title);
 
-				<AsyncMultiSelect
-					label='Multi async NEXT'
-					value={mulASel}
-					onChange={setMulASel}
-					fetchUrl={(searchText) =>
-						searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
-					}
-					getLabel={(item) => item?.name}
-					getValue={(item) => item?.value}
-					getSubtitle={(item) => item?.country}
-					getIcon={(item) => {
-						let codePoints = (item?.countryCode ?? 'eu')
-							.toUpperCase()
-							.split('')
-							.map((char) => 127397 + char.charCodeAt());
+											if (name) {
+												updateData({ title: name });
+											}
+										}}
+									>
+										Rename
+									</MenuItem>
+								}
+							>
+								<InputField
+									label='Title'
+									type='text'
+									value={title}
+									onChange={(value) => updateData({ title: value })}
+								/>
+								<InputField
+									label='Subtitle'
+									type='multiline'
+									value={subtitle}
+									onChange={(value) => updateData({ subtitle: value })}
+								/>
 
-						return <span className='es:text-lg'>{String.fromCodePoint(...codePoints)}</span>;
+								<Toggle
+									icon={icons.emptyCircle}
+									label='Toggle something'
+									checked={toggledThingy}
+									onChange={(value) => updateData({ toggledThingy: value })}
+								/>
+
+								<LinkInput
+									url={link}
+									help='Help, not sure how to input this'
+									onChange={({ url }) => updateData({ link: url })}
+									fetchSuggestions={getLinkData}
+								/>
+							</RepeaterItem>
+						);
 					}}
-					processLoadedOptions={(items) => items.map((item) => ({ name: item?.name, country: item?.country, value: slugify(item?.name), countryCode: item?.alpha_two_code }))}
-					clearable
-				/>
+				</Repeater>
 
-				<pre>{JSON.stringify(mulASel, null, 2)}</pre>
+				<pre>{JSON.stringify(repeaterItems, null, 2)}</pre>
 			</div>
 
 			<Tabs
