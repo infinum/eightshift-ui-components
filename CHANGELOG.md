@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [6.0.7] - 2025-12-11
+## [6.0.8] - 2025-12-11
 - Fixed issue with `Repeater` when IDs are not set or unreliable.
 - `id`s are not required in `Repeater`, `Draggable`, and `DraggableList` items anymore.
 - Slightly tweaked `Expandable` animation.
@@ -543,7 +543,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
-[6.0.7]: https://github.com/infinum/eightshift-ui-components/compare/6.0.6...6.0.7
+[6.0.8]: https://github.com/infinum/eightshift-ui-components/compare/6.0.6...6.0.8
 [6.0.6]: https://github.com/infinum/eightshift-ui-components/compare/6.0.5...6.0.6
 [6.0.5]: https://github.com/infinum/eightshift-ui-components/compare/6.0.4...6.0.5
 [6.0.4]: https://github.com/infinum/eightshift-ui-components/compare/6.0.3...6.0.4
