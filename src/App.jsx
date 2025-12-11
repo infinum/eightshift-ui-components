@@ -254,21 +254,7 @@ function App() {
 		});
 	};
 
-	const getDataAlt = async (searchText) => {
-		const url = searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia';
-
-		const data = await fetch(url);
-		const json = await data.json();
-
-		return json.map((item) => ({ label: item?.name, value: slugify(item?.name) }));
-	};
-
 	const [v, setV] = useState();
-	const [v3, setV3] = useState();
-	const [v4, setV4] = useState([]);
-	const [v5, setV5] = useState([]);
-	const [v6, setV6] = useState([]);
-	const [v7, setV7] = useState();
 
 	const [tabVar, setTabVar] = useState('underline');
 
@@ -306,36 +292,27 @@ function App() {
 
 	const repeaterDefaultItems = [
 		{
-			// id: 'prvi',
 			title: 'Item 1',
-			// icon: icons.num1Square,
 		},
 		{
-			// id: 'drugi',
 			title: 'Item 2',
-			// icon: icons.num2Circle,
 		},
 		{
-			// id: 'treci',
 			title: 'Item 3',
-			// icon: icons.num3SquareAlt,
 		},
 	];
 
 	const repeaterDefaultItems2 = [
 		{
-			// id: 'prvi',
 			title: 'Item 1',
 			icon: icons.num1Square,
 		},
 		{
-			// id: 'drugi',
 			title: 'Item 2',
 			subtitle: 'Lorem',
 			icon: icons.num2Circle,
 		},
 		{
-			// id: 'treci',
 			title: 'Item 3',
 			icon: icons.num3SquareAlt,
 		},
