@@ -1,16 +1,8 @@
-import { useId } from 'react';
 import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
 import { clsx } from 'clsx';
 import { List, arrayMove, arrayRemove } from 'react-movable';
 import { Container, ContainerGroup } from '../base-control/container';
-
-const fixIds = (items, itemIdBase) => {
-	return items?.map((item, i) => ({
-		...item,
-		id: item?.id ?? `${itemIdBase}-${i}`,
-	}));
-};
 
 /**
  * A component that allows re-ordering a list of items.
@@ -59,12 +51,10 @@ const fixIds = (items, itemIdBase) => {
  * @preserve
  */
 export const DraggableList = (props) => {
-	const itemIdBase = useId('draggable-list-item-');
-
 	const {
 		children,
 
-		items: rawItems,
+		items,
 		onChange,
 
 		icon,
@@ -88,11 +78,9 @@ export const DraggableList = (props) => {
 		...rest
 	} = props;
 
-	if (typeof rawItems === 'undefined' || rawItems === null || !Array.isArray(rawItems)) {
+	if (typeof items === 'undefined' || items === null || !Array.isArray(items)) {
 		console.warn(__("DraggableList: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
 	}
-
-	const items = fixIds(rawItems ?? [], itemIdBase);
 
 	if (hidden || !items?.length) {
 		return null;
@@ -118,7 +106,6 @@ export const DraggableList = (props) => {
 					return (
 						<ContainerGroup
 							as='ul'
-							key={key}
 							className={clsx('es:w-full es:list-none es:m-0!', itemContainerClassName)}
 							{...rest}
 						>
@@ -142,11 +129,18 @@ export const DraggableList = (props) => {
 							{children({
 								...value,
 								updateData: (newValue) => {
-									onChange(items.map((i) => (i.id === value.id ? { ...i, ...newValue } : i)));
+									const updated = [...items];
+
+									updated[index] = {
+										...updated[index],
+										...newValue,
+									};
+
+									onChange(updated);
 								},
 								itemIndex: index,
 								deleteItem: () => {
-									onChange(items.filter((i) => i.id !== value.id));
+									onChange(items.filter((_, i) => i !== index));
 
 									if (onAfterItemRemove) {
 										onAfterItemRemove(value);

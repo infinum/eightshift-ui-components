@@ -6,26 +6,20 @@ import { RestrictToHorizontalAxis, RestrictToVerticalAxis } from '@dnd-kit/abstr
 import { RestrictToElement } from '@dnd-kit/dom/modifiers';
 import { DragDropProvider } from '@dnd-kit/react';
 import { move } from '@dnd-kit/helpers';
-
-const fixIds = (items, itemIdBase) => {
-	return (
-		items?.map((item, i) => ({
-			...item,
-			id: item?.id ?? `${itemIdBase}-${i}`,
-		})) ?? []
-	);
-};
+import { randomId } from '../../utilities';
 
 const SortableItem = ({ id, index, disabled, children, axis }) => {
 	const [element, setElement] = useState(null);
 	const handleRef = useRef(null);
 
-	let extraModifiers = [];
+	let modifiers = [RestrictToElement];
 
 	if (axis === 'horizontal') {
-		extraModifiers = [RestrictToHorizontalAxis];
-	} else if (axis === 'vertical') {
-		extraModifiers = [RestrictToVerticalAxis];
+		modifiers.push(RestrictToHorizontalAxis);
+	}
+
+	if (axis === 'vertical') {
+		modifiers.push(RestrictToVerticalAxis);
 	}
 
 	const { isDragSource, status } = useSortable({
@@ -33,7 +27,7 @@ const SortableItem = ({ id, index, disabled, children, axis }) => {
 		index,
 		element,
 		type: 'item',
-		modifiers: [RestrictToElement],
+		modifiers,
 		transition: { idle: true, duration: 400, easing: 'cubic-bezier(0, 0.55, 0.45, 1)' }, // 'easeOutCirc'
 		handle: handleRef,
 		disabled,
@@ -102,11 +96,11 @@ export const Draggable = (props) => {
 		console.warn(__("Draggable: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
 	}
 
-	const [items, setItems] = useState(fixIds(rawItems ?? []));
+	const [items, setItems] = useState(rawItems);
 
 	// Ensure the internal state is updated if items are updated externally.
 	useEffect(() => {
-		setItems(fixIds(rawItems, itemIdBase));
+		setItems(rawItems);
 	}, [rawItems]);
 
 	if (hidden) {
@@ -131,30 +125,32 @@ export const Draggable = (props) => {
 			>
 				{items.map((item, index) => (
 					<SortableItem
-						key={item?.id ?? index}
-						id={item?.id ?? index}
+						key={index}
+						id={randomId(6)}
 						index={index}
 						item={item}
 						disabled={noReorder}
 						axis={axis}
 					>
 						{(handleRef, isDragSource, status) => (
-							<DraggableContext.Provider
-								key={item.id}
-								value={{ isDragSource, handleRef, status }}
-							>
+							<DraggableContext.Provider value={{ isDragSource, handleRef, status }}>
 								{children({
 									...item,
 									updateData: (newValue) => {
-										const updated = [...items].map((i) => (i.id === item.id ? { ...i, ...newValue } : i));
+										const updated = [...items];
+
+										updated[index] = {
+											...updated[index],
+											...newValue,
+										};
 
 										onChange(updated);
 										setItems(updated);
 									},
 									itemIndex: index,
 									deleteItem: () => {
-										setItems([...items].filter((i) => i.id !== item.id));
-										onChange([...items].filter((i) => i.id !== item.id));
+										setItems([...items].filter((_, i) => i !== index));
+										onChange([...items].filter((_, i) => i !== index));
 
 										if (onAfterItemRemove) {
 											onAfterItemRemove(item);

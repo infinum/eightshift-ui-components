@@ -31,7 +31,7 @@ import { RepeaterContext } from './repeater-context';
 export const RepeaterItem = (props) => {
 	const { children, icon, label, subtitle, 'aria-label': ariaLabel, className, actions, textValue, expandDisabled, menuOptions, noMenuButton, ...rest } = props;
 
-	const { deleteItem, duplicateItem, isDragged, isOutOfBounds, isSelected, canDelete, canAdd, allOpen, setAllOpen, setOpenItems, id, isItemOpen, noDuplicateButton } =
+	const { deleteItem, duplicateItem, isDragged, isOutOfBounds, canDelete, canAdd, allOpen, setAllOpen, setOpenItems, isItemOpen, index, noDuplicateButton } =
 		useContext(RepeaterContext);
 
 	return (
@@ -52,7 +52,7 @@ export const RepeaterItem = (props) => {
 					setAllOpen(false);
 				}
 
-				setOpenItems((prev) => ({ ...prev, [id]: open }));
+				setOpenItems((prev) => ({ ...prev, [index]: open }));
 			}}
 			key={allOpen}
 			customOpenButton={({ open, toggleOpen, tooltip, disabled }) => {
@@ -86,6 +86,7 @@ export const RepeaterItem = (props) => {
 								disabled={!canDelete}
 								icon={icons.trash}
 								onPress={() => deleteItem()}
+								danger
 							>
 								{__('Remove', 'eightshift-ui-components')}
 							</MenuItem>

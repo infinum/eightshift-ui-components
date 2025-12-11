@@ -2,13 +2,12 @@ import { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import { Button } from '../button/button';
 import { icons } from '../../icons/icons';
-import { useId } from 'react';
 import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { RepeaterContext } from './repeater-context';
-import { clsx } from 'clsx';
 import { List, arrayMove, arrayRemove } from 'react-movable';
 import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
+import { clsx } from 'clsx';
 
 /**
  * A component that allows re-ordering a list of items with additional sub-options.
@@ -68,8 +67,6 @@ import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
  * @preserve
  */
 export const Repeater = (props) => {
-	const itemIdBase = `item-${useId().replaceAll(':', '')}`;
-
 	const {
 		children,
 		onChange,
@@ -101,7 +98,7 @@ export const Repeater = (props) => {
 	const [allOpen, setAllOpen] = useState(false);
 	const [openItems, setOpenItems] = useState({});
 
-	if (typeof rawItems === 'undefined' || rawItems === null || !Array.isArray(rawItems)) {
+	if (typeof items === 'undefined' || items === null || !Array.isArray(items)) {
 		console.warn(__("Repeater: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
 	}
 
@@ -144,7 +141,7 @@ export const Repeater = (props) => {
 					{!addButton && (
 						<Button
 							onPress={() => {
-								const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem };
+								const newItem = { ...addDefaultItem };
 								onChange([...items, newItem]);
 
 								if (onAfterItemAdd) {
@@ -153,10 +150,9 @@ export const Repeater = (props) => {
 							}}
 							size='small'
 							icon={icons.add}
-							className={clsx('es:icon:size-4', !hideEmptyState && items.length < 1 && 'es:invisible')}
+							className={!hideEmptyState && items.length < 1 && 'es:invisible'}
 							tooltip={__('Add item', 'eightshift-ui-components')}
 							disabled={addDisabled || !canAdd}
-							type='simple'
 						/>
 					)}
 
@@ -164,7 +160,7 @@ export const Repeater = (props) => {
 						<div className={clsx(!hideEmptyState && items.length < 1 && 'es:invisible')}>
 							{addButton({
 								addItem: (additional = {}) => {
-									const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem, ...additional };
+									const newItem = { ...addDefaultItem, ...additional };
 									onChange([...items, newItem]);
 
 									if (onAfterItemAdd) {
@@ -180,16 +176,13 @@ export const Repeater = (props) => {
 			className='es:w-full'
 		>
 			<List
-				values={items.map((item) => ({ ...item, disabled: openItems?.[item?.id] }))}
+				values={items.map((item, index) => ({ ...item, disabled: openItems?.[index] }))}
 				onChange={({ oldIndex, newIndex }) => onChange(newIndex === -1 ? arrayRemove(items, oldIndex) : arrayMove(items, oldIndex, newIndex))}
 				renderList={({ children, props }) => {
-					const { key, ...rest } = props;
-
 					return (
 						<ul
-							key={key}
-							className={clsx('es:w-full es:list-none es:m-0! es:flex es:flex-col es:gap-1', className)}
-							{...rest}
+							className={clsx('es:w-full es:list-none es:m-0! es:flex es:flex-col es:gap-0.75', className)}
+							{...props}
 						>
 							{children}
 						</ul>
@@ -209,14 +202,14 @@ export const Repeater = (props) => {
 									...item,
 									index,
 									deleteItem: () => {
-										onChange([...items].filter((i) => i.id !== item.id));
+										onChange([...items].filter((_, i) => i !== index));
 
 										if (onAfterItemRemove) {
 											onAfterItemRemove(item);
 										}
 									},
 									duplicateItem: () => {
-										const newItem = { ...item, id: `${itemIdBase}${items.length + 1}` };
+										const newItem = { ...item };
 										onChange([...items, newItem]);
 
 										if (onAfterItemAdd) {
@@ -231,20 +224,25 @@ export const Repeater = (props) => {
 									allOpen,
 									setAllOpen,
 									setOpenItems,
-									isItemOpen: openItems?.[item?.id] ?? allOpen,
+									isItemOpen: openItems?.[index] ?? allOpen,
 									noDuplicateButton,
 								}}
 							>
 								{children({
 									...item,
 									updateData: (newValue) => {
-										const updated = [...items].map((i) => (i.id === item.id ? { ...i, ...newValue } : i));
+										const updated = [...items];
+
+										updated[index] = {
+											...updated[index],
+											...newValue,
+										};
 
 										onChange(updated);
 									},
 									itemIndex: index,
 									deleteItem: () => {
-										onChange([...items].filter((i) => i.id !== item.id));
+										onChange([...items].filter((_, i) => i !== index));
 
 										if (onAfterItemRemove) {
 											onAfterItemRemove(item);
@@ -266,7 +264,7 @@ export const Repeater = (props) => {
 						{!addButton && (
 							<Button
 								onPress={() => {
-									const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem };
+									const newItem = { ...addDefaultItem };
 									onChange([...items, newItem]);
 
 									if (onAfterItemAdd) {
@@ -286,7 +284,7 @@ export const Repeater = (props) => {
 							!hideEmptyState &&
 							addButton({
 								addItem: (additional = {}) => {
-									const newItem = { id: `${itemIdBase}${items.length + 1}`, ...addDefaultItem, ...additional };
+									const newItem = { ...addDefaultItem, ...additional };
 									onChange([...items, newItem]);
 
 									if (onAfterItemAdd) {
