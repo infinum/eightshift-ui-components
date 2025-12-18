@@ -654,163 +654,208 @@ function App() {
 				vertical
 				type='bubble'
 				className='es:self-start es:m-5'
+				onSelectionChange={(key) => {
+					const url = new URL(window.location);
+					url.searchParams.set('tab', key);
+					window.history.replaceState({}, '', url);
+				}}
+				defaultSelectedKey={new URLSearchParams(window.location.search).get('tab')}
 			>
 				<TabList className='es:sticky es:top-16'>
 					<Tab
 						icon={icons.toggleOnAlt}
 						label='Toggle / Switch'
+						id='toggle'
 					/>
 					<Tab
 						icon={icons.verticalSpacing}
 						label='Spacer'
+						id='spacer'
 					/>
 					<Tab
 						icon={icons.animationGeneric}
 						label='Animated visibility'
+						id='anim-vis'
 					/>
 					<Tab
 						icon={icons.dropdownClose}
 						label='Expandable'
+						id='expandable'
 					/>
 					<Tab
 						icon={icons.link}
 						label='LinkInput'
+						id='link-input'
 					/>
 					<Tab
 						icon={icons.info}
 						label='Notice'
+						id='notice'
 					/>
 					<Tab
 						icon={icons.chatBubble}
 						label='Triggered popover'
+						id='triggered-popover'
 					/>
 					<Tab
 						icon={icons.buttonOutline}
 						label='Button'
+						id='button'
 					/>
 					<Tab
 						icon={icons.position3x3CenterCenter}
 						label='Matrix align'
+						id='matrix-align'
 					/>
 					<Tab
 						icon={icons.hamburgerMenu}
 						label='Menu'
+						id='menu'
 					/>
 					<Tab
 						icon={icons.hoverBackgroundGlow}
 						label='Tooltip'
+						id='tooltip'
 					/>
 					<Tab
 						icon={icons.num2CircleAlt}
 						label='Number picker'
+						id='num-pick'
 					/>
 					<Tab
 						icon={icons.responsive}
 						label='Responsive 2.0'
+						id='responsive-2'
 					/>
 					<Tab
 						icon={icons.fieldLabel}
 						label='Base control'
+						id='base-ctrl'
 					/>
 					<Tab
 						icon={icons.dropdown}
 						label='Select'
+						id='select'
 					/>
 					<Tab
 						icon={icons.newTab}
 						label='Tabs'
+						id='tabs'
 					/>
 					<Tab
 						icon={icons.inputField}
 						label='Input field'
+						id='input'
 					/>
 					<Tab
 						icon={icons.componentOptions}
 						label='Component toggle'
+						id='comp-toggle'
 					/>
 					<Tab
 						icon={icons.gridAutoRows}
 						label='Repeater'
+						id='repeater'
 					/>
 					<Tab
 						icon={icons.checkSquare}
 						label='Checkbox'
+						id='checbox'
 					/>
 					<Tab
 						icon={icons.listUnordered}
 						label='Radio button'
+						id='radio'
 					/>
 					<Tab
 						icon={icons.slider}
 						label='Slider'
+						id='slider'
 					/>
 					<Tab
 						icon={icons.solidCircleFilled}
 						label='Solid color picker'
+						id='solid-color-pick'
 					/>
 					<Tab
 						icon={icons.gradient}
 						label='Gradient editor'
+						id='gradient-editor'
 					/>
 					<Tab
 						icon={icons.color}
 						label='Color swatch'
+						id='color-swatch'
 					/>
 					<Tab
 						icon={icons.eyedropper}
 						label='Color picker'
+						id='color-picker'
 					/>
 					<Tab
 						icon={icons.responsiveOverridesAlt}
 						label='Responsive (legacy)'
+						id='resp-legacy'
 					/>
 					<Tab
 						icon={icons.columnGuttersLR}
 						label='Column config slider'
+						id='col-config-slider'
 					/>
 					<Tab
 						icon={icons.group}
 						label='Container panel'
+						id='cont-panel'
 					/>
 					<Tab
 						icon={icons.layoutAlt}
 						label='Layout components'
+						id='stacks'
 					/>
 					<Tab
 						icon={icons.emptyCircle}
 						label='Placeholders'
+						id='placeholder'
 					/>
 					<Tab
 						icon={icons.cursorMove}
 						label='Draggable'
+						id='draggable'
 					/>
 					<Tab
 						icon={icons.cursorMove}
 						label='Draggable list'
+						id='draggable-list'
 					/>
 					<Tab
 						icon={icons.options}
 						label='Options panel'
+						id='opt-panel'
 					/>
 					<Tab
 						icon={icons.previewResponsive}
 						label='Responsive preview'
+						id='resp-preview'
 					/>
 					<Tab
 						icon={icons.browser}
 						label='Modal'
+						id='modal'
 					/>
 					<Tab
 						icon={icons.multiple}
 						label='Item collection'
+						id='item-collection'
 					/>
 					<Tab
 						icon={icons.file}
 						label='File picker shell'
+						id='file-picker-shell'
 					/>
 					<Tab
 						icon={icons.imageLazyLoad}
 						label='Smart image'
+						id='smart-img'
 					/>
 				</TabList>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
