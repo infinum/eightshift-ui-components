@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
 ## [6.0.9] - 2026-01-09
+- Updated dependencies.
 - Improved `Modal` layout with scrolling content.
 - Added `width` prop to `Modal` to set the modal width (`default` and `wide` options).
 
