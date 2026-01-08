@@ -36,6 +36,9 @@ import { HStack } from '../layout/hstack';
  * @param {string} [props.contentContainerClassName] - Classes to pass to the modal content container.
  * @param {Function} [props.shouldCloseOnInteractOutside=() => true] - Allows ignoring close events for certain elements. `(element: HTMLElement) => boolean`.
  * @param {Function} [props.onOpenChange] - Function called when the modal's open state changes. `(isOpen: boolean) => void`
+ * @param {ModalWidth} [props.width='default'] - Determines the modal width.
+ *
+ * @typedef {'default' | 'wide'} ModalWidth
  *
  * @returns {JSX.Element} The Modal component.
  *
@@ -98,6 +101,8 @@ const ModalInternal = (props) => {
 		overlayClassName,
 		contentContainerClassName,
 
+		width = 'default',
+
 		...rest
 	} = props;
 
@@ -123,7 +128,9 @@ const ModalInternal = (props) => {
 			<ReactAriaModal
 				className={({ isEntering, isExiting }) =>
 					clsx(
-						'es:w-full es:max-w-lg es:overflow-y-hidden es:rounded-3xl es:inset-ring es:inset-ring-surface-400/30 es:bg-white es:bg-linear-to-b es:from-accent-300/3 es:to-accent-300/1 es:text-left es:align-middle es:shadow-xl es:text-surface-900',
+						'es:w-full es:overflow-y-hidden es:rounded-3xl es:inset-ring es:inset-ring-surface-400/30 es:bg-white es:bg-linear-to-b es:from-accent-300/3 es:to-accent-300/1 es:text-left es:align-middle es:shadow-xl es:text-surface-900',
+						width === 'default' && 'es:max-w-lg',
+						width === 'wide' && 'es:max-w-[80vw]',
 
 						isEntering && 'es:motion-scale-in-95 es:motion-fade-in es:motion-blur-in-xs es:motion-translate-y-in-[2rem] es:motion-duration-300 es:motion-ease-spring-smooth/scale',
 						isExiting &&
