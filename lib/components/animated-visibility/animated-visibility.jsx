@@ -83,8 +83,8 @@ export const AnimatedVisibility = (props) => {
 			outClassName: 'es:motion-translate-y-out-[-0.25rem] es:motion-scale-out-90 es:motion-opacity-out',
 		},
 		scaleRotateFade: {
-			inClassName: 'es:motion-rotate-in es:motion-scale-in-95 es:motion-opacity-in es:motion-blur-in-[1px]',
-			outClassName: 'es:motion-rotate-out es:motion-scale-out-90 es:motion-opacity-out es:motion-blur-out-[1px]',
+			inClassName: 'es:motion-rotate-in es:motion-scale-in-95 es:motion-opacity-in',
+			outClassName: 'es:motion-rotate-out es:motion-scale-out-90 es:motion-opacity-out',
 		},
 	};
 

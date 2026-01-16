@@ -654,163 +654,208 @@ function App() {
 				vertical
 				type='bubble'
 				className='es:self-start es:m-5'
+				onSelectionChange={(key) => {
+					const url = new URL(window.location);
+					url.searchParams.set('tab', key);
+					window.history.replaceState({}, '', url);
+				}}
+				defaultSelectedKey={new URLSearchParams(window.location.search).get('tab')}
 			>
 				<TabList className='es:sticky es:top-16'>
 					<Tab
 						icon={icons.toggleOnAlt}
 						label='Toggle / Switch'
+						id='toggle'
 					/>
 					<Tab
 						icon={icons.verticalSpacing}
 						label='Spacer'
+						id='spacer'
 					/>
 					<Tab
 						icon={icons.animationGeneric}
 						label='Animated visibility'
+						id='anim-vis'
 					/>
 					<Tab
 						icon={icons.dropdownClose}
 						label='Expandable'
+						id='expandable'
 					/>
 					<Tab
 						icon={icons.link}
 						label='LinkInput'
+						id='link-input'
 					/>
 					<Tab
 						icon={icons.info}
 						label='Notice'
+						id='notice'
 					/>
 					<Tab
 						icon={icons.chatBubble}
 						label='Triggered popover'
+						id='triggered-popover'
 					/>
 					<Tab
 						icon={icons.buttonOutline}
 						label='Button'
+						id='button'
 					/>
 					<Tab
 						icon={icons.position3x3CenterCenter}
 						label='Matrix align'
+						id='matrix-align'
 					/>
 					<Tab
 						icon={icons.hamburgerMenu}
 						label='Menu'
+						id='menu'
 					/>
 					<Tab
 						icon={icons.hoverBackgroundGlow}
 						label='Tooltip'
+						id='tooltip'
 					/>
 					<Tab
 						icon={icons.num2CircleAlt}
 						label='Number picker'
+						id='num-pick'
 					/>
 					<Tab
 						icon={icons.responsive}
 						label='Responsive 2.0'
+						id='responsive-2'
 					/>
 					<Tab
 						icon={icons.fieldLabel}
 						label='Base control'
+						id='base-ctrl'
 					/>
 					<Tab
 						icon={icons.dropdown}
 						label='Select'
+						id='select'
 					/>
 					<Tab
 						icon={icons.newTab}
 						label='Tabs'
+						id='tabs'
 					/>
 					<Tab
 						icon={icons.inputField}
 						label='Input field'
+						id='input'
 					/>
 					<Tab
 						icon={icons.componentOptions}
 						label='Component toggle'
+						id='comp-toggle'
 					/>
 					<Tab
 						icon={icons.gridAutoRows}
 						label='Repeater'
+						id='repeater'
 					/>
 					<Tab
 						icon={icons.checkSquare}
 						label='Checkbox'
+						id='checbox'
 					/>
 					<Tab
 						icon={icons.listUnordered}
 						label='Radio button'
+						id='radio'
 					/>
 					<Tab
 						icon={icons.slider}
 						label='Slider'
+						id='slider'
 					/>
 					<Tab
 						icon={icons.solidCircleFilled}
 						label='Solid color picker'
+						id='solid-color-pick'
 					/>
 					<Tab
 						icon={icons.gradient}
 						label='Gradient editor'
+						id='gradient-editor'
 					/>
 					<Tab
 						icon={icons.color}
 						label='Color swatch'
+						id='color-swatch'
 					/>
 					<Tab
 						icon={icons.eyedropper}
 						label='Color picker'
+						id='color-picker'
 					/>
 					<Tab
 						icon={icons.responsiveOverridesAlt}
 						label='Responsive (legacy)'
+						id='resp-legacy'
 					/>
 					<Tab
 						icon={icons.columnGuttersLR}
 						label='Column config slider'
+						id='col-config-slider'
 					/>
 					<Tab
 						icon={icons.group}
 						label='Container panel'
+						id='cont-panel'
 					/>
 					<Tab
 						icon={icons.layoutAlt}
 						label='Layout components'
+						id='stacks'
 					/>
 					<Tab
 						icon={icons.emptyCircle}
 						label='Placeholders'
+						id='placeholder'
 					/>
 					<Tab
 						icon={icons.cursorMove}
 						label='Draggable'
+						id='draggable'
 					/>
 					<Tab
 						icon={icons.cursorMove}
 						label='Draggable list'
+						id='draggable-list'
 					/>
 					<Tab
 						icon={icons.options}
 						label='Options panel'
+						id='opt-panel'
 					/>
 					<Tab
 						icon={icons.previewResponsive}
 						label='Responsive preview'
+						id='resp-preview'
 					/>
 					<Tab
 						icon={icons.browser}
 						label='Modal'
+						id='modal'
 					/>
 					<Tab
 						icon={icons.multiple}
 						label='Item collection'
+						id='item-collection'
 					/>
 					<Tab
 						icon={icons.file}
 						label='File picker shell'
+						id='file-picker-shell'
 					/>
 					<Tab
 						icon={icons.imageLazyLoad}
 						label='Smart image'
+						id='smart-img'
 					/>
 				</TabList>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
@@ -4548,6 +4593,13 @@ function App() {
 					<Modal
 						title='My modal'
 						triggerLabel='Title'
+						actions={
+							<>
+								<Button slot='close'>Lorem</Button>
+								<Button slot='close'>Close</Button>
+							</>
+						}
+						width='wide'
 					>
 						<p>
 							Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet,
@@ -4555,6 +4607,67 @@ function App() {
 						</p>
 
 						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi volutpat felis odio, venenatis commodo dolor tincidunt vitae. Nulla sodales nulla laoreet, hendrerit
+							tortor non, faucibus turpis. Pellentesque dictum lacus at ultrices sagittis. Morbi pulvinar sapien a velit tempus venenatis. Morbi iaculis lobortis ex vitae euismod.
+							Donec rutrum urna et eros iaculis, at hendrerit diam pharetra. Nunc tristique molestie tellus eget aliquam. Sed molestie pulvinar lectus, at dapibus dolor.
+						</p>
+						<p>
+							In non sem vitae lorem maximus sollicitudin id id quam. Integer elementum, enim in tristique mollis, dui leo porta metus, sit amet luctus metus velit at nulla. Nam
+							scelerisque viverra blandit. Mauris sed dictum nisl, ut vehicula ex. Donec ut tincidunt neque. Ut ornare leo libero, et lobortis dolor euismod sed. Vestibulum
+							sollicitudin ultrices ipsum quis consequat.
+						</p>
+						<p>
+							Fusce placerat arcu non facilisis gravida. Aliquam finibus in orci quis aliquet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+							curae; Vestibulum sed lacus a augue consequat egestas ac a ligula. Aliquam vitae molestie ligula, eget auctor tortor. Quisque rhoncus ex vel molestie cursus. Maecenas
+							egestas justo ac nulla tristique, ac tempor ipsum gravida. Nullam eget velit pretium, tincidunt lorem ac, convallis tortor. Cras tristique euismod efficitur. Proin at
+							nunc sed nulla pharetra imperdiet non ut sem. Nam et nibh auctor, scelerisque magna vitae, malesuada nulla. Mauris eget consequat risus. Phasellus commodo odio et
+							malesuada aliquam. Curabitur turpis lacus, vestibulum pharetra velit a, maximus convallis est. Donec est lorem, placerat eget ligula et, luctus pellentesque dui.
+						</p>
+						<p>
+							Aliquam aliquet justo in felis egestas, vitae dapibus nibh convallis. Nunc mauris leo, volutpat nec maximus quis, lacinia eget leo. Phasellus a dui et ipsum mollis
+							ultrices. Ut eget viverra purus, ac placerat ante. Vestibulum vitae convallis orci, a mollis lorem. Quisque risus neque, feugiat quis risus ac, condimentum auctor
+							orci. Proin lacinia diam sed erat pharetra, id ultricies quam viverra. Aliquam neque orci, condimentum sit amet elit vitae, ullamcorper vestibulum nisl. Etiam nec
+							erat sit amet magna pellentesque congue. Suspendisse volutpat a justo sed vehicula. Nam auctor nisi et imperdiet fermentum. Nulla rutrum sit amet nisi eu feugiat.
+							Proin quis lectus eu justo varius rhoncus vitae non nisl. Nullam sagittis nunc id nibh accumsan, nec tincidunt quam vehicula. Sed placerat sed erat eget egestas.
+						</p>
+						<p>
+							Vestibulum urna tellus, tristique ac ex nec, tristique accumsan quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+							Mauris vel diam et urna pellentesque tincidunt sed ut turpis. In hac habitasse platea dictumst. Donec lobortis egestas lacinia. Proin blandit nisi quis turpis auctor
+							pulvinar. Cras mattis placerat rhoncus.
+						</p>
+						<p>
+							Nunc ut risus in mauris blandit porttitor. Cras vel sapien eget mauris maximus consequat ut in velit. Fusce aliquam massa diam, id dictum nisl semper eu. Nulla
+							dapibus erat sit amet ligula pharetra, a vestibulum dolor faucibus. In hac habitasse platea dictumst. Aenean at molestie tellus. Donec et lobortis sem. Sed imperdiet
+							elit dapibus semper consectetur. Fusce facilisis lobortis elit suscipit aliquam. Quisque auctor, erat et iaculis fringilla, ante velit eleifend lorem, id pretium
+							mauris sem eget sapien. Aliquam erat volutpat. Phasellus nec lorem ut orci sagittis rutrum at volutpat sapien. Quisque at porta risus.
+						</p>
+						<p>
+							Aliquam vel magna eleifend, finibus mi a, viverra tortor. Integer feugiat neque at rhoncus convallis. Nulla dictum venenatis sapien, elementum feugiat mi tristique
+							id. Sed lacinia purus eget dolor ullamcorper pretium. Maecenas sed consequat odio. Mauris est felis, commodo ut mauris vitae, finibus pulvinar tortor. Curabitur
+							rutrum, est vitae sagittis semper, elit ex blandit magna, ullamcorper viverra enim metus eget lectus. Proin semper eleifend congue. Donec consectetur pharetra est,
+							vel pharetra tortor sagittis a. Phasellus faucibus, tellus ac congue dapibus, augue risus fermentum felis, nec vehicula nisl quam id urna. Etiam malesuada lectus vel
+							consequat commodo. Nam non ex augue.
+						</p>
+						<p>
+							Sed et turpis ex. Pellentesque dapibus viverra blandit. Aliquam dictum euismod mauris eget sodales. Etiam id ultrices odio. Cras ac egestas lorem. Class aptent taciti
+							sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris placerat aliquet ante, vitae placerat neque posuere ut. Integer gravida sed augue eu
+							bibendum. Praesent in consequat dolor. Quisque mi mi, dignissim sit amet mi nec, elementum viverra massa. Aenean ultrices maximus ex ac tincidunt. Nullam vel enim
+							porta, mattis augue ac, ultrices purus. Curabitur malesuada nec risus sit amet condimentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+							ridiculus mus.
+						</p>
+						<p>
+							Pellentesque bibendum quam vitae dui mattis congue. Donec vel rhoncus ipsum, eu gravida mauris. Phasellus rhoncus pellentesque dolor nec finibus. Pellentesque
+							malesuada nunc ex, eget scelerisque diam imperdiet in. Nulla sed tristique diam. Nullam id feugiat ipsum, quis vehicula erat. Proin sodales turpis magna, ac tempor
+							enim pretium quis.
+						</p>
+						<p>
+							Mauris pulvinar venenatis lectus, vitae tincidunt dolor ultricies eu. In sit amet dui vel orci fermentum luctus. Cras pharetra est quis urna venenatis, ut varius
+							tortor auctor. Ut vitae sollicitudin nulla. Sed cursus lectus ligula, in luctus sem pellentesque vel. In imperdiet nibh ac tellus fermentum, blandit iaculis ante
+							ultrices. Vivamus ultricies, purus non scelerisque molestie, elit nulla suscipit ligula, vitae faucibus purus lorem et justo. Nulla at odio nec arcu efficitur posuere
+							in in sapien.
+						</p>
 					</Modal>
 
 					<Modal

@@ -36,6 +36,9 @@ import { HStack } from '../layout/hstack';
  * @param {string} [props.contentContainerClassName] - Classes to pass to the modal content container.
  * @param {Function} [props.shouldCloseOnInteractOutside=() => true] - Allows ignoring close events for certain elements. `(element: HTMLElement) => boolean`.
  * @param {Function} [props.onOpenChange] - Function called when the modal's open state changes. `(isOpen: boolean) => void`
+ * @param {ModalWidth} [props.width='default'] - Determines the modal width.
+ *
+ * @typedef {'default' | 'wide'} ModalWidth
  *
  * @returns {JSX.Element} The Modal component.
  *
@@ -98,6 +101,8 @@ const ModalInternal = (props) => {
 		overlayClassName,
 		contentContainerClassName,
 
+		width = 'default',
+
 		...rest
 	} = props;
 
@@ -111,7 +116,7 @@ const ModalInternal = (props) => {
 			isKeyboardDismissDisabled={noKeyboardDismiss}
 			className={({ isEntering, isExiting }) =>
 				clsx(
-					'es:fixed es:inset-0 es:z-9999 es:flex es:min-h-full es:items-center es:justify-center es:overflow-y-auto es:p-4',
+					'es:fixed es:inset-0 es:z-9999 es:flex es:min-h-full es:items-center es:justify-center es:overflow-hidden es:p-4',
 					!noBackdrop && 'es:bg-accent-950/20 es:backdrop-blur-xs',
 					isEntering && 'es:motion-opacity-in es:motion-duration-150',
 					isExiting && 'es:motion-opacity-out es:motion-duration-150',
@@ -123,11 +128,12 @@ const ModalInternal = (props) => {
 			<ReactAriaModal
 				className={({ isEntering, isExiting }) =>
 					clsx(
-						'es:w-full es:max-w-lg es:overflow-hidden es:rounded-3xl es:inset-ring es:inset-ring-surface-400/30 es:bg-white es:bg-linear-to-b es:from-accent-300/3 es:to-accent-300/1 es:text-left es:align-middle es:shadow-xl es:text-surface-900',
+						'es:w-full es:overflow-y-hidden es:rounded-3xl es:inset-ring es:inset-ring-surface-400/30 es:bg-white es:bg-linear-to-b es:from-accent-300/3 es:to-accent-300/1 es:text-left es:align-middle es:shadow-xl es:text-surface-900',
+						width === 'default' && 'es:max-w-lg',
+						width === 'wide' && 'es:max-w-[80vw]',
 
-						isEntering && 'es:motion-scale-in-95 es:motion-fade-in es:motion-blur-in-xs es:motion-translate-y-in-[2rem] es:motion-duration-300 es:motion-ease-spring-smooth/scale',
-						isExiting &&
-							'es:motion-scale-out-95 es:motion-fade-out es:motion-blur-out-xs es:motion-translate-y-out-[2rem] es:motion-duration-250 es:motion-ease-spring-smooth/scale',
+						isEntering && 'es:motion-scale-in-95 es:motion-fade-in es:motion-translate-y-in-[2rem] es:motion-duration-300 es:motion-ease-spring-smooth/scale',
+						isExiting && 'es:motion-scale-out-95 es:motion-fade-out es:motion-translate-y-out-[2rem] es:motion-duration-250 es:motion-ease-spring-smooth/scale',
 						className,
 					)
 				}
@@ -138,7 +144,7 @@ const ModalInternal = (props) => {
 				>
 					{({ close }) => (
 						<>
-							<HStack className={clsx(title && 'es:px-6 es:pt-6 es:justify-between', headerClassName)}>
+							<HStack className={clsx(title && 'es:p-6 es:pb-3 es:justify-between', headerClassName)}>
 								{title && (
 									<Heading
 										className='es:text-balance es:text-xl! es:my-0! es:text-accent-800 es:font-variation-["wdth"_200,"YTLC"_520,"wght"_425]'
@@ -167,7 +173,7 @@ const ModalInternal = (props) => {
 								)}
 							</HStack>
 
-							{children && <div className={clsx('es:p-6 es:space-y-2.5', contentContainerClassName)}>{children}</div>}
+							{children && <div className={clsx('es:px-6 es:space-y-2.5 es:overflow-y-auto es:max-h-[70vh]', !actions && 'es:mb-6', contentContainerClassName)}>{children}</div>}
 
 							{actions && <HStack className={clsx('es:justify-end es:px-6 es:py-4', actionsClassName)}>{actions}</HStack>}
 						</>
