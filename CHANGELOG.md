@@ -3,10 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [6.0.9] - 2026-01-09
+## [6.0.9] - 2026-01-16
 - Updated dependencies.
 - Improved `Modal` layout with scrolling content.
 - Added `width` prop to `Modal` to set the modal width (`default` and `wide` options).
+- Optimized a couple of animations and menu/popover contrast in some cases.
 
 ## [6.0.8] - 2025-12-11
 - Fixed issue with `Repeater` when IDs are not set or unreliable.
