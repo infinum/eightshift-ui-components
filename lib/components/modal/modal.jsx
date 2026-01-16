@@ -132,9 +132,8 @@ const ModalInternal = (props) => {
 						width === 'default' && 'es:max-w-lg',
 						width === 'wide' && 'es:max-w-[80vw]',
 
-						isEntering && 'es:motion-scale-in-95 es:motion-fade-in es:motion-blur-in-xs es:motion-translate-y-in-[2rem] es:motion-duration-300 es:motion-ease-spring-smooth/scale',
-						isExiting &&
-							'es:motion-scale-out-95 es:motion-fade-out es:motion-blur-out-xs es:motion-translate-y-out-[2rem] es:motion-duration-250 es:motion-ease-spring-smooth/scale',
+						isEntering && 'es:motion-scale-in-95 es:motion-fade-in es:motion-translate-y-in-[2rem] es:motion-duration-300 es:motion-ease-spring-smooth/scale',
+						isExiting && 'es:motion-scale-out-95 es:motion-fade-out es:motion-translate-y-out-[2rem] es:motion-duration-250 es:motion-ease-spring-smooth/scale',
 						className,
 					)
 				}
