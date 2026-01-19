@@ -562,34 +562,39 @@ function App() {
 	const [colConfig5, setColConfig5] = useState([2, 4]);
 
 	return (
-		<div className='es:font-sans es:flex es:min-h-screen es:flex-col es:items-center es:justify-center es:overscroll-contain es:bg-neutral-100 es:p-1'>
-			<OptionSelect
-				label='Control theme'
-				value={controlTheme}
-				onChange={(value) => {
-					document.documentElement.classList.remove(`es-uic-theme-${controlTheme}`);
+		<div className='es:flex es:flex-col es:items-center es:justify-center es:overscroll-none es:p-10'>
+			<TriggeredPopover
+				triggerButtonIcon={icons.options}
+				triggerButtonProps={{ className: 'es:absolute es:top-4 es:right-4' }}
+				className='es:p-4'
+			>
+				<OptionSelect
+					label='Control theme'
+					value={controlTheme}
+					onChange={(value) => {
+						document.documentElement.classList.remove(`es-uic-theme-${controlTheme}`);
 
-					setControlTheme(value);
-					document.documentElement.classList.add(`es-uic-theme-${value}`);
-				}}
-				options={[
-					{ value: 'default', label: 'Default' },
-					{ value: 'green', label: 'Green' },
-					{ value: 'blue', label: 'Blue' },
-					{ value: 'orange', label: 'Orange' },
-					{ value: 'purple', label: 'Purple' },
-					{ value: 'mono', label: 'Monochrome' },
-				]}
-				className='es:my-5'
-				inline
-			/>
+						setControlTheme(value);
+						document.documentElement.classList.add(`es-uic-theme-${value}`);
+					}}
+					options={[
+						{ value: 'default', label: 'Default' },
+						{ value: 'green', label: 'Green' },
+						{ value: 'blue', label: 'Blue' },
+						{ value: 'orange', label: 'Orange' },
+						{ value: 'purple', label: 'Purple' },
+						{ value: 'mono', label: 'Monochrome' },
+					]}
+					inline
+				/>
+			</TriggeredPopover>
 
 			<div className='es:mx-auto es:flex es:w-90 es:flex-col es:items-center es:justify-center es:gap-2.5 es:p-10 es:empty:hidden'></div>
 
 			<Tabs
 				vertical
 				type='bubble'
-				className='es:self-start es:m-5'
+				className='es:self-start'
 				onSelectionChange={(key) => {
 					const url = new URL(window.location);
 					url.searchParams.set('tab', key);
