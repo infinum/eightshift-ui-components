@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [6.0.10] - 2026-01-20
+- Removed legacy ReactDND dependencies.
+- Fixed issue with `Draggable`.
+- Tweaked `Expandable` content spacing and added `contentWrapClassName` prop for more control over inner content wrapper styling (if needed).
+
 ## [6.0.9] - 2026-01-16
 - Updated dependencies.
 - Improved `Modal` layout with scrolling content.
@@ -549,6 +554,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[6.0.10]: https://github.com/infinum/eightshift-ui-components/compare/6.0.9...6.0.10
 [6.0.9]: https://github.com/infinum/eightshift-ui-components/compare/6.0.8...6.0.9
 [6.0.8]: https://github.com/infinum/eightshift-ui-components/compare/6.0.6...6.0.8
 [6.0.6]: https://github.com/infinum/eightshift-ui-components/compare/6.0.5...6.0.6
