@@ -5,10 +5,7 @@ import { useSortable } from '@dnd-kit/react/sortable';
 import { RestrictToHorizontalAxis, RestrictToVerticalAxis } from '@dnd-kit/abstract/modifiers';
 import { RestrictToElement } from '@dnd-kit/dom/modifiers';
 import { DragDropProvider } from '@dnd-kit/react';
-import { move } from '@dnd-kit/helpers';
-import { randomId } from '../../utilities';
-
-const removeIds = (arr) => arr.map(({ id, ...item }) => item);
+import { arrayMove } from '@dnd-kit/helpers';
 
 const SortableItem = ({ id, index, disabled, children, axis }) => {
 	const [element, setElement] = useState(null);
@@ -77,7 +74,7 @@ export const Draggable = (props) => {
 	const {
 		children,
 
-		items: rawItems,
+		items,
 		onChange,
 
 		noReorder,
@@ -92,24 +89,22 @@ export const Draggable = (props) => {
 		...rest
 	} = props;
 
-	if (typeof rawItems === 'undefined' || rawItems === null || !Array.isArray(rawItems)) {
+	if (typeof items === 'undefined' || items === null || !Array.isArray(items)) {
 		console.warn(__("Draggable: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
 	}
-
-	const [items, setItems] = useState(rawItems.map((item) => ({ ...item, id: item?.id || randomId(6) })));
-
-	// Ensure the internal state is updated if items are updated externally.
-	useEffect(() => {
-		if (JSON.stringify(rawItems) === JSON.stringify(removeIds(items))) {
-			return;
-		}
-
-		setItems(rawItems.map((item) => ({ ...item, id: randomId(6) })));
-	}, [rawItems]);
 
 	if (hidden) {
 		return null;
 	}
+
+	const [internalIds, setInternalIds] = useState(items.map((_, index) => index));
+
+	// Update if external data changes length.
+	useEffect(() => {
+		if (items.length !== internalIds.length) {
+			setInternalIds(items.map((_, index) => index));
+		}
+	}, [items]);
 
 	return (
 		<div
@@ -122,19 +117,21 @@ export const Draggable = (props) => {
 						return;
 					}
 
-					setItems((items) => {
-						const newItems = move(items, event);
+					if (!('operation' in event)) {
+						return;
+					}
 
-						onChange(removeIds(newItems));
+					const oldIndex = event?.operation?.source?.sortable?.initialIndex;
+					const newIndex = event?.operation?.source?.sortable?.index;
 
-						return newItems;
-					});
+					onChange(arrayMove(items, oldIndex, newIndex));
+					setInternalIds(arrayMove(internalIds, oldIndex, newIndex));
 				}}
 			>
-				{items.map(({ id, ...item }, index) => (
+				{items.map((item, index) => (
 					<SortableItem
-						key={id}
-						id={id}
+						key={`item-${internalIds?.[index] ?? index}`}
+						id={`item-${internalIds?.[index] ?? index}`}
 						index={index}
 						item={item}
 						disabled={noReorder}
@@ -152,17 +149,15 @@ export const Draggable = (props) => {
 											...newValue,
 										};
 
-										setItems(updated);
-										onChange(removeIds(updated));
+										onChange(updated);
 									},
 									itemIndex: index,
 									deleteItem: () => {
-										setItems([...items].filter((_, i) => i !== index));
-										onChange(removeIds([...items].filter((_, i) => i !== index)));
+										onChange([...items].filter((_, i) => i !== index));
+										setInternalIds([...internalIds].filter((_, i) => i !== index));
 
 										if (onAfterItemRemove) {
-											const { id, ...restItem } = item;
-											onAfterItemRemove(restItem);
+											onAfterItemRemove(item);
 										}
 									},
 								})}
