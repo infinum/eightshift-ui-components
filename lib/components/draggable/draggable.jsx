@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import { DraggableContext } from './draggable-context';
 import { useSortable } from '@dnd-kit/react/sortable';
@@ -7,6 +7,8 @@ import { RestrictToElement } from '@dnd-kit/dom/modifiers';
 import { DragDropProvider } from '@dnd-kit/react';
 import { move } from '@dnd-kit/helpers';
 import { randomId } from '../../utilities';
+
+const removeIds = (arr) => arr.map(({ id, ...item }) => item);
 
 const SortableItem = ({ id, index, disabled, children, axis }) => {
 	const [element, setElement] = useState(null);
@@ -72,8 +74,6 @@ const SortableItem = ({ id, index, disabled, children, axis }) => {
  * @preserve
  */
 export const Draggable = (props) => {
-	const itemIdBase = useId('draggable-list-item-');
-
 	const {
 		children,
 
@@ -96,11 +96,15 @@ export const Draggable = (props) => {
 		console.warn(__("Draggable: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
 	}
 
-	const [items, setItems] = useState(rawItems);
+	const [items, setItems] = useState(rawItems.map((item) => ({ ...item, id: item?.id || randomId(6) })));
 
 	// Ensure the internal state is updated if items are updated externally.
 	useEffect(() => {
-		setItems(rawItems);
+		if (JSON.stringify(rawItems) === JSON.stringify(removeIds(items))) {
+			return;
+		}
+
+		setItems(rawItems.map((item) => ({ ...item, id: randomId(6) })));
 	}, [rawItems]);
 
 	if (hidden) {
@@ -113,20 +117,24 @@ export const Draggable = (props) => {
 			{...rest}
 		>
 			<DragDropProvider
-				onDragOver={(event) => setItems((items) => move(items, event))}
 				onDragEnd={(event) => {
 					if (event?.canceled) {
 						return;
 					}
 
-					setItems((items) => move(items, event));
-					onChange(items);
+					setItems((items) => {
+						const newItems = move(items, event);
+
+						onChange(removeIds(newItems));
+
+						return newItems;
+					});
 				}}
 			>
-				{items.map((item, index) => (
+				{items.map(({ id, ...item }, index) => (
 					<SortableItem
-						key={index}
-						id={randomId(6)}
+						key={id}
+						id={id}
 						index={index}
 						item={item}
 						disabled={noReorder}
@@ -144,16 +152,17 @@ export const Draggable = (props) => {
 											...newValue,
 										};
 
-										onChange(updated);
 										setItems(updated);
+										onChange(removeIds(updated));
 									},
 									itemIndex: index,
 									deleteItem: () => {
 										setItems([...items].filter((_, i) => i !== index));
-										onChange([...items].filter((_, i) => i !== index));
+										onChange(removeIds([...items].filter((_, i) => i !== index)));
 
 										if (onAfterItemRemove) {
-											onAfterItemRemove(item);
+											const { id, ...restItem } = item;
+											onAfterItemRemove(restItem);
 										}
 									},
 								})}

@@ -16,7 +16,8 @@ import { __ } from '@wordpress/i18n';
  * @param {string} props.label - Label to display.
  * @param {string} [props.subtitle] - Subtitle to display.
  * @param {string} [props.className] - Classes to pass to the container.
- * @param {string} [props.contentClassName] - Classes to pass to the inner content wrapper.
+ * @param {string} [props.contentClassName] - Classes to pass to the inner content outer wrapper.
+ * @param {string} [props.contentWrapClassName] - Classes to pass to the inner content wrapper.
  * @param {string} [props.labelClassName] - Classes to pass to the label.
  * @param {string} [props.headerClassName] - Classes to pass to the header (label + trigger).
  * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display in the panel header, left of the expand button.
@@ -48,6 +49,7 @@ export const Expandable = (props) => {
 		className,
 		labelClassName,
 		contentClassName,
+		contentWrapClassName,
 		headerClassName,
 
 		actions,
@@ -183,7 +185,7 @@ export const Expandable = (props) => {
 					contentClassName,
 				)}
 			>
-				<div className='es:space-y-1 es:px-3 es:py-3.5'>{children}</div>
+				<div className={clsx('es:flex es:flex-col es:gap-2.5 es:px-3 es:py-3.5', contentWrapClassName)}>{children}</div>
 			</DisclosurePanel>
 		</Disclosure>
 	);

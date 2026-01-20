@@ -258,6 +258,8 @@ function App() {
 
 	const [tabVar, setTabVar] = useState('underline');
 
+	const [draggableLayout, setDraggableLayout] = useState('grid');
+
 	const [cpOpen, setCpOpen] = useState(false);
 
 	const groupedOptions = [
@@ -560,100 +562,39 @@ function App() {
 	const [colConfig5, setColConfig5] = useState([2, 4]);
 
 	return (
-		<div className='es:font-sans es:flex es:min-h-screen es:flex-col es:items-center es:justify-center es:overscroll-contain es:bg-neutral-100 es:p-1'>
-			<OptionSelect
-				label='Control theme'
-				value={controlTheme}
-				onChange={(value) => {
-					document.documentElement.classList.remove(`es-uic-theme-${controlTheme}`);
+		<div className='es:flex es:flex-col es:items-center es:justify-center es:overscroll-none es:p-10'>
+			<TriggeredPopover
+				triggerButtonIcon={icons.options}
+				triggerButtonProps={{ className: 'es:absolute es:top-4 es:right-4' }}
+				className='es:p-4'
+			>
+				<OptionSelect
+					label='Control theme'
+					value={controlTheme}
+					onChange={(value) => {
+						document.documentElement.classList.remove(`es-uic-theme-${controlTheme}`);
 
-					setControlTheme(value);
-					document.documentElement.classList.add(`es-uic-theme-${value}`);
-				}}
-				options={[
-					{ value: 'default', label: 'Default' },
-					{ value: 'green', label: 'Green' },
-					{ value: 'blue', label: 'Blue' },
-					{ value: 'orange', label: 'Orange' },
-					{ value: 'purple', label: 'Purple' },
-					{ value: 'mono', label: 'Monochrome' },
-				]}
-				className='es:my-5'
-				inline
-			/>
-
-			<div className='es:mx-auto es:flex es:w-90 es:flex-col es:items-center es:justify-center es:gap-2.5 es:p-10 es:empty:hidden'>
-				<Repeater
-					items={repeaterItems}
-					onChange={setRepeaterItems}
-					itemLabelProp='title'
-					label='Hello'
-					addDefaultItem={{
-						title: 'Hello',
+						setControlTheme(value);
+						document.documentElement.classList.add(`es-uic-theme-${value}`);
 					}}
-					onAfterItemAdd={(item) => console.log('Added', item)}
-					onAfterItemRemove={(items) => console.log('Removed', items)}
-				>
-					{(item) => {
-						const { title, subtitle, toggledThingy, link, updateData } = item;
+					options={[
+						{ value: 'default', label: 'Default' },
+						{ value: 'green', label: 'Green' },
+						{ value: 'blue', label: 'Blue' },
+						{ value: 'orange', label: 'Orange' },
+						{ value: 'purple', label: 'Purple' },
+						{ value: 'mono', label: 'Monochrome' },
+					]}
+					inline
+				/>
+			</TriggeredPopover>
 
-						return (
-							<RepeaterItem
-								label={title ?? 'New item'}
-								icon={icons.emptyCircle}
-								className={clsx(!title && 'es:text-secondary-400!')}
-								menuOptions={
-									<MenuItem
-										onClick={() => {
-											const name = prompt('Name', title);
-
-											if (name) {
-												updateData({ title: name });
-											}
-										}}
-									>
-										Rename
-									</MenuItem>
-								}
-							>
-								<InputField
-									label='Title'
-									type='text'
-									value={title}
-									onChange={(value) => updateData({ title: value })}
-								/>
-								<InputField
-									label='Subtitle'
-									type='multiline'
-									value={subtitle}
-									onChange={(value) => updateData({ subtitle: value })}
-								/>
-
-								<Toggle
-									icon={icons.emptyCircle}
-									label='Toggle something'
-									checked={toggledThingy}
-									onChange={(value) => updateData({ toggledThingy: value })}
-								/>
-
-								<LinkInput
-									url={link}
-									help='Help, not sure how to input this'
-									onChange={({ url }) => updateData({ link: url })}
-									fetchSuggestions={getLinkData}
-								/>
-							</RepeaterItem>
-						);
-					}}
-				</Repeater>
-
-				<pre>{JSON.stringify(repeaterItems, null, 2)}</pre>
-			</div>
+			<div className='es:mx-auto es:flex es:w-90 es:flex-col es:items-center es:justify-center es:gap-2.5 es:p-10 es:empty:hidden'></div>
 
 			<Tabs
 				vertical
 				type='bubble'
-				className='es:self-start es:m-5'
+				className='es:self-start'
 				onSelectionChange={(key) => {
 					const url = new URL(window.location);
 					url.searchParams.set('tab', key);
@@ -4235,17 +4176,34 @@ function App() {
 					</MediaPlaceholder>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+					<OptionSelect
+						value={draggableLayout}
+						onChange={setDraggableLayout}
+						options={[
+							{ label: 'Grid', value: 'grid' },
+							{ label: 'Horizontal', value: 'horizontal' },
+							{ label: 'Vertical', value: 'vertical' },
+						]}
+						label='Layout'
+						inline
+					/>
+
 					<Draggable
 						items={draggableItems}
 						onChange={setDraggableItems}
-						className='es:grid es:auto-rows-auto es:grid-cols-3 es:gap-1'
+						className={clsx(
+							draggableLayout === 'grid' && 'es:grid es:auto-rows-auto es:grid-cols-3 es:gap-1',
+							draggableLayout === 'horizontal' && 'es:flex es:gap-1',
+							draggableLayout === 'vertical' && 'es:flex es:flex-col es:gap-1',
+						)}
 						onAfterItemRemove={(item) => console.log('Removed item:', item)}
+						axis={draggableLayout === 'grid' ? 'both' : draggableLayout}
 					>
 						{(item) => {
 							const { toggle, title, updateData, deleteItem } = item;
 
 							return (
-								<div className='es:relative es:size-full es:rounded es:border es:bg-white es:p-2'>
+								<div className='es:relative es:size-full es:rounded-lg es:border es:border-secondary-200 es:bg-secondary-50 es:p-2 es:flex es:flex-col es:gap-2'>
 									<DraggableHandle className='es:absolute es:right-1 es:top-1' />
 									<p>{title}</p>
 									<Switch
@@ -4253,11 +4211,19 @@ function App() {
 										checked={toggle}
 										onChange={(value) => updateData({ toggle: value })}
 									/>
-									<Button onPress={deleteItem}>Del</Button>
+									<Button
+										onPress={deleteItem}
+										icon={icons.trash}
+										size='small'
+										type='dangerSimple'
+										className='es:mt-auto'
+									/>
 								</div>
 							);
 						}}
 					</Draggable>
+
+					<pre className='es:w-xs es:overflow-clip'>{JSON.stringify(draggableItems, null, 2)}</pre>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<DraggableList
