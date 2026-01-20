@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [6.0.11] - 2026-01-20
+- Optimized `Draggable` reordering logic and improved performance.
+
 ## [6.0.10] - 2026-01-20
 - Removed legacy ReactDND dependencies.
 - Fixed issue with `Draggable`.
@@ -554,6 +557,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[6.0.11]: https://github.com/infinum/eightshift-ui-components/compare/6.0.10...6.0.11
 [6.0.10]: https://github.com/infinum/eightshift-ui-components/compare/6.0.9...6.0.10
 [6.0.9]: https://github.com/infinum/eightshift-ui-components/compare/6.0.8...6.0.9
 [6.0.8]: https://github.com/infinum/eightshift-ui-components/compare/6.0.6...6.0.8
