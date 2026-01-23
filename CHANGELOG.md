@@ -5,6 +5,8 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 ## [6.0.12] - 2026-01-23
 - Added 6 UI icons.
+- Fixed default item size in `ResponsiveLegacy`.
+- `Slider` now shows a tooltip when you hover a slider thumb.
 
 ## [6.0.11] - 2026-01-20
 - Optimized `Draggable` reordering logic and improved performance.
