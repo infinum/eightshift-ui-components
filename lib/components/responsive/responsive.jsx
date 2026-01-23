@@ -374,7 +374,7 @@ export const Responsive = (props) => {
 					visible={detailsVisible}
 				>
 					<DefaultTooltip />
-					<div className='es:col-start-2 es:col-end-2'>
+					<div className='es:col-start-2 es:col-end-2 es:w-full'>
 						{children({
 							breakpoint: '_default',
 							currentValue: value?.['_default'],
