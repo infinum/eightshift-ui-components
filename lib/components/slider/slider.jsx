@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
 	Slider as ReactAriaSlider,
 	SliderOutput as ReactAriaSliderOutput,
@@ -109,6 +110,8 @@ export const Slider = (props) => {
 
 		...other
 	} = props;
+
+	const [hoveredThumbs, setHoveredThumbs] = useState([]);
 
 	if (hidden) {
 		return null;
@@ -303,6 +306,8 @@ export const Slider = (props) => {
 											<ReactAriaSliderThumb
 												key={i}
 												index={i}
+												onHoverStart={() => setHoveredThumbs((prev) => [...prev, i])}
+												onHoverEnd={() => setHoveredThumbs((prev) => prev.filter((val) => val !== i))}
 												aria-label={thumbLabels?.[i]}
 												className={clsx(
 													!vertical && ['es:h-10 es:w-0.75', 'es:row-1'],
@@ -329,7 +334,7 @@ export const Slider = (props) => {
 												{thumbContent && thumbContent(i)}
 
 												<AnimatePresence>
-													{i === state.focusedThumb && (
+													{(state.focusedThumb === i || hoveredThumbs.includes(i)) && (
 														<motion.div
 															className={clsx(
 																'es:absolute es:text-nowrap es:w-fit es:min-w-5 es:h-6',

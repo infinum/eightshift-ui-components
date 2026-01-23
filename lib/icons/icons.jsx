@@ -5233,6 +5233,48 @@ export const icons = {
 			<path d='M10 19v-2m-9-7h2m13.367 6.367-1.414-1.414m-11.32 1.414 1.414-1.414M10 3V1m7 9h2M5.047 5.047 3.633 3.633m11.32 1.414 1.414-1.414M10 17v-1.555M3 10h1.555m10.396 4.951-1.1-1.1m-8.803 1.1 1.1-1.1M10 4.556V3m5.444 7H17M6.147 6.147l-1.1-1.1m8.806 1.1 1.1-1.1' stroke='currentColor' strokeLinecap='round' fill='none' />
 		</svg>
 	),
+	verticalAlignAround: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect x='2.75' y='3' width='4.5' height='14' rx='1.5' fill='currentColor' fillOpacity='0.5' />
+			<rect x='12.75' y='3' width='4.5' height='14' rx='1.5' fill='currentColor' fillOpacity='0.5' />
+			<path d='M1 1h18M1 19h18' stroke='currentColor' strokeLinecap='round' fill='none' />
+		</svg>
+	),
+	verticalAlignEvenly: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect x='3.75' y='3' width='4.5' height='14' rx='1.5' fill='currentColor' fillOpacity='0.5' />
+			<rect x='11.75' y='3' width='4.5' height='14' rx='1.5' fill='currentColor' fillOpacity='0.5' />
+			<path d='M1 1h18M1 19h18' stroke='currentColor' strokeLinecap='round' fill='none' />
+		</svg>
+	),
+	verticalAlignBetween: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect x='0.75' y='3' width='4.5' height='14' rx='1.5' fill='currentColor' fillOpacity='0.5' />
+			<rect x='14.75' y='3' width='4.5' height='14' rx='1.5' fill='currentColor' fillOpacity='0.5' />
+			<path d='M1 1h18M1 19h18' stroke='currentColor' strokeLinecap='round' fill='none' />
+		</svg>
+	),
+	horizontalAlignAround: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect width='4.5' height='14' rx='1.5' transform='matrix(0 1 1 0 3 2.75)' fill='currentColor' fillOpacity='0.5' />
+			<rect width='4.5' height='14' rx='1.5' transform='matrix(0 1 1 0 3 12.75)' fill='currentColor' fillOpacity='0.5' />
+			<path d='M1 1v18M19 1v18' stroke='currentColor' strokeLinecap='round' fill='none' />
+		</svg>
+	),
+	horizontalAlignEvenly: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect width='4.5' height='14' rx='1.5' transform='matrix(0 1 1 0 3 3.75)' fill='currentColor' fillOpacity='0.5' />
+			<rect width='4.5' height='14' rx='1.5' transform='matrix(0 1 1 0 3 11.75)' fill='currentColor' fillOpacity='0.5' />
+			<path d='M1 1v18M19 1v18' stroke='currentColor' strokeLinecap='round' fill='none' />
+		</svg>
+	),
+	horizontalAlignBetween: (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect width='4.5' height='14' rx='1.5' transform='matrix(0 1 1 0 3 .75)' fill='currentColor' fillOpacity='0.5' />
+			<rect width='4.5' height='14' rx='1.5' transform='matrix(0 1 1 0 3 14.75)' fill='currentColor' fillOpacity='0.5' />
+			<path d='M1 1v18M19 1v18' stroke='currentColor' strokeLinecap='round' fill='none' />
+		</svg>
+	),
 };
 
 /**

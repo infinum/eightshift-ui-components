@@ -239,7 +239,7 @@ export const ResponsiveLegacy = (props) => {
 					visible={detailsVisible}
 				>
 					<DefaultTooltip />
-					<div className='es:col-start-2 es:col-end-2'>
+					<div className='es:col-start-2 es:col-end-2 es:w-full'>
 						{children({
 							breakpoint: defaultBreakpoint,
 							currentValue: value?.[attribute[defaultBreakpoint]],
