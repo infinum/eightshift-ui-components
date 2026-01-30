@@ -122,6 +122,8 @@ export const Menu = (props) => {
 
 	const hasSubmenuItems = Array.isArray(children) ? children.some((child) => child?.type?.displayName === 'SubMenuItem') : children?.type?.displayName === 'SubMenuItem';
 
+	let { className: popoverClassName, wrapperClassName: popoverWrapperClassName, ...otherPopoverProps } = popoverProps || {};
+
 	return (
 		<MenuTrigger
 			{...props}
@@ -139,11 +141,11 @@ export const Menu = (props) => {
 				aria-label={ariaLabel}
 				popoverProps={{
 					maxHeight: Math.max(240, window.innerHeight * 0.42),
-					...popoverProps,
+					...otherPopoverProps,
 				}}
-				{...popoverProps}
-				className={clsx('es:p-1.5 es:any-focus:outline-hidden', !manualWidth && 'es:w-56', manualWidth && 'es:max-w-80', popoverProps?.className)}
-				wrapperClassName={clsx(!hasSubmenuItems && 'es:overflow-y-auto', popoverProps?.wrapperClassName)}
+				{...otherPopoverProps}
+				className={clsx('es:p-1.5 es:any-focus:outline-hidden', !manualWidth && 'es:w-56', manualWidth && 'es:max-w-80', popoverClassName)}
+				wrapperClassName={clsx(!hasSubmenuItems && 'es:overflow-y-auto', popoverWrapperClassName)}
 			>
 				<ReactAriaMenu
 					className='es:outline-hidden'
