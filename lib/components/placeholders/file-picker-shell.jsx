@@ -91,13 +91,14 @@ export const FilePickerShell = (props) => {
 		<SmartImage
 			src={url}
 			alt=''
-			className={({ hasAnalysed, isTransparent, transparencyInfo }) =>
+			className={({ hasAnalysed, isTransparent, transparencyInfo, isDark }) =>
 				clsx(
 					hasAnalysed && transparencyInfo?.left && url && 'es:pl-3',
 					hasAnalysed && transparencyInfo?.right && url && 'es:pr-3',
 					hasAnalysed && transparencyInfo?.top && url && 'es:pt-3',
 					hasAnalysed && transparencyInfo?.bottom && url && 'es:pb-3',
-					hasAnalysed && isTransparent && 'es:bg-white/60 es:object-contain es:mx-auto',
+					hasAnalysed && isTransparent && isDark && 'es:bg-white/60 es:object-contain es:mx-auto',
+					hasAnalysed && isTransparent && !isDark && 'es:bg-black/60 es:object-contain es:mx-auto',
 					hasAnalysed && isTransparent && (transparencyInfo?.left || transparencyInfo?.right) && 'es:w-full!',
 					hasAnalysed && isTransparent && (transparencyInfo?.top || transparencyInfo?.bottom) && 'es:h-full!',
 					hasAnalysed && !isTransparent && 'es:w-full! es:aspect-3-2 es:object-cover',
