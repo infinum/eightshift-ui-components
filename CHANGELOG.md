@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [6.0.13] - 2026-02-06
+- Updated dependencies.
+- Added prefixing for internal TailwindCSS variables (--tw-*) to prevent conflicts with other Tailwind installs.
+
 ## [6.0.12] - 2026-01-30
 - Added 6 UI icons.
 - Fixed default item size in `ResponsiveLegacy`.
@@ -563,6 +567,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[6.0.13]: https://github.com/infinum/eightshift-ui-components/compare/6.0.12...6.0.13
 [6.0.12]: https://github.com/infinum/eightshift-ui-components/compare/6.0.11...6.0.12
 [6.0.11]: https://github.com/infinum/eightshift-ui-components/compare/6.0.10...6.0.11
 [6.0.10]: https://github.com/infinum/eightshift-ui-components/compare/6.0.9...6.0.10
