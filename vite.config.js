@@ -5,11 +5,12 @@ import { fileURLToPath } from 'node:url';
 import { glob } from 'glob';
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
 import tailwindcss from '@tailwindcss/vite';
+import tw4Prefixer from './postcss-tw4-prefixer';
 
 /** @type {import('vite').UserConfig} */
 export default defineConfig(() => {
 	return {
-		plugins: [react(), libInjectCss(), tailwindcss()],
+		plugins: [react(), libInjectCss(), tailwindcss(), tw4Prefixer()],
 		build: {
 			copyPublicDir: true,
 			lib: {
