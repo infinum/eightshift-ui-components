@@ -5,6 +5,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 ## [6.0.13] - 2026-02-06
 - Updated dependencies.
+- Improved `FilePickerShell` display with transparent images that are light.
 - Added prefixing for internal TailwindCSS variables (--tw-*) to prevent conflicts with other Tailwind installs.
 
 ## [6.0.12] - 2026-01-30
