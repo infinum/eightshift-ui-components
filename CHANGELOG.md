@@ -7,7 +7,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 - Updated dependencies.
 - Fixed input fields being overriden in Gutenberg in a couple of cases.
-- Fixed `NumberPicker` with calculation.
+- Fixed `NumberPicker` input padding being overriden in Gutenberg in a couple of cases.
 
 ## [6.0.13] - 2026-02-06
 - Updated dependencies.
