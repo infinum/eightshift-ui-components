@@ -123,7 +123,7 @@ export const LinkInput = (props) => {
 			'es:text-13! es:leading-none',
 			'es:w-fill',
 			'es:border-none!',
-			'es:rounded-lg es:focus:rounded-xl es:aria-[controls]:rounded-xl',
+			'es:rounded-lg! es:focus:rounded-xl! es:aria-[controls]:rounded-xl!',
 			'es:transition-plus',
 			'es:any-focus:outline-hidden',
 			'es:inset-ring!',

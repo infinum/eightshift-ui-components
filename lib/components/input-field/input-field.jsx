@@ -70,7 +70,7 @@ export const InputField = (props) => {
 			'es:leading-none',
 			'es:border-none!',
 			'es:w-fill',
-			'es:rounded-lg es:focus:rounded-xl',
+			'es:rounded-lg! es:focus:rounded-xl!',
 			'es:transition-plus',
 			'es:any-focus:outline-hidden',
 			'es:inset-ring',
