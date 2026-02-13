@@ -293,7 +293,7 @@ export const __SmartImageNext = (props) => {
 
 	const hasAnalysed = Boolean(analysis) && Boolean(objectUrl);
 
-	const { dominantColors, isDark, isTransparent, transparencyInfo } = analysis || {};
+	const { dominantColors, isDark, isTransparent, transparencyInfo, averageColor } = analysis || {};
 
 	const classFetchProps = {
 		isLoaded: true,
@@ -302,12 +302,15 @@ export const __SmartImageNext = (props) => {
 		hasAnalysed: Boolean(error) || hasAnalysed,
 		isTransparent: isTransparent,
 		transparencyInfo,
+		averageColor,
 		hasError: error === 'failedToFetch',
 	};
 
 	if (hidden) {
 		return null;
 	}
+
+	const colorfulDominantColor = dominantColors?.find((c) => c.saturation > 0.25 && c.area >= 0.1) || dominantColors?.[0];
 
 	const imageElement = (
 		<img
@@ -317,6 +320,8 @@ export const __SmartImageNext = (props) => {
 			style={{
 				...(imageProps.style || {}),
 				'--es-img-dominant-color': dominantColors?.[0]?.color ?? '',
+				'--es-img-colorful-dominant-color': colorfulDominantColor?.color ?? '',
+				'--es-img-average-color': averageColor?.color ?? '',
 			}}
 			className={clsx(
 				'es:transition-opacity',
