@@ -141,8 +141,6 @@ export const __SmartImageNext = (props) => {
 					if (verbose) {
 						console.error(`[SmartImageNext]: Failed to fetch (${response.status}) image from ${src}`);
 					}
-
-					// throw new Error(`Fetch failed: ${response.status}`);
 				}
 
 				const blob = await response.clone().blob();
@@ -151,8 +149,6 @@ export const __SmartImageNext = (props) => {
 					if (verbose) {
 						console.error(`[SmartImageNext]: Empty image (${src})`);
 					}
-
-					// throw new Error('Image is empty.');
 				}
 
 				// Create Object URL for display
