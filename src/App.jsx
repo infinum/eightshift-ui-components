@@ -66,6 +66,7 @@ import {
 	OptionsPanelIntro,
 	FilePickerShell,
 	SmartImage,
+	__SmartImageNext,
 	Container,
 	ContainerGroup,
 } from '../lib';
@@ -85,6 +86,66 @@ const slugify = (input) => {
 		.replace(/^-+/, '')
 		.replace(/-+$/, '');
 };
+
+const FilePickerShellDemo = ({ url, ...rest }) => (
+	<FilePickerShell
+		className='es:w-full'
+		// url='https://picsum.photos/600/400.jpg'
+		url={url}
+		noUrlContent={<Button size='large'>Upload</Button>}
+		type='image'
+		{...rest}
+	>
+		{({ isDark, dominantColors, isTransparent, hasError }) => {
+			let buttonType = 'default';
+
+			if (!isTransparent && !hasError) {
+				buttonType = isDark ? 'glass' : 'glassDark';
+			}
+
+			return (
+				<>
+					<Button
+						className='es:grow'
+						type={buttonType}
+					>
+						Replace
+					</Button>
+					<Button
+						className='es:grow'
+						type={buttonType}
+					>
+						Remove
+					</Button>
+
+					<TriggeredPopover
+						triggerButtonIcon={icons.info}
+						triggerButtonProps={{ type: buttonType }}
+						hidden={hasError}
+					>
+						<ul className='es:flex es:items-center es:justify-center es:gap-2 es:p-2'>
+							<li
+								className='es:flex es:px-2 es:py-0.5 es:items-center es:justify-center es:rounded-sm es:border es:border-dotted es:border-secondary-300'
+								style={{ backgroundColor: isDark ? '#000' : '#fff' }}
+							>
+								<span className={clsx('es:text-xs es:font-mono es:font-medium', isDark ? 'es:text-white' : 'es:text-black')}>{isDark ? 'dark' : 'light'}</span>
+							</li>
+							{dominantColors?.map(({ color, area, isDark }, index) => (
+								<li
+									key={index}
+									className='es:flex es:px-1 es:py-0.5 es:items-center es:justify-center es:rounded-sm es:border es:border-dotted es:border-secondary-300'
+									style={{ backgroundColor: color }}
+								>
+									<span className={clsx('es:text-xs es:font-mono es:font-medium', isDark ? 'es:text-white' : 'es:text-black')}>{(area * 100).toFixed(2)}%</span>
+								</li>
+							))}
+						</ul>
+					</TriggeredPopover>
+				</>
+			);
+		}}
+	</FilePickerShell>
+);
 
 function App() {
 	const [controlTheme, setControlTheme] = useState('default');
@@ -560,6 +621,10 @@ function App() {
 	const [colConfig3, setColConfig3] = useState([2, 4]);
 	const [colConfig4, setColConfig4] = useState([2, 4]);
 	const [colConfig5, setColConfig5] = useState([2, 4]);
+
+	const [useSmImgNext, setUseSmImgNext] = useState(false);
+
+	const SmartImageToRender = useSmImgNext ? __SmartImageNext : SmartImage;
 
 	return (
 		<div className='es:flex es:flex-col es:items-center es:justify-center es:overscroll-none es:p-10'>
@@ -4732,191 +4797,82 @@ function App() {
 						url='myfile.json'
 						noUrlContent={<Button size='large'>Upload</Button>}
 					>
-						<Button
-							type='simple'
-							className='es:grow'
-						>
-							Replace
-						</Button>
-						<Button
-							type='simple'
-							className='es:grow'
-						>
-							Remove
-						</Button>
+						<Button className='es:grow'>Replace</Button>
+						<Button className='es:grow'>Remove</Button>
 					</FilePickerShell>
 
-					<FilePickerShell
-						className='es:w-full'
-						// url='https://picsum.photos/600/400.jpg'
+					<Checkbox
+						icon={icons.magicAlt}
+						label='Use new SmartImage'
+						checked={useSmImgNext}
+						onChange={setUseSmImgNext}
+					/>
+
+					<FilePickerShellDemo
+						__useSmartImageNext={useSmImgNext}
+						url='https://lorem.testsum/test.png'
+					/>
+
+					<FilePickerShellDemo
+						__useSmartImageNext={useSmImgNext}
 						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg'
-						noUrlContent={<Button size='large'>Upload</Button>}
-						type='image'
-					>
-						{({ isDark, dominantColors, isTransparent }) => {
-							let buttonType = 'simple';
+					/>
 
-							if (!isTransparent) {
-								buttonType = isDark ? 'glass' : 'glassDark';
-							}
+					<FilePickerShellDemo
+						__useSmartImageNext={useSmImgNext}
+						url='https://picsum.photos/600/400.jpg'
+					/>
 
-							return (
-								<>
-									<Button
-										className='es:grow'
-										type={buttonType}
-									>
-										Replace
-									</Button>
-									<Button
-										className='es:grow'
-										type={buttonType}
-									>
-										Remove
-									</Button>
+					<FilePickerShellDemo
+						__useSmartImageNext={useSmImgNext}
+						url='https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Wikimedia_Commons_logo_white.png/500px-Wikimedia_Commons_logo_white.png'
+					/>
 
-									<TriggeredPopover
-										triggerButtonIcon={icons.info}
-										triggerButtonProps={{ type: buttonType }}
-									>
-										<ul className='es:flex es:items-center es:justify-center es:gap-2 es:p-2'>
-											<li
-												className='es:flex es:px-2 es:py-0.5 es:items-center es:justify-center es:rounded-sm es:border es:border-dotted es:border-secondary-300'
-												style={{ backgroundColor: isDark ? '#000' : '#fff' }}
-											>
-												<span className={clsx('es:text-xs es:font-mono es:font-medium', isDark ? 'es:text-white' : 'es:text-black')}>{isDark ? 'dark' : 'light'}</span>
-											</li>
-											{dominantColors?.map(({ color, area, isDark }, index) => (
-												<li
-													key={index}
-													className='es:flex es:px-1 es:py-0.5 es:items-center es:justify-center es:rounded-sm es:border es:border-dotted es:border-secondary-300'
-													style={{ backgroundColor: color }}
-												>
-													<span className={clsx('es:text-xs es:font-mono es:font-medium', isDark ? 'es:text-white' : 'es:text-black')}>{(area * 100).toFixed(2)}%</span>
-												</li>
-											))}
-										</ul>
-									</TriggeredPopover>
-								</>
-							);
-						}}
-					</FilePickerShell>
-
-					<FilePickerShell
-						className='es:w-full'
-						// url='https://picsum.photos/600/400.jpg'
+					<FilePickerShellDemo
+						__useSmartImageNext={useSmImgNext}
 						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg'
-						noUrlContent={<Button size='large'>Upload</Button>}
-						type='image'
-						analysisData={{
-							isDark: false,
-							isTransparent: false,
-							transparencyInfo: {
-								any: false,
-								left: false,
-								right: false,
-								top: false,
-								bottom: false,
-							},
-							dominantColors: [
-								{
-									color: '#e64f63',
-									area: 0.42140625,
-									isDark: true,
-								},
-								{
-									color: '#6bc754',
-									area: 0.292265625,
-									isDark: false,
-								},
-								{
-									color: '#de9ede',
-									area: 0.286328125,
-									isDark: false,
-								},
-							],
-						}}
-					>
-						{({ isDark, dominantColors, isTransparent }) => {
-							let buttonType = 'default';
+					/>
 
-							if (!isTransparent) {
-								buttonType = isDark ? 'glass' : 'glassDark';
-							}
+					<FilePickerShellDemo
+						__useSmartImageNext={useSmImgNext}
+						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-normal-map.jpg'
+					/>
+					<FilePickerShellDemo
+						__useSmartImageNext={useSmImgNext}
+						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-sorting.png'
+					/>
 
-							return (
-								<>
-									<Button
-										className='es:grow'
-										type={buttonType}
-									>
-										Replace
-									</Button>
-									<Button
-										className='es:grow'
-										type={buttonType}
-									>
-										Remove
-									</Button>
+					<FilePickerShellDemo
+						__useSmartImageNext={useSmImgNext}
+						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/poisson-image.avif'
+					/>
+					<FilePickerShellDemo
+						__useSmartImageNext={useSmImgNext}
+						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/unbiased-normals.png'
+					/>
 
-									<TriggeredPopover
-										triggerButtonIcon={icons.info}
-										triggerButtonProps={{ type: buttonType }}
-									>
-										<ul className='es:flex es:items-center es:justify-center es:gap-2 es:p-2'>
-											<li
-												className='es:flex es:px-2 es:py-0.5 es:items-center es:justify-center es:rounded-sm es:border es:border-dotted es:border-secondary-300'
-												style={{ backgroundColor: isDark ? '#000' : '#fff' }}
-											>
-												<span className={clsx('es:text-xs es:font-mono es:font-medium', isDark ? 'es:text-white' : 'es:text-black')}>{isDark ? 'dark' : 'light'}</span>
-											</li>
-											{dominantColors?.map(({ color, area, isDark }, index) => (
-												<li
-													key={index}
-													className='es:flex es:px-1 es:py-0.5 es:items-center es:justify-center es:rounded-sm es:border es:border-dotted es:border-secondary-300'
-													style={{ backgroundColor: color }}
-												>
-													<span className={clsx('es:text-xs es:font-mono es:font-medium', isDark ? 'es:text-white' : 'es:text-black')}>{(area * 100).toFixed(2)}%</span>
-												</li>
-											))}
-										</ul>
-									</TriggeredPopover>
-								</>
-							);
-						}}
-					</FilePickerShell>
+					<FilePickerShellDemo
+						__useSmartImageNext={useSmImgNext}
+						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ascii-raymarch.jpg'
+					/>
+					<FilePickerShellDemo
+						__useSmartImageNext={useSmImgNext}
+						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/geom-extra-hiccup.jpg'
+					/>
 
-					<FilePickerShell
-						className='es:w-full'
-						url='https://example.com/fakeimage.jpg'
-						noUrlContent={<Button size='large'>Upload</Button>}
-						type='image'
-					>
-						{({ isDark, hasError }) => {
-							let buttonType = 'default';
+					<FilePickerShellDemo
+						__useSmartImageNext={useSmImgNext}
+						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/bitmap-font.gif'
+					/>
+					<FilePickerShellDemo
+						__useSmartImageNext={useSmImgNext}
+						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ellipse-proximity.png'
+					/>
 
-							if (!hasError) {
-								buttonType = isDark ? 'glass' : 'glassDark';
-							}
-
-							return (
-								<>
-									<Button
-										className='es:grow'
-										type={buttonType}
-									>
-										Replace
-									</Button>
-									<Button
-										className='es:grow'
-										type={buttonType}
-									>
-										Remove
-									</Button>
-								</>
-							);
-						}}
-					</FilePickerShell>
+					<FilePickerShellDemo
+						__useSmartImageNext={useSmImgNext}
+						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/banners/thing-rdom.svg'
+					/>
 
 					<FilePickerShell
 						className='es:w-full'
@@ -4931,49 +4887,111 @@ function App() {
 					/>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					<SmartImage
+					<Checkbox
+						icon={icons.magicAlt}
+						label='Use new SmartImage'
+						checked={useSmImgNext}
+						onChange={setUseSmImgNext}
+					/>
+
+					<SmartImageToRender
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg'
-						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+						className={({ isDark }) =>
+							clsx(
+								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
+							)
+						}
 					/>
-					<SmartImage
+					<SmartImageToRender
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-normal-map.jpg'
-						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+						className={({ isDark }) =>
+							clsx(
+								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
+							)
+						}
 					/>
-					<SmartImage
+					<SmartImageToRender
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-sorting.png'
-						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+						className={({ isDark }) =>
+							clsx(
+								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
+							)
+						}
 					/>
-					<SmartImage
+					<SmartImageToRender
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/poisson-image.avif'
-						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+						className={({ isDark }) =>
+							clsx(
+								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
+							)
+						}
 					/>
-					<SmartImage
+					<SmartImageToRender
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/unbiased-normals.png'
-						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+						className={({ isDark }) =>
+							clsx(
+								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
+							)
+						}
 					/>
-					<SmartImage
+					<SmartImageToRender
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ascii-raymarch.jpg'
-						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+						className={({ isDark }) =>
+							clsx(
+								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
+							)
+						}
 					/>
-					<SmartImage
+					<SmartImageToRender
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/geom-extra-hiccup.jpg'
-						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+						className={({ isDark }) =>
+							clsx(
+								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
+							)
+						}
 					/>
-					<SmartImage
+					<SmartImageToRender
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/bitmap-font.gif'
-						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+						className={({ isDark }) =>
+							clsx(
+								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
+							)
+						}
 					/>
-					<SmartImage
+					<SmartImageToRender
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ellipse-proximity.png'
-						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+						className={({ isDark }) =>
+							clsx(
+								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
+							)
+						}
 					/>
-					<SmartImage
+					<SmartImageToRender
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/banners/thing-rdom.svg'
-						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+						className={({ isDark }) =>
+							clsx(
+								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
+							)
+						}
 					/>
-					<SmartImage
+					<SmartImageToRender
 						src=''
-						className={({ isDark }) => clsx('es:p-4 es:bg-(--es-img-dominant-color) es:border-4 es:rounded-xl', isDark ? 'es:border-secondary-100' : 'es:border-secondar-800')}
+						className={({ isDark }) =>
+							clsx(
+								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
+							)
+						}
 					/>
 				</TabPanel>
 			</Tabs>
