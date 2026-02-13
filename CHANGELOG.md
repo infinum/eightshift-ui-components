@@ -3,11 +3,12 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [6.1.0] - 2026-02-
+## [6.1.0] - 2026-02-13
 
 - Updated dependencies.
 - Fixed input fields being overriden in Gutenberg in a couple of cases.
 - Fixed `NumberPicker` input padding being overriden in Gutenberg in a couple of cases.
+- Added `__SmartImageNext`, a future replacement for the existing `SmartImage` component. Currently in test phase. Can be enabled in `FilePickerShell` with the `__useSmartImageNext` prop.
 
 ## [6.0.13] - 2026-02-06
 - Updated dependencies.
