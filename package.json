@@ -62,7 +62,7 @@
 		"@thi.ng/pixel": "^7.5.22",
 		"@thi.ng/pixel-analysis": "^2.0.24",
 		"@thi.ng/pixel-dominant-colors": "^2.0.28",
-		"@types/react": "^18.3.27",
+		"@types/react": "^18.3.28",
 		"@types/react-dom": "^18.3.7",
 		"@vitejs/plugin-react-swc": "^4.2.3",
 		"@wordpress/i18n": "^6.12.0",
@@ -103,6 +103,6 @@
 	"dependencies": {
 		"@fontsource-variable/geist-mono": "^5.2.7",
 		"@fontsource-variable/roboto-flex": "^5.2.8",
-		"motion": "^12.31.0"
+		"motion": "^12.31.2"
 	}
 }
