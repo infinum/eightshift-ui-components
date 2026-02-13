@@ -2,6 +2,7 @@ import { clsx } from 'clsx';
 import { icons } from '../../icons';
 import { truncateMiddle } from '../../utilities';
 import { SmartImage } from '../smart-image/smart-image';
+import { __SmartImageNext } from '../smart-image/smart-image-next';
 
 /**
  * A shell for a file picker UI, handling both rich visual presentation (e.g. images) and simple file placeholders.
@@ -55,6 +56,8 @@ export const FilePickerShell = (props) => {
 
 		hidden,
 
+		__useSmartImageNext = false,
+
 		...rest
 	} = props;
 
@@ -71,12 +74,12 @@ export const FilePickerShell = (props) => {
 			<div
 				{...rest}
 				className={clsx(
-					'es:border es:border-surface-200 es:bg-white es:bg-linear-to-br es:from-surface-50/5 es:to-surface-50/30 es:flex es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-2 es:overflow-clip es:group es:p-2',
+					'es:border es:border-surface-200 es:bg-surface-50 es:flex es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-2 es:overflow-clip es:group es:p-2',
 					className,
 				)}
 			>
 				{type === 'file' && (
-					<div className='es:grow es:flex es:flex-col es:gap-2 es:text-sm es:items-center-safe es:justify-center-safe es:font-mono es:icon:size-6 es:rounded-xl es:bg-surface-50 es:inset-ring es:inset-ring-surface-100 es:icon:text-surface-500 es:text-surface-700 es:p-2'>
+					<div className='es:grow es:flex es:flex-col es:gap-2 es:text-sm es:items-center-safe es:justify-center-safe es:font-mono es:icon:size-6 es:rounded-xl es:bg-white/50 es:inset-ring es:inset-ring-surface-100 es:icon:text-surface-500 es:text-surface-700 es:px-2 es:py-4'>
 						{icon}
 						<span className='es:line-clamp-1'>{truncateMiddle(url, 34)}</span>
 					</div>
@@ -87,65 +90,70 @@ export const FilePickerShell = (props) => {
 		);
 	}
 
+	const ComponentToRender = __useSmartImageNext ? __SmartImageNext : SmartImage;
+
 	return (
-		<SmartImage
+		<ComponentToRender
 			src={url}
 			alt=''
-			className={({ hasAnalysed, isTransparent, transparencyInfo, isDark }) =>
+			className={({ hasAnalysed, isTransparent, transparencyInfo, isDark, hasError }) =>
 				clsx(
-					hasAnalysed && transparencyInfo?.left && url && 'es:pl-3',
-					hasAnalysed && transparencyInfo?.right && url && 'es:pr-3',
-					hasAnalysed && transparencyInfo?.top && url && 'es:pt-3',
-					hasAnalysed && transparencyInfo?.bottom && url && 'es:pb-3',
-					hasAnalysed && isTransparent && isDark && 'es:bg-white/60 es:object-contain es:mx-auto',
-					hasAnalysed && isTransparent && !isDark && 'es:bg-black/60 es:object-contain es:mx-auto',
+					hasAnalysed && isTransparent && url && 'es:p-4',
+					hasAnalysed && isTransparent && isDark && 'es:object-contain es:mx-auto',
+					hasAnalysed && isTransparent && !isDark && 'es:object-contain es:mx-auto',
 					hasAnalysed && isTransparent && (transparencyInfo?.left || transparencyInfo?.right) && 'es:w-full!',
 					hasAnalysed && isTransparent && (transparencyInfo?.top || transparencyInfo?.bottom) && 'es:h-full!',
 					hasAnalysed && !isTransparent && 'es:w-full! es:aspect-3-2 es:object-cover',
 					hasAnalysed && 'es:grow es:rounded-xl es:h-fill!',
+					hasError && 'es:rounded-xl',
 				)
 			}
-			errorClassName='es:aspect-3-2 es:rounded-2xl es:bg-linear-to-br es:from-white es:to-secondary-50 es:border es:border-dashed es:border-secondary-200'
+			errorClassName={!__useSmartImageNext && 'es:aspect-3-2 es:rounded-2xl es:bg-linear-to-br es:from-white es:to-secondary-50 es:border es:border-dashed es:border-secondary-200'}
 			imageAnalysisSettings={{ yFrom: 0.25, yTo: 0.75 }}
 			{...rest}
 		>
-			{({ image, dominantColors, isDark, hasAnalysed, isTransparent, hasError, errorBadge }) => (
-				<div
-					className={clsx(
-						'es:border es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-y-2 es:grid es:grid-cols-1 es:overflow-clip es:aspect-3-2 es:transition',
-						!hasError && hasAnalysed ? 'es:border-secondary-200' : 'es:border-secondary-200/0',
-						!hasError && hasAnalysed && !isTransparent && 'es:group es:grid-rows-1',
-						!hasError && hasAnalysed && isTransparent && 'es:p-2 es:grid-rows-[minmax(0,1fr)_auto] es:h-fit',
-						!hasAnalysed && 'es:shimmer-dark es:bg-secondary-50',
-						hasError && 'es:flex es:items-center es:justify-center',
-						className,
-					)}
-					style={
-						!hasError && hasAnalysed && isTransparent
-							? { backgroundColor: `color-mix(in srgb, ${dominantColors[0]?.color || '#ffffff'} ${dominantColors[0]?.isDark ? 10 : 80}%, #ffffff)` }
-							: {}
-					}
-				>
-					{image}
+			{({ image, dominantColors, isDark, hasAnalysed, isTransparent, hasError, errorBadge }) => {
+				const dominantDisplayColor = dominantColors?.find((c) => c.saturation > 0.25) || dominantColors?.[0];
 
-					{hasError && errorBadge}
+				return (
+					<div
+						className={clsx(
+							'es:border es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-y-2 es:grid es:grid-cols-1 es:overflow-clip es:aspect-3-2 es:transition',
+							!hasError && hasAnalysed ? 'es:border-secondary-200' : 'es:border-secondary-200/0',
+							!hasError && hasAnalysed && !isTransparent && 'es:group es:grid-rows-1',
+							((hasAnalysed && isTransparent) || hasError) && 'es:p-2 es:grid-rows-[minmax(0,1fr)_auto] es:h-fit',
+							!hasError && !hasAnalysed && 'es:shimmer-dark es:bg-surface-100',
+							hasError && 'es:bg-surface-50 es:border-surface-100',
+							className,
+						)}
+						style={
+							!hasError && hasAnalysed && isTransparent
+								? {
+										backgroundColor: `color-mix(in srgb, ${dominantDisplayColor?.color || '#ffffff'} ${dominantDisplayColor?.isDark ? 5 : 25}%, ${dominantDisplayColor?.isDark ? '#ffffff' : '#000000'})`,
+									}
+								: {}
+						}
+					>
+						{!hasError && image}
 
-					{children && (
-						<div
-							className={clsx(
-								'es:flex es:items-center-safe es:gap-0.75',
-								'es-button-group-h',
-								!hasError &&
-									!isTransparent &&
-									'es:absolute es:bottom-2 es:left-2 es:right-2 es:translate-y-[125%] es:group-hover:translate-y-0 es:has-aria-expanded:translate-y-0 es:has-focus-visible:translate-y-0 es:transition-transform es:ease-spring-smooth',
-								hasError && 'es:absolute es:bottom-2 es:left-2 es:right-2',
-							)}
-						>
-							{typeof children === 'function' ? children({ dominantColors, isDark, isTransparent, hasError }) : children}
-						</div>
-					)}
-				</div>
-			)}
-		</SmartImage>
+						{hasError && errorBadge}
+
+						{children && (
+							<div
+								className={clsx(
+									'es:flex es:items-center-safe es:gap-0.75',
+									'es-button-group-h',
+									!hasError &&
+										!isTransparent &&
+										'es:absolute es:bottom-2 es:left-2 es:right-2 es:translate-y-[125%] es:group-hover:translate-y-0 es:has-aria-expanded:translate-y-0 es:has-focus-visible:translate-y-0 es:transition-transform es:ease-spring-smooth',
+								)}
+							>
+								{typeof children === 'function' ? children({ dominantColors, isDark, isTransparent, hasError }) : children}
+							</div>
+						)}
+					</div>
+				);
+			}}
+		</ComponentToRender>
 	);
 };

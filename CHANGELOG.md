@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [6.1.0] - 2026-02-13
+
+- Updated dependencies.
+- Fixed input fields being overriden in Gutenberg in a couple of cases.
+- Fixed `NumberPicker` input padding being overriden in Gutenberg in a couple of cases.
+- Added `__SmartImageNext`, a future replacement for the existing `SmartImage` component. Currently in test phase. Can be enabled in `FilePickerShell` with the `__useSmartImageNext` prop.
+
 ## [6.0.13] - 2026-02-06
 - Updated dependencies.
 - Improved `FilePickerShell` display with transparent images that are light.
@@ -568,6 +575,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[6.1.0]: https://github.com/infinum/eightshift-ui-components/compare/6.0.13...6.1.0
 [6.0.13]: https://github.com/infinum/eightshift-ui-components/compare/6.0.12...6.0.13
 [6.0.12]: https://github.com/infinum/eightshift-ui-components/compare/6.0.11...6.0.12
 [6.0.11]: https://github.com/infinum/eightshift-ui-components/compare/6.0.10...6.0.11
