@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [6.1.1] - 2026-02-18
+
+- Updated dependencies.
+- Fixed AsyncMultiSelect not updating the selected values properly when using search.
+
 ## [6.1.0] - 2026-02-13
 
 - Updated dependencies.
@@ -575,6 +580,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[6.1.1]: https://github.com/infinum/eightshift-ui-components/compare/6.1.0...6.1.1
 [6.1.0]: https://github.com/infinum/eightshift-ui-components/compare/6.0.13...6.1.0
 [6.0.13]: https://github.com/infinum/eightshift-ui-components/compare/6.0.12...6.0.13
 [6.0.12]: https://github.com/infinum/eightshift-ui-components/compare/6.0.11...6.0.12

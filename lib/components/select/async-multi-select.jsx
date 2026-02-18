@@ -169,8 +169,30 @@ export const AsyncMultiSelect = (props) => {
 	});
 
 	const handleSelectionChange = (rawSelected) => {
-		const selected = list.filterText.length > 0 ? new Set([...(value?.map((item) => item?.value) ?? []), ...rawSelected]) : rawSelected;
+		let selected;
 
+		if (list.filterText.length > 0) {
+			const visibleItemKeys = new Set(list.items?.map((item) => item.value) ?? []);
+			selected = new Set();
+
+			// Keep selected items that are not visible in the filtered view.
+			for (const item of value ?? []) {
+				const key = item?.value ?? item;
+
+				if (!visibleItemKeys.has(key)) {
+					selected.add(key);
+				}
+			}
+
+			// Add items selected in the filtered view.
+			for (const key of rawSelected) {
+				selected.add(key);
+			}
+		} else {
+			selected = rawSelected;
+		}
+
+		list.setSelectedKeys(selected);
 		list.filterText = '';
 
 		if (selected === null || selected === undefined) {
@@ -314,39 +336,39 @@ export const AsyncMultiSelect = (props) => {
 				>
 					<Button className={buttonClass({ size })}>
 						<SelectValue className='es:select-none es:pointer-events-none'>
-							{({ isPlaceholder, selectedItems }) => {
-								const [selectedItem] = selectedItems;
-
-								if (!currentValueKeys?.length || isPlaceholder) {
+							{() => {
+								if (!currentValueKeys?.length) {
 									return <span className='es:select-none es:pointer-events-none es:pr-6 es:text-sm es:text-surface-500'>{placeholder}</span>;
 								}
 
-								let icon = getIcon ? getIcon(selectedItem) : (selectedItem?.icon ?? null);
+								const currentItem = value?.[0];
 
-								if (typeof selectedItem?.icon === 'string') {
-									icon = icons?.[selectedItem.icon] ?? null;
+								let icon = getIcon ? getIcon(currentItem) : (currentItem?.icon ?? null);
+
+								if (typeof currentItem?.icon === 'string') {
+									icon = icons?.[currentItem.icon] ?? null;
 								}
 
-								if (selectedItems.length > 1) {
+								if (value?.length > 1) {
 									return (
 										<RichLabel
 											icon={icons.multiple}
-											label={sprintf(_n('%s item', '%s items', selectedItems.length, 'eightshift-ui-components'), selectedItems.length)}
-											subtitle={selectedItems.map((item) => item?.label ?? item).join(', ')}
+											label={sprintf(_n('%s item', '%s items', value.length, 'eightshift-ui-components'), value.length)}
+											subtitle={value.map((item) => item?.label ?? item).join(', ')}
 											subtitleClassName='es:line-clamp-1 es:max-w-56'
 										/>
 									);
 								}
 
-								if (!isPlaceholder && value && customValueDisplay) {
-									return customValueDisplay(selectedItem);
+								if (value && customValueDisplay) {
+									return customValueDisplay(currentItem);
 								}
 
 								return (
 									<RichLabel
 										icon={icon}
-										label={selectedItem?.label}
-										subtitle={selectedItem?.subtitle}
+										label={currentItem?.label}
+										subtitle={currentItem?.subtitle}
 										className={clsx('es:pr-6 es:grow es:w-full', disabled && 'es:grayscale es:pointer-events-none')}
 										iconClassName='es:pointer-events-none es:select-none'
 										labelClassName='es:line-clamp-1'
@@ -397,31 +419,36 @@ export const AsyncMultiSelect = (props) => {
 
 						<DraggableList
 							items={value ?? []}
-							onChange={(value) => {
-								handleSelectionChange(new Set(value?.map((item) => item?.value ?? item)));
+							onChange={(reordered) => {
+								onChange(
+									reordered.map((item) => ({
+										label: item?.label,
+										value: item?.value,
+										subtitle: item?.subtitle,
+										meta: item?.meta,
+									})),
+								);
 							}}
 							className='es:contents'
 							itemContainerClassName='es:h-full es:max-h-60 es:overflow-y-auto es:pb-1.5 es:mt-0'
 							itemClassName='es:z-999999'
 						>
 							{(item) => {
-								const realItem = list.getItem(item?.value);
+								let icon = getIcon ? getIcon(item) : (item?.icon ?? null);
 
-								let icon = getIcon ? getIcon(realItem) : (realItem?.icon ?? null);
-
-								if (typeof realItem?.icon === 'string') {
-									icon = icons?.[realItem.icon] ?? null;
+								if (typeof item?.icon === 'string') {
+									icon = icons?.[item.icon] ?? null;
 								}
 
 								return (
 									<DraggableListItem
 										icon={icon}
-										label={realItem?.label}
-										subtitle={realItem?.subtitle}
+										label={item?.label}
+										subtitle={item?.subtitle}
 										iconClassName='es:pointer-events-none es:select-none'
 										labelClassName='es:line-clamp-1'
 										subtitleClassName='es:line-clamp-1'
-										className={clsx('es:flex es:items-center es:justify-between', realItem?.icon ? 'es:pl-1' : 'es:pl-2')}
+										className={clsx('es:flex es:items-center es:justify-between', item?.icon ? 'es:pl-1' : 'es:pl-2')}
 									/>
 								);
 							}}
@@ -502,7 +529,6 @@ export const AsyncMultiSelect = (props) => {
 							selectionMode='multiple'
 							selectionBehavior='toggle'
 							onSelectionChange={(selected) => {
-								list.setSelectedKeys(selected);
 								handleSelectionChange(selected);
 							}}
 							renderEmptyState={() => (
