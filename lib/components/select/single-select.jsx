@@ -1,13 +1,26 @@
 import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
-import { Select as ReactAriaSelect, Label, ListBox, Popover, Button, SelectValue, Autocomplete, SearchField, Input, useFilter } from 'react-aria-components';
-import { cloneElement } from 'react';
+import {
+	Select as ReactAriaSelect,
+	Label,
+	ListBox,
+	Popover,
+	Button,
+	SelectValue,
+	Autocomplete,
+	SearchField,
+	Input,
+	useFilter,
+	ListBoxSection,
+	Header,
+	Collection,
+} from 'react-aria-components';
+import { cloneElement, useMemo, useRef, useState } from 'react';
 import { icons } from '../../icons';
-import { OptionItemBase, SelectClearButton } from './shared';
-import { useRef } from 'react';
+import { OptionItemBase, SelectClearButton, getGroupedOptions } from './shared';
 import { RichLabel } from '../rich-label/rich-label';
 import { cva } from 'class-variance-authority';
-import { clsx } from 'clsx';
+import clsx from 'clsx';
 import { randomId } from '../../utilities';
 
 /**
@@ -25,6 +38,8 @@ import { randomId } from '../../utilities';
  * @param {string|{label: string, value: string, metadata: Object<string, any>?}} props.value - Current value of the select.
  * @param {Function} props.onChange - Function to call when the value changes.
  * @param {boolean} [props.simpleValue=false] - If `true`, instead of using a `{label: '', value: ''}` value type, a string is used (just the value).
+ * @param {string} [props.groupKey] - If provided, the options will be grouped by this key.
+ * @param {Object} [props.groupValueMapping] - If provided, the group headers will be mapped to these labels/icons.
  * @param {boolean} [props.clearable] - Whether the select is clearable.
  * @param {boolean} [props.disabled] - Whether the select is disabled.
  * @param {string} [props.placeholder] - Placeholder text to show when no value is selected.
@@ -74,6 +89,8 @@ export const Select = (props) => {
 
 		options,
 		simpleValue = false,
+		groupKey,
+		groupValueMapping,
 
 		disabled = false,
 		clearable = false,
@@ -99,9 +116,50 @@ export const Select = (props) => {
 
 	const ref = useRef();
 
-	const currentValue = simpleValue ? (value ?? null) : (value?.value ?? null);
+	const [searchTerm, setSearchTerm] = useState('');
 
 	const { contains } = useFilter({ sensitivity: 'base' });
+
+	const filteredOptions = useMemo(() => {
+		if (!searchable || searchTerm.length === 0) {
+			return options;
+		}
+
+		return options?.filter((item) => {
+			return contains(item.label ?? '', searchTerm) || contains(item?.subtitle ?? '', searchTerm);
+		});
+	}, [options, searchable, searchTerm, contains]);
+
+	const groupedOptions = useMemo(() => getGroupedOptions(filteredOptions, groupKey, groupValueMapping), [filteredOptions, groupKey, groupValueMapping]);
+
+	const currentValue = simpleValue ? (value ?? null) : (value?.value ?? null);
+
+	const renderItem = (item) => {
+		let icon = item?.icon ?? null;
+
+		if (typeof item?.icon === 'string') {
+			icon = icons?.[item.icon] ?? null;
+		}
+
+		return (
+			<OptionItemBase
+				id={item?.value ?? randomId(8)}
+				className={item?.className}
+				selectIndicator
+			>
+				{customMenuOption && customMenuOption(item)}
+
+				{!customMenuOption && (
+					<RichLabel
+						icon={icon}
+						label={item?.label}
+						subtitle={item?.subtitle}
+						noColor
+					/>
+				)}
+			</OptionItemBase>
+		);
+	};
 
 	if (hidden) {
 		return null;
@@ -208,12 +266,7 @@ export const Select = (props) => {
 					delete item.id;
 				}
 
-				onChange({
-					label: item?.label,
-					value: item?.value,
-					subtitle: item?.subtitle,
-					meta: item?.meta,
-				});
+				onChange(item);
 			}}
 			placeholder={placeholder}
 			{...rest}
@@ -316,7 +369,11 @@ export const Select = (props) => {
 					triggerRef={ref}
 				>
 					{searchable && (
-						<Autocomplete filter={contains}>
+						<Autocomplete
+							filter={() => true}
+							inputValue={searchTerm}
+							onInputChange={setSearchTerm}
+						>
 							<SearchField
 								aria-label={__('Search', 'eightshift-ui-components')}
 								className='es:flex es:items-center es:relative'
@@ -334,6 +391,7 @@ export const Select = (props) => {
 								/>
 
 								<Button
+									slot='clear'
 									aria-label={__('Clear', 'eightshift-ui-components')}
 									className={clsx(
 										'es:absolute es:right-3 es:top-0 es:bottom-0 es:my-auto es:border-none es:bg-transparent',
@@ -347,7 +405,6 @@ export const Select = (props) => {
 
 							<ListBox
 								className='es:space-y-0.75 es:p-1.5 es:pt-0 es:any-focus:outline-hidden es:h-full es:overflow-y-auto es:rounded-t-xl'
-								items={options}
 								renderEmptyState={() => (
 									<RichLabel
 										icon={icons.searchEmpty}
@@ -359,32 +416,29 @@ export const Select = (props) => {
 									/>
 								)}
 							>
-								{(item) => {
-									let icon = item?.icon ?? null;
+								{groupedOptions && (
+									<Collection items={groupedOptions}>
+										{(item) => (
+											<ListBoxSection
+												id={item.key}
+												className='es:flex es:flex-col es:gap-0.75'
+											>
+												<Header className='es:px-2.5 es:py-2 es:select-none'>
+													<RichLabel
+														icon={item?.icon}
+														label={item?.label}
+														subtitle={item?.subtitle}
+														endIcon={item?.endIcon}
+														fullWidth
+													/>
+												</Header>
+												<Collection items={item.options}>{(subItem) => renderItem(subItem)}</Collection>
+											</ListBoxSection>
+										)}
+									</Collection>
+								)}
 
-									if (typeof item?.icon === 'string') {
-										icon = icons?.[item.icon] ?? null;
-									}
-
-									return (
-										<OptionItemBase
-											id={item?.value ?? randomId(8)}
-											className={item?.className}
-											selectIndicator
-										>
-											{customMenuOption && customMenuOption(item)}
-
-											{!customMenuOption && (
-												<RichLabel
-													icon={icon}
-													label={item?.label}
-													subtitle={item?.subtitle}
-													noColor
-												/>
-											)}
-										</OptionItemBase>
-									);
-								}}
+								{!groupedOptions && <Collection items={searchable ? filteredOptions : options}>{(item) => renderItem(item)}</Collection>}
 							</ListBox>
 						</Autocomplete>
 					)}
@@ -392,7 +446,6 @@ export const Select = (props) => {
 					{!searchable && (
 						<ListBox
 							className='es:space-y-0.75 es:p-1.5 es:any-focus:outline-hidden es:h-full es:overflow-y-auto es:rounded-t-xl'
-							items={options}
 							renderEmptyState={() => (
 								<RichLabel
 									icon={icons.searchEmpty}
@@ -404,31 +457,29 @@ export const Select = (props) => {
 								/>
 							)}
 						>
-							{(item) => {
-								let icon = item?.icon ?? null;
+							{groupedOptions && (
+								<Collection items={groupedOptions}>
+									{(item) => (
+										<ListBoxSection
+											id={item.key}
+											className='es:flex es:flex-col es:gap-0.75'
+										>
+											<Header className='es:px-2.5 es:py-2 es:select-none'>
+												<RichLabel
+													icon={item.icon}
+													label={item.label}
+													subtitle={item.subtitle}
+												/>
+											</Header>
+											<div className='es:flex es:flex-col es:gap-0.75'>
+												<Collection items={item.options}>{(subItem) => renderItem(subItem)}</Collection>
+											</div>
+										</ListBoxSection>
+									)}
+								</Collection>
+							)}
 
-								if (typeof item?.icon === 'string') {
-									icon = icons?.[item.icon] ?? null;
-								}
-
-								return (
-									<OptionItemBase
-										id={item.value}
-										className={item?.className}
-										selectIndicator
-									>
-										{customMenuOption && customMenuOption(item)}
-										{!customMenuOption && (
-											<RichLabel
-												icon={icon}
-												label={item?.label}
-												subtitle={item?.subtitle}
-												noColor
-											/>
-										)}
-									</OptionItemBase>
-								);
-							}}
+							{!groupedOptions && <Collection items={options}>{(item) => renderItem(item)}</Collection>}
 						</ListBox>
 					)}
 				</Popover>

@@ -1,12 +1,24 @@
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
-import { Label, ListBox, Popover, Button, Autocomplete, SearchField, Input, useFilter, Select as ReactAriaSelect, SelectValue } from 'react-aria-components';
-import { cloneElement, isValidElement } from 'react';
+import {
+	Label,
+	ListBox,
+	Popover,
+	Button,
+	Autocomplete,
+	SearchField,
+	Input,
+	useFilter,
+	Select as ReactAriaSelect,
+	SelectValue,
+	ListBoxSection,
+	Header,
+	Collection,
+} from 'react-aria-components';
+import { cloneElement, isValidElement, useMemo, useRef, useState } from 'react';
 import { icons } from '../../icons';
-import { OptionItemBase, SelectClearButton } from './shared';
-import { useRef } from 'react';
+import { OptionItemBase, SelectClearButton, getValue, getGroupedOptions } from './shared';
 import { RichLabel } from '../rich-label/rich-label';
-import { getValue } from './shared';
 import { cva } from 'class-variance-authority';
 import { TriggeredPopover } from '../popover/popover';
 import { DraggableList } from '../draggable-list/draggable-list';
@@ -29,6 +41,8 @@ import clsx from 'clsx';
  * @param {string|{label: string, value: string, metadata: Object<string, any>?}} props.value - Current value of the select.
  * @param {Function} props.onChange - Function to call when the value changes.
  * @param {boolean} [props.simpleValue=false] - If `true`, instead of using a `{label: '', value: ''}` value type, a string is used (just the value).
+ * @param {string} [props.groupKey] - If provided, the options will be grouped by this key.
+ * @param {Object} [props.groupValueMapping] - If provided, the group headers will be mapped to these labels/icons.
  * @param {boolean} [props.clearable] - Whether the select is clearable.
  * @param {boolean} [props.disabled] - Whether the select is disabled.
  * @param {string} [props.placeholder] - Placeholder text to show when no value is selected.
@@ -79,6 +93,8 @@ export const MultiSelect = (props) => {
 
 		options,
 		simpleValue = false,
+		groupKey,
+		groupValueMapping,
 
 		disabled = false,
 		clearable = false,
@@ -105,7 +121,48 @@ export const MultiSelect = (props) => {
 
 	const ref = useRef();
 
+	const [searchTerm, setSearchTerm] = useState('');
+
 	const { contains } = useFilter({ sensitivity: 'base' });
+
+	const filteredOptions = useMemo(() => {
+		if (!searchable || searchTerm.length === 0) {
+			return options;
+		}
+
+		return options?.filter((item) => {
+			return contains(item.label ?? '', searchTerm) || contains(item?.subtitle ?? '', searchTerm);
+		});
+	}, [options, searchable, searchTerm, contains]);
+
+	const groupedOptions = useMemo(() => getGroupedOptions(filteredOptions, groupKey, groupValueMapping), [filteredOptions, groupKey, groupValueMapping]);
+
+	const renderItem = (item) => {
+		let icon = item?.icon ?? null;
+
+		if (typeof item?.icon === 'string') {
+			icon = icons?.[item.icon] ?? null;
+		}
+
+		return (
+			<OptionItemBase
+				id={item?.value ?? randomId(8)}
+				className={item?.className}
+				selectIndicator
+			>
+				{customMenuOption && customMenuOption(item)}
+
+				{!customMenuOption && (
+					<RichLabel
+						icon={icon}
+						label={item?.label}
+						subtitle={item?.subtitle}
+						noColor
+					/>
+				)}
+			</OptionItemBase>
+		);
+	};
 
 	const currentValue = getValue(simpleValue, value, options);
 	const currentValueKeys = value?.map((item) => item?.value ?? item);
@@ -147,14 +204,7 @@ export const MultiSelect = (props) => {
 			})
 			?.filter(Boolean);
 
-		onChange(
-			selectedValues.map((item) => ({
-				label: item?.label,
-				value: item?.value,
-				subtitle: item?.subtitle,
-				meta: item?.meta,
-			})),
-		);
+		onChange(selectedValues);
 	};
 
 	if (hidden) {
@@ -397,7 +447,11 @@ export const MultiSelect = (props) => {
 					triggerRef={ref}
 				>
 					{searchable && (
-						<Autocomplete filter={contains}>
+						<Autocomplete
+							filter={() => true}
+							inputValue={searchTerm}
+							onInputChange={setSearchTerm}
+						>
 							<SearchField
 								aria-label={__('Search', 'eightshift-ui-components')}
 								className='es:flex es:items-center es:relative'
@@ -415,6 +469,7 @@ export const MultiSelect = (props) => {
 								/>
 
 								<Button
+									slot='clear'
 									aria-label={__('Clear', 'eightshift-ui-components')}
 									className={clsx(
 										'es:absolute es:right-3 es:top-0 es:bottom-0 es:my-auto es:border-none es:bg-transparent',
@@ -428,7 +483,6 @@ export const MultiSelect = (props) => {
 
 							<ListBox
 								className='es:space-y-0.75 es:p-1.5 es:pt-0 es:any-focus:outline-hidden es:h-full es:overflow-y-auto es:rounded-t-xl'
-								items={options}
 								renderEmptyState={() => (
 									<RichLabel
 										icon={icons.searchEmpty}
@@ -440,32 +494,29 @@ export const MultiSelect = (props) => {
 									/>
 								)}
 							>
-								{(item) => {
-									let icon = item?.icon ?? null;
+								{groupedOptions && (
+									<Collection items={groupedOptions}>
+										{(item) => (
+											<ListBoxSection
+												id={item.key}
+												className='es:flex es:flex-col es:gap-0.75'
+											>
+												<Header className='es:px-2.5 es:py-2 es:select-none'>
+													<RichLabel
+														icon={item?.icon}
+														label={item?.label}
+														subtitle={item?.subtitle}
+														endIcon={item?.endIcon}
+														fullWidth
+													/>
+												</Header>
+												<Collection items={item.options}>{(subItem) => renderItem(subItem)}</Collection>
+											</ListBoxSection>
+										)}
+									</Collection>
+								)}
 
-									if (typeof item?.icon === 'string') {
-										icon = icons?.[item.icon] ?? null;
-									}
-
-									return (
-										<OptionItemBase
-											id={item?.value ?? randomId(8)}
-											className={item?.className}
-											selectIndicator
-										>
-											{customMenuOption && customMenuOption(item)}
-
-											{!customMenuOption && (
-												<RichLabel
-													icon={icon}
-													label={item?.label}
-													subtitle={item?.subtitle}
-													noColor
-												/>
-											)}
-										</OptionItemBase>
-									);
-								}}
+								{!groupedOptions && <Collection items={searchable ? filteredOptions : options}>{(item) => renderItem(item)}</Collection>}
 							</ListBox>
 						</Autocomplete>
 					)}
@@ -473,7 +524,6 @@ export const MultiSelect = (props) => {
 					{!searchable && (
 						<ListBox
 							className='es:space-y-0.75 es:p-1.5 es:any-focus:outline-hidden es:h-full es:overflow-y-auto es:rounded-t-xl'
-							items={options}
 							renderEmptyState={() => (
 								<RichLabel
 									icon={icons.searchEmpty}
@@ -485,31 +535,29 @@ export const MultiSelect = (props) => {
 								/>
 							)}
 						>
-							{(item) => {
-								let icon = item?.icon ?? null;
+							{groupedOptions && (
+								<Collection items={groupedOptions}>
+									{(item) => (
+										<ListBoxSection
+											id={item.key}
+											className='es:flex es:flex-col es:gap-0.75'
+										>
+											<Header className='es:px-2.5 es:py-2 es:select-none'>
+												<RichLabel
+													icon={item?.icon}
+													label={item?.label}
+													subtitle={item?.subtitle}
+													endIcon={item?.endIcon}
+													fullWidth
+												/>
+											</Header>
+											<Collection items={item.options}>{(subItem) => renderItem(subItem)}</Collection>
+										</ListBoxSection>
+									)}
+								</Collection>
+							)}
 
-								if (typeof item?.icon === 'string') {
-									icon = icons?.[item.icon] ?? null;
-								}
-
-								return (
-									<OptionItemBase
-										id={item?.value ?? randomId(8)}
-										className={item?.className}
-										selectIndicator
-									>
-										{customMenuOption && customMenuOption(item)}
-										{!customMenuOption && (
-											<RichLabel
-												icon={icon}
-												label={item?.label}
-												subtitle={item?.subtitle}
-												noColor
-											/>
-										)}
-									</OptionItemBase>
-								);
-							}}
+							{!groupedOptions && <Collection items={options}>{(item) => renderItem(item)}</Collection>}
 						</ListBox>
 					)}
 				</Popover>
