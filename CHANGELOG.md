@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
 ## [6.2.0] - 2026-02-19
+- Updated dependencies.
 - Fixed input fields being overriden in Gutenberg in a couple more of cases.
 - Added `endIcon` prop to `RichLabel`.
 - Added grouping support for all `Select` variants via `groupKey` and `groupValueMapping`.
