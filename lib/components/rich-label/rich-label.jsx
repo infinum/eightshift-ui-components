@@ -6,6 +6,7 @@ import { clsx } from 'clsx';
  * @component
  * @param {Object} props - Component props.
  * @param {JSX.Element} [props.icon] - Icon to display.
+ * @param {JSX.Element} [props.endIcon] - Icon to display at the end of the label.
  * @param {string} [props.label] - Label to display.
  * @param {string} [props.subtitle] - Subtitle to display.
  * @param {JSX.Element} [props.as] - Element to render the label as. Not compatible with `contentsOnly`.
@@ -33,6 +34,7 @@ import { clsx } from 'clsx';
 export const RichLabel = (props) => {
 	const {
 		icon,
+		endIcon,
 		label,
 		subtitle,
 		as,
@@ -60,6 +62,7 @@ export const RichLabel = (props) => {
 				{icon && <span className={clsx('es:icon:size-5 es:not-contrast-more:opacity-85', iconClassName)}>{icon}</span>}
 				{label && <span className={clsx('es:text-balance', labelClassName)}>{label}</span>}
 				{subtitle && <span className={clsx('es:text-balance es:text-xs es:not-contrast-more:opacity-65', subtitleClassName)}>{subtitle}</span>}
+				{endIcon && <span className={clsx('es:icon:size-5 es:not-contrast-more:opacity-85 es:ml-auto', iconClassName)}>{endIcon}</span>}
 			</>
 		);
 	}
@@ -74,6 +77,8 @@ export const RichLabel = (props) => {
 					{subtitle && <span className={clsx(!fullSizeSubtitle && 'es:text-12', 'es:not-contrast-more:opacity-65', subtitleClassName)}>{subtitle}</span>}
 				</div>
 			)}
+
+			{endIcon && <span className={clsx('es:icon:size-5 es:shrink-0', 'es:not-contrast-more:opacity-85 es:ml-auto', iconClassName)}>{endIcon}</span>}
 		</ComponentToRender>
 	);
 };
