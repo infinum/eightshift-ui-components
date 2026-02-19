@@ -478,7 +478,7 @@ export const AsyncSelect = (props) => {
 											id={section.key}
 											className='es:flex es:flex-col es:gap-0.75'
 										>
-											<Header className='es:px-2.5 es:py-2 es:select-none'>
+											<Header className='es:px-2.5 es:pb-1 es:pt-3 es:select-none'>
 												<RichLabel
 													icon={section?.icon}
 													label={section?.label}
