@@ -288,6 +288,11 @@ export const MultiSelect = (props) => {
 			selectionMode='multiple'
 			isDisabled={disabled}
 			value={currentValueKeys}
+			onOpenChange={(isOpen) => {
+				if (!isOpen) {
+					setSearchTerm('');
+				}
+			}}
 			onChange={(selected) => handleSelectionChange(selected)}
 			placeholder={placeholder}
 			{...rest}

@@ -287,8 +287,6 @@ export const AsyncSelect = (props) => {
 	);
 
 	const handleSelectionChange = (selected) => {
-		list.filterText = '';
-
 		if (selected === null || selected === undefined) {
 			onChange(null);
 
@@ -314,6 +312,13 @@ export const AsyncSelect = (props) => {
 		<Select
 			isDisabled={disabled}
 			value={value?.value ?? null}
+			onOpenChange={(isOpen) => {
+				if (!isOpen) {
+					setTimeout(() => {
+						list.setFilterText('');
+					}, 100);
+				}
+			}}
 			onChange={(selected) => handleSelectionChange(selected)}
 			placeholder={placeholder}
 			{...rest}

@@ -241,6 +241,11 @@ export const Select = (props) => {
 		<ReactAriaSelect
 			isDisabled={disabled}
 			value={currentValue}
+			onOpenChange={(isOpen) => {
+				if (!isOpen) {
+					setSearchTerm('');
+				}
+			}}
 			onChange={(selected) => {
 				if (selected === null || selected === undefined) {
 					onChange(null);

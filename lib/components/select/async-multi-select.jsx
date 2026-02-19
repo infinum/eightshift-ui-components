@@ -6,7 +6,7 @@ import { icons, Spinner } from '../../icons';
 import { OptionItemBase, SelectClearButton, getGroupedOptions } from './shared';
 import { RichLabel } from '../rich-label/rich-label';
 import { useAsyncList } from 'react-stately';
-import { randomId, unescapeHTML } from '../../utilities';
+import { unescapeHTML } from '../../utilities';
 import { cva } from 'class-variance-authority';
 import { TriggeredPopover } from '../popover/popover';
 import { DraggableList } from '../draggable-list/draggable-list';
@@ -240,7 +240,6 @@ export const AsyncMultiSelect = (props) => {
 		}
 
 		list.setSelectedKeys(selected);
-		list.filterText = '';
 
 		if (selected === null || selected === undefined) {
 			onChange(null);
@@ -356,6 +355,13 @@ export const AsyncMultiSelect = (props) => {
 			selectionMode='multiple'
 			isDisabled={disabled}
 			value={currentValueKeys ?? []}
+			onOpenChange={(isOpen) => {
+				if (!isOpen) {
+					setTimeout(() => {
+						list.setFilterText('');
+					}, 100);
+				}
+			}}
 			onChange={(selected) => handleSelectionChange(selected)}
 			placeholder={placeholder}
 			{...rest}
