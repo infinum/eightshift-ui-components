@@ -466,14 +466,14 @@ export const Select = (props) => {
 										>
 											<Header className='es:px-2.5 es:py-2 es:select-none'>
 												<RichLabel
-													icon={item.icon}
-													label={item.label}
-													subtitle={item.subtitle}
+													icon={item?.icon}
+													label={item?.label}
+													subtitle={item?.subtitle}
+													endIcon={item?.endIcon}
+													fullWidth
 												/>
 											</Header>
-											<div className='es:flex es:flex-col es:gap-0.75'>
-												<Collection items={item.options}>{(subItem) => renderItem(subItem)}</Collection>
-											</div>
+											<Collection items={item.options}>{(subItem) => renderItem(subItem)}</Collection>
 										</ListBoxSection>
 									)}
 								</Collection>
