@@ -32,6 +32,7 @@ export const OptionItemBase = (props) => (
 					'es:bg-surface-50/90',
 					'es:rounded-md',
 					'es:first:rounded-t-xl es:last:rounded-b-xl',
+					'es:nth-2:rounded-t-xl',
 					'es:after-current:rounded-t-xl es:before-current:rounded-b-xl',
 					'es:hover:rounded-2xl es:pressed:rounded-3xl',
 					'es:focus-visible:bg-white/90 es:focus-visible:rounded-2xl es:focus-visible:text-accent-950',
@@ -169,4 +170,56 @@ export const SelectClearButton = ({ multi = false }) => {
 			{icons.clear}
 		</Button>
 	);
+};
+
+/**
+ * Groups options by a key.
+ *
+ * @param {Object[]} filteredOptions - Options to group.
+ * @param {string} groupKey - Key to group by.
+ * @param {Object} [groupValueMapping] - Mapping of group keys to labels/icons.
+ *
+ * @returns {null|Object[]} Grouped options.
+ */
+export const getGroupedOptions = (filteredOptions, groupKey, groupValueMapping) => {
+	if (!groupKey || !filteredOptions || filteredOptions?.length === 0) {
+		return null;
+	}
+
+	const groups = filteredOptions.reduce((acc, item) => {
+		const key = item[groupKey] ?? '_other';
+
+		if (!acc[key]) {
+			acc[key] = [];
+		}
+
+		acc[key].push(item);
+
+		return acc;
+	}, {});
+
+	return Object.entries(groups).map(([key, options]) => {
+		const mapping = groupValueMapping?.[key];
+
+		let icon = mapping?.icon;
+
+		if (typeof icon === 'string') {
+			icon = icons?.[icon] ?? icon;
+		}
+
+		let endIcon = mapping?.endIcon;
+
+		if (typeof endIcon === 'string') {
+			endIcon = icons?.[endIcon] ?? endIcon;
+		}
+
+		return {
+			key,
+			label: mapping?.label ?? (key === '_other' ? __('Other', 'eightshift-ui-components') : key),
+			icon: icon || null,
+			subtitle: mapping?.subtitle || null,
+			endIcon: endIcon || null,
+			options,
+		};
+	});
 };

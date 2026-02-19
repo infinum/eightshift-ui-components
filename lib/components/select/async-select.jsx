@@ -1,10 +1,9 @@
 import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
-import { Select, Label, ListBox, Popover, Button, SelectValue, Autocomplete, SearchField, Input } from 'react-aria-components';
-import { cloneElement } from 'react';
+import { Select, Label, ListBox, Popover, Button, SelectValue, Autocomplete, SearchField, Input, ListBoxSection, Header, Collection } from 'react-aria-components';
+import { cloneElement, useMemo, useRef } from 'react';
 import { icons, Spinner } from '../../icons';
-import { OptionItemBase, SelectClearButton } from './shared';
-import { useRef } from 'react';
+import { OptionItemBase, SelectClearButton, getGroupedOptions } from './shared';
 import { RichLabel } from '../rich-label/rich-label';
 import { useAsyncList } from 'react-stately';
 import { randomId, unescapeHTML } from '../../utilities';
@@ -32,6 +31,7 @@ import clsx from 'clsx';
  * @param {Function} [props.getMeta] - Function to get the metadata for the item from the fetched data. `(item: Object<string, any>) => Object<string, any>` (optional)
  * @param {Function} [props.getIcon] - Function to get the icon for the item from the fetched data. `(item: Object<string, any>) => JSX.Element | string`
  * @param {Function} [props.getSubtitle] - Function to get the subtitle for the item from the fetched data. `(item: Object<string, any>) => string`
+ * @param {Function} [props.getGroup] - Function to get the group name for the item from the fetched data. `(item: Object<string, any>) => string`
  * @param {Function} [props.getData] - Function to pre-process the fetched data before it is used in the select. `(data: Object<string, any>[]) => Object<string, any>[]`
  * @param {Function} [props.fetchUrl] - Function to get the URL for fetching data. Provides typed search text if entered. `(searchText: string) => string`
  * @param {Object} [props.fetchConfig] - Configuration object for the fetch request, passed to the `fetch` function.
@@ -40,7 +40,9 @@ import clsx from 'clsx';
  * @param {JSX.Element} [props.customMenuOption] - If provided, replaces the default item in the dropdown menu. `({ value: string, label: string, subtitle: string, metadata: any }) => JSX.Element`
  * @param {JSX.Element} [props.customValueDisplay] - If provided, replaces the default current value display of each selected item. `({ value: string, label: string, subtitle: string, metadata: any }) => JSX.Element`
  * @param {JSX.Element} [props.customDropdownArrow] - If provided, replaces the default dropdown arrow indicator.
- * @param {string} props.className - Classes to pass to the select menu.
+ * @param {string} [props.className] - Classes to pass to the select menu.
+ * @param {string} [props.groupKey] - If provided, the options will be grouped by this key.
+ * @param {Object} [props.groupValueMapping] - If provided, the group headers will be mapped to these labels/icons.
  * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
  * @param {SelectSize} [props.size='default'] - Sets the size of the input field.
  * @param {boolean} [props.noMinWidth=false] - If `true`, the select menu will not have a minimum width.
@@ -98,11 +100,15 @@ export const AsyncSelect = (props) => {
 		getMeta,
 		getIcon,
 		getSubtitle,
+		getGroup,
 		getData = (data) => data,
 
 		extraItemProps,
 
 		hidden,
+
+		groupKey,
+		groupValueMapping,
 
 		flat,
 		size = 'default',
@@ -122,7 +128,8 @@ export const AsyncSelect = (props) => {
 				json = processLoadedOptions ? processLoadedOptions(getData(res)) : getData(res);
 			} else {
 				const res = await fetch(fetchUrl(filterText), { ...fetchConfig, signal });
-				json = processLoadedOptions ? processLoadedOptions(getData(await res.json())) : getData(res);
+				const data = await res.json();
+				json = processLoadedOptions ? processLoadedOptions(getData(data)) : getData(data);
 			}
 
 			const output = json?.map((item, index) => {
@@ -136,6 +143,10 @@ export const AsyncSelect = (props) => {
 
 				if (getSubtitle) {
 					entry.subtitle = unescapeHTML(getSubtitle(item));
+				}
+
+				if (getGroup) {
+					entry[groupKey ?? '_group'] = getGroup(item);
 				}
 
 				return entry;
@@ -161,6 +172,43 @@ export const AsyncSelect = (props) => {
 	});
 
 	const ref = useRef();
+
+	const groupedItems = useMemo(
+		() => getGroupedOptions(list?.items, groupKey ?? (getGroup ? '_group' : null), groupValueMapping),
+		[list?.items, groupKey, groupValueMapping, getGroup],
+	);
+
+	const renderItem = (item) => {
+		let icon = item?.icon ?? null;
+
+		if (typeof item?.icon === 'string') {
+			icon = icons?.[item.icon] ?? null;
+		}
+
+		if (getIcon && !icon) {
+			icon = getIcon(item);
+		}
+
+		return (
+			<OptionItemBase
+				key={item.value}
+				id={item.value}
+				textValue={item.label}
+				selectIndicator
+			>
+				{customMenuOption && customMenuOption(item)}
+
+				{!customMenuOption && (
+					<RichLabel
+						icon={icon}
+						label={item.label}
+						subtitle={item.subtitle}
+						noColor
+					/>
+				)}
+			</OptionItemBase>
+		);
+	};
 
 	if (hidden) {
 		return null;
@@ -239,8 +287,6 @@ export const AsyncSelect = (props) => {
 	);
 
 	const handleSelectionChange = (selected) => {
-		list.filterText = '';
-
 		if (selected === null || selected === undefined) {
 			onChange(null);
 
@@ -259,18 +305,20 @@ export const AsyncSelect = (props) => {
 			delete item.id;
 		}
 
-		onChange({
-			label: item?.label,
-			value: item?.value,
-			subtitle: item?.subtitle,
-			meta: item?.meta,
-		});
+		onChange(item);
 	};
 
 	return (
 		<Select
 			isDisabled={disabled}
 			value={value?.value ?? null}
+			onOpenChange={(isOpen) => {
+				if (!isOpen) {
+					setTimeout(() => {
+						list.setFilterText('');
+					}, 100);
+				}
+			}}
 			onChange={(selected) => handleSelectionChange(selected)}
 			placeholder={placeholder}
 			{...rest}
@@ -385,13 +433,14 @@ export const AsyncSelect = (props) => {
 								placeholder={__('Search...', 'eightshift-ui-components')}
 								className={clsx(
 									'es:peer es:size-full es:h-9.5 es:outline-hidden! es:pl-3.5 es:pr-9 es:shadow-none! es:text-13! es:placeholder:text-surface-500 es:[&::-webkit-search-cancel-button]:hidden',
-									'es:bg-accent-900/8 es:m-1.5 es:rounded-3xl es:border-none!',
+									'es:bg-accent-900/8 es:m-1.5 es:rounded-3xl! es:border-none!',
 									'es:inset-ring! es:inset-ring-accent-950/7 es:focus:inset-ring-accent-950/20',
 									'es:text-accent-950 es:placeholder:text-accent-700/50',
 									'es:transition',
 								)}
 							/>
 							<Button
+								slot='clear'
 								aria-label={__('Clear', 'eightshift-ui-components')}
 								className={clsx(
 									'es:absolute es:right-3 es:top-0 es:bottom-0 es:my-auto es:border-none es:bg-transparent',
@@ -411,7 +460,6 @@ export const AsyncSelect = (props) => {
 
 						<ListBox
 							className={clsx('es:space-y-0.75 es:p-1.5 es:pt-0 es:any-focus:outline-hidden es:h-full es:overflow-y-auto es:rounded-t-xl', list?.isLoading && 'es:hidden')}
-							items={list.items}
 							selectedKeys={list.selectedKeys}
 							onSelectionChange={(selected) => {
 								list.setSelectedKeys(selected);
@@ -428,33 +476,29 @@ export const AsyncSelect = (props) => {
 								/>
 							)}
 						>
-							{(item) => {
-								let icon = getIcon ? getIcon(item) : (item?.icon ?? null);
+							{groupedItems && (
+								<Collection items={groupedItems}>
+									{(section) => (
+										<ListBoxSection
+											id={section.key}
+											className='es:flex es:flex-col es:gap-0.75'
+										>
+											<Header className='es:px-2.5 es:pb-1 es:pt-3 es:select-none'>
+												<RichLabel
+													icon={section?.icon}
+													label={section?.label}
+													subtitle={section?.subtitle}
+													endIcon={section?.endIcon}
+													fullWidth
+												/>
+											</Header>
+											<Collection items={section.options}>{(item) => renderItem(item)}</Collection>
+										</ListBoxSection>
+									)}
+								</Collection>
+							)}
 
-								if (typeof item?.icon === 'string') {
-									icon = icons?.[item.icon] ?? null;
-								}
-
-								return (
-									<OptionItemBase
-										id={item?.value ?? randomId(8)}
-										className={item?.className}
-										selectIndicator
-									>
-										{customMenuOption && customMenuOption(item)}
-										{!customMenuOption && (
-											<RichLabel
-												icon={icon}
-												label={item?.label}
-												subtitle={item?.subtitle}
-												labelClassName='es:line-clamp-1'
-												subtitleClassName='es:line-clamp-1'
-												noColor
-											/>
-										)}
-									</OptionItemBase>
-								);
-							}}
+							{!groupedItems && <Collection items={list.items}>{(item) => renderItem(item)}</Collection>}
 						</ListBox>
 					</Autocomplete>
 				</Popover>

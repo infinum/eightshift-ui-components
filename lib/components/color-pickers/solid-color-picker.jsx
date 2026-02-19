@@ -173,7 +173,7 @@ export const SolidColorPicker = (props) => {
 							'es:hover:placeholder:text-surface-400',
 							'es:placeholder:text-secondary-400',
 							'es:shadow-xs es:shadow-black/5',
-							'es:rounded-lg es:focus:rounded-xl',
+							'es:rounded-lg! es:focus:rounded-xl!',
 							'es:border-none!',
 						)}
 					/>

@@ -287,6 +287,24 @@ function App() {
 		},
 	];
 
+	const groupedData = [
+		{ label: 'Red', value: 'red', group: 'Colors' },
+		{ label: 'Green', value: 'green', group: 'Colors' },
+		{ label: 'Blue', value: 'blue', group: 'Colors' },
+		{ label: 'Circle', value: 'circle', group: 'Shapes' },
+		{ label: 'Square', value: 'square', group: 'Shapes' },
+		{ label: 'Triangle', value: 'triangle', group: 'Shapes' },
+		{ label: 'Other stuff', value: 'other' },
+	];
+
+	const groupedDataWithIcons = [
+		{ label: 'Dog', value: 'dog', category: 'Animals', icon: icons.genericShapes },
+		{ label: 'Cat', value: 'cat', category: 'Animals', icon: icons.genericShapes },
+		{ label: 'Bird', value: 'bird', category: 'Animals', icon: icons.genericShapes },
+		{ label: 'Car', value: 'car', category: 'Vehicles', icon: icons.cardFeatured },
+		{ label: 'Bike', value: 'bike', category: 'Vehicles', icon: icons.cardFeatured },
+	];
+
 	const getData = (inputValue) => {
 		const filterData = ({ label }) => label.toLowerCase().includes(inputValue.toLowerCase());
 
@@ -311,6 +329,20 @@ function App() {
 				}
 
 				resolve(data.filter(filterData));
+			}, 300);
+		});
+	};
+
+	const getAsyncGroupedData = (searchText) => {
+		const filterData = ({ label }) => label.toLowerCase().includes(searchText?.toLowerCase());
+
+		return new Promise((resolve) => {
+			setTimeout(() => {
+				if (!searchText) {
+					resolve(groupedData);
+				}
+
+				resolve(groupedData.filter(filterData));
 			}, 300);
 		});
 	};
@@ -742,6 +774,21 @@ function App() {
 						icon={icons.dropdown}
 						label='Select'
 						id='select'
+					/>
+					<Tab
+						icon={icons.multiple}
+						label='MultiSelect'
+						id='multi-select'
+					/>
+					<Tab
+						icon={icons.loopMode}
+						label='AsyncSelect'
+						id='async-select'
+					/>
+					<Tab
+						icon={icons.loopMode}
+						label='AsyncMultiSelect'
+						id='async-multi-select'
 					/>
 					<Tab
 						icon={icons.newTab}
@@ -2337,42 +2384,90 @@ function App() {
 					</BaseControl>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					{/* <Select
+					<Select
 						label='Single basic'
 						value={sinSel}
 						onChange={setSinSel}
 						options={data}
-					/> */}
-					<pre>{JSON.stringify(sinSel, null, 2)}</pre>
-					{/* <Select
-						label='Single basic - simpleValue'
+					/>
+					<Select
+						label='Simple value'
 						value={sinSelSimple}
 						onChange={setSinSelSimple}
 						options={data}
 						simpleValue
-					/> */}
-					<pre>{JSON.stringify(sinSelSimple, null, 2)}</pre>
-					{/* <MultiSelect
-						label='Multi basic'
-						value={mulSel}
-						onChange={setMulSel}
+					/>
+					<Select
+						label='Searchable'
+						value={sinSel}
+						onChange={setSinSel}
 						options={data}
-					/> */}
+						searchable
+					/>
+					<Select
+						label='Clearable'
+						value={sinSel}
+						onChange={setSinSel}
+						options={data}
+						clearable
+					/>
+					<hr className='es:my-2' />
+					<Select
+						label='Grouped'
+						value={sinSel}
+						onChange={setSinSel}
+						options={groupedData}
+						groupKey='group'
+						clearable
+					/>
+					<Select
+						label='Grouped with mapping'
+						value={sinSel}
+						onChange={setSinSel}
+						options={groupedData}
+						groupKey='group'
+						groupValueMapping={{
+							Colors: { label: 'Vibrant Colors', icon: icons.colorLarge, subtitle: 'Pick a favorite shade', endIcon: 'star' },
+							Shapes: { label: 'Geometric Shapes', icon: icons.genericShapes, subtitle: 'Standard geometry' },
+							_other: { label: 'Miscellaneous', icon: icons.help },
+						}}
+						searchable
+						clearable
+					/>
+					<hr className='es:my-2' />
+					<Select
+						label='Custom value display'
+						value={sinSelSimple}
+						onChange={setSinSelSimple}
+						options={data}
+						simpleValue
+						customValueDisplay={(item) => <span className='es:font-bold es:text-blue-400'>{item?.label}</span>}
+					/>
+					<Select
+						label='Custom menu option'
+						value={sinSelSimple}
+						onChange={setSinSelSimple}
+						options={data}
+						simpleValue
+						customMenuOption={(item) => <span className='es:font-bold es:text-blue-400'>{item?.label}</span>}
+					/>
+				</TabPanel>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<MultiSelect
-						label='Multi basic NEXT'
+						label='Multi basic'
 						value={mulSel}
 						onChange={setMulSel}
 						options={data}
 					/>
 					<MultiSelect
-						label='Multi basic NEXT clearable'
+						label='Multi clearable'
 						value={mulSel}
 						onChange={setMulSel}
 						options={data}
 						clearable
 					/>
 					<MultiSelect
-						label='Multi basic NEXT'
+						label='Custom value display'
 						value={mulSel}
 						onChange={setMulSel}
 						options={data}
@@ -2386,378 +2481,81 @@ function App() {
 							</HStack>
 						)}
 					/>
-					<pre>{JSON.stringify(mulSel, null, 2)}</pre>
-					{/* <MultiSelect
-						label='Multi basic - simpleValue'
-						value={mulSelSimple}
-						onChange={setMulSelSimple}
-						options={data}
-						simpleValue
-					/> */}
-					{/* <MultiSelect
-						label='Multi basic - simpleValue NEXT'
-						value={mulSelSimple}
-						onChange={setMulSelSimple}
-						options={data}
-						simpleValue
-					/> */}
-					<pre>{JSON.stringify(mulSelSimple, null, 2)}</pre>
-					{/* <AsyncSelect
-						label='Single async'
+					<hr className='es:my-2' />
+					<MultiSelect
+						label='Grouped with mapping'
+						value={mulSel}
+						onChange={setMulSel}
+						options={groupedData}
+						groupKey='group'
+						groupValueMapping={{
+							Colors: { label: 'Vibrant Colors', icon: icons.colorLarge },
+							Shapes: { label: 'Geometric Shapes', icon: icons.genericShapes },
+							_other: { label: 'Miscellaneous', icon: icons.help },
+						}}
+						searchable
+						clearable
+					/>
+				</TabPanel>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+					<AsyncSelect
+						label='Async single'
+						value={sinASel2}
+						onChange={setSinASel2}
+						fetchUrl={(searchText) =>
+							searchText?.length >= 3
+								? `https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5&contains=${searchText.substring(0, 30)}`
+								: 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5'
+						}
+						getLabel={(item) => item?.joke ?? item?.setup}
+						getValue={(item) => item?.id}
+						getSubtitle={(item) => item?.delivery}
+						getIcon={() => <span className='es:shrink-0 es:text-lg'>😂</span>}
+						getData={(data) => data?.jokes}
+					/>
+					<AsyncSelect
+						label='Async single (universities)'
+						value={sinASel2}
+						onChange={setSinASel2}
+						fetchUrl={(searchText) =>
+							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
+						}
+						getLabel={(item) => item?.name}
+						getValue={(item) => item?.value}
+						getSubtitle={(item) => item?.country}
+						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
+						clearable
+					/>
+					<hr className='es:my-2' />
+					<AsyncSelect
+						label='Async grouped (mapping)'
 						value={sinASel}
 						onChange={setSinASel}
-						loadOptions={getData}
-					/> */}
-					<pre>{JSON.stringify(sinASel, null, 2)}</pre>
-					{/* <AsyncMultiSelect
-						label='Multi async'
-						value={mulASel}
-						onChange={setMulASel}
-						loadOptions={getData}
-					/> */}
-					<pre>{JSON.stringify(mulASel, null, 2)}</pre>
-					<Spacer border />
-					{/* <Select
-						icon={icons.emptyCircle}
-						label='Pick an item'
-						onChange={(v) => setV(v)}
-						value={v}
-						options={data}
-					/> */}
-					{/* <Select
-						icon={icons.emptyCircle}
-						label='Pick an item'
-						onChange={(v) => setV(v)}
-						value={v}
-						options={data}
-						noSearch
-					/> */}
-					{/* <Select
-						icon={icons.emptyCircle}
-						label='Pick an item'
-						onChange={(v) => setV(v)}
-						value={v}
-						options={data}
-						placeholder='Pick me!'
-					/> */}
-					{/* <Select
-						icon={icons.emptyCircle}
-						label='Pick an item'
-						onChange={(v) => setV(v)}
-						value={v}
-						options={data}
-						clearable
-					/> */}
-					{/* <Select
-						icon={icons.emptyCircle}
-						label='Pick an item'
-						onChange={(v) => setV(v)}
-						value={v}
-						options={data}
-						closeMenuAfterSelect
-					/> */}
-					{/* <Select
-						icon={icons.emptyCircle}
-						label='Default'
-						onChange={(v) => setV(v)}
-						value={v}
-						options={data}
-					/> */}
-					{/* <AsyncSelect
-						icon={icons.emptyCircle}
-						label='Pick an item'
-						onChange={(v) => setV3(v)}
-						value={v3}
-						loadOptions={getData}
-					/> */}
-					{/* <MultiSelect
-						icon={icons.emptyCircle}
-						label='Select items'
-						onChange={(v) => setV4(v)}
-						value={v4}
-						options={data}
-					/> */}
-					{/* <AsyncMultiSelect
-						icon={icons.emptyCircle}
-						label='Select items'
-						onChange={(v) => setV5(v)}
-						value={v5}
-						loadOptions={getData}
-					/> */}
-					{/*
-					<Select
-						icon={icons.emptyCircle}
-						label='Pick an item'
-						onChange={(v) => setV(v)}
-						value={v}
-						options={data}
-						customDropdownArrow={CustomDropdownIndicator}
-					/> */}
-					{/* <Select
-						icon={icons.emptyCircle}
-						label='Pick an item'
-						onChange={(v) => setV(v)}
-						value={v}
-						options={data}
-						customMenuOption={CustomMenuOption}
-					/> */}
-					{/* <Select
-						icon={icons.emptyCircle}
-						label='Pick an item'
-						onChange={(v) => setV(v)}
-						value={v}
-						options={data}
-						clearable
-						customClearIndicator={CustomClearIndicator}
-					/> */}
-					{/* <Select
-						icon={icons.emptyCircle}
-						label='Pick an item'
-						onChange={(v) => setV(v)}
-						value={v}
-						options={data}
-						customValueDisplay={CustomValueDisplay}
-					/> */}
-					{/* <MultiSelect
-						icon={icons.emptyCircle}
-						label='Pick an item'
-						onChange={(v) => setV4(v)}
-						value={v4}
-						options={data}
-						customValueRemove={CustomMultiValueRemoveButton}
-					/> */}
-					{/* <MultiSelect
-						icon={icons.emptyCircle}
-						label='Pick an item'
-						onChange={(v) => setV4(v)}
-						value={v4}
-						options={data}
-						customValueDisplay={CustomMultiValueDisplay}
-					/> */}
-					{/* <MultiSelect
-						icon={icons.emptyCircle}
-						label='Pick an item'
-						onChange={(v) => setV6(v)}
-						value={v6}
-						options={data}
-						customValueContainer={CustomMultiValueContainer}
-					/> */}
-					{/* <Select
-						onChange={(v) => setV7(v)}
-						value={v7}
-						options={groupedOptions}
-						label='Groups'
-						icon={icons.group}
-					/> */}
-					<AsyncSelect
-						label='Async single select LOGGER'
-						value={sinASel2}
-						onChange={setSinASel2}
-						fetchUrl={(searchText) => {
-							console.log('searchText', searchText);
-
-							return searchText?.length >= 3
-								? `https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5&contains=${searchText.substring(0, 30)}`
-								: 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5';
+						fetchFunction={getAsyncGroupedData}
+						groupKey='group'
+						groupValueMapping={{
+							Colors: { label: 'Vibrant Colors', icon: icons.colorLarge },
+							Shapes: { label: 'Geometric Shapes', icon: icons.genericShapes },
+							_other: { label: 'Miscellaneous', icon: icons.help },
 						}}
-						getLabel={(item) => item?.joke ?? item?.setup}
-						getValue={(item) => item?.id}
-						getSubtitle={(item) => item?.delivery}
-						getIcon={() => <span className='es:shrink-0 es:text-lg'>😂</span>}
-						getData={(data) => data?.jokes}
-						customDropdownArrow={icons.experiment}
+						clearable
 					/>
 					<AsyncSelect
-						label='Async single select'
+						label='Async grouped (via getGroup)'
 						value={sinASel2}
 						onChange={setSinASel2}
 						fetchUrl={(searchText) =>
-							searchText?.length >= 3
-								? `https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5&contains=${searchText.substring(0, 30)}`
-								: 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5'
-						}
-						getLabel={(item) => item?.joke ?? item?.setup}
-						getValue={(item) => item?.id}
-						getSubtitle={(item) => item?.delivery}
-						getIcon={() => <span className='es:shrink-0 es:text-lg'>😂</span>}
-						getData={(data) => data?.jokes}
-						disabled
-					/>
-					<AsyncSelect
-						label='Async single select - clearable'
-						value={sinASel3}
-						onChange={setSinASel3}
-						fetchUrl={(searchText) =>
-							searchText?.length >= 3
-								? `https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5&contains=${searchText.substring(0, 30)}`
-								: 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5'
-						}
-						getLabel={(item) => item?.joke ?? item?.setup}
-						getValue={(item) => item?.id}
-						getSubtitle={(item) => item?.delivery}
-						getIcon={() => <span className='es:shrink-0 es:text-lg'>😂</span>}
-						getData={(data) => data?.jokes}
-						customValueDisplay={(item) => (
-							<div
-								className='es:line-clamp-1 es:font-bold'
-								style={{ color: 'blue' }}
-							>
-								{item?.label}
-							</div>
-						)}
-						clearable
-					/>
-					<hr className='es:my-2' />
-					<Select
-						label='Single basic'
-						value={sinSel}
-						onChange={setSinSel}
-						options={data}
-					/>
-					<hr className='es:my-2' />
-					<Select
-						label='Single basic - simpleValue'
-						value={sinSelSimple}
-						onChange={setSinSelSimple}
-						options={data}
-						simpleValue
-					/>
-					<Select
-						label='Single basic - simpleValue SRCH'
-						value={sinSelSimple}
-						onChange={setSinSelSimple}
-						options={data}
-						simpleValue
-						searchable
-					/>
-					<pre>{JSON.stringify(sinSelSimple, null, 2)}</pre>
-					<Select
-						label='Single basic - simpleValue with clear'
-						value={sinSelSimple}
-						onChange={setSinSelSimple}
-						options={data}
-						simpleValue
-						clearable
-						flat
-					/>
-					<Select
-						label='Single basic - simpleValue with clear'
-						value={sinSelSimple}
-						onChange={setSinSelSimple}
-						options={data}
-						simpleValue
-						clearable
-					/>
-					<hr className='es:my-2' />
-					<Select
-						label='Single basic - simpleValue with custom value display'
-						value={sinSelSimple}
-						onChange={setSinSelSimple}
-						options={data}
-						simpleValue
-						customValueDisplay={(item) => <span className='es:font-bold es:text-blue-400'>{item?.label}</span>}
-					/>
-					<Select
-						label='Single basic - simpleValue with custom menu item'
-						value={sinSelSimple}
-						onChange={setSinSelSimple}
-						options={data}
-						simpleValue
-						customMenuOption={(item) => <span className='es:font-bold es:text-blue-400'>{item?.label}</span>}
-					/>
-					<Select
-						label='Single basic'
-						value={sinSel}
-						onChange={setSinSel}
-						options={data}
-					/>
-					<AsyncSelect
-						label='Async single select PROD'
-						value={sinASel2}
-						onChange={setSinASel2}
-						fetchUrl={(searchText) =>
-							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
+							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=10&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=10&country=croatia'
 						}
 						getLabel={(item) => item?.name}
 						getValue={(item) => item?.value}
-						getSubtitle={(item) => item?.country}
-						getIcon={(item) => {
-							let codePoints = (item.countryCode ?? 'eu')
-								.toUpperCase()
-								.split('')
-								.map((char) => 127397 + char.charCodeAt());
-
-							return <span className='es:text-lg'>{String.fromCodePoint(...codePoints)}</span>;
-						}}
-						processLoadedOptions={(items) => items.map((item) => ({ name: item?.name, country: item?.country, value: slugify(item?.name), countryCode: item?.alpha_two_code }))}
+						getGroup={(item) => (item?.country === 'Croatia' ? 'From Croatia' : 'International')}
 						clearable
 					/>
-					<AsyncSelect
-						label='Async single select PROD'
-						value={sinASel2}
-						onChange={setSinASel2}
-						fetchUrl={(searchText) =>
-							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
-						}
-						getLabel={(item) => item?.name}
-						getValue={(item) => item?.value}
-						getSubtitle={(item) => item?.country}
-						getIcon={() => icons.emptyCircle}
-						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
-						clearable
-					/>
-					<AsyncSelect
-						label='Async single select PROD'
-						value={sinASel2}
-						onChange={setSinASel2}
-						fetchUrl={(searchText) =>
-							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
-						}
-						getLabel={(item) => item?.name}
-						getValue={(item) => item?.value}
-						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
-						clearable
-					/>
-					<AsyncSelect
-						label='Async single select PROD'
-						value={sinASel2}
-						onChange={setSinASel2}
-						fetchUrl={(searchText) =>
-							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
-						}
-						getLabel={(item) => item?.name}
-						getValue={(item) => item?.value}
-						getIcon={() => icons.emptyCircle}
-						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
-						clearable
-					/>
-					<AsyncSelect
-						label='Async single select PROD LOGGEr2'
-						value={sinASel2}
-						onChange={setSinASel2}
-						fetchUrl={(searchText) => {
-							console.log('searchText2', searchText);
-
-							return searchText?.length >= 3
-								? `http://universities.hipolabs.com/search?limit=5&name=${searchText}`
-								: 'http://universities.hipolabs.com/search?limit=5&country=croatia';
-						}}
-						getLabel={(item) => item?.name}
-						getValue={(item) => item?.value}
-						getSubtitle={(item) => item?.country}
-						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
-						clearable
-					/>
-					{JSON.stringify(sinASel2)}
-					<hr className='es:my-2' />
-					{/* <AsyncMultiSelect
-						label='Multi async'
-						value={mulASel}
-						onChange={setMulASel}
-						loadOptions={getDataAlt}
-					/> */}
+				</TabPanel>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<AsyncMultiSelect
-						label='Multi async NEXT'
+						label='Async multi (universities)'
 						value={mulASel}
 						onChange={setMulASel}
 						fetchUrl={(searchText) =>
@@ -2766,23 +2564,22 @@ function App() {
 						getLabel={(item) => item?.name}
 						getValue={(item) => item?.value}
 						getSubtitle={(item) => item?.country}
-						getIcon={() => icons.emptyCircle}
 						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
 						clearable
 					/>
 					<hr className='es:my-2' />
-					Custom
 					<AsyncMultiSelect
-						label='Multi async NEXT CSTM'
+						label='Async multi grouped (mapping)'
 						value={mulASel}
 						onChange={setMulASel}
-						fetchFunction={getDataNew}
-					/>
-					<AsyncSelect
-						label='Async single select NEXT CSTM'
-						value={sinASel2}
-						onChange={setSinASel2}
-						fetchFunction={getDataNew}
+						fetchFunction={getAsyncGroupedData}
+						groupKey='group'
+						groupValueMapping={{
+							Colors: { label: 'Vibrant Colors', icon: icons.colorLarge },
+							Shapes: { label: 'Geometric Shapes', icon: icons.genericShapes },
+							_other: { label: 'Miscellaneous', icon: icons.help },
+						}}
+						clearable
 					/>
 				</TabPanel>
 				<TabPanel className='es:w-4xl es:max-h-[85vh] es:h-fit es:overflow-y-auto es:max-w-[90vw] es:space-y-4 es:p-5!'>

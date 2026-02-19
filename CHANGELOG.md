@@ -3,8 +3,15 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [6.1.1] - 2026-02-18
+## [6.2.0] - 2026-02-19
+- Updated dependencies.
+- Fixed input fields being overriden in Gutenberg in a couple more of cases.
+- Added `endIcon` prop to `RichLabel`.
+- Added grouping support for all `Select` variants via `groupKey` and `groupValueMapping`.
+- You can now group items in Select components by a specific key using `groupKey`, and customize headers with icons or subtitles via `groupValueMapping`. For remote data, use `getGroup` to dynamically assign items to groups.
+- Search text will now auto-clear in Select components when you close the dropdown.
 
+## [6.1.1] - 2026-02-18
 - Updated dependencies.
 - Fixed AsyncMultiSelect not updating the selected values properly when using search.
 
@@ -580,6 +587,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[6.2.0]: https://github.com/infinum/eightshift-ui-components/compare/6.1.1...6.2.0
 [6.1.1]: https://github.com/infinum/eightshift-ui-components/compare/6.1.0...6.1.1
 [6.1.0]: https://github.com/infinum/eightshift-ui-components/compare/6.0.13...6.1.0
 [6.0.13]: https://github.com/infinum/eightshift-ui-components/compare/6.0.12...6.0.13
