@@ -92,7 +92,7 @@ export const BaseControl = (props) => {
 
 			{help && (
 				<Text
-					className={clsx('es:inline-block es:text-sm es:text-secondary-400 es:mt-1.5 es:font-variation-["wdth"_76,"wght"_350]', !noHelpInset && 'es:pl-1')}
+					className={clsx('es:inline-block es:text-sm es:text-secondary-500 es:mt-1.5 es:font-variation-["wdth"_66,"wght"_325,"slnt"_-4]', !noHelpInset && 'es:pl-1')}
 					slot='description'
 				>
 					{help}

@@ -11,6 +11,8 @@ import { BaseControl } from '../base-control/base-control';
 import { TriggeredPopover } from '../popover/popover';
 import { OptionSelect } from '../option-select/option-select';
 import { Text } from 'react-aria-components';
+import { Container, ContainerGroup } from '../base-control/container';
+import { HStack } from '../layout/hstack';
 
 /**
  * A compact, inline version of `Responsive`. Allows the user to set different values for different breakpoints.
@@ -129,15 +131,17 @@ export const MiniResponsive = (props) => {
 		return (
 			<DecorativeTooltip
 				placement='left'
-				className='es:p-3'
+				className='es:p-4! es:rounded-2xl! es:max-w-96!'
 				theme='light'
 				offset={7.5}
 				arrow
 				text={
-					<div className='es:max-w-64 es:p-1'>
-						<span className='es:block es:font-variation-["wdth"_180,"wght"_500] es:text-base es:leading-none es:text-surface-600'>{__('Default', 'eightshift-ui-components')}</span>
+					<>
+						<span className='es:block es:font-variation-["wdth"_95,"wght"_475,"ROND"_100] es:text-14 es:leading-none es:text-surface-600'>
+							{__('Default', 'eightshift-ui-components')}
+						</span>
 
-						<span className='es:block es:text-balance es:tabular-nums es:font-variation-["wdth"_60,"wght"_300] es:text-surface-500 es:mt-1'>
+						<span className='es:block es:text-balance es:tabular-nums es:font-variation-["wdth"_64,"wght"_275,"ROND"_50,"slnt"_-2] es:text-surface-500 es:mt-1'>
 							{!firstMobileFirstOverride && !lastDesktopFirstOverride && __('Always applied, regardless of browser width.', 'eightshift-ui-components')}
 
 							{firstMobileFirstOverride &&
@@ -190,7 +194,7 @@ export const MiniResponsive = (props) => {
 								/>
 							)}
 						</div>
-					</div>
+					</>
 				}
 			>
 				<div className='es:icon:size-6 es:mx-0.5 es:text-accent-700'>
@@ -231,9 +235,9 @@ export const MiniResponsive = (props) => {
 					className='es:min-w-80 es:p-0!'
 					wrapperClassName='es:rounded-3xl'
 				>
-					<div className='es:flex es:items-center es:justify-between es:pt-3 es:px-3.5'>
-						<Text className='es:block es:text-lg es:text-surface-600 es:font-variation-["wdth"_180,"wght"_325]'>{__('Responsive overrides', 'eightshift-ui-components')}</Text>
-					</div>
+					<Text className='es:px-4 es:pt-3 es:pb-0.5 es:text-center es:block es:text-base es:text-surface-600 es:font-variation-["wdth"_105,"wght"_425,"ROND"_100]'>
+						{__('Responsive overrides', 'eightshift-ui-components')}
+					</Text>
 
 					<div className='es:px-2 es:mt-1 es:space-y-0.5'>
 						{!isDesktopFirst && (
@@ -301,15 +305,16 @@ export const MiniResponsive = (props) => {
 									<DecorativeTooltip
 										placement='left'
 										theme='light'
+										className='es:p-4! es:rounded-2xl! es:max-w-96!'
 										offset={7.5}
 										arrow
 										text={
-											<div className='es:max-w-96 es:p-1'>
-												<span className='es:block es:font-variation-["wdth"_180,"wght"_500] es:text-base es:leading-none es:text-surface-600'>
+											<>
+												<span className='es:block es:font-variation-["wdth"_95,"wght"_475,"ROND"_100] es:text-14 es:leading-none es:text-surface-600'>
 													{breakpointUiData?.[realBreakpointName]?.label ?? upperFirst(realBreakpointName)}
 												</span>
 
-												<span className='es:block es:text-balance es:tabular-nums es:font-variation-["wdth"_60,"wght"_300] es:text-surface-500 es:mt-1'>
+												<span className='es:block es:text-balance es:tabular-nums es:font-variation-["wdth"_64,"wght"_275,"ROND"_50,"slnt"_-2] es:text-surface-500 es:mt-1'>
 													{!isDesktopFirst && (
 														<>
 															{!belowOverride &&
@@ -348,7 +353,9 @@ export const MiniResponsive = (props) => {
 												</span>
 
 												{typeof value[breakpoint] === 'undefined' && (
-													<span className='es:mt-2 es:block es:font-variation-["wdth"_100,"YTLC"_520,"wght"_350,"slnt"_-10]'>{__('Not set', 'eightshift-ui-components')}</span>
+													<span className='es:mt-2 es:text-sm es:leading-none es:block es:font-variation-["wdth"_75,"wght"_300,"slnt"_-5]'>
+														{__('Not set', 'eightshift-ui-components')}
+													</span>
 												)}
 
 												{typeof value[breakpoint] !== 'undefined' && (
@@ -420,7 +427,7 @@ export const MiniResponsive = (props) => {
 														)}
 													</div>
 												)}
-											</div>
+											</>
 										}
 									>
 										<div
@@ -489,69 +496,71 @@ export const MiniResponsive = (props) => {
 						)}
 					</div>
 
-					<ButtonGroup className={clsx('es:mx-2 es:mt-3', 'es:w-fill es:grid es:grid-cols-2', noModeSelect ? 'es:mb-2' : 'es:mb-0.5')}>
-						<div className={clsx('es:bg-white/50 es:inset-ring es:p-1.5 es:inset-ring-surface-200/60 es:rounded-tl-2xl es:rounded-sm', noModeSelect && 'es:rounded-bl-2xl')}>
-							<TriggeredPopover
-								triggerButtonLabel={__('Responsive preview', 'eightshift-ui-components')}
-								triggerButtonProps={{
-									disabled: !Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined'),
-									type: 'ghost',
-									className: 'es:w-fill',
-								}}
+					<ContainerGroup
+						wrapClassName='es:m-2 es:mt-4'
+						label={__('Breakpoints', 'eightshift-ui-components')}
+					>
+						<Container lessSpaceEnd>
+							<BaseControl
+								label={__('Actions', 'eightshift-ui-components')}
+								inline
 							>
-								<ResponsivePreview
-									value={value}
-									isDesktopFirst={isDesktopFirst}
-									breakpoints={breakpoints}
-									desktopFirstBreakpoints={desktopFirstBreakpoints}
-									options={options}
-									breakpointData={breakpointData}
-									breakpointUiData={breakpointUiData}
-								/>
-							</TriggeredPopover>
-						</div>
+								<HStack>
+									<TriggeredPopover
+										triggerButtonLabel={__('Preview', 'eightshift-ui-components')}
+										triggerButtonProps={{
+											disabled: !Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined'),
+										}}
+									>
+										<ResponsivePreview
+											value={value}
+											isDesktopFirst={isDesktopFirst}
+											breakpoints={breakpoints}
+											desktopFirstBreakpoints={desktopFirstBreakpoints}
+											options={options}
+											breakpointData={breakpointData}
+											breakpointUiData={breakpointUiData}
+										/>
+									</TriggeredPopover>
 
-						<div className={clsx('es:bg-white/50 es:inset-ring es:p-1.5 es:inset-ring-surface-200/60 es:rounded-sm es:rounded-tr-2xl', noModeSelect && 'es:rounded-br-2xl')}>
-							<Button
-								icon={icons.clearAlt}
-								disabled={!Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined')}
-								onPress={() => {
-									const newValue = { ...value };
+									<Button
+										icon={icons.clearAlt}
+										disabled={!Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined')}
+										onPress={() => {
+											const newValue = { ...value };
 
-									[...breakpoints, ...desktopFirstBreakpoints].forEach((breakpoint) => {
-										delete newValue[breakpoint];
+											[...breakpoints, ...desktopFirstBreakpoints].forEach((breakpoint) => {
+												delete newValue[breakpoint];
+											});
+
+											onChange(newValue);
+										}}
+									>
+										{__('Clear overrides', 'eightshift-ui-components')}
+									</Button>
+								</HStack>
+							</BaseControl>
+						</Container>
+
+						<Container lessSpaceEnd>
+							<OptionSelect
+								hidden={noModeSelect}
+								label={__('Mode', 'eightshift-ui-components')}
+								value={isDesktopFirst}
+								onChange={(newMode) => {
+									onChange({
+										_default: value['_default'],
+										_desktopFirst: newMode,
 									});
-
-									onChange(newValue);
 								}}
-								type='ghost'
-								className='es:w-fill'
-							>
-								{__('Clear overrides', 'eightshift-ui-components')}
-							</Button>
-						</div>
-					</ButtonGroup>
-
-					<OptionSelect
-						hidden={noModeSelect}
-						icon={icons.responsiveOverridesAlt3Fill}
-						label={__('Breakpoint mode', 'eightshift-ui-components')}
-						value={isDesktopFirst}
-						onChange={(newMode) => {
-							onChange({
-								_default: value['_default'],
-								_desktopFirst: newMode,
-							});
-						}}
-						options={[
-							{ label: __('Mobile-first', 'eightshift-ui-components'), subtitle: __('Default', 'eightshift-ui-components'), value: false },
-							{ label: __('Desktop-first', 'eightshift-ui-components'), value: true },
-						]}
-						wrapperProps={{ triggerProps: { type: 'simple', className: 'es:grow' } }}
-						type='menu'
-						inline
-						className='es:pl-3 es:mx-2 es:mb-2 es:bg-white/50 es:inset-ring es:p-1.5 es:inset-ring-surface-200/60 es:rounded-t-sm es:rounded-b-2xl'
-					/>
+								options={[
+									{ icon: icons.responsiveOverridesAltFill, label: __('Mobile-first', 'eightshift-ui-components'), value: false },
+									{ icon: icons.responsiveOverridesAlt2Fill, label: __('Desktop-first', 'eightshift-ui-components'), value: true },
+								]}
+								inline
+							/>
+						</Container>
+					</ContainerGroup>
 				</TriggeredPopover>
 			</ButtonGroup>
 		</BaseControl>

@@ -147,7 +147,7 @@ const ModalInternal = (props) => {
 							<HStack className={clsx(title && 'es:p-6 es:pb-3 es:justify-between', headerClassName)}>
 								{title && (
 									<Heading
-										className='es:text-balance es:text-xl! es:my-0! es:text-accent-800 es:font-variation-["wdth"_200,"YTLC"_520,"wght"_425]'
+										className='es:text-balance es:text-3xl! es:my-0! es:text-accent-800 es:font-variation-["wdth"_40,"wght"_425,"slnt"_-3,"ROND"_100]'
 										slot='title'
 									>
 										{title}

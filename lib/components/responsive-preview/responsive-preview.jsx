@@ -112,7 +112,7 @@ export const ResponsivePreview = (props) => {
 			<div className='es:flex es:w-full es:items-center es:gap-2.5'>
 				<RichLabel
 					icon={icons.previewResponsive}
-					label={__('Responsive preview', 'eightshift-ui-components')}
+					label={__('Breakpoint preview', 'eightshift-ui-components')}
 				/>
 
 				<span className='es:ml-auto es:select-none es:rounded es:bg-secondary-100 es:px-1 es:py-0.5 es:text-xs es:text-secondary-500'>

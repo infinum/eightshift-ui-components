@@ -94,7 +94,7 @@ export const Checkbox = (props) => {
 					active: false,
 					disabled: false,
 					class: [
-						'es:bg-secondary-50 es:inset-ring-secondary-300/60',
+						'es:bg-secondary-50 es:inset-ring-secondary-300/80',
 						'es:from-black/1 es:to-black/5',
 						'es:hover:bg-surface-100 es:hover:inset-ring-surface-300/60',
 						'es:inset-shadow-white/50',

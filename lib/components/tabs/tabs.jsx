@@ -275,7 +275,7 @@ export const Tab = (props) => {
 			'es:any-focus:outline-hidden',
 			'es:contrast-more:inset-ring es:contrast-more:inset-ring-accent-500/0 es:contrast-more:focus-visible:inset-ring-accent-500',
 			'es:disabled:text-secondary-400',
-			'es:font-variation-["wdth"_120,"YTLC"_560,"wght"_375] es:selected:font-variation-["wdth"_120,"YTLC"_560,"wght"_375,"GRAD"_80]',
+			'es:font-variation-["wdth"_102,"wght"_325,"ROND"_0,"slnt"_0,"GRAD"_0] es:hover:font-variation-["wdth"_102,"wght"_325,"ROND"_100,"slnt"_0,"GRAD"_0] es:selected:font-variation-["wdth"_102,"wght"_325,"ROND"_50,"slnt"_0,"GRAD"_50]',
 			invisible && 'es:hidden',
 			className,
 		],

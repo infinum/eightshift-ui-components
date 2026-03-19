@@ -117,7 +117,7 @@ export const Notice = (props) => {
 					className={clsx(
 						'es:col-span-2 es:col-start-2 es:text-balance es:text-14',
 						subtitle ? 'es:self-end' : 'es:row-span-2 es:self-center-safe',
-						'es:font-variation-["wdth"_110,"wght"_375,"YTLC"_520]',
+						'es:font-variation-["wdth"_78,"wght"_325,"ROND"_100]',
 						styles[type].textColorClassName,
 					)}
 				>
@@ -128,8 +128,8 @@ export const Notice = (props) => {
 			{subtitle && (
 				<span
 					className={clsx(
-						'es:col-span-2 es:col-start-2 es:text-balance es:text-xs es:leading-tight es:pt-0.25',
-						'es:font-variation-["wdth"_76,"wght"_350]',
+						'es:col-span-2 es:col-start-2 es:text-balance es:text-xs es:leading-tighter es:pt-0.75',
+						'es:font-variation-["wdth"_90,"wght"_350,"slnt"_-1]',
 						styles[type].subtitleColorClassName,
 						label ? 'es:self-start' : 'es:row-span-2 es:self-center-safe',
 					)}

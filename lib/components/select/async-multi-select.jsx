@@ -463,7 +463,9 @@ export const AsyncMultiSelect = (props) => {
 						style={{ '--select-width': ref.current ? `${ref.current.offsetWidth}px` : 'var(--trigger-width)' }}
 						triggerRef={ref}
 					>
-						<span className='es:text-sm es:ml-3 es:mt-2 es:mb-1 es:font-variation-["wdth"_140,"wght"_320] es:text-surface-600'>{__('Item order', 'eightshift-ui-components')}</span>
+						<span className='es:text-sm es:ml-3 es:mt-2 es:mb-1 es:font-variation-["wdth"_100,"wght"_325,"ROND"_100] es:text-surface-600'>
+							{__('Item order', 'eightshift-ui-components')}
+						</span>
 
 						<DraggableList
 							items={value ?? []}
