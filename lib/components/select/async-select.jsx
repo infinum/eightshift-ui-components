@@ -6,7 +6,7 @@ import { icons, Spinner } from '../../icons';
 import { OptionItemBase, SelectClearButton, getGroupedOptions } from './shared';
 import { RichLabel } from '../rich-label/rich-label';
 import { useAsyncList } from 'react-stately';
-import { randomId, unescapeHTML } from '../../utilities';
+import { unescapeHTML } from '../../utilities';
 import { cva } from 'class-variance-authority';
 import clsx from 'clsx';
 
@@ -76,7 +76,7 @@ export const AsyncSelect = (props) => {
 		actions,
 		inline,
 
-		value,
+		value: rawValue,
 		onChange,
 
 		disabled = false,
@@ -117,8 +117,11 @@ export const AsyncSelect = (props) => {
 		...rest
 	} = props;
 
+	// Filter out non-objects.
+	const value = rawValue && !Array.isArray(rawValue) && typeof rawValue === 'object' ? rawValue : null;
+
 	const list = useAsyncList({
-		initialSelectedKeys: value?.value ? [value?.value] : [],
+		initialSelectedKeys: value?.value ? [value.value] : [],
 		getKey: (item) => item?.value,
 		async load({ signal, filterText }) {
 			let json = [];
