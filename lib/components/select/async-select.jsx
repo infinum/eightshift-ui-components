@@ -174,7 +174,7 @@ export const AsyncSelect = (props) => {
 		},
 	});
 
-	const ref = useRef();
+	const ref = useRef(null);
 
 	const groupedItems = useMemo(
 		() => getGroupedOptions(list?.items, groupKey ?? (getGroup ? '_group' : null), groupValueMapping),
@@ -397,7 +397,7 @@ export const AsyncSelect = (props) => {
 				<Popover
 					className={({ isEntering, isExiting }) =>
 						clsx(
-							'es:w-(--trigger-width) es:min-w-72',
+							'es:w-(--select-width) es:min-w-72',
 							'es:outline-hidden',
 							'es:rounded-t-3xl',
 							'es:overflow-clip es:grid es:grid-cols-1',
@@ -421,8 +421,9 @@ export const AsyncSelect = (props) => {
 						)
 					}
 					placement='bottom left'
-					maxHeight={300}
+					maxHeight={260}
 					triggerRef={ref}
+					style={{ '--select-width': ref.current ? `${ref.current.offsetWidth}px` : 'var(--trigger-width)' }}
 				>
 					<Autocomplete
 						inputValue={list.filterText}

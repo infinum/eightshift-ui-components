@@ -119,7 +119,7 @@ export const MultiSelect = (props) => {
 		...rest
 	} = props;
 
-	const ref = useRef();
+	const ref = useRef(null);
 
 	const [searchTerm, setSearchTerm] = useState('');
 
@@ -388,10 +388,12 @@ export const MultiSelect = (props) => {
 							slot: null,
 						}}
 						className='es:grid es:grid-cols-1 es:grid-rows-[auto_minmax(0,1fr)] es:p-0!'
-						wrapperClassName='es:w-72 es:px-1.5 es:h-fit es:from-surface-300/35 es:to-surface-300/35 es:overflow-clip es:rounded-20!'
+						wrapperClassName='es:w-(--select-width) es:min-w-72 es:px-1.5 es:h-fit es:from-surface-300/35 es:to-surface-300/35 es:overflow-clip es:rounded-20!'
 						hidden={noReorder || disabled || currentValue?.length < 2}
+						style={{ '--select-width': ref.current ? `${ref.current.offsetWidth}px` : 'var(--trigger-width)' }}
+						triggerRef={ref}
 					>
-						<span className='es:text-base es:mx-auto es:my-1 es:font-variation-["wdth"_140,"wght"_320] es:text-surface-600'>{__('Item order', 'eightshift-ui-components')}</span>
+						<span className='es:text-sm es:ml-3 es:mt-2 es:mb-1 es:font-variation-["wdth"_140,"wght"_320] es:text-surface-600'>{__('Item order', 'eightshift-ui-components')}</span>
 
 						<DraggableList
 							items={simpleValue ? (value?.map((item) => options.find((option) => option.value === item)) ?? []) : (value ?? [])}
@@ -424,7 +426,7 @@ export const MultiSelect = (props) => {
 				<Popover
 					className={({ isEntering, isExiting }) =>
 						clsx(
-							'es:w-(--trigger-width) es:min-w-72',
+							'es:w-(--select-width) es:min-w-72',
 							'es:outline-hidden',
 							searchable ? 'es:rounded-b-xl es:rounded-t-3xl' : 'es:rounded-2xl',
 							'es:overflow-clip es:grid es:grid-cols-1',
@@ -450,6 +452,7 @@ export const MultiSelect = (props) => {
 					placement='bottom left'
 					maxHeight={260}
 					triggerRef={ref}
+					style={{ '--select-width': ref.current ? `${ref.current.offsetWidth}px` : 'var(--trigger-width)' }}
 				>
 					{searchable && (
 						<Autocomplete

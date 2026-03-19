@@ -114,7 +114,7 @@ export const Select = (props) => {
 		...rest
 	} = props;
 
-	const ref = useRef();
+	const ref = useRef(null);
 
 	const [searchTerm, setSearchTerm] = useState('');
 
@@ -343,10 +343,11 @@ export const Select = (props) => {
 
 					{clearable && <SelectClearButton />}
 				</div>
+
 				<Popover
 					className={({ isEntering, isExiting }) =>
 						clsx(
-							'es:w-(--trigger-width) es:min-w-72',
+							'es:w-(--select-width) es:min-w-72',
 							'es:outline-hidden',
 							searchable ? 'es:rounded-b-xl es:rounded-t-3xl' : 'es:rounded-2xl',
 							'es:overflow-clip es:grid es:grid-cols-1',
@@ -370,8 +371,9 @@ export const Select = (props) => {
 						)
 					}
 					placement='bottom left'
-					maxHeight={240}
+					maxHeight={260}
 					triggerRef={ref}
+					style={{ '--select-width': ref.current ? `${ref.current.offsetWidth}px` : 'var(--trigger-width)' }}
 				>
 					{searchable && (
 						<Autocomplete
