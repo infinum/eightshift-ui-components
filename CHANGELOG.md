@@ -7,6 +7,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Updated dependencies.
 - Slightly adjusted secondary colors in color themes.
 - Fixed issue with array values in `Select` and `AsyncSelect` causing a bug.
+- Updated fonts.
 
 ## [6.2.0] - 2026-02-19
 - Updated dependencies.
