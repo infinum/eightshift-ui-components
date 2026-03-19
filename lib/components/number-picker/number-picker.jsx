@@ -171,7 +171,7 @@ export const NumberPicker = ({
 						)}
 
 						<Input
-							className='es:font-variation-["wdth"_67,"wght"_300,"slnt"_0,"ROND"_100] es:placeholder-shown:font-variation-["wdth"_60,"wght"_300,"slnt"_-10,"ROND"_0] es:any-focus:outline-hidden! es:p-px! es:border-none! es:shadow-none! es:bg-transparent es:text-13!'
+							className='es:font-variation-["wdth"_80,"wght"_325,"slnt"_0,"ROND"_100] es:placeholder-shown:font-variation-["wdth"_60,"wght"_300,"slnt"_-10,"ROND"_0] es:any-focus:outline-hidden! es:p-px! es:border-none! es:shadow-none! es:bg-transparent es:text-13!'
 							placeholder={placeholder}
 							style={{
 								width: fixedWidth

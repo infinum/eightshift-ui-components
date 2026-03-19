@@ -131,7 +131,7 @@ export const LinkInput = (props) => {
 			'es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500',
 			'es:placeholder-shown:pr-0 es:pr-10',
 			'es:focus:placeholder:text-surface-400',
-			'es:font-variation-["wdth"_67,"wght"_300,"slnt"_0,"ROND"_100] es:placeholder-shown:font-variation-["wdth"_60,"wght"_300,"slnt"_-10,"ROND"_0]',
+			'es:font-variation-["wdth"_80,"wght"_325,"slnt"_0,"ROND"_100] es:placeholder-shown:font-variation-["wdth"_60,"wght"_300,"slnt"_-10,"ROND"_0]',
 			inline && 'es:min-w-48',
 			className,
 		],
