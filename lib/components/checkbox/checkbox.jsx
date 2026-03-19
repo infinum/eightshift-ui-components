@@ -176,7 +176,7 @@ export const Checkbox = (props) => {
 				<AnimatedVisibility
 					transition='scaleRotateFade'
 					visible={!indeterminate && checked}
-					className={clsx('es:transition-none es:icon:size-4 es:icon:stroke-[2.5]', !disabled && 'es:icon:drop-shadow-xs es:icon:drop-shadow-accent-950/30')}
+					className={clsx('es:transition-none es:icon:size-3.5 es:icon:stroke-[2.5]', !disabled && 'es:icon:drop-shadow-xs es:icon:drop-shadow-accent-950/30')}
 					noInitial
 				>
 					{icons.check}
