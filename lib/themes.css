@@ -63,17 +63,29 @@
 }
 
 .es-uic-theme-mono {
-	--es-color-accent-50: var(--es-color-gray-50);
-	--es-color-accent-100: var(--es-color-gray-100);
-	--es-color-accent-200: var(--es-color-gray-200);
-	--es-color-accent-300: var(--es-color-gray-300);
-	--es-color-accent-400: var(--es-color-gray-400);
-	--es-color-accent-500: var(--es-color-gray-500);
-	--es-color-accent-600: var(--es-color-gray-600);
-	--es-color-accent-700: var(--es-color-gray-700);
-	--es-color-accent-800: var(--es-color-gray-800);
-	--es-color-accent-900: var(--es-color-gray-900);
-	--es-color-accent-950: var(--es-color-gray-950);
+	--es-color-accent-50: var(--es-color-slate-50);
+	--es-color-accent-100: var(--es-color-slate-100);
+	--es-color-accent-200: var(--es-color-slate-200);
+	--es-color-accent-300: var(--es-color-slate-300);
+	--es-color-accent-400: var(--es-color-slate-400);
+	--es-color-accent-500: var(--es-color-slate-500);
+	--es-color-accent-600: var(--es-color-slate-600);
+	--es-color-accent-700: var(--es-color-slate-700);
+	--es-color-accent-800: var(--es-color-slate-800);
+	--es-color-accent-900: var(--es-color-slate-900);
+	--es-color-accent-950: var(--es-color-slate-950);
+
+	--color-secondary-50: var(--es-color-mist-50);
+	--color-secondary-100: var(--es-color-mist-100);
+	--color-secondary-200: var(--es-color-mist-200);
+	--color-secondary-300: var(--es-color-mist-300);
+	--color-secondary-400: var(--es-color-mist-400);
+	--color-secondary-500: var(--es-color-mist-500);
+	--color-secondary-600: var(--es-color-mist-600);
+	--color-secondary-700: var(--es-color-mist-700);
+	--color-secondary-800: var(--es-color-mist-800);
+	--color-secondary-900: var(--es-color-mist-900);
+	--color-secondary-950: var(--es-color-mist-950);
 
 	--es-color-surface-50: color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
 	--es-color-surface-100: color-mix(in oklab, var(--es-color-accent-100) 20%, var(--es-color-secondary-100));
@@ -101,17 +113,17 @@
 	--es-color-accent-900: var(--es-color-orange-900);
 	--es-color-accent-950: var(--es-color-orange-950);
 
-	--color-secondary-50: var(--es-color-stone-50);
-	--color-secondary-100: var(--es-color-stone-100);
-	--color-secondary-200: var(--es-color-stone-200);
-	--color-secondary-300: var(--es-color-stone-300);
-	--color-secondary-400: var(--es-color-stone-400);
-	--color-secondary-500: var(--es-color-stone-500);
-	--color-secondary-600: var(--es-color-stone-600);
-	--color-secondary-700: var(--es-color-stone-700);
-	--color-secondary-800: var(--es-color-stone-800);
-	--color-secondary-900: var(--es-color-stone-900);
-	--color-secondary-950: var(--es-color-stone-950);
+	--color-secondary-50: var(--es-color-taupe-50);
+	--color-secondary-100: var(--es-color-taupe-100);
+	--color-secondary-200: var(--es-color-taupe-200);
+	--color-secondary-300: var(--es-color-taupe-300);
+	--color-secondary-400: var(--es-color-taupe-400);
+	--color-secondary-500: var(--es-color-taupe-500);
+	--color-secondary-600: var(--es-color-taupe-600);
+	--color-secondary-700: var(--es-color-taupe-700);
+	--color-secondary-800: var(--es-color-taupe-800);
+	--color-secondary-900: var(--es-color-taupe-900);
+	--color-secondary-950: var(--es-color-taupe-950);
 
 	--es-color-surface-50: color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
 	--es-color-surface-100: color-mix(in oklab, var(--es-color-accent-100) 20%, var(--es-color-secondary-100));
@@ -139,17 +151,17 @@
 	--es-color-accent-900: var(--es-color-indigo-900);
 	--es-color-accent-950: var(--es-color-indigo-950);
 
-	--color-secondary-50: var(--es-color-gray-50);
-	--color-secondary-100: var(--es-color-gray-100);
-	--color-secondary-200: var(--es-color-gray-200);
-	--color-secondary-300: var(--es-color-gray-300);
-	--color-secondary-400: var(--es-color-gray-400);
-	--color-secondary-500: var(--es-color-gray-500);
-	--color-secondary-600: var(--es-color-gray-600);
-	--color-secondary-700: var(--es-color-gray-700);
-	--color-secondary-800: var(--es-color-gray-800);
-	--color-secondary-900: var(--es-color-gray-900);
-	--color-secondary-950: var(--es-color-gray-950);
+	--color-secondary-50: var(--es-color-mauve-50);
+	--color-secondary-100: var(--es-color-mauve-100);
+	--color-secondary-200: var(--es-color-mauve-200);
+	--color-secondary-300: var(--es-color-mauve-300);
+	--color-secondary-400: var(--es-color-mauve-400);
+	--color-secondary-500: var(--es-color-mauve-500);
+	--color-secondary-600: var(--es-color-mauve-600);
+	--color-secondary-700: var(--es-color-mauve-700);
+	--color-secondary-800: var(--es-color-mauve-800);
+	--color-secondary-900: var(--es-color-mauve-900);
+	--color-secondary-950: var(--es-color-mauve-950);
 
 	--es-color-surface-50: color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
 	--es-color-surface-100: color-mix(in oklab, var(--es-color-accent-100) 20%, var(--es-color-secondary-100));
