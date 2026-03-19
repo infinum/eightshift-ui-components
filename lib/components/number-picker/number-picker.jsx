@@ -164,14 +164,14 @@ export const NumberPicker = ({
 						{prefix && (
 							<span
 								slot='prefix'
-								className='es:mr-1 es:select-none es:leading-none es:text-current/60 es:font-variation-["wdth"_100,"wght"_400,"slnt"_-1] es:group-focus-within:text-surface-500'
+								className='es:mr-1 es:-translate-y-px es:select-none es:leading-none es:text-current/65 es:font-variation-["wdth"_76,"wght"_325,"slnt"_-2,"ROND"_100] es:group-focus-within:text-surface-500'
 							>
 								{prefix}
 							</span>
 						)}
 
 						<Input
-							className='es:font-variation-["wdth"_84,"YTLC"_520,"wght"_325,"slnt"_0,"YTFI"_788] es:placeholder-shown:font-variation-["wdth"_100,"YTLC"_500,"wght"_250,"slnt"_-8] es:any-focus:outline-hidden! es:p-px! es:border-none! es:shadow-none! es:bg-transparent es:text-13!'
+							className='es:font-variation-["wdth"_80,"wght"_325,"slnt"_0,"ROND"_100] es:placeholder-shown:font-variation-["wdth"_60,"wght"_300,"slnt"_-10,"ROND"_0] es:any-focus:outline-hidden! es:p-px! es:border-none! es:shadow-none! es:bg-transparent es:text-13!'
 							placeholder={placeholder}
 							style={{
 								width: fixedWidth
@@ -213,7 +213,7 @@ export const NumberPicker = ({
 						{suffix && (
 							<span
 								slot='suffix'
-								className='es:ml-1 es:select-none es:leading-none es:text-current/60 es:font-variation-["wdth"_100,"wght"_400,"slnt"_-1] es:group-focus-within:text-surface-500'
+								className='es:ml-1 es:-translate-y-px es:select-none es:leading-none es:text-current/60 es:font-variation-["wdth"_76,"wght"_325,"slnt"_-2,"ROND"_100] es:group-focus-within:text-surface-500'
 							>
 								{suffix}
 							</span>

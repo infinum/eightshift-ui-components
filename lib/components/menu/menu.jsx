@@ -338,7 +338,7 @@ export const SubMenuItem = (props) => {
 				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
 				offset={-1}
 				{...popoverProps}
-				className={clsx('es:any-focus:outline-hidden', !manualWidth && 'es:w-56', manualWidth && 'es:max-w-80', popoverProps?.className)}
+				className={clsx('es:font-sans', 'es:any-focus:outline-hidden', !manualWidth && 'es:w-56', manualWidth && 'es:max-w-80', popoverProps?.className)}
 			>
 				<ReactAriaMenu
 					aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
@@ -384,10 +384,10 @@ export const MenuSectionHeader = (props) => {
 		<ReactAriaMenuItem
 			{...props}
 			className={clsx(
-				'es:mx-1 es:px-1 es:pt-1.5 es:pb-2 es:first:pt-2 es:flex es:min-w-44 es:items-center es:gap-1.5 es:font-variation-["wdth"_144,"wght"_350]',
-				'es:select-none es:text-sm',
+				'es:mx-1 es:px-1 es:pt-1.5 es:pb-2 es:first:pt-2 es:flex es:min-w-44 es:items-center es:gap-1.5 es:font-variation-["wdth"_76,"wght"_325,"ROND"_100]',
+				'es:select-none es:text-13',
 				'es:icon:shrink-0',
-				'es:text-surface-500/80',
+				'es:text-surface-500',
 				className,
 			)}
 			isDisabled

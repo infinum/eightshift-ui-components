@@ -131,7 +131,7 @@ export const LinkInput = (props) => {
 			'es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500',
 			'es:placeholder-shown:pr-0 es:pr-10',
 			'es:focus:placeholder:text-surface-400',
-			'es:font-variation-["wdth"_80,"YTLC"_520,"wght"_300,"slnt"_0] es:tracking-wide es:placeholder-shown:font-variation-["wdth"_100,"YTLC"_500,"wght"_250,"slnt"_-8]',
+			'es:font-variation-["wdth"_80,"wght"_325,"slnt"_0,"ROND"_100] es:placeholder-shown:font-variation-["wdth"_60,"wght"_300,"slnt"_-10,"ROND"_0]',
 			inline && 'es:min-w-48',
 			className,
 		],
@@ -253,6 +253,7 @@ export const LinkInput = (props) => {
 					aria-label={__('URL suggestions', 'eightshift-ui-components')}
 					className={({ isEntering, isExiting }) =>
 						clsx(
+							'es:font-sans',
 							'es:w-(--trigger-width)',
 							'es:rounded-xl es:outline-hidden es:min-w-72',
 							'es:has-first-selected:rounded-t-18!',
@@ -345,7 +346,7 @@ export const LinkInput = (props) => {
 												label={title}
 												subtitle={url?.replace(location.origin, '').replace(/\/$/, '')}
 												className='es:select-none'
-												subtitleClassName='es:font-variation-["wdth"_40,"wght"_250]!'
+												subtitleClassName='es:font-variation-["wdth"_80,"wght"_250,"ROND"_100,"slnt"_-2]!'
 												iconClassName='es:p-1 es:text-accent-900 es:bg-surface-50/65 es:rounded-md'
 												noColor
 											/>
@@ -357,27 +358,33 @@ export const LinkInput = (props) => {
 							{keyboardShortcuts && (
 								<div className='es:flex es:flex-wrap es:items-center es:justify-end-safe es:gap-x-4 es:gap-y-0.5 es:px-2.5 es:pb-2 es:pt-0.5'>
 									<div className='es:flex es:gap-1 es:items-center'>
-										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded es:bg-surface-600/15 es:text-surface-600 es:font-mono es:text-13 es:text-box-trim es:tracking-tighter'>
+										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-13 es:text-box-trim'>
 											&darr;
 										</kbd>
-										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded es:bg-surface-600/15 es:text-surface-600 es:font-mono es:text-13 es:text-box-trim es:tracking-tighter'>
+										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-13 es:text-box-trim'>
 											&uarr;
 										</kbd>
-										<span className='es:font-variation-["wdth"_64,"wght"_250] es:text-12 es:text-box-trim es:text-surface-700'>{__('Navigate', 'eightshift-ui-components')}</span>
+										<span className='es:font-variation-["wdth"_75,"wght"_325,"ROND"_100,"slnt"_-4] es:text-12 es:text-box-trim es:text-surface-700'>
+											{__('Navigate', 'eightshift-ui-components')}
+										</span>
 									</div>
 
 									<div className='es:flex es:gap-1 es:items-center'>
-										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded es:bg-surface-600/15 es:text-surface-600 es:font-mono es:text-13 es:text-box-trim es:tracking-tighter'>
+										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-13 es:text-box-trim'>
 											&crarr;
 										</kbd>
-										<span className='es:font-variation-["wdth"_64,"wght"_250] es:text-12 es:text-box-trim es:text-surface-700'>{__('Select', 'eightshift-ui-components')}</span>
+										<span className='es:font-variation-["wdth"_75,"wght"_325,"ROND"_100,"slnt"_-4] es:text-12 es:text-box-trim es:text-surface-700'>
+											{__('Select', 'eightshift-ui-components')}
+										</span>
 									</div>
 
 									<div className='es:flex es:gap-1 es:items-center'>
-										<kbd className='es:flex es:h-4 es:items-center es:justify-center es:rounded es:bg-surface-600/15 es:text-surface-600 es:font-mono es:text-10 es:text-box-trim es:tracking-tighter es:px-0.75'>
+										<kbd className='es:flex es:h-4 es:items-center es:justify-center es:rounded es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_67,"wght"_450,"ROND"_100] es:text-10 es:text-box-trim es:px-0.75'>
 											Esc
 										</kbd>
-										<span className='es:font-variation-["wdth"_64,"wght"_250] es:text-12 es:text-box-trim es:text-surface-700'>{__('Hide', 'eightshift-ui-components')}</span>
+										<span className='es:font-variation-["wdth"_75,"wght"_325,"ROND"_100,"slnt"_-4] es:text-12 es:text-box-trim es:text-surface-700'>
+											{__('Hide', 'eightshift-ui-components')}
+										</span>
 									</div>
 								</div>
 							)}

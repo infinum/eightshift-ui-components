@@ -75,7 +75,7 @@ export const ToggleButton = (props) => {
 
 	const componentClasses = cva(
 		[
-			'es:font-variation-["wdth"_80,"YTLC"_520,"wdth"_64,"wght"_375]',
+			'es:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_0,"slnt"_0] es:not-aria-pressed:hover:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_75,"slnt"_0] es:aria-pressed:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_75,"slnt"_-2]',
 			'es:flex es:items-center',
 			'es:transition-plus es:duration-300 es:ease-spring-snappy es:text-13',
 			'es:any-focus:outline-hidden',
@@ -155,7 +155,7 @@ export const ToggleButton = (props) => {
 					disabled: false,
 					selected: true,
 					class: [
-						'es:font-variation-["wdth"_80,"YTLC"_520,"wdth"_64,"wght"_375,"GRAD"_150]',
+						'es:font-variation-["wdth"_80,"wdth"_64,"wght"_375,"GRAD"_150]',
 						'es:any-icon:drop-shadow-xs es:any-icon:drop-shadow-accent-800/25',
 						'es:text-white es:text-shadow-xs es:text-shadow-accent-900/30',
 						'es:bg-linear-to-b es:from-accent-800/10 es:to-accent-800/30 es:bg-accent-500 es:from-30%',

@@ -28,6 +28,15 @@
 	@apply es:font-sans;
 }
 
-body.wp-admin {
-	@apply es:font-sans!;
+body:where(.wp-admin.block-editor-page) {
+	@apply es:font-sans;
+}
+
+body:is(.wp-admin:not(.block-editor-page)),
+#adminmenumain,
+#wpadminbar,
+.edit-post-layout__metaboxes,
+.interface-interface-skeleton__content .components-notice-list,
+.components-popover__fallback-container {
+	@apply es:font-sans-alt;
 }

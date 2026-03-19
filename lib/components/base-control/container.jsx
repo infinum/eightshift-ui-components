@@ -245,7 +245,7 @@ export const ContainerGroup = forwardRef((props, ref) => {
 
 	return (
 		<div className={wrapClassName}>
-			<span className='es:ml-1 es:mb-1 es:inline-block es:text-12 es:font-variation-["wdth"_125,"wght"_400] es:text-surface-500'>{label}</span>
+			<span className='es:ml-2 es:mb-1 es:inline-block es:text-12 es:font-variation-["wdth"_108,"wght"_300,"ROND"_100] es:text-surface-600'>{label}</span>
 			{inner}
 		</div>
 	);

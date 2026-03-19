@@ -41,9 +41,9 @@ export const OptionsPanel = (props) => {
 						icon={icon}
 						label={title}
 						subtitle={subtitle}
-						className={clsx('es:shrink-0 es:text-secondary-700 es:px-1 es:pt-5 es:pb-1')}
-						labelClassName='es:text-lg es:leading-tight'
-						subtitleClassName='es:text-base es:leading-tight'
+						className={clsx('es:shrink-0 es:text-surface-700 es:px-1 es:pt-5 es:pb-1')}
+						labelClassName='es:text-base es:leading-tight'
+						subtitleClassName='es:text-13 es:leading-tight'
 						noColor
 					/>
 				)}
@@ -124,7 +124,7 @@ export const OptionsPanelHeader = ({ children, sticky, title, className, actions
 		<div className={clsx('es:space-y-2.5', limitWidth && 'es:max-w-2xl', sticky && 'es:sticky es:top-0 es:z-10 es:bg-white', className)}>
 			<div className='es:flex es:flex-wrap es:items-center es:justify-between es:gap-x-8 es:gap-y-4 es:mb-10'>
 				<Heading
-					className='es:text-3xl es:text-surface-800 es:font-variation-["wdth"_180,"YTLC"_540,"wght"_300] es:m-0!'
+					className='es:text-2xl es:text-surface-800 es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:m-0!'
 					level={level}
 				>
 					{title}
@@ -176,12 +176,13 @@ export const OptionsPanelIntro = ({ icon, title, subtitle, className, iconClassN
 			)}
 		>
 			<Heading
-				className='es:text-2xl es:my-0! es:text-accent-900 es:font-variation-["wdth"_180,"YTLC"_540,"wght"_350]'
+				className='es:text-3xl es:my-0! es:text-accent-900 es:font-variation-["wdth"_50,"wght"_325,"slnt"_-4,"ROND"_100]'
 				level={level}
 			>
 				{title}
 			</Heading>
-			{subtitle && <p className='es:text-13 es:my-0! es:text-surface-500 es:mt-0.75 es:font-variation-["wdth"_90,"YTLC"_560,"wght"_325]'>{subtitle}</p>}
+
+			{subtitle && <p className='es:text-13 es:my-0! es:text-surface-500 es:mt-0.75 es:font-variation-["wdth"_95,"wght"_275]'>{subtitle}</p>}
 
 			{icon && cloneElement(icon, { className: clsx('es:absolute es:-top-2 es:right-2.5 es:rotate-12 es:text-surface-500/10 es:size-18', iconClassName) })}
 		</div>

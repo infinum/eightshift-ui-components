@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [6.3.0] - 2026-03-19
+- Updated dependencies.
+- Slightly adjusted secondary colors in color themes.
+- Fixed issue with array values in `Select` and `AsyncSelect` causing a bug.
+- Updated fonts.
+
 ## [6.2.0] - 2026-02-19
 - Updated dependencies.
 - Fixed input fields being overriden in Gutenberg in a couple more of cases.
@@ -587,6 +593,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[6.3.0]: https://github.com/infinum/eightshift-ui-components/compare/6.2.0...6.3.0
 [6.2.0]: https://github.com/infinum/eightshift-ui-components/compare/6.1.1...6.2.0
 [6.1.1]: https://github.com/infinum/eightshift-ui-components/compare/6.1.0...6.1.1
 [6.1.0]: https://github.com/infinum/eightshift-ui-components/compare/6.0.13...6.1.0

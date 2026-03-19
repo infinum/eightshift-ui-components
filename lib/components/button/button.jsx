@@ -84,7 +84,7 @@ export const Button = (props) => {
 
 	const componentClasses = cva(
 		[
-			'es:font-variation-["wdth"_64,"YTLC"_520,"wght"_375]',
+			'es:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_0] es:hover:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_75]',
 			'es:flex es:items-center es:justify-center-safe',
 			'es:transition-plus es:duration-300 es:ease-spring-snappy es:text-13',
 			'es:any-focus:outline-hidden',
@@ -165,7 +165,10 @@ export const Button = (props) => {
 				{
 					disabled: false,
 					type: ['selected', 'danger'],
-					class: ['es:font-variation-["wdth"_64,"YTLC"_520,"wght"_375,"GRAD"_150]', 'es:any-icon:drop-shadow-xs es:any-icon:drop-shadow-accent-800/25'],
+					class: [
+						'es:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_50] es:hover:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_100]',
+						'es:any-icon:drop-shadow-xs es:any-icon:drop-shadow-accent-800/25',
+					],
 				},
 				{
 					type: 'selected',

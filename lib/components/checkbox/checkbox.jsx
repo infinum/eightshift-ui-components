@@ -94,7 +94,7 @@ export const Checkbox = (props) => {
 					active: false,
 					disabled: false,
 					class: [
-						'es:bg-secondary-50 es:inset-ring-secondary-300/60',
+						'es:bg-secondary-50 es:inset-ring-secondary-300/80',
 						'es:from-black/1 es:to-black/5',
 						'es:hover:bg-surface-100 es:hover:inset-ring-surface-300/60',
 						'es:inset-shadow-white/50',
@@ -176,7 +176,7 @@ export const Checkbox = (props) => {
 				<AnimatedVisibility
 					transition='scaleRotateFade'
 					visible={!indeterminate && checked}
-					className={clsx('es:transition-none es:icon:size-4 es:icon:stroke-[2.5]', !disabled && 'es:icon:drop-shadow-xs es:icon:drop-shadow-accent-950/30')}
+					className={clsx('es:transition-none es:icon:size-3.5 es:icon:stroke-[2.5]', !disabled && 'es:icon:drop-shadow-xs es:icon:drop-shadow-accent-950/30')}
 					noInitial
 				>
 					{icons.check}

@@ -116,6 +116,7 @@ const ModalInternal = (props) => {
 			isKeyboardDismissDisabled={noKeyboardDismiss}
 			className={({ isEntering, isExiting }) =>
 				clsx(
+					'es:font-sans',
 					'es:fixed es:inset-0 es:z-9999 es:flex es:min-h-full es:items-center es:justify-center es:overflow-hidden es:p-4',
 					!noBackdrop && 'es:bg-accent-950/20 es:backdrop-blur-xs',
 					isEntering && 'es:motion-opacity-in es:motion-duration-150',
@@ -147,7 +148,7 @@ const ModalInternal = (props) => {
 							<HStack className={clsx(title && 'es:p-6 es:pb-3 es:justify-between', headerClassName)}>
 								{title && (
 									<Heading
-										className='es:text-balance es:text-xl! es:my-0! es:text-accent-800 es:font-variation-["wdth"_200,"YTLC"_520,"wght"_425]'
+										className='es:text-balance es:text-3xl! es:my-0! es:text-accent-800 es:font-variation-["wdth"_40,"wght"_425,"slnt"_-3,"ROND"_100]'
 										slot='title'
 									>
 										{title}

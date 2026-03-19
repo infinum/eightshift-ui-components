@@ -95,7 +95,7 @@ export const Tooltip = (props) => {
 				className={({ isEntering, isExiting }) =>
 					clsx(
 						'es:group es:pointer-events-none',
-						'es:font-variation-["wdth"_72,"YTLC"_520,"wght"_380]',
+						'es:font-variation-["wdth"_72,"wght"_380,"ROND"_100]',
 						'es:z-40 es:select-none es:rounded-lg es:inset-ring es:px-2.5 es:py-2 es:text-13 es:leading-none es:shadow es:backdrop-blur-xl es:backdrop-brightness-105 es:backdrop-saturate-125 es:will-change-[transform,opacity] es:fill-mode-forwards',
 						theme === 'light' && 'es:inset-ring-surface-800/5 es:bg-surface-50/90 es:text-secondary-700',
 						theme === 'dark' && 'es:inset-ring-surface-200/15 es:bg-surface-800/80 es:text-secondary-100',

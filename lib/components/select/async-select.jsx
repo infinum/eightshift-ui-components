@@ -6,7 +6,7 @@ import { icons, Spinner } from '../../icons';
 import { OptionItemBase, SelectClearButton, getGroupedOptions } from './shared';
 import { RichLabel } from '../rich-label/rich-label';
 import { useAsyncList } from 'react-stately';
-import { randomId, unescapeHTML } from '../../utilities';
+import { unescapeHTML } from '../../utilities';
 import { cva } from 'class-variance-authority';
 import clsx from 'clsx';
 
@@ -76,7 +76,7 @@ export const AsyncSelect = (props) => {
 		actions,
 		inline,
 
-		value,
+		value: rawValue,
 		onChange,
 
 		disabled = false,
@@ -117,8 +117,11 @@ export const AsyncSelect = (props) => {
 		...rest
 	} = props;
 
+	// Filter out non-objects.
+	const value = rawValue && !Array.isArray(rawValue) && typeof rawValue === 'object' ? rawValue : null;
+
 	const list = useAsyncList({
-		initialSelectedKeys: value?.value ? [value?.value] : [],
+		initialSelectedKeys: value?.value ? [value.value] : [],
 		getKey: (item) => item?.value,
 		async load({ signal, filterText }) {
 			let json = [];
@@ -171,7 +174,7 @@ export const AsyncSelect = (props) => {
 		},
 	});
 
-	const ref = useRef();
+	const ref = useRef(null);
 
 	const groupedItems = useMemo(
 		() => getGroupedOptions(list?.items, groupKey ?? (getGroup ? '_group' : null), groupValueMapping),
@@ -394,7 +397,8 @@ export const AsyncSelect = (props) => {
 				<Popover
 					className={({ isEntering, isExiting }) =>
 						clsx(
-							'es:w-(--trigger-width) es:min-w-72',
+							'es:font-sans',
+							'es:w-(--select-width) es:min-w-72',
 							'es:outline-hidden',
 							'es:rounded-t-3xl',
 							'es:overflow-clip es:grid es:grid-cols-1',
@@ -418,8 +422,9 @@ export const AsyncSelect = (props) => {
 						)
 					}
 					placement='bottom left'
-					maxHeight={300}
+					maxHeight={260}
 					triggerRef={ref}
+					style={{ '--select-width': ref.current ? `${ref.current.offsetWidth}px` : 'var(--trigger-width)' }}
 				>
 					<Autocomplete
 						inputValue={list.filterText}

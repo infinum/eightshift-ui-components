@@ -56,12 +56,15 @@ export const RichLabel = (props) => {
 
 	const ComponentToRender = as ?? 'div';
 
+	const labelBaseClassName = 'es:font-variation-["wdth"_100,"wght"_330,"ROND"_15]';
+	const subtitleBaseClassName = 'es:font-variation-["wdth"_90,"wght"_365,"ROND"_85,"slnt"_-1]';
+
 	if (contentsOnly) {
 		return (
 			<>
 				{icon && <span className={clsx('es:icon:size-5 es:not-contrast-more:opacity-85', iconClassName)}>{icon}</span>}
-				{label && <span className={clsx('es:text-balance', labelClassName)}>{label}</span>}
-				{subtitle && <span className={clsx('es:text-balance es:text-xs es:not-contrast-more:opacity-65', subtitleClassName)}>{subtitle}</span>}
+				{label && <span className={clsx('es:text-balance', labelBaseClassName, labelClassName)}>{label}</span>}
+				{subtitle && <span className={clsx('es:text-balance es:text-xs es:not-contrast-more:opacity-65', subtitleBaseClassName, subtitleClassName)}>{subtitle}</span>}
 				{endIcon && <span className={clsx('es:icon:size-5 es:not-contrast-more:opacity-85 es:ml-auto', iconClassName)}>{endIcon}</span>}
 			</>
 		);
@@ -73,8 +76,8 @@ export const RichLabel = (props) => {
 
 			{(label || subtitle) && (
 				<div className={clsx('es:flex es:items-start es:text-balance es:text-start', inlineSubtitle ? 'es:gap-1.5' : 'es:flex-col', labelSubtitleWrapClassName)}>
-					{label && <span className={clsx('es:font-variation-["wdth"_120,"wght"_400]', labelClassName)}>{label}</span>}
-					{subtitle && <span className={clsx(!fullSizeSubtitle && 'es:text-12', 'es:not-contrast-more:opacity-65', subtitleClassName)}>{subtitle}</span>}
+					{label && <span className={clsx(labelBaseClassName, labelClassName)}>{label}</span>}
+					{subtitle && <span className={clsx(!fullSizeSubtitle && 'es:text-12', subtitleBaseClassName, 'es:not-contrast-more:opacity-65', subtitleClassName)}>{subtitle}</span>}
 				</div>
 			)}
 
