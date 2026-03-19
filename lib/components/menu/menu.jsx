@@ -338,7 +338,7 @@ export const SubMenuItem = (props) => {
 				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
 				offset={-1}
 				{...popoverProps}
-				className={clsx('es:any-focus:outline-hidden', !manualWidth && 'es:w-56', manualWidth && 'es:max-w-80', popoverProps?.className)}
+				className={clsx('es:font-sans', 'es:any-focus:outline-hidden', !manualWidth && 'es:w-56', manualWidth && 'es:max-w-80', popoverProps?.className)}
 			>
 				<ReactAriaMenu
 					aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}

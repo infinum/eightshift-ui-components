@@ -116,6 +116,7 @@ const ModalInternal = (props) => {
 			isKeyboardDismissDisabled={noKeyboardDismiss}
 			className={({ isEntering, isExiting }) =>
 				clsx(
+					'es:font-sans',
 					'es:fixed es:inset-0 es:z-9999 es:flex es:min-h-full es:items-center es:justify-center es:overflow-hidden es:p-4',
 					!noBackdrop && 'es:bg-accent-950/20 es:backdrop-blur-xs',
 					isEntering && 'es:motion-opacity-in es:motion-duration-150',

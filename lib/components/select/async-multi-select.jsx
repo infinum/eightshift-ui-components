@@ -509,6 +509,7 @@ export const AsyncMultiSelect = (props) => {
 				<Popover
 					className={({ isEntering, isExiting }) =>
 						clsx(
+							'es:font-sans',
 							'es:w-(--select-width) es:min-w-72',
 							'es:outline-hidden',
 							'es:rounded-b-xl es:rounded-t-3xl',

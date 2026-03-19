@@ -253,6 +253,7 @@ export const LinkInput = (props) => {
 					aria-label={__('URL suggestions', 'eightshift-ui-components')}
 					className={({ isEntering, isExiting }) =>
 						clsx(
+							'es:font-sans',
 							'es:w-(--trigger-width)',
 							'es:rounded-xl es:outline-hidden es:min-w-72',
 							'es:has-first-selected:rounded-t-18!',

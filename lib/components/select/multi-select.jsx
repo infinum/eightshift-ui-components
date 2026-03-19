@@ -428,6 +428,7 @@ export const MultiSelect = (props) => {
 				<Popover
 					className={({ isEntering, isExiting }) =>
 						clsx(
+							'es:font-sans',
 							'es:w-(--select-width) es:min-w-72',
 							'es:outline-hidden',
 							searchable ? 'es:rounded-b-xl es:rounded-t-3xl' : 'es:rounded-2xl',

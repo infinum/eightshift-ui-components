@@ -28,6 +28,10 @@
 	@apply es:font-sans;
 }
 
-body.wp-admin {
-	@apply es:font-sans!;
+body:is(.wp-admin:not(.block-editor-page)) {
+	@apply es:font-sans-alt;
+}
+
+body:where(.wp-admin.block-editor-page) {
+	@apply es:font-sans;
 }
