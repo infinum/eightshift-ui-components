@@ -973,6 +973,42 @@ function App() {
 						label='Airplane mode'
 						isIndeterminate={toggled2 === null}
 					/>
+
+					<Container standalone>
+						<Toggle
+							checked={toggled}
+							onChange={(value) => setToggled(value)}
+							icon={icons.experiment}
+							label='Airplane mode'
+						/>
+					</Container>
+
+					<ContainerGroup label='Example group'>
+						<Container compact>
+							<Toggle
+								checked={toggled}
+								onChange={(value) => setToggled(value)}
+								icon={icons.experiment}
+								label='Airplane mode'
+							/>
+						</Container>{' '}
+						<Container compact>
+							<Toggle
+								checked={toggled}
+								onChange={(value) => setToggled(value)}
+								icon={icons.experiment}
+								label='Airplane mode'
+							/>
+						</Container>{' '}
+						<Container compact>
+							<Toggle
+								checked={toggled}
+								onChange={(value) => setToggled(value)}
+								icon={icons.experiment}
+								label='Airplane mode'
+							/>
+						</Container>
+					</ContainerGroup>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<Spacer
@@ -1195,6 +1231,7 @@ function App() {
 						onChange={({ url }) => setLinkTxt(url)}
 						fetchSuggestions={getLinkData}
 						flat
+						keyboardShortcuts
 					/>
 
 					<LinkInput
