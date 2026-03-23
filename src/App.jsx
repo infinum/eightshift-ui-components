@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { cloneElement, isValidElement, useState } from 'react';
 import {
 	Toggle,
 	AnimatedVisibility,
@@ -70,9 +70,8 @@ import {
 	Container,
 	ContainerGroup,
 } from '../lib';
-import { icons } from '../lib/icons';
+import * as icons from '../lib/icons';
 import { clsx } from 'clsx';
-import { cloneElement } from 'react';
 import '../lib/style';
 
 const slugify = (input) => {
@@ -86,6 +85,10 @@ const slugify = (input) => {
 		.replace(/^-+/, '')
 		.replace(/-+$/, '');
 };
+
+const iconEntries = Object.entries(icons)
+	.filter(([, icon]) => isValidElement(icon))
+	.sort(([iconNameA], [iconNameB]) => iconNameA.localeCompare(iconNameB));
 
 const FilePickerShellDemo = ({ url, ...rest }) => (
 	<FilePickerShell
@@ -909,6 +912,11 @@ function App() {
 						icon={icons.imageLazyLoad}
 						label='Smart image'
 						id='smart-img'
+					/>
+					<Tab
+						icon={icons.iconGeneric}
+						label='Icons'
+						id='icons'
 					/>
 				</TabList>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
@@ -2464,7 +2472,7 @@ function App() {
 						options={groupedData}
 						groupKey='group'
 						groupValueMapping={{
-							Colors: { label: 'Vibrant Colors', icon: icons.colorLarge, subtitle: 'Pick a favorite shade', endIcon: 'star' },
+							Colors: { label: 'Vibrant Colors', icon: <icons.GenericColorSwatch />, subtitle: 'Pick a favorite shade', endIcon: 'star' },
 							Shapes: { label: 'Geometric Shapes', icon: icons.genericShapes, subtitle: 'Standard geometry' },
 							_other: { label: 'Miscellaneous', icon: icons.help },
 						}}
@@ -2526,7 +2534,7 @@ function App() {
 						options={groupedData}
 						groupKey='group'
 						groupValueMapping={{
-							Colors: { label: 'Vibrant Colors', icon: icons.colorLarge },
+							Colors: { label: 'Vibrant Colors', icon: <icons.GenericColorSwatch /> },
 							Shapes: { label: 'Geometric Shapes', icon: icons.genericShapes },
 							_other: { label: 'Miscellaneous', icon: icons.help },
 						}}
@@ -2571,7 +2579,7 @@ function App() {
 						fetchFunction={getAsyncGroupedData}
 						groupKey='group'
 						groupValueMapping={{
-							Colors: { label: 'Vibrant Colors', icon: icons.colorLarge },
+							Colors: { label: 'Vibrant Colors', icon: <icons.GenericColorSwatch /> },
 							Shapes: { label: 'Geometric Shapes', icon: icons.genericShapes },
 							_other: { label: 'Miscellaneous', icon: icons.help },
 						}}
@@ -2612,7 +2620,7 @@ function App() {
 						fetchFunction={getAsyncGroupedData}
 						groupKey='group'
 						groupValueMapping={{
-							Colors: { label: 'Vibrant Colors', icon: icons.colorLarge },
+							Colors: { label: 'Vibrant Colors', icon: <icons.GenericColorSwatch /> },
 							Shapes: { label: 'Geometric Shapes', icon: icons.genericShapes },
 							_other: { label: 'Miscellaneous', icon: icons.help },
 						}}
@@ -4827,6 +4835,34 @@ function App() {
 							)
 						}
 					/>
+				</TabPanel>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-4xl es:max-h-[85vh] es:h-fit es:overflow-y-auto es:max-w-[90vw] es:space-y-4 es:p-5!'>
+					<div className='es:flex es:flex-wrap es:items-center es:justify-between es:gap-3'>
+						<div className='es:space-y-1'>
+							<h2 className='es:text-xl es:font-medium es:text-secondary-900'>All icons</h2>
+							<p className='es:text-sm es:text-secondary-600'>Compact reference for the full icons export.</p>
+						</div>
+						<div className='es:inline-flex es:items-center es:gap-2 es:rounded-full es:bg-secondary-100 es:px-3 es:py-1.5 es:text-sm es:font-medium es:text-secondary-700'>
+							<span className='es:text-secondary-500'>Count</span>
+							<span className='es:font-mono es:text-secondary-900'>{iconEntries.length}</span>
+						</div>
+					</div>
+
+					<div className='es:grid es:grid-cols-1 es:gap-2 sm:es:grid-cols-2 lg:es:grid-cols-3 xl:es:grid-cols-4'>
+						{iconEntries.map(([iconName, icon]) => (
+							<div
+								key={iconName}
+								className='es:flex es:items-center es:gap-2.5 es:rounded-xl es:border es:border-secondary-200 es:bg-secondary-50 es:px-3 es:py-2'
+							>
+								<div className='es:flex es:size-8 es:shrink-0 es:items-center es:justify-center es:rounded-lg es:bg-white es:text-secondary-900 es:icon:size-4.5'>
+									{icon}
+								</div>
+								<div className='es:min-w-0 es:font-mono es:text-11 es:leading-tight es:text-secondary-700'>
+									{iconName}
+								</div>
+							</div>
+						))}
+					</div>
 				</TabPanel>
 			</Tabs>
 		</div>
