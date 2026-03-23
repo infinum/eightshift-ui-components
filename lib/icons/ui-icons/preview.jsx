@@ -1,0 +1,7 @@
+export const preview = (
+		<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'>
+			<circle cx='12' cy='11' stroke='currentColor' r='4' fill='none' />
+			<path d='M14.334 14.333 19 19' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<path d='M6.5 10h-4A1.5 1.5 0 0 1 1 8.5v-6A1.5 1.5 0 0 1 2.5 1h9A1.5 1.5 0 0 1 13 2.5v3m-9.5-2H8m-4.5 2H7m-3.5 2H5' stroke='currentColor' strokeLinecap='round' fill='none' />
+		</svg>
+);

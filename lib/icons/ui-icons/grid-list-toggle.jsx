@@ -1,0 +1,8 @@
+export const gridListToggle = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect x='15' y='15' width='4' height='4' rx='1' stroke='currentColor' fill='none' />
+			<rect x='15' y='9' width='4' height='4' rx='1' stroke='currentColor' fill='none' />
+			<rect x='9' y='15' width='4' height='4' rx='1' stroke='currentColor' fill='none' />
+			<path d='M13 10v2a1 1 0 0 1-1 1h-2m9-12L1 19M11 1H2a1 1 0 0 0-1 1v.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Zm0 4.5H2a1 1 0 0 0-1 1V7a1 1 0 0 0 1 1h6m-2 2H2a1 1 0 0 0-1 1v.5a1 1 0 0 0 1 1h1' stroke='currentColor' strokeLinecap='round' fill='none' />
+		</svg>
+	);

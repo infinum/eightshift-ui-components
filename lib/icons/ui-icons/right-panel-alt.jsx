@@ -1,0 +1,6 @@
+export const rightPanelAlt = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M9 3.5A1.5 1.5 0 0 0 7.5 2h-5A1.5 1.5 0 0 0 1 3.5v13A1.5 1.5 0 0 0 2.5 18h5A1.5 1.5 0 0 0 9 16.5v-13Z' stroke='currentColor' fill='none' />
+			<path d='M19 3.5A1.5 1.5 0 0 0 17.5 2h-5A1.5 1.5 0 0 0 11 3.5v13a1.5 1.5 0 0 0 1.5 1.5h5a1.5 1.5 0 0 0 1.5-1.5v-13Z' fill='currentColor' fillOpacity='0.3' stroke='currentColor' />
+		</svg>
+	);

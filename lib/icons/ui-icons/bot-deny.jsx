@@ -1,0 +1,11 @@
+export const botDeny = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M10 3H6.5A1.5 1.5 0 0 0 5 4.5v4A1.5 1.5 0 0 0 6.5 10h7A1.5 1.5 0 0 0 15 8.5v-4A1.5 1.5 0 0 0 13.5 3H10Zm0 0V1' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<path d='m8.5 8 .06-.06a1.5 1.5 0 0 1 1.061-.44h.758a1.5 1.5 0 0 1 1.06.44L11.5 8' stroke='currentColor' strokeOpacity='0.3' strokeLinecap='round' fill='none' />
+			<path d='m2.572 19-.307-3.756A3 3 0 0 1 5.255 12h10.739c.82 0 1.508.532 1.753 1.26' stroke='currentColor' strokeLinecap='round' fill='none' />
+			<circle cx='16' cy='17' r='3' fill='currentColor' fillOpacity='0.12' />
+			<path d='m17.5 18.5-3-3m0 3 3-3' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<circle cx='8.25' cy='5.75' r='0.75' fill='currentColor' />
+			<circle cx='11.75' cy='5.75' r='0.75' fill='currentColor' />
+		</svg>
+);

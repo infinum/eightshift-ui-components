@@ -1,0 +1,7 @@
+export const positionVEnd = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect x='7.5' y='14.5' width='5' height='5' rx='1.5' fill='currentColor' fillOpacity='0.3' stroke='currentColor' />
+			<rect opacity='0.8' x='9' y='9' width='2' height='2' rx='0.75' fill='currentColor' />
+			<rect opacity='0.8' x='9' y='2' width='2' height='2' rx='0.75' fill='currentColor' />
+		</svg>
+);

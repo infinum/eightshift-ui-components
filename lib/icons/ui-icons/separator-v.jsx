@@ -1,0 +1,7 @@
+export const separatorV = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M10 1.5v17' stroke='currentColor' strokeLinecap='round' fill='none' />
+			<rect x='1' y='1' width='6.5' height='18' rx='1.5' fill='currentColor' fillOpacity='0.12' />
+			<rect x='12.5' y='1' width='6.5' height='18' rx='1.5' fill='currentColor' fillOpacity='0.12' />
+		</svg>
+	);

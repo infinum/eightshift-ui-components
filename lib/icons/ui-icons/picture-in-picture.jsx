@@ -1,0 +1,6 @@
+export const pictureInPicture = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect x='1' y='3' width='18' height='14' rx='1.5' stroke='currentColor' strokeLinejoin='round' fill='none' />
+			<rect x='9' y='9' width='8' height='6' rx='0.5' fill='currentColor' fillOpacity='0.3' stroke='currentColor' strokeLinejoin='round' />
+		</svg>
+	);

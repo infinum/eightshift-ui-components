@@ -1,0 +1,6 @@
+export const reset = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M3.145 10a7.5 7.5 0 1 1 1.517 4.523' stroke='currentColor' strokeLinecap='round' fill='none' />
+			<path d='m5.545 8.5-2.634 3.04M1.295 8l1.616 3.54m0 0L3.145 10' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+		</svg>
+	);

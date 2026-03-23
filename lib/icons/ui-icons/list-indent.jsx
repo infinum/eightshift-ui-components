@@ -1,0 +1,6 @@
+export const listIndent = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M1 6h7m-7 8h7m-7-4h9' stroke='currentColor' strokeLinecap='round' fill='none' />
+			<path d='m18.823 9.823-4.396-4.396a.25.25 0 0 0-.427.177v8.792c0 .223.27.335.427.177l4.396-4.396a.25.25 0 0 0 0-.354Z' fill='currentColor' fillOpacity='0.5' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' />
+		</svg>
+);

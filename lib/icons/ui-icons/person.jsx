@@ -1,0 +1,6 @@
+export const person = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M2 19c.46-2.397 1.368-4.154 2.724-5.27C6.08 12.614 7.839 12.037 10 12c2.161.037 3.92.614 5.276 1.73C16.632 14.846 17.54 16.603 18 19' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<circle cx='10' cy='6.5' r='5.5' stroke='currentColor' fill='none' />
+		</svg>
+	);

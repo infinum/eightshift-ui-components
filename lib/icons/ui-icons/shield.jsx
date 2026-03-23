@@ -1,0 +1,5 @@
+export const shield = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M2 3.77c2.286 0 6.286-1.385 8-2.77 1.714 1.385 5.714 2.77 8 2.77v4.845C17.238 12.077 14.571 19 10 19S2.762 12.077 2 8.615V3.77Z' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+		</svg>
+	);

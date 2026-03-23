@@ -1,0 +1,6 @@
+export const num1SquareAlt = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect x='1' y='1' width='18' height='18' rx='1.5' fill='currentColor' fillOpacity='0.12' />
+			<path d='M10.203 13.845V7.37m0 6.476h1.625m-1.625 0H8.172m.812-6.476c.975 0 1.22-.81 1.22-1.214V7.37m-1.22 0h-.609m.61 0h1.218' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+		</svg>
+);

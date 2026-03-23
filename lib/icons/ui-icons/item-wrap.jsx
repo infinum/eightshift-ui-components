@@ -1,0 +1,9 @@
+export const itemWrap = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M16.5 5h1a1 1 0 0 1 1 1v3m0 0-1-1m1 1 1-1' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<rect x='1' y='1' width='6' height='8' rx='1.5' stroke='currentColor' fill='none' />
+			<rect x='9' y='1' width='6' height='8' rx='1.5' stroke='currentColor' fill='none' />
+			<rect x='1' y='11' width='6' height='8' rx='1.5' fill='currentColor' fillOpacity='0.12' stroke='currentColor' />
+			<rect x='9' y='11' width='6' height='8' rx='1.5' fill='currentColor' fillOpacity='0.12' stroke='currentColor' />
+		</svg>
+);

@@ -1,0 +1,6 @@
+export const angle = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M8.925 10.575A10.5 10.5 0 0 1 12 18' stroke='currentColor' fill='none' />
+			<path d='M17.5 18H3.31a.75.75 0 0 1-.53-1.28L17.5 2' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+		</svg>
+	);

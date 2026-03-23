@@ -1,0 +1,5 @@
+export const layoutAlt4 = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M1 7h9m0 0V1m0 6v6m0 6v-6m0 0h9m0 0V2.5A1.5 1.5 0 0 0 17.5 1h-15A1.5 1.5 0 0 0 1 2.5v15A1.5 1.5 0 0 0 2.5 19h15a1.5 1.5 0 0 0 1.5-1.5V13Z' stroke='currentColor' strokeLinecap='round' fill='none' />
+		</svg>
+	);

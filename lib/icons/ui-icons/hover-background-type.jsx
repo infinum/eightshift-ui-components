@@ -1,0 +1,7 @@
+export const hoverBackgroundType = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='m12 15.903.033-8.671c0-.208.271-.31.427-.161l6.469 6.216c.158.152.035.405-.191.394l-2.653-.13 1.992 4.608c.052.119-.01.254-.137.302l-1.383.522a.255.255 0 0 1-.323-.128l-1.993-4.609-1.81 1.817c-.155.154-.432.052-.431-.16Z' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<path d='M16.5 8.5V6A1.5 1.5 0 0 0 15 4.5H6A1.5 1.5 0 0 0 4.5 6v9A1.5 1.5 0 0 0 6 16.5h4.5' stroke='currentColor' strokeLinecap='round' fill='none' />
+			<path d='M11.5 1h-9A1.5 1.5 0 0 0 1 2.5v9A1.5 1.5 0 0 0 2.5 13h1.929V5.929a1.5 1.5 0 0 1 1.5-1.5H13V2.5A1.5 1.5 0 0 0 11.5 1Z' fill='currentColor' fillOpacity='0.5' stroke='currentColor' />
+		</svg>
+	);

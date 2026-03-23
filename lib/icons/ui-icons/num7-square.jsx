@@ -1,0 +1,6 @@
+export const num7Square = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect x='1' y='1' width='18' height='18' rx='1.5' stroke='currentColor' fill='none' />
+			<path d='M7.46 6.155h5.08v.405c-1.084.81-3.15 3.4-3.15 7.285' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+		</svg>
+);

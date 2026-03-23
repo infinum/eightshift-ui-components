@@ -1,0 +1,6 @@
+export const h5 = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect x='1' y='3' width='18' height='14' rx='1.5' fill='currentColor' fillOpacity='0.12' />
+			<path d='M16.72 5.702h-4.531l-.449 4.48c.522-.79 1.668-1.313 2.714-1.313 1.742-.057 2.72 1.266 2.72 2.827 0 1.562-.968 2.57-2.946 2.602-1.393.022-2.362-.464-2.572-1.668M3 5.75v4.138m0 4.362V9.888m0 0h5.816m0 0V5.75m0 4.138v4.362' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+		</svg>
+	);

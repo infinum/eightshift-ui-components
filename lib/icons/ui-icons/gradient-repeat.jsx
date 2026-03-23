@@ -1,0 +1,8 @@
+export const gradientRepeat = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M1.5 12.241A6.26 6.26 0 0 1 7.759 18.5' stroke='currentColor' strokeLinecap='round' fill='none' />
+			<path d='M1.5 8.828a9.672 9.672 0 0 1 9.672 9.672' stroke='currentColor' strokeOpacity='0.3' strokeLinecap='round' fill='none' />
+			<path d='M1.5 5.414A13.086 13.086 0 0 1 14.586 18.5' stroke='currentColor' strokeLinecap='round' fill='none' />
+			<path d='M1.5 2A16.5 16.5 0 0 1 18 18.5' stroke='currentColor' strokeOpacity='0.3' strokeLinecap='round' fill='none' />
+		</svg>
+	);

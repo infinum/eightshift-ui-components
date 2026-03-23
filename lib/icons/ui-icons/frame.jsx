@@ -1,0 +1,6 @@
+export const frame = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect x='3.5' y='3.5' width='13' height='13' rx='1.5' stroke='currentColor' strokeWidth='1.125' fill='none' />
+			<rect x='2' y='2' width='16' height='16' rx='3' stroke='currentColor' strokeOpacity='0.3' strokeWidth='2' fill='none' />
+		</svg>
+);

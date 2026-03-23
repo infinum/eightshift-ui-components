@@ -1,0 +1,6 @@
+export const num5Circle = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<circle cx='10' cy='10' r='9' stroke='currentColor' fill='none' />
+			<path d='M12.102 6.155H8.04l-.402 4.008c.468-.706 1.495-1.175 2.433-1.175 1.561-.051 2.438 1.133 2.438 2.53 0 1.397-.867 2.299-2.641 2.327-1.248.02-2.118-.415-2.306-1.492' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+		</svg>
+	);

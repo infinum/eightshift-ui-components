@@ -1,0 +1,8 @@
+export const textHighlightColorSwatch = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect x='4' width='12' height='12' rx='1.5' fill='currentColor' fillOpacity='0.12' />
+			<path d='m6 10.5 1.365-3.07M14 10.5l-1.365-3.07m-5.27 0L10 1.5l2.635 5.93m-5.27 0h5.27' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<rect className='es-has-animated-fill' x='2.5' y='14' width='15' height='5' rx='1.5' fill='var(--selected-color, transparent)' stroke='gray' />
+			<path opacity='var(--selected-opacity, 0)' d='m3 18.5 14-4' stroke='gray' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+		</svg>
+	);

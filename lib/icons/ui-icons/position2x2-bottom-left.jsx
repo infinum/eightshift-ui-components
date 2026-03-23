@@ -1,0 +1,8 @@
+export const position2x2BottomLeft = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect x='2.5' y='12.5' width='5' height='5' rx='1.5' fill='currentColor' fillOpacity='0.3' stroke='currentColor' />
+			<rect opacity='0.8' x='14' y='4' width='2' height='2' rx='0.5' fill='currentColor' />
+			<rect opacity='0.8' x='14' y='14' width='2' height='2' rx='0.5' fill='currentColor' />
+			<rect opacity='0.8' x='4' y='4' width='2' height='2' rx='0.5' fill='currentColor' />
+		</svg>
+	);

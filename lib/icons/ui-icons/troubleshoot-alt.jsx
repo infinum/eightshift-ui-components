@@ -1,0 +1,8 @@
+export const troubleshootAlt = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='M13 1H7l2.25 6h1.5L13 1Zm6 12V7l-6 2.25v1.5L19 13Zm-6 6H7l2.25-6h1.5L13 19ZM1 13V7l6 2.25v1.5L1 13Z' fill='currentColor' fillOpacity='0.3' />
+			<circle cx='10' cy='10' r='9' stroke='currentColor' fill='none' />
+			<circle cx='10' cy='10' r='3' stroke='currentColor' fill='none' />
+			<path d='M8.8 7 7 2m4.2 5L13 2m0 6.8L18 7m-5 4.2 5 1.8m-9.2 0L7 18m4.2-5 1.8 5M7 8.8 2 7m5 4.2L2 13' stroke='currentColor' fill='none' />
+		</svg>
+	);

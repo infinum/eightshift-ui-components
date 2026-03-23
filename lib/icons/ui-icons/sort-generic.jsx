@@ -1,0 +1,6 @@
+export const sortGeneric = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='m1 14 4.5 4.52m0 0L10 14m-4.5 4.52V3' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<path d='M9 3.5h10m-10 3h8m-8 3h6' stroke='currentColor' strokeLinecap='round' fill='none' />
+		</svg>
+);

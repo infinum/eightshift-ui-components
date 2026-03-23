@@ -1,0 +1,16 @@
+export const inlineGradientFormat = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='m5.5 12 1.535-3.753M14.5 12l-1.535-3.753m-5.93 0L10 1l2.965 7.247m-5.93 0h5.93' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<rect x='2.5' y='14' width='15' height='5' rx='1.5' fill='url(#22193837-26f8-4d6d-8a72-e826a98cc5e0)' stroke='gray' />
+			<defs>
+				<linearGradient gradientUnits='userSpaceOnUse' id='22193837-26f8-4d6d-8a72-e826a98cc5e0' x1='2.5' y1='16.5' x2='17.5' y2='16.5'>
+					<stop stopColor='red' />
+					<stop offset='0.208333' stopColor='#FAFF00' />
+					<stop offset='0.390625' stopColor='#14FF00' />
+					<stop offset='0.59375' stopColor='#1400FF' />
+					<stop offset='0.802083' stopColor='#FF00E5' />
+					<stop offset='1' stopColor='red' />
+				</linearGradient>
+			</defs>
+		</svg>
+	);

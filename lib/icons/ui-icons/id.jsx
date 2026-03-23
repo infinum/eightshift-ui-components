@@ -1,0 +1,6 @@
+export const id = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<rect x='1' y='1' width='18' height='18' rx='1.5' fill='currentColor' fillOpacity='0.12' />
+			<path d='M5 12h9.286M5.714 8H15m-1.429-4-2.857 12M9.286 4 6.429 16' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+		</svg>
+	);

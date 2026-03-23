@@ -1,0 +1,6 @@
+export const fileError = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='m16.5 5.5-5-5m5 5H12a.5.5 0 0 1-.5-.5V.5m5 5V18a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 18V2A1.5 1.5 0 0 1 5 .5h6.5' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<path d='m7 9.5 3 3m3 3-3-3m0 0-3 3m3-3 3-3' stroke='currentColor' strokeLinecap='round' fill='none' />
+		</svg>
+);

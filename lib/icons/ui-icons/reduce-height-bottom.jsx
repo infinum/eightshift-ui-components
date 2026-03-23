@@ -1,0 +1,9 @@
+export const reduceHeightBottom = (
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
+			<path d='m8 15 2-2m0 0 2 2m-2-2v5.5' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
+			<path d='M19 2.5V9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 1 9V2.5A1.5 1.5 0 0 1 2.5 1h15A1.5 1.5 0 0 1 19 2.5Z' stroke='currentColor' strokeLinecap='round' fill='none' />
+			<path d='M1 11.5v.5a1.5 1.5 0 0 0 1.5 1.5H7m12-2v.5a1.5 1.5 0 0 1-1.5 1.5H13' stroke='currentColor' strokeOpacity='0.5' strokeLinecap='round' fill='none' />
+			<path d='M1 14.25v.5a1.5 1.5 0 0 0 1.5 1.5h5m11.5-2v.5a1.5 1.5 0 0 1-1.5 1.5h-5' stroke='currentColor' strokeOpacity='0.3' strokeLinecap='round' fill='none' />
+			<path d='M1 17v.5A1.5 1.5 0 0 0 2.5 19H8m11-2v.5a1.5 1.5 0 0 1-1.5 1.5H12' stroke='currentColor' strokeOpacity='0.12' strokeLinecap='round' fill='none' />
+		</svg>
+	);
