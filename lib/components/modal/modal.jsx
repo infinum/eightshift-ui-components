@@ -2,7 +2,7 @@ import { Modal as ReactAriaModal, ModalOverlay, Dialog, Heading, DialogTrigger }
 import { Button } from '../button/button';
 import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
-import { icons } from '../../icons';
+import { clear } from '../../icons';
 import { HStack } from '../layout/hstack';
 
 /**
@@ -165,7 +165,7 @@ const ModalInternal = (props) => {
 												onPress={close}
 												type='ghost'
 												size='small'
-												icon={icons.clear}
+												icon={clear}
 												aria-label={__('Close', 'eightshift-frontend-libs')}
 												tooltip
 											/>

@@ -2,7 +2,7 @@ import { Checkbox as ReactAriaCheckbox } from 'react-aria-components';
 import { clsx } from 'clsx';
 
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
-import { icons } from '../../icons/icons';
+import { check } from '../../icons';
 import { RichLabel } from '../rich-label/rich-label';
 import { Label } from 'react-aria-components';
 import { cva } from 'class-variance-authority';
@@ -179,7 +179,7 @@ export const Checkbox = (props) => {
 					className={clsx('es:transition-none es:icon:size-3.5 es:icon:stroke-[2.5]', !disabled && 'es:icon:drop-shadow-xs es:icon:drop-shadow-accent-950/30')}
 					noInitial
 				>
-					{icons.check}
+					{check}
 				</AnimatedVisibility>
 			</div>
 

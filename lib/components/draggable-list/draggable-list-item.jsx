@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { HStack } from '../layout/hstack';
 import { RichLabel } from '../rich-label/rich-label';
-import { icons } from '../../icons';
+import { reorderGrabberV } from '../../icons';
 import { cloneElement } from 'react';
 
 /**
@@ -42,7 +42,7 @@ export const DraggableListItem = (props) => {
 				inline
 			/>
 
-			{cloneElement(icons.reorderGrabberV, {
+			{cloneElement(reorderGrabberV, {
 				className: 'es:opacity-0 es:transition-opacity es:group-focus-visible:opacity-100 es:text-secondary-400 es:size-4 es:group-hover:opacity-100',
 			})}
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { RichLabel } from '../rich-label/rich-label';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { Button } from '../button/button';
-import { icons } from '../../icons/icons';
+import { dropdownCaretAlt } from '../../icons';
 import { clsx } from 'clsx';
 import { Label, Disclosure, DisclosurePanel } from 'react-aria-components';
 import { __ } from '@wordpress/i18n';
@@ -151,7 +151,7 @@ export const Expandable = (props) => {
 					<Button
 						slot='trigger'
 						type='ghost'
-						icon={icons.dropdownCaretAlt}
+						icon={dropdownCaretAlt}
 						onPress={() => {
 							setIsOpen(!isOpen);
 

@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import { __, sprintf } from '@wordpress/i18n';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { upperFirst } from '../../utilities';
-import { icons } from '../../icons/icons';
+import { Icon, clearAlt, dropdownCaretAlt, responsiveOverridesAlt2Fill, responsiveOverridesAltFill } from '../../icons';
 import { ResponsivePreview } from '../responsive-preview/responsive-preview';
 import { Button, ButtonGroup } from '../button/button';
 import { BaseControl } from '../base-control/base-control';
@@ -198,7 +198,10 @@ export const MiniResponsive = (props) => {
 				}
 			>
 				<div className='es:icon:size-6 es:mx-0.5 es:text-accent-700'>
-					{icons?.[overrideIcon] ?? overrideIcon ?? icons[`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`]}
+					<Icon
+						name={overrideIcon}
+						fallback={<Icon name={`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`} />}
+					/>
 				</div>
 			</DecorativeTooltip>
 		);
@@ -227,7 +230,7 @@ export const MiniResponsive = (props) => {
 				})}
 
 				<TriggeredPopover
-					triggerButtonIcon={cloneElement(icons.dropdownCaretAlt, { className: 'es:size-5!' })}
+					triggerButtonIcon={cloneElement(dropdownCaretAlt, { className: 'es:size-5!' })}
 					triggerButtonProps={{
 						tooltip: __('Responsive overrides', 'eightshift-ui-components'),
 						className: 'es:w-6',
@@ -433,7 +436,10 @@ export const MiniResponsive = (props) => {
 										<div
 											className={clsx('es:transition-colors es:icon:size-6 es:mx-0.5', typeof value[breakpoint] !== 'undefined' ? 'es:text-surface-600' : 'es:text-surface-300')}
 										>
-											{icons?.[breakpointUiData?.[realBreakpointName]?.icon] ?? breakpointUiData?.[realBreakpointName]?.icon ?? icons?.[`screen${upperFirst(realBreakpointName)}`]}
+											<Icon
+												name={breakpointUiData?.[realBreakpointName]?.icon}
+												fallback={<Icon name={`screen${upperFirst(realBreakpointName)}`} />}
+											/>
 										</div>
 									</DecorativeTooltip>
 
@@ -456,7 +462,7 @@ export const MiniResponsive = (props) => {
 											delete newValue[breakpoint];
 											onChange(newValue);
 										}}
-										icon={icons.clearAlt}
+										icon={clearAlt}
 										disabled={typeof value?.[breakpoint] === 'undefined'}
 										type='ghost'
 									/>
@@ -524,7 +530,7 @@ export const MiniResponsive = (props) => {
 									</TriggeredPopover>
 
 									<Button
-										icon={icons.clearAlt}
+										icon={clearAlt}
 										disabled={!Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined')}
 										onPress={() => {
 											const newValue = { ...value };
@@ -554,8 +560,8 @@ export const MiniResponsive = (props) => {
 									});
 								}}
 								options={[
-									{ icon: icons.responsiveOverridesAltFill, label: __('Mobile-first', 'eightshift-ui-components'), value: false },
-									{ icon: icons.responsiveOverridesAlt2Fill, label: __('Desktop-first', 'eightshift-ui-components'), value: true },
+									{ icon: responsiveOverridesAltFill, label: __('Mobile-first', 'eightshift-ui-components'), value: false },
+									{ icon: responsiveOverridesAlt2Fill, label: __('Desktop-first', 'eightshift-ui-components'), value: true },
 								]}
 								inline
 							/>

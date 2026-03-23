@@ -1,8 +1,7 @@
-import { cloneElement } from 'react';
 import { __ } from '@wordpress/i18n';
 import { Group, Input, Label, NumberField } from 'react-aria-components';
 import { Button, ButtonGroup } from '../button/button';
-import { icons } from '../../icons/icons';
+import { chevronDown, chevronUp } from '../../icons';
 import { clsx } from 'clsx';
 import { BaseControl } from '../base-control/base-control';
 import { cva } from 'class-variance-authority';
@@ -197,7 +196,7 @@ export const NumberPicker = ({
 									size === 'small' ? 'es:h-3' : 'es:h-3.5',
 								)}
 								slot='increment'
-								icon={icons.chevronUp}
+								icon={chevronUp}
 							/>
 							<Button
 								type='ghost'
@@ -206,7 +205,7 @@ export const NumberPicker = ({
 									size === 'small' ? 'es:h-3' : 'es:h-3.5',
 								)}
 								slot='decrement'
-								icon={icons.chevronDown}
+								icon={chevronDown}
 							/>
 						</ButtonGroup>
 

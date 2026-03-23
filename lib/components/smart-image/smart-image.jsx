@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
 import { cloneElement, useState, useRef, useEffect } from 'react';
-import { icons } from '../../icons';
+import { imageError } from '../../icons';
 import { DecorativeTooltip } from '../tooltip/tooltip';
 import { useImageAnalysisWorker } from '../../utilities/web-workers.js';
 import workerInline from './worker-inline.js';
@@ -210,7 +210,7 @@ export const SmartImage = (props) => {
 			>
 				{typeof children !== 'function' && (
 					<DecorativeTooltip text={__('Error loading image', 'eightshift-ui-components')}>
-						{cloneElement(icons.imageError, { className: 'es:text-secondary-500 es:size-8' })}
+						{cloneElement(imageError, { className: 'es:text-secondary-500 es:size-8' })}
 					</DecorativeTooltip>
 				)}
 
@@ -225,7 +225,7 @@ export const SmartImage = (props) => {
 									wrapperClassName='es:size-8 es:-translate-y-4 es:m-auto'
 									text={__('Error loading image', 'eightshift-ui-components')}
 								>
-									{cloneElement(icons.imageError, { className: 'es:text-secondary-500 es:size-8' })}
+									{cloneElement(imageError, { className: 'es:text-secondary-500 es:size-8' })}
 								</DecorativeTooltip>
 							),
 						})

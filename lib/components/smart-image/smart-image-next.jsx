@@ -2,7 +2,7 @@
 import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
 import { cloneElement, useState, useRef, useEffect } from 'react';
-import { icons } from '../../icons/index.js';
+import { imageError } from '../../icons/index.js';
 import { DecorativeTooltip } from '../tooltip/tooltip.jsx';
 import { cyrb64Hash } from '../../utilities/hash.js';
 import WORKER_CODE from './image-analysis-worker-next.js?raw' with { type: 'text' };
@@ -342,7 +342,7 @@ export const __SmartImageNext = (props) => {
 			>
 				{typeof children !== 'function' && (
 					<DecorativeTooltip text={__('Error loading image', 'eightshift-ui-components')}>
-						{cloneElement(icons.imageError, { className: 'es:text-surface-600 es:size-8' })}
+						{cloneElement(imageError, { className: 'es:text-surface-600 es:size-8' })}
 					</DecorativeTooltip>
 				)}
 
@@ -355,7 +355,7 @@ export const __SmartImageNext = (props) => {
 							errorBadge: (
 								<div className='es:size-full es:flex es:items-center es:justify-center'>
 									<DecorativeTooltip text={__('Error loading image', 'eightshift-ui-components')}>
-										{cloneElement(icons.imageError, { className: 'es:text-surface-600 es:size-8' })}
+										{cloneElement(imageError, { className: 'es:text-surface-600 es:size-8' })}
 									</DecorativeTooltip>
 								</div>
 							),

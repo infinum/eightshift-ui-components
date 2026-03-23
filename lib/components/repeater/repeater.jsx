@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import { Button } from '../button/button';
-import { icons } from '../../icons/icons';
+import { add, moreH, panelCollapse, panelExpand } from '../../icons';
 import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { RepeaterContext } from './repeater-context';
@@ -121,13 +121,13 @@ export const Repeater = (props) => {
 
 					<Menu
 						tooltip={__('More options', 'eightshift-ui-components')}
-						triggerIcon={icons.moreH}
+						triggerIcon={moreH}
 						triggerProps={{ type: 'ghost', size: 'small' }}
 						hidden={items?.length < 1 || (noExpandAllButton && !moreOptions)}
 					>
 						{!noExpandAllButton && (
 							<MenuItem
-								endIcon={allOpen ? icons.panelCollapse : icons.panelExpand}
+								endIcon={allOpen ? panelCollapse : panelExpand}
 								onClick={() => setAllOpen(!allOpen)}
 							>
 								{allOpen ? __('Collapse all', 'eightshift-ui-components') : __('Expand all', 'eightshift-ui-components')}
@@ -149,7 +149,7 @@ export const Repeater = (props) => {
 								}
 							}}
 							size='small'
-							icon={icons.add}
+							icon={add}
 							className={!hideEmptyState && items.length < 1 && 'es:invisible'}
 							tooltip={__('Add item', 'eightshift-ui-components')}
 							disabled={addDisabled || !canAdd}
@@ -272,7 +272,7 @@ export const Repeater = (props) => {
 									}
 								}}
 								size='small'
-								icon={icons.add}
+								icon={add}
 								className='es:icon:size-4'
 								disabled={addDisabled}
 							>

@@ -4,7 +4,7 @@ import { ColorSwatch } from './color-swatch';
 import { RichLabel } from '../rich-label/rich-label';
 import { BaseControl } from '../base-control/base-control';
 import { clsx } from 'clsx';
-import { icons } from '../../icons/icons';
+import { colorPickerFill, colorPickerListMarker, colorPickerText, colorPickerTextHighlight } from '../../icons';
 
 /**
  * Color picker.
@@ -162,16 +162,16 @@ export const ColorPicker = (props) => {
 		tooltipText = __('Color', 'eightshift-ui-components');
 	} else if (type === 'fillColor') {
 		tooltipText = __('Fill color', 'eightshift-ui-components');
-		menuTriggerIcon = icons.colorPickerFill;
+		menuTriggerIcon = colorPickerFill;
 	} else if (type === 'textColor') {
 		tooltipText = __('Text color', 'eightshift-ui-components');
-		menuTriggerIcon = icons.colorPickerText;
+		menuTriggerIcon = colorPickerText;
 	} else if (type === 'textHighlightColor') {
 		tooltipText = __('Text highlight color', 'eightshift-ui-components');
-		menuTriggerIcon = icons.colorPickerTextHighlight;
+		menuTriggerIcon = colorPickerTextHighlight;
 	} else if (type === 'listMarkerColor') {
 		tooltipText = __('List marker color', 'eightshift-ui-components');
-		menuTriggerIcon = icons.colorPickerListMarker;
+		menuTriggerIcon = colorPickerListMarker;
 	}
 
 	const currentColorName = colors?.find((color) => color?.slug === value)?.name;

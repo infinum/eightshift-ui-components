@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { icons } from '../../icons/icons';
+import { Icon } from '../../icons';
 import { BaseControl } from '../base-control/base-control';
 import { ButtonGroup } from '../button/button';
 import { Menu, MenuItem, MenuSeparator, SubMenuItem } from '../menu/menu';
@@ -123,8 +123,14 @@ export const OptionSelect = (props) => {
 						icon={
 							!noTriggerIcon &&
 							(icon ??
-								// eslint-disable-next-line no-nested-ternary
-								(currentItem ? (typeof currentItem?.icon === 'string' ? icons?.[currentItem?.icon] : currentItem?.icon) : (noTriggerLabel || noTriggerIcon) && notSetLabel))
+								(currentItem ? (
+									<Icon
+										name={currentItem?.icon}
+										fallback={currentItem?.icon}
+									/>
+								) : (
+									(noTriggerLabel || noTriggerIcon) && notSetLabel
+								)))
 						}
 					>
 						<RichLabel
@@ -156,8 +162,18 @@ export const OptionSelect = (props) => {
 							{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
 							{optionSectionTitle && (
 								<MenuItem
-									icon={typeof optionSectionIcon === 'string' ? icons?.[optionSectionIcon] : optionSectionIcon}
-									endIcon={typeof optionSectionEndIcon === 'string' ? icons?.[optionSectionEndIcon] : optionSectionEndIcon}
+									icon={
+										<Icon
+											name={typeof optionSectionIcon === 'string' ? optionSectionIcon : null}
+											fallback={optionSectionIcon ?? null}
+										/>
+									}
+									endIcon={
+										<Icon
+											name={typeof optionSectionEndIcon === 'string' ? optionSectionEndIcon : null}
+											fallback={optionSectionEndIcon ?? null}
+										/>
+									}
 									subtitle={optionSectionSubtitle}
 									disabled
 								>
@@ -168,8 +184,22 @@ export const OptionSelect = (props) => {
 								selected={value === optionValue}
 								disabled={optionDisabled || disabled}
 								className={itemClassName}
-								icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
-								endIcon={!noItemIcon && (typeof optionEndIcon === 'string' ? icons?.[optionEndIcon] : optionEndIcon)}
+								icon={
+									!noItemIcon && (
+										<Icon
+											name={typeof optionIcon === 'string' ? optionIcon : null}
+											fallback={optionIcon ?? null}
+										/>
+									)
+								}
+								endIcon={
+									!noItemIcon && (
+										<Icon
+											name={typeof optionEndIcon === 'string' ? optionEndIcon : null}
+											fallback={optionEndIcon ?? null}
+										/>
+									)
+								}
 								aria-label={optionAriaLabel ?? optionLabel}
 								onClick={() => onChange(optionValue)}
 								shortcut={optionShortcut}
@@ -216,8 +246,18 @@ export const OptionSelect = (props) => {
 							{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
 							{optionSectionTitle && (
 								<MenuItem
-									icon={typeof optionSectionIcon === 'string' ? icons?.[optionSectionIcon] : optionSectionIcon}
-									endIcon={typeof optionSectionEndIcon === 'string' ? icons?.[optionSectionEndIcon] : optionSectionEndIcon}
+									icon={
+										<Icon
+											name={optionSectionIcon}
+											fallback={optionSectionIcon}
+										/>
+									}
+									endIcon={
+										<Icon
+											name={optionSectionEndIcon}
+											fallback={optionSectionEndIcon}
+										/>
+									}
 									subtitle={optionSectionSubtitle}
 									disabled
 								>
@@ -228,8 +268,22 @@ export const OptionSelect = (props) => {
 								selected={value === optionValue}
 								disabled={optionDisabled || disabled}
 								className={itemClassName}
-								icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
-								endIcon={!noItemIcon && (typeof optionEndIcon === 'string' ? icons?.[optionEndIcon] : optionEndIcon)}
+								icon={
+									!noItemIcon && (
+										<Icon
+											name={optionIcon}
+											fallback={optionIcon}
+										/>
+									)
+								}
+								endIcon={
+									!noItemIcon && (
+										<Icon
+											name={optionEndIcon}
+											fallback={optionEndIcon}
+										/>
+									)
+								}
 								aria-label={optionAriaLabel ?? optionLabel}
 								onClick={() => onChange(optionValue)}
 								shortcut={optionShortcut}
@@ -287,7 +341,14 @@ export const OptionSelect = (props) => {
 								onChange={() => onChange(optionValue)}
 								disabled={optionDisabled || disabled}
 								className={itemClassName}
-								icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
+								icon={
+									!noItemIcon && (
+										<Icon
+											name={optionIcon}
+											fallback={optionIcon}
+										/>
+									)
+								}
 								tooltip={optionTooltip ?? optionAriaLabel ?? (noItemLabel && optionLabel)}
 								aria-label={optionAriaLabel ?? optionLabel ?? optionTooltip}
 								{...itemProps}
@@ -322,7 +383,14 @@ export const OptionSelect = (props) => {
 							disabled={optionDisabled || disabled}
 							className={itemClassName}
 							subtitle={!noItemLabel && optionSubtitle}
-							icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
+							icon={
+								!noItemIcon && (
+									<Icon
+										name={optionIcon}
+										fallback={optionIcon}
+									/>
+								)
+							}
 							aria-label={optionAriaLabel ?? optionLabel}
 							label={!noItemLabel && optionLabel}
 							{...itemProps}
@@ -336,8 +404,14 @@ export const OptionSelect = (props) => {
 					triggerLabel={noTriggerLabel ? null : (currentItem?.label ?? notSetLabel)}
 					triggerIcon={
 						!noTriggerIcon &&
-						// eslint-disable-next-line no-nested-ternary
-						(currentItem ? (typeof currentItem?.icon === 'string' ? icons?.[currentItem?.icon] : currentItem?.icon) : (noTriggerLabel || noTriggerIcon) && notSetLabel)
+						(currentItem ? (
+							<Icon
+								name={currentItem?.icon}
+								fallback={currentItem?.icon}
+							/>
+						) : (
+							(noTriggerLabel || noTriggerIcon) && notSetLabel
+						))
 					}
 					tooltip={
 						noTriggerLabel ? (
@@ -378,8 +452,18 @@ export const OptionSelect = (props) => {
 								{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
 								{optionSectionTitle && (
 									<MenuItem
-										icon={typeof optionSectionIcon === 'string' ? icons?.[optionSectionIcon] : optionSectionIcon}
-										endIcon={typeof optionSectionEndIcon === 'string' ? icons?.[optionSectionEndIcon] : optionSectionEndIcon}
+										icon={
+											<Icon
+												name={optionSectionIcon}
+												fallback={optionSectionIcon}
+											/>
+										}
+										endIcon={
+											<Icon
+												name={optionSectionEndIcon}
+												fallback={optionSectionEndIcon}
+											/>
+										}
 										subtitle={optionSectionSubtitle}
 										disabled
 									>
@@ -390,8 +474,22 @@ export const OptionSelect = (props) => {
 									selected={value === optionValue}
 									disabled={optionDisabled || disabled}
 									className={itemClassName}
-									icon={!noItemIcon && (typeof optionIcon === 'string' ? icons?.[optionIcon] : optionIcon)}
-									endIcon={!noItemIcon && (typeof optionEndIcon === 'string' ? icons?.[optionEndIcon] : optionEndIcon)}
+									icon={
+										!noItemIcon && (
+											<Icon
+												name={optionIcon}
+												fallback={optionIcon}
+											/>
+										)
+									}
+									endIcon={
+										!noItemIcon && (
+											<Icon
+												name={optionEndIcon}
+												fallback={optionEndIcon}
+											/>
+										)
+									}
 									aria-label={optionAriaLabel ?? optionLabel}
 									onClick={() => onChange(optionValue)}
 									shortcut={optionShortcut}

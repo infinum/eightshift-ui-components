@@ -4,11 +4,10 @@ import { clsx } from 'clsx';
 import { __, sprintf } from '@wordpress/i18n';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { upperFirst } from '../../utilities';
-import { icons } from '../../icons/icons';
+import { Icon, clearAlt, dropdownCaretAlt, previewResponsive, responsiveOverridesAlt2Fill, responsiveOverridesAlt3Fill, responsiveOverridesAltFill } from '../../icons';
 import { Menu, MenuItem, MenuSectionHeader, MenuSeparator, SubMenuItem } from '../menu/menu';
 import { ResponsivePreview } from '../responsive-preview/responsive-preview';
 import { Button, ButtonGroup } from '../button/button';
-import { RichLabel } from '../rich-label/rich-label';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { ToggleButton } from '../toggle-button/toggle-button';
 import { BaseControl } from '../base-control/base-control';
@@ -209,7 +208,10 @@ export const Responsive = (props) => {
 				}
 			>
 				<div className='es:icon:size-6 es:mx-0.5 es:text-accent-700'>
-					{icons?.[overrideIcon] ?? overrideIcon ?? icons[`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`]}
+					<Icon
+						name={overrideIcon}
+						fallback={<Icon name={`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`} />}
+					/>
 				</div>
 			</DecorativeTooltip>
 		);
@@ -249,7 +251,7 @@ export const Responsive = (props) => {
 
 					<ButtonGroup>
 						<ToggleButton
-							icon={icons.responsiveOverridesAlt3Fill}
+							icon={responsiveOverridesAlt3Fill}
 							onChange={() => setDetailsVisible(!detailsVisible)}
 							selected={detailsVisible}
 							tooltip={detailsVisible ? __('Hide responsive overrides', 'eightshift-ui-components') : __('Show responsive overrides', 'eightshift-ui-components')}
@@ -260,7 +262,7 @@ export const Responsive = (props) => {
 							tooltip={__('Responsive options', 'eightshift-ui-components')}
 							popoverProps={{ placement: 'bottom right' }}
 							triggerProps={{ className: 'es:w-6 es:stroke-[1.25]' }}
-							triggerIcon={icons.dropdownCaretAlt}
+							triggerIcon={dropdownCaretAlt}
 						>
 							{!noModeSelect && (
 								<>
@@ -274,8 +276,8 @@ export const Responsive = (props) => {
 											});
 										}}
 										options={[
-											{ endIcon: icons.responsiveOverridesAltFill, label: __('Mobile-first', 'eightshift-ui-components'), value: false },
-											{ endIcon: icons.responsiveOverridesAlt2Fill, label: __('Desktop-first', 'eightshift-ui-components'), value: true },
+											{ endIcon: responsiveOverridesAltFill, label: __('Mobile-first', 'eightshift-ui-components'), value: false },
+											{ endIcon: responsiveOverridesAlt2Fill, label: __('Desktop-first', 'eightshift-ui-components'), value: true },
 										]}
 										type='standaloneMenuItems'
 									/>
@@ -287,7 +289,7 @@ export const Responsive = (props) => {
 								<SubMenuItem
 									manualWidth
 									popoverProps={{ className: 'es:max-w-full!' }}
-									trigger={<MenuItem icon={icons.previewResponsive}>{__('Breakpoint preview', 'eightshift-ui-components')}</MenuItem>}
+									trigger={<MenuItem icon={previewResponsive}>{__('Breakpoint preview', 'eightshift-ui-components')}</MenuItem>}
 								>
 									<MenuItem disabled>
 										<ResponsivePreview
@@ -304,7 +306,7 @@ export const Responsive = (props) => {
 							)}
 							{Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined') && <MenuSeparator />}
 							<MenuItem
-								icon={icons.clearAlt}
+								icon={clearAlt}
 								onClick={() => {
 									const newValue = { ...value };
 
@@ -550,7 +552,10 @@ export const Responsive = (props) => {
 								}
 							>
 								<div className={clsx('es:transition-colors es:icon:size-6 es:mx-0.5', typeof value[breakpoint] !== 'undefined' ? 'es:text-surface-600' : 'es:text-surface-300')}>
-									{icons?.[breakpointUiData?.[realBreakpointName]?.icon] ?? breakpointUiData?.[realBreakpointName]?.icon ?? icons?.[`screen${upperFirst(realBreakpointName)}`]}
+									<Icon
+										name={breakpointUiData?.[realBreakpointName]?.icon}
+										fallback={<Icon name={`screen${upperFirst(realBreakpointName)}`} />}
+									/>
 								</div>
 							</DecorativeTooltip>
 
@@ -573,7 +578,7 @@ export const Responsive = (props) => {
 									delete newValue[breakpoint];
 									onChange(newValue);
 								}}
-								icon={icons.clearAlt}
+								icon={clearAlt}
 								disabled={typeof value?.[breakpoint] === 'undefined'}
 								type='ghost'
 							/>

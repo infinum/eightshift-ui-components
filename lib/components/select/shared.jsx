@@ -1,9 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { ListBoxItem, Button, SelectStateContext } from 'react-aria-components';
-import { icons } from '../../icons';
+import { Icon } from '../../icons';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { useContext } from 'react';
 import clsx from 'clsx';
+import { check, clear } from '../../icons/ui-icons';
 
 export const OptionItemBase = (props) => (
 	<ListBoxItem
@@ -65,7 +66,7 @@ export const OptionItemBase = (props) => (
 							className='es:transition-none es:icon:size-3 es:icon:stroke-[1.5]'
 							noInitial
 						>
-							{icons.check}
+							{check}
 						</AnimatedVisibility>
 					</div>
 				)}
@@ -167,7 +168,7 @@ export const SelectClearButton = ({ multi = false }) => {
 			onPress={() => state?.setValue(null)}
 			slot={null}
 		>
-			{icons.clear}
+			{clear}
 		</Button>
 	);
 };
@@ -201,24 +202,22 @@ export const getGroupedOptions = (filteredOptions, groupKey, groupValueMapping) 
 	return Object.entries(groups).map(([key, options]) => {
 		const mapping = groupValueMapping?.[key];
 
-		let icon = mapping?.icon;
-
-		if (typeof icon === 'string') {
-			icon = icons?.[icon] ?? icon;
-		}
-
-		let endIcon = mapping?.endIcon;
-
-		if (typeof endIcon === 'string') {
-			endIcon = icons?.[endIcon] ?? endIcon;
-		}
-
 		return {
 			key,
 			label: mapping?.label ?? (key === '_other' ? __('Other', 'eightshift-ui-components') : key),
-			icon: icon || null,
+			icon: (
+				<Icon
+					name={mapping?.icon}
+					fallback={mapping?.icon}
+				/>
+			),
 			subtitle: mapping?.subtitle || null,
-			endIcon: endIcon || null,
+			endIcon: (
+				<Icon
+					name={mapping?.endIcon}
+					fallback={mapping?.endIcon}
+				/>
+			),
 			options,
 		};
 	});

@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
 import { Select, Label, ListBox, Popover, Button, SelectValue, Autocomplete, SearchField, Input, ListBoxSection, Header, Collection } from 'react-aria-components';
 import { cloneElement, useMemo, useRef } from 'react';
-import { icons, Spinner } from '../../icons';
+import { Icon, Spinner, clearAlt, dropdownCaret, searchEmpty } from '../../icons';
 import { OptionItemBase, SelectClearButton, getGroupedOptions } from './shared';
 import { RichLabel } from '../rich-label/rich-label';
 import { useAsyncList } from 'react-stately';
@@ -184,13 +184,11 @@ export const AsyncSelect = (props) => {
 	const renderItem = (item) => {
 		let icon = item?.icon ?? null;
 
-		if (typeof item?.icon === 'string') {
-			icon = icons?.[item.icon] ?? null;
-		}
-
-		if (getIcon && !icon) {
+		if (!icon && getIcon) {
 			icon = getIcon(item);
 		}
+
+		icon = <Icon name={icon} />;
 
 		return (
 			<OptionItemBase
@@ -355,9 +353,7 @@ export const AsyncSelect = (props) => {
 
 								let icon = getIcon ? getIcon(selectedItem) : (selectedItem?.icon ?? null);
 
-								if (typeof selectedItem?.icon === 'string') {
-									icon = icons?.[selectedItem.icon] ?? null;
-								}
+								icon = <Icon name={icon} />;
 
 								return (
 									<RichLabel
@@ -378,7 +374,7 @@ export const AsyncSelect = (props) => {
 							aria-hidden='true'
 						>
 							{!customDropdownArrow &&
-								cloneElement(icons.dropdownCaret, {
+								cloneElement(dropdownCaret, {
 									className: 'es:w-4 es:stroke-[1.2] es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
 								})}
 
@@ -453,7 +449,7 @@ export const AsyncSelect = (props) => {
 									'es:peer-placeholder-shown:opacity-0',
 								)}
 							>
-								{icons.clearAlt}
+								{clearAlt}
 							</Button>
 						</SearchField>
 
@@ -472,7 +468,7 @@ export const AsyncSelect = (props) => {
 							}}
 							renderEmptyState={() => (
 								<RichLabel
-									icon={icons.searchEmpty}
+									icon={searchEmpty}
 									label={__('No results', 'eightshift-ui-components')}
 									subtitle={__('Try a different search term', 'eightshift-ui-components')}
 									className='es:min-h-14 es:p-2 es:w-fit es:mx-auto es:motion-preset-slide-up es:motion-ease-spring-bouncy es:motion-duration-200 es:shrink-0'

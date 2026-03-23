@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { icons } from '../../icons';
+import { file } from '../../icons';
 import { truncateMiddle } from '../../utilities';
 import { SmartImage } from '../smart-image/smart-image';
 import { __SmartImageNext } from '../smart-image/smart-image-next';
@@ -48,7 +48,7 @@ export const FilePickerShell = (props) => {
 		url,
 		type = 'file',
 
-		icon = icons.file,
+		icon = file,
 
 		children,
 		className,

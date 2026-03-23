@@ -3,7 +3,7 @@ import { clsx } from 'clsx';
 import { Switch } from '../toggle/switch';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { Button } from '../button/button';
-import { icons } from '../../icons/icons';
+import { chevronDown } from '../../icons';
 import { HStack } from '../layout/hstack';
 import { BaseControl } from '../base-control/base-control';
 
@@ -103,7 +103,7 @@ export const ContainerPanel = (props) => {
 						{closable && (
 							<Button
 								onPress={() => setOpen(!open)}
-								icon={icons.chevronDown}
+								icon={chevronDown}
 								type='ghost'
 								size='small'
 								className={clsx('es:icon:size-4! es:icon:transition-transform', (typeof use !== 'undefined' ? open && use : open) && 'es:icon:-scale-y-100')}

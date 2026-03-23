@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { DraggableContext } from './draggable-context';
 import { useContext } from 'react';
-import { icons } from '../../icons';
+import { reorderGrabberV } from '../../icons';
 
 /**
  * A Draggable item handle.
@@ -39,7 +39,7 @@ export const DraggableHandle = (props) => {
 			ref={handleRef}
 			{...rest}
 		>
-			{children ?? icons.reorderGrabberV}
+			{children ?? reorderGrabberV}
 		</div>
 	);
 };

@@ -5,7 +5,7 @@ import { clsx } from 'clsx';
 import { BaseControl } from '../base-control/base-control';
 import { __ } from '@wordpress/i18n';
 import { TriggeredPopover } from '../popover/popover';
-import { icons } from '../../icons/icons';
+import { dropdownCaretAlt } from '../../icons';
 import { ColorSwatch } from '../color-pickers/color-swatch';
 
 /**
@@ -180,7 +180,7 @@ export const SolidColorPicker = (props) => {
 				</ColorField>
 
 				<TriggeredPopover
-					triggerButtonIcon={icons.dropdownCaretAlt}
+					triggerButtonIcon={dropdownCaretAlt}
 					className='es:w-52 es:p-3'
 					triggerButtonProps={{
 						disabled: disabled,

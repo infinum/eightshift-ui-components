@@ -7,7 +7,7 @@ import {
 	SubmenuTrigger,
 } from 'react-aria-components';
 import { RichLabel } from '../rich-label/rich-label';
-import { icons } from '../../icons/icons';
+import { chevronRight, dummySpacer, hamburgerMenu, menuItemCheck, menuItemCircle } from '../../icons';
 import { Button } from '../button/button';
 import { Popover } from '../popover/popover';
 import { clsx } from 'clsx';
@@ -80,7 +80,7 @@ export const Menu = (props) => {
 		children,
 
 		triggerLabel,
-		triggerIcon = !triggerLabel && icons.hamburgerMenu,
+		triggerIcon = !triggerLabel && hamburgerMenu,
 		triggerProps,
 
 		popoverProps,
@@ -250,11 +250,11 @@ export const MenuItem = (props) => {
 	let itemIcon = icon;
 
 	if (checked === true) {
-		itemIcon = icons.menuItemCheck;
+		itemIcon = menuItemCheck;
 	} else if (selected === true) {
-		itemIcon = icons.menuItemCircle;
+		itemIcon = menuItemCircle;
 	} else if (selected === false || checked === false) {
-		itemIcon = icons.dummySpacer;
+		itemIcon = dummySpacer;
 	}
 
 	return (
@@ -332,7 +332,7 @@ export const SubMenuItem = (props) => {
 	return (
 		<SubmenuTrigger>
 			{cloneElement(trigger, {
-				endIcon: <span className='es:text-surface-500 es:contrast-more:text-current es:icon:size-3! es:icon:stroke-2!'>{icons.chevronRight}</span>,
+				endIcon: <span className='es:text-surface-500 es:contrast-more:text-current es:icon:size-3! es:icon:stroke-2!'>{chevronRight}</span>,
 			})}
 			<Popover
 				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}

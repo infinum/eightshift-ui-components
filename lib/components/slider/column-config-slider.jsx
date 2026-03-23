@@ -7,7 +7,7 @@ import {
 	Label,
 } from 'react-aria-components';
 import { BaseControl } from '../base-control/base-control';
-import { icons } from '../../icons/icons';
+import { chevronLeft, chevronRight } from '../../icons';
 import { getColumnConfigOutputText } from './utils';
 import { clsx } from 'clsx';
 import { AnimatePresence, motion } from 'motion/react';
@@ -184,8 +184,8 @@ export const ColumnConfigSlider = (props) => {
 											)}
 											style={{ gridColumn: index + 1 }}
 										>
-											{showOuterAsGutter && index === 0 && icons.chevronLeft}
-											{showOuterAsGutter && index === columns - 1 && icons.chevronRight}
+											{showOuterAsGutter && index === 0 && chevronLeft}
+											{showOuterAsGutter && index === columns - 1 && chevronRight}
 										</span>
 									);
 								})}

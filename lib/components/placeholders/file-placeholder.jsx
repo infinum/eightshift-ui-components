@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { icons } from '../../icons/icons';
+import { file } from '../../icons';
 import { RichLabel } from '../rich-label/rich-label';
 import { clsx } from 'clsx';
 
@@ -42,7 +42,7 @@ export const FilePlaceholder = (props) => {
 						!fileName && 'es:bg-secondary-100 es:text-secondary-500',
 					)}
 				>
-					{icon ?? icons.file}
+					{icon ?? file}
 				</div>
 			}
 			label={(fileName ? fileName : children) ?? __('No file selected', 'eightshift-ui-components')}

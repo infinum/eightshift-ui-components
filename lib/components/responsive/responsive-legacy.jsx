@@ -5,7 +5,7 @@ import { clsx } from 'clsx';
 import { __, sprintf } from '@wordpress/i18n';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { upperFirst } from '../../utilities';
-import { icons } from '../../icons/icons';
+import { Icon, clearAlt, play, responsiveOverridesAlt } from '../../icons';
 import { Button } from '../button/button';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { ToggleButton } from '../toggle-button/toggle-button';
@@ -163,7 +163,10 @@ export const ResponsiveLegacy = (props) => {
 			}
 		>
 			<div className='es:flex es:size-7 es:items-center es:justify-center es:rounded es:border es:border-accent-500/10 es:bg-accent-50 es:p-0.5 es:text-accent-800 es:shadow-sm es:shadow-accent-600/25 es:icon:size-5'>
-				{icons[`screen${upperFirst(defaultBreakpoint)}`] ?? icons.play}
+				<Icon
+					name={`screen${upperFirst(defaultBreakpoint)}`}
+					fallback={play}
+				/>
 			</div>
 		</DecorativeTooltip>
 	);
@@ -195,7 +198,7 @@ export const ResponsiveLegacy = (props) => {
 					)}
 
 					<ToggleButton
-						icon={icons.responsiveOverridesAlt}
+						icon={responsiveOverridesAlt}
 						onChange={() => setDetailsVisible(!detailsVisible)}
 						selected={detailsVisible}
 						tooltip={detailsVisible ? __('Hide responsive overrides', 'eightshift-ui-components') : __('Show responsive overrides', 'eightshift-ui-components')}
@@ -352,7 +355,7 @@ export const ResponsiveLegacy = (props) => {
 											: 'es:border-secondary-100 es:bg-white es:text-secondary-500',
 									)}
 								>
-									{icons?.[`screen${upperFirst(breakpoint)}`]}
+									<Icon name={`screen${upperFirst(breakpoint)}`} />
 								</div>
 							</DecorativeTooltip>
 
@@ -367,7 +370,7 @@ export const ResponsiveLegacy = (props) => {
 
 							<Button
 								onPress={() => onChange(attribute[breakpoint], inheritValue)}
-								icon={icons.clearAlt}
+								icon={clearAlt}
 								disabled={value?.[attribute[breakpoint]] === inheritValue}
 								type='ghost'
 							/>

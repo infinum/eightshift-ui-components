@@ -1,6 +1,6 @@
 import { Label, Button as ReactAriaButton, Input, Group, ListBox, ListBoxItem, Popover } from 'react-aria-components';
 import { __ } from '@wordpress/i18n';
-import { icons } from '../../icons/icons';
+import { anchor, clearAlt, externalLink, file, formAlt, globe, layoutAlt, searchEmpty } from '../../icons';
 import { Spinner } from '../../icons/spinner';
 import { clsx } from 'clsx';
 import { useAsyncList } from 'react-stately';
@@ -63,8 +63,8 @@ export const LinkInput = (props) => {
 
 		placeholder = __('Type to search or enter URL', 'eightshift-ui-components'),
 
-		icon = icons.globe,
-		removeIcon = icons.clearAlt,
+		icon = globe,
+		removeIcon = clearAlt,
 
 		disabled = false,
 
@@ -281,7 +281,7 @@ export const LinkInput = (props) => {
 				>
 					{noResults && (
 						<RichLabel
-							icon={icons.searchEmpty}
+							icon={searchEmpty}
 							label={__('No results', 'eightshift-ui-components')}
 							subtitle={__('Try a different search term', 'eightshift-ui-components')}
 							className='es:p-4 es:w-fit es:mx-auto es:flex-col es:items-center es:gap-2.5'
@@ -305,18 +305,18 @@ export const LinkInput = (props) => {
 
 									const subtype = rawSubtype ?? 'page';
 
-									let typeIcon = icons.file;
+									let typeIcon = file;
 
 									if (subtype.toLowerCase() === 'url') {
-										typeIcon = icons.externalLink;
+										typeIcon = externalLink;
 									} else if (subtype.toLowerCase() === 'attachment') {
-										typeIcon = icons.file;
+										typeIcon = file;
 									} else if (subtype.toLowerCase() === 'category') {
-										typeIcon = icons.layoutAlt;
+										typeIcon = layoutAlt;
 									} else if (subtype.toLowerCase() === 'internal') {
-										typeIcon = icons.anchor;
+										typeIcon = anchor;
 									} else if (subtype.toLowerCase() === 'eightshift-forms') {
-										typeIcon = icons.formAlt;
+										typeIcon = formAlt;
 									}
 
 									if (suggestionTypeIconOverride) {

@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { icons } from '../../icons/icons';
+import { Icon } from '../../icons';
 import { camelCase, upperFirst } from '../../utilities';
 import { BaseControl } from '../base-control/base-control';
 import { TriggeredPopover } from '../popover/popover';
@@ -131,7 +131,7 @@ export const MatrixAlign = (props) => {
 			inline
 		>
 			<TriggeredPopover
-				triggerButtonIcon={icons[`position${size}${upperFirst(camelCase(value))}`]}
+				triggerButtonIcon={<Icon name={`position${size}${upperFirst(camelCase(value))}`} />}
 				triggerButtonProps={{
 					'aria-label': ariaLabel,
 					tooltip: triggerTooltip,

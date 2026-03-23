@@ -1,6 +1,6 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { Expandable } from '../expandable/expandable';
-import { icons } from '../../icons/icons';
+import { componentGeneric, dropdownCaretAlt } from '../../icons';
 import { Switch } from '../toggle/switch';
 import { TriggeredPopover } from '../popover/popover';
 import { ButtonGroup } from '../button/button';
@@ -93,7 +93,7 @@ export const ComponentToggle = (props) => {
 		return (
 			<ButtonGroup>
 				<ToggleButton
-					icon={hasIcon && (icon ?? icons.componentGeneric)}
+					icon={hasIcon && (icon ?? componentGeneric)}
 					tooltip={hasIcon && !noLabel && label}
 					selected={useComponent}
 					onChange={onChange}
@@ -106,8 +106,8 @@ export const ComponentToggle = (props) => {
 						tooltip: optionsLabel,
 						disabled: !useComponent,
 					}}
-					triggerButtonIcon={icons.dropdownCaretAlt}
-					className={clsx('es:w-[18.5rem] es:p-2', contentClassName)}
+					triggerButtonIcon={dropdownCaretAlt}
+					className={clsx('es:w-74 es:p-2', contentClassName)}
 				>
 					<Spacer text={optionsLabel} />
 					{children}
@@ -119,7 +119,7 @@ export const ComponentToggle = (props) => {
 	if (noExpandButton) {
 		return (
 			<BaseControl
-				icon={icon ?? icons.componentGeneric}
+				icon={icon ?? componentGeneric}
 				label={!noLabel && label}
 				subtitle={subtitle}
 				actions={
@@ -160,7 +160,7 @@ export const ComponentToggle = (props) => {
 						size='medium'
 					/>
 				) : (
-					(icon ?? icons.componentGeneric)
+					(icon ?? componentGeneric)
 				)
 			}
 			label={!noLabel && label}
