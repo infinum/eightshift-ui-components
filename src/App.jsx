@@ -1108,26 +1108,6 @@ function App() {
 						/>
 					</Expandable>
 
-					<ContainerGroup>
-						<Container standalone>
-							<BaseControl
-								icon={icons.experiment}
-								label='Lorem ipsum dolor'
-								actions={
-									<Button
-										onPress={() => console.log('hi')}
-										icon={icons.emptyRect}
-										type='ghost'
-										size='small'
-									/>
-								}
-								inline
-							>
-								a
-							</BaseControl>
-						</Container>
-					</ContainerGroup>
-
 					<Expandable
 						standalone
 						icon={icons.experiment}
@@ -1481,7 +1461,7 @@ function App() {
 
 					<div
 						style={{ backgroundImage: 'url(https://fastly.picsum.photos/id/328/600/800.jpg?hmac=BZ-xPwUADtXzjRoS5pt6s9NZob3vvu89cOu6DYICMQE' }}
-						className='es:bg-cover es:p-8 es:space-y-5 es:bg-right-bottom'
+						className='es:bg-cover es:p-8 es:space-y-5 es:bg-bottom-right'
 					>
 						<Button
 							type='glass'
