@@ -11,5 +11,5 @@ export const Icon = ({ name, fallback = null }) => {
 		return name;
 	}
 
-	return uiIcons[name] ?? uiIcons[normalizeIconName(name)] ?? fallback;
+	return uiIcons[name] ?? uiIcons[normalizeIconName(name)] ?? fallback ?? name;
 };
