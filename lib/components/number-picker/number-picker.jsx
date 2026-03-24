@@ -181,8 +181,8 @@ export const NumberPicker = ({
 						<ButtonGroup
 							className={clsx(
 								'es:hidden es:transition-discrete es:gap-0! es:transition es:pl-0.5 es:ease-spring-smooth es:duration-300 es:origin-left',
-								'es:starting:opacity-0 es:starting:blur-[2px] es:starting:translate-x-2',
-								'es:opacity-100 es:blur-none es:translate-x-0',
+								'es:starting:opacity-0 es:starting:translate-x-2',
+								'es:opacity-100 es:translate-x-0',
 								!disabled && !readOnly && 'es:group-hover:flex es:group-focus-within:flex',
 								disabled && 'es:hidden',
 							)}

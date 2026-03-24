@@ -174,9 +174,9 @@ export const Expandable = (props) => {
 			<DisclosurePanel
 				className={clsx(
 					'es:h-(--disclosure-panel-height)',
-					'es:opacity-0 es:blur-[1px] es:-translate-y-2',
+					'es:opacity-0 es:-translate-y-2',
 					!isOpen && 'es:rounded-t-xl',
-					isOpen && 'es:rounded-t-md es:opacity-100 es:*:motion-preset-fade-sm es:*:motion-delay-75 es:blur-none es:translate-y-1 es:mb-1',
+					isOpen && 'es:rounded-t-md es:opacity-100 es:*:motion-preset-fade-sm es:*:motion-delay-75 es:translate-y-1 es:mb-1',
 					'es:origin-top',
 					'es:bg-white es:rounded-b-xl es:inset-ring es:inset-ring-surface-200',
 					'es:inset-shadow-sm es:inset-shadow-accent-600/5',
