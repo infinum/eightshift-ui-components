@@ -66,7 +66,7 @@
 		"@dnd-kit/react": "^0.3.2",
 		"@eslint/compat": "^2.0.3",
 		"@react-stately/collections": "^3.12.10",
-		"@stylistic/eslint-plugin-js": "^4.4.1",
+		"@stylistic/eslint-plugin": "^5.5.0",
 		"@tailwindcss/vite": "^4.2.1",
 		"@thi.ng/color": "^5.8.16",
 		"@thi.ng/pixel": "^7.5.25",
@@ -114,6 +114,8 @@
 		"@fontsource-variable/geist": "^5.2.8",
 		"@fontsource-variable/geist-mono": "^5.2.7",
 		"@fontsource-variable/google-sans-flex": "^5.2.1",
+		"eslint-plugin-react": "^7.37.5",
+		"eslint-plugin-react-hooks": "^7.0.1",
 		"motion": "^12.36.0"
 	}
 }
