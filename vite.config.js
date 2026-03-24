@@ -52,6 +52,10 @@ export default defineConfig(() => {
 					entryFileNames: '[name].js',
 					minify: {
 						mangle: false,
+						compress: false,
+						codegen: {
+							removeWhitespace: false,
+						},
 					},
 					comments: {
 						legal: true,
