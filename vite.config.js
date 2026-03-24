@@ -12,9 +12,6 @@ import tw4PrefixerBuild from './postcss-tw4-prefixer-build';
 export default defineConfig(() => {
 	return {
 		plugins: [react(), libInjectCss(), tailwindcss(), tw4Prefixer(), tw4PrefixerBuild()],
-		optimizeDeps: {
-			force: true,
-		},
 		build: {
 			copyPublicDir: true,
 			lib: {
@@ -24,10 +21,12 @@ export default defineConfig(() => {
 				},
 				formats: ['es'],
 			},
-			minify: false,
+			minify: true,
 			cssMinify: false,
-			rollupOptions: {
-				external: ['react', 'react/jsx-runtime'],
+			rolldownOptions: {
+				external: (id) => {
+					return ['react', 'react-dom', 'use-sync-external-store'].some((pkg) => id === pkg || id.startsWith(`${pkg}/`));
+				},
 				input: Object.fromEntries(
 					// https://rollupjs.org/configuration-options/#input
 					[
