@@ -28,8 +28,6 @@ import { clsx } from 'clsx';
  * 	icon={icons.myIcon}
  * 	label='My label'
  * />
- *
- * @preserve
  */
 export const RichLabel = (props) => {
 	const {

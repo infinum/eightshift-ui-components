@@ -72,8 +72,6 @@ import { selectButtonClass, selectControlClass } from './styles';
  * 	value={value}
  * 	onChange={setValue}
  * />
- *
- * @preserve
  */
 export const Select = (props) => {
 	const {

@@ -23,8 +23,6 @@ import { cloneElement } from 'react';
  * <OptionsPanel title='Paragraph'>
  * 	...
  * </OptionsPanel>
- *
- * @preserve
  */
 export const OptionsPanel = (props) => {
 	const { children, className, title, icon, subtitle, help, hidden } = props;
@@ -70,8 +68,6 @@ export const OptionsPanel = (props) => {
  * <OptionsPanelSection>
  * 	...
  * </OptionsPanelSection>
- *
- * @preserve
  */
 export const OptionsPanelSection = ({ children, className, hidden }) => {
 	if (hidden) {
@@ -112,8 +108,6 @@ export const OptionsPanelSection = ({ children, className, hidden }) => {
  * <OptionsPanelHeader title='Theme options'>
  * 	...
  * </OptionsPanelHeader>
- *
- * @preserve
  */
 export const OptionsPanelHeader = ({ children, sticky, title, className, actions, level = 2, limitWidth, hidden }) => {
 	if (hidden) {
@@ -157,8 +151,6 @@ export const OptionsPanelHeader = ({ children, sticky, title, className, actions
  *
  * @example
  * <OptionsPanelIntro title='Theme options' />
- *
- * @preserve
  */
 export const OptionsPanelIntro = ({ icon, title, subtitle, className, iconClassName, level = 3, flat, hidden }) => {
 	if (hidden) {

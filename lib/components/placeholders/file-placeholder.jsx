@@ -20,8 +20,6 @@ import { clsx } from 'clsx';
  *
  * @example
  * <FilePlaceholder fileName='demo.json' />
- *
- * @preserve
  */
 export const FilePlaceholder = (props) => {
 	const { icon, fileName, className, flat, children } = props;

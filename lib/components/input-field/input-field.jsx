@@ -108,8 +108,6 @@ const inputClass = cva(
  * 	value={inputValue}
  * 	onChange={setInputValue}
  * />
- *
- * @preserve
  */
 export const InputField = (props) => {
 	const {

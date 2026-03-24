@@ -22,8 +22,6 @@ import { __ } from '@wordpress/i18n';
  *
  * @example
  * <ColorSwatch gradient="linear-gradient(45deg, #FF0000, #00FF00)" />
- *
- * @preserve
  */
 export const ColorSwatch = (props) => {
 	const { color: rawColor, gradient, className, colorName, flat, customGradient = false } = props;

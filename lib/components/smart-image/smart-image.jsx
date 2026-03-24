@@ -18,20 +18,14 @@ import WORKER_CODE from './image-analysis-worker.js?raw' with { type: 'text' };
  * @property {number} [props.colorCount=3] - Number of dominant colors to extract. Falls back to `imageAnalysisSettings.numColors` when omitted.
  * @property {number} [props.similarityThreshold=10] - Distance threshold for merging similar colors during palette extraction.
  * @property {(result: import('../../utilities/general.js').ImageAnalysisResult, meta: { source: 'worker' | 'cache' | 'analysisData' }) => void} [props.onAnalysisComplete] - Called when analysis data becomes available, with metadata describing where it came from.
- *
- * @preserve
  */
 
 /**
  * @typedef {Omit<JSX.IntrinsicElements['img'], 'crossOrigin'>} BaseImageProps
- *
- * @preserve
  */
 
 /**
  * @typedef {CustomImageProps & BaseImageProps} ImageProps
- *
- * @preserve
  */
 
 function isValidUrl(url) {
@@ -77,8 +71,6 @@ async function urlExists(url) {
  *         </div>
  *     )}
  * </SmartImage>
- *
- * @preserve
  */
 const SmartImage = (props) => {
 	const { onAnalysisComplete, colorCount: colorCountProp, similarityThreshold = 10 } = props;

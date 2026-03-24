@@ -76,8 +76,6 @@ import { selectButtonClass, selectControlClass } from './styles';
  * 	value={value}
  * 	onChange={setValue}
  * />
- *
- * @preserve
  */
 export const MultiSelect = (props) => {
 	const {

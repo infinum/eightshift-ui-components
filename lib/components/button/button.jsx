@@ -7,8 +7,6 @@ import { __ } from '@wordpress/i18n';
 
 /**
  * @typedef {import('../tooltip/tooltip').TooltipProps} TooltipProps
- *
- * @preserve
  * */
 
 /**
@@ -30,8 +28,6 @@ import { __ } from '@wordpress/i18n';
  *
  * @typedef {'small' | 'default' | 'large'} ButtonSize
  * @typedef {'default' | 'selected' | 'selectedGhost' | 'ghost' | 'danger' | 'dangerGhost' | 'glass' | 'glassDark' | 'dangerGlass' | 'selectedGlass' | 'simple' | 'selectedSimple' | 'dangerSimple' } ButtonType
- *
- * @preserve
  */
 
 /**
@@ -46,8 +42,6 @@ import { __ } from '@wordpress/i18n';
  * <Button onPress={() => console.log('Hi!')} icon={icons.myIcon} />
  *
  * <Button onPress={() => console.log('Hi!')} icon={icons.myIcon}>My button</Button>
- *
- * @preserve
  */
 export const Button = (props) => {
 	const {
@@ -482,8 +476,6 @@ export const Button = (props) => {
  *     <Button />
  *     <Button />
  * </ButtonGroup>
- *
- * @preserve
  */
 export const ButtonGroup = ({ children, className, vertical, hidden, type = 'segmented', ...rest }) => {
 	if (hidden) {

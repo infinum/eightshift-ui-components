@@ -15,8 +15,6 @@ import { reorderGrabberV } from '../../icons/internal.js';
  *
  * @example
  * <DraggableHandle />
- *
- * @preserve
  */
 export const DraggableHandle = (props) => {
 	const { className, children, ...rest } = props;

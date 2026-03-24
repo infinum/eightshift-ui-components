@@ -37,8 +37,6 @@ import { __ } from '@wordpress/i18n';
  * <Expandable label='My component'>
  * 	...
  * </Expandable>
- *
- * @preserve
  */
 export const Expandable = (props) => {
 	const {

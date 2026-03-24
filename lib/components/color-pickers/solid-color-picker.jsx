@@ -28,8 +28,6 @@ import { ColorSwatch } from '../color-pickers/color-swatch';
  *
  * @example
  * <ButtonGroup
- *
- * @preserve
  */
 export const SolidColorPicker = (props) => {
 	const { value: rawValue, onChange, disabled, onChangeEnd, allowTransparency = false, outputFormat, hidden, noAdvancedOptions } = props;

@@ -29,8 +29,6 @@ import { RichLabel } from '../rich-label/rich-label';
  * <BaseControl label='My component' icon={icons.myIcon}>
  * 	<div>Content</div>
  * </BaseControl>
- *
- * @preserve
  */
 export const BaseControl = (props) => {
 	const {

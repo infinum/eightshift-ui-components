@@ -16,8 +16,6 @@ import { clsx } from 'clsx';
  * <VStack>
  * 	...
  * </VStack>
- *
- * @preserve
  */
 export const VStack = (props) => {
 	const { children, noWrap, className, hidden, as } = props;

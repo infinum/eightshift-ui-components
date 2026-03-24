@@ -34,8 +34,6 @@ import clsx from 'clsx';
  * 		value='top left'
  * 		onChange={setAlignment}
  * />
- *
- * @preserve
  */
 export const MatrixAlign = (props) => {
 	const {

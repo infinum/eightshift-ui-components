@@ -22,8 +22,6 @@ import { checkSquare, componentGeneric, errorCircle, info, warning } from '../..
  *
  * @example
  * <Notice label='This is a notice' />
- *
- * @preserve
  */
 export const Notice = (props) => {
 	const { icon, label, subtitle, className, type = 'default', alignIconToTitle = false, flat, hidden } = props;

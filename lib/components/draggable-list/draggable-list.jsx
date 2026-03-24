@@ -48,8 +48,6 @@ import { useCallback, useMemo } from 'react';
  * 		);
  * 	}}
  * </DraggableList>
- *
- * @preserve
  */
 export const DraggableList = (props) => {
 	const {

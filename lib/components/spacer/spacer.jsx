@@ -28,8 +28,6 @@ import { RichLabel } from '../rich-label/rich-label';
  * <Spacer vertical border />
  *
  * <Spacer text='My divider' icon={icons.myIcon} />
- *
- * @preserve
  */
 export const Spacer = (props) => {
 	const { size = 'px', border, className, text, subtitle, icon, vertical = false, hidden } = props;

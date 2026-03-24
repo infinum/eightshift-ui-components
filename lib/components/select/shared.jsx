@@ -88,8 +88,6 @@ export const OptionItemBase = (props) => (
  * @param {{label: string, value: string}[]} options - Options passed to the component.
  *
  * @returns Appropriate output for the given input combination.
- *
- * @preserve
  */
 export const getValue = (simpleValue, value, options) => {
 	if (Array.isArray(value)) {

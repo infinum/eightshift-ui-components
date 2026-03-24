@@ -35,8 +35,6 @@ import { BaseControl } from '../base-control/base-control';
  * <ContainerPanel title='Paragraph'>
  * 	...
  * </ContainerPanel>
- *
- * @preserve
  */
 export const ContainerPanel = (props) => {
 	const {

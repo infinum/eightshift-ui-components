@@ -68,8 +68,6 @@ import { selectButtonClass, selectControlClass } from './styles';
  * 	getValue={(item) => item?.id}
  * 	getIcon={() => icons.emptyCircle}
  * />
- *
- * @preserve
  */
 export const AsyncMultiSelect = (props) => {
 	const {

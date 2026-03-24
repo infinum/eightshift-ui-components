@@ -118,8 +118,6 @@ const radioContainerClass = cva('es:flex es:gap-2 es:items-center-safe', {
  * @returns {JSX.Element} The RadioButton component.
  *
  * @see {@link RadioButtonGroup} for usage example.
- *
- * @preserve
  */
 export const RadioButton = (props) => {
 	const {
@@ -247,8 +245,6 @@ RadioButton.displayName = 'RadioButton';
  * 	<RadioButton value='first' label='First option' />
  * 	<RadioButton value='second' label='Second option' />
  * </RadioButtonGroup>
- *
- * @preserve
  */
 export const RadioButtonGroup = (props) => {
 	const {

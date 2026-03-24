@@ -29,8 +29,6 @@ import { RichLabel } from '../rich-label/rich-label';
  * 	options={options}
  * 	breakpointData={breakpointData} // e.g. from global manifest
  * />
- *
- * @preserve
  */
 export const ResponsivePreview = (props) => {
 	const {

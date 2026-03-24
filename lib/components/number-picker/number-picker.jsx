@@ -105,8 +105,6 @@ const inputClass = cva(
  * 	value={value}
  * 	onChange={setValue}
  * />
- *
- * @preserve
  */
 export const NumberPicker = ({
 	value,

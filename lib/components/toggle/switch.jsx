@@ -166,8 +166,6 @@ const thumbClasses = cva(['es:block es:rounded-full es:will-change-transform', '
  * 	checked={checked}
  * 	onChange={() => setChecked(!checked)}
  * />
- *
- * @preserve
  */
 export const Switch = (props) => {
 	const { checked, onChange, disabled, id, children, className, isIndeterminate, flat, hidden, size = 'default', ...rest } = props;

@@ -67,8 +67,6 @@ const SortableItem = ({ id, index, disabled, children, axis }) => {
  * 		);
  * 	}}
  * </Draggable>
- *
- * @preserve
  */
 export const Draggable = (props) => {
 	const {

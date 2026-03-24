@@ -51,8 +51,6 @@ import { __ } from '@wordpress/i18n';
  * 		{ label: 'Option 2', value: 'option2' },
  * 	]}
  * />
- *
- * @preserve
  */
 export const OptionSelect = (props) => {
 	const {

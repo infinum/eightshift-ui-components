@@ -24,8 +24,6 @@ import { useTooltipTrigger } from 'react-aria';
  *
  * @typedef {'light' | 'dark'} TooltipTheme
  * @typedef {'bottom' | 'bottom left' | 'bottom right' | 'bottom start' | 'bottom end' | 'top' | 'top left' | 'top right' | 'top start' | 'top end' | 'left' | 'left top' | 'left bottom' | 'start' | 'start top' | 'start bottom' | 'right' | 'right top' | 'right bottom' | 'end' | 'end top' | 'end bottom'} TooltipPlacement
- *
- * @preserve
  */
 
 /**
@@ -44,8 +42,6 @@ import { useTooltipTrigger } from 'react-aria';
  * <Tooltip text='My tooltip'>
  * 	<Button>Hover me</Button>
  * </Tooltip>
- *
- * @preserve
  */
 export const Tooltip = (props) => {
 	const {
@@ -167,8 +163,6 @@ export const Tooltip = (props) => {
  * <DecorativeTooltip text='My tooltip'>
  * 	<span>Hover me</span>
  * </DecorativeTooltip>
- *
- * @preserve
  */
 export const DecorativeTooltip = (props) => {
 	const { openDelay, closeDelay, children, text, wrapperClassName, ...rest } = props;

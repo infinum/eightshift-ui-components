@@ -118,8 +118,6 @@ const containerClasses = cva('es:inset-ring', {
  * @property {boolean} [props.lessSpaceStart] - If `true`, space on the start (left) is reduced. Useful for symmetric components.
  * @property {boolean} [props.lessSpaceEnd] - If `true`, space on the end (right) is reduced. For example, use with text fields, or taller items.
  * @property {string|JSX.Element} [props.as] - The HTML element or React component to render as the container.
- *
- * @preserve
  */
 
 /**
@@ -137,8 +135,6 @@ const containerClasses = cva('es:inset-ring', {
  * <Container accent elevated>
  *   <p>This is a container with accent and elevated styles.</p>
  * </Container>
- *
- * @preserve
  */
 export const Container = forwardRef((props, ref) => {
 	const { className, children, as, hidden, accent, elevated, primary, isChild, compact, standalone, horizontal, centered, lessSpaceStart, lessSpaceEnd, ...rest } = props;
@@ -170,8 +166,6 @@ Container.displayName = 'Container';
  * @property {boolean} [hidden] - If `true`, the component is not rendered.
  * @property {boolean} [horizontal] - If `true`, the component uses a horizontal orientation.
  * @property {string|JSX.Element} [as] - The HTML element or React component to render as the container group.
- *
- * @preserve
  */
 
 /**
@@ -190,8 +184,6 @@ Container.displayName = 'Container';
  *   <Container>First container</Container>
  *   <Container>Second container</Container>
  * </ContainerGroup>
- *
- * @preserve
  */
 export const ContainerGroup = forwardRef((props, ref) => {
 	const { className, children, as, hidden, horizontal, label, wrapClassName, ...rest } = props;

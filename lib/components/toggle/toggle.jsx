@@ -31,8 +31,6 @@ import { clsx } from 'clsx';
  * 	checked={checked}
  * 	onChange={() => setChecked(!checked)}
  * />
- *
- * @preserve
  */
 export const Toggle = (props) => {
 	const { checked, onChange, icon, label, subtitle, disabled, className, labelClassName, isIndeterminate, flat, hidden } = props;

@@ -64,8 +64,6 @@ import { selectButtonClass, selectControlClass } from './styles';
  * 	getLabel={(item) => item?.name}
  * 	getValue={(item) => item?.id}
  * />
- *
- * @preserve
  */
 export const AsyncSelect = (props) => {
 	const {

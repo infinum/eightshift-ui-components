@@ -158,8 +158,6 @@ const linearDirections = [
  * 	value='linear-gradient(90deg, #000000 0%, #ffffff 100%)'
  * 	onChange={setGradient}
  * />
- *
- * @preserve
  */
 export const GradientEditor = (props) => {
 	const { value, onChange, hidden } = props;

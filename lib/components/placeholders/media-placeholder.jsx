@@ -21,8 +21,6 @@ import { image } from '../../icons/internal.js';
  *
  * @example
  * <MediaPlaceholder url="https://example.com/image.jpg" alt="Image alt text" />
- *
- * @preserve
  */
 export const MediaPlaceholder = (props) => {
 	const { style = 'default', size = 'default', className, icon, helpText, children, flat, hidden } = props;

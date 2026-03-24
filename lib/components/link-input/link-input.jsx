@@ -107,8 +107,6 @@ const inputClass = cva(
  * 	url={url}
  * 	onChange={setUrl}
  * />
- *
- * @preserve
  */
 export const LinkInput = (props) => {
 	const {

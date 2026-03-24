@@ -43,8 +43,6 @@ import { upperFirst } from '../../utilities';
  * 			},
  * 		]}
  * />
- *
- * @preserve
  */
 export const BreakpointPreview = (props) => {
 	const { blocks: rawBlocks, dotsStart = false, dotsEnd = false } = props;

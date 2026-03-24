@@ -19,8 +19,6 @@ import { cloneElement } from 'react';
  * @returns {JSX.Element} The DraggableList component.
  *
  * @see {@link DraggableList} for usage example.
- *
- * @preserve
  */
 export const DraggableListItem = (props) => {
 	const { children, icon, label, subtitle, className, iconClassName, labelClassName, subtitleClassName, labelContainerClassName, ...rest } = props;
@@ -62,8 +60,6 @@ export const DraggableListItem = (props) => {
  *
  * @example
  * <DraggableListItemHandle />
- *
- * @preserve
  */
 export const DraggableListItemHandle = (props) => {
 	const { className, children, ...rest } = props;

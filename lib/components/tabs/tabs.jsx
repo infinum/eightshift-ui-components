@@ -374,8 +374,6 @@ const tabPanelClasses = cva('es:space-y-3 es:text-13 es:any-focus:outline-hidden
  * 	<TabPanel>Content 1</TabPanel>
  * 	<TabPanel>Content 2</TabPanel>
  * </Tabs>
- *
- * @preserve
  */
 export const Tabs = (props) => {
 	const { children, vertical, className, hidden, type = 'underline', flat, ...rest } = props;
@@ -484,8 +482,6 @@ Tabs.displayName = 'Tabs';
  * @returns {JSX.Element} The TabList component.
  *
  * @see {@link Tabs} for usage example.
- *
- * @preserve
  */
 export const TabList = (props) => {
 	const { children, 'aria-label': ariaLabel, className, type, flat, ...other } = props;
@@ -520,8 +516,6 @@ TabList.displayName = 'TabList';
  * @returns {JSX.Element} The Tab component.
  *
  * @see {@link Tabs} for usage example.
- *
- * @preserve
  */
 export const Tab = (props) => {
 	const { children, disabled, isParentVertical, className, badgeClassName, icon, label, subtitle, type, badge, invisible, flat, ...other } = props;
@@ -568,8 +562,6 @@ Tab.displayName = 'Tab';
  * @returns {JSX.Element} The TabPanel component.
  *
  * @see {@link Tabs} for usage example.
- *
- * @preserve
  */
 export const TabPanel = (props) => {
 	const { children, className, type, vertical, ...other } = props;

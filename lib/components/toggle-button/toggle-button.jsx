@@ -251,8 +251,6 @@ const componentClasses = cva(
 
 /**
  * @typedef {import('../tooltip/tooltip').TooltipProps} TooltipProps
- *
- * @preserve
  * */
 
 /**
@@ -294,8 +292,6 @@ const componentClasses = cva(
  * >
  * 		My button
  * </ToggleButton>
- *
- * @preserve
  */
 export const ToggleButton = (props) => {
 	const {

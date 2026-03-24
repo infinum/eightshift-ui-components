@@ -74,8 +74,6 @@ import { BaseControl } from '../base-control/base-control';
  * 		/>
  * 	)}
  * </ResponsiveLegacy>
- *
- * @preserve
  */
 export const ResponsiveLegacy = (props) => {
 	const {

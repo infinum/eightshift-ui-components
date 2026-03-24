@@ -48,8 +48,6 @@ import { colorPickerFill, colorPickerListMarker, colorPickerText, colorPickerTex
  * 		{ name: 'Blue', slug: 'blue', color: '#0000ff' },
  * 	]}
  * />
- *
- * @preserve
  */
 export const ColorPicker = (props) => {
 	const {

@@ -16,8 +16,6 @@ import { clsx } from 'clsx';
  * <HStack>
  * 	...
  * </HStack>
- *
- * @preserve
  */
 export const HStack = (props) => {
 	const { children, noWrap, className, hidden, as } = props;

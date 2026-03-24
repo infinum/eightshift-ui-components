@@ -97,8 +97,6 @@ const checkboxClasses = cva(
  *  checked={myValue}
  *  onChange={(value) => setMyValue(value)}
  * />
- *
- * @preserve
  */
 export const Checkbox = (props) => {
 	const {

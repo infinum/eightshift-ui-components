@@ -39,8 +39,6 @@ import { SmartImage } from '../smart-image/smart-image';
  *     <Button type='glass'>Replace</Button>
  *     <Button type='glass'>Remove</Button>
  * </FilePickerShell>
- *
- * @preserve
  */
 export const FilePickerShell = (props) => {
 	const {

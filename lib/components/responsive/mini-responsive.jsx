@@ -69,8 +69,6 @@ import { HStack } from '../layout/hstack';
  * 		/>
  * 	)}
  * </MiniResponsive>
- *
- * @preserve
  */
 export const MiniResponsive = (props) => {
 	const {

@@ -14,8 +14,6 @@ import { useCallback } from 'react';
  * <PortalProvider>
  * 	...
  * </PortalProvider>
- *
- * @preserve
  */
 export const PortalProvider = ({ children, portalElement }) => {
 	const getContainer = useCallback(() => portalElement, [portalElement]);

@@ -45,8 +45,6 @@ import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
  * >
  * 	...
  * </ComponentToggle>
- *
- * @preserve
  */
 export const ComponentToggle = (props) => {
 	const {

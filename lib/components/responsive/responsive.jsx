@@ -70,8 +70,6 @@ import { OptionSelect } from '../option-select/option-select';
  * 		/>
  * 	)}
  * </Responsive>
- *
- * @preserve
  */
 export const Responsive = (props) => {
 	const {

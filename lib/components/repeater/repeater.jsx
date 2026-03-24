@@ -63,8 +63,6 @@ import { clsx } from 'clsx';
  * 		);
  * 	}}
  * </Repeater>
- *
- * @preserve
  */
 export const Repeater = (props) => {
 	const {

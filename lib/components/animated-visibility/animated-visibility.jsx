@@ -63,8 +63,6 @@ const transitions = {
  * <AnimatedVisibility visible={visible}>
  * 	<div>Content</div>
  * </AnimatedVisibility>
- *
- * @preserve
  */
 export const AnimatedVisibility = (props) => {
 	const { visible, className, children, noInitial = false, transition = 'slideFade', noExitAnimation, noEnterAnimation, decreaseBounce, ...other } = props;

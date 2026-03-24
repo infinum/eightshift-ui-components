@@ -42,8 +42,6 @@ import { AnimatePresence, motion } from 'motion/react';
  * 	value={sliderValue}
  * 	onChange={setSliderValue}
  * />
- *
- * @preserve
  */
 export const ColumnConfigSlider = (props) => {
 	const {
@@ -308,8 +306,6 @@ export const ColumnConfigSlider = (props) => {
  *
  * @example
  * <ColumnConfigSliderOutput />
- *
- * @preserve
  */
 export const ColumnConfigSliderOutput = ({ showOuterAsGutter }) => (
 	<ReactAriaSliderOutput className={clsx('es:text-xs es:tabular-nums es:text-secondary-600')}>

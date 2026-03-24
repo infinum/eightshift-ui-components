@@ -7,8 +7,6 @@ import { HStack } from '../layout/hstack';
 
 /**
  * @typedef {import('../button/button').ButtonProps} ButtonProps
- *
- * @preserve
  * */
 
 /**
@@ -46,8 +44,6 @@ import { HStack } from '../layout/hstack';
  * <Modal>
  *  <p>Modal content</p>
  * </Modal>
- *
- * @preserve
  */
 export const Modal = (props) => {
 	const { triggerLabel, triggerIcon, triggerProps, customTrigger, open } = props;

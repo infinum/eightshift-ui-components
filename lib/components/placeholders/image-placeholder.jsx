@@ -24,8 +24,6 @@ import { image } from '../../icons/internal.js';
  *
  * @example
  * <ImagePlaceholder url="https://example.com/image.jpg" alt="Image alt text" />
- *
- * @preserve
  */
 export const ImagePlaceholder = (props) => {
 	const { url, alt, style = 'default', size = 'default', noImage, className, hidden, imageMode = 'cover', flat } = props;

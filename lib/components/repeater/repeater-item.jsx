@@ -25,8 +25,6 @@ import { RepeaterContext } from './repeater-context';
  * @returns {JSX.Element} The RepeaterItem component.
  *
  * @see {@link Repeater} for usage example.
- *
- * @preserve
  */
 export const RepeaterItem = (props) => {
 	const { children, icon, label, subtitle, 'aria-label': ariaLabel, className, actions, textValue, expandDisabled, menuOptions, noMenuButton, ...rest } = props;

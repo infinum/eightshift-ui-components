@@ -17,8 +17,6 @@ import { __ } from '@wordpress/i18n';
 /**
  * @typedef {import('../button/button').ButtonProps} ButtonProps
  * @typedef {import('../popover/popover').PopoverProps} PopoverProps
- *
- * @preserve
  * */
 
 /**
@@ -73,7 +71,6 @@ import { __ } from '@wordpress/i18n';
  * </Menu>
  *
  *
- * @preserve
  */
 export const Menu = (props) => {
 	const {
@@ -171,8 +168,6 @@ export const Menu = (props) => {
  * @returns {JSX.Element} The MenuSection component.
  *
  * @see {@link Menu} for usage example.
- *
- * @preserve
  */
 export const MenuSection = (props) => {
 	const { children, label } = props;
@@ -192,8 +187,6 @@ export const MenuSection = (props) => {
  * @returns {JSX.Element} The MenuSeparator component.
  *
  * @see {@link Menu} for usage example.
- *
- * @preserve
  */
 export const MenuSeparator = ({ className }) => {
 	return <ReactAriaSeparator className={clsx('es:my-1.5 es:w-fill es:h-px es:bg-surface-500/15 es:mx-1.5 es:rounded-full', className)} />;
@@ -221,8 +214,6 @@ export const MenuSeparator = ({ className }) => {
  * @returns {JSX.Element} The MenuItem component.
  *
  * @see {@link Menu} for usage example.
- *
- * @preserve
  */
 export const MenuItem = (props) => {
 	const {
@@ -311,8 +302,6 @@ export const MenuItem = (props) => {
  * @returns {JSX.Element} The SubMenuItem component.
  *
  * @see {@link Menu} for usage example.
- *
- * @preserve
  */
 export const SubMenuItem = (props) => {
 	const { children, trigger, popoverProps, keepOpen, manualWidth } = props;
@@ -365,8 +354,6 @@ SubMenuItem.displayName = 'SubMenuItem';
  *
  * @example
  * <MenuSectionHeader>Section</MenuSectionHeader>
- *
- * @preserve
  */
 export const MenuSectionHeader = (props) => {
 	const {
