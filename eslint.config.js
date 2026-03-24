@@ -1,6 +1,6 @@
-// import react from 'eslint-plugin-react';
-// import reactHooks from 'eslint-plugin-react-hooks';
-import stylistic from '@stylistic/eslint-plugin-js';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import stylistic from '@stylistic/eslint-plugin';
 import jsdoc from 'eslint-plugin-jsdoc';
 
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
@@ -18,6 +18,9 @@ const gitignorePath = path.resolve(dirname, '.gitignore');
 export default [
 	includeIgnoreFile(gitignorePath),
 	{
+		ignores: ['**/worker-inline.js'],
+	},
+	{
 		files: ['**/*.js', '**/*.jsx', '**/*.cjs'],
 		languageOptions: {
 			parserOptions: {
@@ -32,7 +35,9 @@ export default [
 		},
 		plugins: {
 			jsdoc,
-			'@stylistic/js': stylistic,
+			'@stylistic': stylistic,
+			'react-hooks': reactHooks,
+			react,
 		},
 		rules: {
 			'newline-before-return': 'error',
@@ -42,7 +47,7 @@ export default [
 			'no-nested-ternary': 'error',
 			'no-underscore-dangle': ['error', { allowAfterThis: true }],
 			'no-void': 'error',
-			'@stylistic/js/semi': 'error',
+			'@stylistic/semi': 'error',
 			'max-len': [
 				'error',
 				{
@@ -68,15 +73,14 @@ export default [
 				},
 			],
 			// React-specific.
-			// NOTE: Temporarily disabled because of compatibility of 'react-hooks' with ESLint 9.
-			// 'consistent-return': 'warn',
-			// 'no-param-reassign': 'warn',
-			// 'react-hooks/rules-of-hooks': 'error',
-			// // 'react-hooks/exhaustive-deps': ['error', { additionalHooks: '(useSafeLayoutEffect|useUpdateEffect)' }],
-			// 'react/prop-types': ['error', { skipUndeclared: true }],
-			// 'react/react-in-jsx-scope': 'off',
-			// 'react/self-closing-comp': ['warn', { component: true, html: true }],
-			// 'react/no-unknown-property': ['error', { ignore: ['css'] }],
+			'consistent-return': 'warn',
+			'no-param-reassign': 'warn',
+			'react-hooks/rules-of-hooks': 'error',
+			'react-hooks/exhaustive-deps': ['error', { additionalHooks: '(useSafeLayoutEffect|useUpdateEffect)' }],
+			'react/prop-types': ['error', { skipUndeclared: true }],
+			'react/react-in-jsx-scope': 'off',
+			'react/self-closing-comp': ['warn', { component: true, html: true }],
+			'react/no-unknown-property': ['error', { ignore: ['css'] }],
 			// JSDoc.
 			'jsdoc/require-description': 'error',
 			'jsdoc/check-values': 'error',
