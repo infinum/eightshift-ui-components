@@ -10,7 +10,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
   - For simpler usages, just replace `icons.iconName` with `iconName` (e.g. `icons.add` -> `add`).
   - For dynamic usages, use the `Icon` component (e.g. `icons[iconName]` -> `<Icon name={iconName} />`).
 - Added `Icon` component for dynamic icon rendering. It also supports a `fallback` prop in case the provided name doesn't match any icon, which can be used to e.g. render a default icon or a custom SVG.
-- Performance optimizations in `AnimatedVisibility`, `Container`, `Checkbox`, `InputField`, `NumberPicker`, `PortalProvider`, `DraggableList`, `LinkInput`, `Radio`, `Repeater`, `Switch`, `Select`, `AsyncSelect`, `MultiSelect`, and `AsyncMultiSelect`.
+- Performance optimizations in `AnimatedVisibility`, `Container`, `Checkbox`, `InputField`, `NumberPicker`, `PortalProvider`, `DraggableList`, `LinkInput`, `Radio`, `Repeater`, `Switch`, `ContainerPanel`, `Select`, `AsyncSelect`, `MultiSelect`, and `AsyncMultiSelect`.
 - Fixed `exports` list in package.json.
 - Added separate export for `JsxSvg`: `import { JsxSvg } from '@eightshift/ui-components/jsx-svg';`
 - Re-enabled full ESLint config for React.
