@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react';
 import { extname, relative, resolve } from 'path';
 import { fileURLToPath } from 'node:url';
 import { glob } from 'glob';
@@ -12,6 +12,9 @@ import tw4PrefixerBuild from './postcss-tw4-prefixer-build';
 export default defineConfig(() => {
 	return {
 		plugins: [react(), libInjectCss(), tailwindcss(), tw4Prefixer(), tw4PrefixerBuild()],
+		optimizeDeps: {
+			force: true,
+		},
 		build: {
 			copyPublicDir: true,
 			lib: {
@@ -50,10 +53,6 @@ export default defineConfig(() => {
 					entryFileNames: '[name].js',
 				},
 			},
-		},
-		esbuild: {
-			legalComments: 'inline',
-			minify: false,
 		},
 	};
 });
