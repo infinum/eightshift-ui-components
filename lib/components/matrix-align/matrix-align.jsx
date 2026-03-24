@@ -165,9 +165,7 @@ export const MatrixAlign = (props) => {
 					</RadioGroup>
 				</div>
 
-				<div className='es:bg-accent-50/60 es:inset-ring es:inset-ring-accent-800/3 es:rounded-b-xl es:rounded-t-md es:p-2 es:mt-0.75 es:text-12 es:text-center es:text-accent-900'>
-					{currentItemLabel}
-				</div>
+				<div className='es:pb-1 es:pt-1.5 es:text-12 es:text-center es:text-surface-600'>{currentItemLabel}</div>
 			</TriggeredPopover>
 		</BaseControl>
 	);
