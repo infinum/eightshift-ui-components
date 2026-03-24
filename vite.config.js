@@ -21,7 +21,7 @@ export default defineConfig(() => {
 				},
 				formats: ['es'],
 			},
-			minify: true,
+			minify: 'oxc',
 			cssMinify: false,
 			rolldownOptions: {
 				external: (id) => {
@@ -50,6 +50,14 @@ export default defineConfig(() => {
 				output: {
 					assetFileNames: 'assets/[name][extname]',
 					entryFileNames: '[name].js',
+					minify: {
+						mangle: false,
+					},
+					comments: {
+						legal: true,
+						annotation: false,
+						jsdoc: true,
+					},
 				},
 			},
 		},
