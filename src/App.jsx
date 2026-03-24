@@ -66,7 +66,6 @@ import {
 	OptionsPanelIntro,
 	FilePickerShell,
 	SmartImage,
-	__SmartImageNext,
 	Container,
 	ContainerGroup,
 } from '../lib';
@@ -657,9 +656,6 @@ function App() {
 	const [colConfig4, setColConfig4] = useState([2, 4]);
 	const [colConfig5, setColConfig5] = useState([2, 4]);
 
-	const [useSmImgNext, setUseSmImgNext] = useState(false);
-
-	const SmartImageToRender = useSmImgNext ? __SmartImageNext : SmartImage;
 
 	return (
 		<div className='es:flex es:flex-col es:items-center es:justify-center es:overscroll-none es:p-10'>
@@ -4623,78 +4619,29 @@ function App() {
 						<Button className='es:grow'>Remove</Button>
 					</FilePickerShell>
 
-					<Checkbox
-						icon={icons.magicAlt}
-						label='Use new SmartImage'
-						checked={useSmImgNext}
-						onChange={setUseSmImgNext}
-					/>
+					<FilePickerShellDemo url='https://lorem.testsum/test.png' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://lorem.testsum/test.png'
-					/>
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg'
-					/>
+					<FilePickerShellDemo url='https://picsum.photos/600/400.jpg' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://picsum.photos/600/400.jpg'
-					/>
+					<FilePickerShellDemo url='https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Wikimedia_Commons_logo_white.png/500px-Wikimedia_Commons_logo_white.png' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Wikimedia_Commons_logo_white.png/500px-Wikimedia_Commons_logo_white.png'
-					/>
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg'
-					/>
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-normal-map.jpg' />
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-sorting.png' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-normal-map.jpg'
-					/>
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-sorting.png'
-					/>
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/poisson-image.avif' />
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/unbiased-normals.png' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/poisson-image.avif'
-					/>
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/unbiased-normals.png'
-					/>
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ascii-raymarch.jpg' />
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/geom-extra-hiccup.jpg' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ascii-raymarch.jpg'
-					/>
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/geom-extra-hiccup.jpg'
-					/>
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/bitmap-font.gif' />
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ellipse-proximity.png' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/bitmap-font.gif'
-					/>
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ellipse-proximity.png'
-					/>
-
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/banners/thing-rdom.svg'
-					/>
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/banners/thing-rdom.svg' />
 
 					<FilePickerShell
 						className='es:w-full'
@@ -4709,14 +4656,7 @@ function App() {
 					/>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					<Checkbox
-						icon={icons.magicAlt}
-						label='Use new SmartImage'
-						checked={useSmImgNext}
-						onChange={setUseSmImgNext}
-					/>
-
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg'
 						className={({ isDark }) =>
 							clsx(
@@ -4725,7 +4665,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-normal-map.jpg'
 						className={({ isDark }) =>
 							clsx(
@@ -4734,7 +4674,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-sorting.png'
 						className={({ isDark }) =>
 							clsx(
@@ -4743,7 +4683,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/poisson-image.avif'
 						className={({ isDark }) =>
 							clsx(
@@ -4752,7 +4692,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/unbiased-normals.png'
 						className={({ isDark }) =>
 							clsx(
@@ -4761,7 +4701,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ascii-raymarch.jpg'
 						className={({ isDark }) =>
 							clsx(
@@ -4770,7 +4710,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/geom-extra-hiccup.jpg'
 						className={({ isDark }) =>
 							clsx(
@@ -4779,7 +4719,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/bitmap-font.gif'
 						className={({ isDark }) =>
 							clsx(
@@ -4788,7 +4728,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ellipse-proximity.png'
 						className={({ isDark }) =>
 							clsx(
@@ -4797,7 +4737,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/banners/thing-rdom.svg'
 						className={({ isDark }) =>
 							clsx(
@@ -4806,7 +4746,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src=''
 						className={({ isDark }) =>
 							clsx(

@@ -2,11 +2,9 @@ import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
 import { cloneElement, useState, useRef, useEffect } from 'react';
 import { imageError } from '../../icons/internal.js';
-import { DecorativeTooltip } from '../tooltip/tooltip';
-import { useImageAnalysisWorker } from '../../utilities/web-workers.js';
-import workerInline from './worker-inline.js';
+import { DecorativeTooltip } from '../tooltip/tooltip.jsx';
 import { cyrb64Hash } from '../../utilities/hash.js';
-import { analyzeImage } from '../../utilities/general';
+import WORKER_CODE from './image-analysis-worker.js?raw' with { type: 'text' };
 
 /**
  * @typedef {Object} CustomImageProps
@@ -15,8 +13,11 @@ import { analyzeImage } from '../../utilities/general';
  * @property {string} [props.processingClassName] - Classes to apply while the image is loading / being processed.
  * @property {boolean} [props.hidden] - If `true`, the component is not rendered.
  * @property {boolean} [props.verbose] - If `true`, extra debug info is logged in case of errors.
- * @property {import('../../utilities/general').ImageAnalysisSettings} [imageAnalysisSettings] - Settings to pass to the image analysis function.
- * @property {import('../../utilities/general').ImageAnalysisResult} [analysisData] - Previous analysis result to pass in directly, skipping analysis.
+ * @property {import('../../utilities/general.js').ImageAnalysisSettings} [imageAnalysisSettings] - Settings to pass to the image analysis function.
+ * @property {import('../../utilities/general.js').ImageAnalysisResult} [analysisData] - Previous analysis result to pass in directly, skipping analysis.
+ * @property {number} [props.colorCount=3] - Number of dominant colors to extract. Falls back to `imageAnalysisSettings.numColors` when omitted.
+ * @property {number} [props.similarityThreshold=10] - Distance threshold for merging similar colors during palette extraction.
+ * @property {(result: import('../../utilities/general.js').ImageAnalysisResult, meta: { source: 'worker' | 'cache' | 'analysisData' }) => void} [props.onAnalysisComplete] - Called when analysis data becomes available, with metadata describing where it came from.
  *
  * @preserve
  */
@@ -32,6 +33,28 @@ import { analyzeImage } from '../../utilities/general';
  *
  * @preserve
  */
+
+function isValidUrl(url) {
+	try {
+		new URL(url);
+
+		return true;
+	} catch {
+		return false;
+	}
+}
+
+async function urlExists(url) {
+	if (!isValidUrl(url)) return false;
+
+	try {
+		await fetch(url, { method: 'HEAD', mode: 'no-cors' });
+
+		return true; // Host exists (even if CORS would block later)
+	} catch {
+		return false; // Host unreachable
+	}
+}
 
 /**
  * Image that analyzes its contents and can apply different classes based on image transparency.
@@ -57,141 +80,282 @@ import { analyzeImage } from '../../utilities/general';
  *
  * @preserve
  */
-export const SmartImage = (props) => {
+const SmartImage = (props) => {
+	const { onAnalysisComplete, colorCount: colorCountProp, similarityThreshold = 10 } = props;
+
 	const { imageAnalysisSettings, errorClassName, processingClassName = 'es:opacity-0 es:fixed', hidden, renderError, analysisData, children, verbose, ...imageProps } = props;
 
-	const [isLoaded, setIsLoaded] = useState(false);
-	const [hasAnalysed, setHasAnalysed] = useState(false);
-	const [isTransparent, setIsTransparent] = useState(null);
-	const [transparencyInfo, setTransparencyInfo] = useState(null);
-	const [dominantColors, setDominantColors] = useState([]);
-	const [isDark, setIsDark] = useState(false);
+	const { src } = imageProps;
+	const resolvedColorCount = colorCountProp ?? imageAnalysisSettings?.numColors ?? 3;
+
+	const [analysis, setAnalysis] = useState(analysisData);
 	const [error, setError] = useState(null);
-
+	const [objectUrl, setObjectUrl] = useState(null);
 	const workerRef = useRef(null);
+	const lastAnalysisNotificationKeyRef = useRef(null);
 
-	// Cleanup worker on unmount
+	// Initialize Worker
 	useEffect(() => {
-		return () => {
-			if (workerRef.current) {
-				workerRef.current.terminate();
-				workerRef.current = null;
-			}
-		};
+		const blob = new Blob([WORKER_CODE], { type: 'application/javascript' });
+		workerRef.current = new Worker(URL.createObjectURL(blob));
+
+		return () => workerRef.current.terminate();
 	}, []);
 
-	const { analyzeWithWorkerCb } = useImageAnalysisWorker(workerRef, workerInline);
+	useEffect(() => {
+		lastAnalysisNotificationKeyRef.current = null;
+	}, [src]);
+
+	useEffect(() => {
+		let isActive = true;
+		const abortController = new AbortController();
+		const workerConfig = {
+			maxColors: resolvedColorCount,
+			threshold: similarityThreshold,
+		};
+		const notifyAnalysisComplete = (result, source) => {
+			if (!onAnalysisComplete || !result) {
+				return;
+			}
+
+			const notificationKey = `${src ?? ''}:${source}:${cyrb64Hash(JSON.stringify(result))}`;
+
+			if (lastAnalysisNotificationKeyRef.current === notificationKey) {
+				return;
+			}
+
+			lastAnalysisNotificationKeyRef.current = notificationKey;
+			onAnalysisComplete(result, { source });
+		};
+
+		if (!src) {
+			setObjectUrl(null);
+
+			return () => {
+				isActive = false;
+				abortController.abort();
+			};
+		}
+
+		if (analysisData) {
+			setAnalysis(analysisData);
+			setObjectUrl(src);
+			notifyAnalysisComplete(analysisData, 'analysisData');
+
+			return () => {
+				isActive = false;
+				abortController.abort();
+			};
+		}
+
+		// Cache results in localstorage.
+		const cacheKey = `es-uic-img-data-${cyrb64Hash(src)}`;
+
+		if (localStorage?.getItem(cacheKey)) {
+			const cachedAnalysis = JSON.parse(localStorage.getItem(cacheKey));
+
+			if (cachedAnalysis) {
+				setAnalysis(cachedAnalysis);
+				setObjectUrl(src);
+				notifyAnalysisComplete(cachedAnalysis, 'cache');
+			}
+		}
+
+		if (!localStorage?.getItem(cacheKey) || !JSON.parse(localStorage.getItem(cacheKey))) {
+			const processImage = async () => {
+				try {
+					const response = await fetch(src, {
+						signal: abortController.signal,
+						mode: 'cors',
+					});
+
+					if (src.includes('uikit')) {
+						console.log('tusam?', src, response);
+					}
+
+					if (!response.ok) {
+						if (verbose) {
+							console.error(`[SmartImage]: Failed to fetch (${response.status}) image from ${src}`);
+						}
+					}
+
+					const blob = await response.clone().blob();
+
+					if (blob.size === 0) {
+						if (verbose) {
+							console.error(`[SmartImage]: Empty image (${src})`);
+						}
+					}
+
+					// Create Object URL for display
+					const url = URL.createObjectURL(blob);
+
+					if (isActive) {
+						setObjectUrl(url);
+					}
+
+					// --- DECODE STRATEGY ---
+					let imageSource, width, height;
+					const isSVG = blob.type.includes('svg');
+
+					if (isSVG) {
+						// STRATEGY A: SVG (Load into HTML Image)
+						const img = new Image();
+						img.src = url;
+						await new Promise((resolve, reject) => {
+							img.onload = resolve;
+							img.onerror = reject;
+						});
+
+						// SVGs need a defined size. If 0, default to 500x500 for analysis
+						width = img.width || 500;
+						height = img.height || 500;
+						imageSource = img;
+					} else {
+						// STRATEGY B: Raster (JPG/PNG) - Use ImageBitmap (Faster)
+						try {
+							imageSource = await createImageBitmap(blob);
+							width = imageSource.width;
+							height = imageSource.height;
+						} catch (e) {
+							if (verbose) {
+								console.warn('[SmartImage]: createImageBitmap failed, falling back to HTML Image method.', e);
+							}
+
+							// throw new Error('Could not decode image data.');
+						}
+					}
+
+					// --- EXTRACT BUFFER ---
+					let buffer, arrayBuffer;
+
+					// Prefer OffscreenCanvas (Workers friendly), fallback to DOM Canvas
+					if (typeof OffscreenCanvas !== 'undefined') {
+						const canvas = new OffscreenCanvas(width, height);
+						const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+						// Ensure clear canvas for SVGs with transparency
+						ctx.clearRect(0, 0, width, height);
+						ctx.drawImage(imageSource, 0, 0, width, height);
+
+						buffer = ctx.getImageData(0, 0, width, height).data;
+						arrayBuffer = buffer.buffer;
+					} else {
+						const canvas = document.createElement('canvas');
+						canvas.width = width;
+						canvas.height = height;
+						const ctx = canvas.getContext('2d');
+
+						ctx.clearRect(0, 0, width, height);
+						ctx.drawImage(imageSource, 0, 0, width, height);
+
+						buffer = ctx.getImageData(0, 0, width, height).data;
+						arrayBuffer = buffer.buffer;
+					}
+
+					// Cleanup bitmap if we used one
+					if (imageSource.close) {
+						imageSource.close();
+					}
+
+					// --- SEND TO WORKER ---
+					if (workerRef.current) {
+						workerRef.current.onmessage = (e) => {
+							if (!isActive) {
+								return;
+							}
+
+							setAnalysis(e.data);
+
+							localStorage?.setItem(cacheKey, JSON.stringify(e.data));
+							notifyAnalysisComplete(e.data, 'worker');
+						};
+
+						try {
+							workerRef.current.postMessage(
+								{
+									buffer,
+									width,
+									height,
+									config: workerConfig,
+								},
+								[arrayBuffer],
+							);
+						} catch (msgErr) {
+							// Fallback if transfer fails
+							workerRef.current.postMessage({
+								buffer,
+								width,
+								height,
+								config: workerConfig,
+							});
+						}
+					}
+				} catch (err) {
+					if (isActive) {
+						if (verbose) {
+							console.error('[SmartImage] Error:', err);
+						}
+
+						const exists = await urlExists(src);
+
+						if (exists) {
+							setError(err.message);
+						} else {
+							setError('failedToFetch');
+						}
+
+						setObjectUrl(null);
+					}
+				}
+			};
+
+			processImage();
+		}
+
+		return () => {
+			isActive = false;
+			abortController.abort();
+		};
+	}, [analysisData, imageAnalysisSettings?.numColors, onAnalysisComplete, resolvedColorCount, similarityThreshold, src, verbose]);
+
+	const hasAnalysed = Boolean(analysis) && Boolean(objectUrl);
+
+	const { dominantColors, isDark, isTransparent, transparencyInfo, averageColor } = analysis || {};
+
+	const classFetchProps = {
+		isLoaded: true,
+		dominantColors,
+		isDark,
+		hasAnalysed: Boolean(error) || hasAnalysed,
+		isTransparent: isTransparent,
+		transparencyInfo,
+		averageColor,
+		hasError: error === 'failedToFetch',
+	};
 
 	if (hidden) {
 		return null;
 	}
 
-	const classFetchProps = { isLoaded, hasAnalysed, isTransparent, dominantColors, isDark, transparencyInfo };
+	const colorfulDominantColor = dominantColors?.find((c) => c.saturation > 0.25 && c.area >= 0.1) || dominantColors?.[0];
 
 	const imageElement = (
 		<img
 			decoding='async'
 			{...imageProps}
-			crossOrigin='anonymous'
+			src={analysis && objectUrl && !error ? objectUrl : imageProps?.src}
 			style={{
 				...(imageProps.style || {}),
 				'--es-img-dominant-color': dominantColors?.[0]?.color ?? '',
+				'--es-img-colorful-dominant-color': colorfulDominantColor?.color ?? '',
+				'--es-img-average-color': averageColor?.color ?? '',
 			}}
 			className={clsx(
 				'es:transition-opacity',
-				!hasAnalysed && processingClassName,
+				!hasAnalysed && !error && processingClassName,
 				typeof imageProps.className === 'function' ? imageProps.className(classFetchProps) : imageProps.className,
 			)}
-			onLoad={async (e) => {
-				setIsLoaded(true);
-
-				if (props.onLoad) {
-					props.onLoad(e);
-				}
-
-				if (!imageProps.src) {
-					setHasAnalysed(true);
-
-					return;
-				}
-
-				if (analysisData) {
-					const { isDark: dark, dominantColors: colors, isTransparent: transparent, transparencyInfo } = analysisData;
-
-					if (dark !== undefined && colors !== undefined && transparent !== undefined && transparencyInfo !== undefined) {
-						setIsDark(dark);
-						setDominantColors(colors);
-						setIsTransparent(transparent);
-						setTransparencyInfo(transparencyInfo);
-						setHasAnalysed(true);
-
-						return;
-					}
-				}
-
-				// Cache results in localstorage.
-				const cacheKey = `es-uic-img-analysis-${cyrb64Hash(imageProps.src)}`;
-
-				if (localStorage?.getItem(cacheKey)) {
-					const { isDark: dark, dominantColors: colors, isTransparent: transparent, transparencyInfo } = JSON.parse(localStorage.getItem(cacheKey));
-
-					setIsDark(dark);
-					setDominantColors(colors);
-					setIsTransparent(transparent);
-					setTransparencyInfo(transparencyInfo);
-					setHasAnalysed(true);
-
-					return;
-				}
-
-				try {
-					// Convert HTMLImageElement to ImageBitmap for web worker
-					const imageBitmap = await createImageBitmap(e.target);
-
-					const result = await analyzeWithWorkerCb(imageBitmap, imageAnalysisSettings);
-
-					if (result) {
-						const { isDark: dark, dominantColors: colors, isTransparent: transparent, transparencyInfo } = result;
-
-						setIsDark(dark);
-						setDominantColors(colors);
-						setIsTransparent(transparent);
-						setTransparencyInfo(transparencyInfo);
-
-						localStorage?.setItem(cacheKey, JSON.stringify(result));
-					} else {
-						if (verbose) {
-							console.log('[SmartImage] Worker analysis failed, falling back to synchronous analysis.');
-						}
-
-						const syncResult = analyzeImage(e.target, imageAnalysisSettings);
-
-						if (syncResult) {
-							const { isDark: dark, dominantColors: colors, isTransparent: transparent, transparencyInfo } = syncResult;
-
-							setIsDark(dark);
-							setDominantColors(colors);
-							setIsTransparent(transparent);
-							setTransparencyInfo(transparencyInfo);
-
-							localStorage?.setItem(cacheKey, JSON.stringify(syncResult));
-						} else {
-							if (verbose) {
-								console.log('[SmartImage] Synchronous analysis failed.');
-							}
-						}
-					}
-				} catch (err) {
-					if (verbose) {
-						console.error('[SmartImage] Error analyzing image.', err);
-					}
-
-					setError(err);
-				}
-
-				setHasAnalysed(true);
-			}}
-			onError={() => setError(new Error('Image failed to load'))}
 			data-is-transparent={isTransparent}
 			data-is-dark={isDark}
 		/>
@@ -199,7 +363,7 @@ export const SmartImage = (props) => {
 
 	if (error && renderError) {
 		return renderError(error);
-	} else if (error) {
+	} else if (error === 'failedToFetch') {
 		return (
 			<div
 				className={clsx(
@@ -210,23 +374,22 @@ export const SmartImage = (props) => {
 			>
 				{typeof children !== 'function' && (
 					<DecorativeTooltip text={__('Error loading image', 'eightshift-ui-components')}>
-						{cloneElement(imageError, { className: 'es:text-secondary-500 es:size-8' })}
+						{cloneElement(imageError, { className: 'es:text-surface-600 es:size-8' })}
 					</DecorativeTooltip>
 				)}
 
 				{typeof children === 'function'
 					? children({
 							image: cloneElement(imageElement, { crossOrigin: null }),
-							hasAnalysed: true,
+							hasAnalysed,
 							isTransparent: false,
 							hasError: true,
 							errorBadge: (
-								<DecorativeTooltip
-									wrapperClassName='es:size-8 es:-translate-y-4 es:m-auto'
-									text={__('Error loading image', 'eightshift-ui-components')}
-								>
-									{cloneElement(imageError, { className: 'es:text-secondary-500 es:size-8' })}
-								</DecorativeTooltip>
+								<div className='es:size-full es:flex es:items-center es:justify-center'>
+									<DecorativeTooltip text={__('Error loading image', 'eightshift-ui-components')}>
+										{cloneElement(imageError, { className: 'es:text-surface-600 es:size-8' })}
+									</DecorativeTooltip>
+								</div>
 							),
 						})
 					: cloneElement(imageElement, { crossOrigin: null })}
@@ -234,9 +397,12 @@ export const SmartImage = (props) => {
 		);
 	}
 
-	if (!children) {
-		return imageElement;
-	}
-
-	return typeof children === 'function' ? children({ image: imageElement, dominantColors, isDark, hasAnalysed, isTransparent, transparencyInfo }) : imageElement;
+	return children && typeof children === 'function'
+		? children({
+				image: imageElement,
+				...classFetchProps,
+			})
+		: imageElement;
 };
+
+export { SmartImage, SmartImage as __SmartImage };

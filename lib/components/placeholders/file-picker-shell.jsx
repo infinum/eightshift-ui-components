@@ -2,7 +2,6 @@ import { clsx } from 'clsx';
 import { file } from '../../icons/internal.js';
 import { truncateMiddle } from '../../utilities';
 import { SmartImage } from '../smart-image/smart-image';
-import { __SmartImageNext } from '../smart-image/smart-image-next';
 
 /**
  * A shell for a file picker UI, handling both rich visual presentation (e.g. images) and simple file placeholders.
@@ -56,8 +55,6 @@ export const FilePickerShell = (props) => {
 
 		hidden,
 
-		__useSmartImageNext = false,
-
 		...rest
 	} = props;
 
@@ -90,10 +87,8 @@ export const FilePickerShell = (props) => {
 		);
 	}
 
-	const ComponentToRender = __useSmartImageNext ? __SmartImageNext : SmartImage;
-
 	return (
-		<ComponentToRender
+		<SmartImage
 			src={url}
 			alt=''
 			className={({ hasAnalysed, isTransparent, transparencyInfo, isDark, hasError }) =>
@@ -108,8 +103,6 @@ export const FilePickerShell = (props) => {
 					hasError && 'es:rounded-xl',
 				)
 			}
-			errorClassName={!__useSmartImageNext && 'es:aspect-3-2 es:rounded-2xl es:bg-linear-to-br es:from-white es:to-secondary-50 es:border es:border-dashed es:border-secondary-200'}
-			imageAnalysisSettings={{ yFrom: 0.25, yTo: 0.75 }}
 			{...rest}
 		>
 			{({ image, dominantColors, isDark, hasAnalysed, isTransparent, hasError, errorBadge }) => {
@@ -154,6 +147,6 @@ export const FilePickerShell = (props) => {
 					</div>
 				);
 			}}
-		</ComponentToRender>
+		</SmartImage>
 	);
 };
