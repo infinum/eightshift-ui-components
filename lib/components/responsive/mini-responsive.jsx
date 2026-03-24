@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import { __, sprintf } from '@wordpress/i18n';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { upperFirst } from '../../utilities';
-import { Icon, clearAlt, dropdownCaretAlt, responsiveOverridesAlt2Fill, responsiveOverridesAltFill } from '../../icons';
+import { Icon, clearAlt, dropdownCaretAlt, responsiveOverridesAlt2Fill, responsiveOverridesAltFill } from '../../icons/internal.js';
 import { ResponsivePreview } from '../responsive-preview/responsive-preview';
 import { Button, ButtonGroup } from '../button/button';
 import { BaseControl } from '../base-control/base-control';

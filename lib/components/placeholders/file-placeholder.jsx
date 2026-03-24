@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { file } from '../../icons';
+import { file } from '../../icons/internal.js';
 import { RichLabel } from '../rich-label/rich-label';
 import { clsx } from 'clsx';
 

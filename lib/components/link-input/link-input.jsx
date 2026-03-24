@@ -1,6 +1,6 @@
 import { Label, Button as ReactAriaButton, Input, Group, ListBox, ListBoxItem, Popover } from 'react-aria-components';
 import { __ } from '@wordpress/i18n';
-import { anchor, clearAlt, externalLink, file, formAlt, globe, layoutAlt, searchEmpty } from '../../icons';
+import { anchor, clearAlt, externalLink, file, formAlt, globe, layoutAlt, searchEmpty } from '../../icons/internal.js';
 import { Spinner } from '../../icons/spinner';
 import { clsx } from 'clsx';
 import { useAsyncList } from 'react-stately';

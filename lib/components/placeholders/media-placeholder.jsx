@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { image } from '../../icons';
+import { image } from '../../icons/internal.js';
 
 /**
  * A simple media placeholder, with an empty state.

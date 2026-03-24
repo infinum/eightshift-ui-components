@@ -3,7 +3,7 @@ import { clsx } from 'clsx';
 import { Switch } from '../toggle/switch';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { Button } from '../button/button';
-import { chevronDown } from '../../icons';
+import { chevronDown } from '../../icons/internal.js';
 import { HStack } from '../layout/hstack';
 import { BaseControl } from '../base-control/base-control';
 

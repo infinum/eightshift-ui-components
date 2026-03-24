@@ -4,7 +4,7 @@ import { ColorSwatch } from './color-swatch';
 import { RichLabel } from '../rich-label/rich-label';
 import { BaseControl } from '../base-control/base-control';
 import { clsx } from 'clsx';
-import { colorPickerFill, colorPickerListMarker, colorPickerText, colorPickerTextHighlight } from '../../icons';
+import { colorPickerFill, colorPickerListMarker, colorPickerText, colorPickerTextHighlight } from '../../icons/internal.js';
 
 /**
  * Color picker.

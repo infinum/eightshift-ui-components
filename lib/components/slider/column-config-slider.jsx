@@ -7,7 +7,7 @@ import {
 	Label,
 } from 'react-aria-components';
 import { BaseControl } from '../base-control/base-control';
-import { chevronLeft, chevronRight } from '../../icons';
+import { chevronLeft, chevronRight } from '../../icons/internal.js';
 import { getColumnConfigOutputText } from './utils';
 import { clsx } from 'clsx';
 import { AnimatePresence, motion } from 'motion/react';

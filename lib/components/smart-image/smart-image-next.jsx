@@ -2,7 +2,7 @@
 import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
 import { cloneElement, useState, useRef, useEffect } from 'react';
-import { imageError } from '../../icons/index.js';
+import { imageError } from '../../icons/internal.js';
 import { DecorativeTooltip } from '../tooltip/tooltip.jsx';
 import { cyrb64Hash } from '../../utilities/hash.js';
 import WORKER_CODE from './image-analysis-worker-next.js?raw' with { type: 'text' };

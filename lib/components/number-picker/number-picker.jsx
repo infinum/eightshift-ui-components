@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { Group, Input, Label, NumberField } from 'react-aria-components';
 import { Button, ButtonGroup } from '../button/button';
-import { chevronDown, chevronUp } from '../../icons';
+import { chevronDown, chevronUp } from '../../icons/internal.js';
 import { clsx } from 'clsx';
 import { BaseControl } from '../base-control/base-control';
 import { cva } from 'class-variance-authority';

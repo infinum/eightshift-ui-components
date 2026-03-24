@@ -16,7 +16,7 @@ import {
 	Collection,
 } from 'react-aria-components';
 import { cloneElement, useMemo, useRef, useState } from 'react';
-import { Icon, clearAlt, dropdownCaret, searchEmpty } from '../../icons';
+import { Icon, clearAlt, dropdownCaret, searchEmpty } from '../../icons/internal.js';
 import { OptionItemBase, SelectClearButton, getGroupedOptions } from './shared';
 import { RichLabel } from '../rich-label/rich-label';
 import clsx from 'clsx';

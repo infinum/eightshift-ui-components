@@ -1,6 +1,6 @@
 import { Button } from '../button/button';
 import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
-import { copy, dropdownCaretAlt, moreH, trash } from '../../icons';
+import { copy, dropdownCaretAlt, moreH, trash } from '../../icons/internal.js';
 import { clsx } from 'clsx';
 import { useContext } from 'react';
 import { Expandable } from '../expandable/expandable';

@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { Icon } from '../../icons';
+import { Icon } from '../../icons/internal.js';
 import { camelCase, upperFirst } from '../../utilities';
 import { BaseControl } from '../base-control/base-control';
 import { TriggeredPopover } from '../popover/popover';

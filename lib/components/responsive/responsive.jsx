@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import { __, sprintf } from '@wordpress/i18n';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { upperFirst } from '../../utilities';
-import { Icon, clearAlt, dropdownCaretAlt, previewResponsive, responsiveOverridesAlt2Fill, responsiveOverridesAlt3Fill, responsiveOverridesAltFill } from '../../icons';
+import { Icon, clearAlt, dropdownCaretAlt, previewResponsive, responsiveOverridesAlt2Fill, responsiveOverridesAlt3Fill, responsiveOverridesAltFill } from '../../icons/internal.js';
 import { Menu, MenuItem, MenuSectionHeader, MenuSeparator, SubMenuItem } from '../menu/menu';
 import { ResponsivePreview } from '../responsive-preview/responsive-preview';
 import { Button, ButtonGroup } from '../button/button';

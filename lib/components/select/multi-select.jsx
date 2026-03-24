@@ -16,7 +16,7 @@ import {
 	Collection,
 } from 'react-aria-components';
 import { cloneElement, isValidElement, useMemo, useRef, useState } from 'react';
-import { Icon, clearAlt, dropdownCaret, multiple, reorder, searchEmpty } from '../../icons';
+import { Icon, clearAlt, dropdownCaret, multiple, reorder, searchEmpty } from '../../icons/internal.js';
 import { OptionItemBase, SelectClearButton, getValue, getGroupedOptions } from './shared';
 import { RichLabel } from '../rich-label/rich-label';
 import { TriggeredPopover } from '../popover/popover';

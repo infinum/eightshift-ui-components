@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { file } from '../../icons';
+import { file } from '../../icons/internal.js';
 import { truncateMiddle } from '../../utilities';
 import { SmartImage } from '../smart-image/smart-image';
 import { __SmartImageNext } from '../smart-image/smart-image-next';

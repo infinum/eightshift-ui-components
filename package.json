@@ -20,6 +20,7 @@
 			"require": "./dist/index.js"
 		},
 		"./icons": "./dist/icons/index.js",
+		"./jsx-svg": "./dist/icons/jsx-svg.js",
 		"./utilities": "./dist/utilities/index.js",
 		"./dist/assets/style.css": "./dist/assets/style.css",
 		"./dist/assets/style-editor.css": "./dist/assets/style-editor.css",

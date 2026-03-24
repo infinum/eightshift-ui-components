@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { upperFirst } from '../../utilities';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
-import { previewResponsive } from '../../icons';
+import { previewResponsive } from '../../icons/internal.js';
 import { RichLabel } from '../rich-label/rich-label';
 
 /**

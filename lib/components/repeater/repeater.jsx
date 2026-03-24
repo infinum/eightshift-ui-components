@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import { Button } from '../button/button';
-import { add, moreH, panelCollapse, panelExpand } from '../../icons';
+import { add, moreH, panelCollapse, panelExpand } from '../../icons/internal.js';
 import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { RepeaterContext } from './repeater-context';

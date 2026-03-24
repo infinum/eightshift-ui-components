@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
 import { cloneElement, useState, useRef, useEffect } from 'react';
-import { imageError } from '../../icons';
+import { imageError } from '../../icons/internal.js';
 import { DecorativeTooltip } from '../tooltip/tooltip';
 import { useImageAnalysisWorker } from '../../utilities/web-workers.js';
 import workerInline from './worker-inline.js';

@@ -5,7 +5,7 @@ import { clsx } from 'clsx';
 import { __, sprintf } from '@wordpress/i18n';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { upperFirst } from '../../utilities';
-import { Icon, clearAlt, play, responsiveOverridesAlt } from '../../icons';
+import { Icon, clearAlt, play, responsiveOverridesAlt } from '../../icons/internal.js';
 import { Button } from '../button/button';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { ToggleButton } from '../toggle-button/toggle-button';
