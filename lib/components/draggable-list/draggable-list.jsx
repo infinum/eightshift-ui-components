@@ -3,6 +3,7 @@ import { BaseControl } from '../base-control/base-control';
 import { clsx } from 'clsx';
 import { List, arrayMove, arrayRemove } from 'react-movable';
 import { Container, ContainerGroup } from '../base-control/container';
+import { useCallback } from 'react';
 
 /**
  * A component that allows re-ordering a list of items.
@@ -86,6 +87,69 @@ export const DraggableList = (props) => {
 		return null;
 	}
 
+	const handleListChange = useCallback(
+		({ oldIndex, newIndex }) => onChange(newIndex === -1 ? arrayRemove(items, oldIndex) : arrayMove(items, oldIndex, newIndex)),
+		[items, onChange],
+	);
+
+	const renderList = useCallback(
+		({ children, props }) => {
+			const { key, ...rest } = props;
+
+			return (
+				<ContainerGroup
+					as='ul'
+					className={clsx('es:w-full es:list-none es:m-0!', itemContainerClassName)}
+					{...rest}
+				>
+					{children}
+				</ContainerGroup>
+			);
+		},
+		[itemContainerClassName],
+	);
+
+	const renderItem = useCallback(
+		({ value, index, isDragged, isSelected, props }) => {
+			const { key, ...rest } = props;
+
+			return (
+				<Container
+					as='li'
+					key={key}
+					accent={isDragged || isSelected}
+					elevated={isDragged || isSelected}
+					className={clsx('es:list-none es:m-0!', isDragged && 'es:z-99999', itemClassName)}
+					data-selected={isDragged || isSelected || props?.style?.position === 'fixed'}
+					{...rest}
+				>
+					{children({
+						...value,
+						updateData: (newValue) => {
+							const updated = [...items];
+
+							updated[index] = {
+								...updated[index],
+								...newValue,
+							};
+
+							onChange(updated);
+						},
+						itemIndex: index,
+						deleteItem: () => {
+							onChange(items.filter((_, i) => i !== index));
+
+							if (onAfterItemRemove) {
+								onAfterItemRemove(value);
+							}
+						},
+					})}
+				</Container>
+			);
+		},
+		[children, itemClassName, items, onAfterItemRemove, onChange],
+	);
+
 	return (
 		<BaseControl
 			icon={icon}
@@ -99,57 +163,9 @@ export const DraggableList = (props) => {
 			<List
 				transitionDuration={200}
 				values={items}
-				onChange={({ oldIndex, newIndex }) => onChange(newIndex === -1 ? arrayRemove(items, oldIndex) : arrayMove(items, oldIndex, newIndex))}
-				renderList={({ children, props }) => {
-					const { key, ...rest } = props;
-
-					return (
-						<ContainerGroup
-							as='ul'
-							className={clsx('es:w-full es:list-none es:m-0!', itemContainerClassName)}
-							{...rest}
-						>
-							{children}
-						</ContainerGroup>
-					);
-				}}
-				renderItem={({ value, index, isDragged, isSelected, props }) => {
-					const { key, ...rest } = props;
-
-					return (
-						<Container
-							as='li'
-							key={key}
-							accent={isDragged || isSelected}
-							elevated={isDragged || isSelected}
-							className={clsx('es:list-none es:m-0!', isDragged && 'es:z-99999', itemClassName)}
-							data-selected={isDragged || isSelected || props?.style?.position === 'fixed'}
-							{...rest}
-						>
-							{children({
-								...value,
-								updateData: (newValue) => {
-									const updated = [...items];
-
-									updated[index] = {
-										...updated[index],
-										...newValue,
-									};
-
-									onChange(updated);
-								},
-								itemIndex: index,
-								deleteItem: () => {
-									onChange(items.filter((_, i) => i !== index));
-
-									if (onAfterItemRemove) {
-										onAfterItemRemove(value);
-									}
-								},
-							})}
-						</Container>
-					);
-				}}
+				onChange={handleListChange}
+				renderList={renderList}
+				renderItem={renderItem}
 			/>
 		</BaseControl>
 	);

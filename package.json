@@ -12,7 +12,7 @@
 		"dist"
 	],
 	"sideEffects": [
-		"./dist/assets/*.css"
+		"./dist/**/*.css"
 	],
 	"exports": {
 		".": {
@@ -33,7 +33,16 @@
 		"./dist/assets/wp-overrides/replace-fonts.css": "./dist/assets/wp-overrides/replace-fonts.css",
 		"./dist/assets/wp-overrides/allow-full-width-blocks.css": "./dist/assets/wp-overrides/allow-full-width-blocks.css",
 		"./styles": "./dist/assets/style.css",
-		"./wp-overrides": "./dist/assets/wp.css"
+		"./styles-editor": "./dist/assets/style-editor.css",
+		"./styles-admin": "./dist/assets/style-admin.css",
+		"./wp-overrides/allow-full-width-blocks": "./dist/assets/wp-overrides/allow-full-width-blocks.css",
+		"./wp-overrides/fix-label-text-case": "./dist/assets/wp-overrides/fix-label-text-case.css",
+		"./wp-overrides/increase-sidebar-width": "./dist/assets/wp-overrides/increase-sidebar-width.css",
+		"./wp-overrides/make-block-messages-nicer": "./dist/assets/wp-overrides/make-block-messages-nicer.css",
+		"./wp-overrides/replace-fonts": "./dist/assets/wp-overrides/replace-fonts.css",
+		"./wp-overrides/restyle-tooltips": "./dist/assets/wp-overrides/restyle-tooltips.css",
+		"./wp-overrides/round-corners": "./dist/assets/wp-overrides/round-corners.css",
+		"./wp-overrides/unify-button-sizes": "./dist/assets/wp-overrides/unify-button-sizes.css"
 	},
 	"scripts": {
 		"dev": "vite",

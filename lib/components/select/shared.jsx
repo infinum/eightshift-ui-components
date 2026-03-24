@@ -33,7 +33,6 @@ export const OptionItemBase = (props) => (
 					'es:bg-surface-50/90',
 					'es:rounded-md',
 					'es:first:rounded-t-xl es:last:rounded-b-xl',
-					'es:nth-2:rounded-t-xl',
 					'es:after-current:rounded-t-xl es:before-current:rounded-b-xl',
 					'es:hover:rounded-2xl es:pressed:rounded-3xl',
 					'es:focus-visible:bg-white/90 es:focus-visible:rounded-2xl es:focus-visible:text-accent-950',
