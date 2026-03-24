@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { clsx } from 'clsx';
+import { Disclosure, DisclosurePanel } from 'react-aria-components';
 import { Switch } from '../toggle/switch';
-import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { Button } from '../button/button';
 import { chevronDown } from '../../icons/internal.js';
 import { HStack } from '../layout/hstack';
@@ -70,89 +70,99 @@ export const ContainerPanel = (props) => {
 	const justUse = !closable && typeof onUseChange !== 'undefined';
 	const justClosable = closable && typeof onUseChange === 'undefined';
 	const useAndClosable = closable && typeof onUseChange !== 'undefined';
+	const shouldUseDisclosure = closable || typeof use !== 'undefined';
+
+	let isExpanded = use;
+
+	if (closable) {
+		isExpanded = typeof use !== 'undefined' ? use && open : open;
+	}
 
 	return (
-		<BaseControl
-			icon={
-				onUseChange ? (
-					<Switch
-						checked={use}
-						onChange={(value) => {
-							if (!value) {
-								setOpen(false);
-							}
-
-							onUseChange(value);
-						}}
-						size='medium'
-					/>
-				) : (
-					icon
-				)
-			}
-			label={title}
-			subtitle={subtitle}
-			actions={
-				<>
-					{actions}
-
-					<HStack
-						hidden={!closable && !onUseChange}
-						className='es:ml-auto'
-					>
-						{closable && (
-							<Button
-								onPress={() => setOpen(!open)}
-								icon={chevronDown}
-								type='ghost'
-								size='small'
-								className={clsx('es:icon:size-4! es:icon:transition-transform', (typeof use !== 'undefined' ? open && use : open) && 'es:icon:-scale-y-100')}
-								disabled={typeof use !== 'undefined' && !use}
-							/>
-						)}
-					</HStack>
-				</>
-			}
-			className={clsx(
-				topBorder && 'es:border-t es:border-t-secondary-200',
-				!closable && typeof use === 'undefined' && 'es:space-y-2',
-				justClosable && open && 'es:pb-4',
-				justUse && use && 'es:pb-4',
-				useAndClosable && use && open && 'es:pb-4',
-				!justClosable && !justUse && !useAndClosable && 'es:pb-4',
-				!closable && !onUseChange && typeof use === 'undefined' && 'es:px-4',
-				className,
-			)}
-			labelContainerClassName={clsx((closable || onUseChange) && 'es:pl-4 es:pr-3 es:min-h-12', !(closable || onUseChange) && 'es:mt-3 es:mb-3', 'es:pb-0!')}
-			controlContainerClassName='es:px-4'
-			labelClassName={clsx(
-				!noLabelInset && 'es:px-1',
-				accentLabel && 'es:text-accent-800 es:any-icon:text-accent-700',
-				accentIcon && 'es:any-icon:text-accent-700',
-				!accentLabel && 'es:text-surface-700',
-			)}
+		<Disclosure
+			isExpanded={shouldUseDisclosure ? isExpanded : true}
+			className='es:block'
 		>
-			{!closable && !onUseChange && typeof use === 'undefined' && children}
-			{closable && typeof use === 'undefined' && (
-				<AnimatedVisibility
-					visible={open}
-					className='es:space-y-2 es:px-4'
-					transition='slideFadeDownSlight'
-					noInitial
-				>
-					{children}
-				</AnimatedVisibility>
-			)}
-			{typeof use !== 'undefined' && (
-				<AnimatedVisibility
-					visible={closable ? use && open : use}
-					className='es:space-y-2 es:px-4'
-					transition='slideFadeDownSlight'
-					noInitial
-				>
-					{children}
-				</AnimatedVisibility>
-			)}
-		</BaseControl>
+			<BaseControl
+				icon={
+					onUseChange ? (
+						<Switch
+							checked={use}
+							onChange={(value) => {
+								if (!value) {
+									setOpen(false);
+								}
+
+								onUseChange(value);
+							}}
+							size='medium'
+						/>
+					) : (
+						icon
+					)
+				}
+				label={title}
+				subtitle={subtitle}
+				actions={
+					<>
+						{actions}
+
+						<HStack
+							hidden={!closable && !onUseChange}
+							className='es:ml-auto'
+						>
+							{closable && (
+								<Button
+									slot='trigger'
+									onPress={() => setOpen(!open)}
+									icon={chevronDown}
+									type='ghost'
+									size='small'
+									className={clsx('es:icon:size-4! es:icon:transition-transform', isExpanded && 'es:icon:-scale-y-100')}
+									disabled={typeof use !== 'undefined' && !use}
+								/>
+							)}
+						</HStack>
+					</>
+				}
+				className={clsx(
+					topBorder && 'es:border-t es:border-t-secondary-200',
+					!closable && typeof use === 'undefined' && 'es:space-y-2',
+					justClosable && open && 'es:pb-4',
+					justUse && use && 'es:pb-4',
+					useAndClosable && use && open && 'es:pb-4',
+					!justClosable && !justUse && !useAndClosable && 'es:pb-4',
+					!closable && !onUseChange && typeof use === 'undefined' && 'es:px-4',
+					className,
+				)}
+				labelContainerClassName={clsx(
+					(closable || onUseChange) && 'es:pl-4 es:pr-3 es:min-h-12',
+					!(closable || onUseChange) && 'es:mt-3 es:mb-3',
+					(closable || onUseChange) && 'es:mb-0!',
+					'es:pb-0!',
+				)}
+				controlContainerClassName='es:px-4'
+				labelClassName={clsx(
+					!noLabelInset && 'es:px-1',
+					accentLabel && 'es:text-accent-800 es:any-icon:text-accent-700',
+					accentIcon && 'es:any-icon:text-accent-700',
+					!accentLabel && 'es:text-surface-700',
+				)}
+			>
+				{!shouldUseDisclosure && children}
+				{shouldUseDisclosure && (
+					<DisclosurePanel
+						className={clsx(
+							'es:h-(--disclosure-panel-height) es:overflow-hidden',
+							'es:opacity-0 es:-translate-y-2',
+							isExpanded && 'es:opacity-100 es:translate-y-0',
+							'es:transition-plus-h',
+						)}
+					>
+						<div className='es:space-y-2 es:px-4'>{children}</div>
+					</DisclosurePanel>
+				)}
+			</BaseControl>
+		</Disclosure>
 	);
 };
