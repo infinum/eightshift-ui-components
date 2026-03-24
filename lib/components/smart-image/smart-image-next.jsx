@@ -15,6 +15,9 @@ import WORKER_CODE from './image-analysis-worker-next.js?raw' with { type: 'text
  * @property {boolean} [props.verbose] - If `true`, extra debug info is logged in case of errors.
  * @property {import('../../utilities/general.js').ImageAnalysisSettings} [imageAnalysisSettings] - Settings to pass to the image analysis function.
  * @property {import('../../utilities/general.js').ImageAnalysisResult} [analysisData] - Previous analysis result to pass in directly, skipping analysis.
+ * @property {number} [props.colorCount=3] - Number of dominant colors to extract. Falls back to `imageAnalysisSettings.numColors` when omitted.
+ * @property {number} [props.similarityThreshold=10] - Distance threshold for merging similar colors during palette extraction.
+ * @property {(result: import('../../utilities/general.js').ImageAnalysisResult, meta: { source: 'worker' | 'cache' | 'analysisData' }) => void} [props.onAnalysisComplete] - Called when analysis data becomes available, with metadata describing where it came from.
  *
  * @preserve
  */
@@ -78,16 +81,18 @@ async function urlExists(url) {
  * @preserve
  */
 const SmartImageNext = (props) => {
-	const { onAnalysisComplete, colorCount = 3, similarityThreshold = 10 } = props;
+	const { onAnalysisComplete, colorCount: colorCountProp, similarityThreshold = 10 } = props;
 
 	const { imageAnalysisSettings, errorClassName, processingClassName = 'es:opacity-0 es:fixed', hidden, renderError, analysisData, children, verbose, ...imageProps } = props;
 
 	const { src } = imageProps;
+	const resolvedColorCount = colorCountProp ?? imageAnalysisSettings?.numColors ?? 3;
 
 	const [analysis, setAnalysis] = useState(analysisData);
 	const [error, setError] = useState(null);
 	const [objectUrl, setObjectUrl] = useState(null);
 	const workerRef = useRef(null);
+	const lastAnalysisNotificationKeyRef = useRef(null);
 
 	// Initialize Worker
 	useEffect(() => {
@@ -98,8 +103,30 @@ const SmartImageNext = (props) => {
 	}, []);
 
 	useEffect(() => {
+		lastAnalysisNotificationKeyRef.current = null;
+	}, [src]);
+
+	useEffect(() => {
 		let isActive = true;
 		const abortController = new AbortController();
+		const workerConfig = {
+			maxColors: resolvedColorCount,
+			threshold: similarityThreshold,
+		};
+		const notifyAnalysisComplete = (result, source) => {
+			if (!onAnalysisComplete || !result) {
+				return;
+			}
+
+			const notificationKey = `${src ?? ''}:${source}:${cyrb64Hash(JSON.stringify(result))}`;
+
+			if (lastAnalysisNotificationKeyRef.current === notificationKey) {
+				return;
+			}
+
+			lastAnalysisNotificationKeyRef.current = notificationKey;
+			onAnalysisComplete(result, { source });
+		};
 
 		if (!src) {
 			setObjectUrl(null);
@@ -113,6 +140,7 @@ const SmartImageNext = (props) => {
 		if (analysisData) {
 			setAnalysis(analysisData);
 			setObjectUrl(src);
+			notifyAnalysisComplete(analysisData, 'analysisData');
 
 			return () => {
 				isActive = false;
@@ -129,6 +157,7 @@ const SmartImageNext = (props) => {
 			if (cachedAnalysis) {
 				setAnalysis(cachedAnalysis);
 				setObjectUrl(src);
+				notifyAnalysisComplete(cachedAnalysis, 'cache');
 			}
 		}
 
@@ -239,10 +268,7 @@ const SmartImageNext = (props) => {
 							setAnalysis(e.data);
 
 							localStorage?.setItem(cacheKey, JSON.stringify(e.data));
-
-							if (onAnalysisComplete) {
-								onAnalysisComplete(e.data);
-							}
+							notifyAnalysisComplete(e.data, 'worker');
 						};
 
 						try {
@@ -251,9 +277,7 @@ const SmartImageNext = (props) => {
 									buffer,
 									width,
 									height,
-									config: {
-										// TODO
-									},
+									config: workerConfig,
 								},
 								[arrayBuffer],
 							);
@@ -263,7 +287,7 @@ const SmartImageNext = (props) => {
 								buffer,
 								width,
 								height,
-								config: { maxColors: colorCount, threshold: similarityThreshold },
+								config: workerConfig,
 							});
 						}
 					}
@@ -293,7 +317,7 @@ const SmartImageNext = (props) => {
 			isActive = false;
 			abortController.abort();
 		};
-	}, [analysisData, colorCount, onAnalysisComplete, similarityThreshold, src, verbose]);
+	}, [analysisData, imageAnalysisSettings?.numColors, onAnalysisComplete, resolvedColorCount, similarityThreshold, src, verbose]);
 
 	const hasAnalysed = Boolean(analysis) && Boolean(objectUrl);
 
