@@ -1,13 +1,74 @@
 export const treeAlt2 = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<circle cx='10' cy='4' r='1.75' fill='currentColor' fillOpacity='0.3' stroke='currentColor' />
-			<circle cx='6.5' cy='8.5' r='1.5' stroke='currentColor' fill='none' />
-			<circle cx='3' cy='12.5' r='1.5' stroke='currentColor' fill='none' />
-			<circle cx='10' cy='12.5' r='1.5' stroke='currentColor' fill='none' />
-			<circle cx='6.5' cy='16.5' r='1.5' stroke='currentColor' fill='none' />
-			<circle cx='13.5' cy='8.5' r='1.5' stroke='currentColor' fill='none' />
-			<circle cx='17' cy='12.5' r='1.5' stroke='currentColor' fill='none' />
-			<circle cx='13.5' cy='16.5' r='1.5' stroke='currentColor' fill='none' />
-			<path d='m7.5 7 1-1M4 11l1-1m6 1 1-1m-4.5 5 1-1m4-7-1-1m4.5 5-1-1m-2.5 5-1-1' stroke='currentColor' strokeLinecap='square' strokeLinejoin='round' fill='none' />
-		</svg>
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<circle
+			cx='10'
+			cy='4'
+			r='1.75'
+			fill='currentColor'
+			fillOpacity='0.3'
+			stroke='currentColor'
+		/>
+		<circle
+			cx='6.5'
+			cy='8.5'
+			r='1.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<circle
+			cx='3'
+			cy='12.5'
+			r='1.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<circle
+			cx='10'
+			cy='12.5'
+			r='1.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<circle
+			cx='6.5'
+			cy='16.5'
+			r='1.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<circle
+			cx='13.5'
+			cy='8.5'
+			r='1.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<circle
+			cx='17'
+			cy='12.5'
+			r='1.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<circle
+			cx='13.5'
+			cy='16.5'
+			r='1.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<path
+			d='m7.5 7 1-1M4 11l1-1m6 1 1-1m-4.5 5 1-1m4-7-1-1m4.5 5-1-1m-2.5 5-1-1'
+			stroke='currentColor'
+			strokeLinecap='square'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+	</svg>
 );

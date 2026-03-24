@@ -1,6 +1,20 @@
 export const leftPanel = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path fill='currentColor' fillOpacity='0.3' d='M1 2h9v16H1z' />
-			<path d='M19 3.5A1.5 1.5 0 0 0 17.5 2h-15A1.5 1.5 0 0 0 1 3.5v13A1.5 1.5 0 0 0 2.5 18h15a1.5 1.5 0 0 0 1.5-1.5v-13ZM10 2v16' stroke='currentColor' fill='none' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			fill='currentColor'
+			fillOpacity='0.3'
+			d='M1 2h9v16H1z'
+		/>
+		<path
+			d='M19 3.5A1.5 1.5 0 0 0 17.5 2h-15A1.5 1.5 0 0 0 1 3.5v13A1.5 1.5 0 0 0 2.5 18h15a1.5 1.5 0 0 0 1.5-1.5v-13ZM10 2v16'
+			stroke='currentColor'
+			fill='none'
+		/>
+	</svg>
+);

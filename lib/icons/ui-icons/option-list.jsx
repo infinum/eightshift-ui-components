@@ -1,9 +1,58 @@
 export const optionList = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='m2.5 3 1.688 1.75L7 1.25M2.5 10l1.688 1.75L7 8.25M2.5 17l1.688 1.75L7 15.25' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-			<rect x='2.5' y='1.46429' width='3.5' height='3.5' rx='1' stroke='currentColor' strokeOpacity='0.12' strokeLinejoin='round' fill='none' />
-			<rect x='2.5' y='8.46429' width='3.5' height='3.5' rx='1' stroke='currentColor' strokeOpacity='0.12' strokeLinejoin='round' fill='none' />
-			<rect x='2.5' y='15.4643' width='3.5' height='3.5' rx='1' stroke='currentColor' strokeOpacity='0.12' strokeLinejoin='round' fill='none' />
-			<path d='M9.5 3.214h8m-8 7H16m-6.5 7h8' stroke='currentColor' strokeOpacity='0.5' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='m2.5 3 1.688 1.75L7 1.25M2.5 10l1.688 1.75L7 8.25M2.5 17l1.688 1.75L7 15.25'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<rect
+			x='2.5'
+			y='1.46429'
+			width='3.5'
+			height='3.5'
+			rx='1'
+			stroke='currentColor'
+			strokeOpacity='0.12'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<rect
+			x='2.5'
+			y='8.46429'
+			width='3.5'
+			height='3.5'
+			rx='1'
+			stroke='currentColor'
+			strokeOpacity='0.12'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<rect
+			x='2.5'
+			y='15.4643'
+			width='3.5'
+			height='3.5'
+			rx='1'
+			stroke='currentColor'
+			strokeOpacity='0.12'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			d='M9.5 3.214h8m-8 7H16m-6.5 7h8'
+			stroke='currentColor'
+			strokeOpacity='0.5'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+	</svg>
+);

@@ -106,6 +106,8 @@ export const Responsive = (props) => {
 		className,
 	} = props;
 
+	const [detailsVisible, setDetailsVisible] = useState(false);
+
 	if (typeof rawBreakpoints === 'undefined' || !Array.isArray(rawBreakpoints)) {
 		console.warn(__("Responsive: Missing or invalid 'breakpoints' prop.", 'eightshift-ui-components'));
 
@@ -119,8 +121,6 @@ export const Responsive = (props) => {
 	if (useLegacyDesktopFirst) {
 		desktopFirstBreakpoints = (rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1)).map((breakpoint) => (breakpoint.startsWith('max-') ? breakpoint : `max-${breakpoint}`));
 	}
-
-	const [detailsVisible, setDetailsVisible] = useState(false);
 
 	const isDesktopFirst = value?.['_desktopFirst'] === true;
 

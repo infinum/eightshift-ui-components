@@ -1,9 +1,46 @@
 export const accelerometer = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<rect x='1' y='1' width='10' height='18' rx='1.5' fill='currentColor' fillOpacity='0.12' stroke='currentColor' />
-			<path d='M9 19h8.5a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 17.5 9H11' stroke='currentColor' fill='none' />
-			<path d='M4.5 17.5h3' stroke='currentColor' strokeOpacity='0.12' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-			<circle cx='6' cy='2.75' r='0.5' fill='currentColor' />
-			<circle cx='17.25' cy='14' r='0.5' transform='rotate(90 17.25 14)' fill='currentColor' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<rect
+			x='1'
+			y='1'
+			width='10'
+			height='18'
+			rx='1.5'
+			fill='currentColor'
+			fillOpacity='0.12'
+			stroke='currentColor'
+		/>
+		<path
+			d='M9 19h8.5a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 17.5 9H11'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<path
+			d='M4.5 17.5h3'
+			stroke='currentColor'
+			strokeOpacity='0.12'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<circle
+			cx='6'
+			cy='2.75'
+			r='0.5'
+			fill='currentColor'
+		/>
+		<circle
+			cx='17.25'
+			cy='14'
+			r='0.5'
+			transform='rotate(90 17.25 14)'
+			fill='currentColor'
+		/>
+	</svg>
+);

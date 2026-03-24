@@ -1,7 +1,31 @@
 export const moreV = (
-		<svg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
-			<circle cx='10' cy='5' r='1' transform='rotate(90 10 5)' fill='currentColor' />
-			<circle cx='10' cy='10' r='1' transform='rotate(90 10 10)' fill='currentColor' />
-			<circle cx='10' cy='15' r='1' transform='rotate(90 10 15)' fill='currentColor' />
-		</svg>
-	);
+	<svg
+		width='20'
+		height='20'
+		viewBox='0 0 20 20'
+		fill='none'
+		xmlns='http://www.w3.org/2000/svg'
+	>
+		<circle
+			cx='10'
+			cy='5'
+			r='1'
+			transform='rotate(90 10 5)'
+			fill='currentColor'
+		/>
+		<circle
+			cx='10'
+			cy='10'
+			r='1'
+			transform='rotate(90 10 10)'
+			fill='currentColor'
+		/>
+		<circle
+			cx='10'
+			cy='15'
+			r='1'
+			transform='rotate(90 10 15)'
+			fill='currentColor'
+		/>
+	</svg>
+);

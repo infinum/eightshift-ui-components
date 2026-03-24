@@ -80,13 +80,13 @@ export const AnimatedVisibility = (props) => {
 		if (!visible && noExitAnimation) {
 			setIsVisibleInner(false);
 		}
-	}, [visible]);
+	}, [noExitAnimation, visible]);
 
 	useEffect(() => {
 		if (noInitial && visible) {
 			setCanAnimate(false);
 		}
-	}, []);
+	}, [noInitial, visible]);
 
 	return (
 		<>

@@ -1,16 +1,53 @@
 export const gradient = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<mask maskUnits='userSpaceOnUse' id='23c883a8-a694-4822-9b10-bb3c420ab039' style={{ maskType: 'alpha' }} x='0' y='0' width='20' height='20'>
-				<circle cx='10' cy='10' r='9.75' fill='url(#1a9d92d5-55e1-4c6e-a17a-8517215ce64a)' />
-			</mask>
-			<g mask='url(#23c883a8-a694-4822-9b10-bb3c420ab039)'>
-				<circle cx='10' cy='10' r='9.75' fill='currentColor' />
-			</g>
-			<defs>
-				<linearGradient gradientUnits='userSpaceOnUse' id='1a9d92d5-55e1-4c6e-a17a-8517215ce64a' x1='0.25' y1='0.25' x2='19.75' y2='19.75'>
-					<stop offset='0.154521' stopColor='#fff' />
-					<stop offset='0.855692' stopOpacity='0' />
-				</linearGradient>
-			</defs>
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<mask
+			maskUnits='userSpaceOnUse'
+			id='23c883a8-a694-4822-9b10-bb3c420ab039'
+			style={{ maskType: 'alpha' }}
+			x='0'
+			y='0'
+			width='20'
+			height='20'
+		>
+			<circle
+				cx='10'
+				cy='10'
+				r='9.75'
+				fill='url(#1a9d92d5-55e1-4c6e-a17a-8517215ce64a)'
+			/>
+		</mask>
+		<g mask='url(#23c883a8-a694-4822-9b10-bb3c420ab039)'>
+			<circle
+				cx='10'
+				cy='10'
+				r='9.75'
+				fill='currentColor'
+			/>
+		</g>
+		<defs>
+			<linearGradient
+				gradientUnits='userSpaceOnUse'
+				id='1a9d92d5-55e1-4c6e-a17a-8517215ce64a'
+				x1='0.25'
+				y1='0.25'
+				x2='19.75'
+				y2='19.75'
+			>
+				<stop
+					offset='0.154521'
+					stopColor='#fff'
+				/>
+				<stop
+					offset='0.855692'
+					stopOpacity='0'
+				/>
+			</linearGradient>
+		</defs>
+	</svg>
+);

@@ -3,7 +3,7 @@ import { BaseControl } from '../base-control/base-control';
 import { clsx } from 'clsx';
 import { List, arrayMove, arrayRemove } from 'react-movable';
 import { Container, ContainerGroup } from '../base-control/container';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 /**
  * A component that allows re-ordering a list of items.
@@ -79,17 +79,15 @@ export const DraggableList = (props) => {
 		...rest
 	} = props;
 
+	const normalizedItems = useMemo(() => (Array.isArray(items) ? items : []), [items]);
+
 	if (typeof items === 'undefined' || items === null || !Array.isArray(items)) {
 		console.warn(__("DraggableList: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
 	}
 
-	if (hidden || !items?.length) {
-		return null;
-	}
-
 	const handleListChange = useCallback(
-		({ oldIndex, newIndex }) => onChange(newIndex === -1 ? arrayRemove(items, oldIndex) : arrayMove(items, oldIndex, newIndex)),
-		[items, onChange],
+		({ oldIndex, newIndex }) => onChange(newIndex === -1 ? arrayRemove(normalizedItems, oldIndex) : arrayMove(normalizedItems, oldIndex, newIndex)),
+		[normalizedItems, onChange],
 	);
 
 	const renderList = useCallback(
@@ -126,7 +124,7 @@ export const DraggableList = (props) => {
 					{children({
 						...value,
 						updateData: (newValue) => {
-							const updated = [...items];
+							const updated = [...normalizedItems];
 
 							updated[index] = {
 								...updated[index],
@@ -137,7 +135,7 @@ export const DraggableList = (props) => {
 						},
 						itemIndex: index,
 						deleteItem: () => {
-							onChange(items.filter((_, i) => i !== index));
+							onChange(normalizedItems.filter((_, i) => i !== index));
 
 							if (onAfterItemRemove) {
 								onAfterItemRemove(value);
@@ -147,8 +145,12 @@ export const DraggableList = (props) => {
 				</Container>
 			);
 		},
-		[children, itemClassName, items, onAfterItemRemove, onChange],
+		[children, itemClassName, normalizedItems, onAfterItemRemove, onChange],
 	);
+
+	if (hidden || !normalizedItems.length) {
+		return null;
+	}
 
 	return (
 		<BaseControl
@@ -162,7 +164,7 @@ export const DraggableList = (props) => {
 		>
 			<List
 				transitionDuration={200}
-				values={items}
+				values={normalizedItems}
 				onChange={handleListChange}
 				renderList={renderList}
 				renderItem={renderItem}

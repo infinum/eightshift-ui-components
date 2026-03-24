@@ -1,8 +1,40 @@
 export const itemsPerRow = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='m3.5 6.5-1 7m4-7-1 7m-4-5H8m-7 3h6.5' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-			<rect x='10' y='3' width='5' height='6' rx='1.5' stroke='currentColor' fill='none' />
-			<path d='M20 9h-1.5A1.5 1.5 0 0 1 17 7.5v-3A1.5 1.5 0 0 1 18.5 3H20m0 14h-1.5a1.5 1.5 0 0 1-1.5-1.5v-3a1.5 1.5 0 0 1 1.5-1.5H20' stroke='currentColor' fill='none' />
-			<rect x='10' y='11' width='5' height='6' rx='1.5' stroke='currentColor' fill='none' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='m3.5 6.5-1 7m4-7-1 7m-4-5H8m-7 3h6.5'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<rect
+			x='10'
+			y='3'
+			width='5'
+			height='6'
+			rx='1.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<path
+			d='M20 9h-1.5A1.5 1.5 0 0 1 17 7.5v-3A1.5 1.5 0 0 1 18.5 3H20m0 14h-1.5a1.5 1.5 0 0 1-1.5-1.5v-3a1.5 1.5 0 0 1 1.5-1.5H20'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<rect
+			x='10'
+			y='11'
+			width='5'
+			height='6'
+			rx='1.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+	</svg>
+);

@@ -1,6 +1,29 @@
 export const toggleOn = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<rect className='es-toggle-icon-container' x='1' y='5' width='18' height='10' rx='5' fill='currentColor' fillOpacity='0.12' stroke='currentColor' />
-			<circle className='es-toggle-icon-thumb' cx='14' cy='10' r='2.75' fill='currentColor' stroke='currentColor' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<rect
+			className='es-toggle-icon-container'
+			x='1'
+			y='5'
+			width='18'
+			height='10'
+			rx='5'
+			fill='currentColor'
+			fillOpacity='0.12'
+			stroke='currentColor'
+		/>
+		<circle
+			className='es-toggle-icon-thumb'
+			cx='14'
+			cy='10'
+			r='2.75'
+			fill='currentColor'
+			stroke='currentColor'
+		/>
+	</svg>
+);

@@ -1,5 +1,14 @@
 export const checkCircleFill = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='M10 19a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm-.955-4.452a.55.55 0 0 1-.434-.16l-3-3a.55.55 0 0 1 .692-.847l.086.07 2.54 2.541 4.624-6.471a.55.55 0 1 1 .894.638l-5 7a.55.55 0 0 1-.402.229Z' fill='currentColor' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M10 19a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm-.955-4.452a.55.55 0 0 1-.434-.16l-3-3a.55.55 0 0 1 .692-.847l.086.07 2.54 2.541 4.624-6.471a.55.55 0 1 1 .894.638l-5 7a.55.55 0 0 1-.402.229Z'
+			fill='currentColor'
+		/>
+	</svg>
+);

@@ -1,8 +1,38 @@
 export const people = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='M1 18.5c.287-1.541.855-2.67 1.702-3.388C3.55 14.395 4.65 14.024 6 14c1.35.024 2.45.395 3.298 1.112.847.718 1.415 1.847 1.702 3.388' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-			<circle cx='6' cy='10.5' r='3.5' stroke='currentColor' fill='none' />
-			<path d='M19 13c-.287-1.541-.855-2.67-1.703-3.388C16.45 8.895 15.351 8.524 14 8.5c-1.198.021-2.198.315-3 .882' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-			<circle cx='14' cy='5' r='3.5' stroke='currentColor' fill='none' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M1 18.5c.287-1.541.855-2.67 1.702-3.388C3.55 14.395 4.65 14.024 6 14c1.35.024 2.45.395 3.298 1.112.847.718 1.415 1.847 1.702 3.388'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<circle
+			cx='6'
+			cy='10.5'
+			r='3.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<path
+			d='M19 13c-.287-1.541-.855-2.67-1.703-3.388C16.45 8.895 15.351 8.524 14 8.5c-1.198.021-2.198.315-3 .882'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<circle
+			cx='14'
+			cy='5'
+			r='3.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+	</svg>
+);

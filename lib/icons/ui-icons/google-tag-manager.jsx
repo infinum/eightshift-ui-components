@@ -1,7 +1,31 @@
 export const googleTagManager = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<circle cx='9.99985' cy='16.7175' r='2.25' transform='rotate(-45 10 16.718)' fill='currentColor' fillOpacity='0.3' stroke='currentColor' />
-			<path d='M8.586 18.485 1.16 11.061a1.5 1.5 0 0 1 0-2.122l7.25-7.248m0 0a2.25 2.25 0 0 1 3.182 0L18.84 8.94a1.5 1.5 0 0 1 0 2.122l-7.071 7.07m-3.36-16.44a2.25 2.25 0 0 0 0 3.182l4.807 4.807a.452.452 0 0 1 0 .64L10 13.536m1.414 1.414-4.596-4.596a.5.5 0 0 1 0-.708L10 6.464' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-			<path d='M7.879 4.343 10 6.464 6.465 10l4.242 4.243-2.475 1.06-.707 2.122-6.717-6.718V9.293l6.717-6.718.354 1.768Z' fill='currentColor' fillOpacity='0.12' />
-		</svg>
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<circle
+			cx='9.99985'
+			cy='16.7175'
+			r='2.25'
+			transform='rotate(-45 10 16.718)'
+			fill='currentColor'
+			fillOpacity='0.3'
+			stroke='currentColor'
+		/>
+		<path
+			d='M8.586 18.485 1.16 11.061a1.5 1.5 0 0 1 0-2.122l7.25-7.248m0 0a2.25 2.25 0 0 1 3.182 0L18.84 8.94a1.5 1.5 0 0 1 0 2.122l-7.071 7.07m-3.36-16.44a2.25 2.25 0 0 0 0 3.182l4.807 4.807a.452.452 0 0 1 0 .64L10 13.536m1.414 1.414-4.596-4.596a.5.5 0 0 1 0-.708L10 6.464'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			d='M7.879 4.343 10 6.464 6.465 10l4.242 4.243-2.475 1.06-.707 2.122-6.717-6.718V9.293l6.717-6.718.354 1.768Z'
+			fill='currentColor'
+			fillOpacity='0.12'
+		/>
+	</svg>
 );

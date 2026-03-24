@@ -1,7 +1,33 @@
 export const help = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<circle cx='10' cy='10' r='9' stroke='currentColor' strokeOpacity='0.3' fill='none' />
-			<circle cx='10' cy='14.75' r='0.5' fill='currentColor' stroke='currentColor' strokeWidth='0.5' />
-			<path d='M7.5 7.474c.114-.866 1.317-2.599 3.533-1.737 1.883.732 1.256 3.029.288 4.112-1.056 1.181-1.467 1.42-1.381 2.654' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<circle
+			cx='10'
+			cy='10'
+			r='9'
+			stroke='currentColor'
+			strokeOpacity='0.3'
+			fill='none'
+		/>
+		<circle
+			cx='10'
+			cy='14.75'
+			r='0.5'
+			fill='currentColor'
+			stroke='currentColor'
+			strokeWidth='0.5'
+		/>
+		<path
+			d='M7.5 7.474c.114-.866 1.317-2.599 3.533-1.737 1.883.732 1.256 3.029.288 4.112-1.056 1.181-1.467 1.42-1.381 2.654'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+	</svg>
+);

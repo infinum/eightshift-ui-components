@@ -1,7 +1,37 @@
 export const wrapper = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<rect x='1' y='1' width='18' height='18' rx='2.75' stroke='currentColor' fill='none' />
-			<rect x='3' y='3' width='14' height='14' rx='1' stroke='currentColor' strokeOpacity='0.5' strokeLinejoin='round' fill='none' />
-			<path d='m7 8-2 2m0 0 2 2m-2-2h3.25M13 8l2 2m0 0-2 2m2-2h-3.25' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<rect
+			x='1'
+			y='1'
+			width='18'
+			height='18'
+			rx='2.75'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<rect
+			x='3'
+			y='3'
+			width='14'
+			height='14'
+			rx='1'
+			stroke='currentColor'
+			strokeOpacity='0.5'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			d='m7 8-2 2m0 0 2 2m-2-2h3.25M13 8l2 2m0 0-2 2m2-2h-3.25'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+	</svg>
+);

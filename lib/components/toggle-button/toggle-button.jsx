@@ -331,16 +331,19 @@ export const ToggleButton = (props) => {
 			isSelected={selected}
 			onChange={onChange}
 			isDisabled={disabled}
-			className={clsx(componentClasses({
-				disabled: disabled,
-				selected: selected,
-				hasIcon: Boolean(icon),
-				iconOnly: Boolean(icon && !children),
-				iconWithLabel: Boolean(icon && children),
-				flat: Boolean(flat),
-				size: size,
-				type: type,
-			}), className)}
+			className={clsx(
+				componentClasses({
+					disabled: disabled,
+					selected: selected,
+					hasIcon: Boolean(icon),
+					iconOnly: Boolean(icon && !children),
+					iconWithLabel: Boolean(icon && children),
+					flat: Boolean(flat),
+					size: size,
+					type: type,
+				}),
+				className,
+			)}
 			{...other}
 		>
 			{icon}

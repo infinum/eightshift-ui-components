@@ -1,5 +1,14 @@
 export const plusSquareFill = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='M16.5 19a2.5 2.5 0 0 0 2.5-2.5v-13A2.5 2.5 0 0 0 16.5 1h-13A2.5 2.5 0 0 0 1 3.5v13A2.5 2.5 0 0 0 3.5 19h13ZM10 15a.5.5 0 0 1-.5-.5v-4h-4a.5.5 0 0 1 0-1h4v-4a.5.5 0 0 1 1 0v4h4a.5.5 0 0 1 0 1h-4v4a.5.5 0 0 1-.5.5Z' fill='currentColor' />
-		</svg>
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M16.5 19a2.5 2.5 0 0 0 2.5-2.5v-13A2.5 2.5 0 0 0 16.5 1h-13A2.5 2.5 0 0 0 1 3.5v13A2.5 2.5 0 0 0 3.5 19h13ZM10 15a.5.5 0 0 1-.5-.5v-4h-4a.5.5 0 0 1 0-1h4v-4a.5.5 0 0 1 1 0v4h4a.5.5 0 0 1 0 1h-4v4a.5.5 0 0 1-.5.5Z'
+			fill='currentColor'
+		/>
+	</svg>
 );

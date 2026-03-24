@@ -1,9 +1,55 @@
 export const border = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='M4.5 2.5h11m2 2v11m-2 2h-11m-2-2v-11' stroke='currentColor' fill='none' />
-			<rect x='1' y='1' width='3' height='3' rx='1' fill='currentColor' fillOpacity='0.3' stroke='currentColor' />
-			<rect x='16' y='1' width='3' height='3' rx='1' fill='currentColor' fillOpacity='0.3' stroke='currentColor' />
-			<rect x='1' y='16' width='3' height='3' rx='1' fill='currentColor' fillOpacity='0.3' stroke='currentColor' />
-			<rect x='16' y='16' width='3' height='3' rx='1' fill='currentColor' fillOpacity='0.3' stroke='currentColor' />
-		</svg>
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M4.5 2.5h11m2 2v11m-2 2h-11m-2-2v-11'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<rect
+			x='1'
+			y='1'
+			width='3'
+			height='3'
+			rx='1'
+			fill='currentColor'
+			fillOpacity='0.3'
+			stroke='currentColor'
+		/>
+		<rect
+			x='16'
+			y='1'
+			width='3'
+			height='3'
+			rx='1'
+			fill='currentColor'
+			fillOpacity='0.3'
+			stroke='currentColor'
+		/>
+		<rect
+			x='1'
+			y='16'
+			width='3'
+			height='3'
+			rx='1'
+			fill='currentColor'
+			fillOpacity='0.3'
+			stroke='currentColor'
+		/>
+		<rect
+			x='16'
+			y='16'
+			width='3'
+			height='3'
+			rx='1'
+			fill='currentColor'
+			fillOpacity='0.3'
+			stroke='currentColor'
+		/>
+	</svg>
 );

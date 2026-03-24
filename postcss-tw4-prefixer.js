@@ -7,7 +7,7 @@ export default function tw4Prefixer() {
 
 		transform(code, id) {
 			if (!id.endsWith('.css')) {
-				return;
+				return null;
 			}
 
 			return {

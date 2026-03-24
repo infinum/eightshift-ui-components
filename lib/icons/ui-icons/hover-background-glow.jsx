@@ -1,16 +1,58 @@
 export const hoverBackgroundGlow = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='m12 15.903.033-8.671c0-.208.271-.31.427-.161l6.469 6.216c.158.152.035.405-.191.394l-2.653-.13 1.992 4.608c.052.119-.01.254-.137.302l-1.383.522a.255.255 0 0 1-.323-.128l-1.993-4.609-1.81 1.817c-.155.154-.432.052-.431-.16Z' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-			<path d='M16.5 8.5V3A1.5 1.5 0 0 0 15 1.5H3A1.5 1.5 0 0 0 1.5 3v12A1.5 1.5 0 0 0 3 16.5h7.5' stroke='currentColor' strokeLinecap='round' fill='none' />
-			<g filter='url(#796755cf-6087-4f90-9a30-7138bc95e504)' opacity='0.5'>
-				<path d='M13.253 2.16A5 5 0 0 1 16.33 4.5v5a4.996 4.996 0 0 1-.575.802L12 7l.014 5a5 5 0 1 1 1.24-9.84Z' fill='currentColor' fillOpacity='0.5' />
-			</g>
-			<defs>
-				<filter id='796755cf-6087-4f90-9a30-7138bc95e504' x='5' y='0' width='13.3301' height='14' filterUnits='userSpaceOnUse' colorInterpolationFilters='sRGB'>
-					<feFlood floodOpacity='0' result='BackgroundImageFix' />
-					<feBlend in='SourceGraphic' in2='BackgroundImageFix' result='shape' />
-					<feGaussianBlur stdDeviation='1' result='effect1_foregroundBlur_1424_3' />
-				</filter>
-			</defs>
-		</svg>
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='m12 15.903.033-8.671c0-.208.271-.31.427-.161l6.469 6.216c.158.152.035.405-.191.394l-2.653-.13 1.992 4.608c.052.119-.01.254-.137.302l-1.383.522a.255.255 0 0 1-.323-.128l-1.993-4.609-1.81 1.817c-.155.154-.432.052-.431-.16Z'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			d='M16.5 8.5V3A1.5 1.5 0 0 0 15 1.5H3A1.5 1.5 0 0 0 1.5 3v12A1.5 1.5 0 0 0 3 16.5h7.5'
+			stroke='currentColor'
+			strokeLinecap='round'
+			fill='none'
+		/>
+		<g
+			filter='url(#796755cf-6087-4f90-9a30-7138bc95e504)'
+			opacity='0.5'
+		>
+			<path
+				d='M13.253 2.16A5 5 0 0 1 16.33 4.5v5a4.996 4.996 0 0 1-.575.802L12 7l.014 5a5 5 0 1 1 1.24-9.84Z'
+				fill='currentColor'
+				fillOpacity='0.5'
+			/>
+		</g>
+		<defs>
+			<filter
+				id='796755cf-6087-4f90-9a30-7138bc95e504'
+				x='5'
+				y='0'
+				width='13.3301'
+				height='14'
+				filterUnits='userSpaceOnUse'
+				colorInterpolationFilters='sRGB'
+			>
+				<feFlood
+					floodOpacity='0'
+					result='BackgroundImageFix'
+				/>
+				<feBlend
+					in='SourceGraphic'
+					in2='BackgroundImageFix'
+					result='shape'
+				/>
+				<feGaussianBlur
+					stdDeviation='1'
+					result='effect1_foregroundBlur_1424_3'
+				/>
+			</filter>
+		</defs>
+	</svg>
 );

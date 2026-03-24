@@ -1,8 +1,48 @@
 export const form = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<rect x='1' y='1' width='18' height='18' rx='1.5' stroke='currentColor' strokeOpacity='0.3' fill='none' />
-			<rect x='3' y='3' width='10' height='3' rx='1' stroke='currentColor' strokeLinejoin='round' fill='none' />
-			<rect x='3' y='8.5' width='10' height='3' rx='1' stroke='currentColor' strokeLinejoin='round' fill='none' />
-			<rect x='9' y='14.5' width='8' height='2.5' rx='1' fill='currentColor' />
-		</svg>
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<rect
+			x='1'
+			y='1'
+			width='18'
+			height='18'
+			rx='1.5'
+			stroke='currentColor'
+			strokeOpacity='0.3'
+			fill='none'
+		/>
+		<rect
+			x='3'
+			y='3'
+			width='10'
+			height='3'
+			rx='1'
+			stroke='currentColor'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<rect
+			x='3'
+			y='8.5'
+			width='10'
+			height='3'
+			rx='1'
+			stroke='currentColor'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<rect
+			x='9'
+			y='14.5'
+			width='8'
+			height='2.5'
+			rx='1'
+			fill='currentColor'
+		/>
+	</svg>
 );

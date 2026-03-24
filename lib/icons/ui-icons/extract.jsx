@@ -1,6 +1,23 @@
 export const extract = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='M7.5 13h-2A1.5 1.5 0 0 1 4 11.5v-9A1.5 1.5 0 0 1 5.5 1h9A1.5 1.5 0 0 1 16 2.5v9a1.5 1.5 0 0 1-1.5 1.5h-2' stroke='currentColor' strokeLinecap='round' fill='none' />
-			<path d='M10 10v9m0 0 2.5-2.5M10 19l-2.5-2.5' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-		</svg>
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M7.5 13h-2A1.5 1.5 0 0 1 4 11.5v-9A1.5 1.5 0 0 1 5.5 1h9A1.5 1.5 0 0 1 16 2.5v9a1.5 1.5 0 0 1-1.5 1.5h-2'
+			stroke='currentColor'
+			strokeLinecap='round'
+			fill='none'
+		/>
+		<path
+			d='M10 10v9m0 0 2.5-2.5M10 19l-2.5-2.5'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+	</svg>
 );

@@ -1,8 +1,44 @@
 export const fieldPlaceholder = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='M17.5 6.5h-15A1.5 1.5 0 0 0 1 8v4a1.5 1.5 0 0 0 1.5 1.5h15A1.5 1.5 0 0 0 19 12V8a1.5 1.5 0 0 0-1.5-1.5Z' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-			<rect x='2.5' y='8' width='2.5' height='4' rx='0.5' fill='currentColor' fillOpacity='0.5' />
-			<rect x='5.5' y='8' width='2.5' height='4' rx='0.5' fill='currentColor' fillOpacity='0.5' />
-			<rect x='8.5' y='8' width='2.5' height='4' rx='0.5' fill='currentColor' fillOpacity='0.5' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M17.5 6.5h-15A1.5 1.5 0 0 0 1 8v4a1.5 1.5 0 0 0 1.5 1.5h15A1.5 1.5 0 0 0 19 12V8a1.5 1.5 0 0 0-1.5-1.5Z'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<rect
+			x='2.5'
+			y='8'
+			width='2.5'
+			height='4'
+			rx='0.5'
+			fill='currentColor'
+			fillOpacity='0.5'
+		/>
+		<rect
+			x='5.5'
+			y='8'
+			width='2.5'
+			height='4'
+			rx='0.5'
+			fill='currentColor'
+			fillOpacity='0.5'
+		/>
+		<rect
+			x='8.5'
+			y='8'
+			width='2.5'
+			height='4'
+			rx='0.5'
+			fill='currentColor'
+			fillOpacity='0.5'
+		/>
+	</svg>
+);

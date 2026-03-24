@@ -226,7 +226,8 @@ const tabClasses = cva(
 				class: 'es:selected:shadow-xs es:selected:shadow-black/5',
 			},
 		],
-	});
+	},
+);
 
 const tabIconClasses = cva('es:transition es:duration-200 es:ease-spring-bouncy', {
 	variants: {},
@@ -529,7 +530,10 @@ export const Tab = (props) => {
 		<ReactAriaTab
 			{...other}
 			isDisabled={disabled || invisible}
-			className={clsx(tabClasses({ vertical: Boolean(isParentVertical), type, flat: Boolean(flat), invisible: Boolean(invisible), iconWithLabel: Boolean(icon && children) }), className)}
+			className={clsx(
+				tabClasses({ vertical: Boolean(isParentVertical), type, flat: Boolean(flat), invisible: Boolean(invisible), iconWithLabel: Boolean(icon && children) }),
+				className,
+			)}
 		>
 			{icon && <div className={tabIconClasses({ vertical: Boolean(isParentVertical), type })}>{icon}</div>}
 
@@ -544,7 +548,9 @@ export const Tab = (props) => {
 
 				{!subtitle && (label ?? children)}
 
-				{badge && <span className={clsx(tabBadgeClasses({ vertical: Boolean(isParentVertical), type, simple: !isValidElement(badge), icon: Boolean(icon) }), badgeClassName)}>{badge}</span>}
+				{badge && (
+					<span className={clsx(tabBadgeClasses({ vertical: Boolean(isParentVertical), type, simple: !isValidElement(badge), icon: Boolean(icon) }), badgeClassName)}>{badge}</span>
+				)}
 			</div>
 		</ReactAriaTab>
 	);

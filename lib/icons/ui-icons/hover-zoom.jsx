@@ -1,6 +1,23 @@
 export const hoverZoom = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='M7.955 5.307H4.477m1.739 1.738V3.568' stroke='currentColor' strokeLinecap='round' fill='none' />
-			<path d='M4.477 8.973A4.057 4.057 0 1 0 7.954 1.64a4.057 4.057 0 0 0-3.477 7.333Zm0 0L1 14m11 1.903.033-8.671c0-.208.271-.31.427-.161l6.469 6.216c.158.152.035.405-.191.394l-2.653-.13 1.992 4.608c.052.119-.01.254-.137.302l-1.383.522a.255.255 0 0 1-.323-.128l-1.993-4.609-1.81 1.817c-.155.154-.432.052-.431-.16Z' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M7.955 5.307H4.477m1.739 1.738V3.568'
+			stroke='currentColor'
+			strokeLinecap='round'
+			fill='none'
+		/>
+		<path
+			d='M4.477 8.973A4.057 4.057 0 1 0 7.954 1.64a4.057 4.057 0 0 0-3.477 7.333Zm0 0L1 14m11 1.903.033-8.671c0-.208.271-.31.427-.161l6.469 6.216c.158.152.035.405-.191.394l-2.653-.13 1.992 4.608c.052.119-.01.254-.137.302l-1.383.522a.255.255 0 0 1-.323-.128l-1.993-4.609-1.81 1.817c-.155.154-.432.052-.431-.16Z'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+	</svg>
+);

@@ -1,7 +1,27 @@
 export const doorOut = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='M14 10.5V3a1.5 1.5 0 0 0-1.5-1.5h-7A1.5 1.5 0 0 0 4 3v13a1.5 1.5 0 0 0 1.5 1.5H8' stroke='currentColor' fill='none' />
-			<path clipRule='evenodd' fillRule='evenodd' d='M17 18a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 9 18v-5a1.5 1.5 0 0 1 1.5-1.5h5A1.5 1.5 0 0 1 17 13v5Zm-1.646-2.146a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708.708L13.793 15H11a.5.5 0 0 0 0 1h2.793l-1.147 1.146a.5.5 0 0 0 .708.708l2-2Z' fill='currentColor' />
-			<circle cx='6.5' cy='9.5' r='1' fill='currentColor' />
-		</svg>
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M14 10.5V3a1.5 1.5 0 0 0-1.5-1.5h-7A1.5 1.5 0 0 0 4 3v13a1.5 1.5 0 0 0 1.5 1.5H8'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<path
+			clipRule='evenodd'
+			fillRule='evenodd'
+			d='M17 18a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 9 18v-5a1.5 1.5 0 0 1 1.5-1.5h5A1.5 1.5 0 0 1 17 13v5Zm-1.646-2.146a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708.708L13.793 15H11a.5.5 0 0 0 0 1h2.793l-1.147 1.146a.5.5 0 0 0 .708.708l2-2Z'
+			fill='currentColor'
+		/>
+		<circle
+			cx='6.5'
+			cy='9.5'
+			r='1'
+			fill='currentColor'
+		/>
+	</svg>
 );

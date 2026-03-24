@@ -1,5 +1,17 @@
 export const colorPickerText = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='M13.24 9.028 14.63 13m-1.39-3.972-2.517-7.193a.5.5 0 0 0-.472-.335H9.75a.5.5 0 0 0-.472.335L6.76 9.028m6.48 0H6.76m0 0L5.37 13' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M13.24 9.028 14.63 13m-1.39-3.972-2.517-7.193a.5.5 0 0 0-.472-.335H9.75a.5.5 0 0 0-.472.335L6.76 9.028m6.48 0H6.76m0 0L5.37 13'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+	</svg>
+);

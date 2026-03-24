@@ -1,7 +1,26 @@
 export const alert = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path fill='currentColor' fillOpacity='0.3' d='M8.5 16.5h3v2h-3z' />
-			<path d='M11.765 16.486h4.183a1 1 0 0 0 .91-1.414l-.675-1.487a5 5 0 0 1-.448-2.067V8.943C15.735 5.66 13.168 3 10 3S4.265 5.66 4.265 8.943v2.575a5 5 0 0 1-.448 2.067l-.675 1.487a1 1 0 0 0 .91 1.414h4.183m3.53 0v.685c0 1.01-.79 1.829-1.765 1.829-.975 0-1.765-.819-1.765-1.829v-.685m3.53 0h-3.53' stroke='currentColor' strokeLinejoin='round' fill='none' />
-			<path d='M8.75 3v-.75a1.25 1.25 0 1 1 2.5 0V3' stroke='currentColor' fill='none' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			fill='currentColor'
+			fillOpacity='0.3'
+			d='M8.5 16.5h3v2h-3z'
+		/>
+		<path
+			d='M11.765 16.486h4.183a1 1 0 0 0 .91-1.414l-.675-1.487a5 5 0 0 1-.448-2.067V8.943C15.735 5.66 13.168 3 10 3S4.265 5.66 4.265 8.943v2.575a5 5 0 0 1-.448 2.067l-.675 1.487a1 1 0 0 0 .91 1.414h4.183m3.53 0v.685c0 1.01-.79 1.829-1.765 1.829-.975 0-1.765-.819-1.765-1.829v-.685m3.53 0h-3.53'
+			stroke='currentColor'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			d='M8.75 3v-.75a1.25 1.25 0 1 1 2.5 0V3'
+			stroke='currentColor'
+			fill='none'
+		/>
+	</svg>
+);

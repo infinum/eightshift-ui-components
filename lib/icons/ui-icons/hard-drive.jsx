@@ -1,7 +1,30 @@
 export const hardDrive = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='M1 10h18M1 10v4.5A1.5 1.5 0 0 0 2.5 16h15a1.5 1.5 0 0 0 1.5-1.5V10M1 10l2.13-5.538a1.5 1.5 0 0 1 1.4-.962h11.362a1.5 1.5 0 0 1 1.434 1.059L19 10' stroke='currentColor' strokeLinejoin='round' fill='none' />
-			<path d='M13 13h3' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-			<circle cx='4.25' cy='13' r='0.75' fill='currentColor' fillOpacity='0.5' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M1 10h18M1 10v4.5A1.5 1.5 0 0 0 2.5 16h15a1.5 1.5 0 0 0 1.5-1.5V10M1 10l2.13-5.538a1.5 1.5 0 0 1 1.4-.962h11.362a1.5 1.5 0 0 1 1.434 1.059L19 10'
+			stroke='currentColor'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			d='M13 13h3'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<circle
+			cx='4.25'
+			cy='13'
+			r='0.75'
+			fill='currentColor'
+			fillOpacity='0.5'
+		/>
+	</svg>
+);

@@ -7,7 +7,8 @@ const outputPath = path.resolve('lib/components/smart-image/worker-inline.js');
 
 const code = JSON.stringify(readFileSync(workerPath, 'utf8'));
 
-const out = `// AUTO-GENERATED FILE. DO NOT EDIT.
+const out = `/* eslint-disable */
+// AUTO-GENERATED FILE. DO NOT EDIT.
 // Run the build-worker script to update.
 export default ${code};
 `;

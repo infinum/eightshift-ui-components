@@ -689,7 +689,7 @@ function App() {
 				/>
 			</TriggeredPopover>
 
-			<div className='es:mx-auto es:flex es:w-90 es:flex-col es:items-center es:justify-center es:gap-2.5 es:p-10 es:empty:hidden'></div>
+			<div className='es:mx-auto es:flex es:w-90 es:flex-col es:items-center es:justify-center es:gap-2.5 es:p-10 es:empty:hidden' />
 
 			<Tabs
 				vertical
@@ -3593,7 +3593,7 @@ function App() {
 
 					<ColorSwatch
 						colorName='Custom gradient'
-						className='es:bg-gradient-to-r es:from-accent-100 es:to-accent-500'
+						className='es:bg-linear-to-r es:from-accent-100 es:to-accent-500'
 						customGradient
 					/>
 				</TabPanel>
@@ -4161,7 +4161,7 @@ function App() {
 						}}
 					</DraggableList>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-4xl es:max-h-[85vh] es:h-fit es:overflow-y-auto es:max-w-[90vw] es:space-y-4 es:p-5! es:bg-[#f1f1f1]'>
+				<TabPanel className='es:rounded-3xl es:w-4xl es:max-h-[85vh] es:h-fit es:overflow-y-auto es:max-w-[90vw] es:space-y-4 es:p-5! es:bg-[#f1f1f1]'>
 					<OptionsPanelHeader
 						title='Global settings'
 						actions={
@@ -4834,12 +4834,8 @@ function App() {
 								key={iconName}
 								className='es:flex es:items-center es:gap-2.5 es:rounded-xl es:border es:border-secondary-200 es:bg-secondary-50 es:px-3 es:py-2'
 							>
-								<div className='es:flex es:size-8 es:shrink-0 es:items-center es:justify-center es:rounded-lg es:bg-white es:text-secondary-900 es:icon:size-4.5'>
-									{icon}
-								</div>
-								<div className='es:min-w-0 es:font-mono es:text-11 es:leading-tight es:text-secondary-700'>
-									{iconName}
-								</div>
+								<div className='es:flex es:size-8 es:shrink-0 es:items-center es:justify-center es:rounded-lg es:bg-white es:text-secondary-900 es:icon:size-4.5'>{icon}</div>
+								<div className='es:min-w-0 es:font-mono es:text-11 es:leading-tight es:text-secondary-700'>{iconName}</div>
 							</div>
 						))}
 					</div>

@@ -1,9 +1,48 @@
 export const gyroscope = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='M11 3.5v-1A1.5 1.5 0 0 0 9.5 1h-7A1.5 1.5 0 0 0 1 2.5v15A1.5 1.5 0 0 0 2.5 19h7a1.5 1.5 0 0 0 1.5-1.5V17' stroke='currentColor' strokeLinecap='round' fill='none' />
-			<path d='M4.5 17.5h3' stroke='currentColor' strokeOpacity='0.12' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-			<circle cx='6' cy='2.75' r='0.5' fill='currentColor' />
-			<ellipse cx='12.25' cy='9.29616' rx='7' ry='2.5' transform='rotate(15 12.25 9.296)' stroke='currentColor' fill='none' />
-			<ellipse cx='12.25' cy='9.29616' rx='6.5' ry='2' transform='rotate(-75 12.25 9.296)' stroke='currentColor' fill='none' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M11 3.5v-1A1.5 1.5 0 0 0 9.5 1h-7A1.5 1.5 0 0 0 1 2.5v15A1.5 1.5 0 0 0 2.5 19h7a1.5 1.5 0 0 0 1.5-1.5V17'
+			stroke='currentColor'
+			strokeLinecap='round'
+			fill='none'
+		/>
+		<path
+			d='M4.5 17.5h3'
+			stroke='currentColor'
+			strokeOpacity='0.12'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<circle
+			cx='6'
+			cy='2.75'
+			r='0.5'
+			fill='currentColor'
+		/>
+		<ellipse
+			cx='12.25'
+			cy='9.29616'
+			rx='7'
+			ry='2.5'
+			transform='rotate(15 12.25 9.296)'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<ellipse
+			cx='12.25'
+			cy='9.29616'
+			rx='6.5'
+			ry='2'
+			transform='rotate(-75 12.25 9.296)'
+			stroke='currentColor'
+			fill='none'
+		/>
+	</svg>
+);

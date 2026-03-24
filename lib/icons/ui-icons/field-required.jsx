@@ -1,7 +1,32 @@
 export const fieldRequired = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 20' width='21' height='20' fill='none'>
-			<path d='M19 10V7a1.5 1.5 0 0 0-1.5-1.5h-15A1.5 1.5 0 0 0 1 7v4a1.5 1.5 0 0 0 1.5 1.5h9' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-			<path d='M2.75 7.25h.75m.75 0H3.5m0 0v3.5m0 0h-.75m.75 0h.75' stroke='currentColor' strokeOpacity='0.5' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-			<path d='m13.952 11.952 4.596 4.596m-4.596 0 4.596-4.596M16.25 11v6.5M13 14.25h6.5' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' fill='none' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 21 20'
+		width='21'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M19 10V7a1.5 1.5 0 0 0-1.5-1.5h-15A1.5 1.5 0 0 0 1 7v4a1.5 1.5 0 0 0 1.5 1.5h9'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			d='M2.75 7.25h.75m.75 0H3.5m0 0v3.5m0 0h-.75m.75 0h.75'
+			stroke='currentColor'
+			strokeOpacity='0.5'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			d='m13.952 11.952 4.596 4.596m-4.596 0 4.596-4.596M16.25 11v6.5M13 14.25h6.5'
+			stroke='currentColor'
+			strokeWidth='1.5'
+			strokeLinecap='round'
+			fill='none'
+		/>
+	</svg>
+);

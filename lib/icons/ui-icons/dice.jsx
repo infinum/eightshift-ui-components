@@ -1,10 +1,54 @@
 export const dice = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<rect x='1' y='1' width='18' height='18' rx='3' stroke='currentColor' fill='none' />
-			<circle cx='5.5' cy='5.5' r='1.5' stroke='currentColor' fill='none' />
-			<circle cx='5.5' cy='14.5' r='1.5' stroke='currentColor' fill='none' />
-			<circle cx='14.5' cy='5.5' r='1.5' stroke='currentColor' fill='none' />
-			<circle cx='14.5' cy='14.5' r='1.5' stroke='currentColor' fill='none' />
-			<circle cx='10' cy='10' r='1.5' stroke='currentColor' fill='none' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<rect
+			x='1'
+			y='1'
+			width='18'
+			height='18'
+			rx='3'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<circle
+			cx='5.5'
+			cy='5.5'
+			r='1.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<circle
+			cx='5.5'
+			cy='14.5'
+			r='1.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<circle
+			cx='14.5'
+			cy='5.5'
+			r='1.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<circle
+			cx='14.5'
+			cy='14.5'
+			r='1.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<circle
+			cx='10'
+			cy='10'
+			r='1.5'
+			stroke='currentColor'
+			fill='none'
+		/>
+	</svg>
+);

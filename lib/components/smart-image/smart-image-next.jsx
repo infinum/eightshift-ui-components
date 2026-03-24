@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
 import { cloneElement, useState, useRef, useEffect } from 'react';
@@ -61,24 +60,24 @@ async function urlExists(url) {
  * @component
  * @param {ImageProps} props - Component props.
  *
- * @returns {JSX.Element} The __SmartImageNext component.
+ * @returns {JSX.Element} The SmartImageNext component.
  *
  * @example
- * <__SmartImageNext src='https://picsum.photos/600/400' />
+ * <SmartImageNext src='https://picsum.photos/600/400' />
  *
  * @example
- * <__SmartImageNext src='https://picsum.photos/600/400'>
+ * <SmartImageNext src='https://picsum.photos/600/400'>
  *     {({ image, dominantColors, isDark }) => (
  *         <div style={{ backgroundColor: dominantColors[0].color }}>
  *             {image}
  *             <p style={{ color: isDark ? '#000000' : '#FFFFFF' }}>Lorem ipsum</p>
  *         </div>
  *     )}
- * </__SmartImageNext>
+ * </SmartImageNext>
  *
  * @preserve
  */
-export const __SmartImageNext = (props) => {
+const SmartImageNext = (props) => {
 	const { onAnalysisComplete, colorCount = 3, similarityThreshold = 10 } = props;
 
 	const { imageAnalysisSettings, errorClassName, processingClassName = 'es:opacity-0 es:fixed', hidden, renderError, analysisData, children, verbose, ...imageProps } = props;
@@ -99,14 +98,26 @@ export const __SmartImageNext = (props) => {
 	}, []);
 
 	useEffect(() => {
+		let isActive = true;
+		const abortController = new AbortController();
+
 		if (!src) {
-			return;
+			setObjectUrl(null);
+
+			return () => {
+				isActive = false;
+				abortController.abort();
+			};
 		}
 
 		if (analysisData) {
+			setAnalysis(analysisData);
 			setObjectUrl(src);
 
-			return;
+			return () => {
+				isActive = false;
+				abortController.abort();
+			};
 		}
 
 		// Cache results in localstorage.
@@ -118,174 +129,171 @@ export const __SmartImageNext = (props) => {
 			if (cachedAnalysis) {
 				setAnalysis(cachedAnalysis);
 				setObjectUrl(src);
-
-				return;
 			}
 		}
 
-		let isActive = true;
-		const abortController = new AbortController();
-
-		const processImage = async () => {
-			try {
-				const response = await fetch(src, {
-					signal: abortController.signal,
-					mode: 'cors',
-				});
-
-				if (src.includes('uikit')) {
-					console.log('tusam?', src, response);
-				}
-
-				if (!response.ok) {
-					if (verbose) {
-						console.error(`[SmartImageNext]: Failed to fetch (${response.status}) image from ${src}`);
-					}
-				}
-
-				const blob = await response.clone().blob();
-
-				if (blob.size === 0) {
-					if (verbose) {
-						console.error(`[SmartImageNext]: Empty image (${src})`);
-					}
-				}
-
-				// Create Object URL for display
-				const url = URL.createObjectURL(blob);
-
-				if (isActive) {
-					setObjectUrl(url);
-				}
-
-				// --- DECODE STRATEGY ---
-				let imageSource, width, height;
-				const isSVG = blob.type.includes('svg');
-
-				if (isSVG) {
-					// STRATEGY A: SVG (Load into HTML Image)
-					const img = new Image();
-					img.src = url;
-					await new Promise((resolve, reject) => {
-						img.onload = resolve;
-						img.onerror = reject;
+		if (!localStorage?.getItem(cacheKey) || !JSON.parse(localStorage.getItem(cacheKey))) {
+			const processImage = async () => {
+				try {
+					const response = await fetch(src, {
+						signal: abortController.signal,
+						mode: 'cors',
 					});
 
-					// SVGs need a defined size. If 0, default to 500x500 for analysis
-					width = img.width || 500;
-					height = img.height || 500;
-					imageSource = img;
-				} else {
-					// STRATEGY B: Raster (JPG/PNG) - Use ImageBitmap (Faster)
-					try {
-						imageSource = await createImageBitmap(blob);
-						width = imageSource.width;
-						height = imageSource.height;
-					} catch (e) {
-						if (verbose) {
-							console.warn('[SmartImageNext]: createImageBitmap failed, falling back to HTML Image method.', e);
-						}
-
-						// throw new Error('Could not decode image data.');
+					if (src.includes('uikit')) {
+						console.log('tusam?', src, response);
 					}
-				}
 
-				// --- EXTRACT BUFFER ---
-				let buffer, arrayBuffer;
-
-				// Prefer OffscreenCanvas (Workers friendly), fallback to DOM Canvas
-				if (typeof OffscreenCanvas !== 'undefined') {
-					const canvas = new OffscreenCanvas(width, height);
-					const ctx = canvas.getContext('2d', { willReadFrequently: true });
-
-					// Ensure clear canvas for SVGs with transparency
-					ctx.clearRect(0, 0, width, height);
-					ctx.drawImage(imageSource, 0, 0, width, height);
-
-					buffer = ctx.getImageData(0, 0, width, height).data;
-					arrayBuffer = buffer.buffer;
-				} else {
-					const canvas = document.createElement('canvas');
-					canvas.width = width;
-					canvas.height = height;
-					const ctx = canvas.getContext('2d');
-
-					ctx.clearRect(0, 0, width, height);
-					ctx.drawImage(imageSource, 0, 0, width, height);
-
-					buffer = ctx.getImageData(0, 0, width, height).data;
-					arrayBuffer = buffer.buffer;
-				}
-
-				// Cleanup bitmap if we used one
-				if (imageSource.close) {
-					imageSource.close();
-				}
-
-				// --- SEND TO WORKER ---
-				if (workerRef.current) {
-					workerRef.current.onmessage = (e) => {
-						if (!isActive) {
-							return;
+					if (!response.ok) {
+						if (verbose) {
+							console.error(`[SmartImageNext]: Failed to fetch (${response.status}) image from ${src}`);
 						}
+					}
 
-						setAnalysis(e.data);
+					const blob = await response.clone().blob();
 
-						localStorage?.setItem(cacheKey, JSON.stringify(e.data));
-
-						if (onAnalysisComplete) {
-							onAnalysisComplete(e.data);
+					if (blob.size === 0) {
+						if (verbose) {
+							console.error(`[SmartImageNext]: Empty image (${src})`);
 						}
-					};
+					}
 
-					try {
-						workerRef.current.postMessage(
-							{
+					// Create Object URL for display
+					const url = URL.createObjectURL(blob);
+
+					if (isActive) {
+						setObjectUrl(url);
+					}
+
+					// --- DECODE STRATEGY ---
+					let imageSource, width, height;
+					const isSVG = blob.type.includes('svg');
+
+					if (isSVG) {
+						// STRATEGY A: SVG (Load into HTML Image)
+						const img = new Image();
+						img.src = url;
+						await new Promise((resolve, reject) => {
+							img.onload = resolve;
+							img.onerror = reject;
+						});
+
+						// SVGs need a defined size. If 0, default to 500x500 for analysis
+						width = img.width || 500;
+						height = img.height || 500;
+						imageSource = img;
+					} else {
+						// STRATEGY B: Raster (JPG/PNG) - Use ImageBitmap (Faster)
+						try {
+							imageSource = await createImageBitmap(blob);
+							width = imageSource.width;
+							height = imageSource.height;
+						} catch (e) {
+							if (verbose) {
+								console.warn('[SmartImageNext]: createImageBitmap failed, falling back to HTML Image method.', e);
+							}
+
+							// throw new Error('Could not decode image data.');
+						}
+					}
+
+					// --- EXTRACT BUFFER ---
+					let buffer, arrayBuffer;
+
+					// Prefer OffscreenCanvas (Workers friendly), fallback to DOM Canvas
+					if (typeof OffscreenCanvas !== 'undefined') {
+						const canvas = new OffscreenCanvas(width, height);
+						const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+						// Ensure clear canvas for SVGs with transparency
+						ctx.clearRect(0, 0, width, height);
+						ctx.drawImage(imageSource, 0, 0, width, height);
+
+						buffer = ctx.getImageData(0, 0, width, height).data;
+						arrayBuffer = buffer.buffer;
+					} else {
+						const canvas = document.createElement('canvas');
+						canvas.width = width;
+						canvas.height = height;
+						const ctx = canvas.getContext('2d');
+
+						ctx.clearRect(0, 0, width, height);
+						ctx.drawImage(imageSource, 0, 0, width, height);
+
+						buffer = ctx.getImageData(0, 0, width, height).data;
+						arrayBuffer = buffer.buffer;
+					}
+
+					// Cleanup bitmap if we used one
+					if (imageSource.close) {
+						imageSource.close();
+					}
+
+					// --- SEND TO WORKER ---
+					if (workerRef.current) {
+						workerRef.current.onmessage = (e) => {
+							if (!isActive) {
+								return;
+							}
+
+							setAnalysis(e.data);
+
+							localStorage?.setItem(cacheKey, JSON.stringify(e.data));
+
+							if (onAnalysisComplete) {
+								onAnalysisComplete(e.data);
+							}
+						};
+
+						try {
+							workerRef.current.postMessage(
+								{
+									buffer,
+									width,
+									height,
+									config: {
+										// TODO
+									},
+								},
+								[arrayBuffer],
+							);
+						} catch (msgErr) {
+							// Fallback if transfer fails
+							workerRef.current.postMessage({
 								buffer,
 								width,
 								height,
-								config: {
-									// TODO
-								},
-							},
-							[arrayBuffer],
-						);
-					} catch (msgErr) {
-						// Fallback if transfer fails
-						workerRef.current.postMessage({
-							buffer,
-							width,
-							height,
-							config: { maxColors: colorCount, threshold: similarityThreshold },
-						});
+								config: { maxColors: colorCount, threshold: similarityThreshold },
+							});
+						}
+					}
+				} catch (err) {
+					if (isActive) {
+						if (verbose) {
+							console.error('[SmartImageNext] Error:', err);
+						}
+
+						const exists = await urlExists(src);
+
+						if (exists) {
+							setError(err.message);
+						} else {
+							setError('failedToFetch');
+						}
+
+						setObjectUrl(null);
 					}
 				}
-			} catch (err) {
-				if (isActive) {
-					if (verbose) {
-						console.error('[SmartImageNext] Error:', err);
-					}
+			};
 
-					const exists = await urlExists(src);
-
-					if (exists) {
-						setError(err.message);
-					} else {
-						setError('failedToFetch');
-					}
-
-					setObjectUrl(null);
-				}
-			}
-		};
-
-		processImage();
+			processImage();
+		}
 
 		return () => {
 			isActive = false;
 			abortController.abort();
 		};
-	}, [src, colorCount, similarityThreshold]);
+	}, [analysisData, colorCount, onAnalysisComplete, similarityThreshold, src, verbose]);
 
 	const hasAnalysed = Boolean(analysis) && Boolean(objectUrl);
 
@@ -372,3 +380,5 @@ export const __SmartImageNext = (props) => {
 			})
 		: imageElement;
 };
+
+export { SmartImageNext, SmartImageNext as __SmartImageNext };

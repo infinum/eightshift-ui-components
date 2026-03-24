@@ -187,11 +187,12 @@ export const Switch = (props) => {
 		>
 			{children}
 
-			<div
-				className={clsx(outsideClasses({ checked: checked ?? false, disabled: Boolean(disabled), size }), !flat && !disabled && 'es:shadow-xs es:shadow-black/5', className)}
-			>
+			<div className={clsx(outsideClasses({ checked: checked ?? false, disabled: Boolean(disabled), size }), !flat && !disabled && 'es:shadow-xs es:shadow-black/5', className)}>
 				<div
-					className={clsx(thumbClasses({ checked: checked ?? false, disabled: Boolean(disabled), indeterminate: Boolean(isIndeterminate), size }), !flat && !disabled && 'es:shadow-xs es:shadow-black/5')}
+					className={clsx(
+						thumbClasses({ checked: checked ?? false, disabled: Boolean(disabled), indeterminate: Boolean(isIndeterminate), size }),
+						!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
+					)}
 				/>
 			</div>
 		</ReactAriaSwitch>

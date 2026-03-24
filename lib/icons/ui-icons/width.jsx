@@ -1,6 +1,27 @@
 export const width = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<rect x='1' y='2' width='18' height='16' rx='1.5' stroke='currentColor' strokeOpacity='0.5' fill='none' />
-			<path d='m15 8 2 2m0 0-2 2m2-2h-4M5 8l-2 2m0 0 2 2m-2-2h4' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<rect
+			x='1'
+			y='2'
+			width='18'
+			height='16'
+			rx='1.5'
+			stroke='currentColor'
+			strokeOpacity='0.5'
+			fill='none'
+		/>
+		<path
+			d='m15 8 2 2m0 0-2 2m2-2h-4M5 8l-2 2m0 0 2 2m-2-2h4'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+	</svg>
+);

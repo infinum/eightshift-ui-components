@@ -1,8 +1,36 @@
 export const lineBreakOff = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='M19 12.75V3a2 2 0 0 0-2-2H3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9.75' stroke='currentColor' strokeOpacity='0.3' strokeLinecap='round' fill='none' />
-			<path d='M3.5 12H14a1.5 1.5 0 0 0 1.5-1.5V4m-12 8 4-4m-4 4 4 4' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-			<circle cx='16.25' cy='16.25' r='2.75' stroke='currentColor' fill='none' />
-			<path d='m14.417 14.417 3.666 3.666' stroke='currentColor' fill='none' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M19 12.75V3a2 2 0 0 0-2-2H3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9.75'
+			stroke='currentColor'
+			strokeOpacity='0.3'
+			strokeLinecap='round'
+			fill='none'
+		/>
+		<path
+			d='M3.5 12H14a1.5 1.5 0 0 0 1.5-1.5V4m-12 8 4-4m-4 4 4 4'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<circle
+			cx='16.25'
+			cy='16.25'
+			r='2.75'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<path
+			d='m14.417 14.417 3.666 3.666'
+			stroke='currentColor'
+			fill='none'
+		/>
+	</svg>
+);

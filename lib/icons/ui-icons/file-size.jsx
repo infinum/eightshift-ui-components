@@ -1,7 +1,29 @@
 export const fileSize = (
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20' height='20' fill='none'>
-			<path d='M11.5 3v0c.32 0 .627.127.854.354l2.792 2.792c.227.227.354.534.354.854v0m-4-4H7a1.5 1.5 0 0 0-1.5 1.5v10A1.5 1.5 0 0 0 7 16h7a1.5 1.5 0 0 0 1.5-1.5V7m-4-4v3.5a.5.5 0 0 0 .5.5h3.5' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-			<path d='M11.5 7V3l4 4h-4Z' fill='currentColor' fillOpacity='0.5' />
-			<path d='M16 1h2.828m0 0v2.828m0-2.828L16 3.828m-12.172 15H1m0 0V16m0 2.828L3.828 16' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' fill='none' />
-		</svg>
-	);
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M11.5 3v0c.32 0 .627.127.854.354l2.792 2.792c.227.227.354.534.354.854v0m-4-4H7a1.5 1.5 0 0 0-1.5 1.5v10A1.5 1.5 0 0 0 7 16h7a1.5 1.5 0 0 0 1.5-1.5V7m-4-4v3.5a.5.5 0 0 0 .5.5h3.5'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			d='M11.5 7V3l4 4h-4Z'
+			fill='currentColor'
+			fillOpacity='0.5'
+		/>
+		<path
+			d='M16 1h2.828m0 0v2.828m0-2.828L16 3.828m-12.172 15H1m0 0V16m0 2.828L3.828 16'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+	</svg>
+);

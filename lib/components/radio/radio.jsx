@@ -153,7 +153,9 @@ export const RadioButton = (props) => {
 	return (
 		<Radio
 			isDisabled={disabled}
-			className={({ isSelected }) => clsx(radioContainerClass({ design, flat, disabled, checked: isSelected }), className, !flat && design !== 'default' && 'es:shadow-xs es:shadow-black/5')}
+			className={({ isSelected }) =>
+				clsx(radioContainerClass({ design, flat, disabled, checked: isSelected }), className, !flat && design !== 'default' && 'es:shadow-xs es:shadow-black/5')
+			}
 			{...rest}
 		>
 			{({ isSelected }) => (
