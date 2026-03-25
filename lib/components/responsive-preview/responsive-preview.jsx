@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { upperFirst } from '../../utilities';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
-import { icons } from '../../icons/icons';
+import { previewResponsive } from '../../icons/internal';
 import { RichLabel } from '../rich-label/rich-label';
 
 /**
@@ -29,8 +29,6 @@ import { RichLabel } from '../rich-label/rich-label';
  * 	options={options}
  * 	breakpointData={breakpointData} // e.g. from global manifest
  * />
- *
- * @preserve
  */
 export const ResponsivePreview = (props) => {
 	const {
@@ -111,7 +109,7 @@ export const ResponsivePreview = (props) => {
 		<div className='es:flex es:min-w-72 es:flex-col es:items-start es:gap-4 es:p-2 es:text-sm'>
 			<div className='es:flex es:w-full es:items-center es:gap-2.5'>
 				<RichLabel
-					icon={icons.previewResponsive}
+					icon={previewResponsive}
 					label={__('Breakpoint preview', 'eightshift-ui-components')}
 				/>
 

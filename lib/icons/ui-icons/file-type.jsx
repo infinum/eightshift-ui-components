@@ -1,0 +1,39 @@
+export const fileType = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M13.4 1h.083a1.5 1.5 0 0 1 1.055.433l4.017 3.973A1.5 1.5 0 0 1 19 6.472v.066M13.4 1H6.5A1.5 1.5 0 0 0 5 2.5V10m8.4-9v5.038a.5.5 0 0 0 .5.5H19m0 0V17.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 17.5V16'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			d='M13.5 6.5v-6l6 6h-6Z'
+			fill='currentColor'
+			fillOpacity='0.12'
+		/>
+		<rect
+			width='11'
+			height='6'
+			rx='1.5'
+			transform='matrix(1 0 0 -1 1 16)'
+			fill='currentColor'
+			fillOpacity='0.3'
+			stroke='currentColor'
+		/>
+		<path
+			d='M4.5 13H8'
+			stroke='currentColor'
+			strokeLinecap='round'
+			fill='none'
+		/>
+	</svg>
+);

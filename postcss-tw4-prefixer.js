@@ -1,3 +1,5 @@
+import { replaceTwPrefix } from './tw4-prefixer-shared';
+
 export default function tw4Prefixer() {
 	return {
 		name: 'vite-tw4-prefixer',
@@ -5,13 +7,11 @@ export default function tw4Prefixer() {
 
 		transform(code, id) {
 			if (!id.endsWith('.css')) {
-				return;
+				return null;
 			}
 
-			let out = code.replace(/--tw-/g, '--es-uic-tw-').replace(/var\(--tw-/g, 'var(--es-uic-tw-');
-
 			return {
-				code: out,
+				code: replaceTwPrefix(code),
 				map: null,
 			};
 		},

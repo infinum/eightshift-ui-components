@@ -1,0 +1,68 @@
+export const typography = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<rect
+			x='1'
+			y='1'
+			width='3'
+			height='3'
+			rx='1'
+			fill='currentColor'
+			fillOpacity='0.12'
+			stroke='currentColor'
+		/>
+		<rect
+			x='1'
+			y='16'
+			width='3'
+			height='3'
+			rx='1'
+			fill='currentColor'
+			fillOpacity='0.12'
+			stroke='currentColor'
+		/>
+		<rect
+			x='16'
+			y='1'
+			width='3'
+			height='3'
+			rx='1'
+			fill='currentColor'
+			fillOpacity='0.12'
+			stroke='currentColor'
+		/>
+		<rect
+			x='16'
+			y='16'
+			width='3'
+			height='3'
+			rx='1'
+			fill='currentColor'
+			fillOpacity='0.12'
+			stroke='currentColor'
+		/>
+		<path
+			d='M5.5 2.5h9m-12 3v9m15-9v9m-12 3h9'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			strokeDasharray='1.5 2'
+			fill='none'
+		/>
+		<path
+			d='M5.5 7v-.75a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 .75.75V7a.75.75 0 0 1-.75.75h-2.625v6a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-6H6.25A.75.75 0 0 1 5.5 7Z'
+			fill='currentColor'
+			fillOpacity='0.3'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+		/>
+	</svg>
+);

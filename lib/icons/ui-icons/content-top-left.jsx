@@ -1,0 +1,31 @@
+export const contentTopLeft = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<rect
+			x='1'
+			y='2'
+			width='18'
+			height='16'
+			rx='1.5'
+			stroke='currentColor'
+			strokeLinecap='round'
+			fill='none'
+		/>
+		<rect
+			x='2.5'
+			y='3.5'
+			width='9'
+			height='5'
+			rx='0.75'
+			fill='currentColor'
+			fillOpacity='0.5'
+		/>
+	</svg>
+);

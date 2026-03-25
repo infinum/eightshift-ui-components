@@ -7,7 +7,7 @@ import {
 	SubmenuTrigger,
 } from 'react-aria-components';
 import { RichLabel } from '../rich-label/rich-label';
-import { icons } from '../../icons/icons';
+import { chevronRight, dummySpacer, hamburgerMenu, menuItemCheck, menuItemCircle } from '../../icons/internal';
 import { Button } from '../button/button';
 import { Popover } from '../popover/popover';
 import { clsx } from 'clsx';
@@ -17,8 +17,6 @@ import { __ } from '@wordpress/i18n';
 /**
  * @typedef {import('../button/button').ButtonProps} ButtonProps
  * @typedef {import('../popover/popover').PopoverProps} PopoverProps
- *
- * @preserve
  * */
 
 /**
@@ -73,14 +71,13 @@ import { __ } from '@wordpress/i18n';
  * </Menu>
  *
  *
- * @preserve
  */
 export const Menu = (props) => {
 	const {
 		children,
 
 		triggerLabel,
-		triggerIcon = !triggerLabel && icons.hamburgerMenu,
+		triggerIcon = !triggerLabel && hamburgerMenu,
 		triggerProps,
 
 		popoverProps,
@@ -171,8 +168,6 @@ export const Menu = (props) => {
  * @returns {JSX.Element} The MenuSection component.
  *
  * @see {@link Menu} for usage example.
- *
- * @preserve
  */
 export const MenuSection = (props) => {
 	const { children, label } = props;
@@ -192,8 +187,6 @@ export const MenuSection = (props) => {
  * @returns {JSX.Element} The MenuSeparator component.
  *
  * @see {@link Menu} for usage example.
- *
- * @preserve
  */
 export const MenuSeparator = ({ className }) => {
 	return <ReactAriaSeparator className={clsx('es:my-1.5 es:w-fill es:h-px es:bg-surface-500/15 es:mx-1.5 es:rounded-full', className)} />;
@@ -221,8 +214,6 @@ export const MenuSeparator = ({ className }) => {
  * @returns {JSX.Element} The MenuItem component.
  *
  * @see {@link Menu} for usage example.
- *
- * @preserve
  */
 export const MenuItem = (props) => {
 	const {
@@ -250,11 +241,11 @@ export const MenuItem = (props) => {
 	let itemIcon = icon;
 
 	if (checked === true) {
-		itemIcon = icons.menuItemCheck;
+		itemIcon = menuItemCheck;
 	} else if (selected === true) {
-		itemIcon = icons.menuItemCircle;
+		itemIcon = menuItemCircle;
 	} else if (selected === false || checked === false) {
-		itemIcon = icons.dummySpacer;
+		itemIcon = dummySpacer;
 	}
 
 	return (
@@ -311,8 +302,6 @@ export const MenuItem = (props) => {
  * @returns {JSX.Element} The SubMenuItem component.
  *
  * @see {@link Menu} for usage example.
- *
- * @preserve
  */
 export const SubMenuItem = (props) => {
 	const { children, trigger, popoverProps, keepOpen, manualWidth } = props;
@@ -332,7 +321,7 @@ export const SubMenuItem = (props) => {
 	return (
 		<SubmenuTrigger>
 			{cloneElement(trigger, {
-				endIcon: <span className='es:text-surface-500 es:contrast-more:text-current es:icon:size-3! es:icon:stroke-2!'>{icons.chevronRight}</span>,
+				endIcon: <span className='es:text-surface-500 es:contrast-more:text-current es:icon:size-3! es:icon:stroke-2!'>{chevronRight}</span>,
 			})}
 			<Popover
 				aria-label={props['aria-label'] ?? __('Submenu', 'eightshift-ui-components')}
@@ -365,8 +354,6 @@ SubMenuItem.displayName = 'SubMenuItem';
  *
  * @example
  * <MenuSectionHeader>Section</MenuSectionHeader>
- *
- * @preserve
  */
 export const MenuSectionHeader = (props) => {
 	const {

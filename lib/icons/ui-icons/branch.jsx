@@ -1,0 +1,43 @@
+export const branch = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M5.5 14.5v-9C5.5 7.667 6.8 12 12 12'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<circle
+			cx='5.5'
+			cy='17.5'
+			r='1.5'
+			fill='currentColor'
+			fillOpacity='0.3'
+			stroke='currentColor'
+		/>
+		<circle
+			cx='5.5'
+			cy='2.5'
+			r='1.5'
+			fill='currentColor'
+			fillOpacity='0.3'
+			stroke='currentColor'
+		/>
+		<circle
+			cx='15'
+			cy='12.5'
+			r='1.5'
+			fill='currentColor'
+			fillOpacity='0.3'
+			stroke='currentColor'
+		/>
+	</svg>
+);

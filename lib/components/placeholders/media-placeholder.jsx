@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { icons } from '../../icons/icons';
+import { image } from '../../icons/internal';
 
 /**
  * A simple media placeholder, with an empty state.
@@ -21,8 +21,6 @@ import { icons } from '../../icons/icons';
  *
  * @example
  * <MediaPlaceholder url="https://example.com/image.jpg" alt="Image alt text" />
- *
- * @preserve
  */
 export const MediaPlaceholder = (props) => {
 	const { style = 'default', size = 'default', className, icon, helpText, children, flat, hidden } = props;
@@ -61,7 +59,7 @@ export const MediaPlaceholder = (props) => {
 				className,
 			)}
 		>
-			<div className='es:icon:size-7'>{icon ?? icons.image}</div>
+			<div className='es:icon:size-7'>{icon ?? image}</div>
 
 			{helpText && <div className='es:text-sm es:text-secondary-500'>{helpText}</div>}
 

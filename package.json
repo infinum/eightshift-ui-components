@@ -1,6 +1,6 @@
 {
 	"name": "@eightshift/ui-components",
-	"version": "6.3.0",
+	"version": "7.0.0",
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
@@ -12,7 +12,7 @@
 		"dist"
 	],
 	"sideEffects": [
-		"./dist/assets/*.css"
+		"./dist/**/*.css"
 	],
 	"exports": {
 		".": {
@@ -20,6 +20,7 @@
 			"require": "./dist/index.js"
 		},
 		"./icons": "./dist/icons/index.js",
+		"./jsx-svg": "./dist/icons/jsx-svg.js",
 		"./utilities": "./dist/utilities/index.js",
 		"./dist/assets/style.css": "./dist/assets/style.css",
 		"./dist/assets/style-editor.css": "./dist/assets/style-editor.css",
@@ -33,13 +34,22 @@
 		"./dist/assets/wp-overrides/replace-fonts.css": "./dist/assets/wp-overrides/replace-fonts.css",
 		"./dist/assets/wp-overrides/allow-full-width-blocks.css": "./dist/assets/wp-overrides/allow-full-width-blocks.css",
 		"./styles": "./dist/assets/style.css",
-		"./wp-overrides": "./dist/assets/wp.css"
+		"./styles-editor": "./dist/assets/style-editor.css",
+		"./styles-admin": "./dist/assets/style-admin.css",
+		"./wp-overrides/allow-full-width-blocks": "./dist/assets/wp-overrides/allow-full-width-blocks.css",
+		"./wp-overrides/fix-label-text-case": "./dist/assets/wp-overrides/fix-label-text-case.css",
+		"./wp-overrides/increase-sidebar-width": "./dist/assets/wp-overrides/increase-sidebar-width.css",
+		"./wp-overrides/make-block-messages-nicer": "./dist/assets/wp-overrides/make-block-messages-nicer.css",
+		"./wp-overrides/replace-fonts": "./dist/assets/wp-overrides/replace-fonts.css",
+		"./wp-overrides/restyle-tooltips": "./dist/assets/wp-overrides/restyle-tooltips.css",
+		"./wp-overrides/round-corners": "./dist/assets/wp-overrides/round-corners.css",
+		"./wp-overrides/unify-button-sizes": "./dist/assets/wp-overrides/unify-button-sizes.css"
 	},
 	"scripts": {
-		"dev": "vite",
-		"start": "vite",
-		"build": "bun run update-scripts && vite build",
-		"update-scripts": "vite build --config vite.worker.config.js && node scripts/inline-worker.js",
+		"generate:icon-loaders": "node ./scripts/generate-icon-loaders.mjs",
+		"dev": "node ./scripts/generate-icon-loaders.mjs && vite",
+		"start": "node ./scripts/generate-icon-loaders.mjs && vite",
+		"build": "node ./scripts/generate-icon-loaders.mjs && vite build",
 		"lint": "bun x eslint",
 		"preview": "vite preview"
 	},
@@ -50,13 +60,13 @@
 	"devDependencies": {
 		"@adobe/react-spectrum": "^3.46.2",
 		"@atom-universe/use-web-worker": "^2.2.1",
-		"@dnd-kit/abstract": "^0.2.4",
-		"@dnd-kit/dom": "^0.2.4",
-		"@dnd-kit/helpers": "^0.2.4",
-		"@dnd-kit/react": "^0.2.4",
+		"@dnd-kit/abstract": "^0.3.2",
+		"@dnd-kit/dom": "^0.3.2",
+		"@dnd-kit/helpers": "^0.3.2",
+		"@dnd-kit/react": "^0.3.2",
 		"@eslint/compat": "^2.0.3",
 		"@react-stately/collections": "^3.12.10",
-		"@stylistic/eslint-plugin-js": "^4.4.1",
+		"@stylistic/eslint-plugin": "^5.5.0",
 		"@tailwindcss/vite": "^4.2.1",
 		"@thi.ng/color": "^5.8.16",
 		"@thi.ng/pixel": "^7.5.25",
@@ -64,18 +74,18 @@
 		"@thi.ng/pixel-dominant-colors": "^2.0.34",
 		"@types/react": "^18.3.28",
 		"@types/react-dom": "^18.3.7",
-		"@vitejs/plugin-react-swc": "^4.2.3",
+		"@vitejs/plugin-react": "^5.1.0",
 		"@wordpress/i18n": "^6.14.0",
 		"autoprefixer": "^10.4.27",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"css-gradient-parser": "^0.0.18",
-		"eslint": "^9.39.4",
+		"eslint": "^10.0.3",
 		"eslint-config-prettier": "^10.1.8",
-		"eslint-plugin-jsdoc": "^61.7.1",
+		"eslint-plugin-jsdoc": "^62.8.0",
 		"eslint-plugin-prettier": "^5.5.5",
 		"glob": "^13.0.6",
-		"globals": "^16.5.0",
+		"globals": "^17.4.0",
 		"just-camel-case": "^6.2.0",
 		"just-debounce-it": "^3.2.0",
 		"just-has": "^2.3.0",
@@ -97,13 +107,15 @@
 		"tailwindcss": "^4.2.1",
 		"tailwindcss-motion": "^1.1.1",
 		"tailwindcss-react-aria-components": "^2.0.1",
-		"vite": "^7.3.1",
+		"vite": "^8.0.0",
 		"vite-plugin-lib-inject-css": "^2.2.2"
 	},
 	"dependencies": {
 		"@fontsource-variable/geist": "^5.2.8",
 		"@fontsource-variable/geist-mono": "^5.2.7",
 		"@fontsource-variable/google-sans-flex": "^5.2.1",
-		"motion": "^12.35.2"
+		"eslint-plugin-react": "^7.37.5",
+		"eslint-plugin-react-hooks": "^7.0.1",
+		"motion": "^12.36.0"
 	}
 }

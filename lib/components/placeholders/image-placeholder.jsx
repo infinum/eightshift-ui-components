@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { icons } from '../../icons/icons';
+import { image } from '../../icons/internal';
 
 /**
  * A simple image placeholder, with an empty state.
@@ -24,8 +24,6 @@ import { icons } from '../../icons/icons';
  *
  * @example
  * <ImagePlaceholder url="https://example.com/image.jpg" alt="Image alt text" />
- *
- * @preserve
  */
 export const ImagePlaceholder = (props) => {
 	const { url, alt, style = 'default', size = 'default', noImage, className, hidden, imageMode = 'cover', flat } = props;
@@ -90,7 +88,7 @@ export const ImagePlaceholder = (props) => {
 					!url ? 'es:motion-opacity-in es:motion-scale-in-90 es:motion-duration-300 es:motion-ease-spring-snappy/scale' : 'es:invisible',
 				)}
 			>
-				{icons.image}
+				{image}
 			</div>
 		</div>
 	);

@@ -1,0 +1,89 @@
+export const imageOverlay = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M20 3.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 0 16.5v-13A1.5 1.5 0 0 1 1.5 2h17A1.5 1.5 0 0 1 20 3.5Z'
+			fill='currentColor'
+			fillOpacity='0.12'
+		/>
+		<path
+			opacity='0.05'
+			d='M2 5.5 3.5 4'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			opacity='0.1'
+			d='M2 8.5 6.5 4'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			opacity='0.2'
+			d='M2 11.5 9.5 4'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			opacity='0.3'
+			d='M2 14.5 12.5 4'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			opacity='0.5'
+			d='M6.5 16 18 4.5'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			opacity='0.4'
+			d='M9.5 16 18 7.5'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			opacity='0.3'
+			d='m12.5 16 5.5-5.5'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			opacity='0.2'
+			d='m15.5 16 2.5-2.5'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			opacity='0.4'
+			d='m3.5 16 12-12'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+	</svg>
+);

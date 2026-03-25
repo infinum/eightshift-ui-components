@@ -21,8 +21,6 @@ import JsxParser from 'react-jsx-parser';
  *
  * @example
  * <JsxSvg customProps='className={demo}' customPropBindings={{demo: demoAttr ? 'lorem' : 'ipsum}} svg="<svg ..." />
- *
- * @preserve
  */
 export const JsxSvg = (props) => {
 	const { svg, className, customProps, customPropBindings, 'aria-hidden': ariaHiddenProp, ariaHidden, noIdRandomization, idRandomizationPrefix = 'icon', ...rest } = props;

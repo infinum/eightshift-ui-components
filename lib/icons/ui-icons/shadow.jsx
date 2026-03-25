@@ -1,0 +1,58 @@
+export const shadow = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<circle
+			cx='7.5'
+			cy='9'
+			r='6'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<path
+			d='M19.5 15.5c0 1.105-2.686 2-6 2s-6-.895-6-2c0-.173.066-.34.189-.5l3.811-1.386a17.178 17.178 0 0 1 2-.114c3.314 0 6 .895 6 2Z'
+			fill='currentColor'
+			fillOpacity='0.3'
+		/>
+		<g filter='url(#8723bad0-2f2d-4f04-ad6a-8ee6ebd6f29a)'>
+			<circle
+				cx='6.5'
+				cy='8'
+				r='2'
+				fill='currentColor'
+				fillOpacity='0.12'
+			/>
+		</g>
+		<defs>
+			<filter
+				id='8723bad0-2f2d-4f04-ad6a-8ee6ebd6f29a'
+				x='1.5'
+				y='3'
+				width='10'
+				height='10'
+				filterUnits='userSpaceOnUse'
+				colorInterpolationFilters='sRGB'
+			>
+				<feFlood
+					floodOpacity='0'
+					result='BackgroundImageFix'
+				/>
+				<feBlend
+					in='SourceGraphic'
+					in2='BackgroundImageFix'
+					result='shape'
+				/>
+				<feGaussianBlur
+					stdDeviation='1.5'
+					result='effect1_foregroundBlur_1361_313'
+				/>
+			</filter>
+		</defs>
+	</svg>
+);

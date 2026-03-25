@@ -1,0 +1,27 @@
+export const warningCircleFillTransparent = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M10 19a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z'
+			fill='currentColor'
+			fillOpacity='0.25'
+		/>
+		<path
+			d='M11 6a.842.842 0 0 0-.236-.707A1.081 1.081 0 0 0 10 5a1.08 1.08 0 0 0-.764.293A.842.842 0 0 0 9 6l.031.275.563 4.95.031.275c.01.089.059.174.129.237a.37.37 0 0 0 .246.098.37.37 0 0 0 .246-.098.384.384 0 0 0 .129-.237l.031-.275.563-4.95L11 6Z'
+			fill='currentColor'
+		/>
+		<circle
+			cx='10'
+			cy='14.5'
+			r='1'
+			fill='currentColor'
+		/>
+	</svg>
+);

@@ -1,0 +1,24 @@
+export const small = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M1 14.5A1.5 1.5 0 0 1 2.5 13h3A1.5 1.5 0 0 1 7 14.5v3A1.5 1.5 0 0 1 5.5 19h-3A1.5 1.5 0 0 1 1 17.5v-3Z'
+			fill='currentColor'
+			fillOpacity='0.3'
+			stroke='currentColor'
+		/>
+		<path
+			d='M1 14v-3.5A1.5 1.5 0 0 1 2.5 9h7a1.5 1.5 0 0 1 1.5 1.5v7A1.5 1.5 0 0 1 9.5 19H6'
+			stroke='currentColor'
+			strokeLinecap='round'
+			fill='none'
+		/>
+	</svg>
+);

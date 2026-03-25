@@ -1,0 +1,18 @@
+export const buttonFilled = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			clipRule='evenodd'
+			fillRule='evenodd'
+			d='M2.25 5.25a2 2 0 0 0-2 2v5.5a2 2 0 0 0 2 2h15.5a2 2 0 0 0 2-2v-5.5a2 2 0 0 0-2-2H2.25ZM6 9.5a.5.5 0 0 0 0 1h8a.5.5 0 0 0 0-1H6Z'
+			fill='currentColor'
+		/>
+	</svg>
+);

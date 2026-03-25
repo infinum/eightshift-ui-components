@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import { DraggableContext } from './draggable-context';
 import { useSortable } from '@dnd-kit/react/sortable';
@@ -67,8 +67,6 @@ const SortableItem = ({ id, index, disabled, children, axis }) => {
  * 		);
  * 	}}
  * </Draggable>
- *
- * @preserve
  */
 export const Draggable = (props) => {
 	const {
@@ -89,22 +87,28 @@ export const Draggable = (props) => {
 		...rest
 	} = props;
 
+	const normalizedItems = useMemo(() => (Array.isArray(items) ? items : []), [items]);
+
 	if (typeof items === 'undefined' || items === null || !Array.isArray(items)) {
 		console.warn(__("Draggable: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
 	}
 
-	if (hidden) {
-		return null;
-	}
-
-	const [internalIds, setInternalIds] = useState(items.map((_, index) => index));
+	const [internalIds, setInternalIds] = useState(normalizedItems.map((_, index) => index));
 
 	// Update if external data changes length.
 	useEffect(() => {
-		if (items.length !== internalIds.length) {
-			setInternalIds(items.map((_, index) => index));
-		}
-	}, [items]);
+		setInternalIds((currentIds) => {
+			if (normalizedItems.length === currentIds.length) {
+				return currentIds;
+			}
+
+			return normalizedItems.map((_, index) => index);
+		});
+	}, [normalizedItems, normalizedItems.length]);
+
+	if (hidden) {
+		return null;
+	}
 
 	return (
 		<div
@@ -124,11 +128,11 @@ export const Draggable = (props) => {
 					const oldIndex = event?.operation?.source?.sortable?.initialIndex;
 					const newIndex = event?.operation?.source?.sortable?.index;
 
-					onChange(arrayMove(items, oldIndex, newIndex));
+					onChange(arrayMove(normalizedItems, oldIndex, newIndex));
 					setInternalIds(arrayMove(internalIds, oldIndex, newIndex));
 				}}
 			>
-				{items.map((item, index) => (
+				{normalizedItems.map((item, index) => (
 					<SortableItem
 						key={`item-${internalIds?.[index] ?? index}`}
 						id={`item-${internalIds?.[index] ?? index}`}
@@ -142,7 +146,7 @@ export const Draggable = (props) => {
 								{children({
 									...item,
 									updateData: (newValue) => {
-										const updated = [...items];
+										const updated = [...normalizedItems];
 
 										updated[index] = {
 											...updated[index],
@@ -153,7 +157,7 @@ export const Draggable = (props) => {
 									},
 									itemIndex: index,
 									deleteItem: () => {
-										onChange([...items].filter((_, i) => i !== index));
+										onChange([...normalizedItems].filter((_, i) => i !== index));
 										setInternalIds([...internalIds].filter((_, i) => i !== index));
 
 										if (onAfterItemRemove) {

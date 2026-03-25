@@ -2,13 +2,11 @@ import { Modal as ReactAriaModal, ModalOverlay, Dialog, Heading, DialogTrigger }
 import { Button } from '../button/button';
 import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
-import { icons } from '../../icons';
+import { clear } from '../../icons/internal';
 import { HStack } from '../layout/hstack';
 
 /**
  * @typedef {import('../button/button').ButtonProps} ButtonProps
- *
- * @preserve
  * */
 
 /**
@@ -46,8 +44,6 @@ import { HStack } from '../layout/hstack';
  * <Modal>
  *  <p>Modal content</p>
  * </Modal>
- *
- * @preserve
  */
 export const Modal = (props) => {
 	const { triggerLabel, triggerIcon, triggerProps, customTrigger, open } = props;
@@ -63,7 +59,7 @@ export const Modal = (props) => {
 					icon={triggerIcon}
 					{...triggerProps}
 				>
-					{triggerLabel ?? (!triggerIcon && __('Open', 'eightshift-frontend-libs'))}
+					{triggerLabel ?? (!triggerIcon && __('Open', 'eightshift-ui-components'))}
 				</Button>
 			)}
 			{customTrigger}
@@ -165,8 +161,8 @@ const ModalInternal = (props) => {
 												onPress={close}
 												type='ghost'
 												size='small'
-												icon={icons.clear}
-												aria-label={__('Close', 'eightshift-frontend-libs')}
+												icon={clear}
+												aria-label={__('Close', 'eightshift-ui-components')}
 												tooltip
 											/>
 										)}

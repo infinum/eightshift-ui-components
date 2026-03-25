@@ -57,8 +57,6 @@ import { AnimatePresence, motion } from 'motion/react';
  * 	value={sliderValue}
  * 	onChange={setSliderValue}
  * />
- *
- * @preserve
  */
 export const Slider = (props) => {
 	const {

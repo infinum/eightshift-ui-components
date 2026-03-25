@@ -1,0 +1,30 @@
+export const positioningGuide = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M1.25 1v2.333M6.895 1v2.333M13.105 1v2.333M18.75 1v2.333M1.25 6.25v2.333m17.5-2.333v2.333M1.25 11.75v2.333m0 2.667v2.333m5.645-2.333v2.333m6.21-2.333v2.333m5.645-7.333v2.333m0 2.667v2.333'
+			stroke='currentColor'
+			strokeOpacity='0.3'
+			strokeLinecap='round'
+			fill='none'
+		/>
+		<rect
+			x='5'
+			y='5'
+			width='10'
+			height='10'
+			rx='1.5'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+	</svg>
+);

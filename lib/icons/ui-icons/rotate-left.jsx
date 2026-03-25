@@ -1,0 +1,19 @@
+export const rotateLeft = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M4.956 15.544c3.035 3.035 8.029 2.964 11.153-.16 3.124-3.125 3.196-8.118.16-11.154-3.035-3.035-8.028-2.963-11.152.161a8.112 8.112 0 0 0-2.335 4.777m0 0 4.135-1.563M2.782 9.168 1.613 4.423'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+	</svg>
+);

@@ -1,0 +1,26 @@
+export const fastReverse = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='m11.667 7.188 6.51-5.494a.5.5 0 0 1 .823.382v15.848a.5.5 0 0 1-.822.382l-6.511-5.494'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			d='M11.667 17.924V2.076a.5.5 0 0 0-.823-.382L1.453 9.618a.5.5 0 0 0 0 .764l9.391 7.924a.5.5 0 0 0 .823-.382Z'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+	</svg>
+);

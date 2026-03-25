@@ -1,6 +1,6 @@
 import { Label, Button as ReactAriaButton, Input, Group, ListBox, ListBoxItem, Popover } from 'react-aria-components';
 import { __ } from '@wordpress/i18n';
-import { icons } from '../../icons/icons';
+import { anchor, clearAlt, externalLink, file, formAlt, globe, layoutAlt, searchEmpty } from '../../icons/internal';
 import { Spinner } from '../../icons/spinner';
 import { clsx } from 'clsx';
 import { useAsyncList } from 'react-stately';
@@ -11,6 +11,66 @@ import { RichLabel } from '../rich-label/rich-label';
 import { ComboBox } from 'react-aria-components';
 import { cva } from 'class-variance-authority';
 import { randomId } from '../../utilities';
+
+const inputClass = cva(
+	[
+		'es:text-13! es:leading-none',
+		'es:w-fill',
+		'es:border-none!',
+		'es:rounded-lg! es:focus:rounded-xl! es:aria-[controls]:rounded-xl!',
+		'es:transition-plus',
+		'es:any-focus:outline-hidden',
+		'es:inset-ring!',
+		'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/30',
+		'es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500',
+		'es:placeholder-shown:pr-0 es:pr-10',
+		'es:focus:placeholder:text-surface-400',
+		'es:font-variation-["wdth"_80,"wght"_325,"slnt"_0,"ROND"_100] es:placeholder-shown:font-variation-["wdth"_60,"wght"_300,"slnt"_-10,"ROND"_0]',
+	],
+	{
+		variants: {
+			size: {
+				small: ['es:min-h-8', 'es:py-2 es:px-2.5'],
+				medium: ['es:min-h-9', 'es:py-2 es:px-3'],
+				default: ['es:min-h-10', 'es:py-2 es:px-3'],
+				large: ['es:min-h-12', 'es:py-2 es:px-4'],
+			},
+			inline: {
+				true: 'es:min-w-48',
+			},
+		},
+		compoundVariants: [
+			{
+				flat: false,
+				disabled: false,
+				class: [
+					'es:bg-white',
+					'es:bg-linear-to-b es:from-secondary-100/0 es:to-secondary-100/50 es:from-25%',
+					'es:hover:from-surface-100/0 es:hover:to-surface-100/50',
+					'es:inset-ring-secondary-400/50 es:hover:inset-ring-surface-300 es:focus:inset-ring-surface-400',
+					'es:inset-shadow-sm es:inset-shadow-secondary-100/50',
+					'es:hover:placeholder:text-surface-400',
+					'es:placeholder:text-secondary-400',
+					'es:shadow-xs! es:shadow-black/5',
+				],
+			},
+			{
+				flat: true,
+				disabled: false,
+				class: [
+					'es:inset-ring-secondary-100',
+					'es:focus:text-accent-950',
+					'es:placeholder:text-secondary-500/80',
+					'es:bg-secondary-100 es:focus:bg-surface-50',
+					'es:inset-ring-secondary-200/15 es:hover:inset-ring-secondary-200/65 es:focus:inset-ring-surface-200',
+					'es:shadow-none!',
+				],
+			},
+			{ disabled: true, class: ['es:bg-white es:inset-ring-secondary-200 es:text-secondary-400'] },
+		],
+		defaultVariants: { disabled: false, flat: false, inline: false },
+	},
+);
 
 /**
  * Component that allows URL selection, with a suggestionList of suggestions and type-to-search.
@@ -47,8 +107,6 @@ import { randomId } from '../../utilities';
  * 	url={url}
  * 	onChange={setUrl}
  * />
- *
- * @preserve
  */
 export const LinkInput = (props) => {
 	const {
@@ -63,8 +121,8 @@ export const LinkInput = (props) => {
 
 		placeholder = __('Type to search or enter URL', 'eightshift-ui-components'),
 
-		icon = icons.globe,
-		removeIcon = icons.clearAlt,
+		icon = globe,
+		removeIcon = clearAlt,
 
 		disabled = false,
 
@@ -118,65 +176,6 @@ export const LinkInput = (props) => {
 		},
 	});
 
-	const inputClass = cva(
-		[
-			'es:text-13! es:leading-none',
-			'es:w-fill',
-			'es:border-none!',
-			'es:rounded-lg! es:focus:rounded-xl! es:aria-[controls]:rounded-xl!',
-			'es:transition-plus',
-			'es:any-focus:outline-hidden',
-			'es:inset-ring!',
-			'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/30',
-			'es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500',
-			'es:placeholder-shown:pr-0 es:pr-10',
-			'es:focus:placeholder:text-surface-400',
-			'es:font-variation-["wdth"_80,"wght"_325,"slnt"_0,"ROND"_100] es:placeholder-shown:font-variation-["wdth"_60,"wght"_300,"slnt"_-10,"ROND"_0]',
-			inline && 'es:min-w-48',
-			className,
-		],
-		{
-			variants: {
-				size: {
-					small: ['es:min-h-8', 'es:py-2 es:px-2.5'],
-					medium: ['es:min-h-9', 'es:py-2 es:px-3'],
-					default: ['es:min-h-10', 'es:py-2 es:px-3'],
-					large: ['es:min-h-12', 'es:py-2 es:px-4'],
-				},
-			},
-			compoundVariants: [
-				{
-					flat: false,
-					disabled: false,
-					class: [
-						'es:bg-white',
-						'es:bg-linear-to-b es:from-secondary-100/0 es:to-secondary-100/50 es:from-25%',
-						'es:hover:from-surface-100/0 es:hover:to-surface-100/50',
-						'es:inset-ring-secondary-400/50 es:hover:inset-ring-surface-300 es:focus:inset-ring-surface-400',
-						'es:inset-shadow-sm es:inset-shadow-secondary-100/50',
-						'es:hover:placeholder:text-surface-400',
-						'es:placeholder:text-secondary-400',
-						'es:shadow-xs! es:shadow-black/5',
-					],
-				},
-				{
-					flat: true,
-					disabled: false,
-					class: [
-						'es:inset-ring-secondary-100',
-						'es:focus:text-accent-950',
-						'es:placeholder:text-secondary-500/80',
-						'es:bg-secondary-100 es:focus:bg-surface-50',
-						'es:inset-ring-secondary-200/15 es:hover:inset-ring-secondary-200/65 es:focus:inset-ring-surface-200',
-						'es:shadow-none!',
-					],
-				},
-				{ disabled: true, class: ['es:bg-white es:inset-ring-secondary-200 es:text-secondary-400'] },
-			],
-			defaultVariants: { disabled: false, flat: false },
-		},
-	);
-
 	if (hidden) {
 		return null;
 	}
@@ -212,7 +211,7 @@ export const LinkInput = (props) => {
 				<Group className='es:relative es:group'>
 					<Input
 						placeholder={disabled ? null : placeholder}
-						className={inputClass({ disabled, flat, size })}
+						className={clsx(inputClass({ disabled, flat, size, inline }), className)}
 					/>
 
 					<AnimatedVisibility
@@ -281,7 +280,7 @@ export const LinkInput = (props) => {
 				>
 					{noResults && (
 						<RichLabel
-							icon={icons.searchEmpty}
+							icon={searchEmpty}
 							label={__('No results', 'eightshift-ui-components')}
 							subtitle={__('Try a different search term', 'eightshift-ui-components')}
 							className='es:p-4 es:w-fit es:mx-auto es:flex-col es:items-center es:gap-2.5'
@@ -305,18 +304,18 @@ export const LinkInput = (props) => {
 
 									const subtype = rawSubtype ?? 'page';
 
-									let typeIcon = icons.file;
+									let typeIcon = file;
 
 									if (subtype.toLowerCase() === 'url') {
-										typeIcon = icons.externalLink;
+										typeIcon = externalLink;
 									} else if (subtype.toLowerCase() === 'attachment') {
-										typeIcon = icons.file;
+										typeIcon = file;
 									} else if (subtype.toLowerCase() === 'category') {
-										typeIcon = icons.layoutAlt;
+										typeIcon = layoutAlt;
 									} else if (subtype.toLowerCase() === 'internal') {
-										typeIcon = icons.anchor;
+										typeIcon = anchor;
 									} else if (subtype.toLowerCase() === 'eightshift-forms') {
-										typeIcon = icons.formAlt;
+										typeIcon = formAlt;
 									}
 
 									if (suggestionTypeIconOverride) {

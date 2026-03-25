@@ -11,7 +11,5 @@ import { clsx } from 'clsx';
  *
  * @example
  * <Spinner />
- *
- * @preserve
  */
 export const Spinner = ({ className }) => <div className={clsx('es:animate-spin es:anim-duration-1000', 'es:spinner-5 es:text-accent-600 es:size-8 es:rounded-full', className)} />;

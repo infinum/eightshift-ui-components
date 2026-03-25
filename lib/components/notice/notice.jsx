@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 
-import { icons } from '../../icons/icons';
+import { checkSquare, componentGeneric, errorCircle, info, warning } from '../../icons/internal';
 
 /**
  * A simple notice component.
@@ -22,8 +22,6 @@ import { icons } from '../../icons/icons';
  *
  * @example
  * <Notice label='This is a notice' />
- *
- * @preserve
  */
 export const Notice = (props) => {
 	const { icon, label, subtitle, className, type = 'default', alignIconToTitle = false, flat, hidden } = props;
@@ -34,7 +32,7 @@ export const Notice = (props) => {
 
 	const styles = {
 		info: {
-			icon: icons.info,
+			icon: info,
 			className: 'es:inset-ring-blue-600/15 es:shadow-blue-800/5 es:from-blue-400/2 es:to-blue-600/5 es:inset-shadow-blue-500/10',
 			iconColorClassName: 'es:text-blue-600',
 			textColorClassName: 'es:text-blue-600',
@@ -42,7 +40,7 @@ export const Notice = (props) => {
 			selectionClassName: 'es:selection:bg-blue-100 es:selection:text-blue-700',
 		},
 		success: {
-			icon: icons.checkSquare,
+			icon: checkSquare,
 			className: 'es:inset-ring-green-800/15 es:shadow-green-800/5 es:from-green-400/2 es:to-green-600/5 es:inset-shadow-green-500/10',
 			iconColorClassName: 'es:text-green-600',
 			textColorClassName: 'es:text-green-600',
@@ -50,7 +48,7 @@ export const Notice = (props) => {
 			selectionClassName: 'es:selection:bg-green-100 es:selection:text-green-700',
 		},
 		warning: {
-			icon: icons.warning,
+			icon: warning,
 			className: 'es:inset-ring-orange-800/15 es:shadow-orange-800/5 es:from-orange-400/2 es:to-orange-600/5 es:inset-shadow-orange-500/10',
 			iconColorClassName: 'es:text-orange-600',
 			textColorClassName: 'es:text-orange-600',
@@ -58,7 +56,7 @@ export const Notice = (props) => {
 			selectionClassName: 'es:selection:bg-orange-100 es:selection:text-orange-700',
 		},
 		error: {
-			icon: icons.errorCircle,
+			icon: errorCircle,
 			className: 'es:inset-ring-red-800/15 es:shadow-red-800/5 es:from-red-400/2 es:to-red-600/5 es:inset-shadow-red-500/10',
 			iconColorClassName: 'es:text-red-600',
 			textColorClassName: 'es:text-red-700',
@@ -66,7 +64,7 @@ export const Notice = (props) => {
 			selectionClassName: 'es:selection:bg-red-100 es:selection:text-red-700',
 		},
 		placeholder: {
-			icon: icons.componentGeneric,
+			icon: componentGeneric,
 			className: 'es:inset-ring-indigo-700/15 es:shadow-indigo-800/5 es:from-indigo-400/2 es:to-indigo-600/5 es:inset-shadow-indigo-500/10',
 			iconColorClassName: 'es:text-indigo-600',
 			textColorClassName: 'es:text-indigo-600',

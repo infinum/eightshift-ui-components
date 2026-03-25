@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react';
 import { extname, relative, resolve } from 'path';
 import { fileURLToPath } from 'node:url';
 import { glob } from 'glob';
@@ -21,10 +21,12 @@ export default defineConfig(() => {
 				},
 				formats: ['es'],
 			},
-			minify: false,
+			minify: 'oxc',
 			cssMinify: false,
-			rollupOptions: {
-				external: ['react', 'react/jsx-runtime'],
+			rolldownOptions: {
+				external: (id) => {
+					return ['react', 'react-dom', 'use-sync-external-store'].some((pkg) => id === pkg || id.startsWith(`${pkg}/`));
+				},
 				input: Object.fromEntries(
 					// https://rollupjs.org/configuration-options/#input
 					[
@@ -48,12 +50,20 @@ export default defineConfig(() => {
 				output: {
 					assetFileNames: 'assets/[name][extname]',
 					entryFileNames: '[name].js',
+					minify: {
+						mangle: false,
+						compress: false,
+						codegen: {
+							removeWhitespace: false,
+						},
+					},
+					comments: {
+						legal: true,
+						annotation: false,
+						jsdoc: true,
+					},
 				},
 			},
-		},
-		esbuild: {
-			legalComments: 'inline',
-			minify: false,
 		},
 	};
 });

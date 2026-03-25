@@ -7,6 +7,98 @@ import { BaseControl } from '../base-control/base-control';
 import { cloneElement } from 'react';
 import { cva } from 'class-variance-authority';
 
+const radioClasses = cva(
+	[
+		'es:size-5 es:shrink-0',
+		'es:grid es:place-items-center es:grid-cols-1 es:grid-rows-1',
+		'es:*:row-start-1 es:*:col-start-1',
+		'es:rounded-full',
+		'es:transition-plus es:duration-300 es:ease-spring-smooth',
+		'es:inset-ring',
+		'es:any-focus:outline-hidden',
+		'es:group-focus-visible:ring-2 es:group-focus-visible:ring-accent-500/30',
+	],
+	{
+		variants: {
+			disabled: {
+				true: 'es:cursor-not-allowed',
+				false: 'es:inset-shadow-xs es:bg-linear-to-b es:from-25%',
+			},
+		},
+		compoundVariants: [
+			{ flat: false, disabled: false, class: 'es:shadow-xs es:shadow-black/5' },
+			{
+				checked: false,
+				disabled: false,
+				class: [
+					'es:bg-secondary-50 es:inset-ring-secondary-300/60',
+					'es:from-black/1 es:to-black/5',
+					'es:hover:bg-surface-100 es:hover:inset-ring-surface-300/60',
+					'es:inset-shadow-white/50',
+					'es:group-focus-visible:inset-ring-accent-500',
+				],
+			},
+			{
+				checked: true,
+				disabled: false,
+				class: [
+					'es:bg-accent-600 es:inset-ring-accent-800/5 es:text-white',
+					'es:from-accent-50/10 es:to-accent-50/2',
+					'es:inset-shadow-accent-50/35',
+					'es:group-focus-visible:inset-ring-accent-950',
+				],
+			},
+			{
+				checked: true,
+				disabled: true,
+				class: ['es:bg-secondary-400 es:inset-ring-secondary-400 es:text-white'],
+			},
+			{
+				checked: false,
+				disabled: true,
+				class: ['es:bg-white es:inset-ring-secondary-300 es:text-secondary-50', 'es:bg-linear-to-b es:from-secondary-800/0 es:to-secondary-800/3'],
+			},
+		],
+		defaultVariants: {
+			flat: false,
+			checked: false,
+			disabled: false,
+		},
+	},
+);
+
+const radioContainerClass = cva('es:flex es:gap-2 es:items-center-safe', {
+	variants: {
+		design: {
+			default: 'es:py-1.5',
+		},
+	},
+	compoundVariants: [
+		{
+			design: ['segmented', 'segmentedHorizontal'],
+			class: ['es:px-3 es:py-2 es:w-fill es:inset-ring es:min-h-13', 'es:transition-plus es:duration-300'],
+		},
+		{
+			checked: false,
+			design: ['segmented', 'segmentedHorizontal'],
+			class: ['es:bg-white es:bg-linear-to-b es:from-secondary-50/75 es:to-secondary-100/50 es:from-25% es:inset-ring-secondary-200/50', 'es:rounded-md es:hover:rounded-18'],
+		},
+		{
+			checked: true,
+			design: ['segmented', 'segmentedHorizontal'],
+			class: 'es:bg-surface-100 es:text-accent-900 es:inset-ring-accent-600/10 es:rounded-3xl',
+		},
+		{ design: 'segmented', checked: false, class: 'es:first:rounded-t-2xl es:last:rounded-b-2xl es:before-current:rounded-b-2xl es:after-current:rounded-t-2xl' },
+		{ design: 'segmentedHorizontal', checked: false, class: 'es:first:rounded-l-2xl es:last:rounded-r-2xl es:before-current:rounded-r-2xl es:after-current:rounded-l-2xl' },
+	],
+	defaultVariants: {
+		design: 'default',
+		flat: false,
+		checked: false,
+		disabled: false,
+	},
+});
+
 /**
  * A simple radio button.
  *
@@ -26,8 +118,6 @@ import { cva } from 'class-variance-authority';
  * @returns {JSX.Element} The RadioButton component.
  *
  * @see {@link RadioButtonGroup} for usage example.
- *
- * @preserve
  */
 export const RadioButton = (props) => {
 	const {
@@ -58,105 +148,12 @@ export const RadioButton = (props) => {
 		return null;
 	}
 
-	const radioClasses = cva(
-		[
-			'es:size-5 es:shrink-0',
-			'es:grid es:place-items-center es:grid-cols-1 es:grid-rows-1',
-			'es:*:row-start-1 es:*:col-start-1',
-			'es:rounded-full',
-			'es:transition-plus es:duration-300 es:ease-spring-smooth',
-			'es:inset-ring',
-			'es:any-focus:outline-hidden',
-			'es:group-focus-visible:ring-2 es:group-focus-visible:ring-accent-500/30',
-		],
-		{
-			variants: {
-				disabled: {
-					true: 'es:cursor-not-allowed',
-					false: 'es:inset-shadow-xs es:bg-linear-to-b es:from-25%',
-				},
-			},
-			compoundVariants: [
-				{ flat: false, disabled: false, class: 'es:shadow-xs es:shadow-black/5' },
-				//
-				{
-					checked: false,
-					disabled: false,
-					class: [
-						'es:bg-secondary-50 es:inset-ring-secondary-300/60',
-						'es:from-black/1 es:to-black/5',
-						'es:hover:bg-surface-100 es:hover:inset-ring-surface-300/60',
-						'es:inset-shadow-white/50',
-						'es:group-focus-visible:inset-ring-accent-500',
-					],
-				},
-				{
-					checked: true,
-					disabled: false,
-					class: [
-						'es:bg-accent-600 es:inset-ring-accent-800/5 es:text-white',
-						'es:from-accent-50/10 es:to-accent-50/2',
-						'es:inset-shadow-accent-50/35',
-						'es:group-focus-visible:inset-ring-accent-950',
-					],
-				},
-				//
-				{
-					checked: true,
-					disabled: true,
-					class: ['es:bg-secondary-400 es:inset-ring-secondary-400 es:text-white'],
-				},
-				{
-					checked: false,
-					disabled: true,
-					class: ['es:bg-white es:inset-ring-secondary-300 es:text-secondary-50', 'es:bg-linear-to-b es:from-secondary-800/0 es:to-secondary-800/3'],
-				},
-			],
-			defaultVariants: {
-				flat: false,
-				checked: false,
-				disabled: false,
-			},
-		},
-	);
-
-	const radioContainerClass = cva(['es:flex es:gap-2 es:items-center-safe', className], {
-		variants: {
-			design: {
-				default: 'es:py-1.5',
-			},
-		},
-		compoundVariants: [
-			{
-				design: ['segmented', 'segmentedHorizontal'],
-				class: ['es:px-3 es:py-2 es:w-fill es:inset-ring es:min-h-13', 'es:transition-plus es:duration-300', !flat && 'es:shadow-xs es:shadow-black/5'],
-			},
-			{
-				checked: false,
-				design: ['segmented', 'segmentedHorizontal'],
-				class: ['es:bg-white es:bg-linear-to-b es:from-secondary-50/75 es:to-secondary-100/50 es:from-25% es:inset-ring-secondary-200/50', 'es:rounded-md es:hover:rounded-18'],
-			},
-			{
-				checked: true,
-				design: ['segmented', 'segmentedHorizontal'],
-				class: 'es:bg-surface-100 es:text-accent-900 es:inset-ring-accent-600/10 es:rounded-3xl',
-			},
-			//
-			{ design: 'segmented', checked: false, class: 'es:first:rounded-t-2xl es:last:rounded-b-2xl es:before-current:rounded-b-2xl es:after-current:rounded-t-2xl' },
-			{ design: 'segmentedHorizontal', checked: false, class: 'es:first:rounded-l-2xl es:last:rounded-r-2xl es:before-current:rounded-r-2xl es:after-current:rounded-l-2xl' },
-		],
-		defaultVariants: {
-			design: 'default',
-			flat: false,
-			checked: false,
-			disabled: false,
-		},
-	});
-
 	return (
 		<Radio
 			isDisabled={disabled}
-			className={({ isSelected }) => radioContainerClass({ design, flat, disabled, checked: isSelected })}
+			className={({ isSelected }) =>
+				clsx(radioContainerClass({ design, flat, disabled, checked: isSelected }), className, !flat && design !== 'default' && 'es:shadow-xs es:shadow-black/5')
+			}
 			{...rest}
 		>
 			{({ isSelected }) => (
@@ -248,8 +245,6 @@ RadioButton.displayName = 'RadioButton';
  * 	<RadioButton value='first' label='First option' />
  * 	<RadioButton value='second' label='Second option' />
  * </RadioButtonGroup>
- *
- * @preserve
  */
 export const RadioButtonGroup = (props) => {
 	const {

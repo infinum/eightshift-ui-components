@@ -1,6 +1,6 @@
 import { Button } from '../button/button';
 import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
-import { icons } from '../../icons/icons';
+import { copy, dropdownCaretAlt, moreH, trash } from '../../icons/internal';
 import { clsx } from 'clsx';
 import { useContext } from 'react';
 import { Expandable } from '../expandable/expandable';
@@ -25,8 +25,6 @@ import { RepeaterContext } from './repeater-context';
  * @returns {JSX.Element} The RepeaterItem component.
  *
  * @see {@link Repeater} for usage example.
- *
- * @preserve
  */
 export const RepeaterItem = (props) => {
 	const { children, icon, label, subtitle, 'aria-label': ariaLabel, className, actions, textValue, expandDisabled, menuOptions, noMenuButton, ...rest } = props;
@@ -36,7 +34,7 @@ export const RepeaterItem = (props) => {
 
 	return (
 		<Expandable
-			icon={isOutOfBounds ? icons.trash : icon}
+			icon={isOutOfBounds ? trash : icon}
 			label={isOutOfBounds ? __('Release to delete', 'eightshift-ui-components') : label}
 			subtitle={isOutOfBounds ? null : subtitle}
 			labelClassName={clsx(className, isDragged && 'es:cursor-grabbing', !isDragged && !isItemOpen && 'es:cursor-grab')}
@@ -60,7 +58,7 @@ export const RepeaterItem = (props) => {
 					<div className='es:flex es:items-center es:gap-px'>
 						<Menu
 							hidden={noMenuButton}
-							triggerIcon={icons.moreH}
+							triggerIcon={moreH}
 							triggerProps={{
 								className: 'es:icon:size-5 es:icon:shrink-0',
 								size: 'small',
@@ -75,7 +73,7 @@ export const RepeaterItem = (props) => {
 							{!noDuplicateButton && (
 								<MenuItem
 									disabled={!canAdd}
-									icon={icons.copy}
+									icon={copy}
 									onPress={() => duplicateItem()}
 								>
 									{__('Duplicate', 'eightshift-ui-components')}
@@ -84,7 +82,7 @@ export const RepeaterItem = (props) => {
 
 							<MenuItem
 								disabled={!canDelete}
-								icon={icons.trash}
+								icon={trash}
 								onPress={() => deleteItem()}
 								danger
 							>
@@ -93,7 +91,7 @@ export const RepeaterItem = (props) => {
 						</Menu>
 						<Button
 							type='ghost'
-							icon={icons.dropdownCaretAlt}
+							icon={dropdownCaretAlt}
 							onPress={toggleOpen}
 							tooltip={tooltip}
 							disabled={disabled}

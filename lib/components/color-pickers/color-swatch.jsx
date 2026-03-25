@@ -22,8 +22,6 @@ import { __ } from '@wordpress/i18n';
  *
  * @example
  * <ColorSwatch gradient="linear-gradient(45deg, #FF0000, #00FF00)" />
- *
- * @preserve
  */
 export const ColorSwatch = (props) => {
 	const { color: rawColor, gradient, className, colorName, flat, customGradient = false } = props;
@@ -53,7 +51,12 @@ export const ColorSwatch = (props) => {
 				background: (color || gradient) && backgroundGradient,
 			}}
 			className={() =>
-				clsx('es:size-6 es:rounded-md es:border es:border-secondary-300', !color && !gradient && !customGradient && 'es:bg-white', !flat && 'es:shadow-sm', className)
+				clsx(
+					'es:size-6 es:rounded-5 es:in-aria-expanded:rounded-2xl es:border es:border-secondary-300 es:transition-[border-radius]',
+					!color && !gradient && !customGradient && 'es:bg-white',
+					!flat && 'es:shadow-sm',
+					className,
+				)
 			}
 			colorName={!color && !gradient && !customGradient ? __('No color', 'eightshift-ui-components') : colorName}
 			color={color}

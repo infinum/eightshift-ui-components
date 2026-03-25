@@ -3,6 +3,7 @@ import { BaseControl } from '../base-control/base-control';
 import { clsx } from 'clsx';
 import { List, arrayMove, arrayRemove } from 'react-movable';
 import { Container, ContainerGroup } from '../base-control/container';
+import { useCallback, useMemo } from 'react';
 
 /**
  * A component that allows re-ordering a list of items.
@@ -35,7 +36,7 @@ import { Container, ContainerGroup } from '../base-control/container';
  * 		return (
  * 			<DraggableListItem
  * 				label={title ?? 'New item'}
- * 				icon={icons.myIcon}
+ * 				icon={myIcon}
  * 			>
  * 				<InputField
  * 					label='Title'
@@ -47,8 +48,6 @@ import { Container, ContainerGroup } from '../base-control/container';
  * 		);
  * 	}}
  * </DraggableList>
- *
- * @preserve
  */
 export const DraggableList = (props) => {
 	const {
@@ -78,11 +77,76 @@ export const DraggableList = (props) => {
 		...rest
 	} = props;
 
+	const normalizedItems = useMemo(() => (Array.isArray(items) ? items : []), [items]);
+
 	if (typeof items === 'undefined' || items === null || !Array.isArray(items)) {
 		console.warn(__("DraggableList: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
 	}
 
-	if (hidden || !items?.length) {
+	const handleListChange = useCallback(
+		({ oldIndex, newIndex }) => onChange(newIndex === -1 ? arrayRemove(normalizedItems, oldIndex) : arrayMove(normalizedItems, oldIndex, newIndex)),
+		[normalizedItems, onChange],
+	);
+
+	const renderList = useCallback(
+		({ children, props }) => {
+			const { key, ...rest } = props;
+
+			return (
+				<ContainerGroup
+					as='ul'
+					className={clsx('es:w-full es:list-none es:m-0!', itemContainerClassName)}
+					{...rest}
+				>
+					{children}
+				</ContainerGroup>
+			);
+		},
+		[itemContainerClassName],
+	);
+
+	const renderItem = useCallback(
+		({ value, index, isDragged, isSelected, props }) => {
+			const { key, ...rest } = props;
+
+			return (
+				<Container
+					as='li'
+					key={key}
+					accent={isDragged || isSelected}
+					elevated={isDragged || isSelected}
+					className={clsx('es:list-none es:m-0!', isDragged && 'es:z-99999', itemClassName)}
+					data-selected={isDragged || isSelected || props?.style?.position === 'fixed'}
+					{...rest}
+				>
+					{children({
+						...value,
+						updateData: (newValue) => {
+							const updated = [...normalizedItems];
+
+							updated[index] = {
+								...updated[index],
+								...newValue,
+							};
+
+							onChange(updated);
+						},
+						itemIndex: index,
+						deleteItem: () => {
+							onChange(normalizedItems.filter((_, i) => i !== index));
+
+							if (onAfterItemRemove) {
+								onAfterItemRemove(value);
+							}
+						},
+					})}
+				</Container>
+			);
+		},
+		[children, itemClassName, normalizedItems, onAfterItemRemove, onChange],
+	);
+
+	if (hidden || !normalizedItems.length) {
 		return null;
 	}
 
@@ -98,58 +162,10 @@ export const DraggableList = (props) => {
 		>
 			<List
 				transitionDuration={200}
-				values={items}
-				onChange={({ oldIndex, newIndex }) => onChange(newIndex === -1 ? arrayRemove(items, oldIndex) : arrayMove(items, oldIndex, newIndex))}
-				renderList={({ children, props }) => {
-					const { key, ...rest } = props;
-
-					return (
-						<ContainerGroup
-							as='ul'
-							className={clsx('es:w-full es:list-none es:m-0!', itemContainerClassName)}
-							{...rest}
-						>
-							{children}
-						</ContainerGroup>
-					);
-				}}
-				renderItem={({ value, index, isDragged, isSelected, props }) => {
-					const { key, ...rest } = props;
-
-					return (
-						<Container
-							as='li'
-							key={key}
-							accent={isDragged || isSelected}
-							elevated={isDragged || isSelected}
-							className={clsx('es:list-none es:m-0!', isDragged && 'es:z-99999', itemClassName)}
-							data-selected={isDragged || isSelected || props?.style?.position === 'fixed'}
-							{...rest}
-						>
-							{children({
-								...value,
-								updateData: (newValue) => {
-									const updated = [...items];
-
-									updated[index] = {
-										...updated[index],
-										...newValue,
-									};
-
-									onChange(updated);
-								},
-								itemIndex: index,
-								deleteItem: () => {
-									onChange(items.filter((_, i) => i !== index));
-
-									if (onAfterItemRemove) {
-										onAfterItemRemove(value);
-									}
-								},
-							})}
-						</Container>
-					);
-				}}
+				values={normalizedItems}
+				onChange={handleListChange}
+				renderList={renderList}
+				renderItem={renderItem}
 			/>
 		</BaseControl>
 	);

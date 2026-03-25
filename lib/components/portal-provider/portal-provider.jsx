@@ -1,4 +1,5 @@
 import { UNSAFE_PortalProvider } from 'react-aria';
+import { useCallback } from 'react';
 
 /**
  * Component that allows changing the default target for transient components like `Menu`, `Popover`, etc.
@@ -13,9 +14,9 @@ import { UNSAFE_PortalProvider } from 'react-aria';
  * <PortalProvider>
  * 	...
  * </PortalProvider>
- *
- * @preserve
  */
 export const PortalProvider = ({ children, portalElement }) => {
-	return <UNSAFE_PortalProvider getContainer={() => portalElement}>{children}</UNSAFE_PortalProvider>;
+	const getContainer = useCallback(() => portalElement, [portalElement]);
+
+	return <UNSAFE_PortalProvider getContainer={getContainer}>{children}</UNSAFE_PortalProvider>;
 };

@@ -7,8 +7,6 @@ import { __ } from '@wordpress/i18n';
 
 /**
  * @typedef {import('../tooltip/tooltip').TooltipProps} TooltipProps
- *
- * @preserve
  * */
 
 /**
@@ -30,8 +28,6 @@ import { __ } from '@wordpress/i18n';
  *
  * @typedef {'small' | 'default' | 'large'} ButtonSize
  * @typedef {'default' | 'selected' | 'selectedGhost' | 'ghost' | 'danger' | 'dangerGhost' | 'glass' | 'glassDark' | 'dangerGlass' | 'selectedGlass' | 'simple' | 'selectedSimple' | 'dangerSimple' } ButtonType
- *
- * @preserve
  */
 
 /**
@@ -43,11 +39,9 @@ import { __ } from '@wordpress/i18n';
  * @returns {JSX.Element} The Button component.
  *
  * @example
- * <Button onPress={() => console.log('Hi!')} icon={icons.myIcon} />
+ * <Button onPress={() => console.log('Hi!')} icon={myIcon} />
  *
- * <Button onPress={() => console.log('Hi!')} icon={icons.myIcon}>My button</Button>
- *
- * @preserve
+ * <Button onPress={() => console.log('Hi!')} icon={myIcon}>My button</Button>
  */
 export const Button = (props) => {
 	const {
@@ -84,12 +78,11 @@ export const Button = (props) => {
 
 	const componentClasses = cva(
 		[
-			'es:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_0] es:hover:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_75]',
-			'es:flex es:items-center es:justify-center-safe',
-			'es:transition-plus es:duration-300 es:ease-spring-snappy es:text-13',
+			'es:font-variation-["wdth"_82,"wght"_325,"ROND"_100,"GRAD"_0] es:hover:font-variation-["wdth"_82,"wght"_325,"ROND"_100,"GRAD"_70]',
+			'es:flex es:items-center es:justify-center',
+			'es:transition-plus es:duration-300 es:ease-spring-smooth es:text-13',
 			'es:any-focus:outline-hidden',
 			'es:focus-visible:ring-2',
-			'es:shrink-0',
 			'es:text-box-trim',
 			'es:leading-none',
 			'es:btn-group-h:not-pressed:not-after-current:not-first:rounded-l-sm',
@@ -103,9 +96,9 @@ export const Button = (props) => {
 		{
 			variants: {
 				size: {
-					small: 'es:gap-0.75 es:rounded-md es:hover:rounded-10! es:pressed:rounded-14!',
-					default: 'es:gap-1.25 es:rounded-10 es:hover:rounded-xl! es:pressed:rounded-18!',
-					large: 'es:gap-1.5 es:rounded-xl es:hover:rounded-2xl! es:pressed:rounded-3xl!',
+					small: 'es:gap-0.75 es:rounded-lg es:hover:rounded-10! es:pressed:rounded-xl!',
+					default: 'es:gap-1.25 es:rounded-10 es:hover:rounded-xl! es:pressed:rounded-14!',
+					large: 'es:gap-1.5 es:rounded-xl es:hover:rounded-2xl! es:pressed:rounded-18!',
 				},
 			},
 			compoundVariants: [
@@ -131,9 +124,9 @@ export const Button = (props) => {
 					disabled: false,
 					class: [
 						'es:text-black',
-						!pending && 'es:bg-secondary-50 es:bg-linear-to-br es:from-surface-500/2 es:to-surface-500/10',
+						!pending && 'es:bg-secondary-50 es:bg-radial-[at_50%_5%] es:from-50% es:from-surface-500/6 es:to-surface-500/12',
 						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-accent-400/0 es:via-accent-400/25 es:to-accent-400/0 es:from-35% es:via-50% es:to-65% es:bg-surface-100',
-						'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:to-accent-700/5',
+						'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:from-accent-600/4 es:hover:to-accent-600/10',
 						'es:pressed:bg-surface-100 es:pressed:text-accent-950 es:pressed:inset-ring-surface-300 es:pressed:inset-shadow-white/10',
 						'es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
 					],
@@ -143,9 +136,9 @@ export const Button = (props) => {
 					disabled: false,
 					class: [
 						'es:text-accent-600',
-						!pending && 'es:bg-surface-50 es:bg-linear-to-br es:from-accent-900/2 es:to-accent-900/5',
+						!pending && 'es:bg-surface-50 es:bg-radial-[at_50%_5%] es:from-50% es:from-accent-900/2 es:to-accent-900/5',
 						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-accent-400/5 es:via-accent-400/25 es:to-accent-400/5 es:from-35% es:via-50% es:to-65% es:bg-surface-100',
-						'es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:from-accent-700/2 es:hover:to-accent-700/12',
+						'es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:from-accent-600/4 es:hover:to-accent-600/10',
 						' es:pressed:text-accent-950 es:pressed:from-accent-700/10 es:pressed:to-accent-700/20',
 						'es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
 					],
@@ -154,10 +147,10 @@ export const Button = (props) => {
 					type: 'dangerSimple',
 					disabled: false,
 					class: [
-						'es:text-red-700',
-						!pending && 'es:bg-surface-50 es:bg-linear-to-br es:from-red-900/2 es:to-red-900/5',
+						'es:text-red-600',
+						!pending && 'es:bg-white es:bg-radial-[at_50%_5%] es:from-50% es:from-secondary-500/8 es:to-secondary-500/14',
 						pending && 'es:shimmer-animation es:-bg-linear-75 es:from-red-500/0 es:via-red-500/30 es:to-red-500/0 es:from-35% es:via-50% es:to-65% es:bg-red-50',
-						'es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:from-red-500/8 es:hover:to-red-500/15',
+						'es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:from-red-600/4 es:hover:to-red-600/10',
 						' es:pressed:text-red-700 es:pressed:from-red-600/5 es:pressed:to-red-600/15',
 						'es:focus-visible:inset-ring es:focus-visible:ring-red-500/30 es:focus-visible:text-red-700 es:focus-visible:inset-ring-red-700 es:focus-visible:inset-shadow-red-300/10 es:focus-visible:bg-red-50',
 					],
@@ -482,8 +475,6 @@ export const Button = (props) => {
  *     <Button />
  *     <Button />
  * </ButtonGroup>
- *
- * @preserve
  */
 export const ButtonGroup = ({ children, className, vertical, hidden, type = 'segmented', ...rest }) => {
 	if (hidden) {

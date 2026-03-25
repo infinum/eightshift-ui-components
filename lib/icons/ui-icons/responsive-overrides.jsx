@@ -1,0 +1,36 @@
+export const responsiveOverrides = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M4 7a.5.5 0 0 0 1 0H4Zm3.5 5a.5.5 0 0 0 0 1v-1Zm1 2.5a.5.5 0 0 0 0 1v-1Zm4 1a.5.5 0 0 0 0-1v1ZM5 7V5.5H4V7h1Zm1-2.5h9v-1H6v1Zm9 7.5h-4.5v1H15v-1Zm-4.5 0h-3v1h3v-1Zm-.5.5V15h1v-2.5h-1Zm.5 2h-2v1h2v-1Zm0 1h2v-1h-2v1Zm5.5-10V6h1v-.5h-1Zm0 5.25V11h1v-.25h-1ZM15 13a2 2 0 0 0 2-2h-1a1 1 0 0 1-1 1v1Zm0-8.5a1 1 0 0 1 1 1h1a2 2 0 0 0-2-2v1Zm-10 1a1 1 0 0 1 1-1v-1a2 2 0 0 0-2 2h1Z'
+			fill='currentColor'
+		/>
+		<path
+			d='M1 10a1 1 0 0 1 1-1h2.5a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-6Z'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<circle
+			cx='3.25'
+			cy='10.5'
+			r='0.5'
+			fill='currentColor'
+			fillOpacity='0.5'
+		/>
+		<path
+			d='M14.102 7h4.796L16.5 9.74 14.102 7Z'
+			fill='currentColor'
+			fillOpacity='0.3'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+		/>
+	</svg>
+);

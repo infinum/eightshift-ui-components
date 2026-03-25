@@ -22,8 +22,6 @@ import { Button } from '../button/button';
  * @property {boolean} [props.hidden] - If `true`, the component is not rendered.
  *
  * @typedef {'bottom' | 'bottom left' | 'bottom right' | 'bottom start' | 'bottom end' | 'top' | 'top left' | 'top right' | 'top start' | 'top end' | 'left' | 'left top' | 'left bottom' | 'start' | 'start top' | 'start bottom' | 'right' | 'right top' | 'right bottom' | 'end' | 'end top' | 'end bottom'} PopoverPlacement
- *
- * @preserve
  */
 
 /**
@@ -65,8 +63,6 @@ import { Button } from '../button/button';
  * 	...
  * 	<Button onPress={() => setOpen(false)}>Close popover</Button>
  * </Popover>
- *
- * @preserve
  */
 export const Popover = (props) => {
 	const {
@@ -157,8 +153,6 @@ export const Popover = (props) => {
 
 /**
  * @typedef {import('../button/button').ButtonProps} ButtonProps
- *
- * @preserve
  * */
 
 /**
@@ -191,8 +185,6 @@ export const Popover = (props) => {
  * <TriggeredPopover>
  * 		...
  * </TriggeredPopover>
- *
- * @preserve
  */
 export const TriggeredPopover = (props) => {
 	const {

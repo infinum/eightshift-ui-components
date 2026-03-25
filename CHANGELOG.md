@@ -3,6 +3,23 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [7.0.0] - 2026-03-25
+
+- Updated dependencies.
+- (**BREAKING**) Refactored icons - now, instead of all icons living in a single `icons` object, they're all separate imports, which will allow tree-shaking and similar peformance optimizations.
+  - For simpler usages, just replace `icons.iconName` with `iconName` (e.g. `icons.add` -> `add`).
+  - For dynamic usages, use the `Icon` component (e.g. `icons[iconName]` -> `<Icon icon={iconName} />`).
+- Added `Icon` component for dynamic icon rendering. It also supports a `fallback` prop in case the provided name doesn't match any icon, which can be used to e.g. render a default icon or a custom SVG.
+- Performance optimizations in `AnimatedVisibility`, `Container`, `Checkbox`, `InputField`, `NumberPicker`, `PortalProvider`, `DraggableList`, `LinkInput`, `Radio`, `Repeater`, `Switch`, `ContainerPanel`, `Select`, `AsyncSelect`, `MultiSelect`, and `AsyncMultiSelect`.
+- Fixed `exports` list in package.json.
+- Added separate export for `JsxSvg`: `import { JsxSvg } from '@eightshift/ui-components/jsx-svg';`
+- Re-enabled full ESLint config for React.
+- Migrated `SmartImage` to the new version and removed `__SmartImageNext`.
+  - These SmartImage analysis settings are no longer supported through `imageAnalysisSettings`: `lightnessThreshold`, `yFrom`, `yTo`, `maxSize`, and `alphaThreshold`.
+  - `colorCount` image analysis setting is now `numColors`.
+  - `onAnalysisComplete` now provides source metadata. The callback now receives onAnalysisComplete(result, { source }), where source can be either `worker`, `cache`, or `analysisData`.
+- Removed `__useSmartImageNext` from `FilePickerShell`.
+
 ## [6.3.0] - 2026-03-19
 - Updated dependencies.
 - Slightly adjusted secondary colors in color themes.
@@ -593,6 +610,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[7.0.0]: https://github.com/infinum/eightshift-ui-components/compare/6.3.0...7.0.0
 [6.3.0]: https://github.com/infinum/eightshift-ui-components/compare/6.2.0...6.3.0
 [6.2.0]: https://github.com/infinum/eightshift-ui-components/compare/6.1.1...6.2.0
 [6.1.1]: https://github.com/infinum/eightshift-ui-components/compare/6.1.0...6.1.1

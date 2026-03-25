@@ -16,15 +16,15 @@ import {
 	Collection,
 } from 'react-aria-components';
 import { cloneElement, isValidElement, useMemo, useRef, useState } from 'react';
-import { icons } from '../../icons';
+import { Icon, clearAlt, dropdownCaret, multiple, reorder, searchEmpty } from '../../icons/internal';
 import { OptionItemBase, SelectClearButton, getValue, getGroupedOptions } from './shared';
 import { RichLabel } from '../rich-label/rich-label';
-import { cva } from 'class-variance-authority';
 import { TriggeredPopover } from '../popover/popover';
 import { DraggableList } from '../draggable-list/draggable-list';
 import { DraggableListItem } from '../draggable-list/draggable-list-item';
 import { randomId } from '../../utilities';
 import clsx from 'clsx';
+import { selectButtonClass, selectControlClass } from './styles';
 
 /**
  * Multi-select menu.
@@ -76,8 +76,6 @@ import clsx from 'clsx';
  * 	value={value}
  * 	onChange={setValue}
  * />
- *
- * @preserve
  */
 export const MultiSelect = (props) => {
 	const {
@@ -140,9 +138,7 @@ export const MultiSelect = (props) => {
 	const renderItem = (item) => {
 		let icon = item?.icon ?? null;
 
-		if (typeof item?.icon === 'string') {
-			icon = icons?.[item.icon] ?? null;
-		}
+		icon = <Icon icon={icon} />;
 
 		return (
 			<OptionItemBase
@@ -211,78 +207,6 @@ export const MultiSelect = (props) => {
 		return null;
 	}
 
-	const buttonClass = cva('es:any-focus:outline-hidden es:text-start es:size-full es:inline-block es:group es:overflow-x-clip', {
-		variants: {
-			size: {
-				small: ['es:min-h-8', 'es:px-2.5'],
-				medium: ['es:min-h-9', 'es:px-3'],
-				default: ['es:min-h-10', 'es:px-3'],
-				large: ['es:min-h-12', 'es:px-4'],
-			},
-		},
-		defaultVariants: {
-			size: 'default',
-		},
-	});
-
-	const selectClass = cva(
-		[
-			'es:relative',
-			'es:flex es:items-center es:gap-px',
-			'es:leading-none',
-			'es:rounded-lg es:hover:rounded-xl es:has-focus-visible:rounded-2xl es:group-open:rounded-2xl',
-			'es:transition-plus',
-			'es:any-focus:outline-hidden',
-			'es:inset-ring',
-			'es:has-focus-visible:ring-2 es:has-focus-visible:ring-accent-500/30',
-			'es:has-focus-visible:text-accent-950 es:has-focus-visible:inset-ring-accent-500',
-			'es:pr-8',
-			'es:focus:placeholder:text-surface-400',
-			!noMinWidth && 'es:min-w-48',
-			!inline && 'es:w-fill',
-			className,
-		],
-		{
-			variants: {
-				disabled: {
-					false: 'es:selection:bg-surface-100 es:selection:text-accent-800',
-					true: 'es:selection:bg-secondary-200 es:selection:text-secondary-600',
-				},
-			},
-			compoundVariants: [
-				{
-					flat: false,
-					disabled: false,
-					class: [
-						'es:bg-white',
-						'es:bg-linear-to-b es:from-secondary-100/0 es:to-secondary-100/50 es:from-25%',
-						'es:hover:from-surface-100/0 es:hover:to-surface-100/50',
-						'es:inset-ring-secondary-400/50 es:hover:inset-ring-surface-300 es:focus:inset-ring-surface-400',
-						'es:inset-shadow-sm es:inset-shadow-secondary-100/50',
-						'es:hover:placeholder:text-surface-400',
-						'es:placeholder:text-secondary-400',
-						'es:shadow-xs es:shadow-black/5',
-					],
-				},
-				{
-					flat: true,
-					disabled: false,
-					class: [
-						'es:inset-ring-secondary-100',
-						'es:focus:text-accent-950',
-						'es:placeholder:text-secondary-500/80',
-						'es:bg-secondary-100 es:focus:bg-surface-50',
-						'es:inset-ring-secondary-200/15 es:hover:inset-ring-secondary-200/65 es:focus:inset-ring-surface-200',
-					],
-				},
-				{ disabled: true, class: ['es:bg-secondary-50 es:inset-ring-secondary-200 es:text-secondary-400'] },
-				{ readOnly: true, flat: false, class: ['es:bg-secondary-50 es:inset-ring-secondary-300 es:text-secondary-400'] },
-				{ readOnly: true, flat: true, class: ['es:bg-secondary-50 es:inset-ring-secondary-300/60 es:text-secondary-400'] },
-			],
-			defaultVariants: { disabled: false, flat: false, size: 'default' },
-		},
-	);
-
 	return (
 		<ReactAriaSelect
 			selectionMode='multiple'
@@ -308,10 +232,10 @@ export const MultiSelect = (props) => {
 				labelAs={Label}
 			>
 				<div
-					className={selectClass({ disabled, flat, size })}
+					className={clsx(selectControlClass({ disabled, flat, size, clearable: true, hasMinWidth: !noMinWidth, inline }), className)}
 					ref={ref}
 				>
-					<Button className={buttonClass({ size })}>
+					<Button className={selectButtonClass({ size })}>
 						<SelectValue className='es:select-none es:pointer-events-none'>
 							{({ isPlaceholder, selectedItems }) => {
 								const [selectedItem] = selectedItems;
@@ -322,14 +246,12 @@ export const MultiSelect = (props) => {
 
 								let icon = selectedItem?.icon ?? null;
 
-								if (typeof selectedItem?.icon === 'string') {
-									icon = icons?.[selectedItem?.icon] ?? null;
-								}
+								icon = <Icon icon={icon} />;
 
 								if (selectedItems.length > 1) {
 									return (
 										<RichLabel
-											icon={icons.multiple}
+											icon={multiple}
 											label={sprintf(_n('%s item', '%s items', selectedItems.length, 'eightshift-ui-components'), selectedItems.length)}
 											subtitle={selectedItems.map((item) => item?.label ?? item).join(', ')}
 											subtitleClassName='es:line-clamp-1 es:max-w-56'
@@ -360,7 +282,7 @@ export const MultiSelect = (props) => {
 							aria-hidden='true'
 						>
 							{!customDropdownArrow &&
-								cloneElement(icons.dropdownCaret, {
+								cloneElement(dropdownCaret, {
 									className: 'es:w-4 es:stroke-[1.2] es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
 								})}
 
@@ -378,7 +300,7 @@ export const MultiSelect = (props) => {
 					{clearable && <SelectClearButton multi />}
 
 					<TriggeredPopover
-						triggerButtonIcon={icons.reorder}
+						triggerButtonIcon={reorder}
 						triggerButtonProps={{
 							size: 'small',
 							type: 'ghost',
@@ -488,7 +410,7 @@ export const MultiSelect = (props) => {
 										'es:peer-placeholder-shown:opacity-0',
 									)}
 								>
-									{icons.clearAlt}
+									{clearAlt}
 								</Button>
 							</SearchField>
 
@@ -496,7 +418,7 @@ export const MultiSelect = (props) => {
 								className='es:space-y-0.75 es:p-1.5 es:pt-0 es:any-focus:outline-hidden es:h-full es:overflow-y-auto es:rounded-t-xl'
 								renderEmptyState={() => (
 									<RichLabel
-										icon={icons.searchEmpty}
+										icon={searchEmpty}
 										label={__('No results', 'eightshift-ui-components')}
 										subtitle={__('Try a different search term', 'eightshift-ui-components')}
 										className='es:min-h-14 es:p-2 es:w-fit es:mx-auto es:motion-preset-slide-up es:motion-ease-spring-bouncy es:motion-duration-200 es:shrink-0'
@@ -537,7 +459,7 @@ export const MultiSelect = (props) => {
 							className='es:space-y-0.75 es:p-1.5 es:any-focus:outline-hidden es:h-full es:overflow-y-auto es:rounded-t-xl'
 							renderEmptyState={() => (
 								<RichLabel
-									icon={icons.searchEmpty}
+									icon={searchEmpty}
 									label={__('No results', 'eightshift-ui-components')}
 									subtitle={__('Try a different search term', 'eightshift-ui-components')}
 									className='es:min-h-14 es:p-2 es:w-fit es:mx-auto es:motion-preset-slide-up es:motion-ease-spring-bouncy es:motion-duration-200'

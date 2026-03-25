@@ -1,0 +1,26 @@
+export const limitWidth = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M5 10.5v6A1.5 1.5 0 0 0 6.5 18h7a1.5 1.5 0 0 0 1.5-1.5v-6m0-1v-6A1.5 1.5 0 0 0 13.5 2h-7A1.5 1.5 0 0 0 5 3.5v6'
+			stroke='currentColor'
+			strokeOpacity='0.5'
+			strokeLinecap='round'
+			fill='none'
+		/>
+		<path
+			d='m3 8 2 2m0 0-2 2m2-2H1m16-2-2 2m0 0 2 2m-2-2h4'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+	</svg>
+);

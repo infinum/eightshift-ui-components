@@ -1,0 +1,41 @@
+export const anchorPage = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			d='M9.938 13.017c0 .933-.313 2.985.937 3.732 1.563.933 3.125.933 3.125 2.488m-4.063-6.22.938.933m-.938-.933L9 13.95m9.063-.933c0 .933.312 2.985-.938 3.732-1.563.933-3.125.933-3.125 2.488m4.063-6.22-.938.933m.938-.933.937.933m-5 5.287v-7.792'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<ellipse
+			cx='14'
+			cy='10.433'
+			rx='0.9375'
+			ry='0.933015'
+			fill='currentColor'
+			fillOpacity='0.12'
+			stroke='currentColor'
+		/>
+		<path
+			d='M16.75 11.5v-9a1.5 1.5 0 0 0-1.5-1.5h-11a1.5 1.5 0 0 0-1.5 1.5v15a1.5 1.5 0 0 0 1.5 1.5h7.25'
+			stroke='currentColor'
+			strokeLinecap='round'
+			fill='none'
+		/>
+		<path
+			d='M5.75 4h6m-6 2h5m-5 2h3m-3 3h3.5m-3.5 2h2.5'
+			stroke='currentColor'
+			strokeOpacity='0.3'
+			strokeLinecap='round'
+			fill='none'
+		/>
+	</svg>
+);

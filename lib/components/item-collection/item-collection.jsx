@@ -26,8 +26,6 @@ import { __ } from '@wordpress/i18n';
  *       </div>
  *    )}
  * </ItemCollection>
- *
- * @preserve
  */
 export const ItemCollection = (props) => {
 	const { children, items: rawItems, onChange, hidden } = props;

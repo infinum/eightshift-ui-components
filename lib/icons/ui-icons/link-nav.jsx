@@ -1,0 +1,56 @@
+export const linkNav = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<rect
+			y='4.5'
+			width='6'
+			height='3.5'
+			rx='1'
+			fill='currentColor'
+			fillOpacity='0.12'
+		/>
+		<path
+			d='M1.5 6.25h3'
+			stroke='currentColor'
+			strokeLinecap='round'
+			fill='none'
+		/>
+		<rect
+			x='7.5'
+			y='4.5'
+			width='6'
+			height='3.5'
+			rx='1'
+			fill='currentColor'
+			fillOpacity='0.12'
+		/>
+		<path
+			d='M9 6.25h3'
+			stroke='currentColor'
+			strokeLinecap='round'
+			fill='none'
+		/>
+		<path
+			d='M15 5.5a1 1 0 0 1 1-1h4V8h-4a1 1 0 0 1-1-1V5.5Z'
+			fill='currentColor'
+			fillOpacity='0.12'
+		/>
+		<path
+			d='M16.5 5.75a.5.5 0 0 0 0 1v-1Zm0 1H20v-1h-3.5v1Z'
+			fill='currentColor'
+		/>
+		<path
+			d='M7.875 10.5H6.5a2.75 2.75 0 1 0 0 5.5h1.375M12 10.5h1.375a2.75 2.75 0 1 1 0 5.5H12m-5.5-2.75h6.875'
+			stroke='currentColor'
+			strokeLinecap='round'
+			fill='none'
+		/>
+	</svg>
+);

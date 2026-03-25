@@ -1,8 +1,7 @@
 import { clsx } from 'clsx';
-import { icons } from '../../icons';
+import { file } from '../../icons/internal';
 import { truncateMiddle } from '../../utilities';
 import { SmartImage } from '../smart-image/smart-image';
-import { __SmartImageNext } from '../smart-image/smart-image-next';
 
 /**
  * A shell for a file picker UI, handling both rich visual presentation (e.g. images) and simple file placeholders.
@@ -40,23 +39,19 @@ import { __SmartImageNext } from '../smart-image/smart-image-next';
  *     <Button type='glass'>Replace</Button>
  *     <Button type='glass'>Remove</Button>
  * </FilePickerShell>
- *
- * @preserve
  */
 export const FilePickerShell = (props) => {
 	const {
 		url,
 		type = 'file',
 
-		icon = icons.file,
+		icon = file,
 
 		children,
 		className,
 		noUrlContent,
 
 		hidden,
-
-		__useSmartImageNext = false,
 
 		...rest
 	} = props;
@@ -79,7 +74,7 @@ export const FilePickerShell = (props) => {
 				)}
 			>
 				{type === 'file' && (
-					<div className='es:grow es:flex es:flex-col es:gap-2 es:text-sm es:items-center-safe es:justify-center-safe es:font-mono es:icon:size-6 es:rounded-xl es:bg-white/50 es:inset-ring es:inset-ring-surface-100 es:icon:text-surface-500 es:text-surface-700 es:px-2 es:py-4'>
+					<div className='es:grow es:flex es:flex-col es:gap-2 es:text-sm es:items-center-safe es:justify-center es:font-mono es:icon:size-6 es:rounded-xl es:bg-white/50 es:inset-ring es:inset-ring-surface-100 es:icon:text-surface-500 es:text-surface-700 es:px-2 es:py-4'>
 						{icon}
 						<span className='es:line-clamp-1'>{truncateMiddle(url, 34)}</span>
 					</div>
@@ -90,10 +85,8 @@ export const FilePickerShell = (props) => {
 		);
 	}
 
-	const ComponentToRender = __useSmartImageNext ? __SmartImageNext : SmartImage;
-
 	return (
-		<ComponentToRender
+		<SmartImage
 			src={url}
 			alt=''
 			className={({ hasAnalysed, isTransparent, transparencyInfo, isDark, hasError }) =>
@@ -108,8 +101,6 @@ export const FilePickerShell = (props) => {
 					hasError && 'es:rounded-xl',
 				)
 			}
-			errorClassName={!__useSmartImageNext && 'es:aspect-3-2 es:rounded-2xl es:bg-linear-to-br es:from-white es:to-secondary-50 es:border es:border-dashed es:border-secondary-200'}
-			imageAnalysisSettings={{ yFrom: 0.25, yTo: 0.75 }}
 			{...rest}
 		>
 			{({ image, dominantColors, isDark, hasAnalysed, isTransparent, hasError, errorBadge }) => {
@@ -154,6 +145,6 @@ export const FilePickerShell = (props) => {
 					</div>
 				);
 			}}
-		</ComponentToRender>
+		</SmartImage>
 	);
 };

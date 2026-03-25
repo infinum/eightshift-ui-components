@@ -1,0 +1,41 @@
+export const trashAlt = (
+	<svg
+		aria-hidden='true'
+		focusable='false'
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 20 20'
+		width='20'
+		height='20'
+		fill='none'
+	>
+		<path
+			className='es-animated-trash-alt-lid'
+			d='m4.147 5.565 11.591-3.106'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			className='es-animated-trash-alt-lid'
+			d='M11.745 3.011a2 2 0 1 0-3.864 1.036'
+			stroke='currentColor'
+			fill='none'
+		/>
+		<path
+			className='es-animated-trash-alt-base'
+			d='M6.199 18.157 4.5 7.5h11l-1.699 10.657a1 1 0 0 1-.988.843H7.187a1 1 0 0 1-.988-.843Z'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			fill='none'
+		/>
+		<path
+			className='es-animated-trash-alt-base'
+			d='M8.5 10.25v6m3-6v6'
+			stroke='currentColor'
+			strokeLinecap='round'
+			fill='none'
+		/>
+	</svg>
+);

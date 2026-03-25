@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { cloneElement, useState } from 'react';
 import {
 	Toggle,
 	AnimatedVisibility,
@@ -66,14 +66,94 @@ import {
 	OptionsPanelIntro,
 	FilePickerShell,
 	SmartImage,
-	__SmartImageNext,
 	Container,
 	ContainerGroup,
 } from '../lib';
-import { icons } from '../lib/icons';
 import { clsx } from 'clsx';
-import { cloneElement } from 'react';
 import '../lib/style';
+import {
+	cardFeatured,
+	genericShapes,
+	num1Square,
+	num2Circle,
+	num3SquareAlt,
+	num1Circle,
+	num3Circle,
+	num3Square,
+	options,
+	toggleOnAlt,
+	verticalSpacing,
+	animationGeneric,
+	dropdownClose,
+	link,
+	info,
+	chatBubble,
+	buttonOutline,
+	position3x3CenterCenter,
+	hamburgerMenu,
+	hoverBackgroundGlow,
+	num2CircleAlt,
+	responsive,
+	fieldLabel,
+	dropdown,
+	multiple,
+	loopMode,
+	newTab,
+	inputField,
+	componentOptions,
+	gridAutoRows,
+	checkSquare,
+	listUnordered,
+	slider,
+	solidCircleFilled,
+	gradient,
+	color,
+	eyedropper,
+	responsiveOverridesAlt,
+	columnGuttersLR,
+	group,
+	layoutAlt,
+	cursorMove,
+	previewResponsive,
+	browser,
+	file,
+	imageLazyLoad,
+	iconGeneric,
+	experiment,
+	componentGeneric,
+	emptyRect,
+	person,
+	magicFill,
+	small,
+	medium,
+	large,
+	arrowsUp,
+	trash,
+	save,
+	rangeMid,
+	resetToZero,
+	screenMobile,
+	screenTablet,
+	screenDesktop,
+	screenLarge,
+	GenericColorSwatch,
+	help,
+	arrowDown,
+	paragraph,
+	heading,
+	image,
+	video,
+	magicAlt,
+	columns,
+	a11yWarning,
+	warning,
+	bot,
+	locationSettings,
+	upload,
+	Icon,
+	emptyCircle,
+} from '../lib/icons';
+import { iconLoaders } from '../lib/icons/generated-icon-loaders';
 
 const slugify = (input) => {
 	return input
@@ -86,6 +166,8 @@ const slugify = (input) => {
 		.replace(/^-+/, '')
 		.replace(/-+$/, '');
 };
+
+const iconEntries = Object.keys(iconLoaders).sort((iconNameA, iconNameB) => iconNameA.localeCompare(iconNameB));
 
 const FilePickerShellDemo = ({ url, ...rest }) => (
 	<FilePickerShell
@@ -119,7 +201,7 @@ const FilePickerShellDemo = ({ url, ...rest }) => (
 					</Button>
 
 					<TriggeredPopover
-						triggerButtonIcon={icons.info}
+						triggerButtonIcon={info}
 						triggerButtonProps={{ type: buttonType }}
 						hidden={hasError}
 					>
@@ -265,7 +347,7 @@ function App() {
 		{
 			label: 'Item 3',
 			value: 'item-3',
-			icon: icons.num3Square,
+			icon: num3Square,
 		},
 		{
 			label: 'Item 4 with veeeery very long label',
@@ -282,7 +364,7 @@ function App() {
 		{
 			label: 'Item 7 lorem',
 			subtitle: 'Ipsum dolor sit amet lorem',
-			icon: icons.experiment,
+			icon: experiment,
 			value: 'item-7',
 		},
 	];
@@ -298,11 +380,11 @@ function App() {
 	];
 
 	const groupedDataWithIcons = [
-		{ label: 'Dog', value: 'dog', category: 'Animals', icon: icons.genericShapes },
-		{ label: 'Cat', value: 'cat', category: 'Animals', icon: icons.genericShapes },
-		{ label: 'Bird', value: 'bird', category: 'Animals', icon: icons.genericShapes },
-		{ label: 'Car', value: 'car', category: 'Vehicles', icon: icons.cardFeatured },
-		{ label: 'Bike', value: 'bike', category: 'Vehicles', icon: icons.cardFeatured },
+		{ label: 'Dog', value: 'dog', category: 'Animals', icon: genericShapes },
+		{ label: 'Cat', value: 'cat', category: 'Animals', icon: genericShapes },
+		{ label: 'Bird', value: 'bird', category: 'Animals', icon: genericShapes },
+		{ label: 'Car', value: 'car', category: 'Vehicles', icon: cardFeatured },
+		{ label: 'Bike', value: 'bike', category: 'Vehicles', icon: cardFeatured },
 	];
 
 	const getData = (inputValue) => {
@@ -400,16 +482,16 @@ function App() {
 	const repeaterDefaultItems2 = [
 		{
 			title: 'Item 1',
-			icon: icons.num1Square,
+			icon: num1Square,
 		},
 		{
 			title: 'Item 2',
 			subtitle: 'Lorem',
-			icon: icons.num2Circle,
+			icon: num2Circle,
 		},
 		{
 			title: 'Item 3',
-			icon: icons.num3SquareAlt,
+			icon: num3SquareAlt,
 		},
 	];
 
@@ -417,16 +499,16 @@ function App() {
 		{
 			toggle: false,
 			title: 'Item 1',
-			icon: icons.num1Circle,
+			icon: num1Circle,
 		},
 		{
 			toggle: true,
 			title: 'Item 2',
-			icon: icons.num2Circle,
+			icon: num2Circle,
 		},
 		{
 			toggle: true,
-			icon: icons.num3Circle,
+			icon: num3Circle,
 		},
 	];
 
@@ -654,14 +736,10 @@ function App() {
 	const [colConfig4, setColConfig4] = useState([2, 4]);
 	const [colConfig5, setColConfig5] = useState([2, 4]);
 
-	const [useSmImgNext, setUseSmImgNext] = useState(false);
-
-	const SmartImageToRender = useSmImgNext ? __SmartImageNext : SmartImage;
-
 	return (
 		<div className='es:flex es:flex-col es:items-center es:justify-center es:overscroll-none es:p-10'>
 			<TriggeredPopover
-				triggerButtonIcon={icons.options}
+				triggerButtonIcon={options}
 				triggerButtonProps={{ className: 'es:absolute es:top-4 es:right-4' }}
 				className='es:p-4'
 			>
@@ -686,7 +764,7 @@ function App() {
 				/>
 			</TriggeredPopover>
 
-			<div className='es:mx-auto es:flex es:w-90 es:flex-col es:items-center es:justify-center es:gap-2.5 es:p-10 es:empty:hidden'></div>
+			<div className='es:mx-auto es:flex es:w-90 es:flex-col es:items-center es:justify-center es:gap-2.5 es:p-10 es:empty:hidden' />
 
 			<Tabs
 				vertical
@@ -701,228 +779,233 @@ function App() {
 			>
 				<TabList className='es:sticky es:top-16'>
 					<Tab
-						icon={icons.toggleOnAlt}
+						icon={toggleOnAlt}
 						label='Toggle / Switch'
 						id='toggle'
 					/>
 					<Tab
-						icon={icons.verticalSpacing}
+						icon={verticalSpacing}
 						label='Spacer'
 						id='spacer'
 					/>
 					<Tab
-						icon={icons.animationGeneric}
+						icon={animationGeneric}
 						label='Animated visibility'
 						id='anim-vis'
 					/>
 					<Tab
-						icon={icons.dropdownClose}
+						icon={dropdownClose}
 						label='Expandable'
 						id='expandable'
 					/>
 					<Tab
-						icon={icons.link}
+						icon={link}
 						label='LinkInput'
 						id='link-input'
 					/>
 					<Tab
-						icon={icons.info}
+						icon={info}
 						label='Notice'
 						id='notice'
 					/>
 					<Tab
-						icon={icons.chatBubble}
+						icon={chatBubble}
 						label='Triggered popover'
 						id='triggered-popover'
 					/>
 					<Tab
-						icon={icons.buttonOutline}
+						icon={buttonOutline}
 						label='Button'
 						id='button'
 					/>
 					<Tab
-						icon={icons.position3x3CenterCenter}
+						icon={position3x3CenterCenter}
 						label='Matrix align'
 						id='matrix-align'
 					/>
 					<Tab
-						icon={icons.hamburgerMenu}
+						icon={hamburgerMenu}
 						label='Menu'
 						id='menu'
 					/>
 					<Tab
-						icon={icons.hoverBackgroundGlow}
+						icon={hoverBackgroundGlow}
 						label='Tooltip'
 						id='tooltip'
 					/>
 					<Tab
-						icon={icons.num2CircleAlt}
+						icon={num2CircleAlt}
 						label='Number picker'
 						id='num-pick'
 					/>
 					<Tab
-						icon={icons.responsive}
+						icon={responsive}
 						label='Responsive 2.0'
 						id='responsive-2'
 					/>
 					<Tab
-						icon={icons.fieldLabel}
+						icon={fieldLabel}
 						label='Base control'
 						id='base-ctrl'
 					/>
 					<Tab
-						icon={icons.dropdown}
+						icon={dropdown}
 						label='Select'
 						id='select'
 					/>
 					<Tab
-						icon={icons.multiple}
+						icon={multiple}
 						label='MultiSelect'
 						id='multi-select'
 					/>
 					<Tab
-						icon={icons.loopMode}
+						icon={loopMode}
 						label='AsyncSelect'
 						id='async-select'
 					/>
 					<Tab
-						icon={icons.loopMode}
+						icon={loopMode}
 						label='AsyncMultiSelect'
 						id='async-multi-select'
 					/>
 					<Tab
-						icon={icons.newTab}
+						icon={newTab}
 						label='Tabs'
 						id='tabs'
 					/>
 					<Tab
-						icon={icons.inputField}
+						icon={inputField}
 						label='Input field'
 						id='input'
 					/>
 					<Tab
-						icon={icons.componentOptions}
+						icon={componentOptions}
 						label='Component toggle'
 						id='comp-toggle'
 					/>
 					<Tab
-						icon={icons.gridAutoRows}
+						icon={gridAutoRows}
 						label='Repeater'
 						id='repeater'
 					/>
 					<Tab
-						icon={icons.checkSquare}
+						icon={checkSquare}
 						label='Checkbox'
 						id='checbox'
 					/>
 					<Tab
-						icon={icons.listUnordered}
+						icon={listUnordered}
 						label='Radio button'
 						id='radio'
 					/>
 					<Tab
-						icon={icons.slider}
+						icon={slider}
 						label='Slider'
 						id='slider'
 					/>
 					<Tab
-						icon={icons.solidCircleFilled}
+						icon={solidCircleFilled}
 						label='Solid color picker'
 						id='solid-color-pick'
 					/>
 					<Tab
-						icon={icons.gradient}
+						icon={gradient}
 						label='Gradient editor'
 						id='gradient-editor'
 					/>
 					<Tab
-						icon={icons.color}
+						icon={color}
 						label='Color swatch'
 						id='color-swatch'
 					/>
 					<Tab
-						icon={icons.eyedropper}
+						icon={eyedropper}
 						label='Color picker'
 						id='color-picker'
 					/>
 					<Tab
-						icon={icons.responsiveOverridesAlt}
+						icon={responsiveOverridesAlt}
 						label='Responsive (legacy)'
 						id='resp-legacy'
 					/>
 					<Tab
-						icon={icons.columnGuttersLR}
+						icon={columnGuttersLR}
 						label='Column config slider'
 						id='col-config-slider'
 					/>
 					<Tab
-						icon={icons.group}
+						icon={group}
 						label='Container panel'
 						id='cont-panel'
 					/>
 					<Tab
-						icon={icons.layoutAlt}
+						icon={layoutAlt}
 						label='Layout components'
 						id='stacks'
 					/>
 					<Tab
-						icon={icons.emptyCircle}
+						icon={emptyCircle}
 						label='Placeholders'
 						id='placeholder'
 					/>
 					<Tab
-						icon={icons.cursorMove}
+						icon={cursorMove}
 						label='Draggable'
 						id='draggable'
 					/>
 					<Tab
-						icon={icons.cursorMove}
+						icon={cursorMove}
 						label='Draggable list'
 						id='draggable-list'
 					/>
 					<Tab
-						icon={icons.options}
+						icon={options}
 						label='Options panel'
 						id='opt-panel'
 					/>
 					<Tab
-						icon={icons.previewResponsive}
+						icon={previewResponsive}
 						label='Responsive preview'
 						id='resp-preview'
 					/>
 					<Tab
-						icon={icons.browser}
+						icon={browser}
 						label='Modal'
 						id='modal'
 					/>
 					<Tab
-						icon={icons.multiple}
+						icon={multiple}
 						label='Item collection'
 						id='item-collection'
 					/>
 					<Tab
-						icon={icons.file}
+						icon={file}
 						label='File picker shell'
 						id='file-picker-shell'
 					/>
 					<Tab
-						icon={icons.imageLazyLoad}
+						icon={imageLazyLoad}
 						label='Smart image'
 						id='smart-img'
+					/>
+					<Tab
+						icon={iconGeneric}
+						label='Icons'
+						id='icons'
 					/>
 				</TabList>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<Toggle
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
-						icon={icons.experiment}
+						icon={experiment}
 						label='Airplane mode'
 					/>
 
 					<Toggle
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
-						icon={icons.experiment}
+						icon={experiment}
 						label='Airplane mode flat'
 						flat
 					/>
@@ -930,7 +1013,7 @@ function App() {
 					<Toggle
 						checked
 						onChange={(value) => setToggled(value)}
-						icon={icons.experiment}
+						icon={experiment}
 						label='Airplane mode'
 						disabled
 					/>
@@ -938,7 +1021,7 @@ function App() {
 					<Toggle
 						checked={false}
 						onChange={(value) => setToggled(value)}
-						icon={icons.experiment}
+						icon={experiment}
 						label='Airplane mode'
 						disabled
 					/>
@@ -946,14 +1029,14 @@ function App() {
 					<Switch
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
-						icon={icons.experiment}
+						icon={experiment}
 						label='Airplane mode'
 					/>
 
 					<Switch
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
-						icon={icons.experiment}
+						icon={experiment}
 						label='Airplane mode'
 						size='small'
 					/>
@@ -961,7 +1044,7 @@ function App() {
 					<Switch
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
-						icon={icons.experiment}
+						icon={experiment}
 						label='Airplane mode'
 						size='medium'
 					/>
@@ -969,7 +1052,7 @@ function App() {
 					<Switch
 						checked={toggled2}
 						onChange={(value) => setToggled2(value)}
-						icon={icons.experiment}
+						icon={experiment}
 						label='Airplane mode'
 						isIndeterminate={toggled2 === null}
 					/>
@@ -978,7 +1061,7 @@ function App() {
 						<Toggle
 							checked={toggled}
 							onChange={(value) => setToggled(value)}
-							icon={icons.experiment}
+							icon={experiment}
 							label='Airplane mode'
 						/>
 					</Container>
@@ -988,7 +1071,7 @@ function App() {
 							<Toggle
 								checked={toggled}
 								onChange={(value) => setToggled(value)}
-								icon={icons.experiment}
+								icon={experiment}
 								label='Airplane mode'
 							/>
 						</Container>{' '}
@@ -996,7 +1079,7 @@ function App() {
 							<Toggle
 								checked={toggled}
 								onChange={(value) => setToggled(value)}
-								icon={icons.experiment}
+								icon={experiment}
 								label='Airplane mode'
 							/>
 						</Container>{' '}
@@ -1004,7 +1087,7 @@ function App() {
 							<Toggle
 								checked={toggled}
 								onChange={(value) => setToggled(value)}
-								icon={icons.experiment}
+								icon={experiment}
 								label='Airplane mode'
 							/>
 						</Container>
@@ -1019,72 +1102,88 @@ function App() {
 
 					<Spacer border />
 
-					<Spacer icon={icons.componentGeneric} />
+					<Spacer icon={componentGeneric} />
 					<Spacer
-						icon={icons.componentGeneric}
+						icon={componentGeneric}
 						text='My divider'
 					/>
 					<Spacer
-						icon={icons.componentGeneric}
+						icon={componentGeneric}
 						text='My divider'
 						subtitle='Lorem ipsum'
 					/>
 
 					<Spacer
-						icon={icons.componentGeneric}
+						icon={componentGeneric}
 						border
 					/>
 					<Spacer
-						icon={icons.componentGeneric}
+						icon={componentGeneric}
 						text='My divider'
 						border
 					/>
 					<Spacer
-						icon={icons.componentGeneric}
+						icon={componentGeneric}
 						text='My divider'
 						subtitle='Lorem ipsum'
 						border
 					/>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					<div className='es:flex es:min-h-56 es:flex-col es:gap-2 es:rounded-md es:border es:border-dotted es:border-secondary-300 es:p-2'>
+					<HStack>
 						<ToggleButton
-							className='mx-auto'
 							selected={animVis}
 							onChange={setAnimVis}
 						>
 							Show
 						</ToggleButton>
-						<div className='es:grid es:grid-cols-2 es:gap-4'>
-							<AnimatedVisibility
-								visible={animVis}
-								noInitial
-								transition='slideFade'
-							>
-								<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>Hi, I&apos;m content.</div>
-							</AnimatedVisibility>
-							<AnimatedVisibility
-								visible={animVis}
-								transition='slideFade'
-							>
-								<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>Hi, I&apos;m content.</div>
-							</AnimatedVisibility>
-						</div>
 
-						<span className='es:text-secondary-500'>
-							Left has <code>noInitial</code> set.
-						</span>
+						<ToggleButton
+							selected={animVis}
+							onChange={setAnimVis}
+							type='simple'
+						>
+							Show
+						</ToggleButton>
+
+						<ToggleButton
+							selected={animVis}
+							onChange={setAnimVis}
+							type='ghost'
+						>
+							Show
+						</ToggleButton>
+					</HStack>
+
+					<div className='es:grid es:grid-cols-2 es:gap-4'>
+						<AnimatedVisibility
+							visible={animVis}
+							noInitial
+							transition='slideFade'
+						>
+							<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>Hi, I&apos;m content.</div>
+						</AnimatedVisibility>
+						<AnimatedVisibility
+							visible={animVis}
+							transition='slideFade'
+						>
+							<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>Hi, I&apos;m content.</div>
+						</AnimatedVisibility>
 					</div>
+
+					<span className='es:text-secondary-500'>
+						Left has <code>noInitial</code> set.
+					</span>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:p-5!'>
 					<Expandable
 						standalone
-						icon={icons.experiment}
+						icon={experiment}
 						label='Lorem ipsum dolor'
 						actions={
 							<Button
 								onPress={() => console.log('hi')}
-								icon={icons.emptyRect}
+								icon={emptyRect}
 								type='ghost'
 								size='small'
 							/>
@@ -1094,40 +1193,20 @@ function App() {
 
 						<Button
 							onPress={() => console.log('hi')}
-							icon={icons.emptyRect}
+							icon={emptyRect}
 							type='ghost'
 							size='small'
 						/>
 					</Expandable>
 
-					<ContainerGroup>
-						<Container standalone>
-							<BaseControl
-								icon={icons.experiment}
-								label='Lorem ipsum dolor'
-								actions={
-									<Button
-										onPress={() => console.log('hi')}
-										icon={icons.emptyRect}
-										type='ghost'
-										size='small'
-									/>
-								}
-								inline
-							>
-								a
-							</BaseControl>
-						</Container>
-					</ContainerGroup>
-
 					<Expandable
 						standalone
-						icon={icons.experiment}
+						icon={experiment}
 						label='Lorem ipsum dolor'
 						actions={
 							<Button
 								onPress={() => console.log('hi')}
-								icon={icons.emptyRect}
+								icon={emptyRect}
 								type='ghost'
 								size='small'
 							/>
@@ -1141,13 +1220,13 @@ function App() {
 
 					<Expandable
 						standalone
-						icon={icons.experiment}
+						icon={experiment}
 						label='Lorem ipsum dolor'
 						keepActionsOnExpand
 						actions={
 							<Button
 								onPress={() => console.log('hi')}
-								icon={icons.emptyCircle}
+								icon={emptyCircle}
 								type='ghost'
 								size='small'
 							/>
@@ -1161,12 +1240,12 @@ function App() {
 
 					<div className='es:space-y-0.75'>
 						<Expandable
-							icon={icons.experiment}
+							icon={experiment}
 							label='Lorem ipsum dolor'
 							actions={
 								<Button
 									onPress={() => console.log('hi')}
-									icon={icons.emptyRect}
+									icon={emptyRect}
 									type='ghost'
 									size='small'
 								/>
@@ -1175,19 +1254,19 @@ function App() {
 							<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>lorem</div>
 							<Button
 								onPress={() => console.log('hi')}
-								icon={icons.emptyRect}
+								icon={emptyRect}
 								type='ghost'
 								size='small'
 							/>
 						</Expandable>
 
 						<Expandable
-							icon={icons.experiment}
+							icon={experiment}
 							label='Lorem ipsum dolor'
 							actions={
 								<Button
 									onPress={() => console.log('hi')}
-									icon={icons.emptyRect}
+									icon={emptyRect}
 									type='ghost'
 									size='small'
 								/>
@@ -1200,13 +1279,13 @@ function App() {
 						</Expandable>
 
 						<Expandable
-							icon={icons.experiment}
+							icon={experiment}
 							label='Lorem ipsum dolor'
 							keepActionsOnExpand
 							actions={
 								<Button
 									onPress={() => console.log('hi')}
-									icon={icons.emptyCircle}
+									icon={emptyCircle}
 									type='ghost'
 									size='small'
 								/>
@@ -1301,7 +1380,7 @@ function App() {
 						subtitle='Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
 					/>
 					<Notice
-						icon={icons.experiment}
+						icon={experiment}
 						label='Lorem ipsum dolor'
 						subtitle='Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
 					/>
@@ -1341,24 +1420,24 @@ function App() {
 					/>
 
 					<Notice
-						icon={icons.person}
+						icon={person}
 						label='Post meta'
 						subtitle='will be shown here'
 						type='placeholder'
 					/>
 					<Notice
-						icon={icons.person}
+						icon={person}
 						label='Post meta'
 						type='placeholder'
 					/>
 					<Notice
-						icon={icons.person}
+						icon={person}
 						subtitle='Post meta'
 						type='placeholder'
 					/>
 
 					<Notice
-						icon={icons.person}
+						icon={person}
 						label='Lorem ipsum'
 						subtitle='dolor sit amet, consectetur adipiscing elit. Vivamus ultrices tincidunt nibh, in lacinia tellus lobortis eu. Curabitur dignissim tellus eget felis tincidunt, a maximus odio tristique.'
 						type='placeholder'
@@ -1459,7 +1538,7 @@ function App() {
 						type='selected'
 						pending={buttonPending}
 						disabled={buttonDisabled}
-						icon={icons.magicFill}
+						icon={magicFill}
 					>
 						Pending button
 					</Button>
@@ -1473,7 +1552,7 @@ function App() {
 
 					<div
 						style={{ backgroundImage: 'url(https://fastly.picsum.photos/id/328/600/800.jpg?hmac=BZ-xPwUADtXzjRoS5pt6s9NZob3vvu89cOu6DYICMQE' }}
-						className='es:bg-cover es:p-8 es:space-y-5 es:bg-right-bottom'
+						className='es:bg-cover es:p-8 es:space-y-5 es:bg-bottom-right'
 					>
 						<Button
 							type='glass'
@@ -1541,58 +1620,58 @@ function App() {
 					<div className='es:flex es:items-center es:gap-2'>
 						<Button
 							size='small'
-							icon={icons.componentGeneric}
+							icon={componentGeneric}
 						/>
 						<Button size='small'>Hello</Button>
 						<Button
 							size='small'
-							icon={icons.componentGeneric}
+							icon={componentGeneric}
 						>
 							Hello
 						</Button>
 					</div>
 
 					<div className='es:flex es:items-center es:gap-2'>
-						<Button icon={icons.componentGeneric} />
+						<Button icon={componentGeneric} />
 						<Button>Hello</Button>
-						<Button icon={icons.componentGeneric}>Hello</Button>
+						<Button icon={componentGeneric}>Hello</Button>
 					</div>
 
 					<Button
-						icon={icons.componentGeneric}
+						icon={componentGeneric}
 						type='danger'
 					>
 						Hello
 					</Button>
 					<Button
-						icon={icons.componentGeneric}
+						icon={componentGeneric}
 						type='danger'
 					>
 						Hello
 					</Button>
 
 					<Button
-						icon={icons.componentGeneric}
+						icon={componentGeneric}
 						type='dangerGhost'
 					>
 						Hello
 					</Button>
 
 					<Button
-						icon={icons.componentGeneric}
+						icon={componentGeneric}
 						type='danger'
 						disabled
 					>
 						Hello
 					</Button>
 					<Button
-						icon={icons.componentGeneric}
+						icon={componentGeneric}
 						type='ghost'
 					>
 						Hello
 					</Button>
 					<Button
-						icon={icons.componentGeneric}
+						icon={componentGeneric}
 						type='ghost'
 						disabled
 					>
@@ -1600,14 +1679,14 @@ function App() {
 					</Button>
 
 					<Button
-						icon={icons.componentGeneric}
+						icon={componentGeneric}
 						type='selectedGhost'
 					>
 						Hello
 					</Button>
 
 					<Button
-						icon={icons.componentGeneric}
+						icon={componentGeneric}
 						type='selectedGhost'
 						disabled
 					>
@@ -1617,18 +1696,18 @@ function App() {
 					<div className='es:flex es:items-center es:gap-2'>
 						<Button
 							size='large'
-							icon={icons.componentGeneric}
+							icon={componentGeneric}
 						/>
 						<Button size='large'>Hello</Button>
 						<Button
 							size='large'
-							icon={icons.componentGeneric}
+							icon={componentGeneric}
 						>
 							Hello
 						</Button>
 					</div>
 
-					<Button icon={icons.emptyRect}>Hello</Button>
+					<Button icon={emptyRect}>Hello</Button>
 
 					<hr className='es:my-2' />
 
@@ -1636,9 +1715,9 @@ function App() {
 						value={loremIpsum2}
 						onChange={(v) => setLoremIpsum2(v)}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 					/>
 
@@ -1647,9 +1726,9 @@ function App() {
 						onChange={(v) => setLoremIpsum2(v)}
 						itemProps={{ type: 'simple' }}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 					/>
 
@@ -1658,9 +1737,9 @@ function App() {
 						onChange={(v) => setLoremIpsum2(v)}
 						itemProps={{ type: 'ghost' }}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 					/>
 
@@ -1671,9 +1750,9 @@ function App() {
 						onChange={(v) => setLoremIpsum2(v)}
 						itemProps={{ size: 'small' }}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 					/>
 
@@ -1682,9 +1761,9 @@ function App() {
 						onChange={(v) => setLoremIpsum2(v)}
 						itemProps={{ type: 'simple', size: 'small' }}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 					/>
 
@@ -1693,9 +1772,9 @@ function App() {
 						onChange={(v) => setLoremIpsum2(v)}
 						itemProps={{ type: 'ghost', size: 'small' }}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 					/>
 
@@ -1706,9 +1785,9 @@ function App() {
 						onChange={(v) => setLoremIpsum2(v)}
 						itemProps={{ size: 'large' }}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 					/>
 
@@ -1717,9 +1796,9 @@ function App() {
 						onChange={(v) => setLoremIpsum2(v)}
 						itemProps={{ type: 'simple', size: 'large' }}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 					/>
 
@@ -1728,9 +1807,9 @@ function App() {
 						onChange={(v) => setLoremIpsum2(v)}
 						itemProps={{ type: 'ghost', size: 'large' }}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 					/>
 
@@ -1740,9 +1819,9 @@ function App() {
 						value={loremIpsum2}
 						onChange={(v) => setLoremIpsum2(v)}
 						options={[
-							{ tooltip: 'Small', value: 0, icon: icons.small },
-							{ tooltip: 'Medium', value: 1, icon: icons.medium },
-							{ tooltip: 'Large', value: 2, icon: icons.large },
+							{ tooltip: 'Small', value: 0, icon: small },
+							{ tooltip: 'Medium', value: 1, icon: medium },
+							{ tooltip: 'Large', value: 2, icon: large },
 						]}
 						vertical
 					/>
@@ -1751,9 +1830,9 @@ function App() {
 						value={loremIpsum}
 						onChange={(v) => setLoremIpsum(v)}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 						vertical
 					/>
@@ -1768,7 +1847,7 @@ function App() {
 						value={matrixVal2}
 						onChange={(value) => setMatrixVal2(value)}
 						size='2x2'
-						icon={icons.arrowsUp}
+						icon={arrowsUp}
 						label='Position'
 					/>
 				</TabPanel>
@@ -1780,14 +1859,14 @@ function App() {
 						<MenuSection label='Demo'>
 							<MenuItem
 								danger
-								icon={icons.trash}
+								icon={trash}
 								id='del'
 							>
 								Delete
 							</MenuItem>
 							<MenuItem
 								primary
-								icon={icons.save}
+								icon={save}
 								id='save'
 							>
 								Save
@@ -1803,7 +1882,7 @@ function App() {
 						</MenuSection>
 						<MenuSection label='Demo'>
 							<MenuItem
-								icon={icons.experiment}
+								icon={experiment}
 								selected={menuThingy}
 								id='save2'
 								onClick={() => setMenuThingy(true)}
@@ -1812,7 +1891,7 @@ function App() {
 							</MenuItem>
 							<MenuItem
 								selected={!menuThingy}
-								icon={icons.experiment}
+								icon={experiment}
 								id='save-as2'
 								onClick={() => setMenuThingy(false)}
 							>
@@ -1830,7 +1909,7 @@ function App() {
 						</MenuItem>
 						<MenuItem
 							shortcut='Ctrl + N'
-							endIcon={icons.emptyRect}
+							endIcon={emptyRect}
 							id='open'
 						>
 							Open…
@@ -1860,9 +1939,9 @@ function App() {
 						value={loremIpsum}
 						onChange={(v) => setLoremIpsum(v)}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 						tooltip='Size'
 					/>
@@ -1876,12 +1955,12 @@ function App() {
 							value={loremIpsum}
 							onChange={(v) => setLoremIpsum(v)}
 							options={[
-								{ label: 'Small', value: 0, icon: icons.small },
-								{ label: 'Medium', value: 1, icon: icons.medium },
-								{ label: 'Large', value: 2, icon: icons.large },
+								{ label: 'Small', value: 0, icon: small },
+								{ label: 'Medium', value: 1, icon: medium },
+								{ label: 'Large', value: 2, icon: large },
 							]}
 							label='Pero'
-							icon={icons.small}
+							icon={small}
 							wrapperProps={{ keepOpen: true }}
 						/>
 						<MenuSeparator />
@@ -1890,12 +1969,12 @@ function App() {
 							value={loremIpsum}
 							onChange={(v) => setLoremIpsum(v)}
 							options={[
-								{ label: 'Small', value: 0, icon: icons.small },
-								{ label: 'Medium', value: 1, icon: icons.medium },
-								{ label: 'Large', value: 2, icon: icons.large },
+								{ label: 'Small', value: 0, icon: small },
+								{ label: 'Medium', value: 1, icon: medium },
+								{ label: 'Large', value: 2, icon: large },
 							]}
 							label='Pero'
-							icon={icons.small}
+							icon={small}
 							wrapperProps={{ keepOpen: true }}
 						/>
 						<MenuSeparator />
@@ -1904,9 +1983,9 @@ function App() {
 							value={loremIpsum}
 							onChange={(v) => setLoremIpsum(v)}
 							options={[
-								{ label: 'Small', value: 0, icon: icons.small },
-								{ label: 'Medium', value: 1, icon: icons.medium },
-								{ label: 'Large', value: 2, icon: icons.large },
+								{ label: 'Small', value: 0, icon: small },
+								{ label: 'Medium', value: 1, icon: medium },
+								{ label: 'Large', value: 2, icon: large },
 							]}
 							label='Pero'
 							subtitle
@@ -1917,9 +1996,9 @@ function App() {
 							value={loremIpsum}
 							onChange={(v) => setLoremIpsum(v)}
 							options={[
-								{ label: 'Small', value: 0, icon: icons.small },
-								{ label: 'Medium', value: 1, icon: icons.medium },
-								{ label: 'Large', value: 2, icon: icons.large },
+								{ label: 'Small', value: 0, icon: small },
+								{ label: 'Medium', value: 1, icon: medium },
+								{ label: 'Large', value: 2, icon: large },
 							]}
 							label='Pero'
 							subtitle='Ždero'
@@ -1931,9 +2010,9 @@ function App() {
 						value={loremIpsum}
 						onChange={(v) => setLoremIpsum(v)}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 						noTriggerIcon
 						tooltip='Size'
@@ -1944,9 +2023,9 @@ function App() {
 						value={loremIpsum}
 						onChange={(v) => setLoremIpsum(v)}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 						noTriggerLabel
 						tooltip='Size'
@@ -1957,9 +2036,9 @@ function App() {
 						value={loremIpsum}
 						onChange={(v) => setLoremIpsum(v)}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 						label='Size'
 					/>
@@ -1969,9 +2048,9 @@ function App() {
 						value={loremIpsum}
 						onChange={(v) => setLoremIpsum(v)}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 						noTriggerIcon
 						label='Size'
@@ -1982,9 +2061,9 @@ function App() {
 						value={loremIpsum}
 						onChange={(v) => setLoremIpsum(v)}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 						noTriggerLabel
 						label='Size'
@@ -1994,9 +2073,9 @@ function App() {
 						type='menu'
 						onChange={(v) => setLoremIpsum(v)}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 						noTriggerLabel
 						label='Not set demo'
@@ -2006,9 +2085,9 @@ function App() {
 						type='menu'
 						onChange={(v) => setLoremIpsum(v)}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 						noTriggerIcon
 						label='Not set demo'
@@ -2017,9 +2096,9 @@ function App() {
 						type='menu'
 						onChange={(v) => setLoremIpsum(v)}
 						options={[
-							{ label: 'Small', value: 0, icon: icons.small },
-							{ label: 'Medium', value: 1, icon: icons.medium },
-							{ label: 'Large', value: 2, icon: icons.large },
+							{ label: 'Small', value: 0, icon: small },
+							{ label: 'Medium', value: 1, icon: medium },
+							{ label: 'Large', value: 2, icon: large },
 						]}
 						label='Not set demo'
 					/>
@@ -2077,7 +2156,7 @@ function App() {
 						max={200}
 						prefix='$'
 						suffix='%'
-						icon={icons.rangeMid}
+						icon={rangeMid}
 						placeholder='abc'
 						flat
 					/>
@@ -2101,7 +2180,7 @@ function App() {
 						max={200}
 						prefix='$'
 						suffix='%'
-						icon={icons.rangeMid}
+						icon={rangeMid}
 						placeholder='abc'
 						size='small'
 						flat
@@ -2115,7 +2194,7 @@ function App() {
 						max={200}
 						prefix='$'
 						suffix='%'
-						icon={icons.rangeMid}
+						icon={rangeMid}
 						placeholder='abc'
 						size='medium'
 						flat
@@ -2129,7 +2208,7 @@ function App() {
 						max={200}
 						prefix='$'
 						suffix='%'
-						icon={icons.rangeMid}
+						icon={rangeMid}
 						placeholder='abc'
 						size='default'
 						flat
@@ -2143,7 +2222,7 @@ function App() {
 						max={200}
 						prefix='$'
 						suffix='%'
-						icon={icons.rangeMid}
+						icon={rangeMid}
 						placeholder='abc'
 						size='large'
 						flat
@@ -2159,7 +2238,7 @@ function App() {
 						max={200}
 						prefix='$'
 						suffix='%'
-						icon={icons.rangeMid}
+						icon={rangeMid}
 						disabled
 					/>
 
@@ -2214,7 +2293,7 @@ function App() {
 							onPress={() => setNum(0)}
 							type='simple'
 							size='large'
-							icon={icons.resetToZero}
+							icon={resetToZero}
 							slot={null}
 						/>
 					</NumberPicker>
@@ -2230,7 +2309,7 @@ function App() {
 							onPress={() => setNum(0)}
 							type='simple'
 							size='large'
-							icon={icons.resetToZero}
+							icon={resetToZero}
 							disabled={num === 0}
 							slot={null}
 						/>
@@ -2238,7 +2317,7 @@ function App() {
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<Responsive
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Font family'
 						value={resp}
 						onChange={setResp}
@@ -2256,7 +2335,7 @@ function App() {
 					</Responsive>
 
 					<Responsive
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Font family'
 						value={resp}
 						onChange={setResp}
@@ -2280,7 +2359,7 @@ function App() {
 					<Spacer border />
 
 					<MiniResponsive
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Font family'
 						value={resp}
 						onChange={setResp}
@@ -2329,7 +2408,7 @@ function App() {
 					<Spacer border />
 
 					<Responsive
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Font family'
 						value={resp2}
 						onChange={setResp2}
@@ -2337,10 +2416,10 @@ function App() {
 						breakpoints={['sm', 'md', 'lg', 'xl']}
 						breakpointData={globalManifest2.globalVariables.breakpoints}
 						breakpointUiData={{
-							sm: { label: 'Mobile', icon: icons.screenMobile },
-							md: { label: 'Tablet', icon: icons.screenTablet },
-							lg: { label: 'Desktop', icon: icons.screenDesktop },
-							xl: { label: 'Large', icon: icons.screenLarge },
+							sm: { label: 'Mobile', icon: screenMobile },
+							md: { label: 'Tablet', icon: screenTablet },
+							lg: { label: 'Desktop', icon: screenDesktop },
+							xl: { label: 'Large', icon: screenLarge },
 						}}
 					>
 						{({ currentValue, handleChange, options }) => (
@@ -2359,19 +2438,19 @@ function App() {
 						<Button>Hi</Button>
 					</BaseControl>
 
-					<BaseControl icon={icons.emptyCircle}>
+					<BaseControl icon={emptyCircle}>
 						<Button>Hi</Button>
 					</BaseControl>
 
 					<BaseControl
-						icon={icons.emptyCircle}
+						icon={emptyCircle}
 						label='Moja lijepa komponenta'
 					>
 						<Button>Hi</Button>
 					</BaseControl>
 
 					<BaseControl
-						icon={icons.emptyCircle}
+						icon={emptyCircle}
 						label='Moja lijepa komponenta'
 						subtitle='Subtitle'
 					>
@@ -2379,7 +2458,7 @@ function App() {
 					</BaseControl>
 
 					<BaseControl
-						icon={icons.emptyCircle}
+						icon={emptyCircle}
 						label='Moja lijepa komponenta'
 						subtitle='Subtitle'
 						help='Hjalp'
@@ -2398,7 +2477,7 @@ function App() {
 					</BaseControl>
 
 					<BaseControl
-						icon={icons.emptyCircle}
+						icon={emptyCircle}
 						label='Moja lijepa komponenta'
 						subtitle='Hello from the subtitle side'
 					>
@@ -2406,14 +2485,14 @@ function App() {
 					</BaseControl>
 
 					<BaseControl
-						icon={icons.emptyCircle}
+						icon={emptyCircle}
 						label='Moja lijepa lo rem ip sum kom po nen ta'
 						subtitle='Hello from the subtitle side'
 						actions={
 							<>
-								<Button icon={icons.emptyCircle} />
-								<Button icon={icons.emptyCircle} />
-								<Button icon={icons.emptyCircle} />
+								<Button icon={emptyCircle} />
+								<Button icon={emptyCircle} />
+								<Button icon={emptyCircle} />
 							</>
 						}
 					>
@@ -2464,9 +2543,9 @@ function App() {
 						options={groupedData}
 						groupKey='group'
 						groupValueMapping={{
-							Colors: { label: 'Vibrant Colors', icon: icons.colorLarge, subtitle: 'Pick a favorite shade', endIcon: 'star' },
-							Shapes: { label: 'Geometric Shapes', icon: icons.genericShapes, subtitle: 'Standard geometry' },
-							_other: { label: 'Miscellaneous', icon: icons.help },
+							Colors: { label: 'Vibrant Colors', icon: <GenericColorSwatch />, subtitle: 'Pick a favorite shade', endIcon: 'star' },
+							Shapes: { label: 'Geometric Shapes', icon: genericShapes, subtitle: 'Standard geometry' },
+							_other: { label: 'Miscellaneous', icon: help },
 						}}
 						searchable
 						clearable
@@ -2526,9 +2605,9 @@ function App() {
 						options={groupedData}
 						groupKey='group'
 						groupValueMapping={{
-							Colors: { label: 'Vibrant Colors', icon: icons.colorLarge },
-							Shapes: { label: 'Geometric Shapes', icon: icons.genericShapes },
-							_other: { label: 'Miscellaneous', icon: icons.help },
+							Colors: { label: 'Vibrant Colors', icon: <GenericColorSwatch /> },
+							Shapes: { label: 'Geometric Shapes', icon: genericShapes },
+							_other: { label: 'Miscellaneous', icon: help },
 						}}
 						searchable
 						clearable
@@ -2571,9 +2650,9 @@ function App() {
 						fetchFunction={getAsyncGroupedData}
 						groupKey='group'
 						groupValueMapping={{
-							Colors: { label: 'Vibrant Colors', icon: icons.colorLarge },
-							Shapes: { label: 'Geometric Shapes', icon: icons.genericShapes },
-							_other: { label: 'Miscellaneous', icon: icons.help },
+							Colors: { label: 'Vibrant Colors', icon: <GenericColorSwatch /> },
+							Shapes: { label: 'Geometric Shapes', icon: genericShapes },
+							_other: { label: 'Miscellaneous', icon: help },
 						}}
 						clearable
 					/>
@@ -2612,9 +2691,9 @@ function App() {
 						fetchFunction={getAsyncGroupedData}
 						groupKey='group'
 						groupValueMapping={{
-							Colors: { label: 'Vibrant Colors', icon: icons.colorLarge },
-							Shapes: { label: 'Geometric Shapes', icon: icons.genericShapes },
-							_other: { label: 'Miscellaneous', icon: icons.help },
+							Colors: { label: 'Vibrant Colors', icon: <GenericColorSwatch /> },
+							Shapes: { label: 'Geometric Shapes', icon: genericShapes },
+							_other: { label: 'Miscellaneous', icon: help },
 						}}
 						clearable
 					/>
@@ -2654,14 +2733,14 @@ function App() {
 							<Tab>Founding of Rome</Tab>
 							<Tab badge='2'>Monarchy and Republic</Tab>
 							<Tab
-								icon={icons.componentGeneric}
+								icon={componentGeneric}
 								badge='2'
 							>
 								Monarchy and Republic
 							</Tab>
 							<Tab
-								icon={icons.emptyCircle}
-								badge={<DecorativeTooltip text='Lorem ipsum'>{cloneElement(icons.arrowDown, { className: 'es:stroke-[2.25]' })}</DecorativeTooltip>}
+								icon={emptyCircle}
+								badge={<DecorativeTooltip text='Lorem ipsum'>{cloneElement(arrowDown, { className: 'es:stroke-[2.25]' })}</DecorativeTooltip>}
 							>
 								Monarchy and Republic
 							</Tab>
@@ -2715,14 +2794,14 @@ function App() {
 							<Tab>Founding of Rome</Tab>
 							<Tab badge='2'>Monarchy and Republic</Tab>
 							<Tab
-								icon={icons.componentGeneric}
+								icon={componentGeneric}
 								badge='2'
 							>
 								Monarchy and Republic
 							</Tab>
 							<Tab
-								icon={icons.emptyCircle}
-								badge={<DecorativeTooltip text='Lorem ipsum'>{cloneElement(icons.arrowDown, { className: 'es:stroke-[2.25]' })}</DecorativeTooltip>}
+								icon={emptyCircle}
+								badge={<DecorativeTooltip text='Lorem ipsum'>{cloneElement(arrowDown, { className: 'es:stroke-[2.25]' })}</DecorativeTooltip>}
 							>
 								Monarchy and Republic
 							</Tab>
@@ -2836,7 +2915,7 @@ function App() {
 						value={txt2}
 						onChange={setTxt2}
 						help={txt2?.length < 5 ? 'Nema dovoljno znakova?' : 'Iiiiima'}
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Lorem'
 						readOnly
 					/>
@@ -2846,7 +2925,7 @@ function App() {
 						value={txt2}
 						onChange={setTxt2}
 						help={txt2?.length < 5 ? 'Nema dovoljno znakova?' : 'Iiiiima'}
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Lorem'
 						readOnly
 						flat
@@ -2857,7 +2936,7 @@ function App() {
 						value={txt2}
 						onChange={setTxt2}
 						help={txt2?.length < 5 ? 'Nema dovoljno znakova?' : 'Iiiiima'}
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Lorem'
 						flat
 						monospaceFont
@@ -2869,14 +2948,14 @@ function App() {
 						value={txt2}
 						onChange={setTxt2}
 						help={txt2?.length < 5 ? 'Nema dovoljno znakova?' : 'Iiiiima'}
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Lorem'
 						placeholder='Type here...'
 					/>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<ComponentToggle
-						icon={icons.paragraph}
+						icon={paragraph}
 						label='Paragraph'
 						useComponent={useComp}
 						onChange={setUseComp}
@@ -2889,7 +2968,7 @@ function App() {
 					</ComponentToggle>
 
 					<ComponentToggle
-						icon={icons.heading}
+						icon={heading}
 						label='Heading'
 						useComponent={useComp}
 						onChange={setUseComp}
@@ -2903,7 +2982,7 @@ function App() {
 					</ComponentToggle>
 
 					<ComponentToggle
-						icon={icons.image}
+						icon={image}
 						label='Image'
 						useComponent={useComp}
 						onChange={setUseComp}
@@ -2917,7 +2996,7 @@ function App() {
 					</ComponentToggle>
 
 					<ComponentToggle
-						icon={icons.video}
+						icon={video}
 						label='Video'
 						useComponent={useComp}
 						onChange={setUseComp}
@@ -2931,7 +3010,7 @@ function App() {
 					</ComponentToggle>
 
 					<ComponentToggle
-						icon={icons.componentGeneric}
+						icon={componentGeneric}
 						label='Generic'
 						useComponent={useComp}
 						onChange={setUseComp}
@@ -2963,7 +3042,7 @@ function App() {
 							return (
 								<RepeaterItem
 									label={title ?? 'New item'}
-									icon={icons.emptyCircle}
+									icon={emptyCircle}
 									className={clsx(!title && 'es:text-secondary-400!')}
 								>
 									<InputField
@@ -2980,7 +3059,7 @@ function App() {
 									/>
 
 									<Toggle
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Toggle something'
 										checked={toggledThingy}
 										onChange={(value) => updateData({ toggledThingy: value })}
@@ -3001,7 +3080,7 @@ function App() {
 						items={repeaterItems2}
 						onChange={setRepeaterItems2}
 						itemLabelProp='title'
-						icon={icons.magicAlt}
+						icon={magicAlt}
 						label='Other repeater'
 						addDefaultItem={{
 							title: 'Hello',
@@ -3027,7 +3106,7 @@ function App() {
 									/>
 
 									<Toggle
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Toggle something'
 										checked={toggledThingy}
 										onChange={(value) => updateData({ toggledThingy: value })}
@@ -3124,7 +3203,7 @@ function App() {
 						onChange={(value) => setToggled5(value)}
 						label='Hello 4'
 						subtitle='Lorem ipsum dolor'
-						icon={icons.experiment}
+						icon={experiment}
 					/>
 
 					<Checkbox
@@ -3160,19 +3239,19 @@ function App() {
 						<RadioButton
 							label='Lorem'
 							subtitle='Ipsum value dolor sit amet'
-							icon={icons.emptyRect}
+							icon={emptyRect}
 							value='lorem1'
 						/>
 						<RadioButton
 							label='Ipsum'
 							subtitle='Ipsum value dolor sit amet'
-							icon={icons.emptyRect}
+							icon={emptyRect}
 							value='ipsum1'
 						/>
 						<RadioButton
 							label='Dolor'
 							subtitle='Ipsum value dolor sit amet'
-							icon={icons.emptyRect}
+							icon={emptyRect}
 							value='dolor1'
 						/>
 					</RadioButtonGroup>
@@ -3185,21 +3264,21 @@ function App() {
 						<RadioButton
 							label='Lorem'
 							subtitle='Ipsum value dolor sit amet'
-							icon={icons.emptyRect}
+							icon={emptyRect}
 							value='lorem1'
 							alignEnd
 						/>
 						<RadioButton
 							label='Ipsum'
 							subtitle='Ipsum value dolor sit amet'
-							icon={icons.emptyRect}
+							icon={emptyRect}
 							value='ipsum1'
 							alignEnd
 						/>
 						<RadioButton
 							label='Dolor'
 							subtitle='Ipsum value dolor sit amet'
-							icon={icons.emptyRect}
+							icon={emptyRect}
 							value='dolor1'
 							alignEnd
 						/>
@@ -3291,9 +3370,9 @@ function App() {
 						value={loremIpsum}
 						onChange={(v) => setLoremIpsum(v)}
 						options={[
-							{ label: 'Small', value: 's', icon: icons.small },
-							{ label: 'Medium', value: 'm', icon: icons.medium },
-							{ label: 'Large', value: 'l', icon: icons.large },
+							{ label: 'Small', value: 's', icon: small },
+							{ label: 'Medium', value: 'm', icon: medium },
+							{ label: 'Large', value: 'l', icon: large },
 						]}
 						vertical
 						itemProps={{ alignEnd: true }}
@@ -3330,7 +3409,7 @@ function App() {
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
 						onChange={setSliderValue}
@@ -3338,7 +3417,7 @@ function App() {
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
 						onChange={setSliderValue}
@@ -3353,7 +3432,7 @@ function App() {
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
 						onChange={setSliderValue}
@@ -3369,7 +3448,7 @@ function App() {
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
 						onChange={setSliderValue}
@@ -3386,7 +3465,7 @@ function App() {
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Slider'
 						value={sliderValue2}
 						onChange={setSliderValue2}
@@ -3397,7 +3476,7 @@ function App() {
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Slider'
 						value={sliderValue2}
 						onChange={setSliderValue2}
@@ -3412,7 +3491,7 @@ function App() {
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Range slider'
 						value={rangeSliderValue}
 						onChange={setRangeSliderValue}
@@ -3422,26 +3501,26 @@ function App() {
 						label='Slider'
 						value={sliderValue}
 						onChange={setSliderValue}
-						before={icons.emptyCircle}
+						before={emptyCircle}
 					/>
 
 					<Slider
 						label='Slider'
 						value={sliderValue}
 						onChange={setSliderValue}
-						after={icons.emptyCircle}
+						after={emptyCircle}
 					/>
 
 					<Slider
 						label='Slider'
 						value={sliderValue}
 						onChange={setSliderValue}
-						before={icons.emptyCircle}
-						after={icons.emptyCircle}
+						before={emptyCircle}
+						after={emptyCircle}
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Range slider'
 						value={rangeSliderValue}
 						onChange={setRangeSliderValue}
@@ -3449,7 +3528,7 @@ function App() {
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Range slider'
 						value={rangeSliderValue}
 						onChange={setRangeSliderValue}
@@ -3458,7 +3537,7 @@ function App() {
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Range slider'
 						value={rangeSliderValue2}
 						onChange={setRangeSliderValue2}
@@ -3466,7 +3545,7 @@ function App() {
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
 						onChange={setSliderValue}
@@ -3474,7 +3553,7 @@ function App() {
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
 						onChange={setSliderValue}
@@ -3488,7 +3567,7 @@ function App() {
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
 						onChange={setSliderValue}
@@ -3497,27 +3576,27 @@ function App() {
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
 						onChange={setSliderValue}
-						before={icons.emptyCircle}
-						after={icons.emptyCircle}
+						before={emptyCircle}
+						after={emptyCircle}
 						vertical
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
 						onChange={setSliderValue}
-						before={icons.emptyCircle}
-						after={icons.emptyCircle}
+						before={emptyCircle}
+						after={emptyCircle}
 						inputField
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Range slider'
 						value={rangeSliderValue}
 						onChange={setRangeSliderValue}
@@ -3525,7 +3604,7 @@ function App() {
 					/>
 
 					<Slider
-						icon={icons.emptyRect}
+						icon={emptyRect}
 						label='Range slider'
 						value={rangeSliderValue}
 						onChange={setRangeSliderValue}
@@ -3605,7 +3684,7 @@ function App() {
 
 					<ColorSwatch
 						colorName='Custom gradient'
-						className='es:bg-gradient-to-r es:from-accent-100 es:to-accent-500'
+						className='es:bg-linear-to-r es:from-accent-100 es:to-accent-500'
 						customGradient
 					/>
 				</TabPanel>
@@ -3653,7 +3732,7 @@ function App() {
 					/>
 
 					<ColorPicker
-						icon={icons.color}
+						icon={color}
 						label='Color'
 						value={color2}
 						onChange={setColor2}
@@ -3664,7 +3743,7 @@ function App() {
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<ResponsiveLegacy
-						icon={icons.help}
+						icon={help}
 						label='Lorem or ipsum?'
 						attribute={responsiveAttr}
 						value={responsiveState}
@@ -3696,7 +3775,7 @@ function App() {
 					<pre className='es:w-full es:text-xs'>{JSON.stringify(responsiveState, null, 2)}</pre>
 
 					<ResponsiveLegacy
-						icon={icons.help}
+						icon={help}
 						label='Lorem or ipsum?'
 						attribute={responsiveAttr}
 						value={responsiveState2}
@@ -3740,7 +3819,7 @@ function App() {
 					<pre className='es:w-full es:text-xs'>{JSON.stringify(responsiveState2, null, 2)}</pre>
 
 					<ResponsiveLegacy
-						icon={icons.help}
+						icon={help}
 						label='Lorem or ipsum?'
 						attribute={responsiveAttr}
 						value={responsiveState3}
@@ -3773,7 +3852,7 @@ function App() {
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<ColumnConfigSlider
-						icon={icons.columns}
+						icon={columns}
 						label='Column configuration'
 						value={colConfig}
 						onChange={setColConfig}
@@ -3782,7 +3861,7 @@ function App() {
 					<pre className='es:w-full es:text-xs'>{JSON.stringify(colConfig)}</pre>
 
 					<ColumnConfigSlider
-						icon={icons.columns}
+						icon={columns}
 						label='Column configuration'
 						value={colConfig2}
 						onChange={setColConfig2}
@@ -3792,7 +3871,7 @@ function App() {
 					<pre className='es:w-full es:text-xs'>{JSON.stringify(colConfig2)}</pre>
 
 					<ColumnConfigSlider
-						icon={icons.columns}
+						icon={columns}
 						label='Column configuration gutter'
 						value={colConfig3}
 						onChange={setColConfig3}
@@ -3803,7 +3882,7 @@ function App() {
 					<pre className='es:w-full es:text-xs'>{JSON.stringify(colConfig2)}</pre>
 
 					<ColumnConfigSlider
-						icon={icons.columns}
+						icon={columns}
 						label='Column configuration'
 						value={colConfig4}
 						onChange={setColConfig4}
@@ -3813,7 +3892,7 @@ function App() {
 					<pre className='es:w-full es:text-xs'>{JSON.stringify(colConfig2)}</pre>
 
 					<ColumnConfigSlider
-						icon={icons.columns}
+						icon={columns}
 						label='Column configuration'
 						value={colConfig5}
 						onChange={setColConfig5}
@@ -3823,7 +3902,7 @@ function App() {
 					<pre className='es:w-full es:text-xs'>{JSON.stringify(colConfig2)}</pre>
 
 					<ColumnConfigSlider
-						icon={icons.columns}
+						icon={columns}
 						label='Column configuration'
 						value={colConfig5}
 						onChange={setColConfig5}
@@ -3832,7 +3911,7 @@ function App() {
 					/>
 
 					<ColumnConfigSlider
-						icon={icons.columns}
+						icon={columns}
 						label='Column configuration'
 						value={colConfig5}
 						onChange={setColConfig5}
@@ -3851,7 +3930,7 @@ function App() {
 
 					<ContainerPanel
 						title='Component name'
-						icon={icons.emptyCircle}
+						icon={emptyCircle}
 						accentLabel
 					>
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
@@ -3945,57 +4024,57 @@ function App() {
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<HStack className='es:max-w-72'>
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
 					</HStack>
 
 					<HStack
 						noWrap
 						className='es:max-w-72'
 					>
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
 					</HStack>
 
 					<VStack className='es:max-h-40'>
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
 					</VStack>
 
 					<VStack
 						noWrap
 						className='es:max-h-40'
 					>
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
-						<Button icon={icons.emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
+						<Button icon={emptyCircle} />
 					</VStack>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
@@ -4026,46 +4105,46 @@ function App() {
 					<Spacer />
 					<FilePlaceholder
 						fileName='demo.json'
-						icon={icons.experiment}
+						icon={experiment}
 					/>
 					<FilePlaceholder fileName='demo.json' />
 					<FilePlaceholder />
 					<Spacer />
 					<Spacer border />
 					<Spacer />
-					<MediaPlaceholder icon={icons.experiment} />
+					<MediaPlaceholder icon={experiment} />
 					<MediaPlaceholder
-						icon={icons.experiment}
+						icon={experiment}
 						size='large'
 					/>
 					<MediaPlaceholder
-						icon={icons.experiment}
+						icon={experiment}
 						style='simple'
 					/>
 					<MediaPlaceholder
-						icon={icons.experiment}
+						icon={experiment}
 						style='simple'
 						size='large'
 					/>
 					<MediaPlaceholder
-						icon={icons.experiment}
+						icon={experiment}
 						style='simple'
 						size='large'
 						helpText='Lorem ipsum dolor.'
 					/>
 					<MediaPlaceholder
-						icon={icons.experiment}
+						icon={experiment}
 						style='simple'
 						size='large'
 						helpText={
 							<RichLabel
-								icon={icons.a11yWarning}
+								icon={a11yWarning}
 								label='Lorem ipsum dolor.'
 							/>
 						}
 					/>
 					<MediaPlaceholder
-						icon={icons.warning}
+						icon={warning}
 						style='simple'
 						size='video'
 						helpText='Missing lorem ipsum'
@@ -4112,7 +4191,7 @@ function App() {
 									/>
 									<Button
 										onPress={deleteItem}
-										icon={icons.trash}
+										icon={trash}
 										size='small'
 										type='dangerSimple'
 										className='es:mt-auto'
@@ -4137,7 +4216,7 @@ function App() {
 							return (
 								<DraggableListItem
 									label={title ?? 'New item'}
-									icon={icon ?? icons.emptyCircle}
+									icon={icon ?? emptyCircle}
 								>
 									<Switch
 										aria-label='Title'
@@ -4161,7 +4240,7 @@ function App() {
 							return (
 								<DraggableListItem
 									label={title ?? 'New item'}
-									icon={icon ?? icons.emptyCircle}
+									icon={icon ?? emptyCircle}
 								>
 									<Switch
 										aria-label='Title'
@@ -4173,7 +4252,7 @@ function App() {
 						}}
 					</DraggableList>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-4xl es:max-h-[85vh] es:h-fit es:overflow-y-auto es:max-w-[90vw] es:space-y-4 es:p-5! es:bg-[#f1f1f1]'>
+				<TabPanel className='es:rounded-3xl es:w-4xl es:max-h-[85vh] es:h-fit es:overflow-y-auto es:max-w-[90vw] es:space-y-4 es:p-5! es:bg-[#f1f1f1]'>
 					<OptionsPanelHeader
 						title='Global settings'
 						actions={
@@ -4189,12 +4268,12 @@ function App() {
 
 					<Tabs vertical>
 						<TabList>
-							<Tab icon={icons.options}>General settings</Tab>
-							<Tab icon={icons.bot}>SEO</Tab>
+							<Tab icon={options}>General settings</Tab>
+							<Tab icon={bot}>SEO</Tab>
 						</TabList>
 						<TabPanel>
 							<OptionsPanelIntro
-								icon={icons.locationSettings}
+								icon={locationSettings}
 								title='Location'
 								subtitle='Source, service, starting point'
 								iconClassName='es:stroke-[0.5]'
@@ -4202,7 +4281,7 @@ function App() {
 							<OptionsPanel>
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4215,7 +4294,7 @@ function App() {
 							<OptionsPanel title='Header & footer'>
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4232,7 +4311,7 @@ function App() {
 							>
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4247,7 +4326,7 @@ function App() {
 							>
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4257,7 +4336,7 @@ function App() {
 
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4278,7 +4357,7 @@ function App() {
 							>
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4288,7 +4367,7 @@ function App() {
 
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4298,7 +4377,7 @@ function App() {
 
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4311,8 +4390,8 @@ function App() {
 
 					<Tabs type='pill'>
 						<TabList>
-							<Tab icon={icons.options}>General settings</Tab>
-							<Tab icon={icons.bot}>SEO</Tab>
+							<Tab icon={options}>General settings</Tab>
+							<Tab icon={bot}>SEO</Tab>
 						</TabList>
 						<TabPanel>
 							<OptionsPanelIntro
@@ -4323,7 +4402,7 @@ function App() {
 							<OptionsPanel>
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4336,7 +4415,7 @@ function App() {
 							<OptionsPanel title='Header & footer'>
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4353,7 +4432,7 @@ function App() {
 							>
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4368,7 +4447,7 @@ function App() {
 							>
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4378,7 +4457,7 @@ function App() {
 
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4400,7 +4479,7 @@ function App() {
 							>
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4409,7 +4488,7 @@ function App() {
 								</OptionsPanelSection>
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4418,7 +4497,7 @@ function App() {
 								</OptionsPanelSection>
 								<OptionsPanelSection>
 									<Select
-										icon={icons.emptyCircle}
+										icon={emptyCircle}
 										label='Pick an item'
 										onChange={(v) => setV(v)}
 										value={v}
@@ -4617,7 +4696,7 @@ function App() {
 									<Button
 										size='small'
 										type='dangerGhost'
-										icon={icons.trash}
+										icon={trash}
 										onPress={() => deleteItem()}
 									/>
 								</div>
@@ -4635,85 +4714,36 @@ function App() {
 						<Button className='es:grow'>Remove</Button>
 					</FilePickerShell>
 
-					<Checkbox
-						icon={icons.magicAlt}
-						label='Use new SmartImage'
-						checked={useSmImgNext}
-						onChange={setUseSmImgNext}
-					/>
+					<FilePickerShellDemo url='https://lorem.testsum/test.png' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://lorem.testsum/test.png'
-					/>
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg'
-					/>
+					<FilePickerShellDemo url='https://picsum.photos/600/400.jpg' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://picsum.photos/600/400.jpg'
-					/>
+					<FilePickerShellDemo url='https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Wikimedia_Commons_logo_white.png/500px-Wikimedia_Commons_logo_white.png' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Wikimedia_Commons_logo_white.png/500px-Wikimedia_Commons_logo_white.png'
-					/>
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg'
-					/>
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-normal-map.jpg' />
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-sorting.png' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-normal-map.jpg'
-					/>
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-sorting.png'
-					/>
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/poisson-image.avif' />
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/unbiased-normals.png' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/poisson-image.avif'
-					/>
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/unbiased-normals.png'
-					/>
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ascii-raymarch.jpg' />
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/geom-extra-hiccup.jpg' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ascii-raymarch.jpg'
-					/>
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/geom-extra-hiccup.jpg'
-					/>
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/bitmap-font.gif' />
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ellipse-proximity.png' />
 
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/bitmap-font.gif'
-					/>
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ellipse-proximity.png'
-					/>
-
-					<FilePickerShellDemo
-						__useSmartImageNext={useSmImgNext}
-						url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/banners/thing-rdom.svg'
-					/>
+					<FilePickerShellDemo url='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/banners/thing-rdom.svg' />
 
 					<FilePickerShell
 						className='es:w-full'
 						noUrlContent={
 							<Button
 								size='large'
-								icon={icons.upload}
+								icon={upload}
 							>
 								Upload
 							</Button>
@@ -4721,14 +4751,7 @@ function App() {
 					/>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					<Checkbox
-						icon={icons.magicAlt}
-						label='Use new SmartImage'
-						checked={useSmImgNext}
-						onChange={setUseSmImgNext}
-					/>
-
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg'
 						className={({ isDark }) =>
 							clsx(
@@ -4737,7 +4760,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-normal-map.jpg'
 						className={({ isDark }) =>
 							clsx(
@@ -4746,7 +4769,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-sorting.png'
 						className={({ isDark }) =>
 							clsx(
@@ -4755,7 +4778,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/poisson-image.avif'
 						className={({ isDark }) =>
 							clsx(
@@ -4764,7 +4787,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/unbiased-normals.png'
 						className={({ isDark }) =>
 							clsx(
@@ -4773,7 +4796,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ascii-raymarch.jpg'
 						className={({ isDark }) =>
 							clsx(
@@ -4782,7 +4805,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/geom-extra-hiccup.jpg'
 						className={({ isDark }) =>
 							clsx(
@@ -4791,7 +4814,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/bitmap-font.gif'
 						className={({ isDark }) =>
 							clsx(
@@ -4800,7 +4823,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ellipse-proximity.png'
 						className={({ isDark }) =>
 							clsx(
@@ -4809,7 +4832,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/banners/thing-rdom.svg'
 						className={({ isDark }) =>
 							clsx(
@@ -4818,7 +4841,7 @@ function App() {
 							)
 						}
 					/>
-					<SmartImageToRender
+					<SmartImage
 						src=''
 						className={({ isDark }) =>
 							clsx(
@@ -4827,6 +4850,32 @@ function App() {
 							)
 						}
 					/>
+				</TabPanel>
+				<TabPanel className='es:bg-white es:rounded-3xl es:w-4xl es:max-h-[85vh] es:h-fit es:overflow-y-auto es:max-w-[90vw] es:space-y-4 es:p-5!'>
+					<div className='es:flex es:flex-wrap es:items-center es:justify-between es:gap-3'>
+						<div className='es:space-y-1'>
+							<h2 className='es:text-xl es:font-medium es:text-secondary-900'>All icons</h2>
+							<p className='es:text-sm es:text-secondary-600'>Compact reference for the full icons export.</p>
+						</div>
+						<div className='es:inline-flex es:items-center es:gap-2 es:rounded-full es:bg-secondary-100 es:px-3 es:py-1.5 es:text-sm es:font-medium es:text-secondary-700'>
+							<span className='es:text-secondary-500'>Count</span>
+							<span className='es:font-mono es:text-secondary-900'>{iconEntries.length}</span>
+						</div>
+					</div>
+
+					<div className='es:grid es:grid-cols-1 es:gap-2 sm:es:grid-cols-2 lg:es:grid-cols-3 xl:es:grid-cols-4'>
+						{iconEntries.map((iconName) => (
+							<div
+								key={iconName}
+								className='es:flex es:items-center es:gap-2.5 es:rounded-xl es:border es:border-secondary-200 es:bg-secondary-50 es:px-3 es:py-2'
+							>
+								<div className='es:flex es:size-8 es:shrink-0 es:items-center es:justify-center es:rounded-lg es:bg-white es:text-secondary-900 es:icon:size-4.5'>
+									<Icon icon={iconName} />
+								</div>
+								<div className='es:min-w-0 es:font-mono es:text-11 es:leading-tight es:text-secondary-700'>{iconName}</div>
+							</div>
+						))}
+					</div>
 				</TabPanel>
 			</Tabs>
 		</div>

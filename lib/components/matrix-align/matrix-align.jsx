@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { icons } from '../../icons/icons';
+import { Icon } from '../../icons/internal';
 import { camelCase, upperFirst } from '../../utilities';
 import { BaseControl } from '../base-control/base-control';
 import { TriggeredPopover } from '../popover/popover';
@@ -34,8 +34,6 @@ import clsx from 'clsx';
  * 		value='top left'
  * 		onChange={setAlignment}
  * />
- *
- * @preserve
  */
 export const MatrixAlign = (props) => {
 	const {
@@ -131,7 +129,7 @@ export const MatrixAlign = (props) => {
 			inline
 		>
 			<TriggeredPopover
-				triggerButtonIcon={icons[`position${size}${upperFirst(camelCase(value))}`]}
+				triggerButtonIcon={<Icon icon={`position${size}${upperFirst(camelCase(value))}`} />}
 				triggerButtonProps={{
 					'aria-label': ariaLabel,
 					tooltip: triggerTooltip,
@@ -165,9 +163,7 @@ export const MatrixAlign = (props) => {
 					</RadioGroup>
 				</div>
 
-				<div className='es:bg-accent-50/60 es:inset-ring es:inset-ring-accent-800/3 es:rounded-b-xl es:rounded-t-md es:p-2 es:mt-0.75 es:text-12 es:text-center es:text-accent-900'>
-					{currentItemLabel}
-				</div>
+				<div className='es:pb-1 es:pt-1.5 es:text-12 es:text-center es:text-surface-600'>{currentItemLabel}</div>
 			</TriggeredPopover>
 		</BaseControl>
 	);

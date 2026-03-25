@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import { Button } from '../button/button';
-import { icons } from '../../icons/icons';
+import { add, moreH, panelCollapse, panelExpand } from '../../icons/internal';
 import { BaseControl } from '../base-control/base-control';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { RepeaterContext } from './repeater-context';
@@ -51,7 +51,7 @@ import { clsx } from 'clsx';
  * 		return (
  * 			<RepeaterItem
  * 				label={title ?? 'New item'}
- * 				icon={icons.myIcon}
+ * 				icon={myIcon}
  * 			>
  * 				<InputField
  * 					label='Title'
@@ -63,8 +63,6 @@ import { clsx } from 'clsx';
  * 		);
  * 	}}
  * </Repeater>
- *
- * @preserve
  */
 export const Repeater = (props) => {
 	const {
@@ -105,6 +103,99 @@ export const Repeater = (props) => {
 	const canDelete = items.length > (minItems ?? 0);
 	const canAdd = items.length < (maxItems ?? Number.MAX_SAFE_INTEGER) && !addDisabled;
 
+	const addItem = useCallback(
+		(additional = {}) => {
+			const newItem = { ...addDefaultItem, ...additional };
+			onChange([...items, newItem]);
+
+			if (onAfterItemAdd) {
+				onAfterItemAdd(newItem);
+			}
+		},
+		[addDefaultItem, items, onAfterItemAdd, onChange],
+	);
+
+	const handleListChange = useCallback(
+		({ oldIndex, newIndex }) => onChange(newIndex === -1 ? arrayRemove(items, oldIndex) : arrayMove(items, oldIndex, newIndex)),
+		[items, onChange],
+	);
+
+	const listValues = useMemo(() => items.map((item, index) => ({ ...item, disabled: openItems?.[index] })), [items, openItems]);
+
+	const renderList = useCallback(
+		({ children, props }) => (
+			<ul
+				className={clsx('es:w-full es:list-none es:m-0! es:flex es:flex-col es:gap-0.75', className)}
+				{...props}
+			>
+				{children}
+			</ul>
+		),
+		[className],
+	);
+
+	const renderItem = useCallback(
+		({ value: item, index, isDragged, isSelected, isOutOfBounds, props }) => {
+			const { key, ...rest } = props;
+
+			return (
+				<li
+					className='es:group es:w-full es:list-none es:any-focus:outline-hidden es:m-0!'
+					key={key}
+					{...rest}
+				>
+					<RepeaterContext.Provider
+						value={{
+							...item,
+							index,
+							deleteItem: () => {
+								onChange([...items].filter((_, i) => i !== index));
+
+								if (onAfterItemRemove) {
+									onAfterItemRemove(item);
+								}
+							},
+							duplicateItem: () => addItem(item),
+							isDragged,
+							isOutOfBounds,
+							isSelected,
+							canDelete,
+							canAdd,
+							allOpen,
+							setAllOpen,
+							setOpenItems,
+							isItemOpen: openItems?.[index] ?? allOpen,
+							noDuplicateButton,
+						}}
+					>
+						{children({
+							...item,
+							updateData: (newValue) => {
+								const updated = [...items];
+
+								updated[index] = {
+									...updated[index],
+									...newValue,
+								};
+
+								onChange(updated);
+							},
+							itemIndex: index,
+							deleteItem: () => {
+								onChange([...items].filter((_, i) => i !== index));
+
+								if (onAfterItemRemove) {
+									onAfterItemRemove(item);
+								}
+							},
+						})}
+					</RepeaterContext.Provider>
+				</li>
+			);
+		},
+		[addItem, allOpen, canAdd, canDelete, children, items, noDuplicateButton, onAfterItemRemove, onChange, openItems],
+	);
+
 	if (hidden) {
 		return null;
 	}
@@ -121,13 +212,13 @@ export const Repeater = (props) => {
 
 					<Menu
 						tooltip={__('More options', 'eightshift-ui-components')}
-						triggerIcon={icons.moreH}
+						triggerIcon={moreH}
 						triggerProps={{ type: 'ghost', size: 'small' }}
 						hidden={items?.length < 1 || (noExpandAllButton && !moreOptions)}
 					>
 						{!noExpandAllButton && (
 							<MenuItem
-								endIcon={allOpen ? icons.panelCollapse : icons.panelExpand}
+								endIcon={allOpen ? panelCollapse : panelExpand}
 								onClick={() => setAllOpen(!allOpen)}
 							>
 								{allOpen ? __('Collapse all', 'eightshift-ui-components') : __('Expand all', 'eightshift-ui-components')}
@@ -140,16 +231,9 @@ export const Repeater = (props) => {
 
 					{!addButton && (
 						<Button
-							onPress={() => {
-								const newItem = { ...addDefaultItem };
-								onChange([...items, newItem]);
-
-								if (onAfterItemAdd) {
-									onAfterItemAdd(newItem);
-								}
-							}}
+							onPress={() => addItem()}
 							size='small'
-							icon={icons.add}
+							icon={add}
 							className={!hideEmptyState && items.length < 1 && 'es:invisible'}
 							tooltip={__('Add item', 'eightshift-ui-components')}
 							disabled={addDisabled || !canAdd}
@@ -159,14 +243,7 @@ export const Repeater = (props) => {
 					{addButton && (
 						<div className={clsx(!hideEmptyState && items.length < 1 && 'es:invisible')}>
 							{addButton({
-								addItem: (additional = {}) => {
-									const newItem = { ...addDefaultItem, ...additional };
-									onChange([...items, newItem]);
-
-									if (onAfterItemAdd) {
-										onAfterItemAdd(newItem);
-									}
-								},
+								addItem,
 								disabled: addDisabled,
 							})}
 						</div>
@@ -176,83 +253,10 @@ export const Repeater = (props) => {
 			className='es:w-full'
 		>
 			<List
-				values={items.map((item, index) => ({ ...item, disabled: openItems?.[index] }))}
-				onChange={({ oldIndex, newIndex }) => onChange(newIndex === -1 ? arrayRemove(items, oldIndex) : arrayMove(items, oldIndex, newIndex))}
-				renderList={({ children, props }) => {
-					return (
-						<ul
-							className={clsx('es:w-full es:list-none es:m-0! es:flex es:flex-col es:gap-0.75', className)}
-							{...props}
-						>
-							{children}
-						</ul>
-					);
-				}}
-				renderItem={({ value: item, index, isDragged, isSelected, isOutOfBounds, props }) => {
-					const { key, ...rest } = props;
-
-					return (
-						<li
-							className='es:group es:w-full es:list-none es:any-focus:outline-hidden es:m-0!'
-							key={key}
-							{...rest}
-						>
-							<RepeaterContext.Provider
-								value={{
-									...item,
-									index,
-									deleteItem: () => {
-										onChange([...items].filter((_, i) => i !== index));
-
-										if (onAfterItemRemove) {
-											onAfterItemRemove(item);
-										}
-									},
-									duplicateItem: () => {
-										const newItem = { ...item };
-										onChange([...items, newItem]);
-
-										if (onAfterItemAdd) {
-											onAfterItemAdd(newItem);
-										}
-									},
-									isDragged,
-									isOutOfBounds,
-									isSelected,
-									canDelete,
-									canAdd,
-									allOpen,
-									setAllOpen,
-									setOpenItems,
-									isItemOpen: openItems?.[index] ?? allOpen,
-									noDuplicateButton,
-								}}
-							>
-								{children({
-									...item,
-									updateData: (newValue) => {
-										const updated = [...items];
-
-										updated[index] = {
-											...updated[index],
-											...newValue,
-										};
-
-										onChange(updated);
-									},
-									itemIndex: index,
-									deleteItem: () => {
-										onChange([...items].filter((_, i) => i !== index));
-
-										if (onAfterItemRemove) {
-											onAfterItemRemove(item);
-										}
-									},
-								})}
-							</RepeaterContext.Provider>
-						</li>
-					);
-				}}
+				values={listValues}
+				onChange={handleListChange}
+				renderList={renderList}
+				renderItem={renderItem}
 				removableByMove={!noDragToRemove}
 			/>
 
@@ -263,16 +267,9 @@ export const Repeater = (props) => {
 					<div className='es:flex es:flex-col es:items-center es:gap-2 es:rounded-md es:border es:border-dashed es:border-secondary-300 es:p-4 es:text-center es:text-sm es:text-secondary-400'>
 						{!addButton && (
 							<Button
-								onPress={() => {
-									const newItem = { ...addDefaultItem };
-									onChange([...items, newItem]);
-
-									if (onAfterItemAdd) {
-										onAfterItemAdd(newItem);
-									}
-								}}
+								onPress={() => addItem()}
 								size='small'
-								icon={icons.add}
+								icon={add}
 								className='es:icon:size-4'
 								disabled={addDisabled}
 							>
@@ -283,14 +280,7 @@ export const Repeater = (props) => {
 						{addButton &&
 							!hideEmptyState &&
 							addButton({
-								addItem: (additional = {}) => {
-									const newItem = { ...addDefaultItem, ...additional };
-									onChange([...items, newItem]);
-
-									if (onAfterItemAdd) {
-										onAfterItemAdd(newItem);
-									}
-								},
+								addItem,
 								disabled: addDisabled,
 							})}
 					</div>

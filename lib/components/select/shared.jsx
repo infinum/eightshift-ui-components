@@ -1,9 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { ListBoxItem, Button, SelectStateContext } from 'react-aria-components';
-import { icons } from '../../icons';
+import { Icon } from '../../icons/internal';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { useContext } from 'react';
 import clsx from 'clsx';
+import { check, clear } from '../../icons/ui-icons';
 
 export const OptionItemBase = (props) => (
 	<ListBoxItem
@@ -32,7 +33,6 @@ export const OptionItemBase = (props) => (
 					'es:bg-surface-50/90',
 					'es:rounded-md',
 					'es:first:rounded-t-xl es:last:rounded-b-xl',
-					'es:nth-2:rounded-t-xl',
 					'es:after-current:rounded-t-xl es:before-current:rounded-b-xl',
 					'es:hover:rounded-2xl es:pressed:rounded-3xl',
 					'es:focus-visible:bg-white/90 es:focus-visible:rounded-2xl es:focus-visible:text-accent-950',
@@ -65,7 +65,7 @@ export const OptionItemBase = (props) => (
 							className='es:transition-none es:icon:size-3 es:icon:stroke-[1.5]'
 							noInitial
 						>
-							{icons.check}
+							{check}
 						</AnimatedVisibility>
 					</div>
 				)}
@@ -88,8 +88,6 @@ export const OptionItemBase = (props) => (
  * @param {{label: string, value: string}[]} options - Options passed to the component.
  *
  * @returns Appropriate output for the given input combination.
- *
- * @preserve
  */
 export const getValue = (simpleValue, value, options) => {
 	if (Array.isArray(value)) {
@@ -167,7 +165,7 @@ export const SelectClearButton = ({ multi = false }) => {
 			onPress={() => state?.setValue(null)}
 			slot={null}
 		>
-			{icons.clear}
+			{clear}
 		</Button>
 	);
 };
@@ -201,24 +199,12 @@ export const getGroupedOptions = (filteredOptions, groupKey, groupValueMapping) 
 	return Object.entries(groups).map(([key, options]) => {
 		const mapping = groupValueMapping?.[key];
 
-		let icon = mapping?.icon;
-
-		if (typeof icon === 'string') {
-			icon = icons?.[icon] ?? icon;
-		}
-
-		let endIcon = mapping?.endIcon;
-
-		if (typeof endIcon === 'string') {
-			endIcon = icons?.[endIcon] ?? endIcon;
-		}
-
 		return {
 			key,
 			label: mapping?.label ?? (key === '_other' ? __('Other', 'eightshift-ui-components') : key),
-			icon: icon || null,
+			icon: <Icon icon={mapping?.icon} />,
 			subtitle: mapping?.subtitle || null,
-			endIcon: endIcon || null,
+			endIcon: <Icon icon={mapping?.endIcon} />,
 			options,
 		};
 	});

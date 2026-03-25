@@ -2,7 +2,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import { useMemo, useState } from 'react';
 import { parseConicGradient, parseLinearGradient, parseRadialGradient } from 'css-gradient-parser';
 import { Button, ButtonGroup } from '../button/button';
-import { icons } from '../../icons/icons';
+import { add, angle, centerPoint, genericShapesAlt, gradientRepeat, gradientStop, sliders, trash } from '../../icons/internal';
 import { SolidColorPicker } from './solid-color-picker';
 import { Slider } from '../slider/slider';
 import { NumberPicker } from '../number-picker/number-picker';
@@ -158,8 +158,6 @@ const linearDirections = [
  * 	value='linear-gradient(90deg, #000000 0%, #ffffff 100%)'
  * 	onChange={setGradient}
  * />
- *
- * @preserve
  */
 export const GradientEditor = (props) => {
 	const { value, onChange, hidden } = props;
@@ -250,7 +248,7 @@ export const GradientEditor = (props) => {
 
 							return (
 								<div
-									className='es:pointer-events-none es:absolute es:-bottom-4.5 es:-translate-x-1/3 es:flex es:w-3 es:items-center es:justify-center es:text-center es:text-12 es:leading-none es:py-0.25 es:rounded-sm es:font-semibold es:tabular-nums es:font-mono es:ring es:ring-accent-600'
+									className='es:pointer-events-none es:absolute es:-bottom-4.5 es:-translate-x-1/3 es:flex es:w-3 es:items-center es:justify-center es:text-center es:text-12 es:leading-none es:py-px es:rounded-sm es:font-semibold es:tabular-nums es:font-mono es:ring es:ring-accent-600'
 									style={{
 										backgroundColor: gradientData.stops[index]?.color,
 										color: foregroundColor,
@@ -281,7 +279,7 @@ export const GradientEditor = (props) => {
 				<Container hidden={gradientType !== 'linear'}>
 					<NumberPicker
 						inline
-						icon={icons.angle}
+						icon={angle}
 						label={__('Angle', 'eightshift-ui-components')}
 						min={0}
 						max={360}
@@ -299,7 +297,7 @@ export const GradientEditor = (props) => {
 						placeholder={linearDirections.find(({ value }) => value === gradientData?.orientation?.value)?.valueDegrees ?? ''}
 					>
 						<Menu
-							triggerIcon={icons.sliders}
+							triggerIcon={sliders}
 							triggerProps={{
 								tooltip: __('Presets', 'eightshift-ui-components'),
 								slot: null,
@@ -329,7 +327,7 @@ export const GradientEditor = (props) => {
 				<Container hidden={gradientType !== 'radial'}>
 					<OptionSelect
 						label={__('Shape', 'eightshift-ui-components')}
-						icon={icons.genericShapesAlt}
+						icon={genericShapesAlt}
 						inline
 						options={[
 							{ label: __('Circle', 'eightshift-ui-components'), value: 'circle' },
@@ -347,7 +345,7 @@ export const GradientEditor = (props) => {
 
 				<Container hidden={gradientType !== 'radial'}>
 					<MatrixAlign
-						icon={icons.centerPoint}
+						icon={centerPoint}
 						label={__('Center point', 'eightshift-ui-components')}
 						value={`${gradientData?.position?.y?.value ?? 'center'} ${gradientData?.position?.x?.value ?? 'center'}`}
 						onChange={(position) => {
@@ -367,7 +365,7 @@ export const GradientEditor = (props) => {
 				<Container hidden={gradientType !== 'conic'}>
 					<NumberPicker
 						inline
-						icon={icons.angle}
+						icon={angle}
 						label={__('Angle', 'eightshift-ui-components')}
 						min={0}
 						max={360}
@@ -386,7 +384,7 @@ export const GradientEditor = (props) => {
 
 				<Container hidden={gradientType !== 'conic'}>
 					<MatrixAlign
-						icon={icons.centerPoint}
+						icon={centerPoint}
 						label={__('Center point', 'eightshift-ui-components')}
 						value={`${gradientData?.position?.y?.value ?? 'center'} ${gradientData?.position?.x?.value ?? 'center'}`}
 						onChange={(value) => {
@@ -408,18 +406,18 @@ export const GradientEditor = (props) => {
 							});
 						}}
 						label={__('Repeating', 'eightshift-ui-components')}
-						icon={icons.gradientRepeat}
+						icon={gradientRepeat}
 					/>
 				</Container>
 			</ContainerGroup>
 
 			<BaseControl
-				icon={icons.gradientStop}
+				icon={gradientStop}
 				label={__('Gradient stops', 'eightshift-ui-components')}
 				inline
 			>
 				<Button
-					icon={icons.add}
+					icon={add}
 					size='small'
 					onPress={() => {
 						setGradientData({
@@ -455,16 +453,14 @@ export const GradientEditor = (props) => {
 								label={sprintf(__('Stop %s', 'eightshift-ui-components'), itemIndex + 1)}
 								subtitle={color}
 								icon={
-									<ColorSwatch
-										className='es:size-5 es:rounded-full es:border es:border-white es:ring-1 es:ring-black'
-										color={color}
-									/>
-								}
-							>
-								<ButtonGroup>
 									<TriggeredPopover
-										triggerButtonIcon={icons.color}
-										triggerButtonProps={{ size: 'small', type: 'ghost' }}
+										triggerButtonIcon={
+											<ColorSwatch
+												className='es:size-5.5 es:rounded-full es:border es:border-white es:ring-1 es:ring-black'
+												color={color}
+											/>
+										}
+										triggerButtonProps={{ size: 'small', type: 'ghost', className: 'es:p-0!' }}
 										className='es:p-2.5'
 									>
 										<SolidColorPicker
@@ -476,6 +472,9 @@ export const GradientEditor = (props) => {
 											outputFormat='rgba'
 										/>
 									</TriggeredPopover>
+								}
+							>
+								<ButtonGroup>
 									<Button
 										onPress={() => {
 											setGradientData({
@@ -483,7 +482,7 @@ export const GradientEditor = (props) => {
 												stops: gradientData.stops.filter((_, i) => i !== itemIndex),
 											});
 										}}
-										icon={icons.trash}
+										icon={trash}
 										size='small'
 										aria-label={__('Delete stop', 'eightshift-ui-components')}
 										disabled={gradientData.stops.length <= 2}

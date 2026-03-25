@@ -2,6 +2,108 @@ import { cva } from 'class-variance-authority';
 import { clsx } from 'clsx';
 import { cloneElement, forwardRef } from 'react';
 
+const containerClasses = cva('es:inset-ring', {
+	variants: {
+		elevated: {
+			true: 'es:inset-shadow-sm es:shadow-sm es:shadow-black/5',
+		},
+		primary: {
+			true: 'es:rounded-full',
+		},
+		compact: {
+			false: 'es:py-2 es:min-h-13',
+			true: 'es:py-1 es:min-h-9',
+		},
+		centered: {
+			true: 'es:flex es:items-center',
+		},
+		lessSpaceStart: {
+			true: 'es:pl-2',
+			false: 'es:pl-3',
+		},
+		lessSpaceEnd: {
+			true: 'es:pr-2',
+			false: 'es:pr-3',
+		},
+	},
+	compoundVariants: [
+		{
+			primary: false,
+			standalone: false,
+			class: 'es:rounded-md',
+		},
+		{
+			isChild: false,
+			primary: false,
+			standalone: false,
+			horizontal: false,
+			class: 'es:first:rounded-t-2xl es:last:rounded-b-2xl',
+		},
+		{
+			isChild: true,
+			primary: false,
+			standalone: false,
+			horizontal: false,
+			class: 'es:[:first-child_>_&]:rounded-t-2xl es:[:last-child_>_&]:rounded-b-2xl',
+		},
+		{
+			isChild: false,
+			primary: false,
+			standalone: false,
+			horizontal: true,
+			class: 'es:first:rounded-l-2xl es:last:rounded-r-2xl',
+		},
+		{
+			isChild: true,
+			primary: false,
+			standalone: false,
+			horizontal: true,
+			class: 'es:[:first-child_>_&]:rounded-l-2xl es:[:last-child_>_&]:rounded-r-2xl',
+		},
+		{
+			isChild: false,
+			primary: false,
+			standalone: true,
+			class: 'es:rounded-2xl',
+		},
+		{
+			accent: false,
+			elevated: false,
+			class: [
+				'es:bg-white es:bg-linear-to-b es:from-secondary-50/75 es:to-secondary-100/50 es:from-25% es:inset-ring-secondary-200/50',
+				'es:inset-shadow-sm es:inset-shadow-white/30',
+			],
+		},
+		{
+			accent: true,
+			elevated: false,
+			class: 'es:bg-surface-100/80 es:inset-ring-surface-200 es:text-accent-900',
+		},
+		{
+			accent: false,
+			elevated: true,
+			class: 'es:bg-secondary-100 es:inset-ring-secondary-200 es:inset-shadow-white/50',
+		},
+		{
+			accent: true,
+			elevated: true,
+			class: ['es:bg-surface-100 es:bg-linear-to-r es:from-accent-400/10 es:to-accent-400/12', ' es:inset-ring-accent-600/10 es:inset-shadow-white/50 es:text-accent-900'],
+		},
+	],
+	defaultVariants: {
+		accent: false,
+		elevated: false,
+		primary: false,
+		isChild: false,
+		compact: false,
+		standalone: false,
+		horizontal: false,
+		centered: false,
+		lessSpaceStart: false,
+		lessSpaceEnd: false,
+	},
+});
+
 /**
  * @typedef {Object} ContainerProps
  * @property {string} [props.className] - Classes to pass to the container.
@@ -16,8 +118,6 @@ import { cloneElement, forwardRef } from 'react';
  * @property {boolean} [props.lessSpaceStart] - If `true`, space on the start (left) is reduced. Useful for symmetric components.
  * @property {boolean} [props.lessSpaceEnd] - If `true`, space on the end (right) is reduced. For example, use with text fields, or taller items.
  * @property {string|JSX.Element} [props.as] - The HTML element or React component to render as the container.
- *
- * @preserve
  */
 
 /**
@@ -35,8 +135,6 @@ import { cloneElement, forwardRef } from 'react';
  * <Container accent elevated>
  *   <p>This is a container with accent and elevated styles.</p>
  * </Container>
- *
- * @preserve
  */
 export const Container = forwardRef((props, ref) => {
 	const { className, children, as, hidden, accent, elevated, primary, isChild, compact, standalone, horizontal, centered, lessSpaceStart, lessSpaceEnd, ...rest } = props;
@@ -47,116 +145,11 @@ export const Container = forwardRef((props, ref) => {
 		return null;
 	}
 
-	const containerClasses = cva(['es:inset-ring', className], {
-		variants: {
-			elevated: {
-				true: 'es:inset-shadow-sm es:shadow-sm es:shadow-black/5',
-			},
-			primary: {
-				true: 'es:rounded-full',
-			},
-			compact: {
-				false: 'es:py-2 es:min-h-13',
-				true: 'es:py-1 es:min-h-9',
-			},
-			centered: {
-				true: 'es:flex es:items-center',
-			},
-			lessSpaceStart: {
-				true: 'es:pl-2',
-				false: 'es:pl-3',
-			},
-			lessSpaceEnd: {
-				true: 'es:pr-2',
-				false: 'es:pr-3',
-			},
-		},
-		compoundVariants: [
-			{
-				primary: false,
-				standalone: false,
-				class: 'es:rounded-md',
-			},
-			//
-			{
-				isChild: false,
-				primary: false,
-				standalone: false,
-				horizontal: false,
-				class: 'es:first:rounded-t-2xl es:last:rounded-b-2xl',
-			},
-			{
-				isChild: true,
-				primary: false,
-				standalone: false,
-				horizontal: false,
-				class: 'es:[:first-child_>_&]:rounded-t-2xl es:[:last-child_>_&]:rounded-b-2xl',
-			},
-			{
-				isChild: false,
-				primary: false,
-				standalone: false,
-				horizontal: true,
-				class: 'es:first:rounded-l-2xl es:last:rounded-r-2xl',
-			},
-			{
-				isChild: true,
-				primary: false,
-				standalone: false,
-				horizontal: true,
-				class: 'es:[:first-child_>_&]:rounded-l-2xl es:[:last-child_>_&]:rounded-r-2xl',
-			},
-			//
-			{
-				isChild: false,
-				primary: false,
-				standalone: true,
-				class: 'es:rounded-2xl',
-			},
-			//
-			{
-				accent: false,
-				elevated: false,
-				class: [
-					'es:bg-white es:bg-linear-to-b es:from-secondary-50/75 es:to-secondary-100/50 es:from-25% es:inset-ring-secondary-200/50',
-					'es:inset-shadow-sm es:inset-shadow-white/30',
-				],
-			},
-			{
-				accent: true,
-				elevated: false,
-				class: 'es:bg-surface-100/80 es:inset-ring-surface-200 es:text-accent-900',
-			},
-			{
-				accent: false,
-				elevated: true,
-				class: 'es:bg-secondary-100 es:inset-ring-secondary-200 es:inset-shadow-white/50',
-			},
-			{
-				accent: true,
-				elevated: true,
-				class: ['es:bg-surface-100 es:bg-linear-to-r es:from-accent-400/10 es:to-accent-400/12', ' es:inset-ring-accent-600/10 es:inset-shadow-white/50 es:text-accent-900'],
-			},
-		],
-		defaultVariants: {
-			accent: false,
-			elevated: false,
-			primary: false,
-			isChild: false,
-			compact: false,
-			standalone: false,
-			horizontal: false,
-			centered: false,
-			lessSpaceStart: false,
-			lessSpaceEnd: false,
-		},
-	});
-
 	return (
 		<ComponentToRender
 			{...rest}
 			ref={ref}
-			className={containerClasses({ accent, elevated, primary, isChild, compact, horizontal, standalone, centered, lessSpaceStart, lessSpaceEnd })}
+			className={clsx(containerClasses({ accent, elevated, primary, isChild, compact, horizontal, standalone, centered, lessSpaceStart, lessSpaceEnd }), className)}
 		>
 			{children}
 		</ComponentToRender>
@@ -173,8 +166,6 @@ Container.displayName = 'Container';
  * @property {boolean} [hidden] - If `true`, the component is not rendered.
  * @property {boolean} [horizontal] - If `true`, the component uses a horizontal orientation.
  * @property {string|JSX.Element} [as] - The HTML element or React component to render as the container group.
- *
- * @preserve
  */
 
 /**
@@ -193,8 +184,6 @@ Container.displayName = 'Container';
  *   <Container>First container</Container>
  *   <Container>Second container</Container>
  * </ContainerGroup>
- *
- * @preserve
  */
 export const ContainerGroup = forwardRef((props, ref) => {
 	const { className, children, as, hidden, horizontal, label, wrapClassName, ...rest } = props;
