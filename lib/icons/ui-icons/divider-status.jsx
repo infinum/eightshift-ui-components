@@ -20,28 +20,28 @@ export const dividerStatus = (
 		/>
 		<path
 			d='M1 17V3'
-			className='es-stroke-admin-accent'
+			stroke='var(--es-color-accent-600)'
 			strokeOpacity='var(--left-opacity, 0)'
 			strokeLinecap='round'
 			fill='none'
 		/>
 		<path
 			d='M3 19h14'
-			className='es-stroke-admin-accent'
+			stroke='var(--es-color-accent-600)'
 			strokeOpacity='var(--bottom-opacity, 0)'
 			strokeLinecap='round'
 			fill='none'
 		/>
 		<path
 			d='M19 17V3'
-			className='es-stroke-admin-accent'
+			stroke='var(--es-color-accent-600)'
 			strokeOpacity='var(--right-opacity, 0)'
 			strokeLinecap='round'
 			fill='none'
 		/>
 		<path
 			d='M3 1h14'
-			className='es-stroke-admin-accent'
+			stroke='var(--es-color-accent-600)'
 			strokeOpacity='var(--top-opacity, 0)'
 			strokeLinecap='round'
 			fill='none'
