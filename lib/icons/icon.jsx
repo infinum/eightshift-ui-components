@@ -18,7 +18,7 @@ export const Icon = ({ icon, fallback = null, ...rest }) => {
 		return fallback;
 	}
 
-	if (!rest) {
+	if (Object.keys(rest ?? {}).length === 0) {
 		return iconToRender;
 	}
 
