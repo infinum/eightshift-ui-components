@@ -78,7 +78,7 @@ export const Button = (props) => {
 
 	const componentClasses = cva(
 		[
-			'es:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_0] es:hover:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_75]',
+			'es:font-variation-["wdth"_82,"wght"_325,"ROND"_100,"GRAD"_0] es:hover:font-variation-["wdth"_82,"wght"_325,"ROND"_100,"GRAD"_70]',
 			'es:flex es:items-center es:justify-center',
 			'es:transition-plus es:duration-300 es:ease-spring-snappy es:text-13',
 			'es:any-focus:outline-hidden',
@@ -96,9 +96,9 @@ export const Button = (props) => {
 		{
 			variants: {
 				size: {
-					small: 'es:gap-0.75 es:rounded-md es:hover:rounded-10! es:pressed:rounded-14!',
-					default: 'es:gap-1.25 es:rounded-10 es:hover:rounded-xl! es:pressed:rounded-18!',
-					large: 'es:gap-1.5 es:rounded-xl es:hover:rounded-2xl! es:pressed:rounded-3xl!',
+					small: 'es:gap-0.75 es:rounded-lg es:hover:rounded-10! es:pressed:rounded-xl!',
+					default: 'es:gap-1.25 es:rounded-10 es:hover:rounded-xl! es:pressed:rounded-14!',
+					large: 'es:gap-1.5 es:rounded-xl es:hover:rounded-2xl! es:pressed:rounded-18!',
 				},
 			},
 			compoundVariants: [
