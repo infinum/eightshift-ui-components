@@ -32,7 +32,7 @@ const componentClasses = cva(
 			},
 			iconWithLabel: {
 				true: 'es:justify-start',
-				false: 'es:justify-center-safe',
+				false: 'es:justify-center',
 			},
 			flat: {
 				true: null,
