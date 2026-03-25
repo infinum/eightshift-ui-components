@@ -27,7 +27,10 @@ import { ColorSwatch } from '../color-pickers/color-swatch';
  * @returns {JSX.Element} The ButtonGroup component.
  *
  * @example
- * <ButtonGroup
+ * <SolidColorPicker
+ * 		value={colorValue}
+ * 		onChange={(color) => setColorValue(color)}
+ * />
  */
 export const SolidColorPicker = (props) => {
 	const { value: rawValue, onChange, disabled, onChangeEnd, allowTransparency = false, outputFormat, hidden, noAdvancedOptions } = props;
