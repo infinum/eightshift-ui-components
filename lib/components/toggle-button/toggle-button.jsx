@@ -282,13 +282,13 @@ const componentClasses = cva(
  * <ToggleButton
  * 	selected={selected}
  * 	onChange={setSelected}
- * 	icon={icons.myIcon}
+ * 	icon={myIcon}
  * 	/>
  *
  * <ToggleButton
  * 		selected={selected}
  * 		onChange={setSelected}
- * 		icon={icons.myIcon}
+ * 		icon={myIcon}
  * >
  * 		My button
  * </ToggleButton>

@@ -51,7 +51,7 @@ import { OptionSelect } from '../option-select/option-select';
  * <Responsive
  * 	value={value}
  * 	onChange={onChange}
- * 	icon={icons.myIcon}
+ * 	icon={myIcon}
  * 	label={__('Label', 'eightshift-ui-components')}
  * 	options={[
  * 		{ value: 'value1', label: 'Value 1' },

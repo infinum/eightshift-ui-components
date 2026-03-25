@@ -43,7 +43,7 @@ import { __ } from '@wordpress/i18n';
  * @example
  * <OptionSelect
  * 	label='My component'
- * 	icon={icons.myIcon}
+ * 	icon={myIcon}
  * 	value={value}
  * 	onChange={setValue}
  * 	options={[

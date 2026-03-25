@@ -57,7 +57,7 @@ import { BaseControl } from '../base-control/base-control';
  * 	onChange={(attributeName, value) => setAttributes({
  * 		[attributeName]: value,
  * 	})}
- * 	icon={icons.myIcon}
+ * 	icon={myIcon}
  * 	label={__('Label', 'eightshift-ui-components')}
  * 	options={[
  * 		{ value: 'value1', label: 'Value 1' },

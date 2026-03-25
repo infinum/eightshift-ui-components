@@ -39,9 +39,9 @@ import { __ } from '@wordpress/i18n';
  * @returns {JSX.Element} The Button component.
  *
  * @example
- * <Button onPress={() => console.log('Hi!')} icon={icons.myIcon} />
+ * <Button onPress={() => console.log('Hi!')} icon={myIcon} />
  *
- * <Button onPress={() => console.log('Hi!')} icon={icons.myIcon}>My button</Button>
+ * <Button onPress={() => console.log('Hi!')} icon={myIcon}>My button</Button>
  */
 export const Button = (props) => {
 	const {

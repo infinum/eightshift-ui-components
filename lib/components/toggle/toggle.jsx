@@ -26,7 +26,7 @@ import { clsx } from 'clsx';
  * const [checked, setChecked] = useState(false);
  *
  * <Toggle
- * 	icon={icons.myIcon}
+ * 	icon={myIcon}
  * 	label='My toggle'
  * 	checked={checked}
  * 	onChange={() => setChecked(!checked)}

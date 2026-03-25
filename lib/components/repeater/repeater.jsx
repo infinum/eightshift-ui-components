@@ -51,7 +51,7 @@ import { clsx } from 'clsx';
  * 		return (
  * 			<RepeaterItem
  * 				label={title ?? 'New item'}
- * 				icon={icons.myIcon}
+ * 				icon={myIcon}
  * 			>
  * 				<InputField
  * 					label='Title'

@@ -25,7 +25,7 @@ import { clsx } from 'clsx';
  *
  * @example
  * <RichLabel
- * 	icon={icons.myIcon}
+ * 	icon={myIcon}
  * 	label='My label'
  * />
  */

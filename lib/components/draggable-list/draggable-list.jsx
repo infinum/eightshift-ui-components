@@ -36,7 +36,7 @@ import { useCallback, useMemo } from 'react';
  * 		return (
  * 			<DraggableListItem
  * 				label={title ?? 'New item'}
- * 				icon={icons.myIcon}
+ * 				icon={myIcon}
  * 			>
  * 				<InputField
  * 					label='Title'

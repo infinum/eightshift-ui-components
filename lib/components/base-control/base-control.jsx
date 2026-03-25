@@ -26,7 +26,7 @@ import { RichLabel } from '../rich-label/rich-label';
  * @returns {JSX.Element} The BaseControl component.
  *
  * @example
- * <BaseControl label='My component' icon={icons.myIcon}>
+ * <BaseControl label='My component' icon={myIcon}>
  * 	<div>Content</div>
  * </BaseControl>
  */
