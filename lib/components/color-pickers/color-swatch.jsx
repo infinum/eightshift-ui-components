@@ -51,7 +51,7 @@ export const ColorSwatch = (props) => {
 				background: (color || gradient) && backgroundGradient,
 			}}
 			className={() =>
-				clsx('es:size-6 es:rounded-md es:border es:border-secondary-300', !color && !gradient && !customGradient && 'es:bg-white', !flat && 'es:shadow-sm', className)
+				clsx('es:size-6 es:rounded-7 es:border es:border-secondary-300', !color && !gradient && !customGradient && 'es:bg-white', !flat && 'es:shadow-sm', className)
 			}
 			colorName={!color && !gradient && !customGradient ? __('No color', 'eightshift-ui-components') : colorName}
 			color={color}

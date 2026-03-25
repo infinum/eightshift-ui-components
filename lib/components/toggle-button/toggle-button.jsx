@@ -6,8 +6,8 @@ import { Tooltip } from '../tooltip/tooltip';
 const componentClasses = cva(
 	[
 		'es:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_0,"slnt"_0] es:not-aria-pressed:hover:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_75,"slnt"_0] es:aria-pressed:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_75,"slnt"_-2]',
-		'es:flex es:items-center',
-		'es:transition-plus es:duration-300 es:ease-spring-snappy es:text-13',
+		'es:flex es:items-center es:justify-center',
+		'es:transition-plus es:duration-300 es:ease-spring-smooth es:text-13',
 		'es:any-focus:outline-hidden',
 		'es:focus-visible:ring-2',
 		'es:shrink-0',
@@ -30,10 +30,7 @@ const componentClasses = cva(
 					'es:btn-group-v:not-pressed:not-before-current:not-last:rounded-b-sm',
 				],
 			},
-			iconWithLabel: {
-				true: 'es:justify-start',
-				false: 'es:justify-center',
-			},
+
 			flat: {
 				true: null,
 				false: null,
@@ -332,8 +329,7 @@ export const ToggleButton = (props) => {
 					disabled: disabled,
 					selected: selected,
 					hasIcon: Boolean(icon),
-					iconOnly: Boolean(icon && !children),
-					iconWithLabel: Boolean(icon && children),
+					iconOnly: Boolean(icon) && Boolean(!children),
 					flat: Boolean(flat),
 					size: size,
 					type: type,
