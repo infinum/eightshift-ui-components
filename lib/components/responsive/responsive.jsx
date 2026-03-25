@@ -207,7 +207,7 @@ export const Responsive = (props) => {
 			>
 				<div className='es:icon:size-6 es:mx-0.5 es:text-accent-700'>
 					<Icon
-						name={overrideIcon}
+						icon={overrideIcon}
 						fallback={<Icon icon={`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`} />}
 					/>
 				</div>
@@ -551,7 +551,7 @@ export const Responsive = (props) => {
 							>
 								<div className={clsx('es:transition-colors es:icon:size-6 es:mx-0.5', typeof value[breakpoint] !== 'undefined' ? 'es:text-surface-600' : 'es:text-surface-300')}>
 									<Icon
-										name={breakpointUiData?.[realBreakpointName]?.icon}
+										icon={breakpointUiData?.[realBreakpointName]?.icon}
 										fallback={<Icon icon={`screen${upperFirst(realBreakpointName)}`} />}
 									/>
 								</div>

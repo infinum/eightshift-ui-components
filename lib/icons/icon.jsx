@@ -12,10 +12,15 @@ export const Icon = ({ icon, fallback = null, ...rest }) => {
 		return icon;
 	}
 
-	const baseProps = {
-		'aria-hidden': true,
-		focusable: false,
-	};
+	const iconToRender = uiIcons[icon] ?? uiIcons[normalizeIconName(icon)];
 
-	return cloneElement(uiIcons?.[icon], { ...baseProps, ...rest }) ?? cloneElement(uiIcons?.[normalizeIconName(icon)], { ...baseProps, ...rest }) ?? fallback;
+	if (!iconToRender) {
+		return fallback;
+	}
+
+	if (!rest) {
+		return iconToRender;
+	}
+
+	return cloneElement(iconToRender, rest);
 };
