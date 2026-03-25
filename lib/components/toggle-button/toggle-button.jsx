@@ -43,32 +43,32 @@ const componentClasses = cva(
 			{
 				size: 'small',
 				selected: true,
-				class: 'es:rounded-14',
+				class: 'es:rounded-xl',
 			},
 			{
 				size: 'default',
+				selected: true,
+				class: 'es:rounded-14',
+			},
+			{
+				size: 'large',
 				selected: true,
 				class: 'es:rounded-18',
 			},
 			{
-				size: 'large',
-				selected: true,
-				class: 'es:rounded-3xl',
-			},
-			{
 				size: 'small',
 				selected: false,
-				class: 'es:rounded-md es:hover:rounded-10! es:pressed:rounded-14!',
+				class: 'es:rounded-lg es:hover:rounded-10! es:pressed:rounded-xl!',
 			},
 			{
 				size: 'default',
 				selected: false,
-				class: 'es:rounded-10 es:hover:rounded-xl! es:pressed:rounded-18!',
+				class: 'es:rounded-10 es:hover:rounded-xl! es:pressed:rounded-14!',
 			},
 			{
 				size: 'large',
 				selected: false,
-				class: 'es:rounded-xl es:hover:rounded-2xl! es:pressed:rounded-3xl!',
+				class: 'es:rounded-xl es:hover:rounded-2xl! es:pressed:rounded-18!',
 			},
 			{
 				type: 'default',
@@ -120,8 +120,8 @@ const componentClasses = cva(
 				selected: false,
 				class: [
 					'es:text-black',
-					'es:bg-secondary-50 es:bg-linear-to-br es:from-surface-500/2 es:to-surface-500/10',
-					'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:to-accent-700/5',
+					'es:bg-radial-[at_50%_5%] es:from-50% es:from-surface-500/6 es:to-surface-500/12',
+					'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:from-accent-600/4 es:hover:to-accent-600/10',
 					'es:pressed:bg-surface-100 es:pressed:text-accent-950 es:pressed:inset-ring-surface-300 es:pressed:inset-shadow-white/10',
 					'es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
 				],
@@ -132,7 +132,7 @@ const componentClasses = cva(
 				selected: true,
 				class: [
 					'es:text-white',
-					'es:bg-linear-to-br es:from-accent-600/55 es:to-accent-600/90 es:text-white',
+					'es:bg-radial-[at_50%_5%] es:from-50% es:from-accent-600/75 es:to-accent-600 es:text-white es:text-shadow-xs es:text-shadow-black/15',
 					'es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
 					'es:inset-ring es:inset-ring-accent-800/15',
 				],
@@ -156,7 +156,7 @@ const componentClasses = cva(
 				class: [
 					'es:bg-white',
 					'es:bg-linear-to-br es:from-accent-600/70 es:to-accent-600/90 es:text-white',
-					'es:inset-ring es:inset-ring-accent-800/15',
+					'es:inset-ring es:inset-ring-accent-800/10',
 					'es:focus-visible:bg-accent-50 es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:inset-ring-accent-500',
 				],
 			},
