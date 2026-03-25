@@ -188,7 +188,7 @@ export const AsyncMultiSelect = (props) => {
 			icon = getIcon(item);
 		}
 
-		icon = <Icon name={icon} />;
+		icon = <Icon icon={icon} />;
 
 		return (
 			<OptionItemBase
@@ -315,7 +315,7 @@ export const AsyncMultiSelect = (props) => {
 
 								let icon = getIcon ? getIcon(currentItem) : (currentItem?.icon ?? null);
 
-								icon = <Icon name={icon} />;
+								icon = <Icon icon={icon} />;
 
 								if (value?.length > 1) {
 									return (
@@ -408,7 +408,7 @@ export const AsyncMultiSelect = (props) => {
 							{(item) => {
 								let icon = getIcon ? getIcon(item) : (item?.icon ?? null);
 
-								icon = <Icon name={icon} />;
+								icon = <Icon icon={icon} />;
 
 								return (
 									<DraggableListItem

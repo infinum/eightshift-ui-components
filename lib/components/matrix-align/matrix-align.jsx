@@ -129,7 +129,7 @@ export const MatrixAlign = (props) => {
 			inline
 		>
 			<TriggeredPopover
-				triggerButtonIcon={<Icon name={`position${size}${upperFirst(camelCase(value))}`} />}
+				triggerButtonIcon={<Icon icon={`position${size}${upperFirst(camelCase(value))}`} />}
 				triggerButtonProps={{
 					'aria-label': ariaLabel,
 					tooltip: triggerTooltip,

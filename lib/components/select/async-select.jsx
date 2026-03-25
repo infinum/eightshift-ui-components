@@ -186,7 +186,7 @@ export const AsyncSelect = (props) => {
 			icon = getIcon(item);
 		}
 
-		icon = <Icon name={icon} />;
+		icon = <Icon icon={icon} />;
 
 		return (
 			<OptionItemBase
@@ -279,7 +279,7 @@ export const AsyncSelect = (props) => {
 
 								let icon = getIcon ? getIcon(selectedItem) : (selectedItem?.icon ?? null);
 
-								icon = <Icon name={icon} />;
+								icon = <Icon icon={icon} />;
 
 								return (
 									<RichLabel

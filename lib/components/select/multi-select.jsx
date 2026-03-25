@@ -138,7 +138,7 @@ export const MultiSelect = (props) => {
 	const renderItem = (item) => {
 		let icon = item?.icon ?? null;
 
-		icon = <Icon name={icon} />;
+		icon = <Icon icon={icon} />;
 
 		return (
 			<OptionItemBase
@@ -246,7 +246,7 @@ export const MultiSelect = (props) => {
 
 								let icon = selectedItem?.icon ?? null;
 
-								icon = <Icon name={icon} />;
+								icon = <Icon icon={icon} />;
 
 								if (selectedItems.length > 1) {
 									return (

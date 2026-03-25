@@ -117,7 +117,7 @@ export const OptionSelect = (props) => {
 		return (
 			<SubMenuItem
 				trigger={
-					<MenuItem icon={!noTriggerIcon && (icon ?? (currentItem ? <Icon name={currentItem?.icon} /> : (noTriggerLabel || noTriggerIcon) && notSetLabel))}>
+					<MenuItem icon={!noTriggerIcon && (icon ?? (currentItem ? <Icon icon={currentItem?.icon} /> : (noTriggerLabel || noTriggerIcon) && notSetLabel))}>
 						<RichLabel
 							label={noTriggerLabel ? null : (label ?? currentItem?.label ?? notSetLabel)}
 							subtitle={subtitle === true ? currentItem?.label : subtitle}
@@ -147,8 +147,8 @@ export const OptionSelect = (props) => {
 							{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
 							{optionSectionTitle && (
 								<MenuItem
-									icon={<Icon name={optionSectionIcon} />}
-									endIcon={<Icon name={optionSectionEndIcon} />}
+									icon={<Icon icon={optionSectionIcon} />}
+									endIcon={<Icon icon={optionSectionEndIcon} />}
 									subtitle={optionSectionSubtitle}
 									disabled
 								>
@@ -159,8 +159,8 @@ export const OptionSelect = (props) => {
 								selected={value === optionValue}
 								disabled={optionDisabled || disabled}
 								className={itemClassName}
-								icon={!noItemIcon && <Icon name={optionIcon} />}
-								endIcon={!noItemIcon && <Icon name={optionEndIcon} />}
+								icon={!noItemIcon && <Icon icon={optionIcon} />}
+								endIcon={!noItemIcon && <Icon icon={optionEndIcon} />}
 								aria-label={optionAriaLabel ?? optionLabel}
 								onClick={() => onChange(optionValue)}
 								shortcut={optionShortcut}
@@ -207,8 +207,8 @@ export const OptionSelect = (props) => {
 							{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
 							{optionSectionTitle && (
 								<MenuItem
-									icon={<Icon name={optionSectionIcon} />}
-									endIcon={<Icon name={optionSectionEndIcon} />}
+									icon={<Icon icon={optionSectionIcon} />}
+									endIcon={<Icon icon={optionSectionEndIcon} />}
 									subtitle={optionSectionSubtitle}
 									disabled
 								>
@@ -219,8 +219,8 @@ export const OptionSelect = (props) => {
 								selected={value === optionValue}
 								disabled={optionDisabled || disabled}
 								className={itemClassName}
-								icon={!noItemIcon && <Icon name={optionIcon} />}
-								endIcon={!noItemIcon && <Icon name={optionEndIcon} />}
+								icon={!noItemIcon && <Icon icon={optionIcon} />}
+								endIcon={!noItemIcon && <Icon icon={optionEndIcon} />}
 								aria-label={optionAriaLabel ?? optionLabel}
 								onClick={() => onChange(optionValue)}
 								shortcut={optionShortcut}
@@ -278,7 +278,7 @@ export const OptionSelect = (props) => {
 								onChange={() => onChange(optionValue)}
 								disabled={optionDisabled || disabled}
 								className={itemClassName}
-								icon={!noItemIcon && <Icon name={optionIcon} />}
+								icon={!noItemIcon && <Icon icon={optionIcon} />}
 								tooltip={optionTooltip ?? optionAriaLabel ?? (noItemLabel && optionLabel)}
 								aria-label={optionAriaLabel ?? optionLabel ?? optionTooltip}
 								{...itemProps}
@@ -313,7 +313,7 @@ export const OptionSelect = (props) => {
 							disabled={optionDisabled || disabled}
 							className={itemClassName}
 							subtitle={!noItemLabel && optionSubtitle}
-							icon={!noItemIcon && <Icon name={optionIcon} />}
+							icon={!noItemIcon && <Icon icon={optionIcon} />}
 							aria-label={optionAriaLabel ?? optionLabel}
 							label={!noItemLabel && optionLabel}
 							{...itemProps}
@@ -325,7 +325,7 @@ export const OptionSelect = (props) => {
 			{type === 'menu' && (
 				<Menu
 					triggerLabel={noTriggerLabel ? null : (currentItem?.label ?? notSetLabel)}
-					triggerIcon={!noTriggerIcon && (currentItem ? <Icon name={currentItem?.icon} /> : (noTriggerLabel || noTriggerIcon) && notSetLabel)}
+					triggerIcon={!noTriggerIcon && (currentItem ? <Icon icon={currentItem?.icon} /> : (noTriggerLabel || noTriggerIcon) && notSetLabel)}
 					tooltip={
 						noTriggerLabel ? (
 							<RichLabel
@@ -365,8 +365,8 @@ export const OptionSelect = (props) => {
 								{(optionHasSeparator === true || optionHasSeparator === 'above') && <MenuSeparator />}
 								{optionSectionTitle && (
 									<MenuItem
-										icon={<Icon name={optionSectionIcon} />}
-										endIcon={<Icon name={optionSectionEndIcon} />}
+										icon={<Icon icon={optionSectionIcon} />}
+										endIcon={<Icon icon={optionSectionEndIcon} />}
 										subtitle={optionSectionSubtitle}
 										disabled
 									>
@@ -377,8 +377,8 @@ export const OptionSelect = (props) => {
 									selected={value === optionValue}
 									disabled={optionDisabled || disabled}
 									className={itemClassName}
-									icon={!noItemIcon && <Icon name={optionIcon} />}
-									endIcon={!noItemIcon && <Icon name={optionEndIcon} />}
+									icon={!noItemIcon && <Icon icon={optionIcon} />}
+									endIcon={!noItemIcon && <Icon icon={optionEndIcon} />}
 									aria-label={optionAriaLabel ?? optionLabel}
 									onClick={() => onChange(optionValue)}
 									shortcut={optionShortcut}

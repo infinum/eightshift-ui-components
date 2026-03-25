@@ -353,7 +353,7 @@ export const ResponsiveLegacy = (props) => {
 											: 'es:border-secondary-100 es:bg-white es:text-secondary-500',
 									)}
 								>
-									<Icon name={`screen${upperFirst(breakpoint)}`} />
+									<Icon icon={`screen${upperFirst(breakpoint)}`} />
 								</div>
 							</DecorativeTooltip>
 

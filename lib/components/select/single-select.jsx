@@ -135,7 +135,7 @@ export const Select = (props) => {
 	const renderItem = (item) => {
 		let icon = item?.icon ?? null;
 
-		icon = <Icon name={icon} />;
+		icon = <Icon icon={icon} />;
 
 		return (
 			<OptionItemBase
@@ -229,7 +229,7 @@ export const Select = (props) => {
 
 								let icon = selectedItem?.icon ?? null;
 
-								icon = <Icon name={icon} />;
+								icon = <Icon icon={icon} />;
 
 								return (
 									<RichLabel
