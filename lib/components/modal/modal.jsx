@@ -59,7 +59,7 @@ export const Modal = (props) => {
 					icon={triggerIcon}
 					{...triggerProps}
 				>
-					{triggerLabel ?? (!triggerIcon && __('Open', 'eightshift-frontend-libs'))}
+					{triggerLabel ?? (!triggerIcon && __('Open', 'eightshift-ui-components'))}
 				</Button>
 			)}
 			{customTrigger}
@@ -162,7 +162,7 @@ const ModalInternal = (props) => {
 												type='ghost'
 												size='small'
 												icon={clear}
-												aria-label={__('Close', 'eightshift-frontend-libs')}
+												aria-label={__('Close', 'eightshift-ui-components')}
 												tooltip
 											/>
 										)}
