@@ -1,5 +1,7 @@
 export const reorderGrabberH = (
 	<svg
+		aria-hidden='true'
+		focusable='false'
 		width='20'
 		height='20'
 		viewBox='0 0 20 20'
