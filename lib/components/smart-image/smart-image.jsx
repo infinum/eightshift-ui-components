@@ -358,11 +358,7 @@ const SmartImage = (props) => {
 	} else if (error === 'failedToFetch') {
 		return (
 			<div
-				className={clsx(
-					typeof children !== 'function' && 'es:flex es:flex-col es:gap-2 es:items-center-safe es:justify-center-safe es:p-2',
-					'es:motion-preset-fade',
-					errorClassName,
-				)}
+				className={clsx(typeof children !== 'function' && 'es:flex es:flex-col es:gap-2 es:items-center-safe es:justify-center es:p-2', 'es:motion-preset-fade', errorClassName)}
 			>
 				{typeof children !== 'function' && (
 					<DecorativeTooltip text={__('Error loading image', 'eightshift-ui-components')}>

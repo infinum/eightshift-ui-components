@@ -25,7 +25,7 @@ const tabListClasses = cva('es:flex', {
 		{
 			type: ['underline', 'underlineSecondary'],
 			orientation: 'horizontal',
-			class: 'es:border-b es:border-b-secondary-200 es:justify-center-safe es:rounded-t-lg',
+			class: 'es:border-b es:border-b-secondary-200 es:justify-center es:rounded-t-lg',
 		},
 		{
 			type: ['underline', 'underlineSecondary'],
@@ -101,7 +101,7 @@ const tabClasses = cva(
 			},
 			iconWithLabel: {
 				true: 'es:justify-start',
-				false: 'es:justify-center-safe',
+				false: 'es:justify-center',
 			},
 			selected: {
 				false: [
@@ -113,7 +113,7 @@ const tabClasses = cva(
 			},
 		},
 		compoundVariants: [
-			{ type: ['underline', 'underlineSecondary', 'bubble'], class: ['es:flex-col es:justify-center-safe', 'es:text-secondary-700 es:selected:text-accent-700'] },
+			{ type: ['underline', 'underlineSecondary', 'bubble'], class: ['es:flex-col es:justify-center', 'es:text-secondary-700 es:selected:text-accent-700'] },
 			{
 				type: ['pill', 'pillCompact'],
 				vertical: true,
@@ -257,7 +257,7 @@ const tabIconClasses = cva('es:transition es:duration-200 es:ease-spring-bouncy'
 const tabBadgeClasses = cva(
 	[
 		'es:transition-plus',
-		'es:flex es:items-center-safe es:justify-center-safe',
+		'es:flex es:items-center-safe es:justify-center',
 		'es:min-h-4.5 es:min-w-4.5 es:leading-none es:rounded-full es:shrink-0',
 		'es:text-12 es:leading-none es:text-box-trim',
 		'es:any-icon:size-2.5',

@@ -74,7 +74,7 @@ export const FilePickerShell = (props) => {
 				)}
 			>
 				{type === 'file' && (
-					<div className='es:grow es:flex es:flex-col es:gap-2 es:text-sm es:items-center-safe es:justify-center-safe es:font-mono es:icon:size-6 es:rounded-xl es:bg-white/50 es:inset-ring es:inset-ring-surface-100 es:icon:text-surface-500 es:text-surface-700 es:px-2 es:py-4'>
+					<div className='es:grow es:flex es:flex-col es:gap-2 es:text-sm es:items-center-safe es:justify-center es:font-mono es:icon:size-6 es:rounded-xl es:bg-white/50 es:inset-ring es:inset-ring-surface-100 es:icon:text-surface-500 es:text-surface-700 es:px-2 es:py-4'>
 						{icon}
 						<span className='es:line-clamp-1'>{truncateMiddle(url, 34)}</span>
 					</div>
