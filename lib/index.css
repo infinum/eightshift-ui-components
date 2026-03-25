@@ -168,31 +168,31 @@
 }
 
 @custom-variant has-selected {
-	&:has(:where(::pressed, :active, [data-selected='true'], [data-focus-visible='true'], [data-hovered='true'], [aria-expanded='true'], [data-expanded='true'])) {
+	&:has(:where(:active, [data-selected='true'], [data-focus-visible='true'], [data-hovered='true'], [aria-expanded='true'], [data-expanded='true'])) {
 		@slot;
 	}
 }
 
 @custom-variant has-first-selected {
-	&:has(:first-child:where(::pressed, :active, [data-selected='true'], [data-focus-visible='true'], [data-hovered='true'], [aria-expanded='true'], [data-expanded='true'])) {
+	&:has(:first-child:where(:active, [data-selected='true'], [data-focus-visible='true'], [data-hovered='true'], [aria-expanded='true'], [data-expanded='true'])) {
 		@slot;
 	}
 }
 
 @custom-variant has-last-selected {
-	&:has(:last-child:where(::pressed, :active, [data-selected='true'], [data-focus-visible='true'], [data-hovered='true'], [aria-expanded='true'], [data-expanded='true'])) {
+	&:has(:last-child:where(:active, [data-selected='true'], [data-focus-visible='true'], [data-hovered='true'], [aria-expanded='true'], [data-expanded='true'])) {
 		@slot;
 	}
 }
 
 @custom-variant before-current {
-	&:has(+ :where(::pressed, :active, [data-selected='true'], [data-focus-visible='true'], [data-hovered='true'], [aria-expanded='true'], [data-expanded='true'])) {
+	&:has(+ :where(:active, [data-selected='true'], [data-focus-visible='true'], [data-hovered='true'], [aria-expanded='true'], [data-expanded='true'])) {
 		@slot;
 	}
 }
 
 @custom-variant after-current {
-	:where(::pressed, :active, [data-selected='true'], [data-focus-visible='true'], [data-hovered='true'], [aria-expanded='true'], [data-expanded='true']) + & {
+	:where(:active, [data-selected='true'], [data-focus-visible='true'], [data-hovered='true'], [aria-expanded='true'], [data-expanded='true']) + & {
 		@slot;
 	}
 }
