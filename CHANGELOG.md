@@ -8,7 +8,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 - Updated dependencies.
 - (**BREAKING**) Refactored icons - now, instead of all icons living in a single `icons` object, they're all separate imports, which will allow tree-shaking and similar peformance optimizations.
   - For simpler usages, just replace `icons.iconName` with `iconName` (e.g. `icons.add` -> `add`).
-  - For dynamic usages, use the `Icon` component (e.g. `icons[iconName]` -> `<Icon name={iconName} />`).
+  - For dynamic usages, use the `Icon` component (e.g. `icons[iconName]` -> `<Icon icon={iconName} />`).
 - Added `Icon` component for dynamic icon rendering. It also supports a `fallback` prop in case the provided name doesn't match any icon, which can be used to e.g. render a default icon or a custom SVG.
 - Performance optimizations in `AnimatedVisibility`, `Container`, `Checkbox`, `InputField`, `NumberPicker`, `PortalProvider`, `DraggableList`, `LinkInput`, `Radio`, `Repeater`, `Switch`, `ContainerPanel`, `Select`, `AsyncSelect`, `MultiSelect`, and `AsyncMultiSelect`.
 - Fixed `exports` list in package.json.
