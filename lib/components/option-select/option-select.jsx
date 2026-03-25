@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Icon } from '../../icons/internal.js';
+import { Icon } from '../../icons/internal';
 import { BaseControl } from '../base-control/base-control';
 import { ButtonGroup } from '../button/button';
 import { Menu, MenuItem, MenuSeparator, SubMenuItem } from '../menu/menu';

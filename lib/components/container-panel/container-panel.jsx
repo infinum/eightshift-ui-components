@@ -3,7 +3,7 @@ import { clsx } from 'clsx';
 import { Disclosure, DisclosurePanel } from 'react-aria-components';
 import { Switch } from '../toggle/switch';
 import { Button } from '../button/button';
-import { chevronDown } from '../../icons/internal.js';
+import { chevronDown } from '../../icons/internal';
 import { HStack } from '../layout/hstack';
 import { BaseControl } from '../base-control/base-control';
 

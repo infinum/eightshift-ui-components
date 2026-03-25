@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { HStack } from '../layout/hstack';
 import { RichLabel } from '../rich-label/rich-label';
-import { reorderGrabberV } from '../../icons/internal.js';
+import { reorderGrabberV } from '../../icons/internal';
 import { cloneElement } from 'react';
 
 /**

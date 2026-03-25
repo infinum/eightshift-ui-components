@@ -7,7 +7,7 @@ import {
 	SubmenuTrigger,
 } from 'react-aria-components';
 import { RichLabel } from '../rich-label/rich-label';
-import { chevronRight, dummySpacer, hamburgerMenu, menuItemCheck, menuItemCircle } from '../../icons/internal.js';
+import { chevronRight, dummySpacer, hamburgerMenu, menuItemCheck, menuItemCircle } from '../../icons/internal';
 import { Button } from '../button/button';
 import { Popover } from '../popover/popover';
 import { clsx } from 'clsx';

@@ -1,6 +1,6 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { Expandable } from '../expandable/expandable';
-import { componentGeneric, dropdownCaretAlt } from '../../icons/internal.js';
+import { componentGeneric, dropdownCaretAlt } from '../../icons/internal';
 import { Switch } from '../toggle/switch';
 import { TriggeredPopover } from '../popover/popover';
 import { ButtonGroup } from '../button/button';

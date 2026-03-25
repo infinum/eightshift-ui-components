@@ -153,7 +153,7 @@ import {
 	Icon,
 	emptyCircle,
 } from '../lib/icons';
-import { iconLoaders } from '../lib/icons/generated-icon-loaders.js';
+import { iconLoaders } from '../lib/icons/generated-icon-loaders';
 
 const slugify = (input) => {
 	return input

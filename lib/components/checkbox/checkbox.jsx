@@ -2,7 +2,7 @@ import { Checkbox as ReactAriaCheckbox } from 'react-aria-components';
 import { clsx } from 'clsx';
 
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
-import { check } from '../../icons/internal.js';
+import { check } from '../../icons/internal';
 import { RichLabel } from '../rich-label/rich-label';
 import { Label } from 'react-aria-components';
 import { cva } from 'class-variance-authority';

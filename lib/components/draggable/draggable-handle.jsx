@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { DraggableContext } from './draggable-context';
 import { useContext } from 'react';
-import { reorderGrabberV } from '../../icons/internal.js';
+import { reorderGrabberV } from '../../icons/internal';
 
 /**
  * A Draggable item handle.

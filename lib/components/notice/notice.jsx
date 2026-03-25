@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 
-import { checkSquare, componentGeneric, errorCircle, info, warning } from '../../icons/internal.js';
+import { checkSquare, componentGeneric, errorCircle, info, warning } from '../../icons/internal';
 
 /**
  * A simple notice component.

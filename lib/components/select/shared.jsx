@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { ListBoxItem, Button, SelectStateContext } from 'react-aria-components';
-import { Icon } from '../../icons/internal.js';
+import { Icon } from '../../icons/internal';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { useContext } from 'react';
 import clsx from 'clsx';

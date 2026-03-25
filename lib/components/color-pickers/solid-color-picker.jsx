@@ -5,7 +5,7 @@ import { clsx } from 'clsx';
 import { BaseControl } from '../base-control/base-control';
 import { __ } from '@wordpress/i18n';
 import { TriggeredPopover } from '../popover/popover';
-import { dropdownCaretAlt } from '../../icons/internal.js';
+import { dropdownCaretAlt } from '../../icons/internal';
 import { ColorSwatch } from '../color-pickers/color-swatch';
 
 /**

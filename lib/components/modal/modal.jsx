@@ -2,7 +2,7 @@ import { Modal as ReactAriaModal, ModalOverlay, Dialog, Heading, DialogTrigger }
 import { Button } from '../button/button';
 import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
-import { clear } from '../../icons/internal.js';
+import { clear } from '../../icons/internal';
 import { HStack } from '../layout/hstack';
 
 /**

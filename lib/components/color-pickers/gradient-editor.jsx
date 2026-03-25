@@ -2,7 +2,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import { useMemo, useState } from 'react';
 import { parseConicGradient, parseLinearGradient, parseRadialGradient } from 'css-gradient-parser';
 import { Button, ButtonGroup } from '../button/button';
-import { add, angle, centerPoint, genericShapesAlt, gradientRepeat, gradientStop, sliders, trash } from '../../icons/internal.js';
+import { add, angle, centerPoint, genericShapesAlt, gradientRepeat, gradientStop, sliders, trash } from '../../icons/internal';
 import { SolidColorPicker } from './solid-color-picker';
 import { Slider } from '../slider/slider';
 import { NumberPicker } from '../number-picker/number-picker';

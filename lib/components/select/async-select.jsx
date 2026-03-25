@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { BaseControl } from '../base-control/base-control';
 import { Select, Label, ListBox, Popover, Button, SelectValue, Autocomplete, SearchField, Input, ListBoxSection, Header, Collection } from 'react-aria-components';
 import { cloneElement, useMemo, useRef } from 'react';
-import { Icon, Spinner, clearAlt, dropdownCaret, searchEmpty } from '../../icons/internal.js';
+import { Icon, Spinner, clearAlt, dropdownCaret, searchEmpty } from '../../icons/internal';
 import { OptionItemBase, SelectClearButton, getGroupedOptions } from './shared';
 import { RichLabel } from '../rich-label/rich-label';
 import { useAsyncList } from 'react-stately';
