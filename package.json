@@ -46,9 +46,10 @@
 		"./wp-overrides/unify-button-sizes": "./dist/assets/wp-overrides/unify-button-sizes.css"
 	},
 	"scripts": {
-		"dev": "vite",
-		"start": "vite",
-		"build": "vite build",
+		"generate:icon-loaders": "node ./scripts/generate-icon-loaders.mjs",
+		"dev": "node ./scripts/generate-icon-loaders.mjs && vite",
+		"start": "node ./scripts/generate-icon-loaders.mjs && vite",
+		"build": "node ./scripts/generate-icon-loaders.mjs && vite build",
 		"lint": "bun x eslint",
 		"preview": "vite preview"
 	},
