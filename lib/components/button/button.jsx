@@ -79,7 +79,7 @@ export const Button = (props) => {
 	const componentClasses = cva(
 		[
 			'es:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_0] es:hover:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_75]',
-			'es:flex es:items-center es:justify-center-safe',
+			'es:flex es:items-center es:justify-center',
 			'es:transition-plus es:duration-300 es:ease-spring-snappy es:text-13',
 			'es:any-focus:outline-hidden',
 			'es:focus-visible:ring-2',
