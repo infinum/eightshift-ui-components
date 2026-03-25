@@ -83,7 +83,6 @@ export const Button = (props) => {
 			'es:transition-plus es:duration-300 es:ease-spring-snappy es:text-13',
 			'es:any-focus:outline-hidden',
 			'es:focus-visible:ring-2',
-			'es:shrink-0',
 			'es:text-box-trim',
 			'es:leading-none',
 			'es:btn-group-h:not-pressed:not-after-current:not-first:rounded-l-sm',
