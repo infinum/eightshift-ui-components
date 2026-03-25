@@ -656,7 +656,6 @@ function App() {
 	const [colConfig4, setColConfig4] = useState([2, 4]);
 	const [colConfig5, setColConfig5] = useState([2, 4]);
 
-
 	return (
 		<div className='es:flex es:flex-col es:items-center es:justify-center es:overscroll-none es:p-10'>
 			<TriggeredPopover
@@ -1051,34 +1050,50 @@ function App() {
 					/>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					<div className='es:flex es:min-h-56 es:flex-col es:gap-2 es:rounded-md es:border es:border-dotted es:border-secondary-300 es:p-2'>
+					<HStack>
 						<ToggleButton
-							className='mx-auto'
 							selected={animVis}
 							onChange={setAnimVis}
 						>
 							Show
 						</ToggleButton>
-						<div className='es:grid es:grid-cols-2 es:gap-4'>
-							<AnimatedVisibility
-								visible={animVis}
-								noInitial
-								transition='slideFade'
-							>
-								<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>Hi, I&apos;m content.</div>
-							</AnimatedVisibility>
-							<AnimatedVisibility
-								visible={animVis}
-								transition='slideFade'
-							>
-								<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>Hi, I&apos;m content.</div>
-							</AnimatedVisibility>
-						</div>
 
-						<span className='es:text-secondary-500'>
-							Left has <code>noInitial</code> set.
-						</span>
+						<ToggleButton
+							selected={animVis}
+							onChange={setAnimVis}
+							type='simple'
+						>
+							Show
+						</ToggleButton>
+
+						<ToggleButton
+							selected={animVis}
+							onChange={setAnimVis}
+							type='ghost'
+						>
+							Show
+						</ToggleButton>
+					</HStack>
+
+					<div className='es:grid es:grid-cols-2 es:gap-4'>
+						<AnimatedVisibility
+							visible={animVis}
+							noInitial
+							transition='slideFade'
+						>
+							<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>Hi, I&apos;m content.</div>
+						</AnimatedVisibility>
+						<AnimatedVisibility
+							visible={animVis}
+							transition='slideFade'
+						>
+							<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>Hi, I&apos;m content.</div>
+						</AnimatedVisibility>
 					</div>
+
+					<span className='es:text-secondary-500'>
+						Left has <code>noInitial</code> set.
+					</span>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:p-5!'>
 					<Expandable
