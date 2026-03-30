@@ -162,7 +162,7 @@ export const AsyncMultiSelect = (props) => {
 			const extra =
 				value
 					?.map((val) => {
-						if (output?.find((item) => item.value === val?.value)) {
+						if (!val || !val?.value || output?.find((item) => item.value === val?.value)) {
 							return null;
 						}
 
@@ -188,8 +188,6 @@ export const AsyncMultiSelect = (props) => {
 			icon = getIcon(item);
 		}
 
-		icon = <Icon icon={icon} />;
-
 		return (
 			<OptionItemBase
 				key={item.value}
@@ -201,7 +199,7 @@ export const AsyncMultiSelect = (props) => {
 
 				{!customMenuOption && (
 					<RichLabel
-						icon={icon}
+						icon={icon && <Icon icon={icon} />}
 						label={item.label}
 						subtitle={item.subtitle}
 						noColor
@@ -293,7 +291,7 @@ export const AsyncMultiSelect = (props) => {
 		>
 			<BaseControl
 				label={label}
-				icon={icon}
+				icon={icon && <Icon icon={icon} />}
 				subtitle={subtitle}
 				actions={actions}
 				help={help}
@@ -313,9 +311,7 @@ export const AsyncMultiSelect = (props) => {
 
 								const currentItem = value?.[0];
 
-								let icon = getIcon ? getIcon(currentItem) : (currentItem?.icon ?? null);
-
-								icon = <Icon icon={icon} />;
+								const icon = getIcon ? getIcon(currentItem) : (currentItem?.icon ?? null);
 
 								if (value?.length > 1) {
 									return (
@@ -334,7 +330,7 @@ export const AsyncMultiSelect = (props) => {
 
 								return (
 									<RichLabel
-										icon={icon}
+										icon={icon && <Icon icon={icon} />}
 										label={currentItem?.label}
 										subtitle={currentItem?.subtitle}
 										className={clsx('es:pr-6 es:grow es:w-full', disabled && 'es:grayscale es:pointer-events-none')}
@@ -406,13 +402,11 @@ export const AsyncMultiSelect = (props) => {
 							itemClassName='es:z-999999'
 						>
 							{(item) => {
-								let icon = getIcon ? getIcon(item) : (item?.icon ?? null);
-
-								icon = <Icon icon={icon} />;
+								const icon = getIcon ? getIcon(item) : (item?.icon ?? null);
 
 								return (
 									<DraggableListItem
-										icon={icon}
+										icon={icon && <Icon icon={icon} />}
 										label={item?.label}
 										subtitle={item?.subtitle}
 										iconClassName='es:pointer-events-none es:select-none'

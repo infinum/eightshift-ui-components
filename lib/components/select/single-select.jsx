@@ -133,9 +133,7 @@ export const Select = (props) => {
 	const currentValue = simpleValue ? (value ?? null) : (value?.value ?? null);
 
 	const renderItem = (item) => {
-		let icon = item?.icon ?? null;
-
-		icon = <Icon icon={icon} />;
+		const icon = item?.icon ?? null;
 
 		return (
 			<OptionItemBase
@@ -147,7 +145,7 @@ export const Select = (props) => {
 
 				{!customMenuOption && (
 					<RichLabel
-						icon={icon}
+						icon={icon && <Icon icon={icon} />}
 						label={item?.label}
 						subtitle={item?.subtitle}
 						noColor
@@ -227,13 +225,11 @@ export const Select = (props) => {
 									return <span className='es:select-none es:pointer-events-none es:pr-6 es:text-sm es:text-surface-500'>{placeholder}</span>;
 								}
 
-								let icon = selectedItem?.icon ?? null;
-
-								icon = <Icon icon={icon} />;
+								const icon = selectedItem?.icon ?? null;
 
 								return (
 									<RichLabel
-										icon={icon}
+										icon={icon && <Icon icon={icon} />}
 										label={selectedItem?.label}
 										subtitle={selectedItem?.subtitle}
 										className={clsx('es:pr-6 es:grow es:w-full', disabled && 'es:grayscale es:pointer-events-none')}
