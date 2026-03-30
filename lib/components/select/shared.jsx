@@ -202,9 +202,9 @@ export const getGroupedOptions = (filteredOptions, groupKey, groupValueMapping) 
 		return {
 			key,
 			label: mapping?.label ?? (key === '_other' ? __('Other', 'eightshift-ui-components') : key),
-			icon: <Icon icon={mapping?.icon} />,
+			icon: mapping?.icon && <Icon icon={mapping?.icon} />,
 			subtitle: mapping?.subtitle || null,
-			endIcon: <Icon icon={mapping?.endIcon} />,
+			endIcon: mapping?.endIcon && <Icon icon={mapping?.endIcon} />,
 			options,
 		};
 	});

@@ -117,7 +117,7 @@ export const OptionSelect = (props) => {
 		return (
 			<SubMenuItem
 				trigger={
-					<MenuItem icon={!noTriggerIcon && (icon ?? (currentItem ? <Icon icon={currentItem?.icon} /> : (noTriggerLabel || noTriggerIcon) && notSetLabel))}>
+					<MenuItem icon={!noTriggerIcon && (icon ?? (currentItem ? currentItem?.icon && <Icon icon={currentItem?.icon} /> : (noTriggerLabel || noTriggerIcon) && notSetLabel))}>
 						<RichLabel
 							label={noTriggerLabel ? null : (label ?? currentItem?.label ?? notSetLabel)}
 							subtitle={subtitle === true ? currentItem?.label : subtitle}

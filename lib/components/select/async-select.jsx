@@ -186,8 +186,6 @@ export const AsyncSelect = (props) => {
 			icon = getIcon(item);
 		}
 
-		icon = <Icon icon={icon} />;
-
 		return (
 			<OptionItemBase
 				key={item.value}
@@ -199,7 +197,7 @@ export const AsyncSelect = (props) => {
 
 				{!customMenuOption && (
 					<RichLabel
-						icon={icon}
+						icon={icon && <Icon icon={icon} />}
 						label={item.label}
 						subtitle={item.subtitle}
 						noColor
@@ -253,7 +251,7 @@ export const AsyncSelect = (props) => {
 		>
 			<BaseControl
 				label={label}
-				icon={icon}
+				icon={icon && <Icon icon={icon} />}
 				subtitle={subtitle}
 				actions={actions}
 				help={help}
@@ -277,13 +275,11 @@ export const AsyncSelect = (props) => {
 									return <span className='es:select-none es:pointer-events-none es:text-sm es:text-surface-500'>{placeholder}</span>;
 								}
 
-								let icon = getIcon ? getIcon(selectedItem) : (selectedItem?.icon ?? null);
-
-								icon = <Icon icon={icon} />;
+								const icon = getIcon ? getIcon(selectedItem) : (selectedItem?.icon ?? null);
 
 								return (
 									<RichLabel
-										icon={icon}
+										icon={icon && <Icon icon={icon} />}
 										label={selectedItem?.label}
 										subtitle={selectedItem?.subtitle}
 										className={clsx('es:grow es:w-full', disabled && 'es:grayscale es:pointer-events-none')}
