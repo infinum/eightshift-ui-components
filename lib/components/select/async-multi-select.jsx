@@ -162,7 +162,7 @@ export const AsyncMultiSelect = (props) => {
 			const extra =
 				value
 					?.map((val) => {
-						if (output?.find((item) => item.value === val?.value)) {
+						if (!val || !val?.value || output?.find((item) => item.value === val?.value)) {
 							return null;
 						}
 

@@ -119,7 +119,7 @@ export const AsyncSelect = (props) => {
 	const value = rawValue && !Array.isArray(rawValue) && typeof rawValue === 'object' ? rawValue : null;
 
 	const list = useAsyncList({
-		initialSelectedKeys: value?.value ? [value.value] : [],
+		initialSelectedKeys: value && value?.value ? [value.value] : [],
 		getKey: (item) => item?.value,
 		async load({ signal, filterText }) {
 			let json = [];
@@ -161,7 +161,7 @@ export const AsyncSelect = (props) => {
 
 			let extra = [];
 
-			if (value && !output?.find((item) => item.value === value?.value)) {
+			if (value && value?.value && !output?.find((item) => item.value === value?.value)) {
 				extra = [value];
 				output.pop();
 			}
