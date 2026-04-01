@@ -7,6 +7,7 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 - Updated dependencies.
 - Optimized font loading.
+- Removed `analyzeImage`, `analyzeImageAsync`, `analyzeImageData`, and `checkTransparency` helpers; and legacy image analysis worker. (`SmartImage` is not affected by this change)
 
 ## [7.1.0] - 2026-03-30
 
