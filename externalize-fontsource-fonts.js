@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { transform } from 'lightningcss';
 import { dirname, resolve } from 'path';
 
 const FONT_CSS_SOURCES = [
@@ -43,13 +44,26 @@ function createExternalFontAssets() {
 export default function externalizeFontsourceFonts() {
 	let fontCss = '';
 	let emittedFonts = new Map();
+	let shouldMinifyCss = false;
 
 	return {
 		name: 'vite-externalize-fontsource-fonts',
 		apply: 'build',
 
+		configResolved(config) {
+			shouldMinifyCss = Boolean(config.build.cssMinify);
+		},
+
 		buildStart() {
 			({ fontCss, emittedFonts } = createExternalFontAssets());
+
+			if (shouldMinifyCss) {
+				fontCss = transform({
+					filename: 'externalized-fontsource-fonts.css',
+					code: Buffer.from(fontCss),
+					minify: true,
+				}).code.toString();
+			}
 		},
 
 		generateBundle(_, bundle) {

@@ -23,7 +23,7 @@ export default defineConfig(() => {
 				formats: ['es'],
 			},
 			minify: 'oxc',
-			cssMinify: false,
+			cssMinify: 'lightningcss',
 			rolldownOptions: {
 				external: (id) => {
 					return ['react', 'react-dom', 'use-sync-external-store'].some((pkg) => id === pkg || id.startsWith(`${pkg}/`));
