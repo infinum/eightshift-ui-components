@@ -5,9 +5,9 @@
     "": {
       "name": "@eightshift/ui-components",
       "dependencies": {
-        "@fontsource-variable/geist": "^5.2.8",
-        "@fontsource-variable/geist-mono": "^5.2.7",
         "@fontsource-variable/google-sans-flex": "^5.2.1",
+        "@fontsource/geist": "^5.2.8",
+        "@fontsource/geist-mono": "^5.2.7",
         "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^7.0.1",
         "motion": "^12.38.0",
@@ -24,9 +24,6 @@
         "@stylistic/eslint-plugin": "^5.10.0",
         "@tailwindcss/vite": "^4.2.2",
         "@thi.ng/color": "^5.8.18",
-        "@thi.ng/pixel": "^7.5.26",
-        "@thi.ng/pixel-analysis": "^2.0.33",
-        "@thi.ng/pixel-dominant-colors": "^2.0.36",
         "@types/react": "^18.3.28",
         "@types/react-dom": "^18.3.7",
         "@vitejs/plugin-react": "^6.0.1",
@@ -174,11 +171,11 @@
 
     "@eslint/plugin-kit": ["@eslint/plugin-kit@0.6.1", "", { "dependencies": { "@eslint/core": "^1.1.1", "levn": "^0.4.1" } }, "sha512-iH1B076HoAshH1mLpHMgwdGeTs0CYwL0SPMkGuSebZrwBp16v415e9NZXg2jtrqPVQjf6IANe2Vtlr5KswtcZQ=="],
 
-    "@fontsource-variable/geist": ["@fontsource-variable/geist@5.2.8", "", {}, "sha512-cJ6m9e+8MQ5dCYJsLylfZrgBh6KkG4bOLckB35Tr9J/EqdkEM6QllH5PxqP1dhTvFup+HtMRPuz9xOjxXJggxw=="],
-
-    "@fontsource-variable/geist-mono": ["@fontsource-variable/geist-mono@5.2.7", "", {}, "sha512-ZKlZ5sjtalb2TwXKs400mAGDlt/+2ENLNySPx0wTz3bP3mWARCsUW+rpxzZc7e05d2qGch70pItt3K4qttbIYA=="],
-
     "@fontsource-variable/google-sans-flex": ["@fontsource-variable/google-sans-flex@5.2.1", "", {}, "sha512-CZzNhNK6NTjJsX3SP2g/WWzldFzSiSHrE1DtXh2Nkbflb40CGtP3G+1OABongwrNV3Tu/bUfirgcP14ajcglMw=="],
+
+    "@fontsource/geist": ["@fontsource/geist@5.2.8", "", {}, "sha512-pI54klK6vz8fVpAVyV+iODGLEzw73cs1XJqV9PIXgW8MYMmBcwK6lKKaWqJrNHwEx8ppz9cuhussb6arXQ/PVQ=="],
+
+    "@fontsource/geist-mono": ["@fontsource/geist-mono@5.2.7", "", {}, "sha512-xVPVFISJg/K0VVd+aQN0Y7X/sw9hUcJPyDWFJ5GpyU3bHELhoRsJkPSRSHXW32mOi0xZCUQDOaPj1sqIFJ1FGg=="],
 
     "@formatjs/ecma402-abstract": ["@formatjs/ecma402-abstract@2.3.6", "", { "dependencies": { "@formatjs/fast-memoize": "2.2.7", "@formatjs/intl-localematcher": "0.6.2", "decimal.js": "^10.4.3", "tslib": "^2.8.0" } }, "sha512-HJnTFeRM2kVFVr5gr5kH1XP6K0JcJtE7Lzvtr3FS/so5f1kpsqqqxy5JF+FRaO6H2qmcMfAUIox7AJteieRtVw=="],
 
@@ -674,8 +671,6 @@
 
     "@thi.ng/binary": ["@thi.ng/binary@3.6.6", "", { "dependencies": { "@thi.ng/api": "^8.12.17" } }, "sha512-ohhzbiMmPW1OpnxiGQgsqpfTSBx8ms8h1I6UpOiEUyx0kd/0AcDbushLdIwpANjO22c6asIQvv/nc7oLtH3/jw=="],
 
-    "@thi.ng/canvas": ["@thi.ng/canvas@1.1.9", "", {}, "sha512-T3os+uSQ0i3Ct4P+kjLE/O7sCuQM8b2SRZD23CJLFwT4JtP3cusm7Lp8Q6WA/qEE1+lRJvwgmy3FwAsVNWR+QA=="],
-
     "@thi.ng/checks": ["@thi.ng/checks@3.8.7", "", {}, "sha512-W5mGlyTMn0xcaTgVCVlMajXxEolkUg1sPz0tR5R0AstP4FCmPH0us5p8XsrnmzC58/raL0P4ocWwN8HMfsW//A=="],
 
     "@thi.ng/color": ["@thi.ng/color@5.8.18", "", { "dependencies": { "@thi.ng/api": "^8.12.17", "@thi.ng/arrays": "^2.14.13", "@thi.ng/binary": "^3.6.6", "@thi.ng/checks": "^3.8.7", "@thi.ng/compare": "^2.5.5", "@thi.ng/compose": "^3.0.54", "@thi.ng/defmulti": "^3.0.94", "@thi.ng/errors": "^2.6.6", "@thi.ng/math": "^5.15.6", "@thi.ng/random": "^4.1.42", "@thi.ng/strings": "^3.11.0", "@thi.ng/transducers": "^9.6.30", "@thi.ng/vectors": "^8.6.25" } }, "sha512-Kgbsub3qXVSIa8wydV9E4eo8gPqfaK9GBvVuA/cDmS/+sWl7lVcBaJLdo+ag3i4BFqdahDktVMgoDdVqa1WTKQ=="],
@@ -686,35 +681,17 @@
 
     "@thi.ng/defmulti": ["@thi.ng/defmulti@3.0.94", "", { "dependencies": { "@thi.ng/api": "^8.12.17", "@thi.ng/errors": "^2.6.6", "@thi.ng/logger": "^3.3.0" } }, "sha512-VT6vnxKbVGfwJTK4aDtMu9BhqfbE1Fgg89/faN9bw9lldiXikUJbO87Jqw0gixEfhNfiKRsMb3rHlw3ygPKi+g=="],
 
-    "@thi.ng/distance": ["@thi.ng/distance@3.0.37", "", { "dependencies": { "@thi.ng/api": "^8.12.17", "@thi.ng/checks": "^3.8.7", "@thi.ng/errors": "^2.6.6", "@thi.ng/heaps": "^2.1.126", "@thi.ng/math": "^5.15.6", "@thi.ng/vectors": "^8.6.25" } }, "sha512-KR0pe5DRjZX5LOSIz6R/3w3x1ibydcryKKvT+09DGKDpaJTv9eQJmFa6VYWKC0/jds0HpidE6F9xhnckFVDvCw=="],
-
     "@thi.ng/equiv": ["@thi.ng/equiv@2.1.106", "", {}, "sha512-396/4pJuPckl24uivhIWEzCHMJ5Qx9Zgd2ZHHIxPlnf+8KB3Z+D8P5iO/P+xfPzJ0ai274qH1rAObToPPViPOw=="],
 
     "@thi.ng/errors": ["@thi.ng/errors@2.6.6", "", {}, "sha512-da0slIGmueCf4T0b+xT4TMVUQjHGFTJpul5TAVvPUl7Xn5Noe13Uq6Ag4D5ZCcDwwe2iJ8iHaTuYSJaFZ9f8Mg=="],
 
-    "@thi.ng/heaps": ["@thi.ng/heaps@2.1.126", "", { "dependencies": { "@thi.ng/api": "^8.12.17", "@thi.ng/compare": "^2.5.5", "@thi.ng/equiv": "^2.1.106" } }, "sha512-CdmouTyOf2FP4kjVaHzmvGYC7ZRzlTxJOK0qTH+lh/GxCu5Mh//QoLT/Lo2HoI/npViAnSdrLswGtsqkoz1g7w=="],
-
     "@thi.ng/hex": ["@thi.ng/hex@2.4.9", "", {}, "sha512-e/Zkp4wAZipYM7e/YAhhuT0id2k8yz0aS7xXx+26tA3egEBxXx7Tc7S8WvR6swlUY3I6JhATCNNWc7RzLKAFKQ=="],
-
-    "@thi.ng/k-means": ["@thi.ng/k-means@2.0.35", "", { "dependencies": { "@thi.ng/api": "^8.12.17", "@thi.ng/distance": "^3.0.37", "@thi.ng/errors": "^2.6.6", "@thi.ng/random": "^4.1.42", "@thi.ng/vectors": "^8.6.25" } }, "sha512-7W0Ikz0csBM4agL9MHzZSci7YnDUcSqnDVQ8ASBCbcnKghPpanqU+75mFfB9R0JX3YDFd32QYZv5eCp/JrPTMg=="],
 
     "@thi.ng/logger": ["@thi.ng/logger@3.3.0", "", {}, "sha512-N6o3GXjv2zlJ0jHsX6T9zGtz7uvkjsJ0R8YtRzQqn8EXSOatMMICiAwwS0pSBLLYIyp3ITzJFs4uVGHukZ0o4Q=="],
 
     "@thi.ng/math": ["@thi.ng/math@5.15.6", "", { "dependencies": { "@thi.ng/api": "^8.12.17" } }, "sha512-76WnIKfW7pLkUj9T0sfcRhc3yO0W9ofbx5oWUceM6UiA9aeLL6yQ8o1IchfrsJ970sJsRBZmQS8D0OzB0Ya8Bg=="],
 
     "@thi.ng/memoize": ["@thi.ng/memoize@4.0.41", "", { "dependencies": { "@thi.ng/api": "^8.12.17" } }, "sha512-8pB+s2JzBKsvPCn60ze6fBG9fivycDYSkUCSwlW+QoFMGuWmOHJ51vPRQ/6KTRQkKd6db+5RGQVn5EmEiGxV7w=="],
-
-    "@thi.ng/metrics": ["@thi.ng/metrics@0.2.24", "", { "dependencies": { "@thi.ng/api": "^8.12.17", "@thi.ng/math": "^5.15.6", "@thi.ng/vectors": "^8.6.25" } }, "sha512-0hbuGHyEPbZY/nk3gxzAMaObWDEccYDPfCJesQ/LbepnJKianKEDFqcR42O1TjVIGuj25p444rNG0ekRoFZrOA=="],
-
-    "@thi.ng/pixel": ["@thi.ng/pixel@7.5.26", "", { "dependencies": { "@thi.ng/api": "^8.12.17", "@thi.ng/canvas": "^1.1.9", "@thi.ng/checks": "^3.8.7", "@thi.ng/errors": "^2.6.6", "@thi.ng/math": "^5.15.6", "@thi.ng/porter-duff": "^2.1.129" } }, "sha512-YpxNDP5H0uNiQywMpKg6WAf43hYNdgla5uHPc5vSS+w8hSkfvxdJx6GbT97+VGrObiA61JaxsUhUdrOJiz0QZQ=="],
-
-    "@thi.ng/pixel-analysis": ["@thi.ng/pixel-analysis@2.0.33", "", { "dependencies": { "@thi.ng/api": "^8.12.17", "@thi.ng/arrays": "^2.14.13", "@thi.ng/color": "^5.8.18", "@thi.ng/compare": "^2.5.5", "@thi.ng/math": "^5.15.6", "@thi.ng/metrics": "^0.2.24", "@thi.ng/pixel": "^7.5.26", "@thi.ng/pixel-convolve": "^1.1.26", "@thi.ng/pixel-dominant-colors": "^2.0.36", "@thi.ng/transducers": "^9.6.30", "@thi.ng/vectors": "^8.6.25" } }, "sha512-za5ioQFz7V+XsIft8KDIE9ggyCuBB5bTdtrBw/jhwMrCPwSzeP1T5wAzLw62g8tNFIo9RT0ngkwB5ZnM4hqOBQ=="],
-
-    "@thi.ng/pixel-convolve": ["@thi.ng/pixel-convolve@1.1.26", "", { "dependencies": { "@thi.ng/api": "^8.12.17", "@thi.ng/checks": "^3.8.7", "@thi.ng/errors": "^2.6.6", "@thi.ng/math": "^5.15.6", "@thi.ng/pixel": "^7.5.26" } }, "sha512-8n+6npLa/0UwlqQbdXwrtQ9TGd7ytO7IfdkAcchWF3F2b86k6p+5wLArLX+H3953Zx5awvGW3B4E5euU7F9D9w=="],
-
-    "@thi.ng/pixel-dominant-colors": ["@thi.ng/pixel-dominant-colors@2.0.36", "", { "dependencies": { "@thi.ng/api": "^8.12.17", "@thi.ng/k-means": "^2.0.35", "@thi.ng/pixel": "^7.5.26", "@thi.ng/vectors": "^8.6.25" } }, "sha512-JtXozmJBAdZ64prvFiLW4SCH4ksxrbNNzLCjgWqE4liBygjC5DmGb5hKrefbIoXcS6yLSzk52Ipnfv7CKOVw6A=="],
-
-    "@thi.ng/porter-duff": ["@thi.ng/porter-duff@2.1.129", "", { "dependencies": { "@thi.ng/api": "^8.12.17" } }, "sha512-W2NrvlD5emhay3Qpad1HKm27gCvBan0zUoOs18+l+09njzUhuRWqUNpU76+nSCCJ80G6asbAGZBtz/TOBzLcsg=="],
 
     "@thi.ng/random": ["@thi.ng/random@4.1.42", "", { "dependencies": { "@thi.ng/api": "^8.12.17", "@thi.ng/errors": "^2.6.6" } }, "sha512-QeQRNzafA7wZw5aKIjH6lVUxi9QWpWjYv0LsqVvQMHoikWvUaQ/BlI9tnT+JLPIrj8dR9Mn4hTrErNQ1XZgQlg=="],
 

@@ -1,22 +1,45 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { transform } from 'lightningcss';
 import { dirname, resolve } from 'path';
 
 const FONT_CSS_SOURCES = [
-	resolve(process.cwd(), 'node_modules/@fontsource-variable/geist/index.css'),
-	resolve(process.cwd(), 'node_modules/@fontsource-variable/geist-mono/index.css'),
-	resolve(process.cwd(), 'node_modules/@fontsource-variable/google-sans-flex/full.css'),
+	resolve(process.cwd(), 'font-faces/geist.css'),
+	resolve(process.cwd(), 'font-faces/geist-mono.css'),
+	resolve(process.cwd(), 'font-faces/google-sans-flex.css'),
 ];
 
 const FONT_STYLE_OUTPUTS = new Set(['assets/style.css', 'assets/style-editor.css', 'assets/style-admin.css']);
+
+function resolveFontAssetPath(cssPath, fontPath) {
+	if (fontPath.startsWith('@')) {
+		const packagePath = resolve(process.cwd(), 'node_modules', fontPath);
+
+		if (existsSync(packagePath)) {
+			return packagePath;
+		}
+
+		// Geist regular is installed from the variable package.
+		if (fontPath.startsWith('@fontsource/geist/')) {
+			const variablePackagePath = resolve(process.cwd(), 'node_modules', fontPath.replace('@fontsource/geist/', '@fontsource-variable/geist/'));
+
+			if (existsSync(variablePackagePath)) {
+				return variablePackagePath;
+			}
+		}
+
+		return packagePath;
+	}
+
+	return resolve(dirname(cssPath), fontPath);
+}
 
 function createExternalFontAssets() {
 	const emittedFonts = new Map();
 	const fontCss = FONT_CSS_SOURCES.map((cssPath) => {
 		const css = readFileSync(cssPath, 'utf8');
 
-		return css.replace(/url\((['"]?)(\.\/files\/[^'")]+)\1\)/g, (_, _quote, relativeFontPath) => {
-			const absoluteFontPath = resolve(dirname(cssPath), relativeFontPath);
+		return css.replace(/url\((['"]?)(?!data:|https?:|\/)([^'")]+)\1\)/g, (_, _quote, relativeFontPath) => {
+			const absoluteFontPath = resolveFontAssetPath(cssPath, relativeFontPath);
 			const fontFileName = absoluteFontPath.split('/').at(-1);
 
 			if (!fontFileName) {
