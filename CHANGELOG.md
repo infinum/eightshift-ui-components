@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [7.2.0] - 2026-04-01
+
+- Updated dependencies.
+- Optimized font loading.
+
 ## [7.1.0] - 2026-03-30
 
 - Updated dependencies.
@@ -616,6 +621,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[7.2.0]: https://github.com/infinum/eightshift-ui-components/compare/7.1.0...7.2.0
 [7.1.0]: https://github.com/infinum/eightshift-ui-components/compare/7.0.0...7.1.0
 [7.0.0]: https://github.com/infinum/eightshift-ui-components/compare/6.3.0...7.0.0
 [6.3.0]: https://github.com/infinum/eightshift-ui-components/compare/6.2.0...6.3.0
