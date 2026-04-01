@@ -5,13 +5,14 @@ import { fileURLToPath } from 'node:url';
 import { glob } from 'glob';
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
 import tailwindcss from '@tailwindcss/vite';
+import externalizeFontsourceFonts from './externalize-fontsource-fonts';
 import tw4Prefixer from './postcss-tw4-prefixer';
 import tw4PrefixerBuild from './postcss-tw4-prefixer-build';
 
 /** @type {import('vite').UserConfig} */
 export default defineConfig(() => {
 	return {
-		plugins: [react(), libInjectCss(), tailwindcss(), tw4Prefixer(), tw4PrefixerBuild()],
+		plugins: [react(), libInjectCss(), tailwindcss(), tw4Prefixer(), tw4PrefixerBuild(), externalizeFontsourceFonts()],
 		build: {
 			copyPublicDir: true,
 			lib: {
@@ -22,7 +23,7 @@ export default defineConfig(() => {
 				formats: ['es'],
 			},
 			minify: 'oxc',
-			cssMinify: false,
+			cssMinify: 'lightningcss',
 			rolldownOptions: {
 				external: (id) => {
 					return ['react', 'react-dom', 'use-sync-external-store'].some((pkg) => id === pkg || id.startsWith(`${pkg}/`));

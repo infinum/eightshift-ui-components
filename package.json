@@ -1,6 +1,6 @@
 {
 	"name": "@eightshift/ui-components",
-	"version": "7.1.0",
+	"version": "7.2.0",
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
@@ -69,9 +69,6 @@
 		"@stylistic/eslint-plugin": "^5.10.0",
 		"@tailwindcss/vite": "^4.2.2",
 		"@thi.ng/color": "^5.8.18",
-		"@thi.ng/pixel": "^7.5.26",
-		"@thi.ng/pixel-analysis": "^2.0.33",
-		"@thi.ng/pixel-dominant-colors": "^2.0.36",
 		"@types/react": "^18.3.28",
 		"@types/react-dom": "^18.3.7",
 		"@vitejs/plugin-react": "^6.0.1",
@@ -107,13 +104,13 @@
 		"tailwindcss": "^4.2.2",
 		"tailwindcss-motion": "^1.1.1",
 		"tailwindcss-react-aria-components": "^2.0.1",
-		"vite": "^8.0.1",
+		"vite": "^8.0.2",
 		"vite-plugin-lib-inject-css": "^2.2.2"
 	},
 	"dependencies": {
-		"@fontsource-variable/geist": "^5.2.8",
-		"@fontsource-variable/geist-mono": "^5.2.7",
 		"@fontsource-variable/google-sans-flex": "^5.2.1",
+		"@fontsource/geist": "^5.2.8",
+		"@fontsource/geist-mono": "^5.2.7",
 		"eslint-plugin-react": "^7.37.5",
 		"eslint-plugin-react-hooks": "^7.0.1",
 		"motion": "^12.38.0"
