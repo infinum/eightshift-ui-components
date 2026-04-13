@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [7.2.1] - 2026-04-13
+
+- Fixed `Tabs` breaking when `TabList` contains a single `Tab`.
+
 ## [7.2.0] - 2026-04-01
 
 - Updated dependencies.
