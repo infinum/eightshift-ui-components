@@ -1,7 +1,7 @@
 import { Tabs as ReactAriaTabs, TabList as ReactAriaTabList, Tab as ReactAriaTab, TabPanel as ReactAriaTabPanel } from 'react-aria-components';
 import { __, sprintf } from '@wordpress/i18n';
 import { clsx } from 'clsx';
-import { cloneElement, useId, isValidElement } from 'react';
+import { Children, cloneElement, useId, isValidElement } from 'react';
 import { cva } from 'class-variance-authority';
 import { Notice } from '../notice/notice';
 import { RichLabel } from '../rich-label/rich-label';
@@ -387,13 +387,17 @@ export const Tabs = (props) => {
 	let tabPanelCounter = 1;
 	let tabCounter = 1;
 
-	const preparedChildren = Array.isArray(children) ? children : [children];
+	const preparedChildren = Children.toArray(children);
 
-	let realTabIds = preparedChildren?.[0]?.props?.children?.map((tab, i) => tab?.props?.id ?? `tab-${baseId}-${i + 1}`);
+	const realTabIds = Children.toArray(preparedChildren?.[0]?.props?.children).map((tab, i) => tab?.props?.id ?? `tab-${baseId}-${i + 1}`);
 
 	const childrenWithIds = preparedChildren.reduce((acc, child, index) => {
+		if (!isValidElement(child)) {
+			return acc;
+		}
+
 		if (child.type.displayName === 'TabList') {
-			const childItems = Array.isArray(child?.props?.children) ? child?.props?.children : [child?.props?.children].filter(Boolean);
+			const childItems = Children.toArray(child?.props?.children);
 
 			tabCounter = (childItems?.length ?? 0) + 1;
 
