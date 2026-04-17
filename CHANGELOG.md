@@ -3,8 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [7.2.1] - 2026-04-13
+## [7.2.1] - 2026-04-17
 
+- Updated dependencies.
 - Fixed `Tabs` breaking when `TabList` contains a single `Tab`.
 
 ## [7.2.0] - 2026-04-01
@@ -626,6 +627,7 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[7.2.1]: https://github.com/infinum/eightshift-ui-components/compare/7.2.0...7.2.1
 [7.2.0]: https://github.com/infinum/eightshift-ui-components/compare/7.1.0...7.2.0
 [7.1.0]: https://github.com/infinum/eightshift-ui-components/compare/7.0.0...7.1.0
 [7.0.0]: https://github.com/infinum/eightshift-ui-components/compare/6.3.0...7.0.0
