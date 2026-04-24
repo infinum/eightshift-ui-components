@@ -136,7 +136,7 @@ export const Checkbox = (props) => {
 			isReadOnly={readOnly}
 			isSelected={checked ?? false}
 			onChange={onChange}
-			className={clsx('es:group es:flex es:w-full es:items-center es:gap-2', className)}
+			className={clsx('es:group es:flex es:w-fill es:items-center es:gap-2', className)}
 			{...other}
 		>
 			{!alignEnd && (label || subtitle) && (
