@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [7.3.0] - 2026-04-24
+
+- Updated dependencies.
+- Fixed minor layout issues with `Tabs`, `Radio`, and `Checkbox`.
+
 ## [7.2.1] - 2026-04-17
 
 - Updated dependencies.
@@ -627,6 +632,8 @@ Co-authored with @piqusy
 - Initial release
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+
+[7.3.0]: https://github.com/infinum/eightshift-ui-components/compare/7.2.1...7.3.0
 [7.2.1]: https://github.com/infinum/eightshift-ui-components/compare/7.2.0...7.2.1
 [7.2.0]: https://github.com/infinum/eightshift-ui-components/compare/7.1.0...7.2.0
 [7.1.0]: https://github.com/infinum/eightshift-ui-components/compare/7.0.0...7.1.0
