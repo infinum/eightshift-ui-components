@@ -1,4 +1,4 @@
-export const columnGuttersLR = (
+export const columnGuttersLr = (
 	<svg
 		aria-hidden='true'
 		focusable='false'

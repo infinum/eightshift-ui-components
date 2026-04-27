@@ -124,7 +124,7 @@ export { colorPickerText } from './color-picker-text';
 export { colorPickerTextHighlight } from './color-picker-text-highlight';
 export { colorSelect } from './color-select';
 export { color } from './color';
-export { columnGuttersLR } from './column-gutters-lr';
+export { columnGuttersLr } from './column-gutters-lr';
 export { columns } from './columns';
 export { componentGeneric } from './component-generic';
 export { containerHeight } from './container-height';

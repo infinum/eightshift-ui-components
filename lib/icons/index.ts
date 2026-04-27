@@ -4,4 +4,4 @@ export { GenericColorSwatch } from './generic-color-swatch';
 export { Icon } from './icon';
 export { JsxSvg } from './jsx-svg';
 export { Spinner } from './spinner';
-export * from './ui-icons/index.js';
+export * from './ui-icons/index';

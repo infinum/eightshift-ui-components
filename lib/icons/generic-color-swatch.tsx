@@ -1,6 +1,11 @@
+import type { JSX } from 'react';
 import { useId } from 'react';
 
-export const GenericColorSwatch = ({ style }) => {
+interface GenericColorSwatchProps {
+	style?: React.CSSProperties;
+}
+
+export const GenericColorSwatch = ({ style }: GenericColorSwatchProps): JSX.Element => {
 	const clipId = useId();
 
 	return (

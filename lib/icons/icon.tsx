@@ -1,15 +1,15 @@
-import { cloneElement, useEffect, useState } from 'react';
-import { hasIconLoader, loadIconByName } from './generated-icon-loaders.js';
-import { dummySpacer } from './ui-icons/dummy-spacer.jsx';
+import { cloneElement, useEffect, useState, type JSX } from 'react';
+import { hasIconLoader, loadIconByName } from './generated-icon-loaders';
+import { dummySpacer } from './ui-icons/dummy-spacer';
 
-const normalizeIconName = (name) => name.replace(/[-_]+([a-z0-9])/gi, (_, char) => char.toUpperCase()).replace(/^([A-Z])/, (char) => char.toLowerCase());
+const normalizeIconName = (name: string): string => name.replace(/[-_]+([a-z0-9])/gi, (_, char: string) => char.toUpperCase()).replace(/^([A-Z])/, (char) => char.toLowerCase());
 
-const iconCache = new Map();
-const iconLoads = new Map();
+const iconCache = new Map<string, JSX.Element | null>();
+const iconLoads = new Map<string, Promise<JSX.Element | null>>();
 
-const loadIcon = (iconName) => {
+const loadIcon = (iconName: string): Promise<JSX.Element | null> => {
 	if (iconCache.has(iconName)) {
-		return Promise.resolve(iconCache.get(iconName));
+		return Promise.resolve(iconCache.get(iconName) ?? null);
 	}
 
 	if (!iconLoads.has(iconName)) {
@@ -31,10 +31,10 @@ const loadIcon = (iconName) => {
 		iconLoads.set(iconName, iconLoad);
 	}
 
-	return iconLoads.get(iconName);
+	return iconLoads.get(iconName)!;
 };
 
-const renderIcon = (iconToRender, rest) => {
+const renderIcon = (iconToRender: JSX.Element | null, rest: Record<string, unknown>): JSX.Element | null => {
 	if (!iconToRender) {
 		return null;
 	}
@@ -46,15 +46,20 @@ const renderIcon = (iconToRender, rest) => {
 	return cloneElement(iconToRender, rest);
 };
 
+interface IconProps {
+	icon?: JSX.Element | string | null;
+	fallback?: JSX.Element | null;
+	[key: string]: unknown;
+}
+
 /**
  * Renders an icon by name without eagerly importing the entire icon set.
- *
- * String icons are lazy-loaded on demand and render `dummySpacer` while the
- * module resolves. Invalid icon names render `fallback` instead.
  */
-export const Icon = ({ icon, fallback = null, ...rest }) => {
+export const Icon = ({ icon, fallback = null, ...rest }: IconProps): JSX.Element | null => {
 	const normalizedIconName = typeof icon === 'string' ? normalizeIconName(icon) : null;
-	const [loadedIcon, setLoadedIcon] = useState(() => (normalizedIconName && iconCache.has(normalizedIconName) ? iconCache.get(normalizedIconName) : undefined));
+	const [loadedIcon, setLoadedIcon] = useState<JSX.Element | null | undefined>(() =>
+		normalizedIconName && iconCache.has(normalizedIconName) ? (iconCache.get(normalizedIconName) ?? null) : undefined,
+	);
 
 	useEffect(() => {
 		let isDisposed = false;
@@ -66,7 +71,7 @@ export const Icon = ({ icon, fallback = null, ...rest }) => {
 		}
 
 		if (iconCache.has(normalizedIconName)) {
-			setLoadedIcon(iconCache.get(normalizedIconName));
+			setLoadedIcon(iconCache.get(normalizedIconName) ?? null);
 
 			return undefined;
 		}
@@ -79,11 +84,13 @@ export const Icon = ({ icon, fallback = null, ...rest }) => {
 
 		setLoadedIcon(undefined);
 
-		loadIcon(normalizedIconName).then((resolvedIcon) => {
+		const loadIconPromise = loadIcon(normalizedIconName).then((resolvedIcon) => {
 			if (!isDisposed) {
 				setLoadedIcon(resolvedIcon);
 			}
 		});
+
+		loadIconPromise.catch(() => undefined);
 
 		return () => {
 			isDisposed = true;
