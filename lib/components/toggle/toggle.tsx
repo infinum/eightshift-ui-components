@@ -35,7 +35,7 @@ export const Toggle = (props: ToggleProps) => {
 			flat={flat}
 		>
 			<RichLabel
-				as={Label as unknown as ReactElement}
+				as={Label}
 				icon={icon}
 				label={label}
 				subtitle={subtitle}
