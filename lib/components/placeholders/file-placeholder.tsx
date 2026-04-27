@@ -1,28 +1,20 @@
 import { __ } from '@wordpress/i18n';
+import { clsx } from 'clsx';
+import { type ReactElement, type ReactNode } from 'react';
 import { file } from '../../icons/internal';
 import { RichLabel } from '../rich-label/rich-label';
-import { clsx } from 'clsx';
 
-/**
- * A simple file placeholder.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {JSX.Element} [props.icon] - File type icon override.
- * @param {string} [props.fileName] - Current file name.
- * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
- * @param {string} [props.className] - Classes to pass to the component.
- *
- * @returns {JSX.Element} The FilePlaceholder component.
- *
- * @example
- * <FilePlaceholder />
- *
- * @example
- * <FilePlaceholder fileName='demo.json' />
- */
-export const FilePlaceholder = (props) => {
+type FilePlaceholderProps = {
+	icon?: ReactElement;
+	fileName?: string;
+	flat?: boolean;
+	className?: string;
+	children?: ReactNode;
+};
+
+export const FilePlaceholder = (props: FilePlaceholderProps) => {
 	const { icon, fileName, className, flat, children } = props;
+	const label = fileName ?? (typeof children === 'string' ? children : undefined) ?? __('No file selected', 'eightshift-ui-components');
 
 	return (
 		<RichLabel
@@ -43,9 +35,8 @@ export const FilePlaceholder = (props) => {
 					{icon ?? file}
 				</div>
 			}
-			label={(fileName ? fileName : children) ?? __('No file selected', 'eightshift-ui-components')}
+			label={label}
 			className={clsx(fileName && 'es:font-mono', className)}
-			noColor
 		/>
 	);
 };
