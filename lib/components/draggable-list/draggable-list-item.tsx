@@ -1,26 +1,27 @@
 import { clsx } from 'clsx';
-import { __ } from '@wordpress/i18n';
+import { type ButtonHTMLAttributes, cloneElement, type HTMLAttributes, type ReactElement, type ReactNode } from 'react';
+import { reorderGrabberV } from '../../icons/internal';
 import { HStack } from '../layout/hstack';
 import { RichLabel } from '../rich-label/rich-label';
-import { reorderGrabberV } from '../../icons/internal';
-import { cloneElement } from 'react';
 
-/**
- * A DraggableList item.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {JSX.Element} [props.icon] - Icon to display in the label.
- * @param {string} [props.label] - Label to display.
- * @param {string} [props.subtitle] - Subtitle to display.
- * @param {string} [props.textValue] - The text value of the item.
- * @param {string} [props.className] - Classes to pass to the label.
- *
- * @returns {JSX.Element} The DraggableList component.
- *
- * @see {@link DraggableList} for usage example.
- */
-export const DraggableListItem = (props) => {
+type DraggableListItemProps = HTMLAttributes<HTMLDivElement> & {
+	children?: ReactNode;
+	icon?: ReactElement;
+	label?: string;
+	subtitle?: string;
+	className?: string;
+	iconClassName?: string;
+	labelClassName?: string;
+	subtitleClassName?: string;
+	labelContainerClassName?: string;
+};
+
+type DraggableListItemHandleProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+	children?: ReactNode;
+	className?: string;
+};
+
+export const DraggableListItem = (props: DraggableListItemProps) => {
 	const { children, icon, label, subtitle, className, iconClassName, labelClassName, subtitleClassName, labelContainerClassName, ...rest } = props;
 
 	return (
@@ -36,8 +37,7 @@ export const DraggableListItem = (props) => {
 				iconClassName={iconClassName}
 				labelClassName={labelClassName}
 				subtitleClassName={subtitleClassName}
-				fullWidthLabel
-				inline
+				fullWidth
 			/>
 
 			{cloneElement(reorderGrabberV, {
@@ -49,19 +49,7 @@ export const DraggableListItem = (props) => {
 	);
 };
 
-/**
- * A Draggable item handle.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {string} [props.className] - Classes to pass to the handle.
- *
- * @returns {JSX.Element} The DraggableListItemHandle component.
- *
- * @example
- * <DraggableListItemHandle />
- */
-export const DraggableListItemHandle = (props) => {
+export const DraggableListItemHandle = (props: DraggableListItemHandleProps) => {
 	const { className, children, ...rest } = props;
 
 	return (
