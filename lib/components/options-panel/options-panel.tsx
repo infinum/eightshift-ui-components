@@ -1,0 +1,135 @@
+import { clsx } from 'clsx';
+import { cloneElement, type ReactElement, type ReactNode } from 'react';
+import { Heading } from 'react-aria-components';
+import { RichLabel } from '../rich-label/rich-label';
+
+type BaseOptionsPanelProps = {
+	children?: ReactNode;
+	className?: string;
+	hidden?: boolean;
+};
+
+type OptionsPanelProps = BaseOptionsPanelProps & {
+	title?: string;
+	icon?: ReactElement;
+	subtitle?: string;
+	help?: string;
+};
+
+type OptionsPanelHeaderProps = BaseOptionsPanelProps & {
+	sticky?: boolean;
+	title?: string;
+	actions?: ReactNode;
+	level?: number;
+	limitWidth?: boolean;
+};
+
+type OptionsPanelIntroProps = BaseOptionsPanelProps & {
+	icon?: ReactElement;
+	title?: string;
+	subtitle?: string;
+	iconClassName?: string;
+	level?: number;
+	flat?: boolean;
+};
+
+export const OptionsPanel = (props: OptionsPanelProps) => {
+	const { children, className, title, icon, subtitle, help, hidden } = props;
+
+	if (hidden) {
+		return null;
+	}
+
+	return (
+		<div>
+			<div className={clsx('es:overflow-clip es:max-w-lg', className)}>
+				{title && (
+					<RichLabel
+						icon={icon}
+						label={title}
+						subtitle={subtitle}
+						className={clsx('es:shrink-0 es:text-surface-700 es:px-1 es:pt-5 es:pb-1')}
+						labelClassName='es:text-base es:leading-tight'
+						subtitleClassName='es:text-13 es:leading-tight'
+					/>
+				)}
+
+				<div className='es:flex es:flex-col es:gap-1'>{children}</div>
+			</div>
+
+			{help && <span className='es:mx-1 es:mt-2 es:block es:text-sm es:text-secondary-400'>{help}</span>}
+		</div>
+	);
+};
+
+export const OptionsPanelSection = ({ children, className, hidden }: BaseOptionsPanelProps) => {
+	if (hidden) {
+		return null;
+	}
+
+	return (
+		<div
+			className={clsx(
+				'es:flex es:flex-col es:gap-5',
+				'es:p-4',
+				'es:bg-secondary-50 es:inset-ring es:inset-ring-secondary-100',
+				'es:rounded-md es:first:rounded-t-2xl es:last:rounded-b-2xl',
+				className,
+			)}
+		>
+			{children}
+		</div>
+	);
+};
+
+export const OptionsPanelHeader = ({ children, sticky, title, className, actions, level = 2, limitWidth, hidden }: OptionsPanelHeaderProps) => {
+	if (hidden) {
+		return null;
+	}
+
+	return (
+		<div className={clsx('es:space-y-2.5', limitWidth && 'es:max-w-2xl', sticky && 'es:sticky es:top-0 es:z-10 es:bg-white', className)}>
+			<div className='es:flex es:flex-wrap es:items-center es:justify-between es:gap-x-8 es:gap-y-4 es:mb-10'>
+				<Heading
+					className='es:text-2xl es:text-surface-800 es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:m-0!'
+					level={level}
+				>
+					{title}
+				</Heading>
+
+				<div className='es:flex es:items-center es:gap-2'>{actions}</div>
+			</div>
+
+			{children}
+		</div>
+	);
+};
+
+export const OptionsPanelIntro = ({ icon, title, subtitle, className, iconClassName, level = 3, flat, hidden }: OptionsPanelIntroProps) => {
+	if (hidden) {
+		return null;
+	}
+
+	return (
+		<div
+			className={clsx(
+				'es:relative es:overflow-clip',
+				'es:py-5 es:px-6 es:rounded-2xl es:max-w-lg',
+				'es:bg-surface-100 es:inset-ring es:inset-ring-surface-600/5',
+				!flat && 'es:shadow-xs es:shadow-black/5',
+				className,
+			)}
+		>
+			<Heading
+				className='es:text-3xl es:my-0! es:text-accent-900 es:font-variation-["wdth"_50,"wght"_325,"slnt"_-4,"ROND"_100]'
+				level={level}
+			>
+				{title}
+			</Heading>
+
+			{subtitle && <p className='es:text-13 es:my-0! es:text-surface-500 es:mt-0.75 es:font-variation-["wdth"_95,"wght"_275]'>{subtitle}</p>}
+
+			{icon && cloneElement(icon, { className: clsx('es:absolute es:-top-2 es:right-2.5 es:rotate-12 es:text-surface-500/10 es:size-18', iconClassName) })}
+		</div>
+	);
+};
