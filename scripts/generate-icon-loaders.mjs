@@ -1,6 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { ESLint } from 'eslint';
 import { glob } from 'glob';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
@@ -42,4 +43,8 @@ const existingContents = await fs.readFile(outputFile, 'utf8').catch(() => null)
 
 if (existingContents !== fileContents) {
 	await fs.writeFile(outputFile, fileContents);
+
+	const eslint = new ESLint({ fix: true });
+	const results = await eslint.lintFiles([outputFile]);
+	await ESLint.outputFixes(results);
 }
