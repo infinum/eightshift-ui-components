@@ -1,24 +1,15 @@
 import { clsx } from 'clsx';
-import { __ } from '@wordpress/i18n';
-import { DraggableContext } from './draggable-context';
-import { useContext } from 'react';
+import { type HTMLAttributes, type ReactNode, useContext } from 'react';
 import { reorderGrabberV } from '../../icons/internal';
+import { DraggableContext } from './draggable-context';
 
-/**
- * A Draggable item handle.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {string} [props.className] - Classes to pass to the handle.
- *
- * @returns {JSX.Element} The DraggableHandle component.
- *
- * @example
- * <DraggableHandle />
- */
-export const DraggableHandle = (props) => {
+type DraggableHandleProps = HTMLAttributes<HTMLDivElement> & {
+	children?: ReactNode;
+	className?: string;
+};
+
+export const DraggableHandle = (props: DraggableHandleProps) => {
 	const { className, children, ...rest } = props;
-
 	const { handleRef, status } = useContext(DraggableContext);
 
 	return (
