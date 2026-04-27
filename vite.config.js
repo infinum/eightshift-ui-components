@@ -18,7 +18,7 @@ export default defineConfig(() => {
 			lib: {
 				name: 'EightshiftUiComponents',
 				entry: {
-					index: resolve(__dirname, 'lib/index.js'),
+					index: resolve(__dirname, 'lib/index.ts'),
 				},
 				formats: ['es'],
 			},
@@ -32,7 +32,7 @@ export default defineConfig(() => {
 					// https://rollupjs.org/configuration-options/#input
 					[
 						...glob
-							.sync('lib/**/*.{js,jsx,woff2}', {
+							.sync('lib/**/*.{ts,tsx,js,jsx,woff2}', {
 								ignore: ['lib/**/*.d.ts'],
 							})
 							.map((file) => [

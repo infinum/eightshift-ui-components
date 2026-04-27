@@ -4,6 +4,7 @@
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/infinum/eightshift-ui-components.git"
@@ -16,12 +17,22 @@
 	],
 	"exports": {
 		".": {
+			"types": "./dist/index.d.ts",
 			"import": "./dist/index.js",
 			"require": "./dist/index.js"
 		},
-		"./icons": "./dist/icons/index.js",
-		"./jsx-svg": "./dist/icons/jsx-svg.js",
-		"./utilities": "./dist/utilities/index.js",
+		"./icons": {
+			"types": "./dist/icons/index.d.ts",
+			"default": "./dist/icons/index.js"
+		},
+		"./jsx-svg": {
+			"types": "./dist/icons/jsx-svg.d.ts",
+			"default": "./dist/icons/jsx-svg.js"
+		},
+		"./utilities": {
+			"types": "./dist/utilities/index.d.ts",
+			"default": "./dist/utilities/index.js"
+		},
 		"./dist/assets/style.css": "./dist/assets/style.css",
 		"./dist/assets/style-editor.css": "./dist/assets/style-editor.css",
 		"./dist/assets/style-admin.css": "./dist/assets/style-admin.css",
@@ -49,7 +60,8 @@
 		"generate:icon-loaders": "node ./scripts/generate-icon-loaders.mjs",
 		"dev": "node ./scripts/generate-icon-loaders.mjs && vite",
 		"start": "node ./scripts/generate-icon-loaders.mjs && vite",
-		"build": "node ./scripts/generate-icon-loaders.mjs && vite build",
+		"build": "node ./scripts/generate-icon-loaders.mjs && vite build && tsc -p tsconfig.build.json",
+		"typecheck": "tsc --noEmit",
 		"lint": "bun x eslint",
 		"preview": "vite preview"
 	},
@@ -104,7 +116,10 @@
 		"tailwindcss": "^4.2.2",
 		"tailwindcss-motion": "^1.1.1",
 		"tailwindcss-react-aria-components": "^2.1.0",
+		"typescript": "^6.0.3",
+		"typescript-eslint": "^8.58.2",
 		"vite": "^8.0.8",
+		"vite-plugin-dts": "^4.5.4",
 		"vite-plugin-lib-inject-css": "^2.2.2"
 	},
 	"dependencies": {
