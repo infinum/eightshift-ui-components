@@ -1,6 +1,7 @@
-import { Switch as ReactAriaSwitch } from 'react-aria-components';
+import { cva, type VariantProps } from 'class-variance-authority';
 import { clsx } from 'clsx';
-import { cva } from 'class-variance-authority';
+import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
+import { Switch as ReactAriaSwitch } from 'react-aria-components';
 
 const outsideClasses = cva(
 	[
@@ -16,6 +17,14 @@ const outsideClasses = cva(
 				small: 'es:h-3 es:w-5 es:p-0.5',
 				medium: 'es:h-4.5 es:w-7.5 es:p-0.75',
 				default: 'es:h-6 es:w-10 es:p-1',
+			},
+			checked: {
+				false: null,
+				true: null,
+			},
+			disabled: {
+				false: null,
+				true: null,
 			},
 		},
 		compoundVariants: [
@@ -68,6 +77,14 @@ const thumbClasses = cva(['es:block es:rounded-full es:will-change-transform', '
 			small: 'es:size-2',
 			medium: 'es:size-3',
 			default: 'es:size-4',
+		},
+		disabled: {
+			false: null,
+			true: null,
+		},
+		indeterminate: {
+			false: null,
+			true: null,
 		},
 	},
 	compoundVariants: [
@@ -140,34 +157,21 @@ const thumbClasses = cva(['es:block es:rounded-full es:will-change-transform', '
 	},
 });
 
-/**
- * A toggle switch.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {boolean} props.checked - Whether the switch is checked.
- * @param {Function} props.onChange - Function to call when the switch is toggled.
- * @param {boolean} [props.disabled] - Whether the switch is disabled.
- * @param {string} [props.id] - The ID of the switch.
- * @param {string} [props.className] - Classes to pass to the switch.
- * @param {boolean} [props.isIndeterminate] - If `true`, the switch will render in an indeterminate state.
- * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
- * @param {SwitchSize} [props.size='default'] - The size of the switch.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- *
- * @typedef {'default' | 'medium' | 'small'} SwitchSize
- *
- * @returns {JSX.Element} The Switch component.
- *
- * @example
- * const [checked, setChecked] = useState(false);
- *
- * <Switch
- * 	checked={checked}
- * 	onChange={() => setChecked(!checked)}
- * />
- */
-export const Switch = (props) => {
+type SwitchSize = NonNullable<VariantProps<typeof outsideClasses>['size']>;
+
+type SwitchProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaSwitch>, 'children' | 'className' | 'isDisabled' | 'isSelected' | 'onChange'> & {
+	checked?: boolean;
+	onChange?: (value: boolean) => void;
+	disabled?: boolean;
+	children?: ReactNode;
+	className?: string;
+	isIndeterminate?: boolean;
+	flat?: boolean;
+	hidden?: boolean;
+	size?: SwitchSize;
+};
+
+export const Switch = (props: SwitchProps) => {
 	const { checked, onChange, disabled, id, children, className, isIndeterminate, flat, hidden, size = 'default', ...rest } = props;
 
 	if (hidden) {
