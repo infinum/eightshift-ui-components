@@ -1,42 +1,35 @@
 import { clsx } from 'clsx';
+import { type ReactNode } from 'react';
 import { RichLabel } from '../rich-label/rich-label';
 
-/**
- * A simple spacer/divider component, with optional text or icon.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {SpacerSize} [props.size='m'] - The size of the spacer. Can be 's' or 'm'.
- * @param {boolean} [props.border=false] - Whether to show a border in the middle.
- * @param {string} [props.className] - Additional classes to add.
- * @param {string} [props.text] - Text to display.
- * @param {string} [props.subtitle] - Subtitle to display.
- * @param {JSX.Element} [props.icon] - Icon to display.
- * @param {boolean} [props.vertical=false] - Whether the spacer is vertical.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- *
- * @returns {JSX.Element} The Spacer component.
- *
- * @typedef {'px' | 'xs' | 's' | 'm'} SpacerSize
- *
- * @example
- * <Spacer />
- *
- * <Spacer border />
- *
- * <Spacer vertical />
- * <Spacer vertical border />
- *
- * <Spacer text='My divider' icon={myIcon} />
- */
-export const Spacer = (props) => {
+type SpacerSize = 'px' | 'xs' | 's' | 'm';
+
+type SpacerProps = {
+	size?: SpacerSize;
+	border?: boolean;
+	className?: string;
+	text?: ReactNode;
+	subtitle?: ReactNode;
+	icon?: ReactNode;
+	vertical?: boolean;
+	hidden?: boolean;
+};
+
+type SpacerSizeClasses = {
+	sizeHorizontal: string;
+	sizeHorizontalBorder: string;
+	sizeVertical: string;
+	sizeVerticalBorder: string;
+};
+
+export const Spacer = (props: SpacerProps) => {
 	const { size = 'px', border, className, text, subtitle, icon, vertical = false, hidden } = props;
 
 	if (hidden) {
 		return null;
 	}
 
-	const sizes = {
+	const sizes: Record<SpacerSize, SpacerSizeClasses> = {
 		px: {
 			sizeHorizontal: 'es:h-px',
 			sizeHorizontalBorder: 'es:h-px',
