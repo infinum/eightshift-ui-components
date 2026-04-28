@@ -1,4 +1,4 @@
-import { cloneElement, useState } from 'react';
+import { cloneElement, useState, type ComponentProps, type ReactElement, type ReactNode } from 'react';
 import {
 	Toggle,
 	AnimatedVisibility,
@@ -46,7 +46,7 @@ import {
 	ImagePlaceholder,
 	FilePlaceholder,
 	MediaPlaceholder,
-	OptionSelect,
+	OptionSelect as OptionSelectBase,
 	DraggableList,
 	DraggableListItem,
 	RichLabel,
@@ -60,9 +60,9 @@ import {
 	OptionsPanelHeader,
 	MiniResponsive,
 	AsyncSelect,
-	MultiSelect,
+	MultiSelect as MultiSelectBase,
 	AsyncMultiSelect,
-	Select,
+	Select as SelectBase,
 	OptionsPanelIntro,
 	FilePickerShell,
 	SmartImage,
@@ -72,7 +72,6 @@ import {
 import { clsx } from 'clsx';
 import '../lib/style';
 import {
-	cardFeatured,
 	genericShapes,
 	num1Square,
 	num2Circle,
@@ -110,7 +109,7 @@ import {
 	color,
 	eyedropper,
 	responsiveOverridesAlt,
-	columnGuttersLR,
+	columnGuttersLr,
 	group,
 	layoutAlt,
 	cursorMove,
@@ -155,7 +154,165 @@ import {
 } from '../lib/icons';
 import { iconLoaders } from '../lib/icons/generated-icon-loaders';
 
-const slugify = (input) => {
+type DemoOption = {
+	label: string;
+	value: string;
+	subtitle?: ReactNode;
+	icon?: string | ReactElement | null;
+	metadata?: Record<string, unknown>;
+	group?: string;
+	category?: string;
+	[key: string]: unknown;
+};
+
+type DemoSelectValue = DemoOption | string | null;
+type DemoMultiSelectValue = DemoOption[] | string[] | '' | null;
+type DemoOptionSelectValue = string | number | boolean | null;
+type DemoOptionSelectOption = {
+	value: DemoOptionSelectValue;
+	[key: string]: unknown;
+};
+type DemoRangeValue = [number, number];
+type DemoRangeValueTriple = [number, number, number];
+type DemoColumnConfigValue = [number, number];
+type DemoResponsiveValue = Record<string, string | boolean | undefined>;
+type DemoLinkSuggestionItem = {
+	label: string;
+	value: string;
+	metadata?: {
+		subtype?: string | null;
+		[key: string]: unknown;
+	};
+};
+type DemoAsyncSelectOption = {
+	label: string;
+	value: string;
+	subtitle?: string;
+	icon?: string | ReactElement | null;
+	metadata?: Record<string, unknown> | null;
+	meta?: Record<string, unknown> | null;
+	[key: string]: unknown;
+};
+type DemoAsyncMultiSelectValue = DemoAsyncSelectOption[] | string[] | '' | null;
+type DemoTabsType = 'underline' | 'underlineSecondary' | 'pill' | 'pillCompact' | 'bubble' | 'chips';
+type DemoButtonType = 'default' | 'glass' | 'glassDark';
+type DemoMatrixAlignValue = 'top left' | 'top center' | 'top right' | 'center left' | 'center center' | 'center right' | 'bottom left' | 'bottom center' | 'bottom right';
+type DemoRepeaterItem = {
+	title: string;
+	subtitle?: string;
+	toggledThingy?: boolean;
+	link?: string;
+};
+type DemoRepeaterItemWithIcon = DemoRepeaterItem & {
+	icon?: ReactElement;
+};
+type DemoDraggableItem = {
+	toggle: boolean;
+	title?: string;
+};
+type DemoDraggableListItem = DemoDraggableItem & {
+	icon?: ReactElement;
+};
+type DemoDraggableRenderItem = DemoDraggableItem & {
+	updateData: (newValue: Partial<DemoDraggableItem>) => void;
+	itemIndex: number;
+	deleteItem: () => void;
+};
+type DemoDraggableListRenderItem = DemoDraggableListItem & {
+	updateData: (newValue: Partial<DemoDraggableListItem>) => void;
+	itemIndex: number;
+	deleteItem: () => void;
+};
+type FilePickerShellDemoProps = ComponentProps<typeof FilePickerShell>;
+
+const TypedDraggable = Draggable as unknown as (props: {
+	items?: DemoDraggableItem[] | null;
+	onChange: (items: DemoDraggableItem[]) => void;
+	className?: string;
+	onAfterItemRemove?: (item: DemoDraggableItem) => void;
+	axis?: 'both' | 'horizontal' | 'vertical';
+	children: (item: DemoDraggableRenderItem) => ReactNode;
+}) => ReactNode;
+
+const TypedDraggableList = DraggableList as unknown as (props: {
+	label?: ReactNode;
+	items?: DemoDraggableListItem[] | null;
+	onChange: (items: DemoDraggableListItem[]) => void;
+	onAfterItemRemove?: (item: DemoDraggableListItem) => void;
+	children: (item: DemoDraggableListRenderItem) => ReactNode;
+}) => ReactNode;
+
+const TypedSelect = SelectBase as unknown as (props: {
+	label?: ReactNode;
+	value: DemoSelectValue;
+	onChange: (value: DemoSelectValue) => void;
+	options: DemoOption[];
+	simpleValue?: boolean;
+	searchable?: boolean;
+	clearable?: boolean;
+	groupKey?: string;
+	groupValueMapping?: Record<string, { label?: ReactNode; icon?: string | ReactElement | null; subtitle?: ReactNode; endIcon?: string | ReactElement | null }>;
+	customValueDisplay?: (item: DemoOption | null) => ReactNode;
+	customMenuOption?: (item: DemoOption) => ReactNode;
+	icon?: ReactElement;
+	inline?: boolean;
+	subtitle?: ReactNode;
+	help?: ReactNode;
+	title?: string;
+	placeholder?: string;
+}) => ReactNode;
+
+const TypedMultiSelect = MultiSelectBase as unknown as (props: {
+	label?: ReactNode;
+	value: DemoMultiSelectValue;
+	onChange: (value: DemoMultiSelectValue) => void;
+	options: DemoOption[];
+	clearable?: boolean;
+	groupKey?: string;
+	groupValueMapping?: Record<string, { label?: ReactNode; icon?: string | ReactElement | null; subtitle?: ReactNode; endIcon?: string | ReactElement | null }>;
+	searchable?: boolean;
+	customValueDisplay?: (item: DemoOption | null) => ReactNode;
+}) => ReactNode;
+
+const Select = TypedSelect;
+
+const TypedInputField = InputField as unknown as (props: {
+	value?: string;
+	onChange?: (value: string) => void;
+	label?: ReactNode;
+	type?: 'text' | 'search' | 'url' | 'tel' | 'email' | 'password' | 'multiline';
+	inline?: boolean;
+	flat?: boolean;
+	disabled?: boolean;
+	size?: 'small' | 'medium' | 'default' | 'large';
+}) => ReactNode;
+
+const OptionSelect = ({
+	value,
+	onChange,
+	options,
+	itemProps,
+	...rest
+}: Omit<ComponentProps<typeof OptionSelectBase>, 'value' | 'onChange' | 'options' | 'itemProps'> & {
+	value?: DemoOptionSelectValue;
+	onChange?: (value: string) => void;
+	options?: DemoOptionSelectOption[];
+	itemProps?: ComponentProps<typeof OptionSelectBase>['itemProps'] | false;
+}) => (
+	<OptionSelectBase
+		{...rest}
+		itemProps={itemProps || undefined}
+		value={value === null || value === undefined ? undefined : String(value)}
+		onChange={(nextValue) => onChange?.(String(nextValue))}
+		options={
+			(options ?? []).map((option) => ({ ...option, value: option.value === null || option.value === undefined ? '' : String(option.value) })) as ComponentProps<
+				typeof OptionSelectBase
+			>['options']
+		}
+	/>
+);
+
+const slugify = (input: string | number) => {
 	return input
 		.toString()
 		.toLowerCase()
@@ -169,7 +326,7 @@ const slugify = (input) => {
 
 const iconEntries = Object.keys(iconLoaders).sort((iconNameA, iconNameB) => iconNameA.localeCompare(iconNameB));
 
-const FilePickerShellDemo = ({ url, ...rest }) => (
+const FilePickerShellDemo = ({ url, ...rest }: FilePickerShellDemoProps) => (
 	<FilePickerShell
 		className='es:w-full'
 		// url='https://picsum.photos/600/400.jpg'
@@ -179,7 +336,7 @@ const FilePickerShellDemo = ({ url, ...rest }) => (
 		{...rest}
 	>
 		{({ isDark, dominantColors, isTransparent, hasError }) => {
-			let buttonType = 'default';
+			let buttonType: DemoButtonType = 'default';
 
 			if (!isTransparent && !hasError) {
 				buttonType = isDark ? 'glass' : 'glassDark';
@@ -212,13 +369,13 @@ const FilePickerShellDemo = ({ url, ...rest }) => (
 							>
 								<span className={clsx('es:text-xs es:font-mono es:font-medium', isDark ? 'es:text-white' : 'es:text-black')}>{isDark ? 'dark' : 'light'}</span>
 							</li>
-							{dominantColors?.map(({ color, area, isDark }, index) => (
+							{dominantColors?.map(({ color, isDark }, index) => (
 								<li
 									key={index}
 									className='es:flex es:px-1 es:py-0.5 es:items-center es:justify-center es:rounded-sm es:border es:border-dotted es:border-secondary-300'
 									style={{ backgroundColor: color }}
 								>
-									<span className={clsx('es:text-xs es:font-mono es:font-medium', isDark ? 'es:text-white' : 'es:text-black')}>{(area * 100).toFixed(2)}%</span>
+									<span className={clsx('es:text-xs es:font-mono es:font-medium', isDark ? 'es:text-white' : 'es:text-black')}>{color}</span>
 								</li>
 							))}
 						</ul>
@@ -233,13 +390,13 @@ function App() {
 	const [controlTheme, setControlTheme] = useState('default');
 
 	const [toggled, setToggled] = useState(false);
-	const [toggled2, setToggled2] = useState(null);
+	const [toggled2, setToggled2] = useState<boolean | null>(null);
 	const [toggled3, setToggled3] = useState(false);
 	const [toggled4, setToggled4] = useState(false);
 	const [toggled5, setToggled5] = useState(false);
-	const [linkTxt, setLinkTxt] = useState();
-	const [matrixVal, setMatrixVal] = useState('center center');
-	const [matrixVal2, setMatrixVal2] = useState('top left');
+	const [linkTxt, setLinkTxt] = useState<string | undefined>(undefined);
+	const [matrixVal, setMatrixVal] = useState<DemoMatrixAlignValue>('center center');
+	const [matrixVal2, setMatrixVal2] = useState<DemoMatrixAlignValue>('top left');
 	const [menuThingy, setMenuThingy] = useState(false);
 	const [menuThingy2, setMenuThingy2] = useState(false);
 	const [num, setNum] = useState(0);
@@ -247,36 +404,33 @@ function App() {
 	const [txt1, setTxt1] = useState('');
 	const [txt2, setTxt2] = useState('');
 	const [useComp, setUseComp] = useState(false);
-	let [selectedKey, setSelectedKey] = useState('sans');
-	let [loremIpsum, setLoremIpsum] = useState(0);
-	let [loremIpsum2, setLoremIpsum2] = useState('s');
-	let [radioValue, setRadioValue] = useState(null);
-	let [modalOpen, setModalOpen] = useState(false);
-	let [buttonPending, setButtonPending] = useState(false);
-	let [buttonDisabled, setButtonDisabled] = useState(false);
+	const [loremIpsum, setLoremIpsum] = useState('s');
+	const [loremIpsum2, setLoremIpsum2] = useState('s');
+	const [radioValue, setRadioValue] = useState<string | undefined>(undefined);
+	const [modalOpen, setModalOpen] = useState(false);
+	const [buttonPending, setButtonPending] = useState(false);
+	const [buttonDisabled, setButtonDisabled] = useState(false);
 
-	let [sinSel, setSinSel] = useState(null);
-	let [sinSelSimple, setSinSelSimple] = useState(null);
-	let [mulSel, setMulSel] = useState([]);
-	let [mulSelSimple, setMulSelSimple] = useState([]);
-	let [sinASel, setSinASel] = useState(null);
-	let [sinASel2, setSinASel2] = useState(null);
-	let [sinASel3, setSinASel3] = useState(null);
-	let [mulASel, setMulASel] = useState([]);
+	const [sinSel, setSinSel] = useState<DemoSelectValue>(null);
+	const [sinSelSimple, setSinSelSimple] = useState<DemoSelectValue>(null);
+	const [mulSel, setMulSel] = useState<DemoMultiSelectValue>(null);
+	const [sinASel, setSinASel] = useState<DemoAsyncSelectOption | null>(null);
+	const [sinASel2, setSinASel2] = useState<DemoAsyncSelectOption | null>(null);
+	const [mulASel, setMulASel] = useState<DemoAsyncMultiSelectValue>(null);
 
-	let [imgUrl, setImgUrl] = useState(null);
+	const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
 
-	const [resp, setResp] = useState({
+	const [resp, setResp] = useState<DemoResponsiveValue>({
 		_default: 'sans',
 		_desktopFirst: false,
 	});
 
-	const [resp2, setResp2] = useState({
+	const [resp2, setResp2] = useState<DemoResponsiveValue>({
 		_default: 'sans',
 		_desktopFirst: false,
 	});
 
-	const respOpt = [
+	const respOpt: DemoOption[] = [
 		{
 			label: 'Sans',
 			value: 'sans',
@@ -291,7 +445,7 @@ function App() {
 		},
 	];
 
-	const linkData = [
+	const linkData: DemoLinkSuggestionItem[] = [
 		{ label: 'Eightshift', value: 'https://eightshift.com', metadata: { subtype: 'url' } },
 		{
 			label: 'This is a demo top post',
@@ -316,7 +470,7 @@ function App() {
 		},
 	];
 
-	const getLinkData = async (searchTerm) => {
+	const getLinkData = async (searchTerm = ''): Promise<DemoLinkSuggestionItem[]> => {
 		if (!searchTerm) {
 			return linkData;
 		}
@@ -325,7 +479,7 @@ function App() {
 			({ label, value }) => label.toLowerCase().includes(searchTerm.toLowerCase().trim()) || value.toLowerCase().includes(searchTerm.toLowerCase().trim()),
 		);
 
-		await new Promise((resolve) => setTimeout(resolve, 500));
+		await new Promise<void>((resolve) => setTimeout(resolve, 500));
 
 		if (filtered.length > 0) {
 			return filtered;
@@ -334,7 +488,7 @@ function App() {
 		return [];
 	};
 
-	const data = [
+	const data: DemoOption[] = [
 		{
 			label: 'Item 1',
 			value: 'item-1',
@@ -369,7 +523,7 @@ function App() {
 		},
 	];
 
-	const groupedData = [
+	const groupedData: DemoOption[] = [
 		{ label: 'Red', value: 'red', group: 'Colors' },
 		{ label: 'Green', value: 'green', group: 'Colors' },
 		{ label: 'Blue', value: 'blue', group: 'Colors' },
@@ -379,49 +533,15 @@ function App() {
 		{ label: 'Other stuff', value: 'other' },
 	];
 
-	const groupedDataWithIcons = [
-		{ label: 'Dog', value: 'dog', category: 'Animals', icon: genericShapes },
-		{ label: 'Cat', value: 'cat', category: 'Animals', icon: genericShapes },
-		{ label: 'Bird', value: 'bird', category: 'Animals', icon: genericShapes },
-		{ label: 'Car', value: 'car', category: 'Vehicles', icon: cardFeatured },
-		{ label: 'Bike', value: 'bike', category: 'Vehicles', icon: cardFeatured },
-	];
+	const getAsyncGroupedData = (searchText?: string): Promise<DemoOption[]> => {
+		const filterData = ({ label }: DemoOption) => label.toLowerCase().includes(searchText?.toLowerCase() ?? '');
 
-	const getData = (inputValue) => {
-		const filterData = ({ label }) => label.toLowerCase().includes(inputValue.toLowerCase());
-
-		return new Promise((resolve) => {
-			setTimeout(() => {
-				if (!inputValue) {
-					resolve(data.slice(0, 3));
-				}
-
-				resolve(data.filter(filterData));
-			}, 300);
-		});
-	};
-
-	const getDataNew = (searchText) => {
-		const filterData = ({ label }) => label.toLowerCase().includes(searchText?.toLowerCase());
-
-		return new Promise((resolve) => {
-			setTimeout(() => {
-				if ((searchText ?? '').length < 3) {
-					resolve(data);
-				}
-
-				resolve(data.filter(filterData));
-			}, 300);
-		});
-	};
-
-	const getAsyncGroupedData = (searchText) => {
-		const filterData = ({ label }) => label.toLowerCase().includes(searchText?.toLowerCase());
-
-		return new Promise((resolve) => {
+		return new Promise<DemoOption[]>((resolve) => {
 			setTimeout(() => {
 				if (!searchText) {
 					resolve(groupedData);
+
+					return;
 				}
 
 				resolve(groupedData.filter(filterData));
@@ -429,45 +549,47 @@ function App() {
 		});
 	};
 
-	const [v, setV] = useState();
+	const getItemString = (item: Record<string, unknown>, key: string) => {
+		const value = item[key];
 
-	const [tabVar, setTabVar] = useState('underline');
+		return typeof value === 'string' ? value : undefined;
+	};
 
-	const [draggableLayout, setDraggableLayout] = useState('grid');
+	const getItemStringValue = (item: Record<string, unknown>, key: string) => {
+		const value = item[key];
+
+		if (typeof value === 'string') {
+			return value;
+		}
+
+		if (typeof value === 'number') {
+			return String(value);
+		}
+
+		return undefined;
+	};
+
+	const mapItemsWithSlugValue = (items: Record<string, unknown>[]) => items.map((item) => ({ ...item, value: slugify(getItemStringValue(item, 'name') ?? '') }));
+
+	const getJokeItems = (data: unknown): Record<string, unknown>[] => {
+		if (!data || typeof data !== 'object') {
+			return [];
+		}
+
+		const { jokes } = data as { jokes?: unknown };
+
+		return Array.isArray(jokes) ? (jokes as Record<string, unknown>[]) : [];
+	};
+
+	const [v, setV] = useState<DemoSelectValue>(null);
+
+	const [tabVar, setTabVar] = useState<DemoTabsType>('underline');
+
+	const [draggableLayout, setDraggableLayout] = useState<'grid' | 'horizontal' | 'vertical'>('grid');
 
 	const [cpOpen, setCpOpen] = useState(false);
 
-	const groupedOptions = [
-		{
-			label: 'Group 1',
-			options: [
-				{ label: 'Group 1, option 1', value: 'value_1' },
-				{ label: 'Group 1, option 2', value: 'value_2' },
-			],
-		},
-		{
-			label: 'Group 2',
-			options: [
-				{ label: 'Group 2, option 1', value: 'value_12' },
-				{ label: 'Group 2, option 2', value: 'value_22' },
-			],
-		},
-		{
-			label: 'Group 4',
-			options: [
-				{ label: 'Group 4, option 1', value: 'value_41' },
-				{ label: 'Group 4, option 2', value: 'value_42' },
-			],
-		},
-		{
-			options: [
-				{ label: 'Group 4, option 1', value: 'value_41' },
-				{ label: 'Group 4, option 2', value: 'value_42' },
-			],
-		},
-	];
-
-	const repeaterDefaultItems = [
+	const repeaterDefaultItems: DemoRepeaterItem[] = [
 		{
 			title: 'Item 1',
 		},
@@ -479,7 +601,7 @@ function App() {
 		},
 	];
 
-	const repeaterDefaultItems2 = [
+	const repeaterDefaultItems2: DemoRepeaterItemWithIcon[] = [
 		{
 			title: 'Item 1',
 			icon: num1Square,
@@ -495,7 +617,7 @@ function App() {
 		},
 	];
 
-	const draggableListDefaultItems = [
+	const draggableListDefaultItems: DemoDraggableListItem[] = [
 		{
 			toggle: false,
 			title: 'Item 1',
@@ -512,7 +634,7 @@ function App() {
 		},
 	];
 
-	const draggableDefaultItems = [
+	const draggableDefaultItems: DemoDraggableItem[] = [
 		{
 			toggle: false,
 			title: 'Item 1',
@@ -536,19 +658,19 @@ function App() {
 
 	const [repeaterItems, setRepeaterItems] = useState(repeaterDefaultItems);
 	const [repeaterItems2, setRepeaterItems2] = useState(repeaterDefaultItems2);
-	const [draggableListItems, setDraggableListItems] = useState(draggableListDefaultItems);
-	const [draggableListItems2, setDraggableListItems2] = useState(draggableListDefaultItems);
-	const [draggableItems, setDraggableItems] = useState(draggableDefaultItems);
+	const [draggableListItems, setDraggableListItems] = useState<DemoDraggableListItem[]>(draggableListDefaultItems);
+	const [draggableListItems2, setDraggableListItems2] = useState<DemoDraggableListItem[]>(draggableListDefaultItems);
+	const [draggableItems, setDraggableItems] = useState<DemoDraggableItem[]>(draggableDefaultItems);
 
 	const [sliderValue, setSliderValue] = useState(0);
 	const [sliderValue2, setSliderValue2] = useState(0);
-	const [rangeSliderValue, setRangeSliderValue] = useState([33, 66]);
-	const [rangeSliderValue2, setRangeSliderValue2] = useState([33, 55, 66]);
+	const [rangeSliderValue, setRangeSliderValue] = useState<DemoRangeValue>([33, 66]);
+	const [rangeSliderValue2, setRangeSliderValue2] = useState<DemoRangeValueTriple>([33, 55, 66]);
 
-	let [currColor, setCurrColor] = useState('#0D3636');
-	let [currColor2, setCurrColor2] = useState('#0D3636');
-	let [currColor3, setCurrColor3] = useState('hsla(180, 61.19%, 13.14%, 1)');
-	let [grad, setGrad] = useState('linear-gradient(30deg, #000, #00000000)');
+	const [currColor, setCurrColor] = useState<string | undefined>('#0D3636');
+	const [currColor2, setCurrColor2] = useState<string | undefined>('#0D3636');
+	const [currColor3, setCurrColor3] = useState<string | undefined>('hsla(180, 61.19%, 13.14%, 1)');
+	const [grad, setGrad] = useState('linear-gradient(30deg, #000, #00000000)');
 
 	const defaultColors = [
 		{
@@ -671,30 +793,30 @@ function App() {
 		},
 	];
 
-	const [color1, setColor1] = useState();
-	const [color3, setColor3] = useState('blue');
-	const [color2, setColor2] = useState('blue500');
+	const [color1, setColor1] = useState<string | undefined>(undefined);
+	const [color3, setColor3] = useState<string | undefined>('blue');
+	const [color2, setColor2] = useState<string | undefined>('blue500');
 
 	const respOptions = [
 		{ label: 'Lorem', value: false },
 		{ label: 'Ipsum', value: true },
 	];
 
-	const [responsiveState, setResponsiveState] = useState({
+	const [responsiveState, setResponsiveState] = useState<DemoResponsiveValue>({
 		myAttrLarge: false,
 		myAttrDesktop: undefined,
 		myAttrTablet: undefined,
 		myAttrMobile: true,
 	});
 
-	const [responsiveState2, setResponsiveState2] = useState({
+	const [responsiveState2, setResponsiveState2] = useState<DemoResponsiveValue>({
 		myAttrLarge: false,
 		myAttrDesktop: undefined,
 		myAttrTablet: undefined,
 		myAttrMobile: true,
 	});
 
-	const [responsiveState3, setResponsiveState3] = useState({
+	const [responsiveState3, setResponsiveState3] = useState<DemoResponsiveValue>({
 		myAttrLarge: false,
 		myAttrDesktop: '',
 		myAttrTablet: '',
@@ -730,11 +852,58 @@ function App() {
 		},
 	};
 
-	const [colConfig, setColConfig] = useState([2, 4]);
-	const [colConfig2, setColConfig2] = useState([2, 4]);
-	const [colConfig3, setColConfig3] = useState([2, 4]);
-	const [colConfig4, setColConfig4] = useState([2, 4]);
-	const [colConfig5, setColConfig5] = useState([2, 4]);
+	const [colConfig, setColConfig] = useState<DemoColumnConfigValue>([2, 4]);
+	const [colConfig2, setColConfig2] = useState<DemoColumnConfigValue>([2, 4]);
+	const [colConfig3, setColConfig3] = useState<DemoColumnConfigValue>([2, 4]);
+	const [colConfig4, setColConfig4] = useState<DemoColumnConfigValue>([2, 4]);
+	const [colConfig5, setColConfig5] = useState<DemoColumnConfigValue>([2, 4]);
+
+	const handleSliderValueChange = (value: number | number[]) => {
+		if (typeof value === 'number') {
+			setSliderValue(value);
+		}
+	};
+
+	const handleSliderValue2Change = (value: number | number[]) => {
+		if (typeof value === 'number') {
+			setSliderValue2(value);
+		}
+	};
+
+	const handleRangeSliderValueChange = (value: number | number[]) => {
+		if (Array.isArray(value) && value.length === 2) {
+			setRangeSliderValue([value[0] ?? 0, value[1] ?? 0]);
+		}
+	};
+
+	const handleRangeSliderValue2Change = (value: number | number[]) => {
+		if (Array.isArray(value) && value.length === 3) {
+			setRangeSliderValue2([value[0] ?? 0, value[1] ?? 0, value[2] ?? 0]);
+		}
+	};
+
+	const handleCurrColorChange = (value?: string) => setCurrColor(value);
+	const handleCurrColor2Change = (value?: string) => setCurrColor2(value);
+	const handleCurrColor3Change = (value?: string) => setCurrColor3(value);
+	const handleColor1Change = (value?: string) => setColor1(value);
+	const handleColor2Change = (value?: string) => setColor2(value);
+	const handleColor3Change = (value?: string) => setColor3(value);
+	const handleMatrixValChange = (value: string) => setMatrixVal(value as DemoMatrixAlignValue);
+	const handleMatrixVal2Change = (value: string) => setMatrixVal2(value as DemoMatrixAlignValue);
+	const handleSelectValueChange = (value: DemoSelectValue) => setV(value);
+	const handleTabVarChange = (value: DemoOptionSelectValue) => {
+		if (value === 'underline' || value === 'underlineSecondary' || value === 'pill' || value === 'pillCompact' || value === 'bubble' || value === 'chips') {
+			setTabVar(value);
+		}
+	};
+	const handleDraggableLayoutChange = (value: DemoOptionSelectValue) => {
+		if (value === 'grid' || value === 'horizontal' || value === 'vertical') {
+			setDraggableLayout(value);
+		}
+	};
+	const handleDraggableItemsChange = (items: DemoDraggableItem[]) => setDraggableItems(items);
+	const handleDraggableListItemsChange = (items: DemoDraggableListItem[]) => setDraggableListItems(items);
+	const handleDraggableListItems2Change = (items: DemoDraggableListItem[]) => setDraggableListItems2(items);
 
 	return (
 		<div className='es:flex es:flex-col es:items-center es:justify-center es:overscroll-none es:p-10'>
@@ -771,11 +940,11 @@ function App() {
 				type='bubble'
 				className='es:self-start'
 				onSelectionChange={(key) => {
-					const url = new URL(window.location);
-					url.searchParams.set('tab', key);
+					const url = new URL(window.location.href);
+					url.searchParams.set('tab', String(key));
 					window.history.replaceState({}, '', url);
 				}}
-				defaultSelectedKey={new URLSearchParams(window.location.search).get('tab')}
+				defaultSelectedKey={new URLSearchParams(window.location.search).get('tab') ?? undefined}
 			>
 				<TabList className='es:sticky es:top-16'>
 					<Tab
@@ -929,7 +1098,7 @@ function App() {
 						id='resp-legacy'
 					/>
 					<Tab
-						icon={columnGuttersLR}
+						icon={columnGuttersLr}
 						label='Column config slider'
 						id='col-config-slider'
 					/>
@@ -1029,31 +1198,23 @@ function App() {
 					<Switch
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
-						icon={experiment}
-						label='Airplane mode'
 					/>
 
 					<Switch
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
-						icon={experiment}
-						label='Airplane mode'
 						size='small'
 					/>
 
 					<Switch
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
-						icon={experiment}
-						label='Airplane mode'
 						size='medium'
 					/>
 
 					<Switch
-						checked={toggled2}
+						checked={toggled2 ?? false}
 						onChange={(value) => setToggled2(value)}
-						icon={experiment}
-						label='Airplane mode'
 						isIndeterminate={toggled2 === null}
 					/>
 
@@ -1840,12 +2001,12 @@ function App() {
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<MatrixAlign
 						value={matrixVal}
-						onChange={(value) => setMatrixVal(value)}
+						onChange={handleMatrixValChange}
 					/>
 
 					<MatrixAlign
 						value={matrixVal2}
-						onChange={(value) => setMatrixVal2(value)}
+						onChange={handleMatrixVal2Change}
 						size='2x2'
 						icon={arrowsUp}
 						label='Position'
@@ -2327,7 +2488,7 @@ function App() {
 					>
 						{({ currentValue, handleChange, options }) => (
 							<OptionSelect
-								options={options}
+								options={options ?? []}
 								onChange={(value) => handleChange(value)}
 								value={currentValue}
 							/>
@@ -2346,7 +2507,7 @@ function App() {
 					>
 						{({ currentValue, handleChange, options, isInlineCollapsedView }) => (
 							<OptionSelect
-								options={options}
+								options={options ?? []}
 								onChange={(value) => handleChange(value)}
 								value={currentValue}
 								type={isInlineCollapsedView ? 'menu' : 'toggleButtons'}
@@ -2369,11 +2530,11 @@ function App() {
 					>
 						{({ currentValue, handleChange, options, isInlineCollapsedView }) => (
 							<OptionSelect
-								options={options}
+								options={options ?? []}
 								onChange={(value) => handleChange(value)}
 								value={currentValue}
 								type={isInlineCollapsedView ? 'menu' : 'toggleButtons'}
-								itemProps={!isInlineCollapsedView && { type: 'simple' }}
+								itemProps={isInlineCollapsedView ? undefined : { type: 'simple' }}
 							/>
 						)}
 					</MiniResponsive>
@@ -2392,12 +2553,12 @@ function App() {
 					>
 						{({ currentValue, handleChange, options, isInlineCollapsedView }) => (
 							<OptionSelect
-								options={options}
+								options={options ?? []}
 								onChange={(value) => handleChange(value)}
 								value={currentValue}
 								type={isInlineCollapsedView ? 'menu' : 'toggleButtons'}
 								aria-label='Font family'
-								itemProps={!isInlineCollapsedView && { type: 'simple' }}
+								itemProps={isInlineCollapsedView ? undefined : { type: 'simple' }}
 								tooltip
 							/>
 						)}
@@ -2500,27 +2661,27 @@ function App() {
 					</BaseControl>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					<Select
+					<TypedSelect
 						label='Single basic'
 						value={sinSel}
 						onChange={setSinSel}
 						options={data}
 					/>
-					<Select
+					<TypedSelect
 						label='Simple value'
 						value={sinSelSimple}
 						onChange={setSinSelSimple}
 						options={data}
 						simpleValue
 					/>
-					<Select
+					<TypedSelect
 						label='Searchable'
 						value={sinSel}
 						onChange={setSinSel}
 						options={data}
 						searchable
 					/>
-					<Select
+					<TypedSelect
 						label='Clearable'
 						value={sinSel}
 						onChange={setSinSel}
@@ -2528,7 +2689,7 @@ function App() {
 						clearable
 					/>
 					<hr className='es:my-2' />
-					<Select
+					<TypedSelect
 						label='Grouped'
 						value={sinSel}
 						onChange={setSinSel}
@@ -2536,7 +2697,7 @@ function App() {
 						groupKey='group'
 						clearable
 					/>
-					<Select
+					<TypedSelect
 						label='Grouped with mapping'
 						value={sinSel}
 						onChange={setSinSel}
@@ -2551,7 +2712,7 @@ function App() {
 						clearable
 					/>
 					<hr className='es:my-2' />
-					<Select
+					<TypedSelect
 						label='Custom value display'
 						value={sinSelSimple}
 						onChange={setSinSelSimple}
@@ -2559,7 +2720,7 @@ function App() {
 						simpleValue
 						customValueDisplay={(item) => <span className='es:font-bold es:text-blue-400'>{item?.label}</span>}
 					/>
-					<Select
+					<TypedSelect
 						label='Custom menu option'
 						value={sinSelSimple}
 						onChange={setSinSelSimple}
@@ -2569,36 +2730,33 @@ function App() {
 					/>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					<MultiSelect
+					<TypedMultiSelect
 						label='Multi basic'
 						value={mulSel}
 						onChange={setMulSel}
 						options={data}
 					/>
-					<MultiSelect
+					<TypedMultiSelect
 						label='Multi clearable'
 						value={mulSel}
 						onChange={setMulSel}
 						options={data}
 						clearable
 					/>
-					<MultiSelect
+					<TypedMultiSelect
 						label='Custom value display'
 						value={mulSel}
 						onChange={setMulSel}
 						options={data}
 						customValueDisplay={(item) => (
-							<HStack
-								className='es:icon:size-[1em]'
-								slot='label'
-							>
+							<HStack className='es:icon:size-[1em]'>
 								{item?.icon}
 								{item?.label}
 							</HStack>
 						)}
 					/>
 					<hr className='es:my-2' />
-					<MultiSelect
+					<TypedMultiSelect
 						label='Grouped with mapping'
 						value={mulSel}
 						onChange={setMulSel}
@@ -2619,27 +2777,29 @@ function App() {
 						value={sinASel2}
 						onChange={setSinASel2}
 						fetchUrl={(searchText) =>
-							searchText?.length >= 3
-								? `https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5&contains=${searchText.substring(0, 30)}`
+							(searchText ?? '').length >= 3
+								? `https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5&contains=${searchText?.substring(0, 30) ?? ''}`
 								: 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5'
 						}
-						getLabel={(item) => item?.joke ?? item?.setup}
-						getValue={(item) => item?.id}
-						getSubtitle={(item) => item?.delivery}
+						getLabel={(item) => getItemString(item, 'joke') ?? getItemString(item, 'setup')}
+						getValue={(item) => getItemStringValue(item, 'id')}
+						getSubtitle={(item) => getItemString(item, 'delivery')}
 						getIcon={() => <span className='es:shrink-0 es:text-lg'>😂</span>}
-						getData={(data) => data?.jokes}
+						getData={getJokeItems}
 					/>
 					<AsyncSelect
 						label='Async single (universities)'
 						value={sinASel2}
 						onChange={setSinASel2}
 						fetchUrl={(searchText) =>
-							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
+							(searchText ?? '').length >= 3
+								? `http://universities.hipolabs.com/search?limit=5&name=${searchText ?? ''}`
+								: 'http://universities.hipolabs.com/search?limit=5&country=croatia'
 						}
-						getLabel={(item) => item?.name}
-						getValue={(item) => item?.value}
-						getSubtitle={(item) => item?.country}
-						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
+						getLabel={(item) => getItemString(item, 'name')}
+						getValue={(item) => getItemStringValue(item, 'value')}
+						getSubtitle={(item) => getItemString(item, 'country')}
+						processLoadedOptions={mapItemsWithSlugValue}
 						clearable
 					/>
 					<hr className='es:my-2' />
@@ -2661,11 +2821,13 @@ function App() {
 						value={sinASel2}
 						onChange={setSinASel2}
 						fetchUrl={(searchText) =>
-							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=10&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=10&country=croatia'
+							(searchText ?? '').length >= 3
+								? `http://universities.hipolabs.com/search?limit=10&name=${searchText ?? ''}`
+								: 'http://universities.hipolabs.com/search?limit=10&country=croatia'
 						}
-						getLabel={(item) => item?.name}
-						getValue={(item) => item?.value}
-						getGroup={(item) => (item?.country === 'Croatia' ? 'From Croatia' : 'International')}
+						getLabel={(item) => getItemString(item, 'name')}
+						getValue={(item) => getItemStringValue(item, 'value')}
+						getGroup={(item) => (getItemString(item, 'country') === 'Croatia' ? 'From Croatia' : 'International')}
 						clearable
 					/>
 				</TabPanel>
@@ -2675,12 +2837,14 @@ function App() {
 						value={mulASel}
 						onChange={setMulASel}
 						fetchUrl={(searchText) =>
-							searchText?.length >= 3 ? `http://universities.hipolabs.com/search?limit=5&name=${searchText}` : 'http://universities.hipolabs.com/search?limit=5&country=croatia'
+							(searchText ?? '').length >= 3
+								? `http://universities.hipolabs.com/search?limit=5&name=${searchText ?? ''}`
+								: 'http://universities.hipolabs.com/search?limit=5&country=croatia'
 						}
-						getLabel={(item) => item?.name}
-						getValue={(item) => item?.value}
-						getSubtitle={(item) => item?.country}
-						processLoadedOptions={(items) => items.map((item) => ({ ...item, value: slugify(item?.name) }))}
+						getLabel={(item) => getItemString(item, 'name')}
+						getValue={(item) => getItemStringValue(item, 'value')}
+						getSubtitle={(item) => getItemString(item, 'country')}
+						processLoadedOptions={mapItemsWithSlugValue}
 						clearable
 					/>
 					<hr className='es:my-2' />
@@ -2710,7 +2874,7 @@ function App() {
 						<Container>
 							<OptionSelect
 								value={tabVar}
-								onChange={setTabVar}
+								onChange={handleTabVarChange}
 								options={[
 									{ label: 'Underline', value: 'underline' },
 									{ label: 'Underline (secondary)', value: 'underlineSecondary' },
@@ -2857,7 +3021,7 @@ function App() {
 
 					<hr className='es:my-2' />
 
-					<InputField
+					<TypedInputField
 						value={txt1}
 						onChange={setTxt1}
 						label='Lorem'
@@ -2866,7 +3030,7 @@ function App() {
 						size='small'
 					/>
 
-					<InputField
+					<TypedInputField
 						value={txt1}
 						onChange={setTxt1}
 						label='Lorem'
@@ -2875,7 +3039,7 @@ function App() {
 						size='medium'
 					/>
 
-					<InputField
+					<TypedInputField
 						value={txt1}
 						onChange={setTxt1}
 						label='Lorem'
@@ -2884,7 +3048,7 @@ function App() {
 						size='default'
 					/>
 
-					<InputField
+					<TypedInputField
 						value={txt1}
 						onChange={setTxt1}
 						label='Lorem'
@@ -3061,7 +3225,7 @@ function App() {
 									<Toggle
 										icon={emptyCircle}
 										label='Toggle something'
-										checked={toggledThingy}
+										checked={Boolean(toggledThingy)}
 										onChange={(value) => updateData({ toggledThingy: value })}
 									/>
 
@@ -3089,7 +3253,7 @@ function App() {
 						onAfterItemRemove={(items) => console.log('Removed', items)}
 					>
 						{(item) => {
-							const { title, subtitle, icon, toggledThingy, link, updateData, itemIndex } = item;
+							const { title, subtitle, icon, toggledThingy, link, updateData } = item;
 
 							return (
 								<RepeaterItem
@@ -3108,7 +3272,7 @@ function App() {
 									<Toggle
 										icon={emptyCircle}
 										label='Toggle something'
-										checked={toggledThingy}
+										checked={Boolean(toggledThingy)}
 										onChange={(value) => updateData({ toggledThingy: value })}
 									/>
 
@@ -3139,7 +3303,13 @@ function App() {
 							value={item.title}
 							onChange={(value) => {
 								const newItems = [...repeaterItems];
-								newItems[index].title = value;
+								const currentItem = newItems[index];
+
+								if (!currentItem) {
+									return;
+								}
+
+								currentItem.title = value;
 
 								setRepeaterItems(newItems);
 							}}
@@ -3382,13 +3552,13 @@ function App() {
 					<Slider
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 					/>
 
 					<Slider
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 						step={11}
 						markers
 					/>
@@ -3396,7 +3566,7 @@ function App() {
 					<Slider
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 						step={25}
 						markers='dots'
 					/>
@@ -3404,7 +3574,7 @@ function App() {
 					<Slider
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 						step={33}
 					/>
 
@@ -3412,7 +3582,7 @@ function App() {
 						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 						markers
 					/>
 
@@ -3420,7 +3590,7 @@ function App() {
 						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 						markers={{
 							0: 'nula',
 							25: '',
@@ -3435,7 +3605,7 @@ function App() {
 						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 						markers={{
 							0: 'nula',
 							25: '',
@@ -3451,7 +3621,7 @@ function App() {
 						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 						markers={{
 							0: <span className='es:text-red-500'>R</span>,
 							50: <span className='es:text-green-500'>G</span>,
@@ -3468,7 +3638,7 @@ function App() {
 						icon={emptyRect}
 						label='Slider'
 						value={sliderValue2}
-						onChange={setSliderValue2}
+						onChange={handleSliderValue2Change}
 						min={-40}
 						max={60}
 						step={10}
@@ -3479,7 +3649,7 @@ function App() {
 						icon={emptyRect}
 						label='Slider'
 						value={sliderValue2}
-						onChange={setSliderValue2}
+						onChange={handleSliderValue2Change}
 						min={-40}
 						max={60}
 						step={10}
@@ -3494,27 +3664,27 @@ function App() {
 						icon={emptyRect}
 						label='Range slider'
 						value={rangeSliderValue}
-						onChange={setRangeSliderValue}
+						onChange={handleRangeSliderValueChange}
 					/>
 
 					<Slider
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 						before={emptyCircle}
 					/>
 
 					<Slider
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 						after={emptyCircle}
 					/>
 
 					<Slider
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 						before={emptyCircle}
 						after={emptyCircle}
 					/>
@@ -3523,7 +3693,7 @@ function App() {
 						icon={emptyRect}
 						label='Range slider'
 						value={rangeSliderValue}
-						onChange={setRangeSliderValue}
+						onChange={handleRangeSliderValueChange}
 						disabled
 					/>
 
@@ -3531,7 +3701,7 @@ function App() {
 						icon={emptyRect}
 						label='Range slider'
 						value={rangeSliderValue}
-						onChange={setRangeSliderValue}
+						onChange={handleRangeSliderValueChange}
 						inputField
 						max={100}
 					/>
@@ -3540,7 +3710,7 @@ function App() {
 						icon={emptyRect}
 						label='Range slider'
 						value={rangeSliderValue2}
-						onChange={setRangeSliderValue2}
+						onChange={handleRangeSliderValue2Change}
 						max={100}
 					/>
 
@@ -3548,7 +3718,7 @@ function App() {
 						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 						vertical
 					/>
 
@@ -3556,7 +3726,7 @@ function App() {
 						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 						vertical
 						startPoint={50}
 						markers={{
@@ -3570,7 +3740,7 @@ function App() {
 						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 						vertical
 						markers
 					/>
@@ -3579,7 +3749,7 @@ function App() {
 						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 						before={emptyCircle}
 						after={emptyCircle}
 						vertical
@@ -3589,7 +3759,7 @@ function App() {
 						icon={emptyRect}
 						label='Slider'
 						value={sliderValue}
-						onChange={setSliderValue}
+						onChange={handleSliderValueChange}
 						before={emptyCircle}
 						after={emptyCircle}
 						inputField
@@ -3599,7 +3769,7 @@ function App() {
 						icon={emptyRect}
 						label='Range slider'
 						value={rangeSliderValue}
-						onChange={setRangeSliderValue}
+						onChange={handleRangeSliderValueChange}
 						vertical
 					/>
 
@@ -3607,7 +3777,7 @@ function App() {
 						icon={emptyRect}
 						label='Range slider'
 						value={rangeSliderValue}
-						onChange={setRangeSliderValue}
+						onChange={handleRangeSliderValueChange}
 						vertical
 						markers
 					/>
@@ -3615,14 +3785,14 @@ function App() {
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<SolidColorPicker
 						value={currColor}
-						onChange={setCurrColor}
+						onChange={handleCurrColorChange}
 					/>
 
 					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded es:border es:bg-secondary-100 es:p-1 es:text-sm'>{currColor}</code>
 
 					<SolidColorPicker
 						value={currColor2}
-						onChange={setCurrColor2}
+						onChange={handleCurrColor2Change}
 						allowTransparency
 					/>
 
@@ -3630,7 +3800,7 @@ function App() {
 
 					<SolidColorPicker
 						value={currColor3}
-						onChange={setCurrColor3}
+						onChange={handleCurrColor3Change}
 						allowTransparency
 						outputFormat='hsla'
 					/>
@@ -3639,7 +3809,7 @@ function App() {
 
 					<SolidColorPicker
 						value={currColor3}
-						onChange={setCurrColor3}
+						onChange={handleCurrColor3Change}
 						allowTransparency
 						disabled
 					/>
@@ -3691,7 +3861,7 @@ function App() {
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<ColorPicker
 						value={color1}
-						onChange={setColor1}
+						onChange={handleColor1Change}
 						colors={defaultColors}
 						clearable
 						extraOptions={<MenuItem checked={false}>Lorem</MenuItem>}
@@ -3699,34 +3869,34 @@ function App() {
 
 					<ColorPicker
 						value={color3}
-						onChange={setColor3}
+						onChange={handleColor3Change}
 						colors={defaultColors}
 					/>
 
 					<ColorPicker
 						value={color2}
-						onChange={setColor2}
+						onChange={handleColor2Change}
 						colors={groupedColors}
 						type='fillColor'
 					/>
 
 					<ColorPicker
 						value={color2}
-						onChange={setColor2}
+						onChange={handleColor2Change}
 						colors={groupedColors}
 						type='textColor'
 					/>
 
 					<ColorPicker
 						value={color2}
-						onChange={setColor2}
+						onChange={handleColor2Change}
 						colors={groupedColors}
 						type='textHighlightColor'
 					/>
 
 					<ColorPicker
 						value={color2}
-						onChange={setColor2}
+						onChange={handleColor2Change}
 						colors={groupedColors}
 						type='listMarkerColor'
 					/>
@@ -3735,7 +3905,7 @@ function App() {
 						icon={color}
 						label='Color'
 						value={color2}
-						onChange={setColor2}
+						onChange={handleColor2Change}
 						colors={groupedColors}
 						noColorGroups
 						showColorCode
@@ -3759,9 +3929,9 @@ function App() {
 					>
 						{({ currentValue, options, handleChange }) => (
 							<ButtonGroup>
-								{options.map(({ label, value }) => (
+								{(options ?? []).map(({ label, value }) => (
 									<ToggleButton
-										key={value}
+										key={String(value)}
 										onChange={() => handleChange(value)}
 										selected={currentValue === value}
 									>
@@ -3794,7 +3964,7 @@ function App() {
 							if (isInlineCollapsedView) {
 								return (
 									<Switch
-										checked={currentValue}
+										checked={Boolean(currentValue)}
 										onChange={(v) => handleChange(v)}
 									/>
 								);
@@ -3802,9 +3972,9 @@ function App() {
 
 							return (
 								<ButtonGroup>
-									{options.map(({ label, value }) => (
+									{(options ?? []).map(({ label, value }) => (
 										<ToggleButton
-											key={value}
+											key={String(value)}
 											onChange={() => handleChange(value)}
 											selected={currentValue === value}
 										>
@@ -3835,9 +4005,9 @@ function App() {
 					>
 						{({ currentValue, options, handleChange }) => (
 							<ButtonGroup>
-								{options.map(({ label, value }) => (
+								{(options ?? []).map(({ label, value }) => (
 									<ToggleButton
-										key={value}
+										key={String(value)}
 										onChange={() => handleChange(value)}
 										selected={currentValue === value}
 									>
@@ -4087,14 +4257,14 @@ function App() {
 						<Button
 							size='small'
 							onPress={() => setImgUrl('https://picsum.photos/200')}
-							disabled={imgUrl !== null}
+							disabled={imgUrl !== undefined}
 						>
 							Set URL
 						</Button>
 						<Button
 							size='small'
-							onPress={() => setImgUrl(null)}
-							disabled={imgUrl === null}
+							onPress={() => setImgUrl(undefined)}
+							disabled={imgUrl === undefined}
 						>
 							Unset URL
 						</Button>
@@ -4156,7 +4326,7 @@ function App() {
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
 					<OptionSelect
 						value={draggableLayout}
-						onChange={setDraggableLayout}
+						onChange={handleDraggableLayoutChange}
 						options={[
 							{ label: 'Grid', value: 'grid' },
 							{ label: 'Horizontal', value: 'horizontal' },
@@ -4166,9 +4336,9 @@ function App() {
 						inline
 					/>
 
-					<Draggable
+					<TypedDraggable
 						items={draggableItems}
-						onChange={setDraggableItems}
+						onChange={handleDraggableItemsChange}
 						className={clsx(
 							draggableLayout === 'grid' && 'es:grid es:auto-rows-auto es:grid-cols-3 es:gap-1',
 							draggableLayout === 'horizontal' && 'es:flex es:gap-1',
@@ -4199,15 +4369,15 @@ function App() {
 								</div>
 							);
 						}}
-					</Draggable>
+					</TypedDraggable>
 
 					<pre className='es:w-xs es:overflow-clip'>{JSON.stringify(draggableItems, null, 2)}</pre>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					<DraggableList
+					<TypedDraggableList
 						label='My draggable list'
 						items={draggableListItems}
-						onChange={setDraggableListItems}
+						onChange={handleDraggableListItemsChange}
 						onAfterItemRemove={(item) => console.log('Removed item:', item)}
 					>
 						{(item) => {
@@ -4227,12 +4397,12 @@ function App() {
 								</DraggableListItem>
 							);
 						}}
-					</DraggableList>
+					</TypedDraggableList>
 
-					<DraggableList
+					<TypedDraggableList
 						label='My draggable list 2'
 						items={draggableListItems2}
-						onChange={setDraggableListItems2}
+						onChange={handleDraggableListItems2Change}
 					>
 						{(item) => {
 							const { toggle, title, icon, updateData } = item;
@@ -4250,7 +4420,7 @@ function App() {
 								</DraggableListItem>
 							);
 						}}
-					</DraggableList>
+					</TypedDraggableList>
 				</TabPanel>
 				<TabPanel className='es:rounded-3xl es:w-4xl es:max-h-[85vh] es:h-fit es:overflow-y-auto es:max-w-[90vw] es:space-y-4 es:p-5! es:bg-[#f1f1f1]'>
 					<OptionsPanelHeader
@@ -4283,7 +4453,7 @@ function App() {
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 										inline
@@ -4296,7 +4466,7 @@ function App() {
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 										inline
@@ -4313,7 +4483,7 @@ function App() {
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 									/>
@@ -4328,7 +4498,7 @@ function App() {
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 									/>
@@ -4338,7 +4508,7 @@ function App() {
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 									/>
@@ -4359,7 +4529,7 @@ function App() {
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 									/>
@@ -4369,7 +4539,7 @@ function App() {
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 									/>
@@ -4379,7 +4549,7 @@ function App() {
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 									/>
@@ -4397,14 +4567,13 @@ function App() {
 							<OptionsPanelIntro
 								title='Lorem ipsum'
 								subtitle='Dolor, ipsum, sit amet, lorem, ipsum dolor, sit...'
-								border
 							/>
 							<OptionsPanel>
 								<OptionsPanelSection>
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 										inline
@@ -4417,7 +4586,7 @@ function App() {
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 										inline
@@ -4434,7 +4603,7 @@ function App() {
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 									/>
@@ -4449,7 +4618,7 @@ function App() {
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 									/>
@@ -4459,7 +4628,7 @@ function App() {
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 									/>
@@ -4470,7 +4639,6 @@ function App() {
 							<OptionsPanelIntro
 								title='SEO'
 								subtitle='Optimize your Lorem so it can better Ipsum!'
-								border
 							/>
 
 							<OptionsPanel
@@ -4481,7 +4649,7 @@ function App() {
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 									/>
@@ -4490,7 +4658,7 @@ function App() {
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 									/>
@@ -4499,7 +4667,7 @@ function App() {
 									<Select
 										icon={emptyCircle}
 										label='Pick an item'
-										onChange={(v) => setV(v)}
+										onChange={handleSelectValueChange}
 										value={v}
 										options={data}
 									/>
