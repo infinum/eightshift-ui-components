@@ -1,6 +1,8 @@
+import type { Plugin } from 'vite';
+
 import { replaceTwPrefix } from './tw4-prefixer-shared';
 
-export default function tw4PrefixerBuild() {
+export default function tw4PrefixerBuild(): Plugin {
 	return {
 		name: 'vite-tw4-prefixer-build',
 		apply: 'build',
