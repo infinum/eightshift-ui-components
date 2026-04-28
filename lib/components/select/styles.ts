@@ -35,12 +35,29 @@ export const selectControlClass = cva(
 			},
 			clearable: {
 				true: 'es:pr-8',
+				false: null,
 			},
 			hasMinWidth: {
 				true: 'es:min-w-48',
+				false: null,
 			},
 			inline: {
 				false: 'es:w-fill',
+				true: null,
+			},
+			flat: {
+				true: null,
+				false: null,
+			},
+			readOnly: {
+				true: null,
+				false: null,
+			},
+			size: {
+				small: null,
+				medium: null,
+				default: null,
+				large: null,
 			},
 		},
 		compoundVariants: [
@@ -69,9 +86,20 @@ export const selectControlClass = cva(
 					'es:inset-ring-secondary-200/15 es:hover:inset-ring-secondary-200/65 es:focus:inset-ring-surface-200',
 				],
 			},
-			{ disabled: true, class: ['es:bg-secondary-50 es:inset-ring-secondary-200 es:text-secondary-400'] },
-			{ readOnly: true, flat: false, class: ['es:bg-secondary-50 es:inset-ring-secondary-300 es:text-secondary-400'] },
-			{ readOnly: true, flat: true, class: ['es:bg-secondary-50 es:inset-ring-secondary-300/60 es:text-secondary-400'] },
+			{
+				disabled: true,
+				class: ['es:bg-secondary-50 es:inset-ring-secondary-200 es:text-secondary-400'],
+			},
+			{
+				readOnly: true,
+				flat: false,
+				class: ['es:bg-secondary-50 es:inset-ring-secondary-300 es:text-secondary-400'],
+			},
+			{
+				readOnly: true,
+				flat: true,
+				class: ['es:bg-secondary-50 es:inset-ring-secondary-300/60 es:text-secondary-400'],
+			},
 		],
 		defaultVariants: {
 			disabled: false,
@@ -80,6 +108,7 @@ export const selectControlClass = cva(
 			clearable: false,
 			hasMinWidth: true,
 			inline: false,
+			readOnly: false,
 		},
 	},
 );
