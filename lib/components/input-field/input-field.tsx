@@ -1,7 +1,8 @@
-import { TextField, Label, Input as ReactAriaInput, TextArea } from 'react-aria-components';
+import { cva, type VariantProps } from 'class-variance-authority';
 import { clsx } from 'clsx';
-import { BaseControl } from '../base-control/base-control';
-import { cva } from 'class-variance-authority';
+import { type ComponentPropsWithoutRef, type KeyboardEvent, type ReactNode } from 'react';
+import { Input as ReactAriaInput, Label, TextArea, TextField } from 'react-aria-components';
+import { BaseControl, type BaseControlProps } from '../base-control/base-control';
 
 const inputClass = cva(
 	[
@@ -35,6 +36,14 @@ const inputClass = cva(
 			disabled: {
 				false: 'es:selection:bg-surface-100 es:selection:text-accent-800',
 				true: 'es:selection:bg-secondary-200 es:selection:text-secondary-600',
+			},
+			flat: {
+				false: null,
+				true: null,
+			},
+			readOnly: {
+				false: null,
+				true: null,
 			},
 		},
 		compoundVariants: [
@@ -74,42 +83,32 @@ const inputClass = cva(
 	},
 );
 
-/**
- * An input field.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {JSX.Element} [props.icon] - Icon to display in the label.
- * @param {string} [props.label] - Label to display.
- * @param {string} [props.subtitle] - Subtitle to display.
- * @param {string} [props.help] - Help text to display below the input.
- * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display to the right of the label.
- * @param {boolean} [props.inline] - Whether the element menu is displayed inline with the label, to the right of it.
- * @param {string} [props.value] - The current value of the input.
- * @param {Function} [props.onChange] - Function to run when the input value changes.
- * @param {InputType} [props.type='text'] - The input type. Renders a `<textarea>` instead of `<input>` if set to 'multiline'.
- * @param {boolean} [props.disabled] - If `true`, the input is disabled.
- * @param {boolean} [props.readOnly] - If `true`, the input is read-only.
- * @param {string} [props.className] - Classes to pass to the input field.
- * @param {string} [props.wrapperClassName] - Classes to pass to the input field wrapping element.
- * @param {boolean} [props.monospaceFont] - If `true`, the input uses a monospace font. Useful for things like IDs to make them easier to read.
- * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
- * @param {InputSize} [props.size='default'] - Sets the size of the input field.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- *
- * @returns {JSX.Element} The InputField component.
- *
- * @typedef {'text' | 'search' | 'url' | 'tel' | 'email' | 'password' | 'multiline'} InputType
- * @typedef {'small' | 'medium' | 'default' | 'large'} InputSize
- *
- * @example
- * <InputField
- * 	label='My input'
- * 	value={inputValue}
- * 	onChange={setInputValue}
- * />
- */
-export const InputField = (props) => {
+type InputType = 'text' | 'search' | 'url' | 'tel' | 'email' | 'password' | 'multiline';
+type InputSize = NonNullable<VariantProps<typeof inputClass>['size']>;
+
+type SharedFieldProps = Omit<ComponentPropsWithoutRef<typeof TextField>, 'children' | 'className' | 'value' | 'defaultValue' | 'onChange' | 'isDisabled' | 'isReadOnly'>;
+type InputElementProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaInput>, 'children' | 'className' | 'value' | 'defaultValue' | 'onChange' | 'type' | 'disabled' | 'readOnly'>;
+type TextAreaElementProps = Omit<ComponentPropsWithoutRef<typeof TextArea>, 'children' | 'className' | 'value' | 'defaultValue' | 'onChange' | 'disabled' | 'readOnly'>;
+
+type InputFieldProps = SharedFieldProps &
+	InputElementProps &
+	TextAreaElementProps &
+	BaseControlProps<typeof Label> & {
+		value?: string;
+		onChange?: (value: string) => void;
+		type?: InputType;
+		disabled?: boolean;
+		readOnly?: boolean;
+		className?: string;
+		wrapperClassName?: string;
+		monospaceFont?: boolean;
+		flat?: boolean;
+		size?: InputSize;
+		hidden?: boolean;
+		children?: ReactNode;
+	};
+
+export const InputField = (props: InputFieldProps) => {
 	const {
 		icon,
 		label,
@@ -128,12 +127,21 @@ export const InputField = (props) => {
 		wrapperClassName,
 		hidden,
 		monospaceFont,
+		onKeyUp,
 		...other
 	} = props;
 
 	if (hidden) {
 		return null;
 	}
+
+	const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
+		if (type === 'search' && event.key === 'Escape') {
+			onChange?.('');
+		}
+
+		onKeyUp?.(event);
+	};
 
 	return (
 		<TextField
@@ -153,25 +161,16 @@ export const InputField = (props) => {
 				labelAs={Label}
 				help={help}
 			>
-				{type !== 'multiline' && (
+				{type !== 'multiline' ? (
 					<ReactAriaInput
-						{...other}
+						{...(other as InputElementProps)}
 						type={type}
 						className={clsx(inputClass({ disabled, flat, size, readOnly, mono: monospaceFont || type === 'password' }), className)}
-						onKeyUp={(e) => {
-							if (type === 'search' && e.key === 'Escape') {
-								onChange('');
-							}
-
-							if (props.onKeyUp) {
-								props.onKeyUp(e);
-							}
-						}}
+						onKeyUp={handleKeyUp}
 					/>
-				)}
-				{type === 'multiline' && (
+				) : (
 					<TextArea
-						{...other}
+						{...(other as TextAreaElementProps)}
 						className={clsx(inputClass({ disabled, flat, size, readOnly, mono: monospaceFont, multiline: true }), className)}
 					/>
 				)}
