@@ -1,21 +1,20 @@
+import { includeIgnoreFile } from '@eslint/compat';
+import stylistic from '@stylistic/eslint-plugin';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import type { Linter } from 'eslint';
+import globals from 'globals';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
-import stylistic from '@stylistic/eslint-plugin';
 import tseslint from 'typescript-eslint';
-
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-
-import globals from 'globals';
-
-import path from 'node:path';
-import { includeIgnoreFile } from '@eslint/compat';
-import { fileURLToPath } from 'node:url';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 const gitignorePath = path.resolve(dirname, '.gitignore');
 
-const sharedRules = {
+const sharedRules: Linter.RulesRecord = {
 	'newline-before-return': 'error',
 	'no-constant-binary-expression': 'error',
 	'no-implicit-coercion': 'error',
@@ -59,7 +58,6 @@ const sharedRules = {
 
 export default [
 	includeIgnoreFile(gitignorePath),
-	// JavaScript files
 	{
 		files: ['**/*.js', '**/*.jsx', '**/*.cjs'],
 		languageOptions: {
@@ -88,7 +86,6 @@ export default [
 			},
 		},
 	},
-	// TypeScript files
 	...tseslint.config({
 		files: ['**/*.ts', '**/*.tsx'],
 		extends: [tseslint.configs.recommendedTypeChecked],
