@@ -1,65 +1,67 @@
 import { __ } from '@wordpress/i18n';
+import { previewResponsive } from '../../icons/internal';
 import { upperFirst } from '../../utilities';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
-import { previewResponsive } from '../../icons/internal';
 import { RichLabel } from '../rich-label/rich-label';
 
-/**
- * A component that displays a preview of the responsive settings.
- *
- * **Note**: Only intended for horizontal groups of buttons that don't wrap.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {Object} props.value - The value object.
- * @param {boolean} props.isDesktopFirst - Whether the desktop-first mode is enabled.
- * @param {string[]} props.breakpoints - Breakpoints to use.
- * @param {string[]} [props.desktopFirstBreakpoints] - Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order.
- * @param {{label: string, value: string}[]} props.options - Options of the attribute the component is linked to. `{ value: string, label: string }[]`.
- * @param {Object} props.breakpointData - Breakpoints to use. `{ [breakpoint: string]: number }`.
- * @param {Object<string, number>} [props.breakpointUiData] - Allows overriding breakpoint names and icons. `{ [breakpoint: string]: { label: string, icon: JSX.Element|string } }`.
- *
- * @returns {JSX.Element} The ResponsivePreview component.
- *
- * @example
- * <ResponsivePreview
- * 	value={value}
- * 	isDesktopFirst={isDesktopFirst}
- * 	breakpoints={breakpoints}
- * 	options={options}
- * 	breakpointData={breakpointData} // e.g. from global manifest
- * />
- */
-export const ResponsivePreview = (props) => {
+type ResponsiveOption = {
+	label: string;
+	value: string;
+};
+
+type ResponsiveValue = Record<string, string | boolean | undefined>;
+const desktopFirstKey = '_desktopFirst';
+const defaultKey = '_default';
+
+type BreakpointUiOverride = {
+	label?: string;
+	icon?: string | JSX.Element;
+};
+
+type ResponsivePreviewItem = {
+	width?: string;
+	widthEnd?: string;
+	breakpoint: string;
+	value: string;
+	alignEnd?: boolean;
+};
+
+type ResponsivePreviewProps = {
+	value?: ResponsiveValue | null;
+	isDesktopFirst?: boolean;
+	breakpoints: string[];
+	desktopFirstBreakpoints?: string[];
+	options?: ResponsiveOption[];
+	breakpointData: Record<string, string | number>;
+	breakpointUiData?: Record<string, BreakpointUiOverride>;
+};
+
+export const ResponsivePreview = (props: ResponsivePreviewProps) => {
 	const {
 		value,
 		isDesktopFirst: rawIsDesktopFirst,
-
 		breakpoints: rawBreakpoints,
 		desktopFirstBreakpoints: rawDesktopFirstBreakpoints,
-
 		options,
-
 		breakpointData,
 		breakpointUiData,
 	} = props;
 
-	const isDesktopFirst = rawIsDesktopFirst ?? value?.['_desktopFirst'] ?? false;
-
+	const isDesktopFirst = rawIsDesktopFirst ?? (value?.[desktopFirstKey] as boolean | undefined) ?? false;
 	const breakpoints = rawBreakpoints;
 	const desktopFirstBreakpoints = rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1);
 
 	const firstMobileFirstOverride = breakpoints.find((breakpoint) => value?.[breakpoint]);
-	const lastDesktopFirstOverride = desktopFirstBreakpoints.toReversed().find((breakpoint) => value?.[breakpoint]);
+	const lastDesktopFirstOverride = [...desktopFirstBreakpoints].reverse().find((breakpoint) => value?.[breakpoint]);
 
-	let previewItems = [];
+	let previewItems: ResponsivePreviewItem[] = [];
 
 	if (firstMobileFirstOverride && !isDesktopFirst) {
 		previewItems = [
 			...previewItems,
 			{
 				breakpoint: __('Default', 'eightshift-ui-components'),
-				value: options?.find((opt) => opt.value === value?.['_default'])?.label ?? upperFirst(value?.['_default']),
+				value: options?.find((opt) => opt.value === value?.[defaultKey])?.label ?? upperFirst(value?.[defaultKey]),
 			},
 		];
 
@@ -71,7 +73,7 @@ export const ResponsivePreview = (props) => {
 			previewItems = [
 				...previewItems,
 				{
-					width: breakpointData[breakpoint],
+					width: String(breakpointData[breakpoint]),
 					breakpoint: breakpointUiData?.[breakpoint]?.label ?? breakpoint,
 					value: options?.find((opt) => opt.value === value?.[breakpoint])?.label ?? upperFirst(value?.[breakpoint]),
 				},
@@ -85,12 +87,14 @@ export const ResponsivePreview = (props) => {
 				return;
 			}
 
+			const normalizedBreakpoint = breakpoint.replace('max-', '');
+
 			previewItems = [
 				...previewItems,
 				{
 					alignEnd: true,
-					widthEnd: breakpointData[breakpoint.replace('max-', '')],
-					breakpoint: breakpointUiData?.[breakpoint.replace('max-', '')]?.label ?? breakpoint.replace('max-', ''),
+					widthEnd: String(breakpointData[normalizedBreakpoint]),
+					breakpoint: breakpointUiData?.[normalizedBreakpoint]?.label ?? normalizedBreakpoint,
 					value: options?.find((opt) => opt.value === value?.[breakpoint])?.label ?? upperFirst(value?.[breakpoint]),
 				},
 			];
@@ -100,7 +104,7 @@ export const ResponsivePreview = (props) => {
 			...previewItems,
 			{
 				breakpoint: __('Default', 'eightshift-ui-components'),
-				value: options?.find((opt) => opt.value === value?.['_default'])?.label ?? upperFirst(value?.['_default']),
+				value: options?.find((opt) => opt.value === value?.[defaultKey])?.label ?? upperFirst(value?.[defaultKey]),
 			},
 		];
 	}
@@ -118,7 +122,7 @@ export const ResponsivePreview = (props) => {
 				</span>
 			</div>
 
-			{previewItems.length === 0 && <span className='es:text-sm es:italic es:text-secondary-500'>{__('No overrides applied', 'eightshift-ui-components')}</span>}
+			{previewItems.length === 0 ? <span className='es:text-sm es:italic es:text-secondary-500'>{__('No overrides applied', 'eightshift-ui-components')}</span> : null}
 			<BreakpointPreview
 				blocks={previewItems}
 				dotsStart
