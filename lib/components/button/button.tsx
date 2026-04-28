@@ -1,82 +1,72 @@
+import { __ } from '@wordpress/i18n';
 import { useObjectRef } from 'react-aria';
 import { ProgressBar, Button as ReactAriaButton, Toolbar } from 'react-aria-components';
 import { clsx } from 'clsx';
 import { cva } from 'class-variance-authority';
+import { type ComponentPropsWithoutRef, type ReactNode, type Ref, type RefObject } from 'react';
 import { Tooltip } from '../tooltip/tooltip';
-import { __ } from '@wordpress/i18n';
 
-/**
- * @typedef {import('../tooltip/tooltip').TooltipProps} TooltipProps
- * */
+type TooltipPlacement =
+	| 'bottom'
+	| 'bottom left'
+	| 'bottom right'
+	| 'bottom start'
+	| 'bottom end'
+	| 'top'
+	| 'top left'
+	| 'top right'
+	| 'top start'
+	| 'top end'
+	| 'left'
+	| 'left top'
+	| 'left bottom'
+	| 'start'
+	| 'start top'
+	| 'start bottom'
+	| 'right'
+	| 'right top'
+	| 'right bottom'
+	| 'end'
+	| 'end top'
+	| 'end bottom';
 
-/**
- * @typedef {Object} ButtonProps
- * @property {JSX.Element} [props.icon] - Icon to display within the button.
- * @property {ButtonSize} [props.size='default'] - The size of the button.
- * @property {ButtonType} [props.type='default'] - The type of the button.
- * @property {boolean} [props.disabled] - If `true`, the button is disabled.
- * @property {string} [props.className] - Classes to pass to the button.
- * @property {string|boolean} [props.tooltip] - Tooltip text to display on hover. If set to `true` and an `aria-label` is not provided, the tooltip text will be used as the `aria-label`.
- * @property {Function} [props.onPress] - Function to run when the button is pressed.
- * @property {React.Ref} [props.forwardedRef] - Ref to forward to the button. Use the same as the `ref` prop.
- * @property {string} [props.wrapperClassName] - Classes to pass to the tooltip wrapper.
- * @property {TooltipProps} [props.tooltipProps] - Props to pass to the tooltip.
- * @property {boolean} [props.pending] - If `true`, the button is in a pending state, which can be used to indicate that an action is being processed.
- * @property {string} [props.pendingAriaLabel='Loading'] - ARIA label for the pending state, used for screen readers.
- * @property {boolean} [props.flat] - If `true`, component will look more flat (applies only to `default`, `selected`, and `danger` types). Useful for nested layer of controls.
- * @property {boolean} [props.hidden] - If `true`, the component is not rendered.
- *
- * @typedef {'small' | 'default' | 'large'} ButtonSize
- * @typedef {'default' | 'selected' | 'selectedGhost' | 'ghost' | 'danger' | 'dangerGhost' | 'glass' | 'glassDark' | 'dangerGlass' | 'selectedGlass' | 'simple' | 'selectedSimple' | 'dangerSimple' } ButtonType
- */
+type ButtonTooltipProps = {
+	theme?: 'light' | 'dark';
+	offset?: number;
+	crossOffset?: number;
+	containerPadding?: number;
+	openDelay?: number;
+	closeDelay?: number;
+	shouldFlip?: boolean;
+	defaultOpen?: boolean;
+	open?: boolean;
+	onOpenChange?: (isOpen: boolean) => void;
+	placement?: TooltipPlacement;
+	className?: string;
+	triggerRef?: RefObject<Element>;
+	arrow?: boolean;
+	disabled?: boolean;
+};
 
-/**
- * A simple button component.
- *
- * @component
- * @param {ButtonProps} props - Component props.
- *
- * @returns {JSX.Element} The Button component.
- *
- * @example
- * <Button onPress={() => console.log('Hi!')} icon={myIcon} />
- *
- * <Button onPress={() => console.log('Hi!')} icon={myIcon}>My button</Button>
- */
-export const Button = (props) => {
-	const {
-		children,
-		icon,
-		size = 'default',
-		type = 'default',
-		flat,
-		pending,
-		pendingAriaLabel = __('Loading', 'eightshift-ui-components'),
-		disabled,
-		className,
-		tooltip: rawTooltip,
-		onPress,
-		forwardedRef,
-		wrapperClassName,
-		tooltipProps,
-		'aria-label': ariaLabel = typeof children === 'string' ? children : __('Menu item', 'eightshift-ui-components'),
-		hidden,
-		...other
-	} = props;
+type ButtonSize = 'small' | 'default' | 'large';
+type ButtonType =
+	| 'default'
+	| 'selected'
+	| 'selectedGhost'
+	| 'ghost'
+	| 'danger'
+	| 'dangerGhost'
+	| 'glass'
+	| 'glassDark'
+	| 'dangerGlass'
+	| 'selectedGlass'
+	| 'simple'
+	| 'selectedSimple'
+	| 'dangerSimple';
+type ButtonGroupType = 'segmented' | 'split';
 
-	let tooltip = rawTooltip;
-
-	if (rawTooltip === true && ariaLabel?.length > 0) {
-		tooltip = ariaLabel;
-	}
-
-	const objRef = useObjectRef(forwardedRef);
-
-	if (hidden) {
-		return null;
-	}
-
-	const componentClasses = cva(
+const createComponentClasses = ({ className, flat, pending }: { className?: string; flat?: boolean; pending?: boolean }) =>
+	cva(
 		[
 			'es:font-variation-["wdth"_82,"wght"_325,"ROND"_100,"GRAD"_0] es:hover:font-variation-["wdth"_82,"wght"_325,"ROND"_100,"GRAD"_70]',
 			'es:flex es:items-center es:justify-center',
@@ -100,9 +90,35 @@ export const Button = (props) => {
 					default: 'es:gap-1.25 es:rounded-10 es:hover:rounded-xl! es:pressed:rounded-14!',
 					large: 'es:gap-1.5 es:rounded-xl es:hover:rounded-2xl! es:pressed:rounded-18!',
 				},
+				type: {
+					default: null,
+					selected: null,
+					selectedGhost: null,
+					ghost: null,
+					danger: null,
+					dangerGhost: null,
+					glass: null,
+					glassDark: null,
+					dangerGlass: null,
+					selectedGlass: null,
+					simple: null,
+					selectedSimple: null,
+					dangerSimple: null,
+				},
+				disabled: {
+					true: null,
+					false: null,
+				},
+				hasIcon: {
+					true: null,
+					false: null,
+				},
+				iconOnly: {
+					true: null,
+					false: null,
+				},
 			},
 			compoundVariants: [
-				// Styles.
 				{
 					type: 'default',
 					disabled: false,
@@ -229,7 +245,6 @@ export const Button = (props) => {
 						'es:focus-visible:bg-accent-50 es:focus-visible:text-accent-950 es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:inset-ring-accent-500',
 					],
 				},
-				//
 				{
 					type: ['glass', 'glassDark', 'dangerGlass', 'selectedGlass'],
 					disabled: false,
@@ -332,79 +347,82 @@ export const Button = (props) => {
 						'es:inset-ring es:inset-ring-black/5',
 					],
 				},
-				// Sizes.
-				{
-					size: 'small',
-					iconOnly: false,
-					class: 'es:h-8 es:min-w-8',
-				},
-				{
-					size: 'small',
-					iconOnly: true,
-					class: 'es:size-8',
-				},
-				{
-					size: 'small',
-					hasIcon: false,
-					iconOnly: false,
-					class: 'es:px-2',
-				},
-				{
-					size: 'small',
-					hasIcon: true,
-					iconOnly: false,
-					class: 'es:px-1.5',
-				},
-				{
-					size: 'default',
-					iconOnly: false,
-					class: 'es:h-9 es:min-w-9',
-				},
-				{
-					size: 'default',
-					iconOnly: true,
-					class: 'es:size-9',
-				},
-				{
-					size: 'default',
-					hasIcon: false,
-					iconOnly: false,
-					class: 'es:px-2.5',
-				},
-				{
-					size: 'default',
-					hasIcon: true,
-					iconOnly: false,
-					class: 'es:px-2',
-				},
-				{
-					size: 'large',
-					iconOnly: false,
-					class: 'es:h-10 es:min-w-10',
-				},
-				{
-					size: 'large',
-					iconOnly: true,
-					class: 'es:size-10',
-				},
-				{
-					size: 'large',
-					hasIcon: false,
-					iconOnly: false,
-					class: 'es:px-3',
-				},
-				{
-					size: 'large',
-					hasIcon: true,
-					iconOnly: false,
-					class: 'es:px-2.5',
-				},
+				{ size: 'small', iconOnly: false, class: 'es:h-8 es:min-w-8' },
+				{ size: 'small', iconOnly: true, class: 'es:size-8' },
+				{ size: 'small', hasIcon: false, iconOnly: false, class: 'es:px-2' },
+				{ size: 'small', hasIcon: true, iconOnly: false, class: 'es:px-1.5' },
+				{ size: 'default', iconOnly: false, class: 'es:h-9 es:min-w-9' },
+				{ size: 'default', iconOnly: true, class: 'es:size-9' },
+				{ size: 'default', hasIcon: false, iconOnly: false, class: 'es:px-2.5' },
+				{ size: 'default', hasIcon: true, iconOnly: false, class: 'es:px-2' },
+				{ size: 'large', iconOnly: false, class: 'es:h-10 es:min-w-10' },
+				{ size: 'large', iconOnly: true, class: 'es:size-10' },
+				{ size: 'large', hasIcon: false, iconOnly: false, class: 'es:px-3' },
+				{ size: 'large', hasIcon: true, iconOnly: false, class: 'es:px-2.5' },
 			],
 			defaultVariants: {
 				disabled: false,
 			},
 		},
 	);
+
+type ButtonProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaButton>, 'children' | 'className' | 'isDisabled' | 'isPending' | 'onPress' | 'aria-label'> & {
+	children?: ReactNode;
+	icon?: ReactNode;
+	size?: ButtonSize;
+	type?: ButtonType;
+	disabled?: boolean;
+	className?: string;
+	tooltip?: string | boolean;
+	onPress?: ComponentPropsWithoutRef<typeof ReactAriaButton>['onPress'];
+	forwardedRef?: Ref<HTMLButtonElement>;
+	wrapperClassName?: string;
+	tooltipProps?: ButtonTooltipProps;
+	pending?: boolean;
+	pendingAriaLabel?: string;
+	flat?: boolean;
+	hidden?: boolean;
+	'aria-label'?: string;
+};
+
+const TypedTooltip = Tooltip as unknown as (props: ButtonTooltipProps & { children?: ReactNode; text: ReactNode; wrapperClassName?: string }) => ReactNode;
+
+export const Button = (props: ButtonProps) => {
+	const {
+		children,
+		icon,
+		size = 'default',
+		type = 'default',
+		flat,
+		pending,
+		pendingAriaLabel = __('Loading', 'eightshift-ui-components'),
+		disabled,
+		className,
+		tooltip: rawTooltip,
+		onPress,
+		forwardedRef,
+		wrapperClassName,
+		tooltipProps,
+		'aria-label': rawAriaLabel,
+		hidden,
+		...other
+	} = props;
+
+	const ariaLabel = rawAriaLabel ?? (typeof children === 'string' ? children : __('Menu item', 'eightshift-ui-components'));
+	let tooltip = rawTooltip;
+
+	if (rawTooltip === true && ariaLabel.length > 0) {
+		tooltip = ariaLabel;
+	}
+
+	const resolvedTooltip = tooltip === true ? ariaLabel : tooltip;
+
+	const objRef = useObjectRef<HTMLButtonElement>(forwardedRef);
+	const componentClasses = createComponentClasses({ className, flat, pending });
+
+	if (hidden) {
+		return null;
+	}
 
 	const component = (
 		<ReactAriaButton
@@ -415,8 +433,8 @@ export const Button = (props) => {
 				disabled: !pending && disabled,
 				hasIcon: Boolean(icon),
 				iconOnly: Boolean(icon && !children),
-				size: size,
-				type: type,
+				size,
+				type,
 			})}
 			ref={objRef}
 			aria-label={ariaLabel}
@@ -426,57 +444,44 @@ export const Button = (props) => {
 				<>
 					{icon}
 					{children}
-					{isPending && (
+					{isPending ? (
 						<ProgressBar
 							aria-label={pendingAriaLabel}
 							className='es:sr-only'
 							isIndeterminate
 						/>
-					)}
+					) : null}
 				</>
 			)}
 		</ReactAriaButton>
 	);
 
-	if (!tooltip) {
+	if (!resolvedTooltip) {
 		return component;
 	}
 
 	return (
-		<Tooltip
-			text={tooltip}
+		<TypedTooltip
+			text={resolvedTooltip}
 			wrapperClassName={wrapperClassName}
 			{...tooltipProps}
 		>
 			{component}
-		</Tooltip>
+		</TypedTooltip>
 	);
 };
 
-/**
- * A wrapper for `Button` or `ToggleButton` components that visually groups them and ensures proper keyboard navigation.
- *
- * **Note**: Only intended for horizontal groups of buttons that don't wrap.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {string} [props.className] - Classes to pass to the button group container.
- * @param {boolean} [props.vertical] - If `true`, the buttons are displayed vertically.
- * @param {ButtonGroupType} [props.type='segmented'] - The way the button group is laid out.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- *
- * @returns {JSX.Element} The ButtonGroup component.
- *
- * @typedef {'segmented' | 'split'} ButtonGroupType
- *
- * @example
- * <ButtonGroup>
- *     <Button />
- *     <Button />
- *     <Button />
- * </ButtonGroup>
- */
-export const ButtonGroup = ({ children, className, vertical, hidden, type = 'segmented', ...rest }) => {
+type ButtonGroupProps = Omit<ComponentPropsWithoutRef<typeof Toolbar>, 'children' | 'className' | 'orientation'> & {
+	children?: ReactNode;
+	className?: string;
+	vertical?: boolean;
+	type?: ButtonGroupType;
+	hidden?: boolean;
+};
+
+export const ButtonGroup = (props: ButtonGroupProps) => {
+	const { children, className, vertical, hidden, type = 'segmented', ...rest } = props;
+
 	if (hidden) {
 		return null;
 	}
