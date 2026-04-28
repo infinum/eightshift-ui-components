@@ -33,7 +33,7 @@ export default defineConfig(() => {
 					[
 						...glob
 							.sync('lib/**/*.{ts,tsx,js,jsx,woff2}', {
-								ignore: ['lib/**/*.d.ts'],
+								ignore: ['lib/**/*.d.ts', 'lib/components/smart-image/image-analysis-worker.ts'],
 							})
 							.map((file) => [
 								// 1. The name of the entry point

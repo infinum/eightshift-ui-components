@@ -4,7 +4,6 @@ import { cloneElement, useEffect, useRef, useState, type CSSProperties, type Com
 import { imageError } from '../../icons/internal';
 import { cyrb64Hash } from '../../utilities/hash';
 import { DecorativeTooltip } from '../tooltip/tooltip';
-import WORKER_CODE from './image-analysis-worker.js?raw';
 
 type AnalysisSource = 'worker' | 'cache' | 'analysisData';
 
@@ -168,13 +167,10 @@ const SmartImage = (props: SmartImageProps) => {
 	const lastAnalysisNotificationKeyRef = useRef<string | null>(null);
 
 	useEffect(() => {
-		const blob = new Blob([WORKER_CODE], { type: 'application/javascript' });
-		const url = URL.createObjectURL(blob);
-		workerRef.current = new Worker(url);
+		workerRef.current = new Worker(new URL('./image-analysis-worker.ts', import.meta.url), { type: 'module' });
 
 		return () => {
 			workerRef.current?.terminate();
-			URL.revokeObjectURL(url);
 		};
 	}, []);
 
