@@ -1,67 +1,60 @@
 import { clsx } from 'clsx';
+import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
 import { file } from '../../icons/internal';
 import { truncateMiddle } from '../../utilities';
 import { SmartImage } from '../smart-image/smart-image';
 
-/**
- * A shell for a file picker UI, handling both rich visual presentation (e.g. images) and simple file placeholders.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {string} [props.url] - Current file URL.
- * @param {ShellType} [props.type='file'] - File type icon override.
- * @param {JSX.Element} [props.icon] - Icon to display within the button.
- * @param {string} [props.className] - Classes to pass to the component.
- * @param {JSX.Element|JSX.Element[]} [props.noUrlContent] - Content to display if no file is selected.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- *
- * @typedef {'image' | 'file'} ShellType
- *
- * @returns {JSX.Element} The FilePickerShell component.
- *
- * @example
- * <FilePickerShell
- *     className='es:w-full'
- *     url='myfile.json'
- *     noUrlContent={<Button size='large'>Upload</Button>}
- * >
- *     <Button flat>Replace</Button>
- *     <Button flat>Remove</Button>
- * </FilePickerShell>
- *
- * @example
- * <FilePickerShell
- *     className='es:w-full'
- *     url='https://picsum.photos/300/200'
- *     noUrlContent={<Button size='large'>Upload</Button>}
- *     type='image'
- * >
- *     <Button type='glass'>Replace</Button>
- *     <Button type='glass'>Remove</Button>
- * </FilePickerShell>
- */
-export const FilePickerShell = (props) => {
-	const {
-		url,
-		type = 'file',
+type ShellType = 'image' | 'file';
 
-		icon = file,
+type SmartImageClassNameContext = {
+	hasAnalysed?: boolean;
+	isTransparent?: boolean;
+	transparencyInfo?: {
+		left?: boolean;
+		right?: boolean;
+		top?: boolean;
+		bottom?: boolean;
+	};
+	isDark?: boolean;
+	hasError?: boolean;
+};
 
-		children,
-		className,
-		noUrlContent,
+type SmartImageChildContext = {
+	image?: ReactNode;
+	dominantColors?: Array<{ color?: string; isDark?: boolean; saturation?: number }>;
+	isDark?: boolean;
+	hasAnalysed?: boolean;
+	isTransparent?: boolean;
+	hasError?: boolean;
+	errorBadge?: ReactNode;
+};
 
-		hidden,
+type FilePickerShellProps = Omit<ComponentPropsWithoutRef<'div'>, 'children'> & {
+	url?: string;
+	type?: ShellType;
+	icon?: ReactNode;
+	className?: string;
+	children?: ReactNode | ((context: { dominantColors?: SmartImageChildContext['dominantColors']; isDark?: boolean; isTransparent?: boolean; hasError?: boolean }) => ReactNode);
+	noUrlContent?: ReactNode;
+	hidden?: boolean;
+};
 
-		...rest
-	} = props;
+const TypedSmartImage = SmartImage as unknown as (props: {
+	src?: string;
+	alt?: string;
+	className?: (context: SmartImageClassNameContext) => string;
+	children?: (context: SmartImageChildContext) => ReactNode;
+}) => ReactNode;
+
+export const FilePickerShell = (props: FilePickerShellProps) => {
+	const { url, type = 'file', icon = file, children, className, noUrlContent, hidden, ...rest } = props;
 
 	if (hidden) {
 		return null;
 	}
 
 	if (!url) {
-		return noUrlContent && <div className={clsx('es:grid es:auto-cols-fr es:grid-flow-col es:gap-2 es:p-px es:w-full')}>{noUrlContent}</div>;
+		return noUrlContent ? <div className={clsx('es:grid es:auto-cols-fr es:grid-flow-col es:gap-2 es:p-px es:w-full')}>{noUrlContent}</div> : null;
 	}
 
 	if (type !== 'image') {
@@ -73,20 +66,20 @@ export const FilePickerShell = (props) => {
 					className,
 				)}
 			>
-				{type === 'file' && (
+				{type === 'file' ? (
 					<div className='es:grow es:flex es:flex-col es:gap-2 es:text-sm es:items-center-safe es:justify-center es:font-mono es:icon:size-6 es:rounded-xl es:bg-white/50 es:inset-ring es:inset-ring-surface-100 es:icon:text-surface-500 es:text-surface-700 es:px-2 es:py-4'>
 						{icon}
 						<span className='es:line-clamp-1'>{truncateMiddle(url, 34)}</span>
 					</div>
-				)}
+				) : null}
 
-				{children && <div className='es:flex es:items-center-safe es:gap-0.75 es-button-group-h'>{children}</div>}
+				{children && typeof children !== 'function' ? <div className='es:flex es:items-center-safe es:gap-0.75 es-button-group-h'>{children}</div> : null}
 			</div>
 		);
 	}
 
 	return (
-		<SmartImage
+		<TypedSmartImage
 			src={url}
 			alt=''
 			className={({ hasAnalysed, isTransparent, transparencyInfo, isDark, hasError }) =>
@@ -101,10 +94,9 @@ export const FilePickerShell = (props) => {
 					hasError && 'es:rounded-xl',
 				)
 			}
-			{...rest}
 		>
 			{({ image, dominantColors, isDark, hasAnalysed, isTransparent, hasError, errorBadge }) => {
-				const dominantDisplayColor = dominantColors?.find((c) => c.saturation > 0.25) || dominantColors?.[0];
+				const dominantDisplayColor = dominantColors?.find((color) => (color.saturation ?? 0) > 0.25) || dominantColors?.[0];
 
 				return (
 					<div
@@ -125,11 +117,11 @@ export const FilePickerShell = (props) => {
 								: {}
 						}
 					>
-						{!hasError && image}
+						{!hasError ? image : null}
 
-						{hasError && errorBadge}
+						{hasError ? errorBadge : null}
 
-						{children && (
+						{children ? (
 							<div
 								className={clsx(
 									'es:flex es:items-center-safe es:gap-0.75',
@@ -141,10 +133,10 @@ export const FilePickerShell = (props) => {
 							>
 								{typeof children === 'function' ? children({ dominantColors, isDark, isTransparent, hasError }) : children}
 							</div>
-						)}
+						) : null}
 					</div>
 				);
 			}}
-		</SmartImage>
+		</TypedSmartImage>
 	);
 };
