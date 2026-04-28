@@ -1,19 +1,85 @@
-import { Tabs as ReactAriaTabs, TabList as ReactAriaTabList, Tab as ReactAriaTab, TabPanel as ReactAriaTabPanel } from 'react-aria-components';
 import { __, sprintf } from '@wordpress/i18n';
-import { clsx } from 'clsx';
-import { Children, cloneElement, useId, isValidElement } from 'react';
 import { cva } from 'class-variance-authority';
+import { clsx } from 'clsx';
+import { Children, cloneElement, isValidElement, useId, type ComponentPropsWithoutRef, type ReactElement, type ReactNode } from 'react';
+import { Tab as ReactAriaTab, TabList as ReactAriaTabList, TabPanel as ReactAriaTabPanel, Tabs as ReactAriaTabs } from 'react-aria-components';
+
 import { Notice } from '../notice/notice';
 import { RichLabel } from '../rich-label/rich-label';
+
+type TabsType = 'underline' | 'underlineSecondary' | 'pill' | 'pillCompact' | 'bubble' | 'chips';
+
+type TabsProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaTabs>, 'orientation' | 'children'> & {
+	children?: ReactNode;
+	vertical?: boolean;
+	className?: string;
+	type?: TabsType;
+	flat?: boolean;
+	hidden?: boolean;
+};
+
+type TabListProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaTabList>, 'children' | 'className'> & {
+	children?: ReactNode;
+	className?: string;
+	type?: TabsType;
+	flat?: boolean;
+};
+
+type TabProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaTab>, 'className' | 'children' | 'isDisabled'> & {
+	children?: ReactNode;
+	disabled?: boolean;
+	className?: string;
+	badgeClassName?: string;
+	icon?: ReactNode;
+	badge?: ReactNode;
+	invisible?: boolean;
+	label?: ReactNode;
+	subtitle?: ReactNode;
+	id?: string;
+	isParentVertical?: boolean;
+	type?: TabsType;
+	flat?: boolean;
+};
+
+type TabPanelProps = ComponentPropsWithoutRef<typeof ReactAriaTabPanel> & {
+	type?: TabsType;
+	vertical?: boolean;
+	flat?: boolean;
+};
+
+type NamedElement<Props> = ReactElement<Props> & {
+	type: {
+		displayName?: string;
+	};
+};
+
+const isReactElement = <Props,>(child: ReactNode): child is ReactElement<Props> => isValidElement<Props>(child);
+
+const isNamedElement = <Props,>(child: ReactNode, name: string): child is NamedElement<Props> => {
+	if (!isValidElement(child) || typeof child.type === 'string') {
+		return false;
+	}
+
+	return (child.type as { displayName?: string }).displayName === name;
+};
 
 const tabListClasses = cva('es:flex', {
 	variants: {
 		type: {
+			underline: '',
+			underlineSecondary: '',
+			pill: '',
+			pillCompact: '',
 			bubble: 'es:bg-white es:rounded-28 es:p-1.5 es:gap-px',
+			chips: '',
 		},
 		orientation: {
 			horizontal: 'es:overflow-x-auto es:overflow-y-visible es:max-h-none es:items-stretch',
 			vertical: 'es:flex-col es:gap-0.75 es:overflow-y-auto es:self-start es:max-h-[85vh]',
+		},
+		flat: {
+			true: '',
+			false: '',
 		},
 	},
 	compoundVariants: [
@@ -96,8 +162,25 @@ const tabClasses = cva(
 	],
 	{
 		variants: {
+			type: {
+				underline: '',
+				underlineSecondary: '',
+				pill: '',
+				pillCompact: '',
+				bubble: '',
+				chips: '',
+			},
+			vertical: {
+				true: '',
+				false: '',
+			},
+			flat: {
+				true: '',
+				false: '',
+			},
 			invisible: {
 				true: 'es:hidden',
+				false: '',
 			},
 			iconWithLabel: {
 				true: 'es:justify-start',
@@ -110,6 +193,7 @@ const tabClasses = cva(
 					'es:btn-group-v:not-pressed:not-after-current:not-first:rounded-t-sm',
 					'es:btn-group-v:not-pressed:not-before-current:not-last:rounded-b-sm',
 				],
+				true: '',
 			},
 		},
 		compoundVariants: [
@@ -230,7 +314,20 @@ const tabClasses = cva(
 );
 
 const tabIconClasses = cva('es:transition es:duration-200 es:ease-spring-bouncy', {
-	variants: {},
+	variants: {
+		type: {
+			underline: '',
+			underlineSecondary: '',
+			pill: '',
+			pillCompact: '',
+			bubble: '',
+			chips: '',
+		},
+		vertical: {
+			true: '',
+			false: '',
+		},
+	},
 	compoundVariants: [
 		{
 			vertical: true,
@@ -263,7 +360,32 @@ const tabBadgeClasses = cva(
 		'es:any-icon:size-2.5',
 	],
 	{
-		variants: {},
+		variants: {
+			type: {
+				underline: '',
+				underlineSecondary: '',
+				pill: '',
+				pillCompact: '',
+				bubble: '',
+				chips: '',
+			},
+			vertical: {
+				true: '',
+				false: '',
+			},
+			simple: {
+				true: '',
+				false: '',
+			},
+			icon: {
+				true: '',
+				false: '',
+			},
+			flat: {
+				true: '',
+				false: '',
+			},
+		},
 		compoundVariants: [
 			{
 				type: ['underline', 'underlineSecondary', 'bubble'],
@@ -328,7 +450,24 @@ const tabBadgeClasses = cva(
 );
 
 const tabPanelClasses = cva('es:space-y-3 es:text-13 es:any-focus:outline-hidden', {
-	variants: {},
+	variants: {
+		type: {
+			underline: '',
+			underlineSecondary: '',
+			pill: '',
+			pillCompact: '',
+			bubble: '',
+			chips: '',
+		},
+		vertical: {
+			true: '',
+			false: '',
+		},
+		flat: {
+			true: '',
+			false: '',
+		},
+	},
 	compoundVariants: [
 		{
 			type: ['pill', 'pillCompact', 'bubble', 'chips'],
@@ -347,76 +486,44 @@ const tabPanelClasses = cva('es:space-y-3 es:text-13 es:any-focus:outline-hidden
 	},
 });
 
-/**
- * Main tab container.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {boolean} [props.vertical=false] - Whether the tabs are vertical.
- * @param {string} [props.className] - Classes to pass to the tabs container.
- * @param {TabsType} [props.type='underline'] - Design of the tabs.
- * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
- * @param {string} [props.defaultSelectedKey] - **(uncontrolled mode)** The initial selected tab ID.
- * @param {string} [props.selectedKey] - **(controlled mode)** The selected tab ID.
- * @param {Function} [props.onSelectionChange] - Handler that is called when the selection changes. `(key: string) => void`.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- *
- * @returns {JSX.Element} The Tabs component.
- *
- * @typedef {'underline' | 'underlineSecondary' | 'pill' | 'pillCompact' | 'bubble' | 'chips'} TabsType
- *
- * @example
- * <Tabs>
- * 	<TabList>
- * 		<Tab>Tab 1</Tab>
- * 		<Tab>Tab 2</Tab>
- * 	</TabList>
- * 	<TabPanel>Content 1</TabPanel>
- * 	<TabPanel>Content 2</TabPanel>
- * </Tabs>
- */
-export const Tabs = (props) => {
+export const Tabs = (props: TabsProps) => {
 	const { children, vertical, className, hidden, type = 'underline', flat, ...rest } = props;
-
 	const baseId = useId();
 
 	if (hidden) {
 		return null;
 	}
 
-	let tabPanelCounter = 1;
-	let tabCounter = 1;
-
 	const preparedChildren = Children.toArray(children);
+	const firstTabList = preparedChildren.find((child) => isNamedElement<TabListProps>(child, 'TabList'));
+	const tabItems = Children.toArray(firstTabList?.props.children).filter(isReactElement<TabProps>);
+	const realTabIds = tabItems.map((tab, index) => tab.props.id ?? `tab-${baseId}-${index + 1}`);
 
-	const realTabIds = Children.toArray(preparedChildren?.[0]?.props?.children).map((tab, i) => tab?.props?.id ?? `tab-${baseId}-${i + 1}`);
+	let tabCount = 0;
+	let tabPanelCount = 0;
 
-	const childrenWithIds = preparedChildren.reduce((acc, child, index) => {
-		if (!isValidElement(child)) {
-			return acc;
-		}
-
-		if (child.type.displayName === 'TabList') {
-			const childItems = Children.toArray(child?.props?.children);
-
-			tabCounter = (childItems?.length ?? 0) + 1;
+	const childrenWithIds = preparedChildren.reduce<ReactNode[]>((accumulator, child, index) => {
+		if (isNamedElement<TabListProps>(child, 'TabList')) {
+			const childItems = Children.toArray(child.props.children).filter(isReactElement<TabProps>);
+			tabCount = childItems.length;
 
 			if (childItems.length < 1) {
-				return acc;
+				return accumulator;
 			}
 
 			return [
-				...acc,
+				...accumulator,
 				cloneElement(
 					child,
 					{
 						key: index,
-						type: type,
+						type,
+						flat,
 					},
-					childItems?.map((innerChild, i) =>
+					childItems.map((innerChild, innerIndex) =>
 						cloneElement(innerChild, {
-							id: innerChild?.props?.id ?? realTabIds?.[i] ?? `tab-${baseId}-${i + 1}`,
-							key: i,
+							id: innerChild.props.id ?? realTabIds[innerIndex] ?? `tab-${baseId}-${innerIndex + 1}`,
+							key: innerIndex,
 							isParentVertical: vertical,
 							type,
 							flat,
@@ -426,11 +533,14 @@ export const Tabs = (props) => {
 			];
 		}
 
-		if (child.type.displayName === 'TabPanel') {
+		if (isNamedElement<TabPanelProps>(child, 'TabPanel')) {
+			const panelId = realTabIds[tabPanelCount] ?? `tab-${baseId}-${tabPanelCount + 1}`;
+			tabPanelCount += 1;
+
 			return [
-				...acc,
+				...accumulator,
 				cloneElement(child, {
-					id: realTabIds?.[tabPanelCounter++ - 1] ?? `tab-${baseId}-${tabPanelCounter++}`,
+					id: panelId,
 					key: index,
 					className: child.props.className,
 					flat,
@@ -440,18 +550,18 @@ export const Tabs = (props) => {
 			];
 		}
 
-		return acc;
+		return accumulator;
 	}, []);
 
-	if (tabCounter !== tabPanelCounter) {
+	if (tabCount !== tabPanelCount) {
 		return (
 			<Notice
 				type='error'
 				label={__('Component is not configured correctly. Skipping render to prevent errors.', 'eightshift-ui-components')}
 				subtitle={sprintf(
 					__('Number of <Tab>s (%s) and <TabPanel>s (%s) should be the same. <Tab>s should be within a <TabList>.', 'eightshift-ui-components'),
-					tabCounter - 1,
-					tabPanelCounter - 1,
+					String(tabCount),
+					String(tabPanelCount),
 				)}
 				alignIconToTitle
 			/>
@@ -476,18 +586,7 @@ export const Tabs = (props) => {
 
 Tabs.displayName = 'Tabs';
 
-/**
- * Container for tabs within the Tabs component.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {string} [props.className] - Classes to pass to the tab list.
- *
- * @returns {JSX.Element} The TabList component.
- *
- * @see {@link Tabs} for usage example.
- */
-export const TabList = (props) => {
+export const TabList = (props: TabListProps) => {
 	const { children, 'aria-label': ariaLabel, className, type, flat, ...other } = props;
 
 	return (
@@ -503,25 +602,7 @@ export const TabList = (props) => {
 
 TabList.displayName = 'TabList';
 
-/**
- * A tab within the TabList component, in the Tabs component.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {boolean} [props.disabled] - Whether the tab is disabled.
- * @param {string} [props.className] - Classes to pass to the tab.
- * @param {JSX.Element} [props.icon] - Icon to show on the tab.
- * @param {string|JSX.Element} [props.badge] - Badge to render besides the label.
- * @param {boolean} [props.invisible] - If `true`, the tab is disabled and not rendered, but is not unmounted from the DOM.
- * @param {string} [props.label] - Tab label. **Note**: overrides inner items!
- * @param {string} [props.subtitle] - Tab subtitle. **Note**: overrides inner items!
- * @param {string} [props.id] - The tab unique identifier.
- *
- * @returns {JSX.Element} The Tab component.
- *
- * @see {@link Tabs} for usage example.
- */
-export const Tab = (props) => {
+export const Tab = (props: TabProps) => {
 	const { children, disabled, isParentVertical, className, badgeClassName, icon, label, subtitle, type, badge, invisible, flat, ...other } = props;
 
 	return (
@@ -533,22 +614,22 @@ export const Tab = (props) => {
 				className,
 			)}
 		>
-			{icon && <div className={tabIconClasses({ vertical: Boolean(isParentVertical), type })}>{icon}</div>}
+			{icon ? <div className={tabIconClasses({ vertical: Boolean(isParentVertical), type })}>{icon}</div> : null}
 
 			<div className={clsx(!isParentVertical && 'es:flex es:items-center-safe es:gap-1.5', isParentVertical && 'es:contents')}>
-				{subtitle && (
+				{subtitle ? (
 					<RichLabel
 						label={label ?? children}
 						subtitle={subtitle}
 						noColor
 					/>
+				) : (
+					(label ?? children)
 				)}
 
-				{!subtitle && (label ?? children)}
-
-				{badge && (
+				{badge ? (
 					<span className={clsx(tabBadgeClasses({ vertical: Boolean(isParentVertical), type, simple: !isValidElement(badge), icon: Boolean(icon) }), badgeClassName)}>{badge}</span>
-				)}
+				) : null}
 			</div>
 		</ReactAriaTab>
 	);
@@ -556,18 +637,7 @@ export const Tab = (props) => {
 
 Tab.displayName = 'Tab';
 
-/**
- * Container for tab content within the Tabs component.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {string} [props.className] - Classes to pass to the tab content container.
- *
- * @returns {JSX.Element} The TabPanel component.
- *
- * @see {@link Tabs} for usage example.
- */
-export const TabPanel = (props) => {
+export const TabPanel = (props: TabPanelProps) => {
 	const { children, className, type, vertical, ...other } = props;
 
 	return (
