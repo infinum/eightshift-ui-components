@@ -1,10 +1,10 @@
-import { __ } from '@wordpress/i18n';
-import { Group, Input, Label, NumberField } from 'react-aria-components';
-import { Button, ButtonGroup } from '../button/button';
-import { chevronDown, chevronUp } from '../../icons/internal';
+import { cva, type VariantProps } from 'class-variance-authority';
 import { clsx } from 'clsx';
-import { BaseControl } from '../base-control/base-control';
-import { cva } from 'class-variance-authority';
+import { type ComponentPropsWithoutRef, type CSSProperties, type ReactNode } from 'react';
+import { Group, Input, Label, NumberField } from 'react-aria-components';
+import { chevronDown, chevronUp } from '../../icons/internal';
+import { BaseControl, type BaseControlProps } from '../base-control/base-control';
+import { Button, ButtonGroup } from '../button/button';
 
 const inputClass = cva(
 	[
@@ -32,6 +32,14 @@ const inputClass = cva(
 			disabled: {
 				false: 'es:selection:bg-surface-100 es:selection:text-accent-800',
 				true: 'es:selection:bg-secondary-200 es:selection:text-secondary-600',
+			},
+			flat: {
+				false: null,
+				true: null,
+			},
+			readOnly: {
+				false: null,
+				true: null,
 			},
 		},
 		compoundVariants: [
@@ -70,70 +78,73 @@ const inputClass = cva(
 	},
 );
 
-/**
- * A number picker component.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {number} props.value - The current value of the number picker.
- * @param {Function} props.onChange - Function to run when the value changes.
- * @param {number} [props.min=0] - The minimum value of the number picker.
- * @param {number} [props.max] - The maximum value of the number picker.
- * @param {number} [props.step=1] - The step value of the number picker.
- * @param {string} [props.label] - The label of the number picker.
- * @param {JSX.Element} [props.icon] - Icon to display within the number picker.
- * @param {string} [props.subtitle] - The subtitle of the number picker.
- * @param {string} [props.help] - The help text shown below the number picker.
- * @param {boolean} [props.readOnly] - If `true`, the number picker is read-only.
- * @param {boolean} [props.disabled] - If `true`, the number picker is disabled.
- * @param {string} [props.placeholder] - Placeholder text to display in the number picker.
- * @param {JSX.Element} [props.prefix] - Element to display to the left of the number picker.
- * @param {JSX.Element} [props.suffix] - Element to display to the right of the number picker.
- * @param {number} [props.fixedWidth] - If passed, sets the width of the input field to the provided number of characters. Useful if you have e.g. value from 1 to 1000, but you don't want the input field to change size when on lower values.
- * @param {boolean} [props.inline] - If `true`, the number picker is displayed inline.
- * @param {boolean} [props.noScrollToChange=false] - If `true`, the number picker does not change value when scrolling.
- * @param {InputSize} [props.size='default'] - Determines the input field size.
- * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- *
- * @returns {JSX.Element} The NumberPicker component.
- *
- * @typedef {'small' | 'medium' | 'default' | 'large'} InputSize
- *
- * @example
- * <NumberPicker
- * 	value={value}
- * 	onChange={setValue}
- * />
- */
-export const NumberPicker = ({
-	value,
-	onChange,
-	min = 0,
-	max,
-	step = 1,
-	label,
-	icon,
-	subtitle,
-	help,
-	readOnly,
-	disabled,
-	placeholder,
-	prefix,
-	fixedWidth = null,
-	suffix,
-	children,
-	inline,
-	noScrollToChange = false,
-	size = 'default',
-	flat,
-	className,
-	hidden,
-	...props
-}) => {
+type InputSize = NonNullable<VariantProps<typeof inputClass>['size']>;
+
+type SharedNumberFieldProps = Omit<
+	ComponentPropsWithoutRef<typeof NumberField>,
+	'children' | 'value' | 'defaultValue' | 'onChange' | 'isDisabled' | 'isReadOnly' | 'minValue' | 'maxValue' | 'step'
+>;
+
+type NumberPickerProps = SharedNumberFieldProps &
+	Omit<BaseControlProps<typeof Label>, 'actions'> & {
+		value?: number;
+		onChange?: (value: number) => void;
+		min?: number;
+		max?: number;
+		step?: number;
+		readOnly?: boolean;
+		disabled?: boolean;
+		placeholder?: string;
+		prefix?: ReactNode;
+		suffix?: ReactNode;
+		fixedWidth?: number | null;
+		children?: ReactNode;
+		inline?: boolean;
+		noScrollToChange?: boolean;
+		size?: InputSize;
+		flat?: boolean;
+		className?: string;
+		hidden?: boolean;
+	};
+
+const TypedButton = Button as unknown as (props: { className?: string; icon?: ReactNode; slot?: string; type?: string; size?: string; disabled?: boolean }) => ReactNode;
+
+const TypedButtonGroup = ButtonGroup as (props: { children?: ReactNode; className?: string; vertical?: boolean }) => ReactNode;
+
+export const NumberPicker = (props: NumberPickerProps) => {
+	const {
+		value,
+		onChange,
+		min = 0,
+		max,
+		step = 1,
+		label,
+		icon,
+		subtitle,
+		help,
+		readOnly,
+		disabled,
+		placeholder,
+		prefix,
+		fixedWidth = null,
+		suffix,
+		children,
+		inline,
+		noScrollToChange = false,
+		size = 'default',
+		flat,
+		className,
+		hidden,
+		...other
+	} = props;
+
 	if (hidden) {
 		return null;
 	}
+
+	const inputWidth: CSSProperties['width'] = fixedWidth
+		? `calc(${fixedWidth}ch + 2px)`
+		: `calc(${min < 0 ? '1ch + ' : '0.75ch + '}${Math.max((max ?? 1000).toString().length, (placeholder ?? '').length)} * 1ch)`;
 
 	return (
 		<NumberField
@@ -145,7 +156,7 @@ export const NumberPicker = ({
 			maxValue={max}
 			step={step}
 			isWheelDisabled={noScrollToChange}
-			{...props}
+			{...other}
 		>
 			<BaseControl
 				labelAs={Label}
@@ -157,26 +168,22 @@ export const NumberPicker = ({
 			>
 				<div className='es:flex es:gap-1'>
 					<Group className={clsx(inputClass({ disabled, flat, size, readOnly }), className)}>
-						{prefix && (
+						{prefix ? (
 							<span
 								slot='prefix'
 								className='es:mr-1 es:-translate-y-px es:select-none es:leading-none es:text-current/65 es:font-variation-["wdth"_76,"wght"_325,"slnt"_-2,"ROND"_100] es:group-focus-within:text-surface-500'
 							>
 								{prefix}
 							</span>
-						)}
+						) : null}
 
 						<Input
 							className='es:font-variation-["wdth"_80,"wght"_325,"slnt"_0,"ROND"_100] es:placeholder-shown:font-variation-["wdth"_60,"wght"_300,"slnt"_-10,"ROND"_0] es:any-focus:outline-hidden! es:p-px! es:border-none! es:shadow-none! es:bg-transparent es:text-13!'
 							placeholder={placeholder}
-							style={{
-								width: fixedWidth
-									? `calc(${fixedWidth}ch + 2px)`
-									: `calc(${min < 0 ? '1ch + ' : '0.75ch + '}${Math.max((max ?? 1000)?.toString()?.length, (placeholder ?? '')?.length)} * 1ch)`,
-							}}
+							style={{ width: inputWidth }}
 						/>
 
-						<ButtonGroup
+						<TypedButtonGroup
 							className={clsx(
 								'es:hidden es:transition-discrete es:gap-0! es:transition es:pl-0.5 es:ease-spring-smooth es:duration-300 es:origin-left',
 								'es:starting:opacity-0 es:starting:translate-x-2',
@@ -186,7 +193,7 @@ export const NumberPicker = ({
 							)}
 							vertical
 						>
-							<Button
+							<TypedButton
 								type='ghost'
 								className={clsx(
 									'es:col-start-4 es:w-4 es:disabled:opacity-40 es:text-current/80 es:group-focus-within:text-surface-500 es:icon:size-[0.65rem] es:icon:stroke-2',
@@ -195,7 +202,7 @@ export const NumberPicker = ({
 								slot='increment'
 								icon={chevronUp}
 							/>
-							<Button
+							<TypedButton
 								type='ghost'
 								className={clsx(
 									'es:col-start-4 es:w-4 es:disabled:opacity-40 es:text-current/80 es:group-focus-within:text-surface-500 es:icon:size-[0.65rem] es:icon:stroke-2',
@@ -204,16 +211,16 @@ export const NumberPicker = ({
 								slot='decrement'
 								icon={chevronDown}
 							/>
-						</ButtonGroup>
+						</TypedButtonGroup>
 
-						{suffix && (
+						{suffix ? (
 							<span
 								slot='suffix'
 								className='es:ml-1 es:-translate-y-px es:select-none es:leading-none es:text-current/60 es:font-variation-["wdth"_76,"wght"_325,"slnt"_-2,"ROND"_100] es:group-focus-within:text-surface-500'
 							>
 								{suffix}
 							</span>
-						)}
+						) : null}
 					</Group>
 
 					{children}
