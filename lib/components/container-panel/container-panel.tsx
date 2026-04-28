@@ -1,42 +1,33 @@
-import { useState } from 'react';
 import { clsx } from 'clsx';
+import { type ReactNode, useState } from 'react';
 import { Disclosure, DisclosurePanel } from 'react-aria-components';
-import { Switch } from '../toggle/switch';
-import { Button } from '../button/button';
 import { chevronDown } from '../../icons/internal';
-import { HStack } from '../layout/hstack';
 import { BaseControl } from '../base-control/base-control';
+import { Button } from '../button/button';
+import { HStack } from '../layout/hstack';
+import { Switch } from '../toggle/switch';
 
-/**
- * Component that provides a container panel for options, with an optional title.
- * Best used within the Gutenberg sidebar, instead of the default `PanelBody` component.
- * Ensures that the content is spaced nicely.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {string} [props.className] - Classes to pass to the container.
- * @param {string} [props.title] - Title to display on the top of the panel.
- * @param {JSX.Element} [props.icon] - Icon to display on the top of the panel.
- * @param {string} [props.subtitle] - Subtitle to display on the top of the panel.
- * @param {boolean} [props.use] - Controls the panel use toggle.
- * @param {Function} [props.onUseChange] - Function to call when the use toggle is toggled. `(value: boolean) => void`.
- * @param {boolean} [props.closable] - If `true`, the panel can be closed. Will not show if `title` is not set.
- * @param {boolean} [props.startOpen=false] - Controls whether the panel is open by default.
- * @param {boolean} [props.topBorder=false] - If `true`, a border is added to the top of the panel.
- * @param {boolean} [props.accentLabel=false] - If `true`, the title and icon are tinted.
- * @param {boolean} [props.accentIcon=false] - If `true`, the icon is tinted.
- * @param {boolean} [props.noLabelInset=false] - If `true`, the label is not slightly inset, to better align with rounded containers.
- * @param {JSX.Element} [props.actions] - Actions to show at the end
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- *
- * @returns {JSX.Element} The ContainerPanel component.
- *
- * @example
- * <ContainerPanel title='Paragraph'>
- * 	...
- * </ContainerPanel>
- */
-export const ContainerPanel = (props) => {
+type ContainerPanelProps = {
+	children?: ReactNode;
+	className?: string;
+	title?: ReactNode;
+	icon?: ReactNode;
+	subtitle?: ReactNode;
+	use?: boolean;
+	onUseChange?: (value: boolean) => void;
+	closable?: boolean;
+	startOpen?: boolean;
+	topBorder?: boolean;
+	accentLabel?: boolean;
+	accentIcon?: boolean;
+	noLabelInset?: boolean;
+	actions?: ReactNode;
+	hidden?: boolean;
+};
+
+const TypedButton = Button as (props: { slot?: string; onPress?: () => void; icon?: ReactNode; type?: string; size?: string; className?: string; disabled?: boolean }) => ReactNode;
+
+export const ContainerPanel = (props: ContainerPanelProps) => {
 	const {
 		children,
 		className,
@@ -66,14 +57,14 @@ export const ContainerPanel = (props) => {
 	}
 
 	const justUse = !closable && typeof onUseChange !== 'undefined';
-	const justClosable = closable && typeof onUseChange === 'undefined';
-	const useAndClosable = closable && typeof onUseChange !== 'undefined';
-	const shouldUseDisclosure = closable || typeof use !== 'undefined';
+	const justClosable = Boolean(closable) && typeof onUseChange === 'undefined';
+	const useAndClosable = Boolean(closable) && typeof onUseChange !== 'undefined';
+	const shouldUseDisclosure = Boolean(closable) || typeof use !== 'undefined';
 
-	let isExpanded = use;
+	let isExpanded = Boolean(use);
 
 	if (closable) {
-		isExpanded = typeof use !== 'undefined' ? use && open : open;
+		isExpanded = typeof use !== 'undefined' ? Boolean(use) && open : open;
 	}
 
 	return (
@@ -109,8 +100,8 @@ export const ContainerPanel = (props) => {
 							hidden={!closable && !onUseChange}
 							className='es:ml-auto'
 						>
-							{closable && (
-								<Button
+							{closable ? (
+								<TypedButton
 									slot='trigger'
 									onPress={() => setOpen(!open)}
 									icon={chevronDown}
@@ -119,7 +110,7 @@ export const ContainerPanel = (props) => {
 									className={clsx('es:icon:size-4! es:icon:transition-transform', isExpanded && 'es:icon:-scale-y-100')}
 									disabled={typeof use !== 'undefined' && !use}
 								/>
-							)}
+							) : null}
 						</HStack>
 					</>
 				}
@@ -147,8 +138,8 @@ export const ContainerPanel = (props) => {
 					!accentLabel && 'es:text-surface-700',
 				)}
 			>
-				{!shouldUseDisclosure && children}
-				{shouldUseDisclosure && (
+				{!shouldUseDisclosure ? children : null}
+				{shouldUseDisclosure ? (
 					<DisclosurePanel
 						className={clsx(
 							'es:h-(--disclosure-panel-height) es:overflow-hidden',
@@ -159,7 +150,7 @@ export const ContainerPanel = (props) => {
 					>
 						<div className='es:space-y-2 es:px-4'>{children}</div>
 					</DisclosurePanel>
-				)}
+				) : null}
 			</BaseControl>
 		</Disclosure>
 	);
