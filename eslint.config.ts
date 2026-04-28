@@ -58,34 +58,6 @@ const sharedRules: Linter.RulesRecord = {
 
 export default [
 	includeIgnoreFile(gitignorePath),
-	{
-		files: ['**/*.js', '**/*.jsx', '**/*.cjs'],
-		languageOptions: {
-			parserOptions: {
-				ecmaFeatures: {
-					jsx: true,
-				},
-			},
-			globals: {
-				...globals.serviceworker,
-				...globals.browser,
-			},
-		},
-		plugins: {
-			'@stylistic': stylistic,
-			'react-hooks': reactHooks,
-			react,
-		},
-		rules: {
-			...sharedRules,
-			'react/prop-types': ['error', { skipUndeclared: true }],
-		},
-		settings: {
-			react: {
-				version: '18',
-			},
-		},
-	},
 	...tseslint.config({
 		files: ['**/*.ts', '**/*.tsx'],
 		extends: [tseslint.configs.recommendedTypeChecked],

@@ -11,8 +11,6 @@
 		"noFallthroughCasesInSwitch": true,
 		"verbatimModuleSyntax": true,
 		"isolatedModules": true,
-		"allowJs": true,
-		"checkJs": false,
 		"allowImportingTsExtensions": true,
 		"noEmit": true,
 		"declaration": false,

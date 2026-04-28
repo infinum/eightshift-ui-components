@@ -91,7 +91,6 @@
 		"css-gradient-parser": "^0.0.18",
 		"eslint": "^10.2.0",
 		"eslint-config-prettier": "^10.1.8",
-		"eslint-plugin-jsdoc": "^62.9.0",
 		"eslint-plugin-prettier": "^5.5.5",
 		"glob": "^13.0.6",
 		"globals": "^17.5.0",
@@ -119,7 +118,6 @@
 		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.58.2",
 		"vite": "^8.0.8",
-		"vite-plugin-dts": "^4.5.4",
 		"vite-plugin-lib-inject-css": "^2.2.2"
 	},
 	"dependencies": {

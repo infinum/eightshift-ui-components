@@ -1,6 +1,6 @@
 import { __, _n, sprintf } from '@wordpress/i18n';
 import clsx from 'clsx';
-import { type Key, type Selection } from '@react-types/shared';
+import type { Key, Selection } from '@react-types/shared';
 import {
 	Autocomplete,
 	Button,
