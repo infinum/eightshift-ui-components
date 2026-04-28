@@ -1,6 +1,7 @@
-import { ToggleButton as ReactAriaToggleButton } from 'react-aria-components';
-import { cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 import clsx from 'clsx';
+import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
+import { ToggleButton as ReactAriaToggleButton } from 'react-aria-components';
 import { Tooltip } from '../tooltip/tooltip';
 
 const componentClasses = cva(
@@ -29,9 +30,26 @@ const componentClasses = cva(
 					'es:btn-group-v:not-pressed:not-after-current:not-first:rounded-t-sm',
 					'es:btn-group-v:not-pressed:not-before-current:not-last:rounded-b-sm',
 				],
+				true: null,
 			},
-
 			flat: {
+				true: null,
+				false: null,
+			},
+			type: {
+				default: null,
+				ghost: null,
+				simple: null,
+			},
+			disabled: {
+				true: null,
+				false: null,
+			},
+			hasIcon: {
+				true: null,
+				false: null,
+			},
+			iconOnly: {
 				true: null,
 				false: null,
 			},
@@ -158,7 +176,7 @@ const componentClasses = cva(
 				],
 			},
 			{
-				type: ['default'],
+				type: 'default',
 				disabled: true,
 				class: [
 					'es:bg-linear-to-br es:from-secondary-50 es:to-secondary-100',
@@ -167,7 +185,7 @@ const componentClasses = cva(
 				],
 			},
 			{
-				type: ['ghost'],
+				type: 'ghost',
 				disabled: true,
 				class: ['es:text-secondary-500 es:any-icon:text-secondary-500/50'],
 			},
@@ -242,55 +260,39 @@ const componentClasses = cva(
 			selected: false,
 			disabled: false,
 			flat: false,
+			type: 'default',
+			size: 'default',
+			hasIcon: false,
+			iconOnly: false,
 		},
 	},
 );
 
-/**
- * @typedef {import('../tooltip/tooltip').TooltipProps} TooltipProps
- * */
+type ToggleButtonSize = NonNullable<VariantProps<typeof componentClasses>['size']>;
+type ToggleButtonType = NonNullable<VariantProps<typeof componentClasses>['type']>;
 
-/**
- * A simple toggle button component.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {JSX.Element} [props.icon] - Icon to display within the button.
- * @param {ToggleButtonSize} [props.size='default'] - The size of the button.
- * @param {ToggleButtonType} [props.type='default'] - The type of the button.
- * @param {boolean} [props.disabled] - If `true`, the button is disabled.
- * @param {string} [props.className] - Classes to pass to the button.
- * @param {string|boolean} [props.tooltip] - Tooltip text to display on hover.
- * @param {boolean} props.selected - Whether the button is selected.
- * @param {Function} [props.onChange] - Function to run when the toggle state changes.
- * @param {string} [props.wrapperClassName] - Classes to pass to the tooltip wrapper.
- * @param {TooltipProps} [props.tooltipProps] - Props to pass to the tooltip.
- * @param {boolean} [props.flat] - If `true`, component will look more flat (applies only to `default` type). Useful for nested layer of controls.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- *
- * @returns {JSX.Element} The ToggleButton component.
- *
- * @typedef {'small' | 'default' | 'large'} ToggleButtonSize
- * @typedef {'default'| 'ghost' | 'simple'} ToggleButtonType
- *
- * @example
- * const [selected, setSelected] = useState(false);
- *
- * <ToggleButton
- * 	selected={selected}
- * 	onChange={setSelected}
- * 	icon={myIcon}
- * 	/>
- *
- * <ToggleButton
- * 		selected={selected}
- * 		onChange={setSelected}
- * 		icon={myIcon}
- * >
- * 		My button
- * </ToggleButton>
- */
-export const ToggleButton = (props) => {
+type ReactAriaToggleButtonProps = ComponentPropsWithoutRef<typeof ReactAriaToggleButton>;
+type TooltipComponentProps = ComponentPropsWithoutRef<typeof Tooltip>;
+
+type ToggleButtonProps = Omit<ReactAriaToggleButtonProps, 'children' | 'className' | 'isSelected' | 'isDisabled' | 'onChange'> & {
+	children?: ReactNode;
+	icon?: ReactNode;
+	size?: ToggleButtonSize;
+	type?: ToggleButtonType;
+	disabled?: boolean;
+	className?: string;
+	tooltip?: string | boolean;
+	selected: boolean;
+	onChange?: (value: boolean) => void;
+	wrapperClassName?: string;
+	tooltipProps?: TooltipComponentProps;
+	flat?: boolean;
+	hidden?: boolean;
+};
+
+const TypedTooltip = Tooltip as (props: TooltipComponentProps & { children?: ReactNode; wrapperClassName?: string }) => ReactNode;
+
+export const ToggleButton = (props: ToggleButtonProps) => {
 	const {
 		children,
 		icon,
@@ -315,7 +317,7 @@ export const ToggleButton = (props) => {
 
 	let tooltip = rawTooltip;
 
-	if (rawTooltip === true && ariaLabel?.length > 0) {
+	if (rawTooltip === true && typeof ariaLabel === 'string' && ariaLabel.length > 0) {
 		tooltip = ariaLabel;
 	}
 
@@ -326,13 +328,13 @@ export const ToggleButton = (props) => {
 			isDisabled={disabled}
 			className={clsx(
 				componentClasses({
-					disabled: disabled,
-					selected: selected,
+					disabled,
+					selected,
 					hasIcon: Boolean(icon),
-					iconOnly: Boolean(icon) && Boolean(!children),
+					iconOnly: Boolean(icon) && !children,
 					flat: Boolean(flat),
-					size: size,
-					type: type,
+					size,
+					type,
 				}),
 				className,
 			)}
@@ -343,17 +345,17 @@ export const ToggleButton = (props) => {
 		</ReactAriaToggleButton>
 	);
 
-	if (!tooltip) {
+	if (!tooltip || tooltip === true) {
 		return component;
 	}
 
 	return (
-		<Tooltip
+		<TypedTooltip
 			text={tooltip}
 			wrapperClassName={wrapperClassName}
 			{...tooltipProps}
 		>
 			{component}
-		</Tooltip>
+		</TypedTooltip>
 	);
 };
