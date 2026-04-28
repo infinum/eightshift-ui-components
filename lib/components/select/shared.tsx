@@ -1,15 +1,60 @@
 import { __ } from '@wordpress/i18n';
-import { ListBoxItem, Button, SelectStateContext } from 'react-aria-components';
-import { Icon } from '../../icons/internal';
-import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
-import { useContext } from 'react';
 import clsx from 'clsx';
-import { check, clear } from '../../icons/ui-icons';
+import { useContext, type ComponentPropsWithoutRef, type ReactNode } from 'react';
+import { Button, ListBoxItem, SelectStateContext } from 'react-aria-components';
 
-export const OptionItemBase = (props) => (
+import { Icon } from '../../icons/internal';
+import { check, clear } from '../../icons/ui-icons';
+import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
+
+type IconValue = string | JSX.Element | null;
+
+type SelectOption = {
+	label: string;
+	value: string;
+	[key: string]: unknown;
+};
+
+type GroupValueMapping = Record<
+	string,
+	{
+		label?: ReactNode;
+		icon?: IconValue;
+		subtitle?: ReactNode;
+		endIcon?: IconValue;
+	}
+>;
+
+type GroupedOption = {
+	key: string;
+	label: ReactNode;
+	icon: ReactNode;
+	subtitle: ReactNode;
+	endIcon: ReactNode;
+	options: SelectOption[];
+};
+
+type OptionItemBaseProps = ComponentPropsWithoutRef<typeof ListBoxItem> & {
+	children?: ReactNode;
+	extraPre?: ReactNode;
+	extraAfter?: ReactNode;
+	selectIndicator?: boolean;
+	value?: SelectOption;
+};
+
+type SelectClearButtonProps = {
+	multi?: boolean;
+};
+
+type SelectStateValue = {
+	value: unknown[] | object | string | null;
+	setValue: (value: null) => void;
+};
+
+export const OptionItemBase = (props: OptionItemBaseProps) => (
 	<ListBoxItem
 		{...props}
-		textValue={props?.value?.label}
+		textValue={props.value?.label}
 		className={({ isSelected }) =>
 			clsx(
 				'es:select-none',
@@ -49,7 +94,7 @@ export const OptionItemBase = (props) => (
 
 				{props.children}
 
-				{props.selectIndicator && (
+				{props.selectIndicator ? (
 					<div
 						className={clsx(
 							'es:transition es:rounded-3xl es:size-5',
@@ -68,7 +113,7 @@ export const OptionItemBase = (props) => (
 							{check}
 						</AnimatedVisibility>
 					</div>
-				)}
+				) : null}
 
 				{props.extraAfter}
 			</>
@@ -76,23 +121,10 @@ export const OptionItemBase = (props) => (
 	</ListBoxItem>
 );
 
-/**
- * Utils for `simpleValue`-capable components.
- */
-
-/**
- * Handles getting the current value.
- *
- * @param {boolean} simpleValue - Whether `simpleValue` is set.
- * @param {string|{label: string, value: string, metadata: Object<string, any>[]}} value - Current value.
- * @param {{label: string, value: string}[]} options - Options passed to the component.
- *
- * @returns Appropriate output for the given input combination.
- */
-export const getValue = (simpleValue, value, options) => {
+export const getValue = (simpleValue: boolean, value: SelectOption[] | SelectOption | string[] | string, options?: SelectOption[]) => {
 	if (Array.isArray(value)) {
 		if (simpleValue) {
-			return value.map((value) => options?.find(({ value: itemValue }) => itemValue === value));
+			return value.map((singleValue) => options?.find(({ value: itemValue }) => itemValue === singleValue));
 		}
 
 		return value;
@@ -105,50 +137,33 @@ export const getValue = (simpleValue, value, options) => {
 	return value;
 };
 
-/**
- * Moves an array item before or after another item in the array.
- *
- * @param {Array} array - The array to modify
- * @param {*} itemToMove - The item to move
- * @param {*} targetItem - The target item to move relative to
- * @param {'before'|'after'} position - Where to place the moved item ('before' or 'after')
- * @returns {Array} - New array with the item moved
- */
-export const moveArrayItem = (array, itemToMove, targetItem, position = 'before') => {
-	// Create a copy to avoid modifying the original array
+export const moveArrayItem = <Item,>(array: Item[], itemToMove: Item, targetItem: Item, position: 'before' | 'after' = 'before') => {
 	const result = [...array];
-
-	// Find indexes
 	const sourceIndex = result.indexOf(itemToMove);
 	const targetIndex = result.indexOf(targetItem);
 
-	// Handle invalid cases
 	if (sourceIndex === -1 || targetIndex === -1) {
-		return result; // Item not found, return unchanged array
+		return result;
 	}
 
-	// Remove item from current position
 	result.splice(sourceIndex, 1);
 
-	// Calculate insertion position (targetIndex may have shifted if sourceIndex < targetIndex)
-	let adjustedTargetIndex;
+	let adjustedTargetIndex = targetIndex;
 
 	if (position === 'after') {
 		adjustedTargetIndex = sourceIndex < targetIndex ? targetIndex : targetIndex + 1;
-	} else if (position === 'before') {
-		adjustedTargetIndex = sourceIndex < targetIndex ? targetIndex - 1 : targetIndex;
+	} else if (sourceIndex < targetIndex) {
+		adjustedTargetIndex = targetIndex - 1;
 	}
 
-	// Insert item at new position
 	result.splice(adjustedTargetIndex, 0, itemToMove);
 
 	return result;
 };
 
-export const SelectClearButton = ({ multi = false }) => {
-	const state = useContext(SelectStateContext);
-
-	const isEmpty = multi ? state?.value === null || state?.value?.length === 0 : state?.value === null;
+export const SelectClearButton = ({ multi = false }: SelectClearButtonProps) => {
+	const state = useContext(SelectStateContext) as SelectStateValue | null;
+	const isEmpty = multi ? state?.value === null || (Array.isArray(state?.value) && state.value.length === 0) : state?.value === null;
 
 	return (
 		<Button
@@ -170,30 +185,21 @@ export const SelectClearButton = ({ multi = false }) => {
 	);
 };
 
-/**
- * Groups options by a key.
- *
- * @param {Object[]} filteredOptions - Options to group.
- * @param {string} groupKey - Key to group by.
- * @param {Object} [groupValueMapping] - Mapping of group keys to labels/icons.
- *
- * @returns {null|Object[]} Grouped options.
- */
-export const getGroupedOptions = (filteredOptions, groupKey, groupValueMapping) => {
-	if (!groupKey || !filteredOptions || filteredOptions?.length === 0) {
+export const getGroupedOptions = (filteredOptions?: SelectOption[] | null, groupKey?: string, groupValueMapping?: GroupValueMapping): GroupedOption[] | null => {
+	if (!groupKey || !filteredOptions || filteredOptions.length === 0) {
 		return null;
 	}
 
-	const groups = filteredOptions.reduce((acc, item) => {
-		const key = item[groupKey] ?? '_other';
+	const groups = filteredOptions.reduce<Record<string, SelectOption[]>>((accumulator, item) => {
+		const key = typeof item[groupKey] === 'string' ? item[groupKey] : '_other';
 
-		if (!acc[key]) {
-			acc[key] = [];
+		if (!accumulator[key]) {
+			accumulator[key] = [];
 		}
 
-		acc[key].push(item);
+		accumulator[key].push(item);
 
-		return acc;
+		return accumulator;
 	}, {});
 
 	return Object.entries(groups).map(([key, options]) => {
@@ -202,9 +208,9 @@ export const getGroupedOptions = (filteredOptions, groupKey, groupValueMapping) 
 		return {
 			key,
 			label: mapping?.label ?? (key === '_other' ? __('Other', 'eightshift-ui-components') : key),
-			icon: mapping?.icon && <Icon icon={mapping?.icon} />,
-			subtitle: mapping?.subtitle || null,
-			endIcon: mapping?.endIcon && <Icon icon={mapping?.endIcon} />,
+			icon: mapping?.icon ? <Icon icon={mapping.icon} /> : null,
+			subtitle: mapping?.subtitle ?? null,
+			endIcon: mapping?.endIcon ? <Icon icon={mapping.endIcon} /> : null,
 			options,
 		};
 	});
