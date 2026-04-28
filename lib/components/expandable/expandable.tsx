@@ -30,18 +30,6 @@ type ExpandableProps = Omit<ComponentPropsWithoutRef<typeof Disclosure>, 'childr
 	children?: ReactNode;
 };
 
-const TypedButton = Button as unknown as (props: {
-	slot?: string;
-	type?: string;
-	icon?: ReactNode;
-	onPress?: () => void;
-	tooltip?: string;
-	disabled?: boolean;
-	className?: string;
-	size?: string;
-	'aria-label'?: string;
-}) => ReactNode;
-
 export const Expandable = (props: ExpandableProps) => {
 	const {
 		icon,
@@ -132,7 +120,7 @@ export const Expandable = (props: ExpandableProps) => {
 					: null}
 
 				{!customOpenButton ? (
-					<TypedButton
+					<Button
 						slot='trigger'
 						type='ghost'
 						icon={dropdownCaretAlt}

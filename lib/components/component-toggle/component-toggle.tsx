@@ -43,10 +43,6 @@ type LegacyExpandableProps = {
 	noFocusHandling?: boolean;
 };
 
-type LegacyButtonGroupProps = {
-	children?: ReactNode;
-};
-
 type LegacyTriggeredPopoverProps = {
 	children?: ReactNode;
 	triggerButtonProps?: {
@@ -69,7 +65,6 @@ type LegacyBaseControlProps = {
 };
 
 const TypedExpandable = Expandable as unknown as (props: LegacyExpandableProps) => ReactNode;
-const TypedButtonGroup = ButtonGroup as unknown as (props: LegacyButtonGroupProps) => ReactNode;
 const TypedTriggeredPopover = TriggeredPopover as unknown as (props: LegacyTriggeredPopoverProps) => ReactNode;
 const TypedBaseControl = BaseControl as unknown as (props: LegacyBaseControlProps) => ReactNode;
 
@@ -107,7 +102,7 @@ export const ComponentToggle = (props: ComponentToggleProps) => {
 		const hasLabel = design === 'compact' || design === 'compactLabel';
 
 		return (
-			<TypedButtonGroup>
+			<ButtonGroup>
 				<ToggleButton
 					icon={hasIcon ? (icon ?? componentGeneric) : undefined}
 					tooltip={hasIcon && !noLabel ? label : undefined}
@@ -128,7 +123,7 @@ export const ComponentToggle = (props: ComponentToggleProps) => {
 					<Spacer text={optionsLabel} />
 					{children}
 				</TypedTriggeredPopover>
-			</TypedButtonGroup>
+			</ButtonGroup>
 		);
 	}
 

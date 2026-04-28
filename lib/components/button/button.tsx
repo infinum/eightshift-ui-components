@@ -366,14 +366,14 @@ const createComponentClasses = ({ className, flat, pending }: { className?: stri
 		},
 	);
 
-type ButtonProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaButton>, 'children' | 'className' | 'isDisabled' | 'isPending' | 'onPress' | 'aria-label'> & {
+type ButtonProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaButton>, 'children' | 'className' | 'isDisabled' | 'isPending' | 'onPress' | 'aria-label' | 'type'> & {
 	children?: ReactNode;
 	icon?: ReactNode;
 	size?: ButtonSize;
 	type?: ButtonType;
 	disabled?: boolean;
 	className?: string;
-	tooltip?: string | boolean;
+	tooltip?: ReactNode;
 	onPress?: ComponentPropsWithoutRef<typeof ReactAriaButton>['onPress'];
 	forwardedRef?: Ref<HTMLButtonElement>;
 	wrapperClassName?: string;

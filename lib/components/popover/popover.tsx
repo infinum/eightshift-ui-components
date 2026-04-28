@@ -4,17 +4,6 @@ import { type ComponentPropsWithoutRef, type CSSProperties, type ReactNode } fro
 import { Dialog, DialogTrigger, Popover as ReactAriaPopover } from 'react-aria-components';
 import { Button } from '../button/button';
 
-type LocalButtonProps = {
-	children?: ReactNode;
-	icon?: ReactNode;
-	className?: string;
-	type?: string;
-	size?: string;
-	disabled?: boolean;
-	tooltip?: ReactNode;
-	'aria-label'?: string;
-};
-
 type ReactAriaPopoverProps = ComponentPropsWithoutRef<typeof ReactAriaPopover>;
 type DialogProps = Omit<ComponentPropsWithoutRef<typeof Dialog>, 'children' | 'className' | 'aria-label'>;
 
@@ -59,10 +48,8 @@ type TriggeredPopoverProps = Omit<PopoverProps, 'triggerRef' | 'isOpen'> & {
 	trigger?: ReactNode;
 	triggerButtonIcon?: ReactNode;
 	triggerButtonLabel?: ReactNode;
-	triggerButtonProps?: LocalButtonProps;
+	triggerButtonProps?: ComponentPropsWithoutRef<typeof Button>;
 };
-
-const TypedButton = Button as unknown as (props: LocalButtonProps) => ReactNode;
 
 export const Popover = (props: PopoverProps) => {
 	const {
@@ -167,12 +154,12 @@ export const TriggeredPopover = (props: TriggeredPopoverProps) => {
 		<DialogTrigger onOpenChange={onOpenChange}>
 			{trigger}
 			{!trigger ? (
-				<TypedButton
+				<Button
 					icon={triggerButtonIcon}
 					{...triggerButtonProps}
 				>
 					{triggerButtonLabel}
-				</TypedButton>
+				</Button>
 			) : null}
 			<Popover
 				placement={placement}

@@ -107,10 +107,6 @@ type NumberPickerProps = SharedNumberFieldProps &
 		hidden?: boolean;
 	};
 
-const TypedButton = Button as unknown as (props: { className?: string; icon?: ReactNode; slot?: string; type?: string; size?: string; disabled?: boolean }) => ReactNode;
-
-const TypedButtonGroup = ButtonGroup as (props: { children?: ReactNode; className?: string; vertical?: boolean }) => ReactNode;
-
 export const NumberPicker = (props: NumberPickerProps) => {
 	const {
 		value,
@@ -183,7 +179,7 @@ export const NumberPicker = (props: NumberPickerProps) => {
 							style={{ width: inputWidth }}
 						/>
 
-						<TypedButtonGroup
+						<ButtonGroup
 							className={clsx(
 								'es:hidden es:transition-discrete es:gap-0! es:transition es:pl-0.5 es:ease-spring-smooth es:duration-300 es:origin-left',
 								'es:starting:opacity-0 es:starting:translate-x-2',
@@ -193,7 +189,7 @@ export const NumberPicker = (props: NumberPickerProps) => {
 							)}
 							vertical
 						>
-							<TypedButton
+							<Button
 								type='ghost'
 								className={clsx(
 									'es:col-start-4 es:w-4 es:disabled:opacity-40 es:text-current/80 es:group-focus-within:text-surface-500 es:icon:size-[0.65rem] es:icon:stroke-2',
@@ -202,7 +198,7 @@ export const NumberPicker = (props: NumberPickerProps) => {
 								slot='increment'
 								icon={chevronUp}
 							/>
-							<TypedButton
+							<Button
 								type='ghost'
 								className={clsx(
 									'es:col-start-4 es:w-4 es:disabled:opacity-40 es:text-current/80 es:group-focus-within:text-surface-500 es:icon:size-[0.65rem] es:icon:stroke-2',
@@ -211,7 +207,7 @@ export const NumberPicker = (props: NumberPickerProps) => {
 								slot='decrement'
 								icon={chevronDown}
 							/>
-						</TypedButtonGroup>
+						</ButtonGroup>
 
 						{suffix ? (
 							<span

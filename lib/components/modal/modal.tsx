@@ -8,18 +8,6 @@ import { HStack } from '../layout/hstack';
 
 type ModalWidth = 'default' | 'wide';
 
-type LocalButtonProps = {
-	children?: ReactNode;
-	icon?: ReactNode;
-	onPress?: () => void;
-	type?: string;
-	size?: string;
-	className?: string | false;
-	tooltip?: string | boolean;
-	disabled?: boolean;
-	'aria-label'?: string;
-};
-
 type ModalProps = Omit<
 	ComponentPropsWithoutRef<typeof ModalOverlay>,
 	'children' | 'className' | 'isDismissable' | 'defaultOpen' | 'isOpen' | 'shouldCloseOnInteractOutside' | 'onOpenChange' | 'isKeyboardDismissDisabled'
@@ -30,7 +18,7 @@ type ModalProps = Omit<
 	headerActions?: ReactNode;
 	triggerLabel?: ReactNode;
 	triggerIcon?: ReactNode;
-	triggerProps?: LocalButtonProps;
+	triggerProps?: ComponentPropsWithoutRef<typeof Button>;
 	customTrigger?: ReactNode;
 	title?: ReactNode;
 	noCloseButton?: boolean;
@@ -48,8 +36,6 @@ type ModalProps = Omit<
 	children?: ReactNode;
 	'aria-label'?: string;
 };
-
-const TypedButton = Button as unknown as (props: LocalButtonProps) => ReactNode;
 
 const ModalInternal = (props: ModalProps) => {
 	const {
@@ -128,8 +114,8 @@ const ModalInternal = (props: ModalProps) => {
 										{headerActions}
 
 										{!noCloseButton ? (
-											<TypedButton
-												className={!title && 'es:bg-surface-50/60 es:backdrop-blur-lg'}
+											<Button
+												className={clsx(!title && 'es:bg-surface-50/60 es:backdrop-blur-lg')}
 												onPress={close}
 												type='ghost'
 												size='small'
@@ -165,12 +151,12 @@ export const Modal = (props: ModalProps) => {
 	return (
 		<DialogTrigger>
 			{!customTrigger ? (
-				<TypedButton
+				<Button
 					icon={triggerIcon}
 					{...triggerProps}
 				>
 					{triggerLabel ?? (!triggerIcon && __('Open', 'eightshift-ui-components'))}
-				</TypedButton>
+				</Button>
 			) : null}
 			{customTrigger}
 			<ModalInternal {...props} />

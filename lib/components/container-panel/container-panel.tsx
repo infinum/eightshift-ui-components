@@ -25,8 +25,6 @@ type ContainerPanelProps = {
 	hidden?: boolean;
 };
 
-const TypedButton = Button as (props: { slot?: string; onPress?: () => void; icon?: ReactNode; type?: string; size?: string; className?: string; disabled?: boolean }) => ReactNode;
-
 export const ContainerPanel = (props: ContainerPanelProps) => {
 	const {
 		children,
@@ -101,7 +99,7 @@ export const ContainerPanel = (props: ContainerPanelProps) => {
 							className='es:ml-auto'
 						>
 							{closable ? (
-								<TypedButton
+								<Button
 									slot='trigger'
 									onPress={() => setOpen(!open)}
 									icon={chevronDown}
