@@ -59,9 +59,6 @@ const sharedRules = {
 
 export default [
 	includeIgnoreFile(gitignorePath),
-	{
-		ignores: ['**/worker-inline.js'],
-	},
 	// JavaScript files
 	{
 		files: ['**/*.js', '**/*.jsx', '**/*.cjs'],
