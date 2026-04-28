@@ -1,83 +1,145 @@
 import { __, _n, sprintf } from '@wordpress/i18n';
-import { BaseControl } from '../base-control/base-control';
+import clsx from 'clsx';
 import {
+	Autocomplete,
+	Button,
+	Collection,
+	Header,
+	Input,
 	Label,
 	ListBox,
+	ListBoxSection,
 	Popover,
-	Button,
-	Autocomplete,
 	SearchField,
-	Input,
-	useFilter,
 	Select as ReactAriaSelect,
 	SelectValue,
-	ListBoxSection,
-	Header,
-	Collection,
+	useFilter,
+	type Key,
+	type SelectProps as ReactAriaSelectProps,
+	type SelectValueRenderProps,
 } from 'react-aria-components';
-import { cloneElement, isValidElement, useMemo, useRef, useState } from 'react';
+import { cloneElement, isValidElement, useMemo, useRef, useState, type CSSProperties, type JSX, type ReactElement, type ReactNode } from 'react';
+
 import { Icon, clearAlt, dropdownCaret, multiple, reorder, searchEmpty } from '../../icons/internal';
-import { OptionItemBase, SelectClearButton, getValue, getGroupedOptions } from './shared';
-import { RichLabel } from '../rich-label/rich-label';
-import { TriggeredPopover } from '../popover/popover';
+import { randomId } from '../../utilities';
+import { BaseControl } from '../base-control/base-control';
 import { DraggableList } from '../draggable-list/draggable-list';
 import { DraggableListItem } from '../draggable-list/draggable-list-item';
-import { randomId } from '../../utilities';
-import clsx from 'clsx';
+import { TriggeredPopover } from '../popover/popover';
+import { RichLabel } from '../rich-label/rich-label';
+import { getGroupedOptions, OptionItemBase, SelectClearButton } from './shared';
 import { selectButtonClass, selectControlClass } from './styles';
 
-/**
- * Multi-select menu.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {string} [props.icon] - Icon of the component.
- * @param {string} [props.help] - Help text of the component.
- * @param {string} [props.label] - Label of the component.
- * @param {boolean} [props.inline] - Whether the Select menu is displayed inline with the label, to the right.
- * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to show to the right of the label.
- * @param {string} [props.subtitle] - Subtitle of the component.
- * @param {{label: string, value: string, metadata: Object<string, any>?}[]} props.options - Options to display in the select. `[{ label: string, value: string }]`.
- * @param {string|{label: string, value: string, metadata: Object<string, any>?}} props.value - Current value of the select.
- * @param {Function} props.onChange - Function to call when the value changes.
- * @param {boolean} [props.simpleValue=false] - If `true`, instead of using a `{label: '', value: ''}` value type, a string is used (just the value).
- * @param {string} [props.groupKey] - If provided, the options will be grouped by this key.
- * @param {Object} [props.groupValueMapping] - If provided, the group headers will be mapped to these labels/icons.
- * @param {boolean} [props.clearable] - Whether the select is clearable.
- * @param {boolean} [props.disabled] - Whether the select is disabled.
- * @param {string} [props.placeholder] - Placeholder text to show when no value is selected.
- * @param {JSX.Element} [props.customMenuOption] - If provided, replaces the default item in the dropdown menu (react-select's `components.Option`).
- * @param {JSX.Element} [props.customValueDisplay] - If provided, replaces the default current value display of each selected item (react-select's `components.MultiValue`).
- * @param {JSX.Element} [props.customDropdownArrow] - If provided, replaces the default dropdown arrow indicator.
- * @param {string} [props.className] - Classes to pass to the select menu.
- * @param {boolean} [props.noMinWidth=false] - If `true`, the select menu will not have a minimum width.
- * @param {boolean} [props.searchable] - If `true`, the menu will allow searching through the options.
- * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
- * @param {boolean} [props.noReorder] - If `true`, the option for reordering selected items is disabled.
- * @param {SelectSize} [props.size='default'] - Sets the size of the input field.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- *
- * @typedef {'small' | 'medium' | 'default' | 'large'} SelectSize
- *
- * @returns {JSX.Element} The MultiSelect component.
- *
- * @example
- * const [value, setValue] = useState(null);
- *
- * const options = [
- * 	{ label: 'Option 1', value: 'option-1' },
- * 	{ label: 'Option 2', value: 'option-2' },
- * 	{ label: 'Option 3', value: 'option-3' },
- * ];
- *
- * <MultiSelect
- * 	label='Select items'
- * 	options={loadOptions}
- * 	value={value}
- * 	onChange={setValue}
- * />
- */
-export const MultiSelect = (props) => {
+type IconValue = string | JSX.Element | null;
+type SelectSize = 'small' | 'medium' | 'default' | 'large';
+
+type SelectOption = {
+	label: string;
+	value: string;
+	metadata?: Record<string, unknown> | null;
+	subtitle?: ReactNode;
+	icon?: IconValue;
+	className?: string;
+	[key: string]: unknown;
+};
+
+type GroupValueMapping = Record<
+	string,
+	{
+		label?: ReactNode;
+		icon?: IconValue;
+		subtitle?: ReactNode;
+		endIcon?: IconValue;
+	}
+>;
+
+type MultiSelectValueType = SelectOption[] | string[] | '' | null;
+type DraggableSelectItemContext = SelectOption & {
+	updateData: (newValue: Partial<SelectOption>) => void;
+	itemIndex: number;
+	deleteItem: () => void;
+};
+
+type MultiSelectProps = Omit<ReactAriaSelectProps<SelectOption, 'multiple'>, 'children' | 'className' | 'isDisabled' | 'items' | 'placeholder' | 'selectionMode'> & {
+	icon?: ReactNode;
+	help?: ReactNode;
+	label?: ReactNode;
+	inline?: boolean;
+	actions?: ReactNode;
+	subtitle?: ReactNode;
+	options: SelectOption[];
+	value: MultiSelectValueType;
+	onChange: (value: MultiSelectValueType) => void;
+	simpleValue?: boolean;
+	groupKey?: string;
+	groupValueMapping?: GroupValueMapping;
+	clearable?: boolean;
+	disabled?: boolean;
+	placeholder?: string;
+	customMenuOption?: (item: SelectOption) => ReactNode;
+	customValueDisplay?: (item: SelectOption | null) => ReactNode;
+	customDropdownArrow?: ReactNode;
+	className?: string;
+	noMinWidth?: boolean;
+	searchable?: boolean;
+	flat?: boolean;
+	noReorder?: boolean;
+	size?: SelectSize;
+	hidden?: boolean;
+};
+
+const TypedDraggableList = DraggableList as (props: {
+	children: (item: DraggableSelectItemContext) => ReactNode;
+	items?: SelectOption[] | null;
+	onChange: (items: SelectOption[]) => void;
+	className?: string;
+	itemContainerClassName?: string;
+	itemClassName?: string;
+	hidden?: boolean;
+}) => ReactNode;
+
+const getSearchableText = (content?: ReactNode) => {
+	if (typeof content === 'string') {
+		return content;
+	}
+
+	return '';
+};
+
+const getPopoverStyle = (triggerElement: HTMLDivElement | null) =>
+	({
+		'--select-width': triggerElement ? `${triggerElement.offsetWidth}px` : 'var(--trigger-width)',
+	}) as CSSProperties;
+
+const getSelectedKeys = (value: MultiSelectValueType) => {
+	if (!Array.isArray(value)) {
+		return [];
+	}
+
+	return value.map((item) => (typeof item === 'string' ? item : item.value));
+};
+
+const getCurrentValue = (value: MultiSelectValueType, simpleValue: boolean, options: SelectOption[]) => {
+	if (!Array.isArray(value)) {
+		return [];
+	}
+
+	if (!simpleValue) {
+		return value.filter((item): item is SelectOption => typeof item === 'object' && item !== null);
+	}
+
+	return value.map((item) => options.find((option) => option.value === item)).filter((item): item is SelectOption => Boolean(item));
+};
+
+const getOptionIcon = (icon?: IconValue): ReactElement | undefined => {
+	if (!icon) {
+		return undefined;
+	}
+
+	return typeof icon === 'string' ? <Icon icon={icon} /> : icon;
+};
+
+export const MultiSelect = (props: MultiSelectProps) => {
 	const {
 		icon,
 		help,
@@ -85,42 +147,30 @@ export const MultiSelect = (props) => {
 		inline,
 		actions,
 		subtitle,
-
 		value,
 		onChange,
-
 		options,
 		simpleValue = false,
 		groupKey,
 		groupValueMapping,
-
 		disabled = false,
 		clearable = false,
-
 		placeholder = __('Select...', 'eightshift-ui-components'),
-
 		customMenuOption,
 		customValueDisplay,
 		customDropdownArrow,
-
 		className,
-
 		flat,
 		size = 'default',
 		noMinWidth = false,
-
 		noReorder,
 		searchable,
-
 		hidden,
-
 		...rest
 	} = props;
 
-	const ref = useRef(null);
-
+	const ref = useRef<HTMLDivElement>(null);
 	const [searchTerm, setSearchTerm] = useState('');
-
 	const { contains } = useFilter({ sensitivity: 'base' });
 
 	const filteredOptions = useMemo(() => {
@@ -128,75 +178,75 @@ export const MultiSelect = (props) => {
 			return options;
 		}
 
-		return options?.filter((item) => {
-			return contains(item.label ?? '', searchTerm) || contains(item?.subtitle ?? '', searchTerm);
-		});
-	}, [options, searchable, searchTerm, contains]);
+		return options.filter((item) => contains(getSearchableText(item.label), searchTerm) || contains(getSearchableText(item.subtitle), searchTerm));
+	}, [contains, options, searchable, searchTerm]);
 
 	const groupedOptions = useMemo(() => getGroupedOptions(filteredOptions, groupKey, groupValueMapping), [filteredOptions, groupKey, groupValueMapping]);
+	const currentValue = getCurrentValue(value, simpleValue, options);
+	const currentValueKeys = getSelectedKeys(value);
 
-	const renderItem = (item) => {
-		const icon = item?.icon ?? null;
+	const renderItem = (item: SelectOption) => {
+		const itemIcon = item.icon ?? null;
 
 		return (
 			<OptionItemBase
-				id={item?.value ?? randomId(8)}
-				className={item?.className}
+				id={item.value ?? randomId(8)}
+				className={item.className}
 				selectIndicator
+				value={item}
 			>
-				{customMenuOption && customMenuOption(item)}
+				{customMenuOption ? customMenuOption(item) : null}
 
-				{!customMenuOption && (
+				{!customMenuOption ? (
 					<RichLabel
-						icon={icon && <Icon icon={icon} />}
-						label={item?.label}
-						subtitle={item?.subtitle}
+						icon={itemIcon ? <Icon icon={itemIcon} /> : null}
+						label={item.label}
+						subtitle={item.subtitle}
 						noColor
 					/>
-				)}
+				) : null}
 			</OptionItemBase>
 		);
 	};
 
-	const currentValue = getValue(simpleValue, value, options);
-	const currentValueKeys = value?.map((item) => item?.value ?? item);
-
-	const handleSelectionChange = (selected) => {
+	const handleSelectionChange = (selected: Key[] | null | undefined) => {
 		if (selected === null || selected === undefined) {
 			onChange(null);
 
 			return;
 		}
 
-		if (selected.size === 0) {
+		const selectedKeys = selected.filter((item): item is string => typeof item === 'string');
+
+		if (selectedKeys.length === 0) {
 			onChange(simpleValue ? '' : []);
 
 			return;
 		}
 
 		if (simpleValue) {
-			onChange([...selected]);
+			onChange(selectedKeys);
 
 			return;
 		}
 
-		const selectedValues = [...selected]
-			?.map((item) => {
-				const option = options.find((option) => option.value === item);
+		const selectedValues = selectedKeys
+			.map((selectedKey) => {
+				const option = options.find((candidate) => candidate.value === selectedKey);
 
 				if (!option) {
 					return null;
 				}
 
-				if (option?.icon && isValidElement(option.icon)) {
-					delete option.icon;
+				const sanitizedOption = { ...option };
+
+				if (sanitizedOption.icon && isValidElement(sanitizedOption.icon)) {
+					delete sanitizedOption.icon;
 				}
 
-				return {
-					...option,
-				};
+				return sanitizedOption;
 			})
-			?.filter(Boolean);
+			.filter((item): item is SelectOption => Boolean(item));
 
 		onChange(selectedValues);
 	};
@@ -206,7 +256,7 @@ export const MultiSelect = (props) => {
 	}
 
 	return (
-		<ReactAriaSelect
+		<ReactAriaSelect<SelectOption, 'multiple'>
 			selectionMode='multiple'
 			isDisabled={disabled}
 			value={currentValueKeys}
@@ -215,10 +265,10 @@ export const MultiSelect = (props) => {
 					setSearchTerm('');
 				}
 			}}
-			onChange={(selected) => handleSelectionChange(selected)}
+			onChange={handleSelectionChange}
 			placeholder={placeholder}
 			{...rest}
-			className={clsx('es:group es:w-fill', rest?.className)}
+			className='es:group es:w-fill'
 		>
 			<BaseControl
 				label={label}
@@ -234,34 +284,34 @@ export const MultiSelect = (props) => {
 					ref={ref}
 				>
 					<Button className={selectButtonClass({ size })}>
-						<SelectValue className='es:select-none es:pointer-events-none'>
-							{({ isPlaceholder, selectedItems }) => {
+						<SelectValue<SelectOption> className='es:select-none es:pointer-events-none'>
+							{({ isPlaceholder, selectedItems }: SelectValueRenderProps<SelectOption>) => {
 								const [selectedItem] = selectedItems;
 
-								if (!currentValueKeys?.length || isPlaceholder) {
+								if (!currentValueKeys.length || isPlaceholder) {
 									return <span className='es:select-none es:pointer-events-none es:pr-6 es:text-sm es:text-surface-500'>{placeholder}</span>;
 								}
 
-								const icon = selectedItem?.icon ?? null;
+								const selectedIcon = selectedItem?.icon ?? null;
 
 								if (selectedItems.length > 1) {
 									return (
 										<RichLabel
 											icon={multiple}
-											label={sprintf(_n('%s item', '%s items', selectedItems.length, 'eightshift-ui-components'), selectedItems.length)}
-											subtitle={selectedItems.map((item) => item?.label ?? item).join(', ')}
+											label={sprintf(_n('%s item', '%s items', selectedItems.length, 'eightshift-ui-components'), String(selectedItems.length))}
+											subtitle={selectedItems.map((item) => item?.label ?? '').join(', ')}
 											subtitleClassName='es:line-clamp-1 es:max-w-56'
 										/>
 									);
 								}
 
-								if (!isPlaceholder && currentValue && customValueDisplay) {
-									return customValueDisplay(selectedItem);
+								if (!isPlaceholder && currentValue.length > 0 && customValueDisplay) {
+									return customValueDisplay(selectedItem ?? null);
 								}
 
 								return (
 									<RichLabel
-										icon={icon && <Icon icon={icon} />}
+										icon={selectedIcon ? <Icon icon={selectedIcon} /> : null}
 										label={selectedItem?.label}
 										subtitle={selectedItem?.subtitle}
 										className={clsx('es:pr-6 es:grow es:w-full', disabled && 'es:grayscale es:pointer-events-none')}
@@ -277,23 +327,24 @@ export const MultiSelect = (props) => {
 							className={clsx('es:absolute es:bottom-0 es:right-3 es:top-0 es:my-auto es:flex es:items-center', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}
 							aria-hidden='true'
 						>
-							{!customDropdownArrow &&
-								cloneElement(dropdownCaret, {
-									className: 'es:w-4 es:stroke-[1.2] es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
-								})}
+							{!customDropdownArrow
+								? cloneElement(dropdownCaret, {
+										className: 'es:w-4 es:stroke-[1.2] es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200',
+									})
+								: null}
 
-							{customDropdownArrow && (
+							{customDropdownArrow ? (
 								<div
 									aria-hidden='true'
 									className='es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200'
 								>
 									{customDropdownArrow}
 								</div>
-							)}
+							) : null}
 						</div>
 					</Button>
 
-					{clearable && <SelectClearButton multi />}
+					{clearable ? <SelectClearButton multi /> : null}
 
 					<TriggeredPopover
 						triggerButtonIcon={reorder}
@@ -307,31 +358,30 @@ export const MultiSelect = (props) => {
 						}}
 						className='es:grid es:grid-cols-1 es:grid-rows-[auto_minmax(0,1fr)] es:p-0!'
 						wrapperClassName='es:w-(--select-width) es:min-w-72 es:px-1.5 es:h-fit es:from-surface-300/35 es:to-surface-300/35 es:overflow-clip es:rounded-20!'
-						hidden={noReorder || disabled || currentValue?.length < 2}
-						style={{ '--select-width': ref.current ? `${ref.current.offsetWidth}px` : 'var(--trigger-width)' }}
-						triggerRef={ref}
+						hidden={noReorder || disabled || currentValue.length < 2}
+						style={getPopoverStyle(ref.current)}
 					>
 						<span className='es:text-sm es:ml-3 es:mt-2 es:mb-1 es:font-variation-["wdth"_100,"wght"_325,"ROND"_100] es:text-surface-600'>
 							{__('Item order', 'eightshift-ui-components')}
 						</span>
 
-						<DraggableList
-							items={simpleValue ? (value?.map((item) => options.find((option) => option.value === item)) ?? []) : (value ?? [])}
-							onChange={(value) => {
-								handleSelectionChange(new Set(value?.map((item) => item?.value ?? item)));
+						<TypedDraggableList
+							items={currentValue}
+							onChange={(newValue) => {
+								handleSelectionChange(newValue.map((item) => item.value));
 							}}
 							className='es:contents'
 							itemContainerClassName='es:h-full es:max-h-60 es:overflow-y-auto es:pb-1.5 es:mt-0'
 							itemClassName='es:z-999999'
 						>
 							{(item) => {
-								const realItem = options.find((option) => option.value === (item?.value ?? item));
+								const realItem = options.find((option) => option.value === item.value);
 
 								return (
 									<DraggableListItem
-										icon={realItem?.icon}
+										icon={getOptionIcon(realItem?.icon)}
 										label={realItem?.label}
-										subtitle={realItem?.subtitle}
+										subtitle={typeof realItem?.subtitle === 'string' ? realItem.subtitle : undefined}
 										iconClassName='es:pointer-events-none es:select-none'
 										labelClassName='es:line-clamp-1'
 										subtitleClassName='es:line-clamp-1'
@@ -339,7 +389,7 @@ export const MultiSelect = (props) => {
 									/>
 								);
 							}}
-						</DraggableList>
+						</TypedDraggableList>
 					</TriggeredPopover>
 				</div>
 
@@ -352,13 +402,13 @@ export const MultiSelect = (props) => {
 							searchable ? 'es:rounded-b-xl es:rounded-t-3xl' : 'es:rounded-2xl',
 							'es:overflow-clip es:grid es:grid-cols-1',
 							searchable ? 'es:grid-rows-[auto_minmax(0,1fr)]' : 'es:grid-rows-1',
-							!searchable && 'es:has-first-selected:rounded-t-20!',
+							!searchable ? 'es:has-first-selected:rounded-t-20!' : null,
 							'es:has-last-selected:rounded-b-20!',
 							'es:inset-ring es:inset-ring-surface-500/10',
 							'es:inset-shadow-sm es:inset-shadow-white/30',
-							searchable && !options?.length ? 'es:bg-surface-50/50' : 'es:bg-surface-300/50',
-							searchable && !options?.length ? 'es:backdrop-blur-sm' : 'es:backdrop-blur-md',
-							searchable && !options?.length ? 'es:backdrop-brightness-105' : 'es:backdrop-brightness-110',
+							searchable && !options.length ? 'es:bg-surface-50/50' : 'es:bg-surface-300/50',
+							searchable && !options.length ? 'es:backdrop-blur-sm' : 'es:backdrop-blur-md',
+							searchable && !options.length ? 'es:backdrop-brightness-105' : 'es:backdrop-brightness-110',
 							'es:backdrop-saturate-125',
 							'es:shadow-lg es:shadow-black/10',
 							'es:transition-plus',
@@ -373,9 +423,9 @@ export const MultiSelect = (props) => {
 					placement='bottom left'
 					maxHeight={260}
 					triggerRef={ref}
-					style={{ '--select-width': ref.current ? `${ref.current.offsetWidth}px` : 'var(--trigger-width)' }}
+					style={getPopoverStyle(ref.current)}
 				>
-					{searchable && (
+					{searchable ? (
 						<Autocomplete
 							filter={() => true}
 							inputValue={searchTerm}
@@ -423,7 +473,7 @@ export const MultiSelect = (props) => {
 									/>
 								)}
 							>
-								{groupedOptions && (
+								{groupedOptions ? (
 									<Collection items={groupedOptions}>
 										{(item) => (
 											<ListBoxSection
@@ -432,10 +482,10 @@ export const MultiSelect = (props) => {
 											>
 												<Header className='es:px-2.5 es:pb-1 es:pt-3 es:select-none'>
 													<RichLabel
-														icon={item?.icon}
-														label={item?.label}
-														subtitle={item?.subtitle}
-														endIcon={item?.endIcon}
+														icon={item.icon}
+														label={item.label}
+														subtitle={item.subtitle}
+														endIcon={item.endIcon}
 														fullWidth
 													/>
 												</Header>
@@ -443,14 +493,12 @@ export const MultiSelect = (props) => {
 											</ListBoxSection>
 										)}
 									</Collection>
+								) : (
+									<Collection items={filteredOptions}>{(item) => renderItem(item)}</Collection>
 								)}
-
-								{!groupedOptions && <Collection items={searchable ? filteredOptions : options}>{(item) => renderItem(item)}</Collection>}
 							</ListBox>
 						</Autocomplete>
-					)}
-
-					{!searchable && (
+					) : (
 						<ListBox
 							className='es:space-y-0.75 es:p-1.5 es:any-focus:outline-hidden es:h-full es:overflow-y-auto es:rounded-t-xl'
 							renderEmptyState={() => (
@@ -464,7 +512,7 @@ export const MultiSelect = (props) => {
 								/>
 							)}
 						>
-							{groupedOptions && (
+							{groupedOptions ? (
 								<Collection items={groupedOptions}>
 									{(item) => (
 										<ListBoxSection
@@ -473,10 +521,10 @@ export const MultiSelect = (props) => {
 										>
 											<Header className='es:px-2.5 es:pb-1 es:pt-3 es:select-none'>
 												<RichLabel
-													icon={item?.icon}
-													label={item?.label}
-													subtitle={item?.subtitle}
-													endIcon={item?.endIcon}
+													icon={item.icon}
+													label={item.label}
+													subtitle={item.subtitle}
+													endIcon={item.endIcon}
 													fullWidth
 												/>
 											</Header>
@@ -484,9 +532,9 @@ export const MultiSelect = (props) => {
 										</ListBoxSection>
 									)}
 								</Collection>
+							) : (
+								<Collection items={options}>{(item) => renderItem(item)}</Collection>
 							)}
-
-							{!groupedOptions && <Collection items={options}>{(item) => renderItem(item)}</Collection>}
 						</ListBox>
 					)}
 				</Popover>
