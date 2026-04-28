@@ -1,106 +1,109 @@
-import { useState } from 'react';
-import { DecorativeTooltip } from '../tooltip/tooltip';
-import { clsx } from 'clsx';
 import { __, sprintf } from '@wordpress/i18n';
-import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
-import { upperFirst } from '../../utilities';
+import { clsx } from 'clsx';
+import { useState, type ReactNode } from 'react';
+
 import { Icon, clearAlt, dropdownCaretAlt, previewResponsive, responsiveOverridesAlt2Fill, responsiveOverridesAlt3Fill, responsiveOverridesAltFill } from '../../icons/internal';
-import { Menu, MenuItem, MenuSectionHeader, MenuSeparator, SubMenuItem } from '../menu/menu';
-import { ResponsivePreview } from '../responsive-preview/responsive-preview';
-import { Button, ButtonGroup } from '../button/button';
+import { upperFirst } from '../../utilities';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
-import { ToggleButton } from '../toggle-button/toggle-button';
 import { BaseControl } from '../base-control/base-control';
+import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
+import { Button, ButtonGroup } from '../button/button';
+import { Menu, MenuItem, MenuSectionHeader, MenuSeparator, SubMenuItem } from '../menu/menu';
 import { OptionSelect } from '../option-select/option-select';
+import { ResponsivePreview } from '../responsive-preview/responsive-preview';
+import { DecorativeTooltip } from '../tooltip/tooltip';
+import { ToggleButton } from '../toggle-button/toggle-button';
 
-/**
- * A component that allows the user to set different values for different breakpoints.
- *
- * Inner items should be passed as a render function.
- * The following props are passed to the render function:
- * - `breakpoint: string` - Name of the current breakpoint.
- * - `currentValue: any` - Current value.
- * - `handleChange: Function<(attributeName: string, value: any) => void>` - A function to change the value for the breakpoint..
- * - `options: Object<string, any>` - (Optional) Options list passed to the `ResponsiveLegacy` component. (optional)
- * - `isInlineCollapsedView: boolean` - (Optional) `true` if in `inline` mode, and the details are collapsed.
- * - `isInlineExpandedView: boolean` - (Optional) `true` if in `inline` mode, and the details are shown.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {Object} props.value - The current value of the component.
- * @param {Function} props.onChange - Function to run when the value changes. `(newValue: Object) => void`.
- * @param {JSX.Element} props.icon - The icon of the component.
- * @param {string} props.help - The help text of the component.
- * @param {string} props.label - The label of the component.
- * @param {string} props.subtitle - The subtitle of the component.
- * @param {{label: string, value: string}[]} props.options - Options of the attribute the component is linked to. `{ value: string, label: string }[]`.
- * @param {string[]} props.breakpoints - Breakpoints to use.
- * @param {string[]} [props.desktopFirstBreakpoints] - Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order.
- * @param {Object<string, number>} [props.breakpointData] - Currently used breakpoint data. `{ [breakpoint: string]: number }`.
- * @param {Object<string, number>} [props.breakpointUiData] - Allows overriding breakpoint names and icons. `{ [breakpoint: string]: { label: string, icon: JSX.Element|string } }`.
- * @param {boolean} [props.noModeSelect] - If `true`, the mode selection (desktop-first/mobile-first) is hidden.
- * @param {boolean} [props.inline] - If `true`, the default breakpoint is shown inline with the label. In the expanded state, all breakpoints are shown below the label.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- * @param {boolean} [props.useLegacyDesktopFirst] - If `true`, the legacy desktop-first mode is used. This is only for backwards compatibility.
- * @param {string} [props.className] - Classes to pass to the control base.
- * @param {'start' | 'center' | 'end' | 'stretch'} [props.innerContentAlign='start'] - Determines inner content alignment
- *
- * @returns {JSX.Element} The Responsive component.
- *
- * @example
- * <Responsive
- * 	value={value}
- * 	onChange={onChange}
- * 	icon={myIcon}
- * 	label={__('Label', 'eightshift-ui-components')}
- * 	options={[
- * 		{ value: 'value1', label: 'Value 1' },
- * 		{ value: 'value2', label: 'Value 2' },
- * 		{ value: 'value3', label: 'Value 3' },
- * 	]}
- * 	breakpoints={['mobile', 'tablet', 'desktop', 'large']}
- * 	breakpointData={breakpointData}
- * >
- * 	{({ breakpoint, currentValue, options, handleChange }) => (
- * 		<Select
- * 			label={breakpoint}
- * 			value={currentValue}
- * 			options={options}
- * 			onChange={handleChange}
- * 		/>
- * 	)}
- * </Responsive>
- */
-export const Responsive = (props) => {
+type InnerContentAlign = 'start' | 'center' | 'end' | 'stretch';
+
+type ResponsiveOption = {
+	label: string;
+	value: string;
+	endIcon?: ReactNode;
+	icon?: ReactNode;
+	[key: string]: unknown;
+};
+
+type ResponsiveValue = Record<string, string | boolean | undefined>;
+
+type BreakpointUiOverride = {
+	label?: string;
+	icon?: string | JSX.Element;
+};
+
+type ResponsiveChildProps = {
+	breakpoint: string;
+	currentValue?: string;
+	handleChange: (newValue: string) => void;
+	options?: ResponsiveOption[];
+	key: string[];
+	isInlineCollapsedView?: boolean;
+	isInlineExpandedView?: boolean;
+};
+
+type ResponsiveProps = {
+	value?: ResponsiveValue;
+	onChange: (value: ResponsiveValue) => void;
+	icon?: ReactNode;
+	help?: ReactNode;
+	label?: ReactNode;
+	subtitle?: ReactNode;
+	options?: ResponsiveOption[];
+	breakpoints?: string[];
+	desktopFirstBreakpoints?: string[];
+	breakpointData?: Record<string, number>;
+	breakpointUiData?: Record<string, BreakpointUiOverride>;
+	noModeSelect?: boolean;
+	inline?: boolean;
+	children: (props: ResponsiveChildProps) => ReactNode;
+	hidden?: boolean;
+	useLegacyDesktopFirst?: boolean;
+	className?: string;
+	innerContentAlign?: InnerContentAlign;
+};
+
+const defaultKey = '_default';
+const desktopFirstKey = '_desktopFirst';
+const mobileFirstMode = 'mobile-first';
+const desktopFirstMode = 'desktop-first';
+
+const getResponsiveStringValue = (value: ResponsiveValue, key: string) => {
+	const itemValue = value[key];
+
+	return typeof itemValue === 'string' ? itemValue : undefined;
+};
+
+const getResponsiveLabel = (value: ResponsiveValue, key: string, options?: ResponsiveOption[]) => {
+	const currentValue = getResponsiveStringValue(value, key);
+
+	if (!currentValue) {
+		return undefined;
+	}
+
+	return options?.find((option) => option.value === currentValue)?.label ?? upperFirst(currentValue);
+};
+
+const hasResponsiveOverrides = (value: ResponsiveValue) => Object.keys(value).some((key) => !key.startsWith('_') && typeof value[key] !== 'undefined');
+
+export const Responsive = (props: ResponsiveProps) => {
 	const {
-		value,
+		value = {},
 		onChange,
-
 		icon,
 		help,
 		label,
 		subtitle,
-
 		options,
-
 		breakpoints: rawBreakpoints,
 		desktopFirstBreakpoints: rawDesktopFirstBreakpoints,
-
-		breakpointData,
+		breakpointData = {},
 		breakpointUiData,
-
 		noModeSelect,
-
 		inline,
-
 		children,
-
 		hidden,
-
 		innerContentAlign = 'start',
-
 		useLegacyDesktopFirst,
-
 		className,
 	} = props;
 
@@ -113,26 +116,27 @@ export const Responsive = (props) => {
 	}
 
 	const breakpoints = rawBreakpoints.slice(1);
-
 	let desktopFirstBreakpoints = (rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(1)).map((breakpoint) => (breakpoint.startsWith('max-') ? breakpoint : `max-${breakpoint}`));
 
 	if (useLegacyDesktopFirst) {
 		desktopFirstBreakpoints = (rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1)).map((breakpoint) => (breakpoint.startsWith('max-') ? breakpoint : `max-${breakpoint}`));
 	}
 
-	const isDesktopFirst = value?.['_desktopFirst'] === true;
-
-	const firstMobileFirstOverride = breakpoints.find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
-	const lastDesktopFirstOverride = desktopFirstBreakpoints.toReversed().find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
-
+	const isDesktopFirst = value[desktopFirstKey] === true;
+	const firstMobileFirstOverride = breakpoints.find((breakpoint) => typeof value[breakpoint] !== 'undefined');
+	const lastDesktopFirstOverride = [...desktopFirstBreakpoints].reverse().find((breakpoint) => typeof value[breakpoint] !== 'undefined');
 	const breakpointsToMap = isDesktopFirst ? desktopFirstBreakpoints : breakpoints;
+	const responsiveOverridesApplied = hasResponsiveOverrides(value);
+	const getBreakpointWidth = (breakpoint: string) => breakpointData[breakpoint] ?? 0;
 
 	if (hidden) {
 		return null;
 	}
 
 	const DefaultTooltip = () => {
-		const overrideIcon = breakpointUiData?.[isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0)]?.icon;
+		const defaultBreakpoint = isDesktopFirst ? rawBreakpoints[rawBreakpoints.length - 1] : rawBreakpoints[0];
+		const overrideIcon = defaultBreakpoint ? breakpointUiData?.[defaultBreakpoint]?.icon : undefined;
+		const fallbackBreakpoint = defaultBreakpoint ?? 'desktop';
 
 		return (
 			<DecorativeTooltip
@@ -148,67 +152,67 @@ export const Responsive = (props) => {
 						</span>
 
 						<span className='es:block es:text-balance es:tabular-nums es:font-variation-["wdth"_64,"wght"_275,"ROND"_50,"slnt"_-2] es:text-surface-500 es:mt-1'>
-							{!firstMobileFirstOverride && !lastDesktopFirstOverride && __('Always applied, regardless of browser width.', 'eightshift-ui-components')}
+							{!firstMobileFirstOverride && !lastDesktopFirstOverride ? __('Always applied, regardless of browser width.', 'eightshift-ui-components') : null}
 
-							{firstMobileFirstOverride &&
-								!isDesktopFirst &&
-								sprintf(__('Applies when the browser width is %dpx or less.', 'eightshift-ui-components'), breakpointData[firstMobileFirstOverride] - 1)}
+							{firstMobileFirstOverride && !isDesktopFirst
+								? sprintf(__('Applies when the browser width is %dpx or less.', 'eightshift-ui-components'), getBreakpointWidth(firstMobileFirstOverride) - 1)
+								: null}
 
-							{lastDesktopFirstOverride &&
-								isDesktopFirst &&
-								sprintf(__('Applies when the browser width is %dpx or more.', 'eightshift-ui-components'), breakpointData[lastDesktopFirstOverride.replace('max-', '')])}
+							{lastDesktopFirstOverride && isDesktopFirst
+								? sprintf(__('Applies when the browser width is %dpx or more.', 'eightshift-ui-components'), getBreakpointWidth(lastDesktopFirstOverride.replace('max-', '')))
+								: null}
 						</span>
 
-						{((firstMobileFirstOverride && !isDesktopFirst) || (lastDesktopFirstOverride && isDesktopFirst)) && (
+						{(firstMobileFirstOverride && !isDesktopFirst) || (lastDesktopFirstOverride && isDesktopFirst) ? (
 							<div className='es:mx-auto es:mt-5'>
-								{firstMobileFirstOverride && !isDesktopFirst && (
+								{firstMobileFirstOverride && !isDesktopFirst ? (
 									<BreakpointPreview
 										blocks={[
 											{
 												breakpoint: __('Default', 'eightshift-ui-components'),
-												widthEnd: breakpointData[firstMobileFirstOverride] - 1,
-												value: options?.find((opt) => opt.value === value?.['_default'])?.label ?? upperFirst(value?.['_default']),
+												widthEnd: String(getBreakpointWidth(firstMobileFirstOverride) - 1),
+												value: getResponsiveLabel(value, defaultKey, options),
 												dotsStart: true,
 												alignEnd: true,
 												active: true,
 											},
 											{
 												breakpoint: breakpointUiData?.[firstMobileFirstOverride]?.label ?? firstMobileFirstOverride,
-												value: options?.find((opt) => opt.value === value?.[firstMobileFirstOverride])?.label ?? upperFirst(value?.[firstMobileFirstOverride]),
+												value: getResponsiveLabel(value, firstMobileFirstOverride, options),
 												dotsEnd: true,
 											},
 										]}
 									/>
-								)}
+								) : null}
 
-								{lastDesktopFirstOverride && isDesktopFirst && (
+								{lastDesktopFirstOverride && isDesktopFirst ? (
 									<BreakpointPreview
 										blocks={[
 											{
 												breakpoint: breakpointUiData?.[lastDesktopFirstOverride.replace('max-', '')]?.label ?? lastDesktopFirstOverride.replace('max-', ''),
-												value: options?.find((opt) => opt.value === value?.[lastDesktopFirstOverride])?.label ?? upperFirst(value?.[lastDesktopFirstOverride]),
+												value: getResponsiveLabel(value, lastDesktopFirstOverride, options),
 												dotsStart: true,
 												alignEnd: true,
 											},
 											{
 												breakpoint: __('Default', 'eightshift-ui-components'),
-												value: options?.find((opt) => opt.value === value?.['_default'])?.label ?? upperFirst(value?.['_default']),
-												width: breakpointData[lastDesktopFirstOverride.replace('max-', '')],
+												value: getResponsiveLabel(value, defaultKey, options),
+												width: String(getBreakpointWidth(lastDesktopFirstOverride.replace('max-', ''))),
 												dotsEnd: true,
 												active: true,
 											},
 										]}
 									/>
-								)}
+								) : null}
 							</div>
-						)}
+						) : null}
 					</>
 				}
 			>
 				<div className='es:icon:size-6 es:mx-0.5 es:text-accent-700'>
 					<Icon
 						icon={overrideIcon}
-						fallback={<Icon icon={`screen${upperFirst(isDesktopFirst ? rawBreakpoints.at(-1) : rawBreakpoints.at(0))}`} />}
+						fallback={<Icon icon={`screen${upperFirst(fallbackBreakpoint)}`} />}
 					/>
 				</div>
 			</DecorativeTooltip>
@@ -224,7 +228,7 @@ export const Responsive = (props) => {
 			className={className}
 			actions={
 				<>
-					{inline && (
+					{inline ? (
 						<AnimatedVisibility
 							className='es:mr-0.5'
 							visible={!detailsVisible}
@@ -233,19 +237,19 @@ export const Responsive = (props) => {
 							noInitial
 						>
 							{children({
-								breakpoint: '_default',
-								currentValue: value?.['_default'],
+								breakpoint: defaultKey,
+								currentValue: getResponsiveStringValue(value, defaultKey),
 								handleChange: (newValue) =>
 									onChange({
 										...value,
-										_default: newValue,
+										[defaultKey]: newValue,
 									}),
-								options: options,
+								options,
 								key: Object.keys(value),
 								isInlineCollapsedView: true,
 							})}
 						</AnimatedVisibility>
-					)}
+					) : null}
 
 					<ButtonGroup>
 						<ToggleButton
@@ -262,28 +266,28 @@ export const Responsive = (props) => {
 							triggerProps={{ className: 'es:w-6 es:stroke-[1.25]' }}
 							triggerIcon={dropdownCaretAlt}
 						>
-							{!noModeSelect && (
+							{!noModeSelect ? (
 								<>
 									<MenuSectionHeader>{__('Mode', 'eightshift-ui-components')}</MenuSectionHeader>
 									<OptionSelect
-										value={isDesktopFirst}
+										value={isDesktopFirst ? desktopFirstMode : mobileFirstMode}
 										onChange={(newMode) => {
 											onChange({
-												_default: value['_default'],
-												_desktopFirst: newMode,
+												[defaultKey]: getResponsiveStringValue(value, defaultKey),
+												[desktopFirstKey]: newMode === desktopFirstMode,
 											});
 										}}
 										options={[
-											{ endIcon: responsiveOverridesAltFill, label: __('Mobile-first', 'eightshift-ui-components'), value: false },
-											{ endIcon: responsiveOverridesAlt2Fill, label: __('Desktop-first', 'eightshift-ui-components'), value: true },
+											{ endIcon: responsiveOverridesAltFill, label: __('Mobile-first', 'eightshift-ui-components'), value: mobileFirstMode },
+											{ endIcon: responsiveOverridesAlt2Fill, label: __('Desktop-first', 'eightshift-ui-components'), value: desktopFirstMode },
 										]}
 										type='standaloneMenuItems'
 									/>
 									<MenuSeparator />
 								</>
-							)}
+							) : null}
 
-							{Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined') && (
+							{responsiveOverridesApplied ? (
 								<SubMenuItem
 									manualWidth
 									popoverProps={{ className: 'es:max-w-full!' }}
@@ -301,8 +305,10 @@ export const Responsive = (props) => {
 										/>
 									</MenuItem>
 								</SubMenuItem>
-							)}
-							{Object.keys(value).some((key) => !key?.startsWith('_') && typeof value?.[key] !== 'undefined') && <MenuSeparator />}
+							) : null}
+
+							{responsiveOverridesApplied ? <MenuSeparator /> : null}
+
 							<MenuItem
 								icon={clearAlt}
 								onClick={() => {
@@ -323,7 +329,7 @@ export const Responsive = (props) => {
 				</>
 			}
 		>
-			{!isDesktopFirst && !inline && (
+			{!isDesktopFirst && !inline ? (
 				<div
 					className={clsx(
 						'es:grid es:items-center es:gap-x-2 es:transition-[grid-template-columns,margin-block-end] es:duration-200',
@@ -336,24 +342,24 @@ export const Responsive = (props) => {
 					)}
 					key='_default-mobile-first'
 				>
-					{detailsVisible && <DefaultTooltip />}
+					{detailsVisible ? <DefaultTooltip /> : null}
 					<div className={clsx('es:w-full', detailsVisible ? 'es:col-start-2 es:col-end-2' : 'es:col-span-full')}>
 						{children({
-							breakpoint: '_default',
-							currentValue: value?.['_default'],
+							breakpoint: defaultKey,
+							currentValue: getResponsiveStringValue(value, defaultKey),
 							handleChange: (newValue) =>
 								onChange({
 									...value,
-									_default: newValue,
+									[defaultKey]: newValue,
 								}),
-							options: options,
+							options,
 							key: Object.keys(value),
 						})}
 					</div>
 				</div>
-			)}
+			) : null}
 
-			{!isDesktopFirst && inline && (
+			{!isDesktopFirst && inline ? (
 				<AnimatedVisibility
 					className={clsx(
 						'es:mb-0.5 es:grid es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2',
@@ -369,43 +375,36 @@ export const Responsive = (props) => {
 					<DefaultTooltip />
 					<div className='es:col-start-2 es:col-end-2 es:w-full'>
 						{children({
-							breakpoint: '_default',
-							currentValue: value?.['_default'],
+							breakpoint: defaultKey,
+							currentValue: getResponsiveStringValue(value, defaultKey),
 							handleChange: (newValue) =>
 								onChange({
 									...value,
-									_default: newValue,
+									[defaultKey]: newValue,
 								}),
-							options: options,
+							options,
 							key: Object.keys(value),
 							isInlineExpandedView: true,
 						})}
 					</div>
 				</AnimatedVisibility>
-			)}
+			) : null}
 
 			<AnimatedVisibility
 				visible={detailsVisible}
 				className='es:space-y-0.5'
 			>
-				{breakpointsToMap.map((breakpoint, i) => {
+				{breakpointsToMap.map((breakpoint, index) => {
 					const realBreakpointName = breakpoint.replace('max-', '');
-
-					const filterBreakpoints = isDesktopFirst ? [...breakpointsToMap, '_default'] : ['_default', ...breakpointsToMap];
+					const filterBreakpoints = isDesktopFirst ? [...breakpointsToMap, defaultKey] : [defaultKey, ...breakpointsToMap];
 
 					const aboveOverride = isDesktopFirst
-						? filterBreakpoints.slice(i + 1).find((breakpoint) => typeof value?.[breakpoint] !== 'undefined')
-						: filterBreakpoints
-								.slice(0, i + 1)
-								.toReversed()
-								.find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
+						? filterBreakpoints.slice(index + 1).find((currentBreakpoint) => typeof value[currentBreakpoint] !== 'undefined')
+						: [...filterBreakpoints.slice(0, index + 1)].reverse().find((currentBreakpoint) => typeof value[currentBreakpoint] !== 'undefined');
 
 					const belowOverride = isDesktopFirst
-						? filterBreakpoints
-								.slice(0, i)
-								.toReversed()
-								.find((breakpoint) => typeof value?.[breakpoint] !== 'undefined')
-						: filterBreakpoints.slice(i + 2).find((breakpoint) => typeof value?.[breakpoint] !== 'undefined');
+						? [...filterBreakpoints.slice(0, index)].reverse().find((currentBreakpoint) => typeof value[currentBreakpoint] !== 'undefined')
+						: filterBreakpoints.slice(index + 2).find((currentBreakpoint) => typeof value[currentBreakpoint] !== 'undefined');
 
 					return (
 						<div
@@ -434,118 +433,125 @@ export const Responsive = (props) => {
 										</span>
 
 										<span className='es:block es:text-balance es:tabular-nums es:font-variation-["wdth"_64,"wght"_275,"ROND"_50,"slnt"_-2] es:text-surface-500 es:mt-1'>
-											{!isDesktopFirst && (
+											{!isDesktopFirst ? (
 												<>
-													{!belowOverride &&
-														typeof value[breakpoint] !== 'undefined' &&
-														sprintf(__('Applied when the browser width is %dpx or more.', 'eightshift-ui-components'), breakpointData[realBreakpointName])}
+													{!belowOverride && typeof value[breakpoint] !== 'undefined'
+														? sprintf(__('Applied when the browser width is %dpx or more.', 'eightshift-ui-components'), getBreakpointWidth(realBreakpointName))
+														: null}
 
-													{belowOverride &&
-														typeof value[breakpoint] !== 'undefined' &&
-														sprintf(
-															__('Applied when the browser width is between %dpx and %dpx.', 'eightshift-ui-components'),
-															breakpointData[realBreakpointName],
-															breakpointData[belowOverride] - 1,
-														)}
+													{belowOverride && typeof value[breakpoint] !== 'undefined'
+														? sprintf(
+																__('Applied when the browser width is between %dpx and %dpx.', 'eightshift-ui-components'),
+																getBreakpointWidth(realBreakpointName),
+																getBreakpointWidth(belowOverride) - 1,
+															)
+														: null}
 
-													{typeof value[breakpoint] === 'undefined' && sprintf(__('From %dpx', 'eightshift-ui-components'), breakpointData[realBreakpointName])}
+													{typeof value[breakpoint] === 'undefined' ? sprintf(__('From %dpx', 'eightshift-ui-components'), getBreakpointWidth(realBreakpointName)) : null}
 												</>
-											)}
-
-											{isDesktopFirst && (
+											) : (
 												<>
-													{!belowOverride &&
-														typeof value[breakpoint] !== 'undefined' &&
-														sprintf(__('Applied when the browser width is %dpx or less.', 'eightshift-ui-components'), breakpointData[realBreakpointName] - 1)}
+													{!belowOverride && typeof value[breakpoint] !== 'undefined'
+														? sprintf(__('Applied when the browser width is %dpx or less.', 'eightshift-ui-components'), getBreakpointWidth(realBreakpointName) - 1)
+														: null}
 
-													{belowOverride &&
-														typeof value[breakpoint] !== 'undefined' &&
-														sprintf(
-															__('Applied when the browser width is between %dpx and %dpx.', 'eightshift-ui-components'),
-															breakpointData[belowOverride?.replace('max-', '')],
-															breakpointData[realBreakpointName] - 1,
-														)}
+													{belowOverride && typeof value[breakpoint] !== 'undefined'
+														? sprintf(
+																__('Applied when the browser width is between %dpx and %dpx.', 'eightshift-ui-components'),
+																getBreakpointWidth(belowOverride.replace('max-', '')),
+																getBreakpointWidth(realBreakpointName) - 1,
+															)
+														: null}
 
-													{typeof value[breakpoint] === 'undefined' && sprintf(__('Up to %dpx', 'eightshift-ui-components'), breakpointData[breakpoint?.replace('max-', '')])}
+													{typeof value[breakpoint] === 'undefined'
+														? sprintf(__('Up to %dpx', 'eightshift-ui-components'), getBreakpointWidth(breakpoint.replace('max-', '')))
+														: null}
 												</>
 											)}
 										</span>
 
-										{typeof value[breakpoint] === 'undefined' && (
+										{typeof value[breakpoint] === 'undefined' ? (
 											<span className='es:mt-2 es:text-sm es:leading-none es:block es:font-variation-["wdth"_75,"wght"_300,"slnt"_-5]'>
 												{__('Not set', 'eightshift-ui-components')}
 											</span>
-										)}
+										) : null}
 
-										{typeof value[breakpoint] !== 'undefined' && (
+										{typeof value[breakpoint] !== 'undefined' ? (
 											<div className='es:mx-auto es:mt-5'>
-												{!isDesktopFirst && (
+												{!isDesktopFirst ? (
 													<BreakpointPreview
-														dotsStart={belowOverride}
+														dotsStart={Boolean(belowOverride)}
 														blocks={[
-															aboveOverride !== '_default' &&
-																typeof value?.[aboveOverride] !== 'undefined' && {
-																	breakpoint: breakpointUiData?.[aboveOverride]?.label ?? aboveOverride,
-																	value: options?.find((opt) => opt.value === value?.[aboveOverride])?.label ?? upperFirst(value?.[aboveOverride]),
-																	dotsStart: !belowOverride,
-																	alignEnd: !belowOverride,
-																},
-															aboveOverride === '_default' &&
-																typeof value?.['_default'] !== 'undefined' && {
-																	breakpoint: __('Default', 'eightshift-ui-components'),
-																	value: options?.find((opt) => opt.value === value?.['_default'])?.label ?? upperFirst(value?.['_default']),
-																	dotsStart: !belowOverride,
-																	alignEnd: !belowOverride,
-																},
+															aboveOverride && aboveOverride !== defaultKey && typeof value[aboveOverride] !== 'undefined'
+																? {
+																		breakpoint: breakpointUiData?.[aboveOverride]?.label ?? aboveOverride,
+																		value: getResponsiveLabel(value, aboveOverride, options),
+																		dotsStart: !belowOverride,
+																		alignEnd: !belowOverride,
+																	}
+																: null,
+															aboveOverride === defaultKey && typeof value[defaultKey] !== 'undefined'
+																? {
+																		breakpoint: __('Default', 'eightshift-ui-components'),
+																		value: getResponsiveLabel(value, defaultKey, options),
+																		dotsStart: !belowOverride,
+																		alignEnd: !belowOverride,
+																	}
+																: null,
 															{
 																breakpoint: breakpointUiData?.[realBreakpointName]?.label ?? realBreakpointName,
-																value: options?.find((opt) => opt.value === value?.[breakpoint])?.label ?? upperFirst(value?.[breakpoint]),
-																width: breakpointData[realBreakpointName],
+																value: getResponsiveLabel(value, breakpoint, options),
+																width: String(getBreakpointWidth(realBreakpointName)),
 																active: true,
 																dotsEnd: !belowOverride,
 															},
-															belowOverride &&
-																typeof value?.[belowOverride] !== 'undefined' && {
-																	breakpoint: breakpointUiData?.[belowOverride]?.label ?? belowOverride,
-																	value: options?.find((opt) => opt.value === value?.[belowOverride])?.label ?? upperFirst(value?.[belowOverride]),
-																	width: breakpointData[belowOverride],
-																	dotsEnd: true,
-																},
+															belowOverride && typeof value[belowOverride] !== 'undefined'
+																? {
+																		breakpoint: breakpointUiData?.[belowOverride]?.label ?? belowOverride,
+																		value: getResponsiveLabel(value, belowOverride, options),
+																		width: String(getBreakpointWidth(belowOverride)),
+																		dotsEnd: true,
+																	}
+																: null,
 														]}
 													/>
-												)}
-
-												{isDesktopFirst && (
+												) : (
 													<BreakpointPreview
 														dotsStart
-														dotsEnd={aboveOverride !== '_default'}
+														dotsEnd={aboveOverride !== defaultKey}
 														blocks={[
-															belowOverride && {
-																breakpoint: breakpointUiData?.[belowOverride?.replace('max-', '')]?.label ?? belowOverride?.replace('max-', ''),
-																value: options?.find((opt) => opt.value === value?.[belowOverride])?.label ?? upperFirst(value?.[belowOverride]),
-															},
+															belowOverride
+																? {
+																		breakpoint: breakpointUiData?.[belowOverride.replace('max-', '')]?.label ?? belowOverride.replace('max-', ''),
+																		value: getResponsiveLabel(value, belowOverride, options),
+																	}
+																: null,
 															{
 																breakpoint: breakpointUiData?.[realBreakpointName]?.label ?? realBreakpointName,
-																value: options?.find((opt) => opt.value === value?.[breakpoint])?.label ?? upperFirst(value?.[realBreakpointName]),
-																width: breakpointData[filterBreakpoints[i - 1]?.replace('max-', '')],
+																value: getResponsiveLabel(value, breakpoint, options),
+																width: String(getBreakpointWidth((filterBreakpoints[index - 1] ?? '').replace('max-', ''))),
 																active: true,
 															},
-															aboveOverride !== '_default' && {
-																breakpoint: breakpointUiData?.[aboveOverride?.replace('max-', '')]?.label ?? aboveOverride?.replace('max-', ''),
-																value: options?.find((opt) => opt.value === value?.[aboveOverride])?.label ?? upperFirst(value?.[aboveOverride]),
-																width: breakpointData[breakpoint?.replace('max-', '')],
-															},
-															aboveOverride === '_default' && {
-																breakpoint: __('Default', 'eightshift-ui-components'),
-																value: options?.find((opt) => opt.value === value?.['_default'])?.label ?? upperFirst(value?.['_default']),
-																width: breakpointData[breakpoint?.replace('max-', '')],
-																dotsEnd: true,
-															},
+															aboveOverride && aboveOverride !== defaultKey
+																? {
+																		breakpoint: breakpointUiData?.[aboveOverride.replace('max-', '')]?.label ?? aboveOverride.replace('max-', ''),
+																		value: getResponsiveLabel(value, aboveOverride, options),
+																		width: String(getBreakpointWidth(breakpoint.replace('max-', ''))),
+																	}
+																: null,
+															aboveOverride === defaultKey
+																? {
+																		breakpoint: __('Default', 'eightshift-ui-components'),
+																		value: getResponsiveLabel(value, defaultKey, options),
+																		width: String(getBreakpointWidth(breakpoint.replace('max-', ''))),
+																		dotsEnd: true,
+																	}
+																: null,
 														]}
 													/>
 												)}
 											</div>
-										)}
+										) : null}
 									</>
 								}
 							>
@@ -558,15 +564,15 @@ export const Responsive = (props) => {
 							</DecorativeTooltip>
 
 							{children({
-								breakpoint: breakpoint,
-								currentValue: value?.[breakpoint],
+								breakpoint,
+								currentValue: getResponsiveStringValue(value, breakpoint),
 								handleChange: (newValue) => {
 									onChange({
 										...value,
 										[breakpoint]: newValue,
 									});
 								},
-								options: options,
+								options,
 								key: Object.keys(value),
 							})}
 
@@ -577,7 +583,7 @@ export const Responsive = (props) => {
 									onChange(newValue);
 								}}
 								icon={clearAlt}
-								disabled={typeof value?.[breakpoint] === 'undefined'}
+								disabled={typeof value[breakpoint] === 'undefined'}
 								type='ghost'
 							/>
 						</div>
@@ -585,7 +591,7 @@ export const Responsive = (props) => {
 				})}
 			</AnimatedVisibility>
 
-			{isDesktopFirst && !inline && (
+			{isDesktopFirst && !inline ? (
 				<div
 					className={clsx(
 						'es:grid es:items-center es:gap-x-2 es:transition-[grid-template-columns,margin-block-start] es:duration-150',
@@ -598,24 +604,24 @@ export const Responsive = (props) => {
 					)}
 					key='_default-desktop-first'
 				>
-					{detailsVisible && <DefaultTooltip />}
+					{detailsVisible ? <DefaultTooltip /> : null}
 					<div className={clsx('es:w-full', detailsVisible ? 'es:col-start-2 es:col-end-2' : 'es:col-span-full')}>
 						{children({
-							breakpoint: '_default',
-							currentValue: value?.['_default'],
+							breakpoint: defaultKey,
+							currentValue: getResponsiveStringValue(value, defaultKey),
 							handleChange: (newValue) =>
 								onChange({
 									...value,
-									_default: newValue,
+									[defaultKey]: newValue,
 								}),
-							options: options,
+							options,
 							key: Object.keys(value),
 						})}
 					</div>
 				</div>
-			)}
+			) : null}
 
-			{isDesktopFirst && inline && (
+			{isDesktopFirst && inline ? (
 				<AnimatedVisibility
 					className={clsx(
 						'es:grid es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2 es:pt-1',
@@ -631,20 +637,20 @@ export const Responsive = (props) => {
 					<DefaultTooltip />
 					<div className='es:col-start-2 es:col-end-2'>
 						{children({
-							breakpoint: '_default',
-							currentValue: value?.['_default'],
+							breakpoint: defaultKey,
+							currentValue: getResponsiveStringValue(value, defaultKey),
 							handleChange: (newValue) =>
 								onChange({
 									...value,
-									_default: newValue,
+									[defaultKey]: newValue,
 								}),
-							options: options,
+							options,
 							key: Object.keys(value),
 							isInlineExpandedView: true,
 						})}
 					</div>
 				</AnimatedVisibility>
-			)}
+			) : null}
 		</BaseControl>
 	);
 };
