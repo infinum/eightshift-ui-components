@@ -1,11 +1,10 @@
-import { Checkbox as ReactAriaCheckbox } from 'react-aria-components';
-import { clsx } from 'clsx';
-
-import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
-import { check } from '../../icons/internal';
-import { RichLabel } from '../rich-label/rich-label';
-import { Label } from 'react-aria-components';
 import { cva } from 'class-variance-authority';
+import { clsx } from 'clsx';
+import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
+import { Checkbox as ReactAriaCheckbox, Label } from 'react-aria-components';
+import { check } from '../../icons/internal';
+import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
+import { RichLabel } from '../rich-label/rich-label';
 
 const checkboxClasses = cva(
 	[
@@ -23,6 +22,22 @@ const checkboxClasses = cva(
 			disabled: {
 				true: 'es:cursor-not-allowed',
 				false: 'es:inset-shadow-xs es:bg-linear-to-b es:from-25%',
+			},
+			flat: {
+				true: null,
+				false: null,
+			},
+			active: {
+				true: null,
+				false: null,
+			},
+			indeterminate: {
+				true: null,
+				false: null,
+			},
+			checked: {
+				true: null,
+				false: null,
 			},
 		},
 		compoundVariants: [
@@ -69,61 +84,30 @@ const checkboxClasses = cva(
 	},
 );
 
-/**
- * A simple checkbox.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {JSX.Element} [props.icon] - The checkbox icon.
- * @param {string} [props.label] - The checkbox label.
- * @param {string} [props.subtitle] - The checkbox subtitle.
- * @param {boolean} props.checked - Whether the checkbox is checked.
- * @param {boolean} [props.disabled] - Whether the checkbox is disabled.
- * @param {boolean} [props.readOnly] - Whether the checkbox is read-only.
- * @param {boolean} [props.indeterminate] - Whether the checkbox is in an indeterminate state.
- * @param {Function} props.onChange - The function to call when the checkbox is changed.
- * @param {string} [props.className] - Additional classes to add to the checkbox container.
- * @param {string} [props.labelClassName] - Additional classes to add to the label container.
- * @param {boolean} [props.alignEnd] - Whether the label should be aligned to the end.
- * @param {boolean} [props.inlineSubtitle] - If `true`, the subtitle is shown after the label instead of below it.
- * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- *
- * @returns {JSX.Element} The Checkbox component.
- *
- * @example
- * <Checkbox
- *  label='My label'
- *  checked={myValue}
- *  onChange={(value) => setMyValue(value)}
- * />
- */
-export const Checkbox = (props) => {
-	const {
-		icon,
-		label,
-		subtitle,
+type CheckboxProps = Omit<
+	ComponentPropsWithoutRef<typeof ReactAriaCheckbox>,
+	'children' | 'className' | 'isDisabled' | 'isReadOnly' | 'isIndeterminate' | 'isSelected' | 'onChange'
+> & {
+	icon?: ReactNode;
+	label?: ReactNode;
+	subtitle?: ReactNode;
+	checked?: boolean;
+	disabled?: boolean;
+	readOnly?: boolean;
+	indeterminate?: boolean;
+	onChange?: (value: boolean) => void;
+	className?: string;
+	labelClassName?: string;
+	alignEnd?: boolean;
+	inlineSubtitle?: boolean;
+	flat?: boolean;
+	hidden?: boolean;
+	children?: ReactNode;
+};
 
-		checked,
-		disabled,
-		readOnly,
-		indeterminate,
-
-		onChange,
-
-		className,
-		labelClassName,
-
-		inlineSubtitle,
-
-		flat,
-		alignEnd,
-
-		children,
-
-		hidden,
-		...other
-	} = props;
+export const Checkbox = (props: CheckboxProps) => {
+	const { icon, label, subtitle, checked, disabled, readOnly, indeterminate, onChange, className, labelClassName, inlineSubtitle, flat, alignEnd, children, hidden, ...other } =
+		props;
 
 	if (hidden) {
 		return null;
@@ -163,7 +147,7 @@ export const Checkbox = (props) => {
 			>
 				<AnimatedVisibility
 					transition='scaleRotateFade'
-					visible={indeterminate}
+					visible={Boolean(indeterminate)}
 					className='es:transition-none'
 				>
 					<div className={clsx('es:h-0.5 es:w-3 es:rounded-full es:bg-white', !disabled && 'es:shadow-xs es:shadow-accent-950/30')} />
@@ -171,7 +155,7 @@ export const Checkbox = (props) => {
 
 				<AnimatedVisibility
 					transition='scaleRotateFade'
-					visible={!indeterminate && checked}
+					visible={!indeterminate && Boolean(checked)}
 					className={clsx('es:transition-none es:icon:size-3.5 es:icon:stroke-[2.5]', !disabled && 'es:icon:drop-shadow-xs es:icon:drop-shadow-accent-950/30')}
 					noInitial
 				>
