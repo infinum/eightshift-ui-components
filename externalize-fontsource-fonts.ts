@@ -1,6 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+
 import { transform } from 'lightningcss';
-import { dirname, resolve } from 'path';
+import type { Plugin } from 'vite';
 
 const FONT_CSS_SOURCES = [
 	resolve(process.cwd(), 'font-faces/geist.css'),
@@ -10,7 +12,7 @@ const FONT_CSS_SOURCES = [
 
 const FONT_STYLE_OUTPUTS = new Set(['assets/style.css', 'assets/style-editor.css', 'assets/style-admin.css']);
 
-function resolveFontAssetPath(cssPath, fontPath) {
+const resolveFontAssetPath = (cssPath: string, fontPath: string): string => {
 	if (fontPath.startsWith('@')) {
 		const packagePath = resolve(process.cwd(), 'node_modules', fontPath);
 
@@ -18,7 +20,6 @@ function resolveFontAssetPath(cssPath, fontPath) {
 			return packagePath;
 		}
 
-		// Geist regular is installed from the variable package.
 		if (fontPath.startsWith('@fontsource/geist/')) {
 			const variablePackagePath = resolve(process.cwd(), 'node_modules', fontPath.replace('@fontsource/geist/', '@fontsource-variable/geist/'));
 
@@ -31,14 +32,14 @@ function resolveFontAssetPath(cssPath, fontPath) {
 	}
 
 	return resolve(dirname(cssPath), fontPath);
-}
+};
 
-function createExternalFontAssets() {
-	const emittedFonts = new Map();
+const createExternalFontAssets = (): { fontCss: string; emittedFonts: Map<string, string> } => {
+	const emittedFonts = new Map<string, string>();
 	const fontCss = FONT_CSS_SOURCES.map((cssPath) => {
 		const css = readFileSync(cssPath, 'utf8');
 
-		return css.replace(/url\((['"]?)(?!data:|https?:|\/)([^'")]+)\1\)/g, (_, _quote, relativeFontPath) => {
+		return css.replace(/url\((['"]?)(?!data:|https?:|\/)([^'")]+)\1\)/g, (_, _quote: string, relativeFontPath: string) => {
 			const absoluteFontPath = resolveFontAssetPath(cssPath, relativeFontPath);
 			const fontFileName = absoluteFontPath.split('/').at(-1);
 
@@ -62,11 +63,11 @@ function createExternalFontAssets() {
 		fontCss,
 		emittedFonts,
 	};
-}
+};
 
-export default function externalizeFontsourceFonts() {
+export default function externalizeFontsourceFonts(): Plugin {
 	let fontCss = '';
-	let emittedFonts = new Map();
+	let emittedFonts = new Map<string, string>();
 	let shouldMinifyCss = false;
 
 	return {
@@ -83,7 +84,7 @@ export default function externalizeFontsourceFonts() {
 			if (shouldMinifyCss) {
 				fontCss = transform({
 					filename: 'externalized-fontsource-fonts.css',
-					code: Buffer.from(fontCss),
+					code: new TextEncoder().encode(fontCss),
 					minify: true,
 				}).code.toString();
 			}
@@ -94,7 +95,7 @@ export default function externalizeFontsourceFonts() {
 				this.emitFile({
 					type: 'asset',
 					fileName: `assets/fonts/${fontFileName}`,
-					source: readFileSync(absoluteFontPath),
+					source: Uint8Array.from(readFileSync(absoluteFontPath)),
 				});
 			}
 
