@@ -1,11 +1,10 @@
-import { Label, Radio, RadioGroup } from 'react-aria-components';
+import { cva, type VariantProps } from 'class-variance-authority';
 import { clsx } from 'clsx';
-
+import { Children, cloneElement, isValidElement, type ComponentPropsWithoutRef, type ReactElement, type ReactNode } from 'react';
+import { Label, Radio, RadioGroup } from 'react-aria-components';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
-import { RichLabel } from '../rich-label/rich-label';
 import { BaseControl } from '../base-control/base-control';
-import { cloneElement } from 'react';
-import { cva } from 'class-variance-authority';
+import { RichLabel } from '../rich-label/rich-label';
 
 const radioClasses = cva(
 	[
@@ -23,6 +22,14 @@ const radioClasses = cva(
 			disabled: {
 				true: 'es:cursor-not-allowed',
 				false: 'es:inset-shadow-xs es:bg-linear-to-b es:from-25%',
+			},
+			flat: {
+				true: null,
+				false: null,
+			},
+			checked: {
+				true: null,
+				false: null,
 			},
 		},
 		compoundVariants: [
@@ -71,6 +78,20 @@ const radioContainerClass = cva('es:flex es:gap-2 es:items-center-safe', {
 	variants: {
 		design: {
 			default: 'es:py-1.5',
+			segmented: null,
+			segmentedHorizontal: null,
+		},
+		flat: {
+			true: null,
+			false: null,
+		},
+		checked: {
+			true: null,
+			false: null,
+		},
+		disabled: {
+			true: null,
+			false: null,
 		},
 	},
 	compoundVariants: [
@@ -99,50 +120,27 @@ const radioContainerClass = cva('es:flex es:gap-2 es:items-center-safe', {
 	},
 });
 
-/**
- * A simple radio button.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {JSX.Element} [props.icon] - The checkbox icon.
- * @param {string} [props.label] - The checkbox label.
- * @param {string} [props.subtitle] - The checkbox subtitle.
- * @param {boolean} [props.disabled] - Whether the checkbox is disabled.
- * @param {string} [props.className] - Additional classes to add to the checkbox container.
- * @param {string} [props.labelClassName] - Additional classes to add to the label container.
- * @param {boolean} [props.alignEnd] - Whether the label should be aligned to the end.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
- * @param {boolean} [props.inlineSubtitle] - If `true`, the subtitle is shown after the label instead of below it.
- *
- * @returns {JSX.Element} The RadioButton component.
- *
- * @see {@link RadioButtonGroup} for usage example.
- */
-export const RadioButton = (props) => {
-	const {
-		icon,
-		label,
-		subtitle,
+type RadioButtonGroupOrientation = 'horizontal' | 'vertical';
+type RadioButtonGroupDesign = 'default' | 'segmented';
+type InternalRadioButtonDesign = NonNullable<VariantProps<typeof radioContainerClass>['design']>;
 
-		disabled,
+type RadioButtonProps = Omit<ComponentPropsWithoutRef<typeof Radio>, 'children' | 'className' | 'isDisabled'> & {
+	icon?: ReactNode;
+	label?: ReactNode;
+	subtitle?: ReactNode;
+	disabled?: boolean;
+	className?: string;
+	labelClassName?: string;
+	alignEnd?: boolean;
+	hidden?: boolean;
+	flat?: boolean;
+	inlineSubtitle?: boolean;
+	design?: InternalRadioButtonDesign;
+	children?: ReactNode;
+};
 
-		className,
-		labelClassName,
-
-		design = 'default',
-		flat,
-
-		alignEnd,
-
-		children,
-
-		inlineSubtitle,
-
-		hidden,
-
-		...rest
-	} = props;
+const RadioButtonComponent = (props: RadioButtonProps) => {
+	const { icon, label, subtitle, disabled, className, labelClassName, design = 'default', flat, alignEnd, children, inlineSubtitle, hidden, ...rest } = props;
 
 	if (hidden) {
 		return null;
@@ -158,7 +156,7 @@ export const RadioButton = (props) => {
 		>
 			{({ isSelected }) => (
 				<>
-					{alignEnd && (label || subtitle || icon) && (
+					{alignEnd && (label || subtitle || icon) ? (
 						<RichLabel
 							icon={icon}
 							label={label}
@@ -170,7 +168,7 @@ export const RadioButton = (props) => {
 							as={Label}
 							noColor
 						/>
-					)}
+					) : null}
 
 					<div className={radioClasses({ disabled, flat: design !== 'default' ? true : flat, checked: isSelected })}>
 						<AnimatedVisibility
@@ -183,7 +181,7 @@ export const RadioButton = (props) => {
 						</AnimatedVisibility>
 					</div>
 
-					{!alignEnd && (
+					{!alignEnd ? (
 						<RichLabel
 							icon={alignEnd && icon}
 							label={label}
@@ -194,83 +192,58 @@ export const RadioButton = (props) => {
 							as={Label}
 							noColor
 						/>
-					)}
+					) : null}
 
-					{!(icon || label || subtitle) && children}
+					{!(icon || label || subtitle) ? children : null}
 				</>
 			)}
 		</Radio>
 	);
 };
 
-RadioButton.displayName = 'RadioButton';
+export const RadioButton = Object.assign(RadioButtonComponent, {
+	displayName: 'RadioButton',
+});
 
-/**
- * A group of radio buttons.
- * This component is required to control radio buttons.
- *
- * Each radio button should have a `value` set!
- *
- * @component
- * @param {Object} props - Component props.
- * @param {JSX.Element} [props.icon] - Icon to show before the label.
- * @param {string} [props.label] - Label to show above the control.
- * @param {string} [props.help] - Help text displayed below the control.
- * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to show to the right of the label.
- * @param {string} [props.subtitle] - Subtitle to show below the label.
- * @param {RadioButtonGroupOrientation} [props.orientation='vertical'] - Orientation of the radio buttons.
- * @param {RadioButtonGroupDesign} [props.design='default'] - Design of the radio buttons.
- * @param {boolean} [props.disabled] - Whether the radio button group is disabled.
- * @param {boolean} [props.readOnly] - Whether the radio button group is read-only.
- * @param {string} [props.value] - Value of the currently selected radio button.
- * @param {Function} [props.onChange] - Function to call when the value of the selected radio button changes.
- * @param {string} [props.className] - Additional classes to add to the group container.
- * @param {string} [props.labelClassName] - Additional classes to add to the label container.
- * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- *
- * @returns {JSX.Element} The RadioButtonGroup component.
- *
- * @typedef {'horizontal' | 'vertical'} RadioButtonGroupOrientation
- * @typedef {'default' | 'segmented'} RadioButtonGroupDesign
- *
- * @example
- * const [value, setValue] = useState('first'); // Or "null" if you don't want anything selected by default.
- *
- * <RadioButtonGroup
- * 	label='My radio buttons'
- * 	value={value}
- * 	onChange={setValue}
- * >
- * 	<RadioButton value='first' label='First option' />
- * 	<RadioButton value='second' label='Second option' />
- * </RadioButtonGroup>
- */
-export const RadioButtonGroup = (props) => {
+type RadioButtonChildElement = ReactElement<RadioButtonProps> & { type: { displayName?: string } };
+
+type RadioButtonGroupProps = Omit<ComponentPropsWithoutRef<typeof RadioGroup>, 'children' | 'className' | 'isDisabled' | 'isReadOnly' | 'value' | 'onChange' | 'orientation'> & {
+	icon?: ReactNode;
+	label?: ReactNode;
+	help?: ReactNode;
+	actions?: ReactNode;
+	subtitle?: ReactNode;
+	orientation?: RadioButtonGroupOrientation;
+	design?: RadioButtonGroupDesign;
+	disabled?: boolean;
+	readOnly?: boolean;
+	value?: string;
+	onChange?: (value: string) => void;
+	className?: string;
+	labelClassName?: string;
+	flat?: boolean;
+	hidden?: boolean;
+	children?: ReactNode;
+};
+
+export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
 	const {
 		icon,
 		help,
 		label,
 		actions,
 		subtitle,
-
 		orientation = 'vertical',
 		design = 'default',
-
 		disabled,
 		readOnly,
-
 		value,
 		onChange,
-
 		children,
-
 		flat,
 		className,
 		labelClassName,
-
 		hidden,
-
 		...rest
 	} = props;
 
@@ -278,21 +251,17 @@ export const RadioButtonGroup = (props) => {
 		return null;
 	}
 
-	let mappedChildren = children ?? [];
-
-	if (!Array.isArray(children)) {
-		mappedChildren = [children];
-	}
-
-	mappedChildren = children.map((child, index) => {
-		if (child.type.displayName !== 'RadioButton') {
+	const mappedChildren = Children.toArray(children).map((child, index) => {
+		if (!isValidElement(child) || (child.type as { displayName?: string })?.displayName !== 'RadioButton') {
 			return child;
 		}
 
-		return cloneElement(child, {
+		const radioChild = child as RadioButtonChildElement;
+
+		return cloneElement(radioChild, {
 			flat,
-			design: orientation === 'horizontal' ? `${design}Horizontal` : design,
-			key: child.props.value ?? index,
+			design: orientation === 'horizontal' ? 'segmentedHorizontal' : design,
+			key: radioChild.props.value ?? radioChild.key ?? index,
 		});
 	});
 
