@@ -1,7 +1,34 @@
 import { clsx } from 'clsx';
-import { useState, useEffect } from 'react';
+import { type HTMLAttributes, type ReactNode, useEffect, useState } from 'react';
 
-const transitions = {
+type ElementTransition =
+	| 'fade'
+	| 'slideFade'
+	| 'scaleFade'
+	| 'scaleRotateFade'
+	| 'slideFadeUpSlight'
+	| 'slideFadeDownSlight'
+	| 'slideInFadeOut'
+	| 'scaleSlideFade'
+	| 'scaleSlideFadeSlight';
+
+type TransitionClassNames = {
+	inClassName: string;
+	outClassName: string;
+};
+
+type AnimatedVisibilityProps = HTMLAttributes<HTMLDivElement> & {
+	visible: boolean;
+	className?: string;
+	children?: ReactNode;
+	noInitial?: boolean;
+	noExitAnimation?: boolean;
+	noEnterAnimation?: boolean;
+	decreaseBounce?: boolean;
+	transition?: ElementTransition;
+};
+
+const transitions: Record<ElementTransition, TransitionClassNames> = {
 	fade: {
 		inClassName: 'es:motion-opacity-in',
 		outClassName: 'es:motion-opacity-out',
@@ -40,31 +67,7 @@ const transitions = {
 	},
 };
 
-/**
- * Component that allows animating the visibility of its children.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {boolean} props.visible - Whether the content should be visible
- * @param {string} props.className - Classes to pass to the element wrapper.
- * @param {boolean} [props.noInitial=false] - If `true`, the animation when the component is first mounted is disabled.
- * @param {boolean} [props.noExitAnimation=false] - If `true`, the exit animation is not played.
- * @param {boolean} [props.noEnterAnimation=false] - If `true`, the entrance animation is not played.
- * @param {boolean} [props.decreaseBounce=false] - If `true`, the animations will be more snappy.
- * @param {ElementTransition} [props.transition='slideFade'] - The transition to use when showing/hiding the content.
- *
- * @returns {JSX.Element} The AnimatedVisibility component.
- *
- * @typedef {'fade' | 'slideFade' |'scaleFade' | 'scaleRotateFade' | 'slideFadeUpSlight' | 'slideFadeDownSlight' | 'slideInFadeOut' | 'scaleSlideFade' | 'scaleSlideFadeSlight'} ElementTransition
- *
- * @example
- * const [visible, setVisible] = useState(false);
- *
- * <AnimatedVisibility visible={visible}>
- * 	<div>Content</div>
- * </AnimatedVisibility>
- */
-export const AnimatedVisibility = (props) => {
+export const AnimatedVisibility = (props: AnimatedVisibilityProps) => {
 	const { visible, className, children, noInitial = false, transition = 'slideFade', noExitAnimation, noEnterAnimation, decreaseBounce, ...other } = props;
 
 	const [isVisibleInner, setIsVisibleInner] = useState(false);

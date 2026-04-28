@@ -1,36 +1,37 @@
 import { clsx } from 'clsx';
-
+import { type ReactNode } from 'react';
 import { checkSquare, componentGeneric, errorCircle, info, warning } from '../../icons/internal';
 
-/**
- * A simple notice component.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {JSX.Element} [props.icon] - Icon to display within the notice.
- * @param {string} [props.label] - The label of the notice.
- * @param {string} [props.subtitle] - The subtitle of the notice.
- * @param {string} [props.className] - Classes to pass to the notice.
- * @param {NoticeType} [props.type='default'] - The type of the notice.
- * @param {boolean} [props.alignIconToTitle=false] - If `true`, the icon will be aligned to the first row of title, instead of vertically centered.
- * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- *
- * @returns {JSX.Element} The Notice component.
- *
- * @typedef {'info' | 'success' | 'warning' | 'error' | 'placeholder' | 'default'} NoticeType
- *
- * @example
- * <Notice label='This is a notice' />
- */
-export const Notice = (props) => {
+type NoticeType = 'info' | 'success' | 'warning' | 'error' | 'placeholder' | 'default';
+
+type NoticeStyle = {
+	icon?: ReactNode;
+	className: string;
+	iconColorClassName: string;
+	textColorClassName: string;
+	subtitleColorClassName: string;
+	selectionClassName: string;
+};
+
+type NoticeProps = {
+	icon?: ReactNode;
+	label?: string;
+	subtitle?: string;
+	className?: string;
+	type?: NoticeType;
+	alignIconToTitle?: boolean;
+	flat?: boolean;
+	hidden?: boolean;
+};
+
+export const Notice = (props: NoticeProps) => {
 	const { icon, label, subtitle, className, type = 'default', alignIconToTitle = false, flat, hidden } = props;
 
 	if (hidden) {
 		return null;
 	}
 
-	const styles = {
+	const styles: Record<NoticeType, NoticeStyle> = {
 		info: {
 			icon: info,
 			className: 'es:inset-ring-blue-600/15 es:shadow-blue-800/5 es:from-blue-400/2 es:to-blue-600/5 es:inset-shadow-blue-500/10',
