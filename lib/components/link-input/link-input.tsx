@@ -1,16 +1,57 @@
-import { Label, Button as ReactAriaButton, Input, Group, ListBox, ListBoxItem, Popover } from 'react-aria-components';
 import { __ } from '@wordpress/i18n';
+import { cva } from 'class-variance-authority';
+import clsx from 'clsx';
+import { useAsyncList } from 'react-stately';
+import { Button as ReactAriaButton, ComboBox, Group, Input, Label, ListBox, ListBoxItem, Popover } from 'react-aria-components';
+import { type ReactNode } from 'react';
+
 import { anchor, clearAlt, externalLink, file, formAlt, globe, layoutAlt, searchEmpty } from '../../icons/internal';
 import { Spinner } from '../../icons/spinner';
-import { clsx } from 'clsx';
-import { useAsyncList } from 'react-stately';
-import { Tooltip } from '../tooltip/tooltip';
+import { randomId } from '../../utilities';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { BaseControl } from '../base-control/base-control';
 import { RichLabel } from '../rich-label/rich-label';
-import { ComboBox } from 'react-aria-components';
-import { cva } from 'class-variance-authority';
-import { randomId } from '../../utilities';
+import { Tooltip } from '../tooltip/tooltip';
+
+type InputSize = 'small' | 'medium' | 'default' | 'large';
+
+type LinkInputValue = {
+	url?: string;
+	isAnchor: boolean;
+};
+
+type LinkSuggestionItem = {
+	label: string;
+	value: string;
+	metadata?: {
+		subtype?: string | null;
+		[key: string]: unknown;
+	};
+	[key: string]: unknown;
+};
+
+type LinkInputProps = {
+	url?: string;
+	onChange?: (value: LinkInputValue) => void;
+	label?: ReactNode;
+	subtitle?: ReactNode;
+	help?: ReactNode;
+	placeholder?: string;
+	actions?: ReactNode;
+	icon?: ReactNode;
+	removeIcon?: ReactNode;
+	disabled?: boolean;
+	fetchSuggestions?: (searchTerm: string, signal?: AbortSignal) => Promise<LinkSuggestionItem[] | null | undefined> | LinkSuggestionItem[] | null | undefined;
+	className?: string;
+	inputDebounceDelay?: number;
+	suggestionTypeIconOverride?: (type: string) => ReactNode;
+	showSuggestionsWhenEmpty?: boolean;
+	flat?: boolean;
+	keyboardShortcuts?: boolean;
+	size?: InputSize;
+	inline?: boolean;
+	hidden?: boolean;
+};
 
 const inputClass = cva(
 	[
@@ -37,6 +78,15 @@ const inputClass = cva(
 			},
 			inline: {
 				true: 'es:min-w-48',
+				false: '',
+			},
+			flat: {
+				true: '',
+				false: '',
+			},
+			disabled: {
+				true: '',
+				false: '',
 			},
 		},
 		compoundVariants: [
@@ -66,78 +116,59 @@ const inputClass = cva(
 					'es:shadow-none!',
 				],
 			},
-			{ disabled: true, class: ['es:bg-white es:inset-ring-secondary-200 es:text-secondary-400'] },
+			{
+				disabled: true,
+				class: ['es:bg-white es:inset-ring-secondary-200 es:text-secondary-400'],
+			},
 		],
 		defaultVariants: { disabled: false, flat: false, inline: false },
 	},
 );
 
-/**
- * Component that allows URL selection, with a suggestionList of suggestions and type-to-search.
- *
- * @component
- * @param {Object} props - Component props.
- * @param {string} [props.url] - The current URL.
- * @param {Function} [props.onChange] - Function to run when the URL changes.
- * @param {string} [props.label] - Label to display.
- * @param {string} [props.subtitle] - Subtitle to display.
- * @param {string} [props.help] - Help text to display below the input.
- * @param {string} [props.placeholder] - Placeholder to show in the input field.
- * @param {JSX.Element|JSX.Element[]} [props.actions] - Actions to display to the right of the label.
- * @param {JSX.Element} [props.icon=icons.globe] - Icon to display in the label.
- * @param {JSX.Element} [props.removeIcon=icons.clearAlt] - Icon to display in the input's clear button.
- * @param {boolean} [props.disabled=false] - If `true`, the input is disabled.
- * @param {Function} [props.fetchSuggestions] - A function that fetches suggestions based on the input value.
- * @param {string} [props.className] - Classes to pass to the input field.
- * @param {number} [props.inputDebounceDelay=500] - The delay in milliseconds before the input value is considered final.
- * @param {Function} [props.suggestionTypeIconOverride] - Allows overriding the default icon for the suggestion type, e.g. when using CPTs. Should be in the format: `(type) => icon or React component`.
- * @param {boolean} [props.showSuggestionsWhenEmpty] - If `true`, the suggestion list will be shown when down arrow is pressed even the input is empty.
- * @param {boolean} [props.flat] - If `true`, component will look more flat. Useful for nested layer of controls.
- * @param {boolean} [props.keyboardShortcuts] - If `true`, keyboard shortcuts are shown in the suggestion list.
- * @param {InputSize} [props.size='default'] - Sets the size of the input field.
- * @param {boolean} [props.inline] - If `true`, the component is displayed inline - icon/label/subtitle are on the left, the passed content is on the right. **Note:** not compatible with `actions`.
- * @param {boolean} [props.hidden] - If `true`, the component is not rendered.
- *
- * @typedef {'small' | 'medium' | 'default' | 'large'} InputSize
- *
- * @returns {JSX.Element} The LinkInput component.
- *
- * @example
- * <LinkInput
- * 	url={url}
- * 	onChange={setUrl}
- * />
- */
-export const LinkInput = (props) => {
+const getSuggestionIcon = (subtype: string) => {
+	if (subtype.toLowerCase() === 'url') {
+		return externalLink;
+	}
+
+	if (subtype.toLowerCase() === 'attachment') {
+		return file;
+	}
+
+	if (subtype.toLowerCase() === 'category') {
+		return layoutAlt;
+	}
+
+	if (subtype.toLowerCase() === 'internal') {
+		return anchor;
+	}
+
+	if (subtype.toLowerCase() === 'eightshift-forms') {
+		return formAlt;
+	}
+
+	return file;
+};
+
+export const LinkInput = (props: LinkInputProps) => {
 	const {
 		url = '',
 		onChange,
-
 		label = __('Link', 'eightshift-ui-components'),
 		subtitle,
 		help,
 		actions,
 		inline,
-
 		placeholder = __('Type to search or enter URL', 'eightshift-ui-components'),
-
 		icon = globe,
 		removeIcon = clearAlt,
-
 		disabled = false,
-
 		suggestionTypeIconOverride,
-
 		showSuggestionsWhenEmpty,
-
 		fetchSuggestions,
 		className,
-
 		keyboardShortcuts,
-
 		flat,
 		size = 'default',
-
 		hidden,
 	} = props;
 
@@ -160,9 +191,9 @@ export const LinkInput = (props) => {
 		);
 	}
 
-	const suggestionList = useAsyncList({
+	const suggestionList = useAsyncList<LinkSuggestionItem>({
 		async load({ signal }) {
-			if (disabled || !canShowSuggestions || !shouldShowSuggestions) {
+			if (disabled || !canShowSuggestions || !shouldShowSuggestions || !fetchSuggestions) {
 				return {
 					items: [],
 				};
@@ -183,11 +214,11 @@ export const LinkInput = (props) => {
 	const noResults = shouldShowSuggestions && !suggestionList.isLoading && suggestionList.items.length === 0;
 
 	return (
-		<ComboBox
+		<ComboBox<LinkSuggestionItem>
 			items={suggestionList.items}
 			inputValue={url}
 			onInputChange={(value) => {
-				onChange({ url: value, isAnchor: value?.includes('#') });
+				onChange?.({ url: value, isAnchor: value.includes('#') });
 
 				if (shouldShowSuggestions) {
 					suggestionList.reload();
@@ -199,7 +230,6 @@ export const LinkInput = (props) => {
 			className='es:selection:bg-surface-100 es:selection:text-accent-800'
 		>
 			<BaseControl
-				as={Label}
 				icon={icon}
 				label={label}
 				subtitle={subtitle}
@@ -210,23 +240,23 @@ export const LinkInput = (props) => {
 			>
 				<Group className='es:relative es:group'>
 					<Input
-						placeholder={disabled ? null : placeholder}
+						placeholder={disabled ? undefined : placeholder}
 						className={clsx(inputClass({ disabled, flat, size, inline }), className)}
 					/>
 
 					<AnimatedVisibility
-						visible={!disabled && url?.length > 0}
+						visible={!disabled && url.length > 0}
 						className='es:absolute es:inset-y-1 es:right-1'
 						transition='scaleFade'
 					>
 						<ReactAriaButton
 							slot={null}
 							onPress={() => {
-								onChange({ url: undefined, isAnchor: false });
+								onChange?.({ url: undefined, isAnchor: false });
 							}}
 							className='es:any-focus:outline-hidden es:rounded-xs es:transition-plus es:focus-visible:rounded-md es:focus-visible:bg-surface-200 es:focus-visible:text-accent-900'
 						>
-							{!(shouldShowSuggestions && suggestionList.isLoading) && (
+							{!(shouldShowSuggestions && suggestionList.isLoading) ? (
 								<Tooltip text={__('Clear', 'eightshift-ui-components')}>
 									<div
 										className={clsx(
@@ -239,15 +269,15 @@ export const LinkInput = (props) => {
 										{removeIcon}
 									</div>
 								</Tooltip>
-							)}
+							) : null}
 
-							{shouldShowSuggestions && suggestionList.isLoading && <Spinner className='es:size-5! es:m-1.5 es:spinner-4!' />}
+							{shouldShowSuggestions && suggestionList.isLoading ? <Spinner className='es:size-5! es:m-1.5 es:spinner-4!' /> : null}
 						</ReactAriaButton>
 					</AnimatedVisibility>
 				</Group>
 			</BaseControl>
 
-			{canShowSuggestions && shouldShowSuggestions && (
+			{canShowSuggestions && shouldShowSuggestions ? (
 				<Popover
 					aria-label={__('URL suggestions', 'eightshift-ui-components')}
 					className={({ isEntering, isExiting }) =>
@@ -276,9 +306,9 @@ export const LinkInput = (props) => {
 						)
 					}
 					offset={3}
-					maxHeight={0.8 * (window?.innerWidth ?? 1000)}
+					maxHeight={0.8 * (window.innerWidth ?? 1000)}
 				>
-					{noResults && (
+					{noResults ? (
 						<RichLabel
 							icon={searchEmpty}
 							label={__('No results', 'eightshift-ui-components')}
@@ -290,33 +320,17 @@ export const LinkInput = (props) => {
 							fullSizeSubtitle
 							noColor
 						/>
-					)}
+					) : null}
 
-					{suggestionList.items.length > 0 && !suggestionList.isLoading && (
+					{suggestionList.items.length > 0 && !suggestionList.isLoading ? (
 						<>
-							<ListBox className='es:space-y-0.75 es:p-1.5'>
+							<ListBox<LinkSuggestionItem> className='es:space-y-0.75 es:p-1.5'>
 								{(item) => {
-									const {
-										label: title,
-										value: url,
-										metadata: { subtype: rawSubtype },
-									} = item;
+									const title = item.label;
+									const itemUrl = item.value;
+									const subtype = item.metadata?.subtype ?? 'page';
 
-									const subtype = rawSubtype ?? 'page';
-
-									let typeIcon = file;
-
-									if (subtype.toLowerCase() === 'url') {
-										typeIcon = externalLink;
-									} else if (subtype.toLowerCase() === 'attachment') {
-										typeIcon = file;
-									} else if (subtype.toLowerCase() === 'category') {
-										typeIcon = layoutAlt;
-									} else if (subtype.toLowerCase() === 'internal') {
-										typeIcon = anchor;
-									} else if (subtype.toLowerCase() === 'eightshift-forms') {
-										typeIcon = formAlt;
-									}
+									let typeIcon: ReactNode = getSuggestionIcon(subtype);
 
 									if (suggestionTypeIconOverride) {
 										const overrideIcon = suggestionTypeIconOverride(subtype);
@@ -328,7 +342,7 @@ export const LinkInput = (props) => {
 
 									return (
 										<ListBoxItem
-											id={item?.value ?? randomId(8)}
+											id={item.value || randomId(8)}
 											className={clsx(
 												'es:transition-plus',
 												'es:px-2 es:py-2.5',
@@ -338,12 +352,12 @@ export const LinkInput = (props) => {
 												'es:pressed:rounded-3xl!',
 												'es:text-surface-950',
 											)}
-											textValue={url}
+											textValue={itemUrl}
 										>
 											<RichLabel
 												icon={typeIcon}
 												label={title}
-												subtitle={url?.replace(location.origin, '').replace(/\/$/, '')}
+												subtitle={itemUrl.replace(location.origin, '').replace(/\/$/, '')}
 												className='es:select-none'
 												subtitleClassName='es:font-variation-["wdth"_80,"wght"_250,"ROND"_100,"slnt"_-2]!'
 												iconClassName='es:p-1 es:text-accent-900 es:bg-surface-50/65 es:rounded-md'
@@ -354,7 +368,7 @@ export const LinkInput = (props) => {
 								}}
 							</ListBox>
 
-							{keyboardShortcuts && (
+							{keyboardShortcuts ? (
 								<div className='es:flex es:flex-wrap es:items-center es:justify-end-safe es:gap-x-4 es:gap-y-0.5 es:px-2.5 es:pb-2 es:pt-0.5'>
 									<div className='es:flex es:gap-1 es:items-center'>
 										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-13 es:text-box-trim'>
@@ -386,11 +400,11 @@ export const LinkInput = (props) => {
 										</span>
 									</div>
 								</div>
-							)}
+							) : null}
 						</>
-					)}
+					) : null}
 				</Popover>
-			)}
+			) : null}
 		</ComboBox>
 	);
 };
