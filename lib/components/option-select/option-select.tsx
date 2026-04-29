@@ -111,6 +111,7 @@ export const OptionSelect = (props: OptionSelectProps) => {
 	const notSetLabel = <span className='es:leading-3 es:opacity-50'>{__('Not set', 'eightshift-ui-components')}</span>;
 	const radioDesign = type === 'radiosSegmented' ? 'segmented' : 'default';
 	const resolvedTriggerLabel = noTriggerLabel ? null : (label ?? currentItem?.label ?? notSetLabel);
+	const resolvedMenuTriggerLabel = noTriggerLabel ? null : (currentItem?.label ?? label ?? notSetLabel);
 	const resolvedTriggerIcon = (() => {
 		if (noTriggerIcon) {
 			return null;
@@ -310,7 +311,7 @@ export const OptionSelect = (props: OptionSelectProps) => {
 
 			{type === 'menu' ? (
 				<Menu
-					triggerLabel={resolvedTriggerLabel}
+					triggerLabel={resolvedMenuTriggerLabel}
 					triggerIcon={resolvedTriggerIcon}
 					tooltip={
 						noTriggerLabel ? (

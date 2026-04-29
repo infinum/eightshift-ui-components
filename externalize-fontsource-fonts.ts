@@ -39,7 +39,7 @@ const createExternalFontAssets = (): { fontCss: string; emittedFonts: Map<string
 	const fontCss = FONT_CSS_SOURCES.map((cssPath) => {
 		const css = readFileSync(cssPath, 'utf8');
 
-		return css.replace(/url\((['"]?)(?!data:|https?:|\/)([^'")]+)\1\)/g, (_, _quote: string, relativeFontPath: string) => {
+		return css.replace(/url\((['"]?)(?!data:|https?:|\/)([^'")]+)\1\)/g, (_match: string, _quote: string, relativeFontPath: string) => {
 			const absoluteFontPath = resolveFontAssetPath(cssPath, relativeFontPath);
 			const fontFileName = absoluteFontPath.split('/').at(-1);
 

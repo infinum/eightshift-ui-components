@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
 import { useState } from 'react';
 import { ColorArea, ColorField, ColorSlider, ColorThumb, Input, SliderTrack, parseColor } from 'react-aria-components';
-import type { Color, ColorFormat } from '@react-types/color';
+import type { Color, ColorFormat } from 'react-aria-components';
 
 import { dropdownCaretAlt } from '../../icons/internal';
 import { BaseControl } from '../base-control/base-control';

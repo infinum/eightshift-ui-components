@@ -26,6 +26,7 @@ const buildInputs: Array<[string, string]> = [
 
 export default defineConfig((): UserConfig => {
 	return {
+		base: './',
 		plugins: [react(), libInjectCss(), tailwindcss(), tw4Prefixer(), tw4PrefixerBuild(), externalizeFontsourceFonts()],
 		build: {
 			copyPublicDir: true,
