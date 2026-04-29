@@ -8,7 +8,7 @@ import {
 	Separator as ReactAriaSeparator,
 	SubmenuTrigger,
 } from 'react-aria-components';
-import { Children, cloneElement, isValidElement, type ComponentPropsWithoutRef, type ReactElement, type ReactNode } from 'react';
+import { Children, Fragment, cloneElement, isValidElement, type ComponentPropsWithoutRef, type ReactElement, type ReactNode } from 'react';
 import { chevronRight, dummySpacer, hamburgerMenu, menuItemCheck, menuItemCircle } from '../../icons/internal';
 import { Button } from '../button/button';
 import { Popover } from '../popover/popover';
@@ -76,11 +76,19 @@ type MenuSectionHeaderProps = Omit<ReactAriaMenuItemProps, 'children' | 'classNa
 };
 
 const isSubMenuItem = (child: ReactNode) => {
-	if (!isValidElement(child) || typeof child.type === 'string') {
+	if (!isValidElement<{ children?: ReactNode }>(child)) {
 		return false;
 	}
 
-	return 'displayName' in child.type && child.type.displayName === 'SubMenuItem';
+	if (child.type === Fragment) {
+		return Children.toArray(child.props.children).some(isSubMenuItem);
+	}
+
+	if (typeof child.type === 'string' || typeof child.type === 'symbol') {
+		return false;
+	}
+
+	return child.type === SubMenuItem || ('displayName' in child.type && child.type.displayName === 'SubMenuItem');
 };
 
 export const Menu = (props: MenuProps) => {
