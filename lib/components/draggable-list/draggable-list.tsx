@@ -54,15 +54,18 @@ export const DraggableList = <TItem extends Record<string, unknown>>(props: Drag
 
 	const renderItem = useCallback(
 		({ value, index = 0, isDragged, isSelected, props: itemProps }: RenderItemParams<TItem>) => {
+			const { key, ref, ...containerProps } = itemProps;
+
 			return (
 				<TypedContainer
 					as='li'
-					key={itemProps.key}
+					key={key}
 					accent={isDragged || isSelected}
 					elevated={isDragged || isSelected}
 					className={clsx('es:list-none es:m-0!', isDragged && 'es:z-99999', itemClassName)}
-					data-selected={isDragged || isSelected || itemProps.style?.position === 'fixed'}
-					{...itemProps}
+					data-selected={isDragged || isSelected || containerProps.style?.position === 'fixed'}
+					ref={ref}
+					{...containerProps}
 				>
 					{children({
 						...value,
