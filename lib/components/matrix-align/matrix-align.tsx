@@ -87,6 +87,22 @@ const TypedTriggeredPopover = TriggeredPopover as unknown as (props: {
 	wrapperClassName?: string;
 }) => ReactNode;
 
+/**
+ * A component that can provide a 3x3 or a 2x2 grid of positions to pick from.
+ * Replaces the default Gutenberg `AlignmentMatrixControl` / `BlockAlignmentMatrixControl` / `BlockAlignmentMatrixToolbar`.
+ *
+ * @component
+ * @param {MatrixAlignProps} props - Component props.
+ *
+ * @returns {JSX.Element} The MatrixAlign component.
+ *
+ * @example
+ * <MatrixAlign
+ * 	size='3x3'
+ * 	value='top left'
+ * 	onChange={setAlignment}
+ * />
+ */
 export const MatrixAlign = (props: MatrixAlignProps) => {
 	const { size = '3x3', value, onChange, tooltip = __('Position', 'eightshift-ui-components'), label, icon, subtitle, 'aria-label': ariaLabel, hidden } = props;
 

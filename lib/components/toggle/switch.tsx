@@ -171,6 +171,22 @@ type SwitchProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaSwitch>, 'child
 	size?: SwitchSize;
 };
 
+/**
+ * A toggle switch.
+ *
+ * @component
+ * @param {SwitchProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Switch component.
+ *
+ * @example
+ * const [checked, setChecked] = useState(false);
+ *
+ * <Switch
+ * 	checked={checked}
+ * 	onChange={() => setChecked(!checked)}
+ * />
+ */
 export const Switch = (props: SwitchProps) => {
 	const { checked, onChange, disabled, id, children, className, isIndeterminate, flat, hidden, size = 'default', ...rest } = props;
 

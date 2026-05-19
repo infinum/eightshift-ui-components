@@ -141,6 +141,19 @@ const ModalInternal = (props: ModalProps) => {
 	);
 };
 
+/**
+ * Modal dialog.
+ *
+ * @component
+ * @param {ModalProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Modal component.
+ *
+ * @example
+ * <Modal>
+ * 	<p>Modal content</p>
+ * </Modal>
+ */
 export const Modal = (props: ModalProps) => {
 	const { triggerLabel, triggerIcon, triggerProps, customTrigger, open } = props;
 

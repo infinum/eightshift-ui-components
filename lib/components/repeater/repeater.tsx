@@ -49,6 +49,39 @@ type RepeaterProps<Item extends RepeaterItemData = RepeaterItemData> = {
 	itemLabelProp?: string;
 };
 
+/**
+ * A component that allows re-ordering a list of items with additional sub-options.
+ *
+ * @component
+ * @param {RepeaterProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Repeater component.
+ *
+ * @example
+ * <Repeater
+ * 	label='My repeater'
+ * 	items={items}
+ * 	onChange={setItems}
+ * >
+ * 	{(item) => {
+ * 		const { title, updateData } = item;
+ *
+ * 		return (
+ * 			<RepeaterItem
+ * 				label={title ?? 'New item'}
+ * 				icon={myIcon}
+ * 			>
+ * 				<InputField
+ * 					label='Title'
+ * 					type='text'
+ * 					value={title}
+ * 					onChange={(value) => updateData({ title: value })}
+ * 				/>
+ * 			</RepeaterItem>
+ * 		);
+ * 	}}
+ * </Repeater>
+ */
 export const Repeater = <Item extends RepeaterItemData>(props: RepeaterProps<Item>) => {
 	const {
 		children,

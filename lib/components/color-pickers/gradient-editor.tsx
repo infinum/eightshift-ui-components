@@ -188,17 +188,37 @@ const getGradientType = (value?: string | null): GradientType => {
 	return 'linear';
 };
 
+const stringifyGradientAxisValue = (value: string | { unit: string; value: string }) => (typeof value === 'string' ? value : `${value.value}${value.unit}`);
+
 const parseGradientData = (value: string | null | undefined, type: GradientType): GradientData => {
 	try {
 		if (type === 'radial') {
-			return parseRadialGradient(value ?? '') as GradientData;
+			const radialGradient = parseRadialGradient(value ?? '');
+
+			return {
+				...radialGradient,
+				size: radialGradient.size.map((item) => ({
+					...item,
+					value: stringifyGradientAxisValue(item.value),
+				})),
+				position: {
+					x: {
+						...radialGradient.position.x,
+						value: stringifyGradientAxisValue(radialGradient.position.x.value),
+					},
+					y: {
+						...radialGradient.position.y,
+						value: stringifyGradientAxisValue(radialGradient.position.y.value),
+					},
+				},
+			};
 		}
 
 		if (type === 'conic') {
-			return parseConicGradient(value ?? '') as GradientData;
+			return parseConicGradient(value ?? '');
 		}
 
-		return parseLinearGradient(value ?? '') as GradientData;
+		return parseLinearGradient(value ?? '');
 	} catch {
 		return defaultGradientData;
 	}
@@ -212,6 +232,21 @@ const parseMatrixAlignValue = (value: string) => {
 	return { x, y };
 };
 
+/**
+ * A simple gradient editor.
+ * Allows editing linear, radial, and conic gradients.
+ *
+ * @component
+ * @param {GradientEditorProps} props - Component props.
+ *
+ * @returns {JSX.Element} The GradientEditor component.
+ *
+ * @example
+ * <GradientEditor
+ * 	value='linear-gradient(90deg, #000000 0%, #ffffff 100%)'
+ * 	onChange={setGradient}
+ * />
+ */
 export const GradientEditor = (props: GradientEditorProps) => {
 	const { value, onChange, hidden } = props;
 	const gradientType = useMemo(() => getGradientType(value), [value]);

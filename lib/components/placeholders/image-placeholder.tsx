@@ -17,6 +17,17 @@ type ImagePlaceholderProps = {
 	imageMode?: ImagePlaceholderImageMode;
 };
 
+/**
+ * A simple image placeholder, with an empty state.
+ *
+ * @component
+ * @param {ImagePlaceholderProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ImagePlaceholder component.
+ *
+ * @example
+ * <ImagePlaceholder url='https://example.com/image.jpg' alt='Image alt text' />
+ */
 export const ImagePlaceholder = (props: ImagePlaceholderProps) => {
 	const { url, alt, style = 'default', size = 'default', noImage, className, hidden, imageMode = 'cover', flat } = props;
 	const hasUrl = Boolean(url && url.length > 0);

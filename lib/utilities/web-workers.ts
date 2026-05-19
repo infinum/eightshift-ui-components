@@ -12,6 +12,11 @@ interface AnalysisSettings {
 
 /**
  * Returns a memoized function that gets or creates a singleton image analysis worker (with inline fallback).
+ * Also returns a callback for analyzing with the worker.
+ *
+ * @param {MutableRefObject<Worker | null>} workerRef - React ref object for the worker instance.
+ * @param {string} workerInline - Inlined worker code string.
+ * @returns {object} Worker helpers for creating and analyzing with the image analysis worker.
  */
 export function useImageAnalysisWorker(
 	workerRef: MutableRefObject<Worker | null>,
@@ -42,6 +47,9 @@ export function useImageAnalysisWorker(
 
 /**
  * Create a new image analysis worker using the inlined worker code.
+ *
+ * @param {string} workerInline - The inlined worker code as a string.
+ * @returns {Worker} The created worker instance.
  */
 export function createImageAnalysisWorker(workerInline: string): Worker {
 	if (!workerInline || typeof workerInline !== 'string' || workerInline.length < 100) {
@@ -55,6 +63,11 @@ export function createImageAnalysisWorker(workerInline: string): Worker {
 
 /**
  * Analyze an image using a web worker (returns a Promise).
+ *
+ * @param {Worker} worker - The worker instance.
+ * @param {ImageBitmap} imageBitmap - The image to analyze.
+ * @param {AnalysisSettings} settings - Analysis settings.
+ * @returns {Promise<unknown>} Resolves with the analysis result.
  */
 export function analyzeWithWorker(worker: Worker, imageBitmap: ImageBitmap, settings: AnalysisSettings): Promise<unknown> {
 	return new Promise((resolve, reject) => {

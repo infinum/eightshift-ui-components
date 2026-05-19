@@ -30,6 +30,19 @@ type ExpandableProps = Omit<ComponentPropsWithoutRef<typeof Disclosure>, 'childr
 	children?: ReactNode;
 };
 
+/**
+ * A component that allows hiding content in an expandable panel, to declutter the UI.
+ *
+ * @component
+ * @param {ExpandableProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Expandable component.
+ *
+ * @example
+ * <Expandable label='My component'>
+ * 	...
+ * </Expandable>
+ */
 export const Expandable = (props: ExpandableProps) => {
 	const {
 		icon,

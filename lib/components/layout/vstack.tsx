@@ -9,6 +9,19 @@ interface StackProps {
 	hidden?: boolean;
 }
 
+/**
+ * Allows for stacking elements vertically, with a gap between them.
+ *
+ * @component
+ * @param {StackProps} props - Component props.
+ *
+ * @returns {JSX.Element} The VStack component.
+ *
+ * @example
+ * <VStack>
+ * 	...
+ * </VStack>
+ */
 export const VStack = ({ children, noWrap, className, hidden, as }: StackProps): JSX.Element | null => {
 	if (hidden) {
 		return null;

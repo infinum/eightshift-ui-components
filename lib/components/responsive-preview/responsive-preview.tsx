@@ -36,6 +36,25 @@ type ResponsivePreviewProps = {
 	breakpointUiData?: Record<string, BreakpointUiOverride>;
 };
 
+/**
+ * A component that displays a preview of the responsive settings.
+ *
+ * **Note**: Only intended for horizontal groups of buttons that don't wrap.
+ *
+ * @component
+ * @param {ResponsivePreviewProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ResponsivePreview component.
+ *
+ * @example
+ * <ResponsivePreview
+ * 	value={value}
+ * 	isDesktopFirst={isDesktopFirst}
+ * 	breakpoints={breakpoints}
+ * 	options={options}
+ * 	breakpointData={breakpointData}
+ * />
+ */
 export const ResponsivePreview = (props: ResponsivePreviewProps) => {
 	const {
 		value,

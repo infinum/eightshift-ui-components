@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs ls *)",
+      "Bash(xargs -I {} sh -c 'echo \"=== {} ===\" && grep -c \"@param\" {} || echo \"0\"')",
+      "Bash(rg \"^typescript$\")",
+      "Bash(bun add *)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d['version']\\)\")",
+      "Bash(node ./scripts/generate-icon-loaders.mjs)",
+      "Bash(rg -v \"^ui-icons$\")",
+      "Bash(rip /Users/igorobradovic/Repos/eightshift-ui-components/lib/icons/icons.ts)",
+      "Bash(sd 'export const blockIcons = \\\\{' 'export const blockIcons: Record<string, string> = {' lib/icons/icons.jsx)",
+      "Bash(perl -pi -e 's/export const blockIcons = \\\\{/export const blockIcons: Record<string, string> = {/' lib/icons/icons.jsx)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\('types',''\\), d.get\\('typings',''\\)\\)\")",
+      "Bash(perl -pi -e 's/export const columnGuttersLR =/export const columnGuttersLr =/' lib/icons/ui-icons/column-gutters-lr.tsx)",
+      "Bash(rg \"\\\\bas\\\\?: \" lib --include=\"*.tsx\" --include=\"*.ts\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); scripts=d.get\\('scripts',{}\\); print\\('Scripts:', list\\(scripts.keys\\(\\)\\)\\); pm=d.get\\('packageManager',''\\); print\\('PackageManager:', pm\\)\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('Current version:', d['version']\\)\")",
+      "Bash(git ls-tree *)",
+      "Bash(rg \"[a-z][A-Z]{2,}\")"
+    ]
+  }
+}

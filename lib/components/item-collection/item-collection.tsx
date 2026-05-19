@@ -14,6 +14,31 @@ type ItemCollectionProps<TItem extends Record<string, unknown>> = {
 	hidden?: boolean;
 };
 
+/**
+ * A simple component to manage a collection of items.
+ *
+ * @component
+ * @param {ItemCollectionProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ItemCollection component.
+ *
+ * @example
+ * <ItemCollection
+ * 	items={items}
+ * 	onChange={setItems}
+ * >
+ * 	{({ title, updateData, deleteItem }) => (
+ * 		<div>
+ * 			<InputField
+ * 				label={__('Title', 'demo')}
+ * 				value={title}
+ * 				onChange={(nextTitle) => updateData({ title: nextTitle })}
+ * 			/>
+ * 			<Button onPress={deleteItem}>Remove</Button>
+ * 		</div>
+ * 	)}
+ * </ItemCollection>
+ */
 export const ItemCollection = <TItem extends Record<string, unknown>>(props: ItemCollectionProps<TItem>) => {
 	const { children, items: rawItems, onChange, hidden } = props;
 

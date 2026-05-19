@@ -140,6 +140,28 @@ const loadHtmlImage = async (src: string): Promise<HTMLImageElement> => {
 	return image;
 };
 
+/**
+ * Image that analyzes its contents and can apply different classes based on image transparency.
+ * It also provides a CSS variable with the image's dominant color, and optionally custom child rendering with all the data exposed.
+ *
+ * @component
+ * @param {SmartImageProps} props - Component props.
+ *
+ * @returns {JSX.Element} The SmartImage component.
+ *
+ * @example
+ * <SmartImage src='https://picsum.photos/600/400' />
+ *
+ * @example
+ * <SmartImage src='https://picsum.photos/600/400'>
+ * 	{({ image, dominantColors, isDark }) => (
+ * 		<div style={{ backgroundColor: dominantColors?.[0]?.color }}>
+ * 			{image}
+ * 			<p style={{ color: isDark ? '#000000' : '#FFFFFF' }}>Lorem ipsum</p>
+ * 		</div>
+ * 	)}
+ * </SmartImage>
+ */
 const SmartImage = (props: SmartImageProps) => {
 	const {
 		onAnalysisComplete,

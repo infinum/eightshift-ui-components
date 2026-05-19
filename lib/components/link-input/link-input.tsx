@@ -149,6 +149,20 @@ const getSuggestionIcon = (subtype: string) => {
 	return file;
 };
 
+/**
+ * Component that allows URL selection, with a suggestionList of suggestions and type-to-search.
+ *
+ * @component
+ * @param {LinkInputProps} props - Component props.
+ *
+ * @returns {JSX.Element} The LinkInput component.
+ *
+ * @example
+ * <LinkInput
+ * 	url={url}
+ * 	onChange={setUrl}
+ * />
+ */
 export const LinkInput = (props: LinkInputProps) => {
 	const {
 		url = '',

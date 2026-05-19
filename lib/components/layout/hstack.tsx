@@ -9,6 +9,19 @@ interface StackProps {
 	hidden?: boolean;
 }
 
+/**
+ * Allows for stacking elements horizontally, with a gap between them.
+ *
+ * @component
+ * @param {StackProps} props - Component props.
+ *
+ * @returns {JSX.Element} The HStack component.
+ *
+ * @example
+ * <HStack>
+ * 	...
+ * </HStack>
+ */
 export const HStack = ({ children, noWrap, className, hidden, as }: StackProps): JSX.Element | null => {
 	if (hidden) {
 		return null;

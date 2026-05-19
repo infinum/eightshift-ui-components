@@ -21,6 +21,16 @@ type DraggableListItemHandleProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 	className?: string;
 };
 
+/**
+ * A DraggableList item.
+ *
+ * @component
+ * @param {DraggableListItemProps} props - Component props.
+ *
+ * @returns {JSX.Element} The DraggableListItem component.
+ *
+ * @see {@link DraggableList} for usage example.
+ */
 export const DraggableListItem = (props: DraggableListItemProps) => {
 	const { children, icon, label, subtitle, className, iconClassName, labelClassName, subtitleClassName, labelContainerClassName, ...rest } = props;
 
@@ -49,6 +59,17 @@ export const DraggableListItem = (props: DraggableListItemProps) => {
 	);
 };
 
+/**
+ * A Draggable item handle.
+ *
+ * @component
+ * @param {DraggableListItemHandleProps} props - Component props.
+ *
+ * @returns {JSX.Element} The DraggableListItemHandle component.
+ *
+ * @example
+ * <DraggableListItemHandle />
+ */
 export const DraggableListItemHandle = (props: DraggableListItemHandleProps) => {
 	const { className, children, ...rest } = props;
 

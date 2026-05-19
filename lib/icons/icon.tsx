@@ -54,6 +54,13 @@ interface IconProps {
 
 /**
  * Renders an icon by name without eagerly importing the entire icon set.
+ *
+ * String icons are lazy-loaded on demand and render `dummySpacer` while the
+ * module resolves. Invalid icon names render `fallback` instead.
+ *
+ * @param {IconProps} props - Icon props.
+ *
+ * @returns {JSX.Element | null} The Icon component.
  */
 export const Icon = ({ icon, fallback = null, ...rest }: IconProps): JSX.Element | null => {
 	const normalizedIconName = typeof icon === 'string' ? normalizeIconName(icon) : null;

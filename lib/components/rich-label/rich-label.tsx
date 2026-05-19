@@ -20,6 +20,20 @@ type RichLabelProps<T extends ElementType = 'div'> = {
 	noColor?: boolean;
 } & Omit<ComponentPropsWithoutRef<T>, 'as' | 'children' | 'className'>;
 
+/**
+ * Component that displays a label, with an optional icon and subtitle.
+ *
+ * @component
+ * @param {RichLabelProps} props - Component props.
+ *
+ * @returns {JSX.Element} The RichLabel component.
+ *
+ * @example
+ * <RichLabel
+ * 	icon={myIcon}
+ * 	label='My label'
+ * />
+ */
 export const RichLabel = <T extends ElementType = 'div'>(props: RichLabelProps<T>) => {
 	const {
 		icon,
@@ -64,7 +78,7 @@ export const RichLabel = <T extends ElementType = 'div'>(props: RichLabelProps<T
 	return (
 		<ComponentToRender
 			className={clsx('es:flex es:items-center es:gap-1.75 es:text-sm', fullWidth && 'es:grow', noColorClassName, className)}
-			{...(rest as ComponentPropsWithoutRef<T>)}
+			{...rest}
 		>
 			{icon && <span className={clsx('es:icon:size-5 es:shrink-0', 'es:not-contrast-more:opacity-85', iconClassName)}>{icon}</span>}
 

@@ -91,6 +91,45 @@ const isSubMenuItem = (child: ReactNode) => {
 	return child.type === SubMenuItem || ('displayName' in child.type && child.type.displayName === 'SubMenuItem');
 };
 
+/**
+ * A simple menu component.
+ *
+ * @component
+ * @param {MenuProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Menu component.
+ *
+ * @example
+ * <Menu>
+ * 	<MenuSection label='Section 1'>
+ * 		<MenuItem>Item 1</MenuItem>
+ * 		<MenuItem>Item 2</MenuItem>
+ * 	</MenuSection>
+ * 	<MenuSection label='Section 2'>
+ * 		<MenuItem>Item 3</MenuItem>
+ * 		<MenuItem>Item 4</MenuItem>
+ * 	</MenuSection>
+ * </Menu>
+ *
+ * @example
+ * <Menu>
+ * 	<MenuItem>Item 1</MenuItem>
+ * 	<MenuItem>Item 2</MenuItem>
+ * 	<MenuSeparator />
+ * 	<MenuItem>Item 3</MenuItem>
+ * 	<MenuItem>Item 4</MenuItem>
+ * </Menu>
+ *
+ * @example
+ * <Menu>
+ * 	<MenuItem>Item 1</MenuItem>
+ * 	<MenuItem>Item 2</MenuItem>
+ * 	<SubMenuItem trigger={<MenuItem>Submenu</MenuItem>}>
+ * 		<MenuItem>Subitem 1</MenuItem>
+ * 		<MenuItem>Subitem 2</MenuItem>
+ * 	</SubMenuItem>
+ * </Menu>
+ */
 export const Menu = (props: MenuProps) => {
 	const {
 		children,
@@ -123,7 +162,7 @@ export const Menu = (props: MenuProps) => {
 		: undefined;
 
 	const hasSubmenuItems = Children.toArray(children).some(isSubMenuItem);
-	const resolvedPopoverProps = popoverProps ?? ({} as MenuPopoverProps);
+	const resolvedPopoverProps: Partial<MenuPopoverProps> = popoverProps ?? {};
 	const { className: popoverClassName, wrapperClassName: popoverWrapperClassName, popoverProps: nestedPopoverProps, ...otherPopoverProps } = resolvedPopoverProps;
 
 	return (
@@ -161,6 +200,18 @@ export const Menu = (props: MenuProps) => {
 	);
 };
 
+/**
+ * A wrapper for `MenuItem` components that visually groups them and ensures proper keyboard navigation.
+ *
+ * **Important**: <MenuSection> cannot be mixed with other <MenuItem> in the top-level of the same menu.
+ *
+ * @component
+ * @param {MenuSectionProps} props - Component props.
+ *
+ * @returns {JSX.Element} The MenuSection component.
+ *
+ * @see {@link Menu} for usage example.
+ */
 export const MenuSection = (props: MenuSectionProps) => {
 	const { children, label } = props;
 
@@ -173,10 +224,27 @@ export const MenuSection = (props: MenuSectionProps) => {
 	);
 };
 
+/**
+ * A menu separator.
+ *
+ * @returns {JSX.Element} The MenuSeparator component.
+ *
+ * @see {@link Menu} for usage example.
+ */
 export const MenuSeparator = ({ className }: MenuSeparatorProps) => {
 	return <ReactAriaSeparator className={clsx('es:my-1.5 es:w-fill es:h-px es:bg-surface-500/15 es:mx-1.5 es:rounded-full', className)} />;
 };
 
+/**
+ * A menu item.
+ *
+ * @component
+ * @param {MenuItemProps} props - Component props.
+ *
+ * @returns {JSX.Element} The MenuItem component.
+ *
+ * @see {@link Menu} for usage example.
+ */
 export const MenuItem = (props: MenuItemProps) => {
 	const {
 		icon,
@@ -253,6 +321,16 @@ export const MenuItem = (props: MenuItemProps) => {
 	);
 };
 
+/**
+ * A supplementary menu item that triggers a submenu.
+ *
+ * @component
+ * @param {SubMenuItemProps} props - Component props.
+ *
+ * @returns {JSX.Element} The SubMenuItem component.
+ *
+ * @see {@link Menu} for usage example.
+ */
 export const SubMenuItem = (props: SubMenuItemProps) => {
 	const { children, trigger, popoverProps, keepOpen, manualWidth, 'aria-label': ariaLabel } = props;
 
@@ -290,6 +368,17 @@ export const SubMenuItem = (props: SubMenuItemProps) => {
 
 SubMenuItem.displayName = 'SubMenuItem';
 
+/**
+ * A decorative menu section header, used to label groups of menu items.
+ *
+ * @component
+ * @param {MenuSectionHeaderProps} props - Component props.
+ *
+ * @returns {JSX.Element} The MenuSectionHeader component.
+ *
+ * @example
+ * <MenuSectionHeader>Section</MenuSectionHeader>
+ */
 export const MenuSectionHeader = (props: MenuSectionHeaderProps) => {
 	const { children, className, hidden, ...other } = props;
 

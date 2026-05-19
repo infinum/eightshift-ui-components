@@ -15,6 +15,20 @@ type ColorSwatchProps = Omit<ReactAriaColorSwatchProps, 'children' | 'className'
 	customGradient?: boolean;
 };
 
+/**
+ * A simple color or gradient swatch.
+ *
+ * @component
+ * @param {ColorSwatchProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ColorSwatch component.
+ *
+ * @example
+ * <ColorSwatch color='#FF0000' />
+ *
+ * @example
+ * <ColorSwatch gradient='linear-gradient(45deg, #FF0000, #00FF00)' />
+ */
 export const ColorSwatch = (props: ColorSwatchProps) => {
 	const { color: rawColor, gradient, className, colorName, flat, customGradient = false, ...rest } = props;
 
@@ -25,7 +39,7 @@ export const ColorSwatch = (props: ColorSwatchProps) => {
 	if (rawColor && !gradient && !customGradient) {
 		try {
 			if (rawColor === 'transparent') {
-				color = 'rgba(0, 0, 0, 0)' as ReactAriaColorSwatchProps['color'];
+				color = 'rgba(0, 0, 0, 0)';
 			} else {
 				color = parseColor(rawColor);
 			}

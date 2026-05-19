@@ -82,6 +82,47 @@ const getResponsiveLabel = (value: ResponsiveValue, key: string, options?: Respo
 
 const hasResponsiveOverrides = (value: ResponsiveValue) => Object.keys(value).some((key) => !key.startsWith('_') && typeof value[key] !== 'undefined');
 
+/**
+ * A compact, inline version of `Responsive`. Allows the user to set different values for different breakpoints.
+ *
+ * Inner items should be passed as a render function.
+ * The following props are passed to the render function:
+ * - `breakpoint: string` - Name of the current breakpoint.
+ * - `currentValue: any` - Current value.
+ * - `handleChange: Function<(attributeName: string, value: any) => void>` - A function to change the value for the breakpoint..
+ * - `options: Object<string, any>` - (Optional) Options list passed to the `ResponsiveLegacy` component. (optional)
+ * - `isInlineCollapsedView: boolean` - (Optional) `true` if in the main view, with the detail popover closed.
+ * - `isInlineExpandedView: boolean` - (Optional) `true` if the detail popover is open.
+ *
+ * @component
+ * @param {MiniResponsiveProps} props - Component props.
+ *
+ * @returns {JSX.Element} The MiniResponsive component.
+ *
+ * @example
+ * <MiniResponsive
+ * 	value={value}
+ * 	onChange={onChange}
+ * 	icon={myIcon}
+ * 	label={__('Label', 'eightshift-ui-components')}
+ * 	options={[
+ * 		{ value: 'value1', label: 'Value 1' },
+ * 		{ value: 'value2', label: 'Value 2' },
+ * 		{ value: 'value3', label: 'Value 3' },
+ * 	]}
+ * 	breakpoints={['mobile', 'tablet', 'desktop', 'large']}
+ * 	breakpointData={breakpointData}
+ * >
+ * 	{({ breakpoint, currentValue, options, handleChange }) => (
+ * 		<Select
+ * 			label={breakpoint}
+ * 			value={currentValue}
+ * 			options={options}
+ * 			onChange={handleChange}
+ * 		/>
+ * 	)}
+ * </MiniResponsive>
+ */
 export const MiniResponsive = (props: MiniResponsiveProps) => {
 	const {
 		value = {},

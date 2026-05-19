@@ -68,6 +68,25 @@ const TypedExpandable = Expandable as unknown as (props: LegacyExpandableProps) 
 const TypedTriggeredPopover = TriggeredPopover as unknown as (props: LegacyTriggeredPopoverProps) => ReactNode;
 const TypedBaseControl = BaseControl as unknown as (props: LegacyBaseControlProps) => ReactNode;
 
+/**
+ * A component that provides a nice way to toggle a component on and off, and display its content in an expandable panel.
+ *
+ * @deprecated since 6.0.0. Suggested replacement is a toggle in one panel or tab that shows or hides other content when enabled.
+ *
+ * @component
+ * @param {ComponentToggleProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ComponentToggle component.
+ *
+ * @example
+ * <ComponentToggle
+ * 	label='My component'
+ * 	useComponent={useComponent}
+ * 	onChange={setUseComponent}
+ * >
+ * 	...
+ * </ComponentToggle>
+ */
 export const ComponentToggle = (props: ComponentToggleProps) => {
 	const {
 		children,

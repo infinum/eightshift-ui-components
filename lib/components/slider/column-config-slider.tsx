@@ -53,6 +53,21 @@ const getColumnConfigValue = (value: number | number[]): ColumnConfigValue | nul
 	return [startValue, endValue];
 };
 
+/**
+ * A two-thumb slider for selecting a range of columns.
+ *
+ * @component
+ * @param {ColumnConfigSliderProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ColumnConfigSlider component.
+ *
+ * @example
+ * <ColumnConfigSlider
+ * 	label='My slider'
+ * 	value={sliderValue}
+ * 	onChange={setSliderValue}
+ * />
+ */
 export const ColumnConfigSlider = (props: ColumnConfigSliderProps) => {
 	const {
 		icon,
@@ -309,6 +324,19 @@ export const ColumnConfigSlider = (props: ColumnConfigSliderProps) => {
 	);
 };
 
+/**
+ * The output for the ColumnConfigSlider component.
+ *
+ * Meant to be used within the ColumnConfigSlider component, e.g in help or actions.
+ *
+ * @component
+ * @param {ColumnConfigSliderOutputProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ColumnConfigSliderOutput component.
+ *
+ * @example
+ * <ColumnConfigSliderOutput />
+ */
 export const ColumnConfigSliderOutput = ({ showOuterAsGutter }: ColumnConfigSliderOutputProps) => (
 	<ReactAriaSliderOutput className={clsx('es:text-xs es:tabular-nums es:text-secondary-600')}>
 		{({ state }) => {

@@ -6,6 +6,19 @@ type PortalProviderProps = {
 	portalElement?: HTMLElement | null;
 };
 
+/**
+ * Component that allows changing the default target for transient components like `Menu`, `Popover`, and related overlays.
+ *
+ * @component
+ * @param {PortalProviderProps} props - Component props.
+ *
+ * @returns {JSX.Element} The PortalProvider component.
+ *
+ * @example
+ * <PortalProvider>
+ * 	...
+ * </PortalProvider>
+ */
 export const PortalProvider = ({ children, portalElement }: PortalProviderProps) => {
 	const getContainer = useCallback(() => portalElement ?? null, [portalElement]);
 

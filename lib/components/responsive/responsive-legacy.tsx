@@ -70,6 +70,53 @@ const getResolvedValueLabel = (value: ResponsiveValueItem, options?: ResponsiveO
 	return undefined;
 };
 
+/**
+ * A component that allows the user to set different values for different breakpoints.
+ *
+ * Replacement for the `Responsive` component from Eightshift Frontend libs v12 (and older).
+ *
+ * Meant to be used with a more complex attribute setup, with one attribute per breakpoint,
+ * and a single value object that contains all the values.
+ *
+ * Inner items should be passed as a render function.
+ * The following props are passed to the render function:
+ * - `breakpoint: string` - Name of the current breakpoint.
+ * - `currentValue: any` - Current value.
+ * - `handleChange: Function<(attributeName: string, value: any) => void>` - A function to change the value for the breakpoint..
+ * - `options: Object<string, any>` - (Optional) Options list passed to the `ResponsiveLegacy` component. (optional)
+ * - `isInlineCollapsedView: boolean` - (Optional) `true` if in `inline` mode, and the details are collapsed.
+ * - `isInlineExpandedView: boolean` - (Optional) `true` if in `inline` mode, and the details are shown.
+ *
+ * @component
+ * @param {ResponsiveLegacyProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ResponsiveLegacy component.
+ *
+ * @example
+ * <ResponsiveLegacy
+ * 	attribute={myResponsiveAttribute}
+ * 	value={value}
+ * 	onChange={(attributeName, value) => setAttributes({
+ * 		[attributeName]: value,
+ * 	})}
+ * 	icon={myIcon}
+ * 	label={__('Label', 'eightshift-ui-components')}
+ * 	options={[
+ * 		{ value: 'value1', label: 'Value 1' },
+ * 		{ value: 'value2', label: 'Value 2' },
+ * 		{ value: 'value3', label: 'Value 3' },
+ * 	]}
+ * 	breakpointData={breakpoints}
+ * >
+ * 	{({ currentValue, options, handleChange }) => (
+ * 		<Select
+ * 			value={currentValue}
+ * 			options={options}
+ * 			onChange={handleChange}
+ * 		/>
+ * 	)}
+ * </ResponsiveLegacy>
+ */
 export const ResponsiveLegacy = (props: ResponsiveLegacyProps) => {
 	const {
 		value = {},

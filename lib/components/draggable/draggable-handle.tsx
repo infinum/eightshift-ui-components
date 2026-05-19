@@ -8,6 +8,17 @@ type DraggableHandleProps = HTMLAttributes<HTMLDivElement> & {
 	className?: string;
 };
 
+/**
+ * A Draggable item handle.
+ *
+ * @component
+ * @param {DraggableHandleProps} props - Component props.
+ *
+ * @returns {JSX.Element} The DraggableHandle component.
+ *
+ * @example
+ * <DraggableHandle />
+ */
 export const DraggableHandle = (props: DraggableHandleProps) => {
 	const { className, children, ...rest } = props;
 	const { handleRef, status } = useContext(DraggableContext);

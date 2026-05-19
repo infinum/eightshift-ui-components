@@ -387,6 +387,20 @@ type ButtonProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaButton>, 'child
 
 const TypedTooltip = Tooltip as unknown as (props: ButtonTooltipProps & { children?: ReactNode; text: ReactNode; wrapperClassName?: string }) => ReactNode;
 
+/**
+ * A simple button component.
+ *
+ * @component
+ * @param {ButtonProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Button component.
+ *
+ * @example
+ * <Button onPress={() => console.log('Hi!')} icon={myIcon} />
+ *
+ * @example
+ * <Button onPress={() => console.log('Hi!')} icon={myIcon}>My button</Button>
+ */
 export const Button = (props: ButtonProps) => {
 	const {
 		children,
@@ -479,6 +493,23 @@ type ButtonGroupProps = Omit<ComponentPropsWithoutRef<typeof Toolbar>, 'children
 	hidden?: boolean;
 };
 
+/**
+ * A wrapper for `Button` or `ToggleButton` components that visually groups them and ensures proper keyboard navigation.
+ *
+ * **Note**: Only intended for horizontal groups of buttons that don't wrap.
+ *
+ * @component
+ * @param {ButtonGroupProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ButtonGroup component.
+ *
+ * @example
+ * <ButtonGroup>
+ * 	<Button />
+ * 	<Button />
+ * 	<Button />
+ * </ButtonGroup>
+ */
 export const ButtonGroup = (props: ButtonGroupProps) => {
 	const { children, className, vertical, hidden, type = 'segmented', ...rest } = props;
 

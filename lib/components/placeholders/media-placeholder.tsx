@@ -16,6 +16,17 @@ type MediaPlaceholderProps = {
 	children?: ReactNode;
 };
 
+/**
+ * A simple media placeholder, with an empty state.
+ *
+ * @component
+ * @param {MediaPlaceholderProps} props - Component props.
+ *
+ * @returns {JSX.Element} The MediaPlaceholder component.
+ *
+ * @example
+ * <MediaPlaceholder />
+ */
 export const MediaPlaceholder = (props: MediaPlaceholderProps) => {
 	const { style = 'default', size = 'default', className, icon, helpText, children, flat, hidden } = props;
 

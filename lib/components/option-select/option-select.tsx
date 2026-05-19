@@ -68,6 +68,26 @@ type OptionSelectProps = Omit<BaseControlProps, 'children' | 'actions' | 'icon' 
 
 const renderOptionIcon = (icon?: IconValue) => (icon ? <Icon icon={icon} /> : null);
 
+/**
+ * A component that allows the user to select an option from a list of options.
+ *
+ * @component
+ * @param {OptionSelectProps} props - Component props.
+ *
+ * @returns {JSX.Element} The OptionSelect component.
+ *
+ * @example
+ * <OptionSelect
+ * 	label='My component'
+ * 	icon={myIcon}
+ * 	value={value}
+ * 	onChange={setValue}
+ * 	options={[
+ * 		{ label: 'Option 1', value: 'option1' },
+ * 		{ label: 'Option 2', value: 'option2' },
+ * 	]}
+ * />
+ */
 export const OptionSelect = (props: OptionSelectProps) => {
 	const {
 		icon,

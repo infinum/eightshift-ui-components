@@ -108,6 +108,21 @@ type InputFieldProps = SharedFieldProps &
 		children?: ReactNode;
 	};
 
+/**
+ * An input field.
+ *
+ * @component
+ * @param {InputFieldProps} props - Component props.
+ *
+ * @returns {JSX.Element} The InputField component.
+ *
+ * @example
+ * <InputField
+ * 	label='My input'
+ * 	value={inputValue}
+ * 	onChange={setInputValue}
+ * />
+ */
 export const InputField = (props: InputFieldProps) => {
 	const {
 		icon,
@@ -163,14 +178,14 @@ export const InputField = (props: InputFieldProps) => {
 			>
 				{type !== 'multiline' ? (
 					<ReactAriaInput
-						{...(other as InputElementProps)}
+						{...other}
 						type={type}
 						className={clsx(inputClass({ disabled, flat, size, readOnly, mono: monospaceFont || type === 'password' }), className)}
 						onKeyUp={handleKeyUp}
 					/>
 				) : (
 					<TextArea
-						{...(other as TextAreaElementProps)}
+						{...other}
 						className={clsx(inputClass({ disabled, flat, size, readOnly, mono: monospaceFont, multiline: true }), className)}
 					/>
 				)}

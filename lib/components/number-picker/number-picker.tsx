@@ -107,6 +107,20 @@ type NumberPickerProps = SharedNumberFieldProps &
 		hidden?: boolean;
 	};
 
+/**
+ * A number picker component.
+ *
+ * @component
+ * @param {NumberPickerProps} props - Component props.
+ *
+ * @returns {JSX.Element} The NumberPicker component.
+ *
+ * @example
+ * <NumberPicker
+ * 	value={value}
+ * 	onChange={setValue}
+ * />
+ */
 export const NumberPicker = (props: NumberPickerProps) => {
 	const {
 		value,

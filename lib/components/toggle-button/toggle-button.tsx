@@ -292,6 +292,32 @@ type ToggleButtonProps = Omit<ReactAriaToggleButtonProps, 'children' | 'classNam
 
 const TypedTooltip = Tooltip as (props: TooltipComponentProps & { children?: ReactNode; wrapperClassName?: string }) => ReactNode;
 
+/**
+ * A simple toggle button component.
+ *
+ * @component
+ * @param {ToggleButtonProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ToggleButton component.
+ *
+ * @example
+ * const [selected, setSelected] = useState(false);
+ *
+ * <ToggleButton
+ * 	selected={selected}
+ * 	onChange={setSelected}
+ * 	icon={myIcon}
+ * />
+ *
+ * @example
+ * <ToggleButton
+ * 	selected={selected}
+ * 	onChange={setSelected}
+ * 	icon={myIcon}
+ * >
+ * 	My button
+ * </ToggleButton>
+ */
 export const ToggleButton = (props: ToggleButtonProps) => {
 	const {
 		children,

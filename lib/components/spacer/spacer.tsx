@@ -22,6 +22,26 @@ type SpacerSizeClasses = {
 	sizeVerticalBorder: string;
 };
 
+/**
+ * A simple spacer or divider component, with optional text or icon.
+ *
+ * @component
+ * @param {SpacerProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Spacer component.
+ *
+ * @example
+ * <Spacer />
+ *
+ * @example
+ * <Spacer border />
+ *
+ * @example
+ * <Spacer vertical />
+ *
+ * @example
+ * <Spacer text='My divider' icon={myIcon} />
+ */
 export const Spacer = (props: SpacerProps) => {
 	const { size = 'px', border, className, text, subtitle, icon, vertical = false, hidden } = props;
 

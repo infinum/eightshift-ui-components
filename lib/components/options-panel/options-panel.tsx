@@ -33,6 +33,21 @@ type OptionsPanelIntroProps = BaseOptionsPanelProps & {
 	flat?: boolean;
 };
 
+/**
+ * Component that provides a container panel for options, with an optional title.
+ * Best used within the Gutenberg sidebar, instead of the default `PanelBody` component.
+ * Ensures that the content is spaced nicely.
+ *
+ * @component
+ * @param {OptionsPanelProps} props - Component props.
+ *
+ * @returns {JSX.Element} The OptionsPanel component.
+ *
+ * @example
+ * <OptionsPanel title='Paragraph'>
+ * 	...
+ * </OptionsPanel>
+ */
 export const OptionsPanel = (props: OptionsPanelProps) => {
 	const { children, className, title, icon, subtitle, help, hidden } = props;
 
@@ -62,6 +77,19 @@ export const OptionsPanel = (props: OptionsPanelProps) => {
 	);
 };
 
+/**
+ * Component that provides a container for grouping related options within the `OptionsPanel` component.
+ *
+ * @component
+ * @param {BaseOptionsPanelProps} props - Component props.
+ *
+ * @returns {JSX.Element} The OptionsPanelSection component.
+ *
+ * @example
+ * <OptionsPanelSection>
+ * 	...
+ * </OptionsPanelSection>
+ */
 export const OptionsPanelSection = ({ children, className, hidden }: BaseOptionsPanelProps) => {
 	if (hidden) {
 		return null;
@@ -82,6 +110,19 @@ export const OptionsPanelSection = ({ children, className, hidden }: BaseOptions
 	);
 };
 
+/**
+ * Component that provides a header for the top of an options page.
+ *
+ * @component
+ * @param {OptionsPanelHeaderProps} props - Component props.
+ *
+ * @returns {JSX.Element} The OptionsPanelHeader component.
+ *
+ * @example
+ * <OptionsPanelHeader title='Theme options'>
+ * 	...
+ * </OptionsPanelHeader>
+ */
 export const OptionsPanelHeader = ({ children, sticky, title, className, actions, level = 2, limitWidth, hidden }: OptionsPanelHeaderProps) => {
 	if (hidden) {
 		return null;
@@ -105,6 +146,17 @@ export const OptionsPanelHeader = ({ children, sticky, title, className, actions
 	);
 };
 
+/**
+ * Component that provides an intro for an options page.
+ *
+ * @component
+ * @param {OptionsPanelIntroProps} props - Component props.
+ *
+ * @returns {JSX.Element} The OptionsPanelIntro component.
+ *
+ * @example
+ * <OptionsPanelIntro title='Theme options' />
+ */
 export const OptionsPanelIntro = ({ icon, title, subtitle, className, iconClassName, level = 3, flat, hidden }: OptionsPanelIntroProps) => {
 	if (hidden) {
 		return null;

@@ -105,6 +105,30 @@ const getPopoverStyle = (triggerElement: HTMLDivElement | null) =>
 		'--select-width': triggerElement ? `${triggerElement.offsetWidth}px` : 'var(--trigger-width)',
 	}) as CSSProperties;
 
+/**
+ * Select menu.
+ *
+ * @component
+ * @param {SelectProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Select component.
+ *
+ * @example
+ * const [value, setValue] = useState(null);
+ *
+ * const options = [
+ * 	{ label: 'Option 1', value: 'option-1' },
+ * 	{ label: 'Option 2', value: 'option-2' },
+ * 	{ label: 'Option 3', value: 'option-3' },
+ * ];
+ *
+ * <Select
+ * 	label='Select items'
+ * 	options={options}
+ * 	value={value}
+ * 	onChange={setValue}
+ * />
+ */
 export const Select = (props: SelectProps) => {
 	const {
 		icon,

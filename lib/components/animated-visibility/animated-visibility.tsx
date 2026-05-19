@@ -67,6 +67,21 @@ const transitions: Record<ElementTransition, TransitionClassNames> = {
 	},
 };
 
+/**
+ * Component that allows animating the visibility of its children.
+ *
+ * @component
+ * @param {AnimatedVisibilityProps} props - Component props.
+ *
+ * @returns {JSX.Element} The AnimatedVisibility component.
+ *
+ * @example
+ * const [visible, setVisible] = useState(false);
+ *
+ * <AnimatedVisibility visible={visible}>
+ * 	<div>Content</div>
+ * </AnimatedVisibility>
+ */
 export const AnimatedVisibility = (props: AnimatedVisibilityProps) => {
 	const { visible, className, children, noInitial = false, transition = 'slideFade', noExitAnimation, noEnterAnimation, decreaseBounce, ...other } = props;
 

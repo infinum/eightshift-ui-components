@@ -173,6 +173,27 @@ const getOptionIcon = (icon?: IconValue): ReactElement | undefined => {
 
 const renderOptionIcon = (icon?: IconValue) => getOptionIcon(icon) ?? null;
 
+/**
+ * Async multi-select menu.
+ *
+ * @component
+ * @param {AsyncMultiSelectProps} props - Component props.
+ *
+ * @returns {JSX.Element} The AsyncMultiSelect component.
+ *
+ * @example
+ * const [value, setValue] = useState(null);
+ *
+ * <AsyncMultiSelect
+ * 	label='Select items'
+ * 	value={value}
+ * 	onChange={setValue}
+ * 	fetchUrl={(searchText) => `https://api.example.com/items?search=${searchText}`}
+ * 	getLabel={(item) => item?.label}
+ * 	getValue={(item) => item?.id}
+ * 	getIcon={() => icons.emptyCircle}
+ * />
+ */
 export const AsyncMultiSelect = (props: AsyncMultiSelectProps) => {
 	const {
 		label,

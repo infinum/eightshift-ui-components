@@ -46,6 +46,28 @@ type SingleItemProps = Omit<MenuItemProps, 'children' | 'onClick' | 'endIcon' | 
 
 const colorSuffixRegex = /(?!^.+)(-?(?:50|100|200|300|400|500|600|700|800|900|950|10|20|30|40|50|60|70|80|90){1})$/i;
 
+/**
+ * Color picker.
+ *
+ * @component
+ * @param {ColorPickerProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ColorPicker component.
+ *
+ * @example
+ * <ColorPicker
+ * 	icon={icons.fillColor}
+ * 	label={__('Fill color', 'eightshift-ui-components')}
+ * 	subtitle={__('Select fill color', 'eightshift-ui-components')}
+ * 	value={fillColor}
+ * 	onChange={(value) => setAttributes({ fillColor: value })}
+ * 	colors={[
+ * 		{ name: 'Red', slug: 'red', color: '#ff0000' },
+ * 		{ name: 'Green', slug: 'green', color: '#00ff00' },
+ * 		{ name: 'Blue', slug: 'blue', color: '#0000ff' },
+ * 	]}
+ * />
+ */
 export const ColorPicker = (props: ColorPickerProps) => {
 	const {
 		icon,

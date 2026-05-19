@@ -53,6 +53,21 @@ type SliderProps = Omit<
 	hidden?: boolean;
 };
 
+/**
+ * A single/multi-thumb slider component.
+ *
+ * @component
+ * @param {SliderProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Slider component.
+ *
+ * @example
+ * <Slider
+ * 	label='My slider'
+ * 	value={sliderValue}
+ * 	onChange={setSliderValue}
+ * />
+ */
 export const Slider = (props: SliderProps) => {
 	const {
 		icon,

@@ -121,6 +121,19 @@ export const OptionItemBase = (props: OptionItemBaseProps) => (
 	</ListBoxItem>
 );
 
+/**
+ * Utils for `simpleValue`-capable components.
+ */
+
+/**
+ * Handles getting the current value.
+ *
+ * @param {boolean} simpleValue - Whether `simpleValue` is set.
+ * @param {SelectOption[] | SelectOption | string[] | string} value - Current value.
+ * @param {SelectOption[]} [options] - Options passed to the component.
+ *
+ * @returns {SelectOption[] | SelectOption | string[] | string | undefined} Appropriate output for the given input combination.
+ */
 export const getValue = (simpleValue: boolean, value: SelectOption[] | SelectOption | string[] | string, options?: SelectOption[]) => {
 	if (Array.isArray(value)) {
 		if (simpleValue) {
@@ -137,6 +150,16 @@ export const getValue = (simpleValue: boolean, value: SelectOption[] | SelectOpt
 	return value;
 };
 
+/**
+ * Moves an array item before or after another item in the array.
+ *
+ * @template Item
+ * @param {Item[]} array - The array to modify.
+ * @param {Item} itemToMove - The item to move.
+ * @param {Item} targetItem - The target item to move relative to.
+ * @param {'before' | 'after'} [position='before'] - Where to place the moved item.
+ * @returns {Item[]} New array with the item moved.
+ */
 export const moveArrayItem = <Item,>(array: Item[], itemToMove: Item, targetItem: Item, position: 'before' | 'after' = 'before') => {
 	const result = [...array];
 	const sourceIndex = result.indexOf(itemToMove);
@@ -185,6 +208,15 @@ export const SelectClearButton = ({ multi = false }: SelectClearButtonProps) => 
 	);
 };
 
+/**
+ * Groups options by a key.
+ *
+ * @param {SelectOption[]} [filteredOptions] - Options to group.
+ * @param {string} [groupKey] - Key to group by.
+ * @param {GroupValueMapping} [groupValueMapping] - Mapping of group keys to labels and icons.
+ *
+ * @returns {GroupedOption[] | null} Grouped options.
+ */
 export const getGroupedOptions = (filteredOptions?: SelectOption[] | null, groupKey?: string, groupValueMapping?: GroupValueMapping): GroupedOption[] | null => {
 	if (!groupKey || !filteredOptions || filteredOptions.length === 0) {
 		return null;

@@ -139,6 +139,30 @@ const getOptionIcon = (icon?: IconValue): ReactElement | undefined => {
 	return typeof icon === 'string' ? <Icon icon={icon} /> : icon;
 };
 
+/**
+ * Multi-select menu.
+ *
+ * @component
+ * @param {MultiSelectProps} props - Component props.
+ *
+ * @returns {JSX.Element} The MultiSelect component.
+ *
+ * @example
+ * const [value, setValue] = useState(null);
+ *
+ * const options = [
+ * 	{ label: 'Option 1', value: 'option-1' },
+ * 	{ label: 'Option 2', value: 'option-2' },
+ * 	{ label: 'Option 3', value: 'option-3' },
+ * ];
+ *
+ * <MultiSelect
+ * 	label='Select items'
+ * 	options={options}
+ * 	value={value}
+ * 	onChange={setValue}
+ * />
+ */
 export const MultiSelect = (props: MultiSelectProps) => {
 	const {
 		icon,

@@ -46,6 +46,35 @@ const TypedSmartImage = SmartImage as unknown as (props: {
 	children?: (context: SmartImageChildContext) => ReactNode;
 }) => ReactNode;
 
+/**
+ * A shell for a file picker UI, handling both rich visual presentation and simple file placeholders.
+ *
+ * @component
+ * @param {FilePickerShellProps} props - Component props.
+ *
+ * @returns {JSX.Element} The FilePickerShell component.
+ *
+ * @example
+ * <FilePickerShell
+ * 	className='es:w-full'
+ * 	url='myfile.json'
+ * 	noUrlContent={<Button size='large'>Upload</Button>}
+ * >
+ * 	<Button flat>Replace</Button>
+ * 	<Button flat>Remove</Button>
+ * </FilePickerShell>
+ *
+ * @example
+ * <FilePickerShell
+ * 	className='es:w-full'
+ * 	url='https://picsum.photos/300/200'
+ * 	noUrlContent={<Button size='large'>Upload</Button>}
+ * 	type='image'
+ * >
+ * 	<Button type='glass'>Replace</Button>
+ * 	<Button type='glass'>Remove</Button>
+ * </FilePickerShell>
+ */
 export const FilePickerShell = (props: FilePickerShellProps) => {
 	const { url, type = 'file', icon = file, children, className, noUrlContent, hidden, ...rest } = props;
 

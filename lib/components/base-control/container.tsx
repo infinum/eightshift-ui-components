@@ -142,7 +142,7 @@ const ContainerBase = <T extends ElementType = 'div'>(props: ContainerProps<T>, 
 
 	return (
 		<ComponentToRender
-			{...(rest as Omit<ComponentPropsWithoutRef<T>, 'as' | 'children' | 'className'>)}
+			{...rest}
 			ref={ref as never}
 			className={clsx(containerClasses({ accent, elevated, primary, isChild, compact, horizontal, standalone, centered, lessSpaceStart, lessSpaceEnd }), className)}
 		>
@@ -151,6 +151,19 @@ const ContainerBase = <T extends ElementType = 'div'>(props: ContainerProps<T>, 
 	);
 };
 
+/**
+ * A container component to wrap other components, providing consistent styling and spacing.
+ *
+ * @component
+ * @param {ContainerProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Container component.
+ *
+ * @example
+ * <Container accent elevated>
+ * 	<p>This is a container with accent and elevated styles.</p>
+ * </Container>
+ */
 export const Container = forwardRef(ContainerBase) as ContainerComponent & { displayName?: string };
 
 Container.displayName = 'Container';
@@ -195,7 +208,7 @@ const ContainerGroupBase = <T extends ElementType = 'div'>(props: ContainerGroup
 
 	const inner = (
 		<ComponentToRender
-			{...(rest as Omit<ComponentPropsWithoutRef<T>, 'as' | 'children' | 'className'>)}
+			{...rest}
 			ref={ref as never}
 			className={clsx('es:flex es:gap-0.5', !horizontal && 'es:flex-col', className)}
 		>
@@ -215,6 +228,20 @@ const ContainerGroupBase = <T extends ElementType = 'div'>(props: ContainerGroup
 	);
 };
 
+/**
+ * A container group component to wrap multiple Container components, providing consistent spacing between them.
+ *
+ * @component
+ * @param {ContainerGroupProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ContainerGroup component.
+ *
+ * @example
+ * <ContainerGroup>
+ * 	<Container>First container</Container>
+ * 	<Container>Second container</Container>
+ * </ContainerGroup>
+ */
 export const ContainerGroup = forwardRef(ContainerGroupBase) as ContainerGroupComponent & { displayName?: string };
 
 ContainerGroup.displayName = 'ContainerGroup';

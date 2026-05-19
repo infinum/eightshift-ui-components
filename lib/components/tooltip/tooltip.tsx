@@ -54,6 +54,23 @@ type DecorativeTooltipProps = Omit<TooltipProps, 'open' | 'defaultOpen' | 'onOpe
 	wrapperClassName?: string;
 };
 
+/**
+ * A simple tooltip component.
+ *
+ * It can be used in two modes:
+ * - **Controlled mode**: You can control the tooltip with the `open` prop.
+ * - **Uncontrolled mode**: The tooltip will be open by default with the `defaultOpen` prop.
+ *
+ * @component
+ * @param {TooltipProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Tooltip component.
+ *
+ * @example
+ * <Tooltip text='My tooltip'>
+ * 	<Button>Hover me</Button>
+ * </Tooltip>
+ */
 export const Tooltip = (props: TooltipProps) => {
 	const {
 		children,
@@ -132,6 +149,27 @@ export const Tooltip = (props: TooltipProps) => {
 	);
 };
 
+/**
+ * A "decorative" tooltip than can be used with element that usually don't support tooltips.
+ * Usually the only elements that support tooltips are interactive elements like buttons or links.
+ *
+ * This component will wrap the element and add the tooltip functionality to it.
+ * The tooltip will be shown when the element is hovered or anything within is focused.
+ *
+ * **Note**: This is not officially supported by the ARIA spec, so use with caution.
+ *
+ * @see {@link Tooltip} before using this component.
+ *
+ * @component
+ * @param {DecorativeTooltipProps} props - Component props.
+ *
+ * @returns {JSX.Element} The DecorativeTooltip component.
+ *
+ * @example
+ * <DecorativeTooltip text='My tooltip'>
+ * 	<span>Hover me</span>
+ * </DecorativeTooltip>
+ */
 export const DecorativeTooltip = (props: DecorativeTooltipProps) => {
 	const { openDelay = 1200, closeDelay = 500, children, text, wrapperClassName, disabled, ...rest } = props;
 	const state = useTooltipTriggerState({ delay: openDelay, closeDelay, isDisabled: disabled });
@@ -140,7 +178,7 @@ export const DecorativeTooltip = (props: DecorativeTooltipProps) => {
 
 	return (
 		<Tooltip
-			triggerRef={ref as unknown as RefObject<Element>}
+			triggerRef={ref}
 			text={text}
 			open={state.isOpen}
 			disabled={disabled}

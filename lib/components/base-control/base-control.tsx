@@ -31,6 +31,19 @@ const TypedRichLabel = RichLabel as <T extends ElementType = 'div'>(props: {
 	noColor?: boolean;
 }) => ReactNode;
 
+/**
+ * Component that allows wrapping components with a common layout that includes a label and optional icon, subtitle, actions, and help text.
+ *
+ * @component
+ * @param {BaseControlProps} props - Component props.
+ *
+ * @returns {JSX.Element} The BaseControl component.
+ *
+ * @example
+ * <BaseControl label='My component' icon={myIcon}>
+ * 	<div>Content</div>
+ * </BaseControl>
+ */
 export const BaseControl = <TLabelAs extends ElementType = 'div'>(props: BaseControlProps<TLabelAs>) => {
 	const {
 		icon,

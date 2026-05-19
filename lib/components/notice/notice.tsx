@@ -24,6 +24,17 @@ type NoticeProps = {
 	hidden?: boolean;
 };
 
+/**
+ * A simple notice component.
+ *
+ * @component
+ * @param {NoticeProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Notice component.
+ *
+ * @example
+ * <Notice label='This is a notice' />
+ */
 export const Notice = (props: NoticeProps) => {
 	const { icon, label, subtitle, className, type = 'default', alignIconToTitle = false, flat, hidden } = props;
 

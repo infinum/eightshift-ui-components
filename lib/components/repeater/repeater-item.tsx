@@ -20,6 +20,16 @@ type RepeaterItemProps = Omit<ComponentPropsWithoutRef<typeof Expandable>, 'icon
 	expandDisabled?: boolean;
 };
 
+/**
+ * A Repeater item.
+ *
+ * @component
+ * @param {RepeaterItemProps} props - Component props.
+ *
+ * @returns {JSX.Element} The RepeaterItem component.
+ *
+ * @see {@link Repeater} for usage example.
+ */
 export const RepeaterItem = (props: RepeaterItemProps) => {
 	const { children, icon, label, subtitle, className, actions, expandDisabled, menuOptions, noMenuButton, ...rest } = props;
 	const context = useContext(RepeaterContext);

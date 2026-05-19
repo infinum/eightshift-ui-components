@@ -20,6 +20,20 @@ type SolidColorPickerProps = {
 	hidden?: boolean;
 };
 
+/**
+ * A solid color picker.
+ *
+ * @component
+ * @param {SolidColorPickerProps} props - Component props.
+ *
+ * @returns {JSX.Element} The SolidColorPicker component.
+ *
+ * @example
+ * <SolidColorPicker
+ * 	value={colorValue}
+ * 	onChange={(color) => setColorValue(color)}
+ * />
+ */
 export const SolidColorPicker = (props: SolidColorPickerProps) => {
 	const { value: rawValue, onChange, disabled, onChangeEnd, allowTransparency = false, outputFormat, hidden, noAdvancedOptions } = props;
 

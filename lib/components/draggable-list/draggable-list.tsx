@@ -24,6 +24,39 @@ type DraggableListProps<TItem extends Record<string, unknown>> = ComponentProps<
 const TypedBaseControl = BaseControl as (props: ComponentProps<typeof BaseControl> & { children?: ReactNode }) => ReactNode;
 const TypedContainer = Container as (props: ComponentPropsWithRef<typeof Container> & { children?: ReactNode }) => ReactNode;
 
+/**
+ * A component that allows re-ordering a list of items.
+ *
+ * @component
+ * @param {DraggableListProps} props - Component props.
+ *
+ * @returns {JSX.Element} The DraggableList component.
+ *
+ * @example
+ * <DraggableList
+ * 	label='My draggable list'
+ * 	items={items}
+ * 	onChange={setItems}
+ * >
+ * 	{(item) => {
+ * 		const { title, updateData } = item;
+ *
+ * 		return (
+ * 			<DraggableListItem
+ * 				label={title ?? 'New item'}
+ * 				icon={myIcon}
+ * 			>
+ * 				<InputField
+ * 					label='Title'
+ * 					type='text'
+ * 					value={title}
+ * 					onChange={(value) => updateData({ title: value })}
+ * 				/>
+ * 			</DraggableListItem>
+ * 		);
+ * 	}}
+ * </DraggableList>
+ */
 export const DraggableList = <TItem extends Record<string, unknown>>(props: DraggableListProps<TItem>) => {
 	const { children, items, onChange, icon, label, subtitle, help, actions, className, itemClassName, itemContainerClassName, onAfterItemRemove, hidden, ...rest } = props;
 

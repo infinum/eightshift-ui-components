@@ -84,9 +84,34 @@ const SortableItem = ({ id, index, disabled, children, axis }: SortableItemProps
 	});
 	const status: DraggableContextValue['status'] = isDragSource ? 'dragging' : 'idle';
 
-	return <div ref={setElement}>{children(handleRef as DraggableContextValue['handleRef'], isDragSource, status)}</div>;
+	return <div ref={setElement}>{children(handleRef, isDragSource, status)}</div>;
 };
 
+/**
+ * A component that allows re-ordering items freely.
+ *
+ * @component
+ * @param {DraggableProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Draggable component.
+ *
+ * @example
+ * <Draggable
+ * 	items={items}
+ * 	onChange={setItems}
+ * >
+ * 	{(item) => {
+ * 		const { title } = item;
+ *
+ * 		return (
+ * 			<div>
+ * 				<DraggableHandle />
+ * 				<span>{title}</span>
+ * 			</div>
+ * 		);
+ * 	}}
+ * </Draggable>
+ */
 export const Draggable = <TItem extends Record<string, unknown>>(props: DraggableProps<TItem>) => {
 	const { children, items, onChange, noReorder, axis = 'both', className, onAfterItemRemove, hidden, ...rest } = props;
 

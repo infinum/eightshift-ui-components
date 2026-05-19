@@ -132,6 +132,26 @@ const getKeyFromValue = (selected: Key | null | undefined) => {
 	return null;
 };
 
+/**
+ * Select menu with async loading.
+ *
+ * @component
+ * @param {AsyncSelectProps} props - Component props.
+ *
+ * @returns {JSX.Element} The AsyncSelect component.
+ *
+ * @example
+ * const [value, setValue] = useState(null);
+ *
+ * <AsyncSelect
+ * 	label='Select items'
+ * 	fetchUrl={(searchText) => `https://api.example.com/items?q=${searchText}`}
+ * 	value={value}
+ * 	onChange={setValue}
+ * 	getLabel={(item) => item?.name}
+ * 	getValue={(item) => item?.id}
+ * />
+ */
 export const AsyncSelect = (props: AsyncSelectProps) => {
 	const {
 		label,

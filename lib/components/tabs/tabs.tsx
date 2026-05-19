@@ -486,6 +486,24 @@ const tabPanelClasses = cva('es:space-y-3 es:text-13 es:any-focus:outline-hidden
 	},
 });
 
+/**
+ * Main tab container.
+ *
+ * @component
+ * @param {TabsProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Tabs component.
+ *
+ * @example
+ * <Tabs>
+ * 	<TabList>
+ * 		<Tab>Tab 1</Tab>
+ * 		<Tab>Tab 2</Tab>
+ * 	</TabList>
+ * 	<TabPanel>Content 1</TabPanel>
+ * 	<TabPanel>Content 2</TabPanel>
+ * </Tabs>
+ */
 export const Tabs = (props: TabsProps) => {
 	const { children, vertical, className, hidden, type = 'underline', flat, ...rest } = props;
 	const baseId = useId();
@@ -586,6 +604,16 @@ export const Tabs = (props: TabsProps) => {
 
 Tabs.displayName = 'Tabs';
 
+/**
+ * Container for tabs within the Tabs component.
+ *
+ * @component
+ * @param {TabListProps} props - Component props.
+ *
+ * @returns {JSX.Element} The TabList component.
+ *
+ * @see {@link Tabs} for usage example.
+ */
 export const TabList = (props: TabListProps) => {
 	const { children, 'aria-label': ariaLabel, className, type, flat, ...other } = props;
 
@@ -602,6 +630,16 @@ export const TabList = (props: TabListProps) => {
 
 TabList.displayName = 'TabList';
 
+/**
+ * A tab within the TabList component, in the Tabs component.
+ *
+ * @component
+ * @param {TabProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Tab component.
+ *
+ * @see {@link Tabs} for usage example.
+ */
 export const Tab = (props: TabProps) => {
 	const { children, disabled, isParentVertical, className, badgeClassName, icon, label, subtitle, type, badge, invisible, flat, ...other } = props;
 
@@ -637,6 +675,16 @@ export const Tab = (props: TabProps) => {
 
 Tab.displayName = 'Tab';
 
+/**
+ * Container for tab content within the Tabs component.
+ *
+ * @component
+ * @param {TabPanelProps} props - Component props.
+ *
+ * @returns {JSX.Element} The TabPanel component.
+ *
+ * @see {@link Tabs} for usage example.
+ */
 export const TabPanel = (props: TabPanelProps) => {
 	const { children, className, type, vertical, ...other } = props;
 

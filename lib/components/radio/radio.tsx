@@ -201,6 +201,16 @@ const RadioButtonComponent = (props: RadioButtonProps) => {
 	);
 };
 
+/**
+ * A simple radio button.
+ *
+ * @component
+ * @param {RadioButtonProps} props - Component props.
+ *
+ * @returns {JSX.Element} The RadioButton component.
+ *
+ * @see {@link RadioButtonGroup} for usage example.
+ */
 export const RadioButton = Object.assign(RadioButtonComponent, {
 	displayName: 'RadioButton',
 });
@@ -226,6 +236,29 @@ type RadioButtonGroupProps = Omit<ComponentPropsWithoutRef<typeof RadioGroup>, '
 	children?: ReactNode;
 };
 
+/**
+ * A group of radio buttons.
+ * This component is required to control radio buttons.
+ *
+ * Each radio button should have a `value` set.
+ *
+ * @component
+ * @param {RadioButtonGroupProps} props - Component props.
+ *
+ * @returns {JSX.Element} The RadioButtonGroup component.
+ *
+ * @example
+ * const [value, setValue] = useState('first');
+ *
+ * <RadioButtonGroup
+ * 	label='My radio buttons'
+ * 	value={value}
+ * 	onChange={setValue}
+ * >
+ * 	<RadioButton value='first' label='First option' />
+ * 	<RadioButton value='second' label='Second option' />
+ * </RadioButtonGroup>
+ */
 export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
 	const {
 		icon,

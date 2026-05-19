@@ -1,5 +1,14 @@
 /**
- * Move multiple array items to a different position with direction control. Returns a new array with the items moved.
+ * Move multiple array items to a different position with direction control.
+ * Returns a new array with the items moved.
+ *
+ * @template T
+ * @param {T[]} array - The original array.
+ * @param {number[]} fromIndices - An array of indices of the items to move.
+ * @param {number} to - The index to move the items to.
+ * @param {'before' | 'after'} [direction='before'] - The direction to move the items.
+ *
+ * @returns {T[]} The array with the items moved.
  */
 export const arrayMoveMultiple = <T>(array: T[], fromIndices: number[], to: number, direction: 'before' | 'after' = 'before'): T[] => {
 	const newArray = array.slice();
@@ -27,6 +36,12 @@ export const arrayMoveMultiple = <T>(array: T[], fromIndices: number[], to: numb
 
 /**
  * Fix the IDs of the items in the array to ensure they are unique and sequential.
+ * If the IDs are missing or duplicate, new IDs are generated for the items.
+ *
+ * @template T extends Record<string, unknown>
+ * @param {T[]} items - The array of items to fix.
+ * @param {(items: T[]) => void} onChange - The callback to update the items.
+ * @param {string} [idKey='id'] - The key to use for the IDs.
  */
 export const fixIds = <T extends Record<string, unknown>>(items: T[], onChange: (items: T[]) => void, idKey = 'id'): void => {
 	const allIds = items?.map((item) => item?.[idKey]) ?? [];

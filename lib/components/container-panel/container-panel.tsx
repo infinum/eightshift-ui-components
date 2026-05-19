@@ -25,6 +25,21 @@ type ContainerPanelProps = {
 	hidden?: boolean;
 };
 
+/**
+ * Component that provides a container panel for options, with an optional title.
+ * Best used within the Gutenberg sidebar, instead of the default `PanelBody` component.
+ * Ensures that the content is spaced nicely.
+ *
+ * @component
+ * @param {ContainerPanelProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ContainerPanel component.
+ *
+ * @example
+ * <ContainerPanel title='Paragraph'>
+ * 	...
+ * </ContainerPanel>
+ */
 export const ContainerPanel = (props: ContainerPanelProps) => {
 	const {
 		children,

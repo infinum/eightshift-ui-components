@@ -51,6 +51,43 @@ type TriggeredPopoverProps = Omit<PopoverProps, 'triggerRef' | 'isOpen'> & {
 	triggerButtonProps?: ComponentPropsWithoutRef<typeof Button>;
 };
 
+/**
+ * A popover component.
+ *
+ * Two modes of operation are supported:
+ * - **controlled mode**: pass `isOpen` and `onOpenChange` to control when the popover is open.
+ * - **uncontrolled mode**: pass `openByDefault` to set the initial popover state. The show/hide state will be managed internally, based on the interaction with the trigger button.
+ *
+ * @component
+ * @param {PopoverProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Popover component.
+ *
+ * @example
+ * const ref = useRef(null);
+ *
+ * <Button forwardedRef={ref}>Open popover</Button>
+ *
+ * <Popover
+ * 	triggerRef={ref}
+ * 	openByDefault
+ * >
+ * 	...
+ * </Popover>
+ *
+ * @example
+ * const [open, setOpen] = useState(false);
+ *
+ * <Button onPress={() => setOpen(true)}>Open popover</Button>
+ *
+ * <Popover
+ * 	onOpenChange={setOpen}
+ * 	isOpen={open}
+ * 	triggerRef={ref}
+ * >
+ * 	...
+ * </Popover>
+ */
 export const Popover = (props: PopoverProps) => {
 	const {
 		children,
@@ -126,6 +163,22 @@ export const Popover = (props: PopoverProps) => {
 		</ReactAriaPopover>
 	);
 };
+/**
+ * A simple version of the Popover component that includes a trigger button.
+ * The control of the popover is handled internally. A custom trigger can be provided.
+ *
+ * If you need more control over the trigger, use the Popover component directly.
+ *
+ * @component
+ * @param {TriggeredPopoverProps} props - Component props.
+ *
+ * @returns {JSX.Element} The TriggeredPopover component.
+ *
+ * @example
+ * <TriggeredPopover>
+ * 	...
+ * </TriggeredPopover>
+ */
 
 export const TriggeredPopover = (props: TriggeredPopoverProps) => {
 	const {

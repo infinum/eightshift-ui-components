@@ -105,6 +105,21 @@ type CheckboxProps = Omit<
 	children?: ReactNode;
 };
 
+/**
+ * A simple checkbox.
+ *
+ * @component
+ * @param {CheckboxProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Checkbox component.
+ *
+ * @example
+ * <Checkbox
+ * 	label='My label'
+ * 	checked={myValue}
+ * 	onChange={(value) => setMyValue(value)}
+ * />
+ */
 export const Checkbox = (props: CheckboxProps) => {
 	const { icon, label, subtitle, checked, disabled, readOnly, indeterminate, onChange, className, labelClassName, inlineSubtitle, flat, alignEnd, children, hidden, ...other } =
 		props;

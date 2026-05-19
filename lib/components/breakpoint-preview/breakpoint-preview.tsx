@@ -69,6 +69,33 @@ const activeColors: Record<BreakpointColor, { text: string; bg: string }> = {
 	},
 };
 
+/**
+ * Component that renders a preview of the breakpoints to help users visualize the options they set.
+ *
+ * @component
+ * @param {BreakpointPreviewProps} props - Component props.
+ *
+ * @returns {JSX.Element} The BreakpointPreview component.
+ *
+ * @example
+ * <BreakpointPreview
+ * 	blocks={[
+ * 		{
+ * 			breakpoint: 'Mobile',
+ * 			widthEnd: '480px',
+ * 			value: 'Regular',
+ * 			dotsStart: true,
+ * 			alignEnd: true,
+ * 			active: true,
+ * 		},
+ * 		{
+ * 			breakpoint: 'Default',
+ * 			value: 'Small',
+ * 			dotsEnd: true,
+ * 		},
+ * 	]}
+ * />
+ */
 export const BreakpointPreview = (props: BreakpointPreviewProps) => {
 	const { blocks: rawBlocks, dotsStart = false, dotsEnd = false } = props;
 	const blocks = rawBlocks?.filter((block): block is BreakpointPreviewBlock => Boolean(block)) ?? [];

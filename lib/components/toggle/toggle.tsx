@@ -18,6 +18,24 @@ type ToggleProps = {
 	hidden?: boolean;
 };
 
+/**
+ * A toggle switch with a label and optional icon and subtitle.
+ *
+ * @component
+ * @param {ToggleProps} props - Component props.
+ *
+ * @returns {JSX.Element} The Toggle component.
+ *
+ * @example
+ * const [checked, setChecked] = useState(false);
+ *
+ * <Toggle
+ * 	icon={myIcon}
+ * 	label='My toggle'
+ * 	checked={checked}
+ * 	onChange={() => setChecked(!checked)}
+ * />
+ */
 export const Toggle = (props: ToggleProps) => {
 	const { checked, onChange, icon, label, subtitle, disabled, className, labelClassName, isIndeterminate, flat, hidden } = props;
 

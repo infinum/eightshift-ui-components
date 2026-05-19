@@ -12,6 +12,20 @@ type FilePlaceholderProps = {
 	children?: ReactNode;
 };
 
+/**
+ * A simple file placeholder.
+ *
+ * @component
+ * @param {FilePlaceholderProps} props - Component props.
+ *
+ * @returns {JSX.Element} The FilePlaceholder component.
+ *
+ * @example
+ * <FilePlaceholder />
+ *
+ * @example
+ * <FilePlaceholder fileName='demo.json' />
+ */
 export const FilePlaceholder = (props: FilePlaceholderProps) => {
 	const { icon, fileName, className, flat, children } = props;
 	const label = fileName ?? (typeof children === 'string' ? children : undefined) ?? __('No file selected', 'eightshift-ui-components');

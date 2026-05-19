@@ -53,6 +53,17 @@ const svgComponents = {
 
 /**
  * Renders SVG string as JSX SVGs.
+ *
+ * @component
+ * @param {JsxSvgProps} props - Component props.
+ *
+ * @returns {JSX.Element} The JsxSvg component.
+ *
+ * @example
+ * <JsxSvg svg="<svg ..." />
+ *
+ * @example
+ * <JsxSvg customProps='className={demo}' customPropBindings={{demo: demoAttr ? 'lorem' : 'ipsum'}} svg="<svg ..." />
  */
 export const JsxSvg = (props: JsxSvgProps): JSX.Element | null => {
 	const { svg, className, customProps, customPropBindings, 'aria-hidden': ariaHiddenProp, ariaHidden, noIdRandomization, idRandomizationPrefix = 'icon', ...rest } = props;
