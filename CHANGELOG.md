@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [8.0.0] - 2026-05-05
+## [8.0.0] - 2026-05-27
 
 - Rewrote the package to TypeScript.
 - (**BREAKING**) Renamed the `columnGuttersLR` icon export to `columnGuttersLr`.
