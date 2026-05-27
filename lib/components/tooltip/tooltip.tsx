@@ -1,5 +1,6 @@
 import { clsx } from 'clsx';
 import { useRef, type ReactNode, type RefObject } from 'react';
+import type { Prettify } from '../../utilities/types';
 import { useTooltipTrigger } from 'react-aria';
 import { OverlayArrow as ReactAriaOverlayArrow, Tooltip as ReactAriaTooltip, TooltipTrigger as ReactAriaTooltipTrigger } from 'react-aria-components';
 import { useTooltipTriggerState } from 'react-stately';
@@ -71,7 +72,7 @@ type DecorativeTooltipProps = Omit<TooltipProps, 'open' | 'defaultOpen' | 'onOpe
  * 	<Button>Hover me</Button>
  * </Tooltip>
  */
-export const Tooltip = (props: TooltipProps) => {
+export const Tooltip = (props: Prettify<TooltipProps>) => {
 	const {
 		children,
 		text,
@@ -170,7 +171,7 @@ export const Tooltip = (props: TooltipProps) => {
  * 	<span>Hover me</span>
  * </DecorativeTooltip>
  */
-export const DecorativeTooltip = (props: DecorativeTooltipProps) => {
+export const DecorativeTooltip = (props: Prettify<DecorativeTooltipProps>) => {
 	const { openDelay = 1200, closeDelay = 500, children, text, wrapperClassName, disabled, ...rest } = props;
 	const state = useTooltipTriggerState({ delay: openDelay, closeDelay, isDisabled: disabled });
 	const ref = useRef<HTMLDivElement>(null);

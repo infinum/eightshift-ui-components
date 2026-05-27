@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
+import type { Prettify } from '../../utilities/types';
 import { type ComponentPropsWithoutRef, type CSSProperties, type ReactNode } from 'react';
 import { Dialog, DialogTrigger, Popover as ReactAriaPopover } from 'react-aria-components';
 import { Button } from '../button/button';
@@ -88,7 +89,7 @@ type TriggeredPopoverProps = Omit<PopoverProps, 'triggerRef' | 'isOpen'> & {
  * 	...
  * </Popover>
  */
-export const Popover = (props: PopoverProps) => {
+export const Popover = (props: Prettify<PopoverProps>) => {
 	const {
 		children,
 		triggerRef,
@@ -180,7 +181,7 @@ export const Popover = (props: PopoverProps) => {
  * </TriggeredPopover>
  */
 
-export const TriggeredPopover = (props: TriggeredPopoverProps) => {
+export const TriggeredPopover = (props: Prettify<TriggeredPopoverProps>) => {
 	const {
 		trigger,
 		triggerButtonIcon,

@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import { clsx } from 'clsx';
 import { Children, cloneElement, forwardRef, type ComponentPropsWithoutRef, type ElementType, type ReactElement, type ReactNode, isValidElement } from 'react';
+import type { Prettify } from '../../utilities/types';
 
 const containerClasses = cva('es:inset-ring', {
 	variants: {
@@ -130,7 +131,7 @@ type ContainerProps<T extends ElementType = 'div'> = {
 } & ContainerVariantProps &
 	Omit<ComponentPropsWithoutRef<T>, 'as' | 'children' | 'className'>;
 
-type ContainerComponent = <T extends ElementType = 'div'>(props: ContainerProps<T> & { ref?: React.Ref<Element> }) => ReactNode;
+type ContainerComponent = <T extends ElementType = 'div'>(props: Prettify<ContainerProps<T> & { ref?: React.Ref<Element> }>) => ReactNode;
 
 const ContainerBase = <T extends ElementType = 'div'>(props: ContainerProps<T>, ref: React.ForwardedRef<Element>) => {
 	const { className, children, as, hidden, accent, elevated, primary, isChild, compact, standalone, horizontal, centered, lessSpaceStart, lessSpaceEnd, ...rest } = props;
@@ -178,7 +179,7 @@ type ContainerGroupProps<T extends ElementType = 'div'> = {
 	horizontal?: boolean;
 } & Omit<ComponentPropsWithoutRef<T>, 'as' | 'children' | 'className'>;
 
-type ContainerGroupComponent = <T extends ElementType = 'div'>(props: ContainerGroupProps<T> & { ref?: React.Ref<Element> }) => ReactNode;
+type ContainerGroupComponent = <T extends ElementType = 'div'>(props: Prettify<ContainerGroupProps<T> & { ref?: React.Ref<Element> }>) => ReactNode;
 
 const ContainerGroupBase = <T extends ElementType = 'div'>(props: ContainerGroupProps<T>, ref: React.ForwardedRef<Element>) => {
 	const { className, children, as, hidden, horizontal, label, wrapClassName, ...rest } = props;

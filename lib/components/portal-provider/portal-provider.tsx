@@ -1,5 +1,6 @@
 import { UNSAFE_PortalProvider } from 'react-aria';
 import { type ReactNode, useCallback } from 'react';
+import type { Prettify } from '../../utilities/types';
 
 type PortalProviderProps = {
 	children?: ReactNode;
@@ -19,7 +20,7 @@ type PortalProviderProps = {
  * 	...
  * </PortalProvider>
  */
-export const PortalProvider = ({ children, portalElement }: PortalProviderProps) => {
+export const PortalProvider = ({ children, portalElement }: Prettify<PortalProviderProps>) => {
 	const getContainer = useCallback(() => portalElement ?? null, [portalElement]);
 
 	return <UNSAFE_PortalProvider getContainer={getContainer}>{children}</UNSAFE_PortalProvider>;

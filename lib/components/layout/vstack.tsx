@@ -1,5 +1,6 @@
 import { clsx } from 'clsx';
 import type { ElementType, JSX, ReactNode } from 'react';
+import type { Prettify } from '../../utilities/types';
 
 interface StackProps {
 	as?: ElementType;
@@ -22,7 +23,7 @@ interface StackProps {
  * 	...
  * </VStack>
  */
-export const VStack = ({ children, noWrap, className, hidden, as }: StackProps): JSX.Element | null => {
+export const VStack = ({ children, noWrap, className, hidden, as }: Prettify<StackProps>): JSX.Element | null => {
 	if (hidden) {
 		return null;
 	}

@@ -1,5 +1,6 @@
 import { clsx } from 'clsx';
 import { type HTMLAttributes, type ReactNode, useEffect, useState } from 'react';
+import type { Prettify } from '../../utilities/types';
 
 type ElementTransition =
 	| 'fade'
@@ -82,7 +83,7 @@ const transitions: Record<ElementTransition, TransitionClassNames> = {
  * 	<div>Content</div>
  * </AnimatedVisibility>
  */
-export const AnimatedVisibility = (props: AnimatedVisibilityProps) => {
+export const AnimatedVisibility = (props: Prettify<AnimatedVisibilityProps>) => {
 	const { visible, className, children, noInitial = false, transition = 'slideFade', noExitAnimation, noEnterAnimation, decreaseBounce, ...other } = props;
 
 	const [isVisibleInner, setIsVisibleInner] = useState(false);
