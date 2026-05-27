@@ -13,6 +13,7 @@ import { OptionSelect } from '../option-select/option-select';
 import { ResponsivePreview } from '../responsive-preview/responsive-preview';
 import { DecorativeTooltip } from '../tooltip/tooltip';
 import { ToggleButton } from '../toggle-button/toggle-button';
+import type { Prettify } from '../../utilities/types';
 
 type InnerContentAlign = 'start' | 'center' | 'end' | 'stretch';
 
@@ -126,7 +127,7 @@ const hasResponsiveOverrides = (value: ResponsiveValue) => Object.keys(value).so
  * 	)}
  * </Responsive>
  */
-export const Responsive = (props: ResponsiveProps) => {
+export const Responsive = (props: Prettify<ResponsiveProps>) => {
 	const {
 		value = {},
 		onChange,

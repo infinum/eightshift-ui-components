@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
 import { type ReactNode } from 'react';
 import { RichLabel } from '../rich-label/rich-label';
+import type { Prettify } from '../../utilities/types';
 
 type SpacerSize = 'px' | 'xs' | 's' | 'm';
 
@@ -42,7 +43,7 @@ type SpacerSizeClasses = {
  * @example
  * <Spacer text='My divider' icon={myIcon} />
  */
-export const Spacer = (props: SpacerProps) => {
+export const Spacer = (props: Prettify<SpacerProps>) => {
 	const { size = 'px', border, className, text, subtitle, icon, vertical = false, hidden } = props;
 
 	if (hidden) {

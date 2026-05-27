@@ -6,6 +6,7 @@ import { dropdownCaretAlt } from '../../icons/internal';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { Button } from '../button/button';
 import { RichLabel } from '../rich-label/rich-label';
+import type { Prettify } from '../../utilities/types';
 
 type ExpandableProps = Omit<ComponentPropsWithoutRef<typeof Disclosure>, 'children' | 'className' | 'isExpanded'> & {
 	icon?: ReactNode;
@@ -43,7 +44,7 @@ type ExpandableProps = Omit<ComponentPropsWithoutRef<typeof Disclosure>, 'childr
  * 	...
  * </Expandable>
  */
-export const Expandable = (props: ExpandableProps) => {
+export const Expandable = (props: Prettify<ExpandableProps>) => {
 	const {
 		icon,
 		label,

@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
 import { Fragment } from 'react';
 import { upperFirst } from '../../utilities';
+import type { Prettify } from '../../utilities/types';
 
 type BreakpointColor = 'blue' | 'green' | 'yellow' | 'red' | 'indigo' | 'orange' | 'cyan' | 'teal' | 'fuchsia' | 'black' | 'default';
 
@@ -96,7 +97,7 @@ const activeColors: Record<BreakpointColor, { text: string; bg: string }> = {
  * 	]}
  * />
  */
-export const BreakpointPreview = (props: BreakpointPreviewProps) => {
+export const BreakpointPreview = (props: Prettify<BreakpointPreviewProps>) => {
 	const { blocks: rawBlocks, dotsStart = false, dotsEnd = false } = props;
 	const blocks = rawBlocks?.filter((block): block is BreakpointPreviewBlock => Boolean(block)) ?? [];
 

@@ -12,6 +12,7 @@ import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { BaseControl } from '../base-control/base-control';
 import { RichLabel } from '../rich-label/rich-label';
 import { Tooltip } from '../tooltip/tooltip';
+import type { Prettify } from '../../utilities/types';
 
 type InputSize = 'small' | 'medium' | 'default' | 'large';
 
@@ -163,7 +164,7 @@ const getSuggestionIcon = (subtype: string) => {
  * 	onChange={setUrl}
  * />
  */
-export const LinkInput = (props: LinkInputProps) => {
+export const LinkInput = (props: Prettify<LinkInputProps>) => {
 	const {
 		url = '',
 		onChange,

@@ -10,6 +10,7 @@ import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { Button } from '../button/button';
 import { DecorativeTooltip } from '../tooltip/tooltip';
 import { ToggleButton } from '../toggle-button/toggle-button';
+import type { Prettify } from '../../utilities/types';
 
 type InnerContentAlign = 'start' | 'center' | 'end' | 'stretch';
 type ResponsiveValueItem = string | boolean | undefined;
@@ -117,7 +118,7 @@ const getResolvedValueLabel = (value: ResponsiveValueItem, options?: ResponsiveO
  * 	)}
  * </ResponsiveLegacy>
  */
-export const ResponsiveLegacy = (props: ResponsiveLegacyProps) => {
+export const ResponsiveLegacy = (props: Prettify<ResponsiveLegacyProps>) => {
 	const {
 		value = {},
 		onChange,

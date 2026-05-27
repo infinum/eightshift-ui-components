@@ -7,6 +7,7 @@ import { camelCase, upperFirst } from '../../utilities';
 import { BaseControl } from '../base-control/base-control';
 import { TriggeredPopover } from '../popover/popover';
 import { RichLabel } from '../rich-label/rich-label';
+import type { Prettify } from '../../utilities/types';
 
 type MatrixSize = '3x3' | '2x2';
 type MatrixAlignValue = 'top left' | 'top center' | 'top right' | 'center left' | 'center center' | 'center right' | 'bottom left' | 'bottom center' | 'bottom right';
@@ -103,7 +104,7 @@ const TypedTriggeredPopover = TriggeredPopover as unknown as (props: {
  * 	onChange={setAlignment}
  * />
  */
-export const MatrixAlign = (props: MatrixAlignProps) => {
+export const MatrixAlign = (props: Prettify<MatrixAlignProps>) => {
 	const { size = '3x3', value, onChange, tooltip = __('Position', 'eightshift-ui-components'), label, icon, subtitle, 'aria-label': ariaLabel, hidden } = props;
 
 	if (hidden) {

@@ -2,6 +2,7 @@ import { clsx } from 'clsx';
 import { cloneElement, type ReactElement, type ReactNode } from 'react';
 import { Heading } from 'react-aria-components';
 import { RichLabel } from '../rich-label/rich-label';
+import type { Prettify } from '../../utilities/types';
 
 type BaseOptionsPanelProps = {
 	children?: ReactNode;
@@ -48,7 +49,7 @@ type OptionsPanelIntroProps = BaseOptionsPanelProps & {
  * 	...
  * </OptionsPanel>
  */
-export const OptionsPanel = (props: OptionsPanelProps) => {
+export const OptionsPanel = (props: Prettify<OptionsPanelProps>) => {
 	const { children, className, title, icon, subtitle, help, hidden } = props;
 
 	if (hidden) {
@@ -90,7 +91,7 @@ export const OptionsPanel = (props: OptionsPanelProps) => {
  * 	...
  * </OptionsPanelSection>
  */
-export const OptionsPanelSection = ({ children, className, hidden }: BaseOptionsPanelProps) => {
+export const OptionsPanelSection = ({ children, className, hidden }: Prettify<BaseOptionsPanelProps>) => {
 	if (hidden) {
 		return null;
 	}
@@ -123,7 +124,7 @@ export const OptionsPanelSection = ({ children, className, hidden }: BaseOptions
  * 	...
  * </OptionsPanelHeader>
  */
-export const OptionsPanelHeader = ({ children, sticky, title, className, actions, level = 2, limitWidth, hidden }: OptionsPanelHeaderProps) => {
+export const OptionsPanelHeader = ({ children, sticky, title, className, actions, level = 2, limitWidth, hidden }: Prettify<OptionsPanelHeaderProps>) => {
 	if (hidden) {
 		return null;
 	}
@@ -157,7 +158,7 @@ export const OptionsPanelHeader = ({ children, sticky, title, className, actions
  * @example
  * <OptionsPanelIntro title='Theme options' />
  */
-export const OptionsPanelIntro = ({ icon, title, subtitle, className, iconClassName, level = 3, flat, hidden }: OptionsPanelIntroProps) => {
+export const OptionsPanelIntro = ({ icon, title, subtitle, className, iconClassName, level = 3, flat, hidden }: Prettify<OptionsPanelIntroProps>) => {
 	if (hidden) {
 		return null;
 	}

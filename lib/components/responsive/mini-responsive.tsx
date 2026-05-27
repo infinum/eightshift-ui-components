@@ -13,6 +13,7 @@ import { DecorativeTooltip } from '../tooltip/tooltip';
 import { HStack } from '../layout/hstack';
 import { OptionSelect } from '../option-select/option-select';
 import { TriggeredPopover } from '../popover/popover';
+import type { Prettify } from '../../utilities/types';
 import { ResponsivePreview } from '../responsive-preview/responsive-preview';
 
 type InnerContentAlign = 'start' | 'center' | 'end' | 'stretch';
@@ -123,7 +124,7 @@ const hasResponsiveOverrides = (value: ResponsiveValue) => Object.keys(value).so
  * 	)}
  * </MiniResponsive>
  */
-export const MiniResponsive = (props: MiniResponsiveProps) => {
+export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 	const {
 		value = {},
 		onChange,

@@ -5,6 +5,7 @@ import { componentGeneric, dropdownCaretAlt } from '../../icons/internal';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { BaseControl } from '../base-control/base-control';
 import { ButtonGroup } from '../button/button';
+import type { Prettify } from '../../utilities/types';
 import { Expandable } from '../expandable/expandable';
 import { TriggeredPopover } from '../popover/popover';
 import { Spacer } from '../spacer/spacer';
@@ -87,7 +88,7 @@ const TypedBaseControl = BaseControl as unknown as (props: LegacyBaseControlProp
  * 	...
  * </ComponentToggle>
  */
-export const ComponentToggle = (props: ComponentToggleProps) => {
+export const ComponentToggle = (props: Prettify<ComponentToggleProps>) => {
 	const {
 		children,
 		icon,

@@ -3,6 +3,7 @@ import { previewResponsive } from '../../icons/internal';
 import { upperFirst } from '../../utilities';
 import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { RichLabel } from '../rich-label/rich-label';
+import type { Prettify } from '../../utilities/types';
 
 type ResponsiveOption = {
 	label: string;
@@ -55,7 +56,7 @@ type ResponsivePreviewProps = {
  * 	breakpointData={breakpointData}
  * />
  */
-export const ResponsivePreview = (props: ResponsivePreviewProps) => {
+export const ResponsivePreview = (props: Prettify<ResponsivePreviewProps>) => {
 	const {
 		value,
 		isDesktopFirst: rawIsDesktopFirst,
