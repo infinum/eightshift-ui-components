@@ -5,6 +5,7 @@ import { Label, Radio, RadioGroup } from 'react-aria-components';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { BaseControl } from '../base-control/base-control';
 import { RichLabel } from '../rich-label/rich-label';
+import type { Prettify } from '../../utilities/types';
 
 const radioClasses = cva(
 	[
@@ -259,7 +260,7 @@ type RadioButtonGroupProps = Omit<ComponentPropsWithoutRef<typeof RadioGroup>, '
  * 	<RadioButton value='second' label='Second option' />
  * </RadioButtonGroup>
  */
-export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
+export const RadioButtonGroup = (props: Prettify<RadioButtonGroupProps>) => {
 	const {
 		icon,
 		help,

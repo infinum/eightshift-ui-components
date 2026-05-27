@@ -2,6 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { clsx } from 'clsx';
 import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
 import { Switch as ReactAriaSwitch } from 'react-aria-components';
+import type { Prettify } from '../../utilities/types';
 
 const outsideClasses = cva(
 	[
@@ -187,7 +188,7 @@ type SwitchProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaSwitch>, 'child
  * 	onChange={() => setChecked(!checked)}
  * />
  */
-export const Switch = (props: SwitchProps) => {
+export const Switch = (props: Prettify<SwitchProps>) => {
 	const { checked, onChange, disabled, id, children, className, isIndeterminate, flat, hidden, size = 'default', ...rest } = props;
 
 	if (hidden) {

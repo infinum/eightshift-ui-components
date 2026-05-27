@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
 import { ToggleButton as ReactAriaToggleButton } from 'react-aria-components';
 import { Tooltip } from '../tooltip/tooltip';
+import type { Prettify } from '../../utilities/types';
 
 const componentClasses = cva(
 	[
@@ -318,7 +319,7 @@ const TypedTooltip = Tooltip as (props: TooltipComponentProps & { children?: Rea
  * 	My button
  * </ToggleButton>
  */
-export const ToggleButton = (props: ToggleButtonProps) => {
+export const ToggleButton = (props: Prettify<ToggleButtonProps>) => {
 	const {
 		children,
 		icon,

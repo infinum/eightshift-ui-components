@@ -13,6 +13,7 @@ import {
 import { chevronLeft, chevronRight } from '../../icons/internal';
 import { BaseControl } from '../base-control/base-control';
 import { getColumnConfigOutputText } from './utils';
+import type { Prettify } from '../../utilities/types';
 
 type ColumnConfigValue = [number, number];
 
@@ -68,7 +69,7 @@ const getColumnConfigValue = (value: number | number[]): ColumnConfigValue | nul
  * 	onChange={setSliderValue}
  * />
  */
-export const ColumnConfigSlider = (props: ColumnConfigSliderProps) => {
+export const ColumnConfigSlider = (props: Prettify<ColumnConfigSliderProps>) => {
 	const {
 		icon,
 		help,
@@ -337,7 +338,7 @@ export const ColumnConfigSlider = (props: ColumnConfigSliderProps) => {
  * @example
  * <ColumnConfigSliderOutput />
  */
-export const ColumnConfigSliderOutput = ({ showOuterAsGutter }: ColumnConfigSliderOutputProps) => (
+export const ColumnConfigSliderOutput = ({ showOuterAsGutter }: Prettify<ColumnConfigSliderOutputProps>) => (
 	<ReactAriaSliderOutput className={clsx('es:text-xs es:tabular-nums es:text-secondary-600')}>
 		{({ state }) => {
 			const columns = state.getThumbMaxValue(1);

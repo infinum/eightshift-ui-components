@@ -3,6 +3,7 @@ import { type ReactElement } from 'react';
 import { Label } from 'react-aria-components';
 import { RichLabel } from '../rich-label/rich-label';
 import { Switch } from './switch';
+import type { Prettify } from '../../utilities/types';
 
 type ToggleProps = {
 	checked: boolean;
@@ -36,7 +37,7 @@ type ToggleProps = {
  * 	onChange={() => setChecked(!checked)}
  * />
  */
-export const Toggle = (props: ToggleProps) => {
+export const Toggle = (props: Prettify<ToggleProps>) => {
 	const { checked, onChange, icon, label, subtitle, disabled, className, labelClassName, isIndeterminate, flat, hidden } = props;
 
 	if (hidden) {

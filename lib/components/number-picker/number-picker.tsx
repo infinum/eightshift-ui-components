@@ -5,6 +5,7 @@ import { Group, Input, Label, NumberField } from 'react-aria-components';
 import { chevronDown, chevronUp } from '../../icons/internal';
 import { BaseControl, type BaseControlProps } from '../base-control/base-control';
 import { Button, ButtonGroup } from '../button/button';
+import type { Prettify } from '../../utilities/types';
 
 const inputClass = cva(
 	[
@@ -121,7 +122,7 @@ type NumberPickerProps = SharedNumberFieldProps &
  * 	onChange={setValue}
  * />
  */
-export const NumberPicker = (props: NumberPickerProps) => {
+export const NumberPicker = (props: Prettify<NumberPickerProps>) => {
 	const {
 		value,
 		onChange,

@@ -3,6 +3,7 @@ import { clsx } from 'clsx';
 import { type ComponentPropsWithoutRef, type KeyboardEvent, type ReactNode } from 'react';
 import { Input as ReactAriaInput, Label, TextArea, TextField } from 'react-aria-components';
 import { BaseControl, type BaseControlProps } from '../base-control/base-control';
+import type { Prettify } from '../../utilities/types';
 
 const inputClass = cva(
 	[
@@ -123,7 +124,7 @@ type InputFieldProps = SharedFieldProps &
  * 	onChange={setInputValue}
  * />
  */
-export const InputField = (props: InputFieldProps) => {
+export const InputField = (props: Prettify<InputFieldProps>) => {
 	const {
 		icon,
 		label,

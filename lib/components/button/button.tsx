@@ -5,6 +5,7 @@ import { clsx } from 'clsx';
 import { cva } from 'class-variance-authority';
 import { type ComponentPropsWithoutRef, type ReactNode, type Ref, type RefObject } from 'react';
 import { Tooltip } from '../tooltip/tooltip';
+import type { Prettify } from '../../utilities/types';
 
 type TooltipPlacement =
 	| 'bottom'
@@ -401,7 +402,7 @@ const TypedTooltip = Tooltip as unknown as (props: ButtonTooltipProps & { childr
  * @example
  * <Button onPress={() => console.log('Hi!')} icon={myIcon}>My button</Button>
  */
-export const Button = (props: ButtonProps) => {
+export const Button = (props: Prettify<ButtonProps>) => {
 	const {
 		children,
 		icon,
@@ -510,7 +511,7 @@ type ButtonGroupProps = Omit<ComponentPropsWithoutRef<typeof Toolbar>, 'children
  * 	<Button />
  * </ButtonGroup>
  */
-export const ButtonGroup = (props: ButtonGroupProps) => {
+export const ButtonGroup = (props: Prettify<ButtonGroupProps>) => {
 	const { children, className, vertical, hidden, type = 'segmented', ...rest } = props;
 
 	if (hidden) {

@@ -14,6 +14,7 @@ import { BaseControl } from '../base-control/base-control';
 import { NumberPicker } from '../number-picker/number-picker';
 import { HStack } from '../layout/hstack';
 import { generateGridTemplate, generateMarkers } from './utils';
+import type { Prettify } from '../../utilities/types';
 
 type SliderValue = number | number[];
 type SliderMarkerType = true | 'dots' | 'lines' | Record<string, ReactNode>;
@@ -68,7 +69,7 @@ type SliderProps = Omit<
  * 	onChange={setSliderValue}
  * />
  */
-export const Slider = (props: SliderProps) => {
+export const Slider = (props: Prettify<SliderProps>) => {
 	const {
 		icon,
 		label,

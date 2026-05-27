@@ -5,6 +5,7 @@ import { Checkbox as ReactAriaCheckbox, Label } from 'react-aria-components';
 import { check } from '../../icons/internal';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 import { RichLabel } from '../rich-label/rich-label';
+import type { Prettify } from '../../utilities/types';
 
 const checkboxClasses = cva(
 	[
@@ -120,7 +121,7 @@ type CheckboxProps = Omit<
  * 	onChange={(value) => setMyValue(value)}
  * />
  */
-export const Checkbox = (props: CheckboxProps) => {
+export const Checkbox = (props: Prettify<CheckboxProps>) => {
 	const { icon, label, subtitle, checked, disabled, readOnly, indeterminate, onChange, className, labelClassName, inlineSubtitle, flat, alignEnd, children, hidden, ...other } =
 		props;
 
