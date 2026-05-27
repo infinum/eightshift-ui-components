@@ -94,7 +94,7 @@ type TextAreaElementProps = Omit<ComponentPropsWithoutRef<typeof TextArea>, 'chi
 type InputFieldProps = SharedFieldProps &
 	InputElementProps &
 	TextAreaElementProps &
-	BaseControlProps<typeof Label> & {
+	BaseControlProps & {
 		value?: string;
 		onChange?: (value: string) => void;
 		type?: InputType;

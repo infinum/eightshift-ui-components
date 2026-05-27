@@ -304,11 +304,7 @@ const OptionSelect = ({
 		itemProps={itemProps || undefined}
 		value={value === null || value === undefined ? undefined : String(value)}
 		onChange={(nextValue) => onChange?.(String(nextValue))}
-		options={
-			(options ?? []).map((option) => ({ ...option, value: option.value === null || option.value === undefined ? '' : String(option.value) })) as ComponentProps<
-				typeof OptionSelectBase
-			>['options']
-		}
+		options={(options ?? []).map((option) => ({ ...option, value: option.value === null || option.value === undefined ? '' : String(option.value) }))}
 	/>
 );
 

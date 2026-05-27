@@ -4,7 +4,7 @@ import { Text } from 'react-aria-components';
 import { RichLabel } from '../rich-label/rich-label';
 import type { Prettify } from '../../utilities/types';
 
-export type BaseControlProps<TLabelAs extends ElementType = 'div'> = {
+export type BaseControlProps = {
 	icon?: ReactNode;
 	label?: ReactNode;
 	subtitle?: ReactNode;
@@ -18,7 +18,7 @@ export type BaseControlProps<TLabelAs extends ElementType = 'div'> = {
 	labelClassName?: string;
 	fullWidthLabel?: boolean;
 	noHelpInset?: boolean;
-	labelAs?: TLabelAs;
+	labelAs?: ElementType;
 	hidden?: boolean;
 };
 
@@ -45,7 +45,7 @@ const TypedRichLabel = RichLabel as <T extends ElementType = 'div'>(props: {
  * 	<div>Content</div>
  * </BaseControl>
  */
-export const BaseControl = <TLabelAs extends ElementType = 'div'>(props: Prettify<BaseControlProps<TLabelAs>>) => {
+export const BaseControl = (props: Prettify<BaseControlProps>) => {
 	const {
 		icon,
 		label,

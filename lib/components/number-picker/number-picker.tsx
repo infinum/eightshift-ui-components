@@ -87,7 +87,7 @@ type SharedNumberFieldProps = Omit<
 >;
 
 type NumberPickerProps = SharedNumberFieldProps &
-	Omit<BaseControlProps<typeof Label>, 'actions'> & {
+	Omit<BaseControlProps, 'actions'> & {
 		value?: number;
 		onChange?: (value: number) => void;
 		min?: number;

@@ -123,7 +123,7 @@ const containerClasses = cva('es:inset-ring', {
 
 type ContainerVariantProps = VariantProps<typeof containerClasses>;
 
-type ContainerProps<T extends ElementType = 'div'> = {
+export type ContainerProps<T extends ElementType = 'div'> = {
 	as?: T;
 	children?: ReactNode;
 	className?: string;

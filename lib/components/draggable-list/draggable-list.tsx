@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
-import { type ComponentProps, type ComponentPropsWithRef, type ReactNode, useCallback, useMemo } from 'react';
+import { type ComponentProps, type ReactNode, type Ref, useCallback, useMemo } from 'react';
 import { List, arrayMove, arrayRemove, type OnChangeMeta, type RenderItemParams, type RenderListParams } from 'react-movable';
-import { Container } from '../base-control/container';
+import { Container, type ContainerProps } from '../base-control/container';
 import { BaseControl } from '../base-control/base-control';
 import type { Prettify } from '../../utilities/types';
 
@@ -23,7 +23,7 @@ type DraggableListProps<TItem extends Record<string, unknown>> = ComponentProps<
 };
 
 const TypedBaseControl = BaseControl as (props: ComponentProps<typeof BaseControl> & { children?: ReactNode }) => ReactNode;
-const TypedContainer = Container as (props: ComponentPropsWithRef<typeof Container> & { children?: ReactNode }) => ReactNode;
+const TypedContainer = Container as (props: ContainerProps<'li'> & { ref?: Ref<Element> }) => ReactNode;
 
 /**
  * A component that allows re-ordering a list of items.
