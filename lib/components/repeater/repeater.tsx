@@ -2,6 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
 import { useCallback, useMemo, useState, type ReactNode } from 'react';
 import { List, arrayMove, arrayRemove, type OnChangeMeta, type RenderItemParams, type RenderListParams } from 'react-movable';
+import type { Prettify } from '../../utilities/types';
 
 import { add, moreH, panelCollapse, panelExpand } from '../../icons/internal';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
@@ -82,7 +83,7 @@ type RepeaterProps<Item extends RepeaterItemData = RepeaterItemData> = {
  * 	}}
  * </Repeater>
  */
-export const Repeater = <Item extends RepeaterItemData>(props: RepeaterProps<Item>) => {
+export const Repeater = <Item extends RepeaterItemData>(props: Prettify<RepeaterProps<Item>>) => {
 	const {
 		children,
 		onChange,

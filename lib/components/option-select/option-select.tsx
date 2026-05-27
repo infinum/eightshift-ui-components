@@ -7,6 +7,7 @@ import { Menu, MenuItem, MenuSeparator, SubMenuItem } from '../menu/menu';
 import { RadioButton, RadioButtonGroup } from '../radio/radio';
 import { RichLabel } from '../rich-label/rich-label';
 import { ToggleButton } from '../toggle-button/toggle-button';
+import type { Prettify } from '../../utilities/types';
 
 type OptionSelectType = 'toggleButtons' | 'toggleButtonsSplit' | 'radios' | 'radiosSegmented' | 'menu' | 'submenu' | 'standaloneMenuItems';
 type OptionValue = string;
@@ -88,7 +89,7 @@ const renderOptionIcon = (icon?: IconValue) => (icon ? <Icon icon={icon} /> : nu
  * 	]}
  * />
  */
-export const OptionSelect = (props: OptionSelectProps) => {
+export const OptionSelect = (props: Prettify<OptionSelectProps>) => {
 	const {
 		icon,
 		label,

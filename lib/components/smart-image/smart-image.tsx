@@ -4,6 +4,7 @@ import { cloneElement, useEffect, useRef, useState, type CSSProperties, type Com
 import { imageError } from '../../icons/internal';
 import { cyrb64Hash } from '../../utilities/hash';
 import { DecorativeTooltip } from '../tooltip/tooltip';
+import type { Prettify } from '../../utilities/types';
 
 type AnalysisSource = 'worker' | 'cache' | 'analysisData';
 
@@ -162,7 +163,7 @@ const loadHtmlImage = async (src: string): Promise<HTMLImageElement> => {
  * 	)}
  * </SmartImage>
  */
-const SmartImage = (props: SmartImageProps) => {
+const SmartImage = (props: Prettify<SmartImageProps>) => {
 	const {
 		onAnalysisComplete,
 		colorCount: colorCountProp,

@@ -4,6 +4,7 @@ import { type ComponentProps, type ComponentPropsWithRef, type ReactNode, useCal
 import { List, arrayMove, arrayRemove, type OnChangeMeta, type RenderItemParams, type RenderListParams } from 'react-movable';
 import { Container } from '../base-control/container';
 import { BaseControl } from '../base-control/base-control';
+import type { Prettify } from '../../utilities/types';
 
 type DraggableListRenderContext<TItem extends Record<string, unknown>> = TItem & {
 	updateData: (newValue: Partial<TItem>) => void;
@@ -57,7 +58,7 @@ const TypedContainer = Container as (props: ComponentPropsWithRef<typeof Contain
  * 	}}
  * </DraggableList>
  */
-export const DraggableList = <TItem extends Record<string, unknown>>(props: DraggableListProps<TItem>) => {
+export const DraggableList = <TItem extends Record<string, unknown>>(props: Prettify<DraggableListProps<TItem>>) => {
 	const { children, items, onChange, icon, label, subtitle, help, actions, className, itemClassName, itemContainerClassName, onAfterItemRemove, hidden, ...rest } = props;
 
 	const normalizedItems = useMemo(() => (Array.isArray(items) ? items : []), [items]);

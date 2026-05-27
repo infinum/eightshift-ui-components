@@ -2,6 +2,7 @@ import { clsx } from 'clsx';
 import { type HTMLAttributes, type ReactNode, useContext } from 'react';
 import { reorderGrabberV } from '../../icons/internal';
 import { DraggableContext } from './draggable-context';
+import type { Prettify } from '../../utilities/types';
 
 type DraggableHandleProps = HTMLAttributes<HTMLDivElement> & {
 	children?: ReactNode;
@@ -19,7 +20,7 @@ type DraggableHandleProps = HTMLAttributes<HTMLDivElement> & {
  * @example
  * <DraggableHandle />
  */
-export const DraggableHandle = (props: DraggableHandleProps) => {
+export const DraggableHandle = (props: Prettify<DraggableHandleProps>) => {
 	const { className, children, ...rest } = props;
 	const { handleRef, status } = useContext(DraggableContext);
 

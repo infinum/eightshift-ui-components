@@ -3,6 +3,7 @@ import { type ButtonHTMLAttributes, cloneElement, type HTMLAttributes, type Reac
 import { reorderGrabberV } from '../../icons/internal';
 import { HStack } from '../layout/hstack';
 import { RichLabel } from '../rich-label/rich-label';
+import type { Prettify } from '../../utilities/types';
 
 type DraggableListItemProps = HTMLAttributes<HTMLDivElement> & {
 	children?: ReactNode;
@@ -31,7 +32,7 @@ type DraggableListItemHandleProps = ButtonHTMLAttributes<HTMLButtonElement> & {
  *
  * @see {@link DraggableList} for usage example.
  */
-export const DraggableListItem = (props: DraggableListItemProps) => {
+export const DraggableListItem = (props: Prettify<DraggableListItemProps>) => {
 	const { children, icon, label, subtitle, className, iconClassName, labelClassName, subtitleClassName, labelContainerClassName, ...rest } = props;
 
 	return (
@@ -70,7 +71,7 @@ export const DraggableListItem = (props: DraggableListItemProps) => {
  * @example
  * <DraggableListItemHandle />
  */
-export const DraggableListItemHandle = (props: DraggableListItemHandleProps) => {
+export const DraggableListItemHandle = (props: Prettify<DraggableListItemHandleProps>) => {
 	const { className, children, ...rest } = props;
 
 	return (

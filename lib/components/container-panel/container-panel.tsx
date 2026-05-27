@@ -6,6 +6,7 @@ import { BaseControl } from '../base-control/base-control';
 import { Button } from '../button/button';
 import { HStack } from '../layout/hstack';
 import { Switch } from '../toggle/switch';
+import type { Prettify } from '../../utilities/types';
 
 type ContainerPanelProps = {
 	children?: ReactNode;
@@ -40,7 +41,7 @@ type ContainerPanelProps = {
  * 	...
  * </ContainerPanel>
  */
-export const ContainerPanel = (props: ContainerPanelProps) => {
+export const ContainerPanel = (props: Prettify<ContainerPanelProps>) => {
 	const {
 		children,
 		className,

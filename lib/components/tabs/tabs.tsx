@@ -6,6 +6,7 @@ import { Tab as ReactAriaTab, TabList as ReactAriaTabList, TabPanel as ReactAria
 
 import { Notice } from '../notice/notice';
 import { RichLabel } from '../rich-label/rich-label';
+import type { Prettify } from '../../utilities/types';
 
 type TabsType = 'underline' | 'underlineSecondary' | 'pill' | 'pillCompact' | 'bubble' | 'chips';
 
@@ -504,7 +505,7 @@ const tabPanelClasses = cva('es:space-y-3 es:text-13 es:any-focus:outline-hidden
  * 	<TabPanel>Content 2</TabPanel>
  * </Tabs>
  */
-export const Tabs = (props: TabsProps) => {
+export const Tabs = (props: Prettify<TabsProps>) => {
 	const { children, vertical, className, hidden, type = 'underline', flat, ...rest } = props;
 	const baseId = useId();
 
@@ -614,7 +615,7 @@ Tabs.displayName = 'Tabs';
  *
  * @see {@link Tabs} for usage example.
  */
-export const TabList = (props: TabListProps) => {
+export const TabList = (props: Prettify<TabListProps>) => {
 	const { children, 'aria-label': ariaLabel, className, type, flat, ...other } = props;
 
 	return (
@@ -640,7 +641,7 @@ TabList.displayName = 'TabList';
  *
  * @see {@link Tabs} for usage example.
  */
-export const Tab = (props: TabProps) => {
+export const Tab = (props: Prettify<TabProps>) => {
 	const { children, disabled, isParentVertical, className, badgeClassName, icon, label, subtitle, type, badge, invisible, flat, ...other } = props;
 
 	return (
@@ -685,7 +686,7 @@ Tab.displayName = 'Tab';
  *
  * @see {@link Tabs} for usage example.
  */
-export const TabPanel = (props: TabPanelProps) => {
+export const TabPanel = (props: Prettify<TabPanelProps>) => {
 	const { children, className, type, vertical, ...other } = props;
 
 	return (

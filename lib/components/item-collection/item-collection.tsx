@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fragment, type ReactNode } from 'react';
+import type { Prettify } from '../../utilities/types';
 
 type ItemCollectionRenderContext<TItem extends Record<string, unknown>> = TItem & {
 	updateData: (newValue: Partial<TItem>) => void;
@@ -39,7 +40,7 @@ type ItemCollectionProps<TItem extends Record<string, unknown>> = {
  * 	)}
  * </ItemCollection>
  */
-export const ItemCollection = <TItem extends Record<string, unknown>>(props: ItemCollectionProps<TItem>) => {
+export const ItemCollection = <TItem extends Record<string, unknown>>(props: Prettify<ItemCollectionProps<TItem>>) => {
 	const { children, items: rawItems, onChange, hidden } = props;
 
 	if (hidden) {

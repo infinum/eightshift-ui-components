@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
 import { type ComponentPropsWithoutRef, type ReactNode, useContext } from 'react';
+import type { Prettify } from '../../utilities/types';
 
 import { copy, dropdownCaretAlt, moreH, trash } from '../../icons/internal';
 import { Button } from '../button/button';
@@ -30,7 +31,7 @@ type RepeaterItemProps = Omit<ComponentPropsWithoutRef<typeof Expandable>, 'icon
  *
  * @see {@link Repeater} for usage example.
  */
-export const RepeaterItem = (props: RepeaterItemProps) => {
+export const RepeaterItem = (props: Prettify<RepeaterItemProps>) => {
 	const { children, icon, label, subtitle, className, actions, expandDisabled, menuOptions, noMenuButton, ...rest } = props;
 	const context = useContext(RepeaterContext);
 	const movableHandleHeaderProps = {

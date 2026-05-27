@@ -6,6 +6,7 @@ import { useSortable } from '@dnd-kit/react/sortable';
 import { __ } from '@wordpress/i18n';
 import { type HTMLAttributes, type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { DraggableContext, type DraggableContextValue } from './draggable-context';
+import type { Prettify } from '../../utilities/types';
 
 type DragAxis = 'both' | 'horizontal' | 'vertical';
 
@@ -112,7 +113,7 @@ const SortableItem = ({ id, index, disabled, children, axis }: SortableItemProps
  * 	}}
  * </Draggable>
  */
-export const Draggable = <TItem extends Record<string, unknown>>(props: DraggableProps<TItem>) => {
+export const Draggable = <TItem extends Record<string, unknown>>(props: Prettify<DraggableProps<TItem>>) => {
 	const { children, items, onChange, noReorder, axis = 'both', className, onAfterItemRemove, hidden, ...rest } = props;
 
 	const normalizedItems = useMemo(() => (Array.isArray(items) ? items : []), [items]);
