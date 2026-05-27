@@ -2,6 +2,7 @@ import { clsx } from 'clsx';
 import { Children, type ElementType, type ReactNode } from 'react';
 import { Text } from 'react-aria-components';
 import { RichLabel } from '../rich-label/rich-label';
+import type { Prettify } from '../../utilities/types';
 
 export type BaseControlProps<TLabelAs extends ElementType = 'div'> = {
 	icon?: ReactNode;
@@ -44,7 +45,7 @@ const TypedRichLabel = RichLabel as <T extends ElementType = 'div'>(props: {
  * 	<div>Content</div>
  * </BaseControl>
  */
-export const BaseControl = <TLabelAs extends ElementType = 'div'>(props: BaseControlProps<TLabelAs>) => {
+export const BaseControl = <TLabelAs extends ElementType = 'div'>(props: Prettify<BaseControlProps<TLabelAs>>) => {
 	const {
 		icon,
 		label,
