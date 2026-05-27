@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
 import { type ReactNode } from 'react';
 import { checkSquare, componentGeneric, errorCircle, info, warning } from '../../icons/internal';
+import type { Prettify } from '../../utilities/types';
 
 type NoticeType = 'info' | 'success' | 'warning' | 'error' | 'placeholder' | 'default';
 
@@ -35,7 +36,7 @@ type NoticeProps = {
  * @example
  * <Notice label='This is a notice' />
  */
-export const Notice = (props: NoticeProps) => {
+export const Notice = (props: Prettify<NoticeProps>) => {
 	const { icon, label, subtitle, className, type = 'default', alignIconToTitle = false, flat, hidden } = props;
 
 	if (hidden) {

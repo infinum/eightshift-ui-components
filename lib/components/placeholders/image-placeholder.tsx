@@ -1,5 +1,6 @@
 import { clsx } from 'clsx';
 import { image } from '../../icons/internal';
+import type { Prettify } from '../../utilities/types';
 
 type ImagePlaceholderStyle = 'default' | 'simple';
 type ImagePlaceholderImageMode = 'cover' | 'contain' | 'fill';
@@ -28,7 +29,7 @@ type ImagePlaceholderProps = {
  * @example
  * <ImagePlaceholder url='https://example.com/image.jpg' alt='Image alt text' />
  */
-export const ImagePlaceholder = (props: ImagePlaceholderProps) => {
+export const ImagePlaceholder = (props: Prettify<ImagePlaceholderProps>) => {
 	const { url, alt, style = 'default', size = 'default', noImage, className, hidden, imageMode = 'cover', flat } = props;
 	const hasUrl = Boolean(url && url.length > 0);
 

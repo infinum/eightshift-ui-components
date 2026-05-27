@@ -2,6 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
 import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
 import { Dialog, DialogTrigger, Heading, Modal as ReactAriaModal, ModalOverlay } from 'react-aria-components';
+import type { Prettify } from '../../utilities/types';
 import { clear } from '../../icons/internal';
 import { Button } from '../button/button';
 import { HStack } from '../layout/hstack';
@@ -154,7 +155,7 @@ const ModalInternal = (props: ModalProps) => {
  * 	<p>Modal content</p>
  * </Modal>
  */
-export const Modal = (props: ModalProps) => {
+export const Modal = (props: Prettify<ModalProps>) => {
 	const { triggerLabel, triggerIcon, triggerProps, customTrigger, open } = props;
 
 	if (typeof open !== 'undefined') {

@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
 import { type ReactElement, type ReactNode } from 'react';
 import { image } from '../../icons/internal';
+import type { Prettify } from '../../utilities/types';
 
 type MediaPlaceholderStyle = 'default' | 'simple';
 type MediaPlaceholderSize = 'auto' | 'default' | 'large' | 'fullWidth' | 'fullHeight' | 'full' | 'video';
@@ -27,7 +28,7 @@ type MediaPlaceholderProps = {
  * @example
  * <MediaPlaceholder />
  */
-export const MediaPlaceholder = (props: MediaPlaceholderProps) => {
+export const MediaPlaceholder = (props: Prettify<MediaPlaceholderProps>) => {
 	const { style = 'default', size = 'default', className, icon, helpText, children, flat, hidden } = props;
 
 	if (hidden) {

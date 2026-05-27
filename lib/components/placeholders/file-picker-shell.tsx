@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
 import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
 import { file } from '../../icons/internal';
+import type { Prettify } from '../../utilities/types';
 import { truncateMiddle } from '../../utilities';
 import { SmartImage } from '../smart-image/smart-image';
 
@@ -75,7 +76,7 @@ const TypedSmartImage = SmartImage as unknown as (props: {
  * 	<Button type='glass'>Remove</Button>
  * </FilePickerShell>
  */
-export const FilePickerShell = (props: FilePickerShellProps) => {
+export const FilePickerShell = (props: Prettify<FilePickerShellProps>) => {
 	const { url, type = 'file', icon = file, children, className, noUrlContent, hidden, ...rest } = props;
 
 	if (hidden) {

@@ -8,6 +8,7 @@ import {
 	Separator as ReactAriaSeparator,
 	SubmenuTrigger,
 } from 'react-aria-components';
+import type { Prettify } from '../../utilities/types';
 import { Children, Fragment, cloneElement, isValidElement, type ComponentPropsWithoutRef, type ReactElement, type ReactNode } from 'react';
 import { chevronRight, dummySpacer, hamburgerMenu, menuItemCheck, menuItemCircle } from '../../icons/internal';
 import { Button } from '../button/button';
@@ -130,7 +131,7 @@ const isSubMenuItem = (child: ReactNode) => {
  * 	</SubMenuItem>
  * </Menu>
  */
-export const Menu = (props: MenuProps) => {
+export const Menu = (props: Prettify<MenuProps>) => {
 	const {
 		children,
 		triggerLabel,
@@ -212,7 +213,7 @@ export const Menu = (props: MenuProps) => {
  *
  * @see {@link Menu} for usage example.
  */
-export const MenuSection = (props: MenuSectionProps) => {
+export const MenuSection = (props: Prettify<MenuSectionProps>) => {
 	const { children, label } = props;
 
 	return (
@@ -231,7 +232,7 @@ export const MenuSection = (props: MenuSectionProps) => {
  *
  * @see {@link Menu} for usage example.
  */
-export const MenuSeparator = ({ className }: MenuSeparatorProps) => {
+export const MenuSeparator = ({ className }: Prettify<MenuSeparatorProps>) => {
 	return <ReactAriaSeparator className={clsx('es:my-1.5 es:w-fill es:h-px es:bg-surface-500/15 es:mx-1.5 es:rounded-full', className)} />;
 };
 
@@ -245,7 +246,7 @@ export const MenuSeparator = ({ className }: MenuSeparatorProps) => {
  *
  * @see {@link Menu} for usage example.
  */
-export const MenuItem = (props: MenuItemProps) => {
+export const MenuItem = (props: Prettify<MenuItemProps>) => {
 	const {
 		icon,
 		children,
@@ -331,7 +332,7 @@ export const MenuItem = (props: MenuItemProps) => {
  *
  * @see {@link Menu} for usage example.
  */
-export const SubMenuItem = (props: SubMenuItemProps) => {
+export const SubMenuItem = (props: Prettify<SubMenuItemProps>) => {
 	const { children, trigger, popoverProps, keepOpen, manualWidth, 'aria-label': ariaLabel } = props;
 
 	const keepOpenProps = keepOpen
@@ -379,7 +380,7 @@ SubMenuItem.displayName = 'SubMenuItem';
  * @example
  * <MenuSectionHeader>Section</MenuSectionHeader>
  */
-export const MenuSectionHeader = (props: MenuSectionHeaderProps) => {
+export const MenuSectionHeader = (props: Prettify<MenuSectionHeaderProps>) => {
 	const { children, className, hidden, ...other } = props;
 
 	if (hidden) {

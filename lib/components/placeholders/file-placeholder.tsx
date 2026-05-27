@@ -2,6 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
 import { type ReactElement, type ReactNode } from 'react';
 import { file } from '../../icons/internal';
+import type { Prettify } from '../../utilities/types';
 import { RichLabel } from '../rich-label/rich-label';
 
 type FilePlaceholderProps = {
@@ -26,7 +27,7 @@ type FilePlaceholderProps = {
  * @example
  * <FilePlaceholder fileName='demo.json' />
  */
-export const FilePlaceholder = (props: FilePlaceholderProps) => {
+export const FilePlaceholder = (props: Prettify<FilePlaceholderProps>) => {
 	const { icon, fileName, className, flat, children } = props;
 	const label = fileName ?? (typeof children === 'string' ? children : undefined) ?? __('No file selected', 'eightshift-ui-components');
 
