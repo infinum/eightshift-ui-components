@@ -140,7 +140,7 @@ type RadioButtonProps = Omit<ComponentPropsWithoutRef<typeof Radio>, 'children' 
 	children?: ReactNode;
 };
 
-const RadioButtonComponent = (props: RadioButtonProps) => {
+const RadioButtonComponent = (props: Prettify<RadioButtonProps>) => {
 	const { icon, label, subtitle, disabled, className, labelClassName, design = 'default', flat, alignEnd, children, inlineSubtitle, hidden, ...rest } = props;
 
 	if (hidden) {
