@@ -3,6 +3,8 @@ import { clsx } from 'clsx';
 import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
 import { ColorSwatch as ReactAriaColorSwatch, parseColor } from 'react-aria-components';
 
+import type { Prettify } from '../../utilities/types';
+
 type ReactAriaColorSwatchProps = ComponentPropsWithoutRef<typeof ReactAriaColorSwatch>;
 const TypedReactAriaColorSwatch = ReactAriaColorSwatch as (props: ReactAriaColorSwatchProps & { children?: ReactNode }) => ReactNode;
 
@@ -29,7 +31,7 @@ type ColorSwatchProps = Omit<ReactAriaColorSwatchProps, 'children' | 'className'
  * @example
  * <ColorSwatch gradient='linear-gradient(45deg, #FF0000, #00FF00)' />
  */
-export const ColorSwatch = (props: ColorSwatchProps) => {
+export const ColorSwatch = (props: Prettify<ColorSwatchProps>) => {
 	const { color: rawColor, gradient, className, colorName, flat, customGradient = false, ...rest } = props;
 
 	const checkerPattern = 'repeating-conic-gradient(#CCC 0% 25%, white 0% 50%) 50% / 0.75rem 0.75rem';

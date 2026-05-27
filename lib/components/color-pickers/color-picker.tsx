@@ -7,6 +7,7 @@ import { BaseControl } from '../base-control/base-control';
 import { Menu, MenuItem, MenuSection, MenuSeparator } from '../menu/menu';
 import { RichLabel } from '../rich-label/rich-label';
 import { ColorSwatch } from './color-swatch';
+import type { Prettify } from '../../utilities/types';
 
 type ColorPickerType = 'default' | 'fillColor' | 'textColor' | 'textHighlightColor' | 'listMarkerColor';
 
@@ -68,7 +69,7 @@ const colorSuffixRegex = /(?!^.+)(-?(?:50|100|200|300|400|500|600|700|800|900|95
  * 	]}
  * />
  */
-export const ColorPicker = (props: ColorPickerProps) => {
+export const ColorPicker = (props: Prettify<ColorPickerProps>) => {
 	const {
 		icon,
 		label,

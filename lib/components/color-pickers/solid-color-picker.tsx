@@ -8,6 +8,7 @@ import { dropdownCaretAlt } from '../../icons/internal';
 import { BaseControl } from '../base-control/base-control';
 import { TriggeredPopover } from '../popover/popover';
 import { ColorSwatch } from './color-swatch';
+import type { Prettify } from '../../utilities/types';
 
 type SolidColorPickerProps = {
 	value?: string | null;
@@ -34,7 +35,7 @@ type SolidColorPickerProps = {
  * 	onChange={(color) => setColorValue(color)}
  * />
  */
-export const SolidColorPicker = (props: SolidColorPickerProps) => {
+export const SolidColorPicker = (props: Prettify<SolidColorPickerProps>) => {
 	const { value: rawValue, onChange, disabled, onChangeEnd, allowTransparency = false, outputFormat, hidden, noAdvancedOptions } = props;
 
 	const value = rawValue?.replace('transparent', 'rgba(0, 0, 0, 0)');

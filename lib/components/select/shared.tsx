@@ -5,6 +5,7 @@ import { Button, ListBoxItem, SelectStateContext } from 'react-aria-components';
 
 import { Icon } from '../../icons/internal';
 import { check, clear } from '../../icons/ui-icons';
+import type { Prettify } from '../../utilities/types';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 
 type IconValue = string | JSX.Element | null;
@@ -51,7 +52,7 @@ type SelectStateValue = {
 	setValue: (value: null) => void;
 };
 
-export const OptionItemBase = (props: OptionItemBaseProps) => (
+export const OptionItemBase = (props: Prettify<OptionItemBaseProps>) => (
 	<ListBoxItem
 		{...props}
 		textValue={props.value?.label}
@@ -184,7 +185,7 @@ export const moveArrayItem = <Item,>(array: Item[], itemToMove: Item, targetItem
 	return result;
 };
 
-export const SelectClearButton = ({ multi = false }: SelectClearButtonProps) => {
+export const SelectClearButton = ({ multi = false }: Prettify<SelectClearButtonProps>) => {
 	const state = useContext(SelectStateContext) as SelectStateValue | null;
 	const isEmpty = multi ? state?.value === null || (Array.isArray(state?.value) && state.value.length === 0) : state?.value === null;
 

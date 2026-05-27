@@ -29,6 +29,7 @@ import { TriggeredPopover } from '../popover/popover';
 import { RichLabel } from '../rich-label/rich-label';
 import { getGroupedOptions, OptionItemBase, SelectClearButton } from './shared';
 import { selectButtonClass, selectControlClass } from './styles';
+import type { Prettify } from '../../utilities/types';
 
 type IconValue = string | JSX.Element | null;
 type SelectSize = 'small' | 'medium' | 'default' | 'large';
@@ -194,7 +195,7 @@ const renderOptionIcon = (icon?: IconValue) => getOptionIcon(icon) ?? null;
  * 	getIcon={() => icons.emptyCircle}
  * />
  */
-export const AsyncMultiSelect = (props: AsyncMultiSelectProps) => {
+export const AsyncMultiSelect = (props: Prettify<AsyncMultiSelectProps>) => {
 	const {
 		label,
 		help,

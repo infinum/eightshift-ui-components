@@ -26,6 +26,7 @@ import { BaseControl } from '../base-control/base-control';
 import { RichLabel } from '../rich-label/rich-label';
 import { getGroupedOptions, OptionItemBase, SelectClearButton } from './shared';
 import { selectButtonClass, selectControlClass } from './styles';
+import type { Prettify } from '../../utilities/types';
 
 type IconValue = string | JSX.Element | null;
 type SelectSize = 'small' | 'medium' | 'default' | 'large';
@@ -152,7 +153,7 @@ const getKeyFromValue = (selected: Key | null | undefined) => {
  * 	getValue={(item) => item?.id}
  * />
  */
-export const AsyncSelect = (props: AsyncSelectProps) => {
+export const AsyncSelect = (props: Prettify<AsyncSelectProps>) => {
 	const {
 		label,
 		help,

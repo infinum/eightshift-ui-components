@@ -20,6 +20,7 @@ import { add, angle, centerPoint, genericShapesAlt, gradientRepeat, gradientStop
 import { isColorDark } from '../../utilities';
 import { ColorSwatch } from './color-swatch';
 import { SolidColorPicker } from './solid-color-picker';
+import type { Prettify } from '../../utilities/types';
 
 type GradientType = 'linear' | 'radial' | 'conic';
 type MatrixAlignValue = 'top left' | 'top center' | 'top right' | 'center left' | 'center center' | 'center right' | 'bottom left' | 'bottom center' | 'bottom right';
@@ -247,7 +248,7 @@ const parseMatrixAlignValue = (value: string) => {
  * 	onChange={setGradient}
  * />
  */
-export const GradientEditor = (props: GradientEditorProps) => {
+export const GradientEditor = (props: Prettify<GradientEditorProps>) => {
 	const { value, onChange, hidden } = props;
 	const gradientType = useMemo(() => getGradientType(value), [value]);
 	const gradientData = useMemo(() => parseGradientData(value, gradientType), [gradientType, value]);

@@ -25,6 +25,7 @@ import { BaseControl } from '../base-control/base-control';
 import { RichLabel } from '../rich-label/rich-label';
 import { getGroupedOptions, OptionItemBase, SelectClearButton } from './shared';
 import { selectButtonClass, selectControlClass } from './styles';
+import type { Prettify } from '../../utilities/types';
 
 type IconValue = string | JSX.Element | null;
 type SelectSize = 'small' | 'medium' | 'default' | 'large';
@@ -129,7 +130,7 @@ const getPopoverStyle = (triggerElement: HTMLDivElement | null) =>
  * 	onChange={setValue}
  * />
  */
-export const Select = (props: SelectProps) => {
+export const Select = (props: Prettify<SelectProps>) => {
 	const {
 		icon,
 		help,
