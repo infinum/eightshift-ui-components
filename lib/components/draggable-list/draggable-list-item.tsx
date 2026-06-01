@@ -1,0 +1,95 @@
+import { clsx } from 'clsx';
+import { type ButtonHTMLAttributes, cloneElement, type HTMLAttributes, type ReactElement, type ReactNode } from 'react';
+import { reorderGrabberV } from '../../icons/internal';
+import { HStack } from '../layout/hstack';
+import { RichLabel } from '../rich-label/rich-label';
+import type { Prettify } from '../../utilities/types';
+
+type DraggableListItemProps = HTMLAttributes<HTMLDivElement> & {
+	children?: ReactNode;
+	/** Icon to display in the label. */
+	icon?: ReactElement;
+	/** Label to display. */
+	label?: string;
+	/** Subtitle to display. */
+	subtitle?: string;
+	/** Classes to pass to the label. */
+	className?: string;
+	iconClassName?: string;
+	labelClassName?: string;
+	subtitleClassName?: string;
+	labelContainerClassName?: string;
+};
+
+type DraggableListItemHandleProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+	children?: ReactNode;
+	/** Classes to pass to the handle. */
+	className?: string;
+};
+
+/**
+ * A DraggableList item.
+ *
+ * @component
+ * @param {DraggableListItemProps} props - Component props.
+ *
+ * @returns {JSX.Element} The DraggableListItem component.
+ *
+ * @see {@link DraggableList} for usage example.
+ */
+export const DraggableListItem = (props: Prettify<DraggableListItemProps>) => {
+	const { children, icon, label, subtitle, className, iconClassName, labelClassName, subtitleClassName, labelContainerClassName, ...rest } = props;
+
+	return (
+		<HStack
+			className={clsx('es:w-fill es:group es:pl-1', className)}
+			{...rest}
+		>
+			<RichLabel
+				icon={icon}
+				label={label}
+				subtitle={subtitle}
+				className={clsx('es:mr-auto es:min-h-9', labelContainerClassName)}
+				iconClassName={iconClassName}
+				labelClassName={labelClassName}
+				subtitleClassName={subtitleClassName}
+				fullWidth
+			/>
+
+			{cloneElement(reorderGrabberV, {
+				className: 'es:opacity-0 es:transition-opacity es:group-focus-visible:opacity-100 es:text-secondary-400 es:size-4 es:group-hover:opacity-100',
+			})}
+
+			{children}
+		</HStack>
+	);
+};
+
+/**
+ * A Draggable item handle.
+ *
+ * @component
+ * @param {DraggableListItemHandleProps} props - Component props.
+ *
+ * @returns {JSX.Element} The DraggableListItemHandle component.
+ *
+ * @example
+ * <DraggableListItemHandle />
+ */
+export const DraggableListItemHandle = (props: Prettify<DraggableListItemHandleProps>) => {
+	const { className, children, ...rest } = props;
+
+	return (
+		<button
+			className={
+				className ??
+				'es:relative es:h-6 es:w-2 es:items-center es:justify-center es:self-center es:rounded es:border es:border-secondary-300 es:bg-secondary-50 es:transition es:after:absolute es:after:inset-0 es:after:m-auto es:after:h-4 es:after:w-px es:after:bg-secondary-200 es:after:transition es:after:content-[""] es:hover:border-accent-500 es:hover:bg-accent-400 es:hover:after:bg-accent-500'
+			}
+			{...rest}
+			data-movable-handle
+			tabIndex={-1}
+		>
+			{children}
+		</button>
+	);
+};

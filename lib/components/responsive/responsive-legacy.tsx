@@ -1,0 +1,436 @@
+import { __, sprintf } from '@wordpress/i18n';
+import { clsx } from 'clsx';
+import { useState, type ReactNode } from 'react';
+
+import { Icon, clearAlt, play, responsiveOverridesAlt } from '../../icons/internal';
+import { upperFirst } from '../../utilities';
+import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
+import { BaseControl } from '../base-control/base-control';
+import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
+import { Button } from '../button/button';
+import { DecorativeTooltip } from '../tooltip/tooltip';
+import { ToggleButton } from '../toggle-button/toggle-button';
+import type { Prettify } from '../../utilities/types';
+
+type InnerContentAlign = 'start' | 'center' | 'end' | 'stretch';
+type ResponsiveValueItem = string | boolean | undefined;
+
+type ResponsiveValue = Record<string, ResponsiveValueItem>;
+
+type ResponsiveAttributeMap = Record<string, string>;
+
+type ResponsiveOption = {
+	label: string;
+	value: Exclude<ResponsiveValueItem, undefined>;
+	[key: string]: unknown;
+};
+
+type ResponsiveLegacyChildProps = {
+	breakpoint: string;
+	currentValue: ResponsiveValueItem;
+	options?: ResponsiveOption[];
+	handleChange: (newValue: ResponsiveValueItem) => void;
+	isInlineCollapsedView?: boolean;
+	isInlineExpandedView?: boolean;
+};
+
+type ResponsiveLegacyProps = {
+	/** The current value of the component. Defaults to `{}`. */
+	value?: ResponsiveValue;
+	/** Function to run when the value changes. `(newValue: Object) => void`. */
+	onChange: (attributeName: string, value: ResponsiveValueItem) => void;
+	/** The attribute the component is linked to. `{ [breakpoint: string]: string }`. */
+	attribute: ResponsiveAttributeMap;
+	/** The icon of the component. */
+	icon?: ReactNode;
+	/** The help text of the component. */
+	help?: ReactNode;
+	/** The label of the component. */
+	label?: ReactNode;
+	/** The subtitle of the component. */
+	subtitle?: ReactNode;
+	/** Options of the attribute the component is linked to. `{ value: string, label: string }[]`. */
+	options?: ResponsiveOption[];
+	/** Value that will be used as a default for breakpoints that don't have a value set. If `undefined`, needs to be used, use `allowUndefined` instead. Defaults to `''`. */
+	inheritValue?: ResponsiveValueItem;
+	/** If `true`, `undefined` is used as a default value for breakpoints that don't have a value set. Overrides `inheritValue`. */
+	allowUndefined?: boolean;
+	children: (props: ResponsiveLegacyChildProps) => ReactNode;
+	/** If `true`, the default breakpoint is shown inline with the label. In the expanded state, all breakpoints are shown below the label. */
+	inline?: boolean;
+	/** Breakpoints to use. `{ [breakpoint: string]: number }`. Defaults to `{}`. */
+	breakpointData?: Record<string, number>;
+	/** Breakpoints to use. */
+	breakpoints?: string[];
+	/** If `true`, the component is not rendered. */
+	hidden?: boolean;
+	/** Determines inner content alignment. Defaults to `start`. */
+	innerContentAlign?: InnerContentAlign;
+};
+
+const getResolvedValueLabel = (value: ResponsiveValueItem, options?: ResponsiveOption[]) => {
+	const optionLabel = options?.find((option) => option.value === value)?.label;
+
+	if (optionLabel) {
+		return optionLabel;
+	}
+
+	if (typeof value === 'string') {
+		return upperFirst(value);
+	}
+
+	if (typeof value === 'boolean') {
+		return String(value);
+	}
+
+	return undefined;
+};
+
+/**
+ * A component that allows the user to set different values for different breakpoints.
+ *
+ * Replacement for the `Responsive` component from Eightshift Frontend libs v12 (and older).
+ *
+ * Meant to be used with a more complex attribute setup, with one attribute per breakpoint,
+ * and a single value object that contains all the values.
+ *
+ * Inner items should be passed as a render function.
+ * The following props are passed to the render function:
+ * - `breakpoint: string` - Name of the current breakpoint.
+ * - `currentValue: any` - Current value.
+ * - `handleChange: Function<(attributeName: string, value: any) => void>` - A function to change the value for the breakpoint..
+ * - `options: Object<string, any>` - (Optional) Options list passed to the `ResponsiveLegacy` component. (optional)
+ * - `isInlineCollapsedView: boolean` - (Optional) `true` if in `inline` mode, and the details are collapsed.
+ * - `isInlineExpandedView: boolean` - (Optional) `true` if in `inline` mode, and the details are shown.
+ *
+ * @component
+ * @param {ResponsiveLegacyProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ResponsiveLegacy component.
+ *
+ * @example
+ * <ResponsiveLegacy
+ * 	attribute={myResponsiveAttribute}
+ * 	value={value}
+ * 	onChange={(attributeName, value) => setAttributes({
+ * 		[attributeName]: value,
+ * 	})}
+ * 	icon={myIcon}
+ * 	label={__('Label', 'eightshift-ui-components')}
+ * 	options={[
+ * 		{ value: 'value1', label: 'Value 1' },
+ * 		{ value: 'value2', label: 'Value 2' },
+ * 		{ value: 'value3', label: 'Value 3' },
+ * 	]}
+ * 	breakpointData={breakpoints}
+ * >
+ * 	{({ currentValue, options, handleChange }) => (
+ * 		<Select
+ * 			value={currentValue}
+ * 			options={options}
+ * 			onChange={handleChange}
+ * 		/>
+ * 	)}
+ * </ResponsiveLegacy>
+ */
+export const ResponsiveLegacy = (props: Prettify<ResponsiveLegacyProps>) => {
+	const {
+		value = {},
+		onChange,
+		attribute,
+		icon,
+		help,
+		label,
+		subtitle,
+		options,
+		inheritValue: rawInheritValue = '',
+		allowUndefined,
+		children,
+		inline,
+		breakpointData = {},
+		breakpoints: providedBreakpoints,
+		hidden,
+		innerContentAlign = 'start',
+	} = props;
+
+	const inheritValue = allowUndefined ? undefined : rawInheritValue;
+	const [detailsVisible, setDetailsVisible] = useState(false);
+	const rawBreakpoints =
+		providedBreakpoints ??
+		Object.entries(breakpointData)
+			.sort(([, firstWidth], [, secondWidth]) => firstWidth - secondWidth)
+			.map(([breakpoint]) => breakpoint)
+			.reverse();
+
+	if (hidden || rawBreakpoints.length < 1) {
+		return null;
+	}
+
+	const defaultBreakpoint = rawBreakpoints[0]!;
+	const breakpoints = rawBreakpoints.slice(1);
+	const getBreakpointWidth = (breakpoint: string) => breakpointData[breakpoint] ?? 0;
+	const getAttributeName = (breakpoint: string) => attribute[breakpoint] ?? breakpoint;
+	const getBreakpointValue = (breakpoint: string) => value[getAttributeName(breakpoint)];
+	const getBreakpointLabel = (breakpoint: string) => getResolvedValueLabel(getBreakpointValue(breakpoint), options);
+	const globalOverride = breakpoints.find((breakpoint) => getBreakpointValue(breakpoint) !== inheritValue);
+
+	const DefaultTooltip = () => (
+		<DecorativeTooltip
+			placement='left'
+			className='es:p-3'
+			theme='light'
+			offset={7.5}
+			arrow
+			text={
+				<div className='es:max-w-64 es:p-1'>
+					<span className='es:block es:text-balance es:font-semibold es:tabular-nums'>{__('Default', 'eightshift-ui-components')}</span>
+
+					<span className='es:block es:text-balance es:tabular-nums'>
+						{!globalOverride ? __('Always applied, regardless of browser width.', 'eightshift-ui-components') : null}
+						{globalOverride ? sprintf(__('Applied when the browser width is %dpx or wider.', 'eightshift-ui-components'), getBreakpointWidth(globalOverride) + 1) : null}
+					</span>
+
+					{globalOverride ? (
+						<div className='es:mx-auto es:mt-2'>
+							<BreakpointPreview
+								blocks={[
+									{
+										breakpoint: globalOverride,
+										value: getBreakpointLabel(globalOverride),
+										dotsStart: true,
+										alignEnd: true,
+									},
+									{
+										breakpoint: __('Default', 'eightshift-ui-components'),
+										value: getBreakpointLabel(defaultBreakpoint),
+										width: String(getBreakpointWidth(globalOverride) + 1),
+										dotsEnd: true,
+										active: true,
+									},
+								]}
+							/>
+						</div>
+					) : null}
+				</div>
+			}
+		>
+			<div className='es:flex es:size-7 es:items-center es:justify-center es:rounded es:border es:border-accent-500/10 es:bg-accent-50 es:p-0.5 es:text-accent-800 es:shadow-sm es:shadow-accent-600/25 es:icon:size-5'>
+				<Icon
+					icon={`screen${upperFirst(defaultBreakpoint)}`}
+					fallback={play}
+				/>
+			</div>
+		</DecorativeTooltip>
+	);
+
+	return (
+		<BaseControl
+			icon={icon}
+			label={label}
+			subtitle={subtitle}
+			help={help}
+			className='es:w-full'
+			actions={
+				<>
+					{inline ? (
+						<AnimatedVisibility
+							visible={!detailsVisible}
+							key={defaultBreakpoint}
+							transition='scaleFade'
+							noInitial
+						>
+							{children({
+								breakpoint: defaultBreakpoint,
+								currentValue: getBreakpointValue(defaultBreakpoint),
+								options,
+								handleChange: (newValue) => onChange(getAttributeName(defaultBreakpoint), newValue),
+								isInlineCollapsedView: true,
+							})}
+						</AnimatedVisibility>
+					) : null}
+
+					<ToggleButton
+						icon={responsiveOverridesAlt}
+						onChange={() => setDetailsVisible(!detailsVisible)}
+						selected={detailsVisible}
+						tooltip={detailsVisible ? __('Hide responsive overrides', 'eightshift-ui-components') : __('Show responsive overrides', 'eightshift-ui-components')}
+					/>
+				</>
+			}
+		>
+			{!inline ? (
+				<div
+					className={clsx(
+						'es:grid es:items-center es:gap-x-2 es:transition-[grid-template-columns,margin-block-end] es:duration-150',
+						innerContentAlign === 'start' && 'es:justify-items-start',
+						innerContentAlign === 'center' && 'es:justify-items-center',
+						innerContentAlign === 'end' && 'es:justify-items-end',
+						innerContentAlign === 'stretch' && 'es:justify-items-stretch',
+						detailsVisible ? 'es:mb-2 es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)]' : 'es:grid-cols-[minmax(0,0rem)_minmax(0,1fr)_minmax(0,2.25rem)]',
+					)}
+					key={defaultBreakpoint}
+				>
+					{detailsVisible ? <DefaultTooltip /> : null}
+					<div className={clsx('es:w-full', detailsVisible ? 'es:col-start-2 es:col-end-2' : 'es:col-span-full')}>
+						{children({
+							breakpoint: defaultBreakpoint,
+							currentValue: getBreakpointValue(defaultBreakpoint),
+							options,
+							handleChange: (newValue) => onChange(getAttributeName(defaultBreakpoint), newValue),
+						})}
+					</div>
+				</div>
+			) : null}
+
+			{inline ? (
+				<AnimatedVisibility
+					className={clsx(
+						'es:mb-2 es:grid es:grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2',
+						innerContentAlign === 'start' && 'es:justify-items-start',
+						innerContentAlign === 'center' && 'es:justify-items-center',
+						innerContentAlign === 'end' && 'es:justify-items-end',
+						innerContentAlign === 'stretch' && 'es:justify-items-stretch',
+					)}
+					key={defaultBreakpoint}
+					visible={detailsVisible}
+				>
+					<DefaultTooltip />
+					<div className='es:col-start-2 es:col-end-2 es:w-full'>
+						{children({
+							breakpoint: defaultBreakpoint,
+							currentValue: getBreakpointValue(defaultBreakpoint),
+							options,
+							handleChange: (newValue) => onChange(getAttributeName(defaultBreakpoint), newValue),
+							isInlineExpandedView: true,
+						})}
+					</div>
+				</AnimatedVisibility>
+			) : null}
+
+			<AnimatedVisibility
+				visible={detailsVisible}
+				className='es:space-y-2'
+			>
+				{breakpoints.map((breakpoint, index) => {
+					const isOverrideSet = getBreakpointValue(breakpoint) !== inheritValue;
+
+					const aboveOverride = [...rawBreakpoints.slice(0, index + 1)].reverse().find((candidateBreakpoint) => getBreakpointValue(candidateBreakpoint) !== inheritValue);
+
+					const belowOverride = rawBreakpoints.slice(index + 2).find((candidateBreakpoint) => getBreakpointValue(candidateBreakpoint) !== inheritValue);
+
+					return (
+						<div
+							className={clsx(
+								'es:grid es:grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2',
+								innerContentAlign === 'start' && 'es:justify-items-start',
+								innerContentAlign === 'center' && 'es:justify-items-center',
+								innerContentAlign === 'end' && 'es:justify-items-end',
+								innerContentAlign === 'stretch' && 'es:justify-items-stretch',
+							)}
+							key={breakpoint}
+						>
+							<DecorativeTooltip
+								placement='left'
+								theme='light'
+								offset={7.5}
+								arrow
+								text={
+									<div className='es:max-w-96 es:p-1'>
+										<span className='es:block es:font-semibold'>{upperFirst(breakpoint)}</span>
+
+										<span className='es:block es:text-balance es:tabular-nums'>
+											{aboveOverride && (aboveOverride !== rawBreakpoints[0] || !belowOverride) && isOverrideSet
+												? sprintf(__('Applied when the browser width is %dpx or less.', 'eightshift-ui-components'), getBreakpointWidth(breakpoint))
+												: null}
+
+											{aboveOverride && aboveOverride === rawBreakpoints[0] && belowOverride && isOverrideSet
+												? sprintf(
+														__('Applied when the browser width is between %dpx and %dpx.', 'eightshift-ui-components'),
+														getBreakpointWidth(belowOverride) + 1,
+														getBreakpointWidth(breakpoint),
+													)
+												: null}
+
+											{!aboveOverride || !isOverrideSet ? sprintf(__('Up to %dpx', 'eightshift-ui-components'), getBreakpointWidth(breakpoint)) : null}
+										</span>
+
+										{(aboveOverride && !isOverrideSet) || !aboveOverride ? (
+											<span className='es:mt-2 es:block es:font-medium es:italic'>{__('Not set', 'eightshift-ui-components')}</span>
+										) : null}
+
+										{aboveOverride && isOverrideSet ? (
+											<div className='es:mx-auto es:mt-2'>
+												<BreakpointPreview
+													blocks={[
+														belowOverride
+															? {
+																	breakpoint: belowOverride,
+																	value: getBreakpointLabel(belowOverride),
+																	widthEnd: String(getBreakpointWidth(belowOverride)),
+																	dotsStart: true,
+																	alignEnd: true,
+																}
+															: null,
+														{
+															breakpoint,
+															value: getBreakpointLabel(breakpoint),
+															widthEnd: String(getBreakpointWidth(breakpoint)),
+															active: true,
+															alignEnd: true,
+															dotsStart: aboveOverride === breakpoint,
+														},
+														aboveOverride && aboveOverride !== defaultBreakpoint
+															? {
+																	breakpoint: aboveOverride,
+																	value: getBreakpointLabel(aboveOverride),
+																	dotsEnd: true,
+																}
+															: null,
+														aboveOverride === defaultBreakpoint
+															? {
+																	breakpoint: __('Default', 'eightshift-ui-components'),
+																	value: getBreakpointLabel(defaultBreakpoint),
+																	dotsEnd: true,
+																}
+															: null,
+													]}
+												/>
+											</div>
+										) : null}
+									</div>
+								}
+							>
+								<div
+									className={clsx(
+										'es:flex es:size-7 es:items-center es:justify-center es:rounded es:border es:p-0.5 es:shadow-sm es:transition-colors es:icon:size-5',
+										getBreakpointValue(breakpoint) === inheritValue
+											? 'es:border-secondary-200 es:bg-secondary-50 es:text-secondary-700'
+											: 'es:border-secondary-100 es:bg-white es:text-secondary-500',
+									)}
+								>
+									<Icon icon={`screen${upperFirst(breakpoint)}`} />
+								</div>
+							</DecorativeTooltip>
+
+							<div className='es:w-full'>
+								{children({
+									breakpoint,
+									currentValue: getBreakpointValue(breakpoint),
+									options,
+									handleChange: (newValue) => onChange(getAttributeName(breakpoint), newValue),
+								})}
+							</div>
+
+							<Button
+								onPress={() => onChange(getAttributeName(breakpoint), inheritValue)}
+								icon={clearAlt}
+								disabled={getBreakpointValue(breakpoint) === inheritValue}
+								type='ghost'
+							/>
+						</div>
+					);
+				})}
+			</AnimatedVisibility>
+		</BaseControl>
+	);
+};

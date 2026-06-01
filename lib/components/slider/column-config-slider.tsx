@@ -1,0 +1,369 @@
+import { __, sprintf } from '@wordpress/i18n';
+import clsx from 'clsx';
+import { AnimatePresence, motion } from 'motion/react';
+import { type ComponentProps, type ReactNode } from 'react';
+import {
+	Label,
+	Slider as ReactAriaSlider,
+	SliderOutput as ReactAriaSliderOutput,
+	SliderThumb as ReactAriaSliderThumb,
+	SliderTrack as ReactAriaSliderTrack,
+} from 'react-aria-components';
+
+import { chevronLeft, chevronRight } from '../../icons/internal';
+import { BaseControl } from '../base-control/base-control';
+import { getColumnConfigOutputText } from './utils';
+import type { Prettify } from '../../utilities/types';
+
+type ColumnConfigValue = [number, number];
+
+type ColumnConfigSliderProps = Omit<ComponentProps<typeof ReactAriaSlider>, 'children' | 'className' | 'orientation' | 'value' | 'onChange' | 'onChangeEnd'> & {
+	/** Icon to display within the slider. */
+	icon?: ReactNode;
+	/** The help text shown below the slider. */
+	help?: ReactNode;
+	/** The label of the slider. */
+	label?: ReactNode;
+	/** Actions to display next to the label. */
+	actions?: ReactNode;
+	/** The subtitle of the slider. */
+	subtitle?: ReactNode;
+	/** Number of columns. Defaults to `12`. */
+	columns?: number;
+	/** If `true`, the width thumb is disabled. */
+	disableWidth?: boolean;
+	/** If `true`, the offset thumb is disabled. */
+	disableOffset?: boolean;
+	/** If `true`, the outer columns are displayed with a special icons instead of the column numbers. Other numbers are offset by 1. */
+	showOuterAsGutter?: boolean;
+	/** The current value of the slider. */
+	value: ColumnConfigValue;
+	/** Function to run when the value changes. */
+	onChange: (value: ColumnConfigValue) => void;
+	/** Function to run when the value change ends. */
+	onChangeEnd?: (value: ColumnConfigValue) => void;
+	/** If `true`, the slider is disabled. */
+	disabled?: boolean;
+	/** Additional classes to pass to the label. */
+	labelClassName?: string;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
+	flat?: boolean;
+	/** If `true`, the component is not rendered. */
+	hidden?: boolean;
+};
+
+type ColumnConfigSliderOutputProps = {
+	/** If `true`, the outer columns are displayed with a special icons instead of the column numbers. Other numbers are offset by 1. */
+	showOuterAsGutter?: boolean;
+};
+
+const getColumnConfigValue = (value: number | number[]): ColumnConfigValue | null => {
+	if (!Array.isArray(value) || value.length !== 2) {
+		return null;
+	}
+
+	const [startValue, endValue] = value;
+
+	if (typeof startValue !== 'number' || typeof endValue !== 'number') {
+		return null;
+	}
+
+	return [startValue, endValue];
+};
+
+/**
+ * A two-thumb slider for selecting a range of columns.
+ *
+ * @component
+ * @param {ColumnConfigSliderProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ColumnConfigSlider component.
+ *
+ * @example
+ * <ColumnConfigSlider
+ * 	label='My slider'
+ * 	value={sliderValue}
+ * 	onChange={setSliderValue}
+ * />
+ */
+export const ColumnConfigSlider = (props: Prettify<ColumnConfigSliderProps>) => {
+	const {
+		icon,
+		help,
+		label,
+		actions,
+		subtitle,
+		columns = 12,
+		disableWidth,
+		disableOffset,
+		showOuterAsGutter,
+		value,
+		onChange,
+		onChangeEnd,
+		disabled,
+		labelClassName,
+		flat,
+		hidden,
+		...other
+	} = props;
+
+	if (hidden) {
+		return null;
+	}
+
+	const markerData = [...Array(columns).keys()];
+	const thumbLabels = [__('Offset', 'eightshift-ui-components'), __('Width', 'eightshift-ui-components')];
+
+	return (
+		<ReactAriaSlider
+			value={value}
+			onChange={(nextValue) => {
+				const columnConfigValue = getColumnConfigValue(nextValue);
+
+				if (!columnConfigValue) {
+					return;
+				}
+
+				onChange(columnConfigValue);
+			}}
+			minValue={1}
+			maxValue={columns}
+			step={1}
+			isDisabled={disabled}
+			orientation='horizontal'
+			className='es:w-full'
+			onChangeEnd={(nextValue) => {
+				const columnConfigValue = getColumnConfigValue(nextValue);
+
+				if (!columnConfigValue || !onChangeEnd) {
+					return;
+				}
+
+				onChangeEnd(columnConfigValue);
+			}}
+			{...other}
+		>
+			<BaseControl
+				icon={icon}
+				label={label}
+				subtitle={subtitle}
+				help={help}
+				actions={
+					<>
+						{actions}
+
+						<ColumnConfigSliderOutput showOuterAsGutter={showOuterAsGutter} />
+					</>
+				}
+				labelAs={Label}
+				className={labelClassName}
+				controlContainerClassName='es:flex es:items-center es:gap-2.5 es:space-y-0!'
+			>
+				<ReactAriaSliderTrack
+					className='es:isolate es:grid es:h-10 es:w-full es:grid-rows-1 es:has-dragging:cursor-grabbing'
+					style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
+				>
+					{({ state }) => (
+						<>
+							<div
+								className={clsx(
+									'es:row-span-1 es:row-start-1 es:w-fill es:h-6 es:self-center es:my-0.5',
+									'es:rounded-l-xl es:rounded-r-sm',
+									'es:transition-plus-m es:duration-300 es:ease-spring-smooth',
+									!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
+									!disabled && ['es:bg-surface-200', 'es:bg-linear-to-b es:from-surface-700/0 es:to-surface-700/5 es:from-25%', 'es:inset-ring es:inset-ring-surface-300/20'],
+									disabled && 'es:bg-secondary-200',
+									!disableOffset && 'es:mr-1.25',
+									value[0] < 2 && 'es:hidden',
+								)}
+								style={{ gridColumn: `1 / span ${Math.max(0, value[0] - 1)}` }}
+							/>
+
+							<div
+								className={clsx(
+									'es:row-span-1 es:row-start-1 es:w-fill es:h-6 es:self-center es:my-0.5',
+									'es:rounded-l-sm es:rounded-r-xl',
+									'es:transition-plus-m es:duration-300 es:ease-spring-smooth',
+									!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
+									!disabled && ['es:bg-surface-200', 'es:bg-linear-to-b es:from-surface-700/0 es:to-surface-700/5 es:from-25%', 'es:inset-ring es:inset-ring-surface-300/20'],
+									disabled && 'es:bg-secondary-200',
+									!disableWidth && 'es:ml-1.25',
+									value[1] === columns && 'es:hidden',
+								)}
+								style={{ gridColumn: `${value[1] + 1} / span ${columns - value[1]}` }}
+							/>
+
+							<div
+								className={clsx(
+									'es:pointer-events-none es:col-start-1 es:row-start-1',
+									'es:h-6 es:w-fill es:self-center es:rounded-sm es:my-0.5',
+									'es:transition es:duration-300',
+									!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
+									'es:mx-1.25',
+									value[0] === 1 && 'es:ml-1.75',
+									value[1] === columns && 'es:mr-1.75',
+									!disabled && [
+										'es:bg-accent-500 es:bg-linear-to-b es:from-accent-100/15 es:to-accent-100/0 es:from-25%',
+										'es:inset-ring es:inset-ring-accent-700/10',
+										'es:inset-shadow-sm es:inset-shadow-accent-50/30',
+									],
+									disabled && 'es:bg-secondary-400',
+								)}
+								style={{
+									gridColumn: `${value[0]} / span ${value[1] - value[0] + 1}`,
+								}}
+							/>
+
+							{markerData.map((marker, index) => (
+								<span
+									key={marker}
+									className={clsx(
+										'es:row-span-1 es:row-start-1 es:select-none es:place-self-center',
+										'es:icon:size-2 es:icon:stroke-3',
+										'es:transition es:duration-300 es:ease-spring-smooth',
+										marker >= value[0] - 1 && marker < value[1] ? 'es:text-accent-900' : 'es:text-surface-400',
+										disabled && 'es:opacity-0',
+										!disableOffset && index === 0 && value[0] === 2 && 'es:-translate-x-px',
+										!disableWidth && index === columns - 1 && value[1] === columns - 1 && 'es:translate-x-px',
+										!disableOffset && index === 0 && value[0] === 1 && 'es:opacity-0 es:scale-50',
+										!disableWidth && index === columns - 1 && value[1] === columns && 'es:opacity-0 es:scale-50',
+									)}
+									style={{ gridColumn: index + 1 }}
+								>
+									{showOuterAsGutter && index === 0 ? chevronLeft : null}
+									{showOuterAsGutter && index === columns - 1 ? chevronRight : null}
+								</span>
+							))}
+
+							{markerData.map((marker, index) => (
+								<div
+									key={marker}
+									className={clsx(
+										'es:row-span-1 es:row-start-1 es:size-0.75 es:place-self-center es:rounded-2xl',
+										!disabled && marker >= value[0] - 1 && marker < value[1] && 'es:bg-accent-50',
+										!disabled && !(marker >= value[0] - 1 && marker < value[1]) && 'es:bg-surface-500',
+										disabled && marker >= value[0] - 1 && marker < value[1] && 'es:bg-secondary-300',
+										disabled && !(marker >= value[0] - 1 && marker < value[1]) && 'es:bg-secondary-400',
+										showOuterAsGutter && (index === 0 || index === columns - 1) && 'es:hidden',
+									)}
+									style={{ gridColumn: index + 1 }}
+								/>
+							))}
+
+							{state.values.map((_, index) => {
+								const startValue = state.values[0] ?? 1;
+								const endValue = state.values[1] ?? columns;
+								const currentValue = state.values[index] ?? (index === 0 ? startValue : endValue);
+								let gridColumn = `${currentValue - (index === 0 ? 1 : 0)} / span 2`;
+
+								if (index === 0 && startValue === 1) {
+									gridColumn = '1';
+								}
+
+								if (index === 1 && endValue === columns) {
+									gridColumn = `${columns}`;
+								}
+
+								return (
+									<ReactAriaSliderThumb
+										key={index}
+										index={index}
+										aria-label={thumbLabels[index]}
+										isDisabled={(index === 0 && disableOffset) || (index === 1 && disableWidth)}
+										className={clsx(
+											'es:static! es:row-span-1 es:row-start-1 es:h-full es:w-1 es:rounded-md es:transition es:duration-300',
+											'es:origin-center',
+											'es:hover:ring-[0.25px] es:focus-visible:ring-[0.5px] es:dragging:ring-[1px] es:ring-accent-500',
+											'es:transform-none!',
+											'es:dragging:es:bg-accent-600 es:disabled:bg-secondary-400',
+											'es:focus-visible:outline-2 es:outline-offset-2 es:outline-accent-500/40',
+											'es:bg-accent-500',
+											'es:hover:ring-accent-600',
+											'es:dragging:bg-accent-600 es:dragging:ring-accent-600',
+											!disabled && 'es:hover:not-dragging:cursor-grab',
+											index === 0 && disableOffset && 'es:hidden',
+											index === 1 && disableWidth && 'es:hidden',
+											index === 0 && startValue === 1 && 'es:justify-self-start',
+											index === 0 && startValue > 1 && 'es:justify-self-center',
+											index === 1 && endValue < columns && 'es:justify-self-center',
+											index === 1 && endValue === columns && 'es:justify-self-end',
+											!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
+										)}
+										style={{
+											gridColumn,
+										}}
+									>
+										<AnimatePresence>
+											{index === state.focusedThumb ? (
+												<motion.div
+													className={clsx(
+														'es:absolute es:bottom-12 es:w-fit es:min-w-5 es:h-6 es:text-nowrap es:-translate-x-1/2',
+														'es:bg-surface-50/80 es:text-surface-700',
+														'es:backdrop-blur-xs',
+														'es:text-12 es:leading-none',
+														'es:py-1 es:px-2 es:rounded-lg',
+														'es:text-center',
+														'es:line-clamp-1',
+														'es:flex es:items-center es:justify-center es:gap-1',
+														'es:shadow',
+														showOuterAsGutter && 'es:icon:size-2 es:icon:stroke-3',
+													)}
+													initial={{ y: 2, opacity: 0, scale: 0.85 }}
+													animate={{ y: 0, opacity: 1, scale: 1 }}
+													exit={{ y: 2, opacity: 0, scale: 0.85 }}
+												>
+													{index === 0 && showOuterAsGutter && startValue > 1 ? sprintf(__('From %d', 'eightshfit-ui-components'), currentValue - 1) : null}
+													{index === 0 && showOuterAsGutter && startValue === 1 ? __('From start gutter', 'eightshfit-ui-components') : null}
+													{index === 1 && showOuterAsGutter && endValue < columns ? sprintf(__('To %d', 'eightshfit-ui-components'), currentValue) : null}
+													{index === 1 && showOuterAsGutter && endValue === columns ? __('To end gutter', 'eightshfit-ui-components') : null}
+													{!showOuterAsGutter && index === 0 ? (
+														<>
+															{startValue > 1 ? sprintf(__('From %d', 'eightshfit-ui-components'), currentValue) : null}
+															{startValue === 1 ? __('From start', 'eightshfit-ui-components') : null}
+														</>
+													) : null}
+													{!showOuterAsGutter && index === 1 ? (
+														<>
+															{endValue < columns ? sprintf(__('To %d', 'eightshfit-ui-components'), currentValue) : null}
+															{endValue === columns ? __('To end', 'eightshfit-ui-components') : null}
+														</>
+													) : null}
+												</motion.div>
+											) : null}
+										</AnimatePresence>
+									</ReactAriaSliderThumb>
+								);
+							})}
+						</>
+					)}
+				</ReactAriaSliderTrack>
+			</BaseControl>
+		</ReactAriaSlider>
+	);
+};
+
+/**
+ * The output for the ColumnConfigSlider component.
+ *
+ * Meant to be used within the ColumnConfigSlider component, e.g in help or actions.
+ *
+ * @component
+ * @param {ColumnConfigSliderOutputProps} props - Component props.
+ *
+ * @returns {JSX.Element} The ColumnConfigSliderOutput component.
+ *
+ * @example
+ * <ColumnConfigSliderOutput />
+ */
+export const ColumnConfigSliderOutput = ({ showOuterAsGutter }: Prettify<ColumnConfigSliderOutputProps>) => (
+	<ReactAriaSliderOutput className={clsx('es:text-xs es:tabular-nums es:text-secondary-600')}>
+		{({ state }) => {
+			const columns = state.getThumbMaxValue(1);
+			const offset = parseInt(state.getThumbValueLabel(0), 10);
+			const endOffset = parseInt(state.getThumbValueLabel(1), 10);
+			const width = endOffset - offset + 1;
+
+			return getColumnConfigOutputText(columns, offset, width, showOuterAsGutter);
+		}}
+	</ReactAriaSliderOutput>
+);

@@ -1,9 +1,10 @@
 {
 	"name": "@eightshift/ui-components",
-	"version": "7.3.0",
+	"version": "8.0.0",
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/infinum/eightshift-ui-components.git"
@@ -16,12 +17,22 @@
 	],
 	"exports": {
 		".": {
+			"types": "./dist/index.d.ts",
 			"import": "./dist/index.js",
 			"require": "./dist/index.js"
 		},
-		"./icons": "./dist/icons/index.js",
-		"./jsx-svg": "./dist/icons/jsx-svg.js",
-		"./utilities": "./dist/utilities/index.js",
+		"./icons": {
+			"types": "./dist/icons/index.d.ts",
+			"default": "./dist/icons/index.js"
+		},
+		"./jsx-svg": {
+			"types": "./dist/icons/jsx-svg.d.ts",
+			"default": "./dist/icons/jsx-svg.js"
+		},
+		"./utilities": {
+			"types": "./dist/utilities/index.d.ts",
+			"default": "./dist/utilities/index.js"
+		},
 		"./dist/assets/style.css": "./dist/assets/style.css",
 		"./dist/assets/style-editor.css": "./dist/assets/style-editor.css",
 		"./dist/assets/style-admin.css": "./dist/assets/style-admin.css",
@@ -49,7 +60,8 @@
 		"generate:icon-loaders": "node ./scripts/generate-icon-loaders.mjs",
 		"dev": "node ./scripts/generate-icon-loaders.mjs && vite",
 		"start": "node ./scripts/generate-icon-loaders.mjs && vite",
-		"build": "node ./scripts/generate-icon-loaders.mjs && vite build",
+		"build": "node ./scripts/generate-icon-loaders.mjs && vite build && tsc -p tsconfig.build.json",
+		"typecheck": "tsc --noEmit",
 		"lint": "bun x eslint",
 		"preview": "vite preview"
 	},
@@ -64,25 +76,24 @@
 		"@dnd-kit/dom": "^0.3.2",
 		"@dnd-kit/helpers": "^0.3.2",
 		"@dnd-kit/react": "^0.3.2",
-		"@eslint/compat": "^2.0.5",
+		"@eslint/compat": "^2.1.0",
 		"@react-stately/collections": "^3.13.0",
 		"@stylistic/eslint-plugin": "^5.10.0",
-		"@tailwindcss/vite": "^4.2.2",
-		"@thi.ng/color": "^5.8.20",
+		"@tailwindcss/vite": "^4.3.0",
+		"@thi.ng/color": "^5.8.25",
 		"@types/react": "^18.3.28",
 		"@types/react-dom": "^18.3.7",
-		"@vitejs/plugin-react": "^6.0.1",
-		"@wordpress/i18n": "^6.17.0",
+		"@vitejs/plugin-react": "^6.0.2",
+		"@wordpress/i18n": "^6.19.0",
 		"autoprefixer": "^10.5.0",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"css-gradient-parser": "^0.0.18",
-		"eslint": "^10.2.0",
+		"eslint": "^10.4.0",
 		"eslint-config-prettier": "^10.1.8",
-		"eslint-plugin-jsdoc": "^62.9.0",
 		"eslint-plugin-prettier": "^5.5.5",
 		"glob": "^13.0.6",
-		"globals": "^17.5.0",
+		"globals": "^17.6.0",
 		"just-camel-case": "^6.2.0",
 		"just-debounce-it": "^3.2.0",
 		"just-has": "^2.3.0",
@@ -90,9 +101,9 @@
 		"just-kebab-case": "^4.2.0",
 		"just-throttle": "^4.2.0",
 		"lightningcss": "^1.32.0",
-		"postcss": "^8.5.10",
+		"postcss": "^8.5.15",
 		"prettier": "^3.8.3",
-		"prettier-plugin-tailwindcss": "^0.7.2",
+		"prettier-plugin-tailwindcss": "^0.7.4",
 		"react": "^18.3.1",
 		"react-aria": "^3.48.0",
 		"react-aria-components": "^1.17.0",
@@ -101,18 +112,20 @@
 		"react-movable": "^3.4.1",
 		"react-stately": "^3.46.0",
 		"svg-to-jsx-string": "^0.1.1",
-		"tailwindcss": "^4.2.2",
+		"tailwindcss": "^4.3.0",
 		"tailwindcss-motion": "^1.1.1",
 		"tailwindcss-react-aria-components": "^2.1.0",
-		"vite": "^8.0.8",
+		"typescript": "^6.0.3",
+		"typescript-eslint": "^8.59.4",
+		"vite": "^8.0.13",
 		"vite-plugin-lib-inject-css": "^2.2.2"
 	},
 	"dependencies": {
 		"@fontsource-variable/google-sans-flex": "^5.2.2",
-		"@fontsource/geist": "^5.2.8",
-		"@fontsource/geist-mono": "^5.2.7",
+		"@fontsource/geist": "^5.2.9",
+		"@fontsource/geist-mono": "^5.2.8",
 		"eslint-plugin-react": "^7.37.5",
 		"eslint-plugin-react-hooks": "^7.0.1",
-		"motion": "^12.38.0"
+		"motion": "^12.39.0"
 	}
 }
