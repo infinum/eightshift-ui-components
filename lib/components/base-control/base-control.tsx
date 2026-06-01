@@ -92,7 +92,7 @@ export const BaseControl = (props: Prettify<BaseControlProps>) => {
 	return (
 		<div className={className}>
 			<div className={clsx('es:flex es:items-center es:gap-1', !inline && 'es:mb-1.5', labelContainerClassName)}>
-				{label || icon || subtitle ? (
+				{(label || icon || subtitle) && (
 					<TypedRichLabel
 						icon={icon}
 						label={label}
@@ -102,24 +102,26 @@ export const BaseControl = (props: Prettify<BaseControlProps>) => {
 						className={labelClassName}
 						noColor
 					/>
-				) : null}
+				)}
 
-				{inline ? <div className={clsx('es:ml-auto es:flex es:items-center es:gap-1', controlContainerClassName)}>{children}</div> : null}
+				{inline && actions && <div className='es:flex es:items-center es:gap-1 es:mr-auto es:ml-1'>{actions}</div>}
 
-				{!inline && actions ? <div className={clsx('es:flex es:items-center es:gap-1', 'es:ml-auto')}>{actions}</div> : null}
+				{inline && <div className={clsx('es:ml-auto es:flex es:items-center es:gap-1', controlContainerClassName)}>{children}</div>}
+
+				{!inline && actions && <div className={clsx('es:flex es:items-center es:gap-1', 'es:ml-auto')}>{actions}</div>}
 			</div>
 
-			{!inline && hasMultipleChildren ? <div className={clsx('es:space-y-1', controlContainerClassName)}>{children}</div> : null}
-			{!inline && !hasMultipleChildren ? children : null}
+			{!inline && hasMultipleChildren && <div className={clsx('es:space-y-1', controlContainerClassName)}>{children}</div>}
+			{!inline && !hasMultipleChildren && children}
 
-			{help ? (
+			{help && (
 				<Text
 					className={clsx('es:inline-block es:text-sm es:text-secondary-500 es:mt-1.5 es:font-variation-["wdth"_66,"wght"_325,"slnt"_-4]', !noHelpInset && 'es:pl-1')}
 					slot='description'
 				>
 					{help}
 				</Text>
-			) : null}
+			)}
 		</div>
 	);
 };
