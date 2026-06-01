@@ -277,17 +277,29 @@ type TooltipComponentProps = ComponentPropsWithoutRef<typeof Tooltip>;
 
 type ToggleButtonProps = Omit<ReactAriaToggleButtonProps, 'children' | 'className' | 'isSelected' | 'isDisabled' | 'onChange'> & {
 	children?: ReactNode;
+	/** Icon to display within the button. */
 	icon?: ReactNode;
+	/** The size of the button. Defaults to `default`. */
 	size?: ToggleButtonSize;
+	/** The type of the button. Defaults to `default`. */
 	type?: ToggleButtonType;
+	/** If `true`, the button is disabled. */
 	disabled?: boolean;
+	/** Classes to pass to the button. */
 	className?: string;
+	/** Tooltip text to display on hover. */
 	tooltip?: string | boolean;
+	/** Whether the button is selected. */
 	selected: boolean;
+	/** Function to run when the toggle state changes. */
 	onChange?: (value: boolean) => void;
+	/** Classes to pass to the tooltip wrapper. */
 	wrapperClassName?: string;
+	/** Props to pass to the tooltip. */
 	tooltipProps?: TooltipComponentProps;
+	/** If `true`, component will look more flat (applies only to `default` type). Useful for nested layer of controls. */
 	flat?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

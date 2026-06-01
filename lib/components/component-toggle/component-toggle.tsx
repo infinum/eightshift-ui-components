@@ -16,20 +16,35 @@ type ComponentToggleDesign = 'default' | 'compact' | 'compactLabel' | 'compactIc
 
 type ComponentToggleProps = {
 	children?: ReactNode;
+	/** Icon to display in the label. */
 	icon?: ReactNode;
+	/** Label to display. */
 	label: string;
+	/** Subtitle to display. */
 	subtitle?: string;
+	/** Whether the component is used. If `false`, the content is hidden. */
 	useComponent: boolean;
+	/** Function to run when the toggle state changes. */
 	onChange: (value: boolean) => void;
+	/** If `true`, the toggle is not displayed. */
 	noUseToggle?: boolean;
+	/** If `true`, the expand button is not shown. */
 	noExpandButton?: boolean;
+	/** If `true`, the label is not shown. */
 	noLabel?: boolean;
+	/** If `true`, the expand button is disabled. */
 	expandButtonDisabled?: boolean;
+	/** If `true`, only the control is displayed. */
 	controlOnly?: boolean;
+	/** If `true`, and the component is display in a variant where it can be expanded, the use toggle will hide when the component is expanded. */
 	hideUseToggleOnExpand?: boolean;
+	/** Classes to pass to the content container. */
 	contentClassName?: string;
+	/** Design of the component. Defaults to `default`. */
 	design?: ComponentToggleDesign;
+	/** ARIA label of the toggle switch. */
 	switchAriaLabel?: string;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

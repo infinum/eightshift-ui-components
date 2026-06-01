@@ -15,13 +15,21 @@ type NoticeStyle = {
 };
 
 type NoticeProps = {
+	/** Icon to display within the notice. */
 	icon?: ReactNode;
+	/** The label of the notice. */
 	label?: string;
+	/** The subtitle of the notice. */
 	subtitle?: string;
+	/** Classes to pass to the notice. */
 	className?: string;
+	/** The type of the notice. Defaults to `'default'`. */
 	type?: NoticeType;
+	/** If `true`, the icon will be aligned to the first row of title, instead of vertically centered. Defaults to `false`. */
 	alignIconToTitle?: boolean;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

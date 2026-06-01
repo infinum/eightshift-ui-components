@@ -3,10 +3,14 @@ import type { ElementType, JSX, ReactNode } from 'react';
 import type { Prettify } from '../../utilities/types';
 
 interface StackProps {
+	/** Element to render the component as. Defaults to `div`. */
 	as?: ElementType;
 	children?: ReactNode;
+	/** If `true`, the children will not wrap if their size exceeds the container size. */
 	noWrap?: boolean;
+	/** Classes to pass to the component. */
 	className?: string;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 }
 

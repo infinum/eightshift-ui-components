@@ -6,6 +6,7 @@ import type { Prettify } from '../../utilities/types';
 
 type DraggableHandleProps = HTMLAttributes<HTMLDivElement> & {
 	children?: ReactNode;
+	/** Classes to pass to the handle. */
 	className?: string;
 };
 

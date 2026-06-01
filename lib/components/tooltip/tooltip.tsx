@@ -32,21 +32,36 @@ type TooltipPlacement =
 
 export type TooltipProps = {
 	children?: ReactNode;
+	/** The text to display in the tooltip. */
 	text: ReactNode;
+	/** The theme of the tooltip. Defaults to `dark`. */
 	theme?: TooltipTheme;
+	/** Additional offset between the tooltip and the element on the main axis (same axis as element). Defaults to `5`. */
 	offset?: number;
+	/** Additional offset between the tooltip and the element on the cross axis (opposite axis as element). Defaults to `0`. */
 	crossOffset?: number;
+	/** Space that should be left between the tooltip and the main containing element (usually browser window). Defaults to `12`. */
 	containerPadding?: number;
+	/** Duration before the tooltip is shown, in milliseconds. Defaults to `1200`. */
 	openDelay?: number;
+	/** Duration before the tooltip is hidden, in milliseconds. Defaults to `500`. */
 	closeDelay?: number;
+	/** If `false`, the tooltip will not flip to the opposite side if there is not enough space. Defaults to `true`. */
 	shouldFlip?: boolean;
+	/** (**Uncontrolled mode**) Whether the tooltip is initially open. */
 	defaultOpen?: boolean;
+	/** (**Controlled mode**) Whether the tooltip is open. */
 	open?: boolean;
+	/** (**Controlled mode**) Function to run when the tooltip is opened or closed. */
 	onOpenChange?: (isOpen: boolean) => void;
+	/** The side of the trigger element where the tooltip will be displayed. */
 	placement?: TooltipPlacement;
+	/** Classes to pass to the tooltip. */
 	className?: string;
 	wrapperClassName?: string;
+	/** Ref to anchor the tooltip to. If not provided, the tooltip will be anchored to the trigger element. */
 	triggerRef?: RefObject<Element>;
+	/** If `true`, an arrow is shown on the tooltip. */
 	arrow?: boolean;
 	disabled?: boolean;
 };

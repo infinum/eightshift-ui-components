@@ -19,13 +19,20 @@ type TransitionClassNames = {
 };
 
 type AnimatedVisibilityProps = HTMLAttributes<HTMLDivElement> & {
+	/** Whether the content should be visible */
 	visible: boolean;
+	/** Classes to pass to the element wrapper. */
 	className?: string;
 	children?: ReactNode;
+	/** If `true`, the animation when the component is first mounted is disabled. Defaults to `false`. */
 	noInitial?: boolean;
+	/** If `true`, the exit animation is not played. */
 	noExitAnimation?: boolean;
+	/** If `true`, the entrance animation is not played. */
 	noEnterAnimation?: boolean;
+	/** If `true`, the animations will be more snappy. */
 	decreaseBounce?: boolean;
+	/** The transition to use when showing/hiding the content. Defaults to `slideFade`. */
 	transition?: ElementTransition;
 };
 

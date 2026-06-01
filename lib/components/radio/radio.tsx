@@ -126,15 +126,25 @@ type RadioButtonGroupDesign = 'default' | 'segmented';
 type InternalRadioButtonDesign = NonNullable<VariantProps<typeof radioContainerClass>['design']>;
 
 type RadioButtonProps = Omit<ComponentPropsWithoutRef<typeof Radio>, 'children' | 'className' | 'isDisabled'> & {
+	/** The checkbox icon. */
 	icon?: ReactNode;
+	/** The checkbox label. */
 	label?: ReactNode;
+	/** The checkbox subtitle. */
 	subtitle?: ReactNode;
+	/** Whether the checkbox is disabled. */
 	disabled?: boolean;
+	/** Additional classes to add to the checkbox container. */
 	className?: string;
+	/** Additional classes to add to the label container. */
 	labelClassName?: string;
+	/** Whether the label should be aligned to the end. */
 	alignEnd?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** If `true`, the subtitle is shown after the label instead of below it. */
 	inlineSubtitle?: boolean;
 	design?: InternalRadioButtonDesign;
 	children?: ReactNode;
@@ -219,20 +229,35 @@ export const RadioButton = Object.assign(RadioButtonComponent, {
 type RadioButtonChildElement = ReactElement<RadioButtonProps> & { type: { displayName?: string } };
 
 type RadioButtonGroupProps = Omit<ComponentPropsWithoutRef<typeof RadioGroup>, 'children' | 'className' | 'isDisabled' | 'isReadOnly' | 'value' | 'onChange' | 'orientation'> & {
+	/** Icon to show before the label. */
 	icon?: ReactNode;
+	/** Label to show above the control. */
 	label?: ReactNode;
+	/** Help text displayed below the control. */
 	help?: ReactNode;
+	/** Actions to show to the right of the label. */
 	actions?: ReactNode;
+	/** Subtitle to show below the label. */
 	subtitle?: ReactNode;
+	/** Orientation of the radio buttons. Defaults to `vertical`. */
 	orientation?: RadioButtonGroupOrientation;
+	/** Design of the radio buttons. Defaults to `default`. */
 	design?: RadioButtonGroupDesign;
+	/** Whether the radio button group is disabled. */
 	disabled?: boolean;
+	/** Whether the radio button group is read-only. */
 	readOnly?: boolean;
+	/** Value of the currently selected radio button. */
 	value?: string;
+	/** Function to call when the value of the selected radio button changes. */
 	onChange?: (value: string) => void;
+	/** Additional classes to add to the group container. */
 	className?: string;
+	/** Additional classes to add to the label container. */
 	labelClassName?: string;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 	children?: ReactNode;
 };

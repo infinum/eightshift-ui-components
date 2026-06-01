@@ -6,20 +6,32 @@ import type { Prettify } from '../../utilities/types';
 type BreakpointColor = 'blue' | 'green' | 'yellow' | 'red' | 'indigo' | 'orange' | 'cyan' | 'teal' | 'fuchsia' | 'black' | 'default';
 
 type BreakpointPreviewBlock = {
+	/** Current breakpoint width. Left-aligned with the block. */
 	width?: string;
+	/** Current breakpoint width. Right-aligned with the block. */
 	widthEnd?: string;
+	/** Breakpoint name. */
 	breakpoint?: string;
+	/** Current value at the breakpoint. */
 	value?: string;
+	/** If `true`, dots are displayed at the start of the block. Defaults to `false`. */
 	dotsStart?: boolean;
+	/** If `true`, dots are displayed at the end of the block. Defaults to `false`. */
 	dotsEnd?: boolean;
+	/** If `true`, the block is active. Defaults to `false`. */
 	active?: boolean;
+	/** If `true`, the block is aligned to the end. Defaults to `false`. */
 	alignEnd?: boolean;
+	/** Color of the block. */
 	color?: BreakpointColor;
 };
 
 type BreakpointPreviewProps = {
+	/** Blocks to display. */
 	blocks?: Array<BreakpointPreviewBlock | null | false | undefined>;
+	/** If `true`, dots are displayed at the start of the preview. Defaults to `false`. */
 	dotsStart?: boolean;
+	/** If `true`, dots are displayed at the end of the preview. Defaults to `false`. */
 	dotsEnd?: boolean;
 };
 

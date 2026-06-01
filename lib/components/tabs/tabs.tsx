@@ -12,15 +12,21 @@ type TabsType = 'underline' | 'underlineSecondary' | 'pill' | 'pillCompact' | 'b
 
 type TabsProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaTabs>, 'orientation' | 'children'> & {
 	children?: ReactNode;
+	/** Whether the tabs are vertical. */
 	vertical?: boolean;
+	/** Classes to pass to the tabs container. */
 	className?: string;
+	/** Design of the tabs. Defaults to `underline`. */
 	type?: TabsType;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 
 type TabListProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaTabList>, 'children' | 'className'> & {
 	children?: ReactNode;
+	/** Classes to pass to the tab list. */
 	className?: string;
 	type?: TabsType;
 	flat?: boolean;
@@ -28,14 +34,22 @@ type TabListProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaTabList>, 'chi
 
 type TabProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaTab>, 'className' | 'children' | 'isDisabled'> & {
 	children?: ReactNode;
+	/** Whether the tab is disabled. */
 	disabled?: boolean;
+	/** Classes to pass to the tab. */
 	className?: string;
 	badgeClassName?: string;
+	/** Icon to show on the tab. */
 	icon?: ReactNode;
+	/** Badge to render besides the label. */
 	badge?: ReactNode;
+	/** If `true`, the tab is disabled and not rendered, but is not unmounted from the DOM. */
 	invisible?: boolean;
+	/** Tab label. **Note**: overrides inner items! */
 	label?: ReactNode;
+	/** Tab subtitle. **Note**: overrides inner items! */
 	subtitle?: ReactNode;
+	/** The tab unique identifier. */
 	id?: string;
 	isParentVertical?: boolean;
 	type?: TabsType;

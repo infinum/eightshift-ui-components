@@ -95,16 +95,27 @@ type InputFieldProps = SharedFieldProps &
 	InputElementProps &
 	TextAreaElementProps &
 	BaseControlProps & {
+		/** The current value of the input. */
 		value?: string;
+		/** Function to run when the input value changes. */
 		onChange?: (value: string) => void;
+		/** The input type. Renders a `<textarea>` instead of `<input>` if set to 'multiline'. Defaults to `'text'`. */
 		type?: InputType;
+		/** If `true`, the input is disabled. */
 		disabled?: boolean;
+		/** If `true`, the input is read-only. */
 		readOnly?: boolean;
+		/** Classes to pass to the input field. */
 		className?: string;
+		/** Classes to pass to the input field wrapping element. */
 		wrapperClassName?: string;
+		/** If `true`, the input uses a monospace font. Useful for things like IDs to make them easier to read. */
 		monospaceFont?: boolean;
+		/** If `true`, component will look more flat. Useful for nested layer of controls. */
 		flat?: boolean;
+		/** Sets the size of the input field. */
 		size?: InputSize;
+		/** If `true`, the component is not rendered. */
 		hidden?: boolean;
 		children?: ReactNode;
 	};

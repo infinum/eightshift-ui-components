@@ -369,19 +369,33 @@ const createComponentClasses = ({ className, flat, pending }: { className?: stri
 
 type ButtonProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaButton>, 'children' | 'className' | 'isDisabled' | 'isPending' | 'onPress' | 'aria-label' | 'type'> & {
 	children?: ReactNode;
+	/** Icon to display within the button. */
 	icon?: ReactNode;
+	/** The size of the button. Defaults to `'default'`. */
 	size?: ButtonSize;
+	/** The type of the button. Defaults to `'default'`. */
 	type?: ButtonType;
+	/** If `true`, the button is disabled. */
 	disabled?: boolean;
+	/** Classes to pass to the button. */
 	className?: string;
+	/** Tooltip text to display on hover. If set to `true` and an `aria-label` is not provided, the tooltip text will be used as the `aria-label`. */
 	tooltip?: ReactNode;
+	/** Function to run when the button is pressed. */
 	onPress?: ComponentPropsWithoutRef<typeof ReactAriaButton>['onPress'];
+	/** Ref to forward to the button. Use the same as the `ref` prop. */
 	forwardedRef?: Ref<HTMLButtonElement>;
+	/** Classes to pass to the tooltip wrapper. */
 	wrapperClassName?: string;
+	/** Props to pass to the tooltip. */
 	tooltipProps?: ButtonTooltipProps;
+	/** If `true`, the button is in a pending state, which can be used to indicate that an action is being processed. */
 	pending?: boolean;
+	/** ARIA label for the pending state, used for screen readers. Defaults to `'Loading'`. */
 	pendingAriaLabel?: string;
+	/** If `true`, component will look more flat (applies only to `default`, `selected`, and `danger` types). Useful for nested layer of controls. */
 	flat?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 	'aria-label'?: string;
 };

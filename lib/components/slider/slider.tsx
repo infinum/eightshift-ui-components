@@ -23,34 +23,62 @@ type SliderProps = Omit<
 	ComponentProps<typeof ReactAriaSlider>,
 	'children' | 'className' | 'orientation' | 'value' | 'onChange' | 'onChangeEnd' | 'isDisabled' | 'minValue' | 'maxValue'
 > & {
+	/** Icon to display within the slider. */
 	icon?: ReactNode;
+	/** The label of the slider. */
 	label?: ReactNode;
+	/** The subtitle of the slider. */
 	subtitle?: ReactNode;
+	/** The help text shown below the slider. */
 	help?: ReactNode;
+	/** Actions to display next to the label. */
 	actions?: ReactNode;
+	/** The minimum value of the slider. Defaults to `0`. */
 	min?: number;
+	/** The maximum value of the slider. Defaults to `100`. */
 	max?: number;
+	/** The step value of the slider. Defaults to `1`. */
 	step?: number;
+	/** The starting point of the slider. */
 	startPoint?: number | null;
+	/** The markers to display on the slider. If `true`, markers are auto-generated, with labels. If set to `dots`, markers are auto-generated, but do not show labels next to dots. If an object is provided, the keys are the values of the markers, and the values are the labels. */
 	markers?: SliderMarkerType;
+	/** The current value of the slider. */
 	value: SliderValue;
+	/** Function to run when the value changes. */
 	onChange: (value: SliderValue) => void;
+	/** Function to run when the value change ends. */
 	onChangeEnd?: (value: SliderValue) => void;
+	/** If `true`, the slider is disabled. */
 	disabled?: boolean;
+	/** If `true`, the slider will display an input field for the value. For multi-thumb sliders, the input field will be displayed for the focused thumb. Defaults to `false`. */
 	inputField?: boolean;
+	/** If `true`, the slider will be displayed vertically. Defaults to `false`. */
 	vertical?: boolean;
+	/** Element to display before the slider. */
 	before?: ReactNode;
+	/** Element to display after the slider. */
 	after?: ReactNode;
+	/** ARIA labels for the thumbs. */
 	thumbLabels?: string[];
+	/** If provided, the function will be called with the current value of the thumb, and the return value will be displayed within the thumb. `(currentIndex: number) => JSX.Element`. */
 	thumbContent?: (currentIndex: number) => ReactNode;
+	/** If provided, the function will format the tooltip content. `(value) => JSX.Element`. */
 	tooltipContent?: (value: number) => ReactNode;
+	/** Additional classes to pass to the label. */
 	labelClassName?: string;
+	/** Additional style for the track. */
 	trackStyle?: CSSProperties;
 	trackContainerStyle?: CSSProperties;
+	/** If provided, this value is used to generate markers instead of the step value. Useful when using small steps with a larger range. */
 	markerStep?: number;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** If `true`, parts of the track will get additional background size and position settings to make the gradient more seamless. Supported only in horizontal mode. BETA! */
 	trackBgGradientSupport?: boolean;
+	/** If `true`, the active area highlight will not be shown. */
 	noActiveHighlight?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

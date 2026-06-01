@@ -2,20 +2,35 @@ import { clsx } from 'clsx';
 import { type ComponentPropsWithoutRef, type ElementType, type ReactNode } from 'react';
 
 type RichLabelProps<T extends ElementType = 'div'> = {
+	/** Icon to display. */
 	icon?: ReactNode;
+	/** Icon to display at the end of the label. */
 	endIcon?: ReactNode;
+	/** Label to display. */
 	label?: ReactNode;
+	/** Subtitle to display. */
 	subtitle?: ReactNode;
+	/** Element to render the label as. Not compatible with `contentsOnly`. */
 	as?: T;
+	/** Classes to pass to the label. */
 	className?: string;
+	/** Classes to pass to the icon. */
 	iconClassName?: string;
+	/** Classes to pass to the label. */
 	labelClassName?: string;
+	/** Classes to pass to the subtitle. */
 	subtitleClassName?: string;
+	/** Classes to pass to the label/subtitle wrapper (not applicable when `contentsOnly` is set). */
 	labelSubtitleWrapClassName?: string;
+	/** If `true`, the component will take up as much space as it can. Defaults to `false`. */
 	fullWidth?: boolean;
+	/** If `true`, only the label (/icon/subtitle) will be rendered, without any wrapping elements. Useful if you want to provide your own layout. */
 	contentsOnly?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
+	/** If `true`, the subtitle is the same size as the label. */
 	fullSizeSubtitle?: boolean;
+	/** If `true`, the subtitle is shown after the label instead of below it. */
 	inlineSubtitle?: boolean;
 	noColor?: boolean;
 } & Omit<ComponentPropsWithoutRef<T>, 'as' | 'children' | 'className'>;

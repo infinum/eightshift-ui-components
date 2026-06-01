@@ -18,25 +18,42 @@ import type { Prettify } from '../../utilities/types';
 type ColumnConfigValue = [number, number];
 
 type ColumnConfigSliderProps = Omit<ComponentProps<typeof ReactAriaSlider>, 'children' | 'className' | 'orientation' | 'value' | 'onChange' | 'onChangeEnd'> & {
+	/** Icon to display within the slider. */
 	icon?: ReactNode;
+	/** The help text shown below the slider. */
 	help?: ReactNode;
+	/** The label of the slider. */
 	label?: ReactNode;
+	/** Actions to display next to the label. */
 	actions?: ReactNode;
+	/** The subtitle of the slider. */
 	subtitle?: ReactNode;
+	/** Number of columns. Defaults to `12`. */
 	columns?: number;
+	/** If `true`, the width thumb is disabled. */
 	disableWidth?: boolean;
+	/** If `true`, the offset thumb is disabled. */
 	disableOffset?: boolean;
+	/** If `true`, the outer columns are displayed with a special icons instead of the column numbers. Other numbers are offset by 1. */
 	showOuterAsGutter?: boolean;
+	/** The current value of the slider. */
 	value: ColumnConfigValue;
+	/** Function to run when the value changes. */
 	onChange: (value: ColumnConfigValue) => void;
+	/** Function to run when the value change ends. */
 	onChangeEnd?: (value: ColumnConfigValue) => void;
+	/** If `true`, the slider is disabled. */
 	disabled?: boolean;
+	/** Additional classes to pass to the label. */
 	labelClassName?: string;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 
 type ColumnConfigSliderOutputProps = {
+	/** If `true`, the outer columns are displayed with a special icons instead of the column numbers. Other numbers are offset by 1. */
 	showOuterAsGutter?: boolean;
 };
 

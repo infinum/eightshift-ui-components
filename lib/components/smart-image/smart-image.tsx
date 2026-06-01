@@ -65,15 +65,25 @@ type SmartImageChildContext = SmartImageClassNameContext & {
 type SmartImageImageProps = Omit<ComponentPropsWithoutRef<'img'>, 'children' | 'className' | 'crossOrigin'>;
 
 type SmartImageProps = SmartImageImageProps & {
+	/** Component to render if image analysis fails. `(error) => JSX:Element`. */
 	renderError?: (error: string) => ReactNode;
+	/** Classes to pass to the default error view. */
 	errorClassName?: string;
+	/** Classes to apply while the image is loading / being processed. Defaults to `es:opacity-0 es:fixed`. */
 	processingClassName?: string;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
+	/** If `true`, extra debug info is logged in case of errors. */
 	verbose?: boolean;
+	/** Settings to pass to the image analysis function. */
 	imageAnalysisSettings?: ImageAnalysisSettings;
+	/** Previous analysis result to pass in directly, skipping analysis. */
 	analysisData?: ImageAnalysisResult;
+	/** Number of dominant colors to extract. Falls back to `imageAnalysisSettings.numColors` when omitted. */
 	colorCount?: number;
+	/** Distance threshold for merging similar colors during palette extraction. Defaults to `10`. */
 	similarityThreshold?: number;
+	/** Called when analysis data becomes available, with metadata describing where it came from. */
 	onAnalysisComplete?: (result: ImageAnalysisResult, meta: { source: AnalysisSource }) => void;
 	className?: string | ((context: SmartImageClassNameContext) => string | undefined);
 	children?: ReactNode | ((context: SmartImageChildContext) => ReactNode);

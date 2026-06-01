@@ -9,23 +9,41 @@ import { RichLabel } from '../rich-label/rich-label';
 import type { Prettify } from '../../utilities/types';
 
 type ExpandableProps = Omit<ComponentPropsWithoutRef<typeof Disclosure>, 'children' | 'className' | 'isExpanded'> & {
+	/** Icon to display in the label. */
 	icon?: ReactNode;
+	/** Label to display. */
 	label?: ReactNode;
+	/** Subtitle to display. */
 	subtitle?: ReactNode;
+	/** Classes to pass to the container. */
 	className?: string;
+	/** Classes to pass to the inner content outer wrapper. */
 	contentClassName?: string;
+	/** Classes to pass to the inner content wrapper. */
 	contentWrapClassName?: string;
+	/** Classes to pass to the label. */
 	labelClassName?: string;
+	/** Classes to pass to the header (label + trigger). */
 	headerClassName?: string;
+	/** Actions to display in the panel header, left of the expand button. */
 	actions?: ReactNode;
+	/** If `true`, the actions are not hidden when the panel is expanded. Defaults to `false`. */
 	keepActionsOnExpand?: boolean;
+	/** If `true`, the expand button is disabled. */
 	disabled?: boolean;
+	/** Whether the expandable is open. Defaults to `false`. */
 	open?: boolean;
+	/** Function is called when the panel is opened or closed. */
 	onOpenChange?: (value: boolean) => void;
+	/** Props to pass to the header (label + trigger). */
 	headerProps?: ComponentPropsWithoutRef<'div'>;
+	/** Allows adding a custom open button. */
 	customOpenButton?: (props: { open: boolean; toggleOpen: () => void; tooltip: string; disabled?: boolean }) => ReactNode;
+	/** If `true`, component's border radius will not adapt to the surrounding components. */
 	standalone?: boolean;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 	noFocusHandling?: boolean;
 	children?: ReactNode;

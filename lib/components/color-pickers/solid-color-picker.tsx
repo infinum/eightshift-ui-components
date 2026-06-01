@@ -11,13 +11,21 @@ import { ColorSwatch } from './color-swatch';
 import type { Prettify } from '../../utilities/types';
 
 type SolidColorPickerProps = {
+	/** The color value. Hex format is preferred, but HSL, HSB, and RGB are also supported. */
 	value?: string | null;
+	/** The change handler. */
 	onChange: (value?: string) => void;
+	/** Whether the color picker is disabled. */
 	disabled?: boolean;
+	/** The change end handler. */
 	onChangeEnd?: (value?: string) => void;
+	/** Whether the color picker allows transparency. Defaults to `false`. */
 	allowTransparency?: boolean;
+	/** The output format. Default is 'hex' (or 'hexa' if `allowTransparency` is true). */
 	outputFormat?: ColorFormat;
+	/** If `true`, the advanced options are hidden. */
 	noAdvancedOptions?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

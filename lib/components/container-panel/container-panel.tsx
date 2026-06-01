@@ -10,19 +10,33 @@ import type { Prettify } from '../../utilities/types';
 
 type ContainerPanelProps = {
 	children?: ReactNode;
+	/** Classes to pass to the container. */
 	className?: string;
+	/** Title to display on the top of the panel. */
 	title?: ReactNode;
+	/** Icon to display on the top of the panel. */
 	icon?: ReactNode;
+	/** Subtitle to display on the top of the panel. */
 	subtitle?: ReactNode;
+	/** Controls the panel use toggle. */
 	use?: boolean;
+	/** Function to call when the use toggle is toggled. `(value: boolean) => void`. */
 	onUseChange?: (value: boolean) => void;
+	/** If `true`, the panel can be closed. Will not show if `title` is not set. */
 	closable?: boolean;
+	/** Controls whether the panel is open by default. Defaults to `false`. */
 	startOpen?: boolean;
+	/** If `true`, a border is added to the top of the panel. Defaults to `false`. */
 	topBorder?: boolean;
+	/** If `true`, the title and icon are tinted. Defaults to `false`. */
 	accentLabel?: boolean;
+	/** If `true`, the icon is tinted. Defaults to `false`. */
 	accentIcon?: boolean;
+	/** If `true`, the label is not slightly inset, to better align with rounded containers. Defaults to `false`. */
 	noLabelInset?: boolean;
+	/** Actions to show at the end */
 	actions?: ReactNode;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

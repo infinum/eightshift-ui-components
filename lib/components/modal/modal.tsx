@@ -13,26 +13,47 @@ type ModalProps = Omit<
 	ComponentPropsWithoutRef<typeof ModalOverlay>,
 	'children' | 'className' | 'isDismissable' | 'defaultOpen' | 'isOpen' | 'shouldCloseOnInteractOutside' | 'onOpenChange' | 'isKeyboardDismissDisabled'
 > & {
+	/** **Controlled mode ** - whether the modal is open. */
 	open?: boolean;
+	/** **Uncontrolled mode ** - whether the modal is initially open. */
 	defaultOpen?: boolean;
+	/** Actions to display in the modal footer, typically buttons. */
 	actions?: ReactNode;
+	/** Actions to display in the modal header, next to the close button (if enabled). */
 	headerActions?: ReactNode;
+	/** Label for the trigger button. */
 	triggerLabel?: ReactNode;
+	/** Trigger button icon. */
 	triggerIcon?: ReactNode;
+	/** Props to pass to the trigger button. */
 	triggerProps?: ComponentPropsWithoutRef<typeof Button>;
+	/** If provided, replaces the default trigger button. The passed component should be something button-related that can open the modal. */
 	customTrigger?: ReactNode;
+	/** Title of the modal. */
 	title?: ReactNode;
+	/** If `true`, the close button will not be displayed. */
 	noCloseButton?: boolean;
+	/** If `true`, the modal will not close when clicking outside of it. */
 	noClickToDismiss?: boolean;
+	/** If `true`, the modal will not close when pressing the `Esc` key. */
 	noKeyboardDismiss?: boolean;
+	/** If `true`, the modal will not have a visible backdrop. Functionally, it'll still be there. For an experience without a backdrop, consider using the `Popover` component instead. */
 	noBackdrop?: boolean;
+	/** Classes to pass to the modal container. */
 	className?: string;
+	/** Classes to pass to the modal backdrop. */
 	overlayClassName?: string;
+	/** Classes to pass to the modal footer (actions) container. */
 	actionsClassName?: string;
+	/** Classes to pass to the modal header container. */
 	headerClassName?: string;
+	/** Classes to pass to the modal content container. */
 	contentContainerClassName?: string;
+	/** Allows ignoring close events for certain elements. `(element: HTMLElement) => boolean`. */
 	shouldCloseOnInteractOutside?: (element: Element) => boolean;
+	/** Function called when the modal's open state changes. `(isOpen: boolean) => void` */
 	onOpenChange?: (isOpen: boolean) => void;
+	/** Determines the modal width. Defaults to `default`. */
 	width?: ModalWidth;
 	children?: ReactNode;
 	'aria-label'?: string;

@@ -10,8 +10,10 @@ type ItemCollectionRenderContext<TItem extends Record<string, unknown>> = TItem 
 
 type ItemCollectionProps<TItem extends Record<string, unknown>> = {
 	children: (item: ItemCollectionRenderContext<TItem>) => ReactNode;
+	/** Items to show. */
 	items?: TItem[] | null;
 	onChange: (items: TItem[]) => void;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

@@ -19,14 +19,22 @@ type MatrixAlignOption = {
 };
 
 type MatrixAlignProps = {
+	/** The size of the matrix. Can be either '3x3' or '2x2'. Defaults to `3x3`. */
 	size?: MatrixSize;
+	/** The currently selected value. */
 	value: MatrixAlignValue;
+	/** Function to run when the selection changes. */
 	onChange: (value: string) => void;
+	/** Tooltip text to display on the trigger button. Defaults to `Position`. */
 	tooltip?: ReactNode;
+	/** Label to display. */
 	label?: ReactNode;
+	/** Icon to display within the button. */
 	icon?: ReactNode;
+	/** Subtitle to display. */
 	subtitle?: ReactNode;
 	'aria-label'?: string;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

@@ -64,8 +64,11 @@ type GradientData = {
 	}>;
 };
 type GradientEditorProps = {
+	/** The gradient definition. */
 	value?: string | null;
+	/** Function to run when the gradient changes. */
 	onChange: (value: string) => void;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

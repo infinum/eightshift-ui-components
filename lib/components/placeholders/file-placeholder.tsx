@@ -6,9 +6,13 @@ import type { Prettify } from '../../utilities/types';
 import { RichLabel } from '../rich-label/rich-label';
 
 type FilePlaceholderProps = {
+	/** File type icon override. */
 	icon?: ReactElement;
+	/** Current file name. */
 	fileName?: string;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** Classes to pass to the component. */
 	className?: string;
 	children?: ReactNode;
 };

@@ -68,38 +68,71 @@ type AsyncMultiSelectProps = Omit<
 	ReactAriaSelectProps<AsyncMultiSelectOption, 'multiple'>,
 	'children' | 'className' | 'isDisabled' | 'items' | 'placeholder' | 'selectionMode' | 'value' | 'onChange'
 > & {
+	/** Label of the component. */
 	label?: ReactNode;
+	/** Help text of the component. */
 	help?: ReactNode;
+	/** Icon of the component. */
 	icon?: IconValue;
+	/** Subtitle of the component. */
 	subtitle?: ReactNode;
+	/** Actions to show to the right of the label. */
 	actions?: ReactNode;
+	/** Whether the Select menu is displayed inline with the label, to the right. */
 	inline?: boolean;
+	/** Current value of the select. */
 	value: AsyncMultiSelectValue;
+	/** Function to call when the value changes. */
 	onChange: (value: AsyncMultiSelectValue) => void;
+	/** Whether the select is clearable. Defaults to `false`. */
 	clearable?: boolean;
+	/** Whether the select is disabled. Defaults to `false`. */
 	disabled?: boolean;
+	/** Placeholder text to show when no value is selected. Defaults to `Select...`. */
 	placeholder?: string;
+	/** Function to get the label for the item from the fetched data. `(item) => string`. Defaults to reading `item.label`. */
 	getLabel?: (item: RawAsyncItem) => string | undefined;
+	/** Function to get the value for the item from the fetched data. `(item) => string`. Defaults to reading `item.value`. */
 	getValue?: (item: RawAsyncItem) => string | undefined;
+	/** Function to get the metadata for the item from the fetched data. `(item) => object` (optional). */
 	getMeta?: (item: RawAsyncItem) => Record<string, unknown> | null | undefined;
+	/** Function to get the icon for the item from the fetched data. `(item) => JSX.Element | string`. */
 	getIcon?: (item: RawAsyncItem | AsyncMultiSelectOption) => IconValue;
+	/** Function to get the subtitle for the item from the fetched data. `(item) => string`. */
 	getSubtitle?: (item: RawAsyncItem) => string | undefined;
+	/** Function to get the group name for the item from the fetched data. `(item) => string`. */
 	getGroup?: (item: RawAsyncItem) => string | undefined;
+	/** Function to pre-process the fetched data before it is used in the select. `(data) => data[]`. Defaults to a passthrough. */
 	getData?: (data: unknown) => RawAsyncItem[];
+	/** Function to get the URL for fetching data. Provides typed search text if entered. `(searchText) => string`. */
 	fetchUrl?: (searchText?: string) => string;
+	/** Configuration object for the fetch request, passed to the `fetch` function. Defaults to `{}`. */
 	fetchConfig?: RequestInit;
+	/** Allows overriding the default fetch function. `(searchText, signal) => Promise`. */
 	fetchFunction?: (searchText: string | undefined, signal: AbortSignal) => Promise<unknown>;
+	/** Allows processing the options fetched from the source. `(options) => options[]`. Defaults to a passthrough. */
 	processLoadedOptions?: (options: RawAsyncItem[]) => RawAsyncItem[];
+	/** If provided, replaces the default item in the dropdown menu. `({ value, label, subtitle, metadata }) => JSX.Element`. */
 	customMenuOption?: (item: AsyncMultiSelectOption) => ReactNode;
+	/** If provided, replaces the default current value display of each selected item. `({ value, label, subtitle, metadata }) => JSX.Element`. */
 	customValueDisplay?: (item: AsyncMultiSelectOption | null) => ReactNode;
+	/** If provided, replaces the default dropdown arrow indicator. */
 	customDropdownArrow?: ReactNode;
+	/** Classes to pass to the select menu. */
 	className?: string;
+	/** If provided, the options will be grouped by this key. */
 	groupKey?: string;
+	/** If provided, the group headers will be mapped to these labels/icons. */
 	groupValueMapping?: GroupValueMapping;
+	/** If `true`, the select menu will not have a minimum width. Defaults to `false`. */
 	noMinWidth?: boolean;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** If `true`, the option for reordering selected items is disabled. */
 	noReorder?: boolean;
+	/** Sets the size of the input field. Defaults to `default`. */
 	size?: SelectSize;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

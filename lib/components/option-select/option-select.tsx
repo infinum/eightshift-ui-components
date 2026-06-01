@@ -43,26 +43,46 @@ type ItemProps = Partial<ComponentPropsWithoutRef<typeof ToggleButton> & Compone
 type BaseControlProps = ComponentPropsWithoutRef<typeof BaseControl>;
 
 type OptionSelectProps = Omit<BaseControlProps, 'children' | 'actions' | 'icon' | 'label' | 'subtitle'> & {
+	/** Icon to display in the label. */
 	icon?: ReactNode;
+	/** Label to display. */
 	label?: ReactNode;
+	/** Subtitle to display below the label. */
 	subtitle?: ReactNode;
+	/** Actions to show to the right of the label. */
 	actions?: ReactNode;
+	/** The currently selected value. */
 	value?: OptionValue;
+	/** Function to run when the selected value changes. */
 	onChange: (value: OptionValue) => void;
+	/** The list of options to choose from. */
 	options: OptionItem[];
+	/** If `true`, the option select component is disabled. */
 	disabled?: boolean;
+	/** If `true`, the options are displayed vertically. Not applicable to the `menu` type. */
 	vertical?: boolean;
+	/** The type of the option select component. Defaults to `'toggleButtons'`. */
 	type?: OptionSelectType;
+	/** Classes to pass to the main element wrapper. */
 	className?: string;
+	/** Classes to pass to each item. */
 	itemClassName?: string;
+	/** Props to pass to the wrapper. */
 	wrapperProps?: WrapperProps;
+	/** Props to pass to each item. */
 	itemProps?: ItemProps;
+	/** Whether the trigger label should be hidden. Applies only to the `menu` type. */
 	noTriggerLabel?: boolean;
+	/** Whether the trigger icon should be hidden. Applies only to the `menu` type. */
 	noTriggerIcon?: boolean;
+	/** If provided, overrides the default tooltip text. If there is no label, the value will still be shown within the tooltip. Applies only to the `menu` type. If `true` is set and an `aria-label` is provided, the tooltip will show the same text as the `aria-label`. */
 	tooltip?: ReactNode;
+	/** Whether the option label should be hidden. */
 	noItemLabel?: boolean;
+	/** Whether the option icon should be hidden. */
 	noItemIcon?: boolean;
 	children?: ReactNode;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 	'aria-label'?: string;
 };

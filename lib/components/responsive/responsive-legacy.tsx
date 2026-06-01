@@ -35,21 +35,36 @@ type ResponsiveLegacyChildProps = {
 };
 
 type ResponsiveLegacyProps = {
+	/** The current value of the component. Defaults to `{}`. */
 	value?: ResponsiveValue;
+	/** Function to run when the value changes. `(newValue: Object) => void`. */
 	onChange: (attributeName: string, value: ResponsiveValueItem) => void;
+	/** The attribute the component is linked to. `{ [breakpoint: string]: string }`. */
 	attribute: ResponsiveAttributeMap;
+	/** The icon of the component. */
 	icon?: ReactNode;
+	/** The help text of the component. */
 	help?: ReactNode;
+	/** The label of the component. */
 	label?: ReactNode;
+	/** The subtitle of the component. */
 	subtitle?: ReactNode;
+	/** Options of the attribute the component is linked to. `{ value: string, label: string }[]`. */
 	options?: ResponsiveOption[];
+	/** Value that will be used as a default for breakpoints that don't have a value set. If `undefined`, needs to be used, use `allowUndefined` instead. Defaults to `''`. */
 	inheritValue?: ResponsiveValueItem;
+	/** If `true`, `undefined` is used as a default value for breakpoints that don't have a value set. Overrides `inheritValue`. */
 	allowUndefined?: boolean;
 	children: (props: ResponsiveLegacyChildProps) => ReactNode;
+	/** If `true`, the default breakpoint is shown inline with the label. In the expanded state, all breakpoints are shown below the label. */
 	inline?: boolean;
+	/** Breakpoints to use. `{ [breakpoint: string]: number }`. Defaults to `{}`. */
 	breakpointData?: Record<string, number>;
+	/** Breakpoints to use. */
 	breakpoints?: string[];
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
+	/** Determines inner content alignment. Defaults to `start`. */
 	innerContentAlign?: InnerContentAlign;
 };
 

@@ -42,21 +42,36 @@ type MiniResponsiveChildProps = {
 };
 
 type MiniResponsiveProps = {
+	/** The current value of the component. Defaults to `{}`. */
 	value?: ResponsiveValue;
+	/** Function to run when the value changes. `(newValue: Object) => void`. */
 	onChange: (value: ResponsiveValue) => void;
+	/** The icon of the component. */
 	icon?: ReactNode;
+	/** The help text of the component. */
 	help?: ReactNode;
+	/** The label of the component. */
 	label?: ReactNode;
+	/** The subtitle of the component. */
 	subtitle?: ReactNode;
+	/** Options of the attribute the component is linked to. `{ value: string, label: string }[]`. */
 	options?: ResponsiveOption[];
+	/** Breakpoints to use. */
 	breakpoints?: string[];
+	/** Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order. */
 	desktopFirstBreakpoints?: string[];
+	/** Currently used breakpoint data. `{ [breakpoint: string]: number }`. Defaults to `{}`. */
 	breakpointData?: Record<string, number>;
+	/** Allows overriding breakpoint names and icons. `{ [breakpoint: string]: { label: string, icon: JSX.Element|string } }`. */
 	breakpointUiData?: Record<string, BreakpointUiOverride>;
+	/** If `true`, the mode selection (desktop-first/mobile-first) is hidden. */
 	noModeSelect?: boolean;
 	children: (props: MiniResponsiveChildProps) => ReactNode;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
+	/** If `true`, the legacy desktop-first mode is used. This is only for backwards compatibility. */
 	useLegacyDesktopFirst?: boolean;
+	/** Determines inner content alignment. Defaults to `start`. */
 	innerContentAlign?: InnerContentAlign;
 };
 

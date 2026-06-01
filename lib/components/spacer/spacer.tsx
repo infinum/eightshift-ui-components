@@ -6,13 +6,21 @@ import type { Prettify } from '../../utilities/types';
 type SpacerSize = 'px' | 'xs' | 's' | 'm';
 
 type SpacerProps = {
+	/** The size of the spacer. Defaults to `'px'`. */
 	size?: SpacerSize;
+	/** Whether to show a border in the middle. Defaults to `false`. */
 	border?: boolean;
+	/** Additional classes to add. */
 	className?: string;
+	/** Text to display. */
 	text?: ReactNode;
+	/** Subtitle to display. */
 	subtitle?: ReactNode;
+	/** Icon to display. */
 	icon?: ReactNode;
+	/** Whether the spacer is vertical. Defaults to `false`. */
 	vertical?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

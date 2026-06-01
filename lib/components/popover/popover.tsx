@@ -12,19 +12,33 @@ type PopoverPlacement = ReactAriaPopoverProps['placement'];
 
 type PopoverProps = DialogProps & {
 	children?: ReactNode;
+	/** Ref of the trigger button. In uncontrolled mode, this element will be used to open the popover. In controlled mode, the popover will be anchored to this element. */
 	triggerRef?: ReactAriaPopoverProps['triggerRef'];
+	/** (**Controlled mode**) If `true`, the popover is open by default. */
 	openByDefault?: boolean;
+	/** (**Uncontrolled mode**) If `true`, the popover is open. */
 	isOpen?: boolean;
+	/** (**Uncontrolled mode**) Function to run when the popover is opened or closed. `(isOpen: boolean) => void`. */
 	onOpenChange?: (isOpen: boolean) => void;
+	/** The placement of the popover. */
 	placement?: PopoverPlacement;
+	/** Classes to pass to the popover contents. */
 	className?: string;
+	/** Classes to pass to the popover wrapper. */
 	wrapperClassName?: string;
+	/** Styles to pass to the popover. */
 	style?: CSSProperties;
+	/** Offset from the trigger element, on the same axis as the placement of the popover (e.g. if `placement` is `left`, this controls the horizontal spacing from the element). */
 	offset?: number;
+	/** Offset from the trigger element, on the opposite axis as the placement of the popover (e.g. if `placement` is `left`, this controls the vertical spacing from the element). */
 	crossOffset?: number;
+	/** Space that should be left between the popover and the edge of the container (the default container is browser window). */
 	containerPadding?: number;
+	/** If `true`, the popover should flip when there is not enough space. */
 	shouldFlip?: boolean;
+	/** Allows ignoring close events for certain elements. `(element: HTMLElement) => boolean`. Defaults to `() => true`. */
 	shouldCloseOnInteractOutside?: (element: Element) => boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 	popoverProps?: Omit<
 		ReactAriaPopoverProps,
@@ -46,9 +60,13 @@ type PopoverProps = DialogProps & {
 };
 
 type TriggeredPopoverProps = Omit<PopoverProps, 'triggerRef' | 'isOpen'> & {
+	/** Allows using a custom trigger element. */
 	trigger?: ReactNode;
+	/** The icon for the built-in trigger button. */
 	triggerButtonIcon?: ReactNode;
+	/** The label for the built-in trigger button. */
 	triggerButtonLabel?: ReactNode;
+	/** Props to pass to the built-in trigger button. */
 	triggerButtonProps?: ComponentPropsWithoutRef<typeof Button>;
 };
 

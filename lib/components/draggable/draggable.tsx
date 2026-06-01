@@ -32,12 +32,19 @@ type DraggableRenderContext<TItem extends Record<string, unknown>> = TItem & {
 
 type DraggableProps<TItem extends Record<string, unknown>> = HTMLAttributes<HTMLDivElement> & {
 	children: (item: DraggableRenderContext<TItem>) => ReactNode;
+	/** Data to display in the list. */
 	items?: TItem[] | null;
+	/** Function to run when the items change. */
 	onChange: (items: TItem[]) => void;
+	/** If `true`, item reordering is disabled. */
 	noReorder?: boolean;
+	/** Which axis to allow dragging on. Defaults to `both`. */
 	axis?: DragAxis;
+	/** Function to run after an item is removed. */
 	onAfterItemRemove?: (item: TItem) => void;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
+	/** Classes to pass to the component. */
 	className?: string;
 };
 

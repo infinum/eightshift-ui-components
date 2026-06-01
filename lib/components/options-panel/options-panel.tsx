@@ -6,31 +6,48 @@ import type { Prettify } from '../../utilities/types';
 
 type BaseOptionsPanelProps = {
 	children?: ReactNode;
+	/** Classes to pass to the container. */
 	className?: string;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 
 type OptionsPanelProps = BaseOptionsPanelProps & {
+	/** Title to display on the top of the panel. */
 	title?: string;
+	/** Icon to display on the top of the panel. */
 	icon?: ReactElement;
+	/** Subtitle to display on the top of the panel. */
 	subtitle?: string;
+	/** Help text to show below the panel. */
 	help?: string;
 };
 
 type OptionsPanelHeaderProps = BaseOptionsPanelProps & {
+	/** If `true`, the header will be sticky (scroll with content). Make sure to pass a background color! */
 	sticky?: boolean;
+	/** Title to show. */
 	title?: string;
+	/** Controls to show on the right side of the header. */
 	actions?: ReactNode;
+	/** Heading level of the title. Defaults to `2`. */
 	level?: number;
+	/** If `true`, the width is limited. */
 	limitWidth?: boolean;
 };
 
 type OptionsPanelIntroProps = BaseOptionsPanelProps & {
+	/** Icon to show on the right. */
 	icon?: ReactElement;
+	/** Title to show. */
 	title?: string;
+	/** Subtitle to show. */
 	subtitle?: string;
+	/** Classes to pass to the icon. */
 	iconClassName?: string;
+	/** Heading level of the title. Defaults to `3`. */
 	level?: number;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
 };
 

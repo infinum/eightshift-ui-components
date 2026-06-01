@@ -9,11 +9,17 @@ type ReactAriaColorSwatchProps = ComponentPropsWithoutRef<typeof ReactAriaColorS
 const TypedReactAriaColorSwatch = ReactAriaColorSwatch as (props: ReactAriaColorSwatchProps & { children?: ReactNode }) => ReactNode;
 
 type ColorSwatchProps = Omit<ReactAriaColorSwatchProps, 'children' | 'className' | 'style' | 'color' | 'colorName'> & {
+	/** The color to display. */
 	color?: string;
+	/** The gradient to display. */
 	gradient?: string;
+	/** Additional clsx to apply. */
 	className?: string;
+	/** The name of the color. Should be auto-generated for colors. */
 	colorName?: string;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** Set to `true` if using a custom gradient. Defaults to `false`. */
 	customGradient?: boolean;
 };
 

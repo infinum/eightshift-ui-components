@@ -31,12 +31,18 @@ type SmartImageChildContext = {
 };
 
 type FilePickerShellProps = Omit<ComponentPropsWithoutRef<'div'>, 'children'> & {
+	/** Current file URL. */
 	url?: string;
+	/** File type icon override. Defaults to `'file'`. */
 	type?: ShellType;
+	/** Icon to display within the button. Defaults to `file`. */
 	icon?: ReactNode;
+	/** Classes to pass to the component. */
 	className?: string;
 	children?: ReactNode | ((context: { dominantColors?: SmartImageChildContext['dominantColors']; isDark?: boolean; isTransparent?: boolean; hasError?: boolean }) => ReactNode);
+	/** Content to display if no file is selected. */
 	noUrlContent?: ReactNode;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

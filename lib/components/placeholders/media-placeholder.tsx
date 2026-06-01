@@ -7,12 +7,19 @@ type MediaPlaceholderStyle = 'default' | 'simple';
 type MediaPlaceholderSize = 'auto' | 'default' | 'large' | 'fullWidth' | 'fullHeight' | 'full' | 'video';
 
 type MediaPlaceholderProps = {
+	/** Style of the image placeholder. Defaults to `'default'`. */
 	style?: MediaPlaceholderStyle;
+	/** Size of the image placeholder. Defaults to `'default'`. */
 	size?: MediaPlaceholderSize;
+	/** Classes to pass to the component. */
 	className?: string;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
+	/** Icon to show within the placeholder. */
 	icon?: ReactElement;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** Text to show below the icon. */
 	helpText?: string | ReactElement;
 	children?: ReactNode;
 };

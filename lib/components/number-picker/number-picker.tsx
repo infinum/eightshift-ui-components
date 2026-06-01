@@ -88,23 +88,39 @@ type SharedNumberFieldProps = Omit<
 
 type NumberPickerProps = SharedNumberFieldProps &
 	Omit<BaseControlProps, 'actions'> & {
+		/** The current value of the number picker. */
 		value?: number;
+		/** Function to run when the value changes. */
 		onChange?: (value: number) => void;
+		/** The minimum value of the number picker. Defaults to `0`. */
 		min?: number;
+		/** The maximum value of the number picker. */
 		max?: number;
+		/** The step value of the number picker. Defaults to `1`. */
 		step?: number;
+		/** If `true`, the number picker is read-only. */
 		readOnly?: boolean;
+		/** If `true`, the number picker is disabled. */
 		disabled?: boolean;
+		/** Placeholder text to display in the number picker. */
 		placeholder?: string;
+		/** Element to display to the left of the number picker. */
 		prefix?: ReactNode;
+		/** Element to display to the right of the number picker. */
 		suffix?: ReactNode;
+		/** If passed, sets the width of the input field to the provided number of characters. Useful if you have e.g. value from 1 to 1000, but you don't want the input field to change size when on lower values. Defaults to `null`. */
 		fixedWidth?: number | null;
 		children?: ReactNode;
+		/** If `true`, the number picker is displayed inline. */
 		inline?: boolean;
+		/** If `true`, the number picker does not change value when scrolling. Defaults to `false`. */
 		noScrollToChange?: boolean;
+		/** Determines the input field size. Defaults to `'default'`. */
 		size?: InputSize;
+		/** If `true`, component will look more flat. Useful for nested layer of controls. */
 		flat?: boolean;
 		className?: string;
+		/** If `true`, the component is not rendered. */
 		hidden?: boolean;
 	};
 

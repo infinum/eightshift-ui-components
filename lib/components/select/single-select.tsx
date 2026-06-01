@@ -53,29 +53,53 @@ type GroupValueMapping = Record<
 type SelectValueType = SelectOption | string | null;
 
 type SelectProps = Omit<ReactAriaSelectProps<SelectOption>, 'children' | 'className' | 'isDisabled' | 'selectedKey' | 'onSelectionChange' | 'items' | 'placeholder'> & {
+	/** Icon of the component. */
 	icon?: ReactNode;
+	/** Help text of the component. */
 	help?: ReactNode;
+	/** Label of the component. */
 	label?: ReactNode;
+	/** Whether the Select menu is displayed inline with the label, to the right. */
 	inline?: boolean;
+	/** Actions to show to the right of the label. */
 	actions?: ReactNode;
+	/** Subtitle of the component. */
 	subtitle?: ReactNode;
+	/** Options to display in the select. `[{ label: string, value: string }]`. */
 	options: SelectOption[];
+	/** Current value of the select. */
 	value: SelectValueType;
+	/** Function to call when the value changes. */
 	onChange: (value: SelectValueType) => void;
+	/** If `true`, instead of using a `{label: '', value: ''}` value type, a string is used (just the value). Defaults to `false`. */
 	simpleValue?: boolean;
+	/** If provided, the options will be grouped by this key. */
 	groupKey?: string;
+	/** If provided, the group headers will be mapped to these labels/icons. */
 	groupValueMapping?: GroupValueMapping;
+	/** Whether the select is clearable. Defaults to `false`. */
 	clearable?: boolean;
+	/** Whether the select is disabled. Defaults to `false`. */
 	disabled?: boolean;
+	/** Placeholder text to show when no value is selected. Defaults to `Select...`. */
 	placeholder?: string;
+	/** If provided, replaces the default item in the dropdown menu (react-select's `components.Option`). */
 	customMenuOption?: (item: SelectOption) => ReactNode;
+	/** If provided, replaces the default current value display of each selected item (react-select's `components.MultiValue`). */
 	customValueDisplay?: (item: SelectOption | null) => ReactNode;
+	/** If provided, replaces the default dropdown arrow indicator. */
 	customDropdownArrow?: ReactNode;
+	/** Classes to pass to the select menu. */
 	className?: string;
+	/** If `true`, the select menu will not have a minimum width. Defaults to `false`. */
 	noMinWidth?: boolean;
+	/** If `true`, the menu will allow searching through the options. */
 	searchable?: boolean;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** Sets the size of the input field. Defaults to `default`. */
 	size?: SelectSize;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

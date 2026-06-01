@@ -24,21 +24,37 @@ type MenuProps = Omit<ComponentPropsWithoutRef<typeof Menu>, 'children' | 'trigg
 type MenuItemProps = ComponentPropsWithoutRef<typeof MenuItem>;
 
 type ColorPickerProps = MenuProps & {
+	/** Icon to display. */
 	icon?: ReactNode;
+	/** Label to display. */
 	label?: ReactNode;
+	/** Subtitle to display. */
 	subtitle?: ReactNode;
+	/** Additional clsx passed to the label. */
 	labelClassName?: string;
+	/** Selected value. */
 	value?: string;
+	/** Function to run when the value changes. */
 	onChange: (value?: string) => void;
+	/** Colors to display. */
 	colors: ColorItem[];
+	/** If `true`, the HEX color code is shown below the color name. */
 	showColorCode?: boolean;
+	/** If `true`, colors won't be grouped by shades. */
 	noColorGroups?: boolean;
+	/** Type of the color picker. Affects the icon and tooltip. Defaults to `'default'`. */
 	type?: ColorPickerType;
+	/** If `true`, the picked color can be removed. */
 	clearable?: boolean;
+	/** If `true`, the control is not rendered inline. */
 	stacked?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
+	/** If provided, overrides the default tooltip text. If there is no label, the value will still be shown within the tooltip. */
 	tooltip?: ReactNode;
+	/** Label for the "None" item, if `clearable` is enabled. Defaults to `'None'`. */
 	clearItemLabel?: ReactNode;
+	/** If `type` is `menu`, allows passing additional menu items, which will be displayed below the options. */
 	extraOptions?: ReactNode;
 	'aria-label'?: string;
 };

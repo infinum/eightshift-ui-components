@@ -14,11 +14,15 @@ type DraggableListRenderContext<TItem extends Record<string, unknown>> = TItem &
 
 type DraggableListProps<TItem extends Record<string, unknown>> = ComponentProps<typeof BaseControl> & {
 	children: (item: DraggableListRenderContext<TItem>) => ReactNode;
+	/** Data to display in the list. */
 	items?: TItem[] | null;
+	/** Function to run when the items change. */
 	onChange: (items: TItem[]) => void;
 	itemClassName?: string;
 	itemContainerClassName?: string;
+	/** Function to run after an item is removed. */
 	onAfterItemRemove?: (item: TItem) => void;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

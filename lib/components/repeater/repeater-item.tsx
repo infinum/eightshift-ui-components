@@ -10,14 +10,23 @@ import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
 import { RepeaterContext } from './repeater-context';
 
 type RepeaterItemProps = Omit<ComponentPropsWithoutRef<typeof Expandable>, 'icon' | 'label' | 'subtitle' | 'className' | 'actions'> & {
+	/** Icon to display in the label. */
 	icon?: ReactNode;
+	/** Label to display. */
 	label?: ReactNode;
+	/** Subtitle to display. */
 	subtitle?: ReactNode;
+	/** Actions to display to the right of the label. */
 	actions?: ReactNode;
+	/** Classes to pass to the item. */
 	className?: string;
+	/** The text value of the item. */
 	textValue?: string;
+	/** Additional menu options to display next to the expand button. */
 	menuOptions?: ReactNode;
+	/** If `true`, the menu button next to the expand button is not displayed. */
 	noMenuButton?: boolean;
+	/** If `true`, the item cannot be expanded. */
 	expandDisabled?: boolean;
 };
 

@@ -89,19 +89,33 @@ type CheckboxProps = Omit<
 	ComponentPropsWithoutRef<typeof ReactAriaCheckbox>,
 	'children' | 'className' | 'isDisabled' | 'isReadOnly' | 'isIndeterminate' | 'isSelected' | 'onChange'
 > & {
+	/** The checkbox icon. */
 	icon?: ReactNode;
+	/** The checkbox label. */
 	label?: ReactNode;
+	/** The checkbox subtitle. */
 	subtitle?: ReactNode;
+	/** Whether the checkbox is checked. */
 	checked?: boolean;
+	/** Whether the checkbox is disabled. */
 	disabled?: boolean;
+	/** Whether the checkbox is read-only. */
 	readOnly?: boolean;
+	/** Whether the checkbox is in an indeterminate state. */
 	indeterminate?: boolean;
+	/** The function to call when the checkbox is changed. */
 	onChange?: (value: boolean) => void;
+	/** Additional classes to add to the checkbox container. */
 	className?: string;
+	/** Additional classes to add to the label container. */
 	labelClassName?: string;
+	/** Whether the label should be aligned to the end. */
 	alignEnd?: boolean;
+	/** If `true`, the subtitle is shown after the label instead of below it. */
 	inlineSubtitle?: boolean;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 	children?: ReactNode;
 };

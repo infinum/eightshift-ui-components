@@ -4,6 +4,7 @@ import type { Prettify } from '../../utilities/types';
 
 type PortalProviderProps = {
 	children?: ReactNode;
+	/** Element to use as the portal container. */
 	portalElement?: HTMLElement | null;
 };
 

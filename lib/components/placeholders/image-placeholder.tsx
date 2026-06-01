@@ -7,14 +7,23 @@ type ImagePlaceholderImageMode = 'cover' | 'contain' | 'fill';
 type ImagePlaceholderSize = 'auto' | 'default' | 'large' | 'fullWidth' | 'fullHeight' | 'full' | 'video';
 
 type ImagePlaceholderProps = {
+	/** The image URL. */
 	url?: string;
+	/** The image alt text. */
 	alt?: string;
+	/** Style of the image placeholder. Defaults to `'default'`. */
 	style?: ImagePlaceholderStyle;
+	/** Size of the image placeholder. Defaults to `'default'`. */
 	size?: ImagePlaceholderSize;
+	/** If `true`, the image within the placeholder will not be displayed, even if `url` is provided. */
 	noImage?: boolean;
+	/** Classes to pass to the component. */
 	className?: string;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
+	/** Determines inner image display mode. Defaults to `'cover'`. */
 	imageMode?: ImagePlaceholderImageMode;
 };
 

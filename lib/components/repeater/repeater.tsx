@@ -25,27 +25,49 @@ type AddButtonProps<Item extends RepeaterItemData> = {
 
 type RepeaterProps<Item extends RepeaterItemData = RepeaterItemData> = {
 	children: (item: RepeaterChildValue<Item>) => ReactNode;
+	/** Function to run when the items change. */
 	onChange: (items: Item[]) => void;
+	/** Data to display in the repeater. */
 	items: Item[];
+	/** Icon to display in the label. */
 	icon?: ReactNode;
+	/** Label to display. */
 	label?: ReactNode;
+	/** Subtitle to display. */
 	subtitle?: ReactNode;
+	/** Help text to display below the input. */
 	help?: ReactNode;
+	/** Actions to display to the right of the label. */
 	actions?: ReactNode;
+	/** If `true`, the empty state will not be displayed when there are no items. */
 	hideEmptyState?: boolean;
+	/** Additional properties to add to a new item. Defaults to `{}`. */
 	addDefaultItem?: Partial<RepeaterListItemValue<Item>>;
+	/** If `true`, the add button is disabled. */
 	addDisabled?: boolean;
+	/** Function to run after an item is added. */
 	onAfterItemAdd?: (item: Item) => void;
+	/** Function to run after an item is removed. */
 	onAfterItemRemove?: (item: RepeaterListItemValue<Item>) => void;
+	/** The minimum number of items that must be present. If there are less items than this, deleting items will be disabled. */
 	minItems?: number;
+	/** The maximum number of items that can be present. If there are more items than this, adding items will be disabled. */
 	maxItems?: number;
+	/** If provided, overrides the default add button. */
 	addButton?: (props: AddButtonProps<Item>) => ReactNode;
+	/** Classes to pass to the item wrapper. */
 	className?: string;
+	/** Allows overriding the default empty state. */
 	emptyState?: ReactNode;
+	/** If `true`, the "Expand all"/"Collapse all" button is not displayed. */
 	noExpandAllButton?: boolean;
+	/** If `true`, the "Duplicate" button is not displayed. */
 	noDuplicateButton?: boolean;
+	/** If `true`, the "drag to remove" functionality will be disabled. */
 	noDragToRemove?: boolean;
+	/** Options to add in the "More options" menu. */
 	moreOptions?: ReactNode;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 	itemLabelProp?: string;
 };

@@ -161,14 +161,22 @@ const thumbClasses = cva(['es:block es:rounded-full es:will-change-transform', '
 type SwitchSize = NonNullable<VariantProps<typeof outsideClasses>['size']>;
 
 type SwitchProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaSwitch>, 'children' | 'className' | 'isDisabled' | 'isSelected' | 'onChange'> & {
+	/** Whether the switch is checked. */
 	checked?: boolean;
+	/** Function to call when the switch is toggled. */
 	onChange?: (value: boolean) => void;
+	/** Whether the switch is disabled. */
 	disabled?: boolean;
 	children?: ReactNode;
+	/** Classes to pass to the switch. */
 	className?: string;
+	/** If `true`, the switch will render in an indeterminate state. */
 	isIndeterminate?: boolean;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
+	/** The size of the switch. Defaults to `default`. */
 	size?: SwitchSize;
 };
 

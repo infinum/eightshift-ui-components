@@ -5,20 +5,34 @@ import { RichLabel } from '../rich-label/rich-label';
 import type { Prettify } from '../../utilities/types';
 
 export type BaseControlProps = {
+	/** Icon to display in the label. */
 	icon?: ReactNode;
+	/** Label to display. */
 	label?: ReactNode;
+	/** Subtitle to display below the label. */
 	subtitle?: ReactNode;
+	/** Actions to show to the right of the label. */
 	actions?: ReactNode;
+	/** Help text to show below the component. */
 	help?: ReactNode;
 	children?: ReactNode;
+	/** If `true`, the component is displayed inline - icon/label/subtitle are on the left, the passed content is on the right. **Note:** not compatible with `actions`. */
 	inline?: boolean;
+	/** Classes to pass to the main element wrapper. */
 	className?: string;
+	/** Classes to pass to the control container. */
 	controlContainerClassName?: string;
+	/** Classes to pass to the label container. */
 	labelContainerClassName?: string;
+	/** Classes to pass to the label. */
 	labelClassName?: string;
+	/** If `true`, the label expands to fill up the whole width, instead of taking up only the space it needs. */
 	fullWidthLabel?: boolean;
+	/** If `true`, the help text is not inset. */
 	noHelpInset?: boolean;
+	/** If provided, the label (includes icon and subtitle) will be rendered as this element. */
 	labelAs?: ElementType;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

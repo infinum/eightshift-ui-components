@@ -28,12 +28,19 @@ type ResponsivePreviewItem = {
 };
 
 type ResponsivePreviewProps = {
+	/** The value object. */
 	value?: ResponsiveValue | null;
+	/** Whether the desktop-first mode is enabled. */
 	isDesktopFirst?: boolean;
+	/** Breakpoints to use. */
 	breakpoints: string[];
+	/** Breakpoints to use in desktop-first mode. If not provided, the breakpoints will be used in reverse order. */
 	desktopFirstBreakpoints?: string[];
+	/** Options of the attribute the component is linked to. `{ value: string, label: string }[]`. */
 	options?: ResponsiveOption[];
+	/** Breakpoints to use. `{ [breakpoint: string]: number }`. */
 	breakpointData: Record<string, string | number>;
+	/** Allows overriding breakpoint names and icons. `{ [breakpoint: string]: { label: string, icon: JSX.Element|string } }`. */
 	breakpointUiData?: Record<string, BreakpointUiOverride>;
 };
 

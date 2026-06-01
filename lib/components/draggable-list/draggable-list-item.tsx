@@ -7,9 +7,13 @@ import type { Prettify } from '../../utilities/types';
 
 type DraggableListItemProps = HTMLAttributes<HTMLDivElement> & {
 	children?: ReactNode;
+	/** Icon to display in the label. */
 	icon?: ReactElement;
+	/** Label to display. */
 	label?: string;
+	/** Subtitle to display. */
 	subtitle?: string;
+	/** Classes to pass to the label. */
 	className?: string;
 	iconClassName?: string;
 	labelClassName?: string;
@@ -19,6 +23,7 @@ type DraggableListItemProps = HTMLAttributes<HTMLDivElement> & {
 
 type DraggableListItemHandleProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 	children?: ReactNode;
+	/** Classes to pass to the handle. */
 	className?: string;
 };
 

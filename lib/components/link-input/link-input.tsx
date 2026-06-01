@@ -32,25 +32,45 @@ type LinkSuggestionItem = {
 };
 
 type LinkInputProps = {
+	/** The current URL. Defaults to `''`. */
 	url?: string;
+	/** Function to run when the URL changes. */
 	onChange?: (value: LinkInputValue) => void;
+	/** Label to display. Defaults to `__('Link', 'eightshift-ui-components')`. */
 	label?: ReactNode;
+	/** Subtitle to display. */
 	subtitle?: ReactNode;
+	/** Help text to display below the input. */
 	help?: ReactNode;
+	/** Placeholder to show in the input field. Defaults to `__('Type to search or enter URL', 'eightshift-ui-components')`. */
 	placeholder?: string;
+	/** Actions to display to the right of the label. */
 	actions?: ReactNode;
+	/** Icon to display in the label. Defaults to `globe`. */
 	icon?: ReactNode;
+	/** Icon to display in the input's clear button. Defaults to `clearAlt`. */
 	removeIcon?: ReactNode;
+	/** If `true`, the input is disabled. Defaults to `false`. */
 	disabled?: boolean;
+	/** A function that fetches suggestions based on the input value. */
 	fetchSuggestions?: (searchTerm: string, signal?: AbortSignal) => Promise<LinkSuggestionItem[] | null | undefined> | LinkSuggestionItem[] | null | undefined;
+	/** Classes to pass to the input field. */
 	className?: string;
+	/** The delay in milliseconds before the input value is considered final. */
 	inputDebounceDelay?: number;
+	/** Allows overriding the default icon for the suggestion type, e.g. when using CPTs. Should be in the format: `(type) => icon or React component`. */
 	suggestionTypeIconOverride?: (type: string) => ReactNode;
+	/** If `true`, the suggestion list will be shown when down arrow is pressed even the input is empty. */
 	showSuggestionsWhenEmpty?: boolean;
+	/** If `true`, component will look more flat. Useful for nested layer of controls. */
 	flat?: boolean;
+	/** If `true`, keyboard shortcuts are shown in the suggestion list. */
 	keyboardShortcuts?: boolean;
+	/** Sets the size of the input field. Defaults to `'default'`. */
 	size?: InputSize;
+	/** If `true`, the component is displayed inline - icon/label/subtitle are on the left, the passed content is on the right. **Note:** not compatible with `actions`. */
 	inline?: boolean;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 

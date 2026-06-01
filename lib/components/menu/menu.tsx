@@ -23,21 +23,32 @@ type ReactAriaMenuItemProps = ComponentPropsWithoutRef<typeof ReactAriaMenuItem>
 type MenuProps = ReactAriaMenuProps &
 	MenuTriggerProps & {
 		children?: ReactNode;
+		/** The label of the trigger button. */
 		triggerLabel?: ReactNode;
+		/** The icon of the trigger button. */
 		triggerIcon?: ReactNode;
+		/** Props to pass to the trigger button. */
 		triggerProps?: ComponentPropsWithoutRef<typeof Button>;
+		/** Tooltip text to display on the trigger button. */
 		tooltip?: ReactNode;
+		/** If `true`, the menu will not close when an item is selected. Defaults to `false`. */
 		keepOpen?: boolean;
+		/** If `true`, the menu will open on long press instead of click. If enabled, a regular `onPress` event can also be passed to the trigger button to enable dual behavior. Defaults to `false`. */
 		openOnLongPress?: boolean;
+		/** Props to pass to the popover. */
 		popoverProps?: MenuPopoverProps;
+		/** If `true`, the trigger button is disabled. */
 		disabled?: boolean;
+		/** If `true`, the popover will not have a fixed width. */
 		manualWidth?: boolean;
+		/** If `true`, the component is not rendered. */
 		hidden?: boolean;
 		'aria-label'?: string;
 	};
 
 type MenuSectionProps = {
 	children?: ReactNode;
+	/** The label of the section. */
 	label?: ReactNode;
 };
 
@@ -45,27 +56,44 @@ type MenuSeparatorProps = ComponentPropsWithoutRef<typeof ReactAriaSeparator>;
 
 type MenuItemProps = Omit<ReactAriaMenuItemProps, 'children' | 'className' | 'isDisabled' | 'aria-label' | 'onClick'> & {
 	children?: ReactNode;
+	/** The icon of the item. */
 	icon?: ReactNode;
+	/** A slot for text like the keyboard shortcut, displayed on the right side of the item. */
 	shortcut?: ReactNode;
+	/** If `true`, the item is marked as checked. This is visually represented by a checkmark icon. */
 	checked?: boolean;
+	/** If `true`, the item is marked as selected. This is visually represented by a circle. */
 	selected?: boolean;
+	/** If `true`, the item will be disabled. */
 	disabled?: boolean;
+	/** The icon at the right side of the item. */
 	endIcon?: ReactNode;
+	/** The subtitle below the main label. */
 	subtitle?: ReactNode;
+	/** Function to run when the item is clicked. */
 	onClick?: ReactAriaMenuItemProps['onAction'];
 	onClickNative?: ReactAriaMenuItemProps['onClick'];
+	/** If `true`, the item appearance is tweaked to indicate a dangerous action. */
 	danger?: boolean;
+	/** If `true`, the item appearance is tweaked to indicate a primary action. */
 	primary?: boolean;
+	/** Classes to pass to the menu item. */
 	className?: string;
+	/** Aria label for the menu item. Defaults to the children text or 'Menu item' if children is not a string. */
 	'aria-label'?: string;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 
 type SubMenuItemProps = {
 	children?: ReactNode;
+	/** The trigger button for the submenu. **This should be a `MenuItem`.** */
 	trigger: ReactElement<{ endIcon?: ReactNode }>;
+	/** If `true`, the submenu will not close when an item is selected. */
 	keepOpen?: boolean;
+	/** If `true`, the popover will not have a fixed width. */
 	manualWidth?: boolean;
+	/** Props to pass to the popover. */
 	popoverProps?: MenuPopoverProps;
 	'aria-label'?: string;
 };
@@ -73,6 +101,7 @@ type SubMenuItemProps = {
 type MenuSectionHeaderProps = Omit<ReactAriaMenuItemProps, 'children' | 'className' | 'isDisabled'> & {
 	children?: ReactNode;
 	className?: string;
+	/** If `true`, the component is not rendered. */
 	hidden?: boolean;
 };
 
