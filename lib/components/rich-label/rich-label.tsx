@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import { type ComponentPropsWithoutRef, type ElementType, type ReactNode } from 'react';
 
-type RichLabelProps<T extends ElementType = 'div'> = {
+export type RichLabelProps<T extends ElementType = 'div'> = {
 	/** Icon to display. */
 	icon?: ReactNode;
 	/** Icon to display at the end of the label. */
