@@ -82,7 +82,7 @@ export const ContextualHelp = (props: Prettify<ContextualHelpProps>) => {
 				aria-label={typeAriaLabels?.[type] || typeAriaLabels.help}
 				type='simple'
 				size='small'
-				className='es:rounded-full! es:p-0! es:size-6!'
+				className='es:rounded-full! es:p-0! es:size-6! es:icon:size-4!'
 				{...triggerButtonProps}
 			>
 				{triggerButtonLabel}
