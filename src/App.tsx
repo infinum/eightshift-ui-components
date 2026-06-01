@@ -68,6 +68,7 @@ import {
 	SmartImage,
 	Container,
 	ContainerGroup,
+	ContextualHelp,
 } from '../lib';
 import { clsx } from 'clsx';
 import '../lib/style';
@@ -2654,6 +2655,21 @@ function App() {
 						}
 					>
 						<Button>Hi</Button>
+					</BaseControl>
+
+					<BaseControl
+						icon={emptyCircle}
+						label='Moja lijepa komponenta'
+						actions={
+							<ContextualHelp
+								label='Lorem ipsum dolor'
+								subtitle='Lorem ipsum dolor sit amet. Lorem dolor sit amet.'
+								icon={info}
+							/>
+						}
+						inline
+					>
+						<div className='es:bg-gray-50 es:size-10' />
 					</BaseControl>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
