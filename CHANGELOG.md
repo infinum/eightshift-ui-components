@@ -3,9 +3,15 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [8.0.0] - 2026-05-27
+## [8.0.0] - 2026-06-02
 
+- Updated dependencies.
 - Rewrote the package to TypeScript.
+- You can now have `actions` in `BaseControl` even when it's `inline`.
+- Added `ContextualHelp` component for nicely formatted inline icons.
+- `Popover` can now show an arrow pointing to the trigger element, with the `showArrow` prop.
+- Added 1 UI icon and updated 2.
+- (**BREAKING**) Renamed the `text` prop to `label` in `Spacer`.
 - (**BREAKING**) Renamed the `columnGuttersLR` icon export to `columnGuttersLr`.
 
 ## [7.3.0] - 2026-04-24
