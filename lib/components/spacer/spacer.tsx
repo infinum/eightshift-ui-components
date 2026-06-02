@@ -12,6 +12,8 @@ type SpacerProps = {
 	border?: boolean;
 	/** Additional classes to add. */
 	className?: string;
+	/** @deprecated Use `label` instead. */
+	text?: ReactNode;
 	/** Text to display. */
 	label?: ReactNode;
 	/** Subtitle to display. */
