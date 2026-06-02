@@ -154,7 +154,6 @@ export const Popover = (props: Prettify<PopoverProps>) => {
 			offset={offset}
 			crossOffset={crossOffset}
 			containerPadding={containerPadding}
-			// arrowBoundaryOffset={20}
 			className={({ isEntering, isExiting }) =>
 				clsx(
 					'es:font-sans',
