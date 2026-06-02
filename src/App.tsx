@@ -1263,11 +1263,11 @@ function App() {
 					<Spacer icon={componentGeneric} />
 					<Spacer
 						icon={componentGeneric}
-						text='My divider'
+						label='My divider'
 					/>
 					<Spacer
 						icon={componentGeneric}
-						text='My divider'
+						label='My divider'
 						subtitle='Lorem ipsum'
 					/>
 
@@ -1277,12 +1277,12 @@ function App() {
 					/>
 					<Spacer
 						icon={componentGeneric}
-						text='My divider'
+						label='My divider'
 						border
 					/>
 					<Spacer
 						icon={componentGeneric}
-						text='My divider'
+						label='My divider'
 						subtitle='Lorem ipsum'
 						border
 					/>
