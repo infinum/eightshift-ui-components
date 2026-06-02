@@ -27,7 +27,7 @@ import { DraggableList } from '../draggable-list/draggable-list';
 import { DraggableListItem } from '../draggable-list/draggable-list-item';
 import { TriggeredPopover } from '../popover/popover';
 import { RichLabel } from '../rich-label/rich-label';
-import { getGroupedOptions, OptionItemBase, SelectClearButton } from './shared';
+import { getGroupedOptions, getOptionKey, OptionItemBase, SelectClearButton, type Primitive } from './shared';
 import { selectButtonClass, selectControlClass } from './styles';
 import type { Prettify } from '../../utilities/types';
 
@@ -37,7 +37,7 @@ type RawAsyncItem = Record<string, unknown>;
 
 type AsyncMultiSelectOption = {
 	label: string;
-	value: string;
+	value: Primitive;
 	metadata?: Record<string, unknown> | null;
 	meta?: Record<string, unknown> | null;
 	subtitle?: string;
@@ -46,7 +46,7 @@ type AsyncMultiSelectOption = {
 	[key: string]: unknown;
 };
 
-type AsyncMultiSelectValue = AsyncMultiSelectOption[] | string[] | '' | null;
+type AsyncMultiSelectValue = AsyncMultiSelectOption[] | Primitive[] | '' | null;
 
 type GroupValueMapping = Record<
 	string,
@@ -92,8 +92,8 @@ type AsyncMultiSelectProps = Omit<
 	placeholder?: string;
 	/** Function to get the label for the item from the fetched data. `(item) => string`. Defaults to reading `item.label`. */
 	getLabel?: (item: RawAsyncItem) => string | undefined;
-	/** Function to get the value for the item from the fetched data. `(item) => string`. Defaults to reading `item.value`. */
-	getValue?: (item: RawAsyncItem) => string | undefined;
+	/** Function to get the value for the item from the fetched data. `(item) => string | number | boolean`. Defaults to reading `item.value`. */
+	getValue?: (item: RawAsyncItem) => Primitive | undefined;
 	/** Function to get the metadata for the item from the fetched data. `(item) => object` (optional). */
 	getMeta?: (item: RawAsyncItem) => Record<string, unknown> | null | undefined;
 	/** Function to get the icon for the item from the fetched data. `(item) => JSX.Element | string`. */
@@ -165,12 +165,12 @@ const getCurrentValueKeys = (value: AsyncMultiSelectValue) => {
 	}
 
 	return value.flatMap((item) => {
-		if (typeof item === 'string') {
-			return item;
+		if (typeof item === 'string' || typeof item === 'number' || typeof item === 'boolean') {
+			return getOptionKey(item);
 		}
 
-		if (item && typeof item.value === 'string') {
-			return item.value;
+		if (item) {
+			return getOptionKey(item.value);
 		}
 
 		return [];
@@ -245,7 +245,7 @@ export const AsyncMultiSelect = (props: Prettify<AsyncMultiSelectProps>) => {
 		fetchConfig = {},
 		fetchFunction,
 		getLabel = (item) => (typeof item.label === 'string' ? item.label : undefined),
-		getValue = (item) => (typeof item.value === 'string' ? item.value : undefined),
+		getValue = (item) => (typeof item.value === 'string' || typeof item.value === 'number' || typeof item.value === 'boolean' ? item.value : undefined),
 		getMeta,
 		getIcon,
 		getSubtitle,
@@ -272,7 +272,7 @@ export const AsyncMultiSelect = (props: Prettify<AsyncMultiSelectProps>) => {
 
 	const list = useAsyncList<AsyncMultiSelectOption>({
 		initialSelectedKeys: currentValueKeys,
-		getKey: (item) => item.value,
+		getKey: (item) => getOptionKey(item.value),
 		async load({ signal, filterText }) {
 			let loadedData: unknown;
 
@@ -345,8 +345,8 @@ export const AsyncMultiSelect = (props: Prettify<AsyncMultiSelectProps>) => {
 
 		return (
 			<OptionItemBase
-				key={item.value}
-				id={item.value}
+				key={getOptionKey(item.value)}
+				id={getOptionKey(item.value)}
 				value={item}
 				selectIndicator
 			>
@@ -376,7 +376,7 @@ export const AsyncMultiSelect = (props: Prettify<AsyncMultiSelectProps>) => {
 		const selectedKeys = new Set<string>();
 
 		if (list.filterText.length > 0) {
-			const visibleItemKeys = new Set(list.items.map((item) => item.value));
+			const visibleItemKeys = new Set(list.items.map((item) => getOptionKey(item.value)));
 
 			for (const key of currentValueKeys) {
 				if (!visibleItemKeys.has(key)) {
@@ -399,7 +399,7 @@ export const AsyncMultiSelect = (props: Prettify<AsyncMultiSelectProps>) => {
 
 		const selectedValues = [...selectedKeys]
 			.map((selectedKey) => {
-				const option = list.items.find((item) => item.value === selectedKey) ?? currentValue.find((item) => item.value === selectedKey);
+				const option = list.items.find((item) => getOptionKey(item.value) === selectedKey) ?? currentValue.find((item) => getOptionKey(item.value) === selectedKey);
 
 				if (!option) {
 					return null;
@@ -539,7 +539,7 @@ export const AsyncMultiSelect = (props: Prettify<AsyncMultiSelectProps>) => {
 						<TypedDraggableList
 							items={currentValue}
 							onChange={(reordered) => {
-								handleSelectionChange(reordered.map((item) => item.value));
+								handleSelectionChange(reordered.map((item) => getOptionKey(item.value)));
 							}}
 							className='es:contents'
 							itemContainerClassName='es:h-full es:max-h-60 es:overflow-y-auto es:pb-1.5 es:mt-0'

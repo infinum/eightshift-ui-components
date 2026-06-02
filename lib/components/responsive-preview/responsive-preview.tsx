@@ -5,12 +5,14 @@ import { BreakpointPreview } from '../breakpoint-preview/breakpoint-preview';
 import { RichLabel } from '../rich-label/rich-label';
 import type { Prettify } from '../../utilities/types';
 
+type ResponsiveValueItem = string | number | boolean | undefined;
+
 type ResponsiveOption = {
 	label: string;
-	value: string;
+	value: Exclude<ResponsiveValueItem, undefined>;
 };
 
-type ResponsiveValue = Record<string, string | boolean | undefined>;
+type ResponsiveValue = Record<string, ResponsiveValueItem>;
 const desktopFirstKey = '_desktopFirst';
 const defaultKey = '_default';
 

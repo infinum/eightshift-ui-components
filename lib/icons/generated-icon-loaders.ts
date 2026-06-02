@@ -310,6 +310,7 @@ export const iconLoaders: Record<string, IconLoader> = {
 	heartFill: () => import('./ui-icons/heart-fill.tsx').then((module) => (module.heartFill as JSX.Element | undefined) ?? null),
 	heart: () => import('./ui-icons/heart.tsx').then((module) => (module.heart as JSX.Element | undefined) ?? null),
 	height: () => import('./ui-icons/height.tsx').then((module) => (module.height as JSX.Element | undefined) ?? null),
+	helpAlt: () => import('./ui-icons/help-alt.tsx').then((module) => (module.helpAlt as JSX.Element | undefined) ?? null),
 	helpFill: () => import('./ui-icons/help-fill.tsx').then((module) => (module.helpFill as JSX.Element | undefined) ?? null),
 	help: () => import('./ui-icons/help.tsx').then((module) => (module.help as JSX.Element | undefined) ?? null),
 	hide: () => import('./ui-icons/hide.tsx').then((module) => (module.hide as JSX.Element | undefined) ?? null),

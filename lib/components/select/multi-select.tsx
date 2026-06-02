@@ -21,13 +21,12 @@ import {
 import { cloneElement, isValidElement, useMemo, useRef, useState, type CSSProperties, type JSX, type ReactElement, type ReactNode } from 'react';
 
 import { Icon, clearAlt, dropdownCaret, multiple, reorder, searchEmpty } from '../../icons/internal';
-import { randomId } from '../../utilities';
 import { BaseControl } from '../base-control/base-control';
 import { DraggableList } from '../draggable-list/draggable-list';
 import { DraggableListItem } from '../draggable-list/draggable-list-item';
 import { TriggeredPopover } from '../popover/popover';
 import { RichLabel } from '../rich-label/rich-label';
-import { getGroupedOptions, OptionItemBase, SelectClearButton } from './shared';
+import { getGroupedOptions, getOptionKey, OptionItemBase, SelectClearButton, type Primitive } from './shared';
 import { selectButtonClass, selectControlClass } from './styles';
 import type { Prettify } from '../../utilities/types';
 
@@ -36,7 +35,7 @@ type SelectSize = 'small' | 'medium' | 'default' | 'large';
 
 type SelectOption = {
 	label: string;
-	value: string;
+	value: Primitive;
 	metadata?: Record<string, unknown> | null;
 	subtitle?: ReactNode;
 	icon?: IconValue;
@@ -54,7 +53,7 @@ type GroupValueMapping = Record<
 	}
 >;
 
-type MultiSelectValueType = SelectOption[] | string[] | '' | null;
+type MultiSelectValueType = SelectOption[] | Primitive[] | '' | null;
 type DraggableSelectItemContext = SelectOption & {
 	updateData: (newValue: Partial<SelectOption>) => void;
 	itemIndex: number;
@@ -80,7 +79,7 @@ type MultiSelectProps = Omit<ReactAriaSelectProps<SelectOption, 'multiple'>, 'ch
 	value: MultiSelectValueType;
 	/** Function to call when the value changes. */
 	onChange: (value: MultiSelectValueType) => void;
-	/** If `true`, instead of using a `{label: '', value: ''}` value type, a string is used (just the value). Defaults to `false`. */
+	/** If `true`, instead of using a `{label: '', value: ''}` value type, primitives are used (just the values). Defaults to `false`. */
 	simpleValue?: boolean;
 	/** If provided, the options will be grouped by this key. */
 	groupKey?: string;
@@ -142,7 +141,7 @@ const getSelectedKeys = (value: MultiSelectValueType) => {
 		return [];
 	}
 
-	return value.map((item) => (typeof item === 'string' ? item : item.value));
+	return value.map((item) => (typeof item === 'object' && item !== null ? getOptionKey(item.value) : getOptionKey(item)));
 };
 
 const getCurrentValue = (value: MultiSelectValueType, simpleValue: boolean, options: SelectOption[]) => {
@@ -154,7 +153,13 @@ const getCurrentValue = (value: MultiSelectValueType, simpleValue: boolean, opti
 		return value.filter((item): item is SelectOption => typeof item === 'object' && item !== null);
 	}
 
-	return value.map((item) => options.find((option) => option.value === item)).filter((item): item is SelectOption => Boolean(item));
+	return value
+		.map((item) => {
+			const itemValue = typeof item === 'object' && item !== null ? item.value : item;
+
+			return options.find((option) => getOptionKey(option.value) === getOptionKey(itemValue));
+		})
+		.filter((item): item is SelectOption => Boolean(item));
 };
 
 const getOptionIcon = (icon?: IconValue): ReactElement | undefined => {
@@ -240,7 +245,7 @@ export const MultiSelect = (props: Prettify<MultiSelectProps>) => {
 
 		return (
 			<OptionItemBase
-				id={item.value ?? randomId(8)}
+				id={getOptionKey(item.value)}
 				className={item.className}
 				selectIndicator
 				value={item}
@@ -275,14 +280,18 @@ export const MultiSelect = (props: Prettify<MultiSelectProps>) => {
 		}
 
 		if (simpleValue) {
-			onChange(selectedKeys);
+			const selectedValues = selectedKeys
+				.map((selectedKey) => options.find((candidate) => getOptionKey(candidate.value) === selectedKey)?.value)
+				.filter((item): item is Primitive => item !== undefined);
+
+			onChange(selectedValues);
 
 			return;
 		}
 
 		const selectedValues = selectedKeys
 			.map((selectedKey) => {
-				const option = options.find((candidate) => candidate.value === selectedKey);
+				const option = options.find((candidate) => getOptionKey(candidate.value) === selectedKey);
 
 				if (!option) {
 					return null;
@@ -418,14 +427,14 @@ export const MultiSelect = (props: Prettify<MultiSelectProps>) => {
 						<TypedDraggableList
 							items={currentValue}
 							onChange={(newValue) => {
-								handleSelectionChange(newValue.map((item) => item.value));
+								handleSelectionChange(newValue.map((item) => getOptionKey(item.value)));
 							}}
 							className='es:contents'
 							itemContainerClassName='es:h-full es:max-h-60 es:overflow-y-auto es:pb-1.5 es:mt-0'
 							itemClassName='es:z-999999'
 						>
 							{(item) => {
-								const realItem = options.find((option) => option.value === item.value);
+								const realItem = options.find((option) => getOptionKey(option.value) === getOptionKey(item.value));
 
 								return (
 									<DraggableListItem

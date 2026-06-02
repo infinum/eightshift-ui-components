@@ -9,6 +9,7 @@ export { ColorSwatch } from './color-pickers/color-swatch';
 export { ColorPicker } from './color-pickers/color-picker';
 export { ColumnConfigSlider, ColumnConfigSliderOutput } from './slider/column-config-slider';
 export { Container, ContainerGroup } from './base-control/container';
+export { ContextualHelp } from './contextual-help/contextual-help';
 export { DraggableList } from './draggable-list/draggable-list';
 export { DraggableListItem, DraggableListItemHandle } from './draggable-list/draggable-list-item';
 export { DraggableContext } from './draggable/draggable-context';

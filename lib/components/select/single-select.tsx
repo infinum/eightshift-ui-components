@@ -20,10 +20,9 @@ import {
 import { cloneElement, useMemo, useRef, useState, type CSSProperties, type JSX, type ReactNode } from 'react';
 
 import { Icon, clearAlt, dropdownCaret, searchEmpty } from '../../icons/internal';
-import { randomId } from '../../utilities';
 import { BaseControl } from '../base-control/base-control';
 import { RichLabel } from '../rich-label/rich-label';
-import { getGroupedOptions, OptionItemBase, SelectClearButton } from './shared';
+import { getGroupedOptions, getOptionKey, OptionItemBase, SelectClearButton, type Primitive } from './shared';
 import { selectButtonClass, selectControlClass } from './styles';
 import type { Prettify } from '../../utilities/types';
 
@@ -32,7 +31,7 @@ type SelectSize = 'small' | 'medium' | 'default' | 'large';
 
 type SelectOption = {
 	label: string;
-	value: string;
+	value: Primitive;
 	metadata?: Record<string, unknown> | null;
 	subtitle?: ReactNode;
 	icon?: IconValue;
@@ -50,7 +49,7 @@ type GroupValueMapping = Record<
 	}
 >;
 
-type SelectValueType = SelectOption | string | null;
+type SelectValueType = SelectOption | Primitive | null;
 
 type SelectProps = Omit<ReactAriaSelectProps<SelectOption>, 'children' | 'className' | 'isDisabled' | 'selectedKey' | 'onSelectionChange' | 'items' | 'placeholder'> & {
 	/** Icon of the component. */
@@ -71,7 +70,7 @@ type SelectProps = Omit<ReactAriaSelectProps<SelectOption>, 'children' | 'classN
 	value: SelectValueType;
 	/** Function to call when the value changes. */
 	onChange: (value: SelectValueType) => void;
-	/** If `true`, instead of using a `{label: '', value: ''}` value type, a string is used (just the value). Defaults to `false`. */
+	/** If `true`, instead of using a `{label: '', value: ''}` value type, a primitive is used (just the value). Defaults to `false`. */
 	simpleValue?: boolean;
 	/** If provided, the options will be grouped by this key. */
 	groupKey?: string;
@@ -105,7 +104,7 @@ type SelectProps = Omit<ReactAriaSelectProps<SelectOption>, 'children' | 'classN
 
 const getSelectedKey = (value: SelectValueType, simpleValue: boolean) => {
 	if (simpleValue) {
-		return typeof value === 'string' ? value : null;
+		return typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean' ? getOptionKey(value) : null;
 	}
 
 	if (!value || typeof value !== 'object') {
@@ -114,7 +113,7 @@ const getSelectedKey = (value: SelectValueType, simpleValue: boolean) => {
 
 	const selectedValue = value.value;
 
-	return typeof selectedValue === 'string' ? selectedValue : null;
+	return typeof selectedValue === 'string' || typeof selectedValue === 'number' || typeof selectedValue === 'boolean' ? getOptionKey(selectedValue) : null;
 };
 
 const getSearchableText = (content?: ReactNode) => {
@@ -203,7 +202,7 @@ export const Select = (props: Prettify<SelectProps>) => {
 
 		return (
 			<OptionItemBase
-				id={item.value ?? randomId(8)}
+				id={getOptionKey(item.value)}
 				className={item.className}
 				selectIndicator
 				value={item}
@@ -248,16 +247,16 @@ export const Select = (props: Prettify<SelectProps>) => {
 					return;
 				}
 
-				if (simpleValue) {
-					onChange(selected);
+				const selectedItem = options.find((item) => getOptionKey(item.value) === selected);
+
+				if (!selectedItem) {
+					onChange(null);
 
 					return;
 				}
 
-				const selectedItem = options.find((item) => item.value === selected);
-
-				if (!selectedItem) {
-					onChange(null);
+				if (simpleValue) {
+					onChange(selectedItem.value);
 
 					return;
 				}

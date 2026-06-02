@@ -68,6 +68,7 @@ import {
 	SmartImage,
 	Container,
 	ContainerGroup,
+	ContextualHelp,
 } from '../lib';
 import { clsx } from 'clsx';
 import '../lib/style';
@@ -165,6 +166,7 @@ type DemoOption = {
 	[key: string]: unknown;
 };
 
+type DemoPrimitive = string | number | boolean;
 type DemoSelectValue = DemoOption | string | null;
 type DemoMultiSelectValue = DemoOption[] | string[] | '' | null;
 type DemoOptionSelectValue = string | number | boolean | null;
@@ -175,7 +177,8 @@ type DemoOptionSelectOption = {
 type DemoRangeValue = [number, number];
 type DemoRangeValueTriple = [number, number, number];
 type DemoColumnConfigValue = [number, number];
-type DemoResponsiveValue = Record<string, string | boolean | undefined>;
+type DemoResponsiveValue = Record<string, DemoPrimitive | undefined>;
+type DemoResponsiveLegacyValue = Record<string, string | boolean | undefined>;
 type DemoLinkSuggestionItem = {
 	label: string;
 	value: string;
@@ -186,14 +189,14 @@ type DemoLinkSuggestionItem = {
 };
 type DemoAsyncSelectOption = {
 	label: string;
-	value: string;
+	value: DemoPrimitive;
 	subtitle?: string;
 	icon?: string | ReactElement | null;
 	metadata?: Record<string, unknown> | null;
 	meta?: Record<string, unknown> | null;
 	[key: string]: unknown;
 };
-type DemoAsyncMultiSelectValue = DemoAsyncSelectOption[] | string[] | '' | null;
+type DemoAsyncMultiSelectValue = DemoAsyncSelectOption[] | DemoPrimitive[] | '' | null;
 type DemoTabsType = 'underline' | 'underlineSecondary' | 'pill' | 'pillCompact' | 'bubble' | 'chips';
 type DemoButtonType = 'default' | 'glass' | 'glassDark';
 type DemoMatrixAlignValue = 'top left' | 'top center' | 'top right' | 'center left' | 'center center' | 'center right' | 'bottom left' | 'bottom center' | 'bottom right';
@@ -798,21 +801,21 @@ function App() {
 		{ label: 'Ipsum', value: true },
 	];
 
-	const [responsiveState, setResponsiveState] = useState<DemoResponsiveValue>({
+	const [responsiveState, setResponsiveState] = useState<DemoResponsiveLegacyValue>({
 		myAttrLarge: false,
 		myAttrDesktop: undefined,
 		myAttrTablet: undefined,
 		myAttrMobile: true,
 	});
 
-	const [responsiveState2, setResponsiveState2] = useState<DemoResponsiveValue>({
+	const [responsiveState2, setResponsiveState2] = useState<DemoResponsiveLegacyValue>({
 		myAttrLarge: false,
 		myAttrDesktop: undefined,
 		myAttrTablet: undefined,
 		myAttrMobile: true,
 	});
 
-	const [responsiveState3, setResponsiveState3] = useState<DemoResponsiveValue>({
+	const [responsiveState3, setResponsiveState3] = useState<DemoResponsiveLegacyValue>({
 		myAttrLarge: false,
 		myAttrDesktop: '',
 		myAttrTablet: '',
@@ -1262,11 +1265,11 @@ function App() {
 					<Spacer icon={componentGeneric} />
 					<Spacer
 						icon={componentGeneric}
-						text='My divider'
+						label='My divider'
 					/>
 					<Spacer
 						icon={componentGeneric}
-						text='My divider'
+						label='My divider'
 						subtitle='Lorem ipsum'
 					/>
 
@@ -1276,12 +1279,12 @@ function App() {
 					/>
 					<Spacer
 						icon={componentGeneric}
-						text='My divider'
+						label='My divider'
 						border
 					/>
 					<Spacer
 						icon={componentGeneric}
-						text='My divider'
+						label='My divider'
 						subtitle='Lorem ipsum'
 						border
 					/>
@@ -2654,6 +2657,21 @@ function App() {
 						}
 					>
 						<Button>Hi</Button>
+					</BaseControl>
+
+					<BaseControl
+						icon={emptyCircle}
+						label='Moja lijepa komponenta'
+						actions={
+							<ContextualHelp
+								label='Lorem ipsum dolor'
+								subtitle='Lorem ipsum dolor sit amet. Lorem dolor sit amet.'
+								icon={info}
+							/>
+						}
+						inline
+					>
+						<div className='es:bg-gray-50 es:size-10' />
 					</BaseControl>
 				</TabPanel>
 				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>

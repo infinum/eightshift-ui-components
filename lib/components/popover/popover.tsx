@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { clsx } from 'clsx';
 import type { Prettify } from '../../utilities/types';
 import { type ComponentPropsWithoutRef, type CSSProperties, type ReactNode } from 'react';
-import { Dialog, DialogTrigger, Popover as ReactAriaPopover } from 'react-aria-components';
+import { Dialog, DialogTrigger, OverlayArrow, Popover as ReactAriaPopover } from 'react-aria-components';
 import { Button } from '../button/button';
 
 type ReactAriaPopoverProps = ComponentPropsWithoutRef<typeof ReactAriaPopover>;
@@ -10,7 +10,7 @@ type DialogProps = Omit<ComponentPropsWithoutRef<typeof Dialog>, 'children' | 'c
 
 type PopoverPlacement = ReactAriaPopoverProps['placement'];
 
-type PopoverProps = DialogProps & {
+export type PopoverProps = DialogProps & {
 	children?: ReactNode;
 	/** Ref of the trigger button. In uncontrolled mode, this element will be used to open the popover. In controlled mode, the popover will be anchored to this element. */
 	triggerRef?: ReactAriaPopoverProps['triggerRef'];
@@ -57,6 +57,8 @@ type PopoverProps = DialogProps & {
 		| 'style'
 	>;
 	'aria-label'?: string | false;
+	/** If `true`, the popover will display an arrow pointing to the trigger element. */
+	showArrow?: boolean;
 };
 
 type TriggeredPopoverProps = Omit<PopoverProps, 'triggerRef' | 'isOpen'> & {
@@ -123,6 +125,7 @@ export const Popover = (props: Prettify<PopoverProps>) => {
 		containerPadding,
 		shouldFlip,
 		shouldCloseOnInteractOutside = () => true,
+		showArrow,
 		'aria-label': rawAriaLabel,
 		hidden,
 		popoverProps,
@@ -172,6 +175,24 @@ export const Popover = (props: Prettify<PopoverProps>) => {
 			style={style}
 			{...popoverProps}
 		>
+			{showArrow && (
+				<OverlayArrow className='es:group'>
+					<svg
+						width={12}
+						height={12}
+						viewBox='0 0 12 12'
+						className={clsx(
+							'es:block es:fill-surface-50 es:stroke-1 es:stroke-surface-500/10',
+							'es:group-placement-top:-translate-y-px',
+							'es:group-placement-bottom:rotate-180 es:group-placement-bottom:translate-y-px',
+							'es:group-placement-left:-rotate-90 es:group-placement-left:-translate-x-px',
+							'es:group-placement-right:rotate-90 es:group-placement-right:translate-x-px',
+						)}
+					>
+						<path d='M0 0 L6 6 L12 0' />
+					</svg>
+				</OverlayArrow>
+			)}
 			<Dialog
 				className={clsx('es:p-1 es:text-sm es:outline-hidden', className)}
 				aria-label={ariaLabel}

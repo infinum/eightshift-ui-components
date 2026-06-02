@@ -16,15 +16,17 @@ import { TriggeredPopover } from '../popover/popover';
 import type { Prettify } from '../../utilities/types';
 import { ResponsivePreview } from '../responsive-preview/responsive-preview';
 
+type ResponsiveValueItem = string | number | boolean | undefined;
+
 type InnerContentAlign = 'start' | 'center' | 'end' | 'stretch';
 
 type ResponsiveOption = {
 	label: string;
-	value: string;
+	value: Exclude<ResponsiveValueItem, undefined>;
 	[key: string]: unknown;
 };
 
-type ResponsiveValue = Record<string, string | boolean | undefined>;
+type ResponsiveValue = Record<string, ResponsiveValueItem>;
 
 type BreakpointUiOverride = {
 	label?: string;
@@ -33,8 +35,8 @@ type BreakpointUiOverride = {
 
 type MiniResponsiveChildProps = {
 	breakpoint: string;
-	currentValue?: string;
-	handleChange: (newValue: string) => void;
+	currentValue?: ResponsiveValueItem;
+	handleChange: (newValue: ResponsiveValueItem) => void;
 	options?: ResponsiveOption[];
 	key: string[];
 	isInlineCollapsedView?: boolean;
@@ -80,14 +82,10 @@ const desktopFirstKey = '_desktopFirst';
 const mobileFirstMode = 'mobile-first';
 const desktopFirstMode = 'desktop-first';
 
-const getResponsiveStringValue = (value: ResponsiveValue, key: string) => {
-	const itemValue = value[key];
-
-	return typeof itemValue === 'string' ? itemValue : undefined;
-};
+const getResponsiveValue = (value: ResponsiveValue, key: string) => value[key];
 
 const getResponsiveLabel = (value: ResponsiveValue, key: string, options?: ResponsiveOption[]) => {
-	const currentValue = getResponsiveStringValue(value, key);
+	const currentValue = getResponsiveValue(value, key);
 
 	if (!currentValue) {
 		return undefined;
@@ -278,7 +276,7 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 			<ButtonGroup>
 				{children({
 					breakpoint: defaultKey,
-					currentValue: getResponsiveStringValue(value, defaultKey),
+					currentValue: getResponsiveValue(value, defaultKey),
 					handleChange: (newValue) =>
 						onChange({
 							...value,
@@ -320,7 +318,7 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 								<div className='es:w-full es:col-start-2 es:col-end-2'>
 									{children({
 										breakpoint: defaultKey,
-										currentValue: getResponsiveStringValue(value, defaultKey),
+										currentValue: getResponsiveValue(value, defaultKey),
 										handleChange: (newValue) =>
 											onChange({
 												...value,
@@ -505,7 +503,7 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 
 									{children({
 										breakpoint,
-										currentValue: getResponsiveStringValue(value, breakpoint),
+										currentValue: getResponsiveValue(value, breakpoint),
 										handleChange: (newValue) => {
 											onChange({
 												...value,
@@ -547,7 +545,7 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 								<div className='es:w-full es:col-start-2 es:col-end-2'>
 									{children({
 										breakpoint: defaultKey,
-										currentValue: getResponsiveStringValue(value, defaultKey),
+										currentValue: getResponsiveValue(value, defaultKey),
 										handleChange: (newValue) =>
 											onChange({
 												...value,
@@ -615,7 +613,7 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 								value={isDesktopFirst ? desktopFirstMode : mobileFirstMode}
 								onChange={(newMode) => {
 									onChange({
-										[defaultKey]: getResponsiveStringValue(value, defaultKey),
+										[defaultKey]: getResponsiveValue(value, defaultKey),
 										[desktopFirstKey]: newMode === desktopFirstMode,
 									});
 								}}

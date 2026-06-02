@@ -8,11 +8,15 @@ import { check, clear } from '../../icons/ui-icons';
 import type { Prettify } from '../../utilities/types';
 import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 
+export type Primitive = string | number | boolean;
+
+export const getOptionKey = (value: Primitive) => `${typeof value}:${String(value)}`;
+
 type IconValue = string | JSX.Element | null;
 
-type SelectOption = {
+type SelectOption<Value extends Primitive = string> = {
 	label: string;
-	value: string;
+	value: Value;
 	[key: string]: unknown;
 };
 
@@ -26,13 +30,13 @@ type GroupValueMapping = Record<
 	}
 >;
 
-type GroupedOption = {
+type GroupedOption<Option extends SelectOption<Primitive> = SelectOption> = {
 	key: string;
 	label: ReactNode;
 	icon: ReactNode;
 	subtitle: ReactNode;
 	endIcon: ReactNode;
-	options: SelectOption[];
+	options: Option[];
 };
 
 type OptionItemBaseProps = ComponentPropsWithoutRef<typeof ListBoxItem> & {
@@ -40,7 +44,7 @@ type OptionItemBaseProps = ComponentPropsWithoutRef<typeof ListBoxItem> & {
 	extraPre?: ReactNode;
 	extraAfter?: ReactNode;
 	selectIndicator?: boolean;
-	value?: SelectOption;
+	value?: Pick<SelectOption<Primitive>, 'label'>;
 };
 
 type SelectClearButtonProps = {
@@ -130,12 +134,12 @@ export const OptionItemBase = (props: Prettify<OptionItemBaseProps>) => (
  * Handles getting the current value.
  *
  * @param {boolean} simpleValue - Whether `simpleValue` is set.
- * @param {SelectOption[] | SelectOption | string[] | string} value - Current value.
+ * @param {SelectOption[] | SelectOption | Primitive[] | Primitive} value - Current value.
  * @param {SelectOption[]} [options] - Options passed to the component.
  *
- * @returns {SelectOption[] | SelectOption | string[] | string | undefined} Appropriate output for the given input combination.
+ * @returns {SelectOption[] | SelectOption | Primitive[] | Primitive | undefined} Appropriate output for the given input combination.
  */
-export const getValue = (simpleValue: boolean, value: SelectOption[] | SelectOption | string[] | string, options?: SelectOption[]) => {
+export const getValue = (simpleValue: boolean, value: SelectOption<Primitive>[] | SelectOption<Primitive> | Primitive[] | Primitive, options?: SelectOption<Primitive>[]) => {
 	if (Array.isArray(value)) {
 		if (simpleValue) {
 			return value.map((singleValue) => options?.find(({ value: itemValue }) => itemValue === singleValue));
@@ -218,12 +222,16 @@ export const SelectClearButton = ({ multi = false }: Prettify<SelectClearButtonP
  *
  * @returns {GroupedOption[] | null} Grouped options.
  */
-export const getGroupedOptions = (filteredOptions?: SelectOption[] | null, groupKey?: string, groupValueMapping?: GroupValueMapping): GroupedOption[] | null => {
+export const getGroupedOptions = <Option extends SelectOption<Primitive>>(
+	filteredOptions?: Option[] | null,
+	groupKey?: string,
+	groupValueMapping?: GroupValueMapping,
+): GroupedOption<Option>[] | null => {
 	if (!groupKey || !filteredOptions || filteredOptions.length === 0) {
 		return null;
 	}
 
-	const groups = filteredOptions.reduce<Record<string, SelectOption[]>>((accumulator, item) => {
+	const groups = filteredOptions.reduce<Record<string, Option[]>>((accumulator, item) => {
 		const key = typeof item[groupKey] === 'string' ? item[groupKey] : '_other';
 
 		if (!accumulator[key]) {
