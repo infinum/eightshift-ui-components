@@ -10,7 +10,7 @@ import { ToggleButton } from '../toggle-button/toggle-button';
 import type { Prettify } from '../../utilities/types';
 
 type OptionSelectType = 'toggleButtons' | 'toggleButtonsSplit' | 'radios' | 'radiosSegmented' | 'menu' | 'submenu' | 'standaloneMenuItems';
-type OptionValue = string;
+type OptionValue = string | number | boolean;
 type IconValue = string | JSX.Element | null;
 type OptionSeparator = boolean | 'above' | 'below';
 
@@ -86,6 +86,8 @@ type OptionSelectProps = Omit<BaseControlProps, 'children' | 'actions' | 'icon' 
 	hidden?: boolean;
 	'aria-label'?: string;
 };
+
+const getOptionKey = (value: OptionValue) => `${typeof value}:${String(value)}`;
 
 const renderOptionIcon = (icon?: IconValue) => (icon ? <Icon icon={icon} /> : null);
 
@@ -220,7 +222,7 @@ export const OptionSelect = (props: Prettify<OptionSelectProps>) => {
 				shortcut: optionShortcut,
 				disabled: optionDisabled,
 			}) => (
-				<Fragment key={optionValue}>
+				<Fragment key={getOptionKey(optionValue)}>
 					{optionHasSeparator === true || optionHasSeparator === 'above' ? <MenuSeparator /> : null}
 					{optionSectionTitle ? (
 						<MenuItem
@@ -308,7 +310,7 @@ export const OptionSelect = (props: Prettify<OptionSelectProps>) => {
 							disabled: optionDisabled,
 						}) => (
 							<ToggleButton
-								key={optionValue}
+								key={getOptionKey(optionValue)}
 								selected={optionValue === value}
 								onChange={() => onChange(optionValue)}
 								disabled={optionDisabled || disabled}
@@ -328,16 +330,22 @@ export const OptionSelect = (props: Prettify<OptionSelectProps>) => {
 			{type === 'radios' || type === 'radiosSegmented' ? (
 				<RadioButtonGroup
 					orientation={vertical ? 'vertical' : 'horizontal'}
-					onChange={(nextValue) => onChange(nextValue)}
+					onChange={(nextValue) => {
+						const nextItem = options.find(({ value: optionValue }) => getOptionKey(optionValue) === nextValue);
+
+						if (nextItem) {
+							onChange(nextItem.value);
+						}
+					}}
 					design={radioDesign}
 					aria-label={typeof label !== 'undefined' ? undefined : ariaLabel}
-					value={value}
+					value={value === undefined ? undefined : getOptionKey(value)}
 					{...wrapperProps}
 				>
 					{options.map(({ label: optionLabel, value: optionValue, icon: optionIcon, ariaLabel: optionAriaLabel, subtitle: optionSubtitle, disabled: optionDisabled }) => (
 						<RadioButton
-							key={optionValue}
-							value={optionValue}
+							key={getOptionKey(optionValue)}
+							value={getOptionKey(optionValue)}
 							disabled={optionDisabled || disabled}
 							className={itemClassName}
 							subtitle={!noItemLabel ? optionSubtitle : undefined}

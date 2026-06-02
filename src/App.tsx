@@ -166,6 +166,7 @@ type DemoOption = {
 	[key: string]: unknown;
 };
 
+type DemoPrimitive = string | number | boolean;
 type DemoSelectValue = DemoOption | string | null;
 type DemoMultiSelectValue = DemoOption[] | string[] | '' | null;
 type DemoOptionSelectValue = string | number | boolean | null;
@@ -176,7 +177,8 @@ type DemoOptionSelectOption = {
 type DemoRangeValue = [number, number];
 type DemoRangeValueTriple = [number, number, number];
 type DemoColumnConfigValue = [number, number];
-type DemoResponsiveValue = Record<string, string | boolean | undefined>;
+type DemoResponsiveValue = Record<string, DemoPrimitive | undefined>;
+type DemoResponsiveLegacyValue = Record<string, string | boolean | undefined>;
 type DemoLinkSuggestionItem = {
 	label: string;
 	value: string;
@@ -187,14 +189,14 @@ type DemoLinkSuggestionItem = {
 };
 type DemoAsyncSelectOption = {
 	label: string;
-	value: string;
+	value: DemoPrimitive;
 	subtitle?: string;
 	icon?: string | ReactElement | null;
 	metadata?: Record<string, unknown> | null;
 	meta?: Record<string, unknown> | null;
 	[key: string]: unknown;
 };
-type DemoAsyncMultiSelectValue = DemoAsyncSelectOption[] | string[] | '' | null;
+type DemoAsyncMultiSelectValue = DemoAsyncSelectOption[] | DemoPrimitive[] | '' | null;
 type DemoTabsType = 'underline' | 'underlineSecondary' | 'pill' | 'pillCompact' | 'bubble' | 'chips';
 type DemoButtonType = 'default' | 'glass' | 'glassDark';
 type DemoMatrixAlignValue = 'top left' | 'top center' | 'top right' | 'center left' | 'center center' | 'center right' | 'bottom left' | 'bottom center' | 'bottom right';
@@ -799,21 +801,21 @@ function App() {
 		{ label: 'Ipsum', value: true },
 	];
 
-	const [responsiveState, setResponsiveState] = useState<DemoResponsiveValue>({
+	const [responsiveState, setResponsiveState] = useState<DemoResponsiveLegacyValue>({
 		myAttrLarge: false,
 		myAttrDesktop: undefined,
 		myAttrTablet: undefined,
 		myAttrMobile: true,
 	});
 
-	const [responsiveState2, setResponsiveState2] = useState<DemoResponsiveValue>({
+	const [responsiveState2, setResponsiveState2] = useState<DemoResponsiveLegacyValue>({
 		myAttrLarge: false,
 		myAttrDesktop: undefined,
 		myAttrTablet: undefined,
 		myAttrMobile: true,
 	});
 
-	const [responsiveState3, setResponsiveState3] = useState<DemoResponsiveValue>({
+	const [responsiveState3, setResponsiveState3] = useState<DemoResponsiveLegacyValue>({
 		myAttrLarge: false,
 		myAttrDesktop: '',
 		myAttrTablet: '',

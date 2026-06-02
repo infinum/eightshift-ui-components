@@ -24,7 +24,7 @@ import { Icon, Spinner, clearAlt, dropdownCaret, searchEmpty } from '../../icons
 import { unescapeHTML } from '../../utilities';
 import { BaseControl } from '../base-control/base-control';
 import { RichLabel } from '../rich-label/rich-label';
-import { getGroupedOptions, OptionItemBase, SelectClearButton } from './shared';
+import { getGroupedOptions, getOptionKey, OptionItemBase, SelectClearButton, type Primitive } from './shared';
 import { selectButtonClass, selectControlClass } from './styles';
 import type { Prettify } from '../../utilities/types';
 
@@ -34,7 +34,7 @@ type RawAsyncItem = Record<string, unknown>;
 
 type AsyncSelectOption = {
 	label: string;
-	value: string;
+	value: Primitive;
 	metadata?: Record<string, unknown> | null;
 	meta?: Record<string, unknown> | null;
 	subtitle?: string;
@@ -81,8 +81,8 @@ type AsyncSelectProps = Omit<
 	placeholder?: string;
 	/** Function to get the label for the item from the fetched data. `(item) => string`. Defaults to reading `item.label`. */
 	getLabel?: (item: RawAsyncItem) => string | undefined;
-	/** Function to get the value for the item from the fetched data. `(item) => string`. Defaults to reading `item.value`. */
-	getValue?: (item: RawAsyncItem) => string | undefined;
+	/** Function to get the value for the item from the fetched data. `(item) => string | number | boolean`. Defaults to reading `item.value`. */
+	getValue?: (item: RawAsyncItem) => Primitive | undefined;
 	/** Function to get the metadata for the item from the fetched data. `(item) => object` (optional). */
 	getMeta?: (item: RawAsyncItem) => Record<string, unknown> | null | undefined;
 	/** Function to get the icon for the item from the fetched data. `(item) => JSX.Element | string`. */
@@ -208,7 +208,7 @@ export const AsyncSelect = (props: Prettify<AsyncSelectProps>) => {
 		fetchConfig = {},
 		fetchFunction,
 		getLabel = (item) => (typeof item.label === 'string' ? item.label : undefined),
-		getValue = (item) => (typeof item.value === 'string' ? item.value : undefined),
+		getValue = (item) => (typeof item.value === 'string' || typeof item.value === 'number' || typeof item.value === 'boolean' ? item.value : undefined),
 		getMeta,
 		getIcon,
 		getSubtitle,
@@ -228,8 +228,8 @@ export const AsyncSelect = (props: Prettify<AsyncSelectProps>) => {
 	const ref = useRef<HTMLDivElement>(null);
 
 	const list = useAsyncList<AsyncSelectOption>({
-		initialSelectedKeys: value?.value ? [value.value] : [],
-		getKey: (item) => item.value,
+		initialSelectedKeys: value ? [getOptionKey(value.value)] : [],
+		getKey: (item) => getOptionKey(item.value),
 		async load({ signal, filterText }) {
 			let loadedData: unknown;
 
@@ -288,7 +288,7 @@ export const AsyncSelect = (props: Prettify<AsyncSelectProps>) => {
 				return { items: output };
 			}
 
-			const needsSelectedValue = value?.value && !output.find((item) => item.value === value.value);
+			const needsSelectedValue = value && !output.find((item) => item.value === value.value);
 			const extraItems = needsSelectedValue && value ? [value] : [];
 
 			if (extraItems.length > 0) {
@@ -311,8 +311,8 @@ export const AsyncSelect = (props: Prettify<AsyncSelectProps>) => {
 
 		return (
 			<OptionItemBase
-				key={item.value}
-				id={item.value}
+				key={getOptionKey(item.value)}
+				id={getOptionKey(item.value)}
 				value={item}
 				selectIndicator
 			>
@@ -341,7 +341,7 @@ export const AsyncSelect = (props: Prettify<AsyncSelectProps>) => {
 			return;
 		}
 
-		const item = list.items.find((entry) => entry.value === selectedKey);
+		const item = list.items.find((entry) => getOptionKey(entry.value) === selectedKey);
 
 		if (!item) {
 			onChange(null);
@@ -361,7 +361,7 @@ export const AsyncSelect = (props: Prettify<AsyncSelectProps>) => {
 	return (
 		<ReactAriaSelect<AsyncSelectOption>
 			isDisabled={disabled}
-			value={value?.value ?? null}
+			value={value ? getOptionKey(value.value) : null}
 			onOpenChange={(isOpen) => {
 				if (!isOpen) {
 					setTimeout(() => {
