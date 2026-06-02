@@ -13,7 +13,7 @@ type SpacerProps = {
 	/** Additional classes to add. */
 	className?: string;
 	/** Text to display. */
-	text?: ReactNode;
+	label?: ReactNode;
 	/** Subtitle to display. */
 	subtitle?: ReactNode;
 	/** Icon to display. */
@@ -49,10 +49,10 @@ type SpacerSizeClasses = {
  * <Spacer vertical />
  *
  * @example
- * <Spacer text='My divider' icon={myIcon} />
+ * <Spacer label='My divider' icon={myIcon} />
  */
 export const Spacer = (props: Prettify<SpacerProps>) => {
-	const { size = 'px', border, className, text, subtitle, icon, vertical = false, hidden } = props;
+	const { size = 'px', border, className, label, subtitle, icon, vertical = false, hidden } = props;
 
 	if (hidden) {
 		return null;
@@ -93,12 +93,12 @@ export const Spacer = (props: Prettify<SpacerProps>) => {
 		vertical && border && sizes[size].sizeVerticalBorder,
 	);
 
-	if (text || icon) {
+	if (label || icon) {
 		return (
 			<div className={clsx('es:flex es:items-center es:gap-1.5', className)}>
 				<RichLabel
 					icon={icon}
-					label={text}
+					label={label}
 					subtitle={subtitle}
 					className='es:shrink-0 es:text-secondary-500'
 				/>
