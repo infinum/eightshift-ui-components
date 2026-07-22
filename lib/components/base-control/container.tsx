@@ -128,6 +128,16 @@ export type ContainerProps<T extends ElementType = 'div'> = {
 	children?: ReactNode;
 	className?: string;
 	hidden?: boolean;
+	accent?: boolean;
+	elevated?: boolean;
+	primary?: boolean;
+	isChild?: boolean;
+	compact?: boolean;
+	standalone?: boolean;
+	horizontal?: boolean;
+	centered?: boolean;
+	lessSpaceStart?: boolean;
+	lessSpaceEnd?: boolean;
 } & ContainerVariantProps &
 	Omit<ComponentPropsWithoutRef<T>, 'as' | 'children' | 'className'>;
 
