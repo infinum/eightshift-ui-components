@@ -124,19 +124,31 @@ const containerClasses = cva('es:inset-ring', {
 type ContainerVariantProps = VariantProps<typeof containerClasses>;
 
 export type ContainerProps<T extends ElementType = 'div'> = {
+	/** The HTML element to render as the group. */
 	as?: T;
 	children?: ReactNode;
+	/** Classes to pass to the container. */
 	className?: string;
+	/** If `true`, the container is not rendered. */
 	hidden?: boolean;
+	/** If `true`, the container is colored with the accent color. */
 	accent?: boolean;
+	/** If `true`, the container has _elevated_ styling (shadows, highlights on borders). */
 	elevated?: boolean;
+	/** If `true`, the container has _primary_ styling (fully rounded). */
 	primary?: boolean;
 	isChild?: boolean;
+	/** If `true`, the container is rendered with a more compact height. */
 	compact?: boolean;
+	/** If `true`, the container does not rely on a parent `ContainerGroup` to adjust the border radius. */
 	standalone?: boolean;
+	/** If `true`, the container is adjusted for horizontal items. */
 	horizontal?: boolean;
+	/** If `true`, the content is centered vertically. */
 	centered?: boolean;
+	/** If `true`, the container has less space at the left (_start_). */
 	lessSpaceStart?: boolean;
+	/** If `true`, the container has less space at the right (_end_). */
 	lessSpaceEnd?: boolean;
 } & ContainerVariantProps &
 	Omit<ComponentPropsWithoutRef<T>, 'as' | 'children' | 'className'>;
@@ -180,12 +192,18 @@ export const Container = forwardRef(ContainerBase) as ContainerComponent & { dis
 Container.displayName = 'Container';
 
 type ContainerGroupProps<T extends ElementType = 'div'> = {
+	/** The HTML element to render as the container group. */
 	as?: T;
 	children?: ReactNode;
+	/** Classes to pass to the container. */
 	className?: string;
+	/** Classes to pass to the wrapper element. */
 	wrapClassName?: string;
+	/** Label to display above the container group. */
 	label?: ReactNode;
+	/** If `true`, the container group is not rendered. */
 	hidden?: boolean;
+	/** If `true`, the container group is adjusted for horizontal items. */
 	horizontal?: boolean;
 } & Omit<ComponentPropsWithoutRef<T>, 'as' | 'children' | 'className'>;
 
