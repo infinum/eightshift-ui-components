@@ -262,7 +262,7 @@ export const MenuSection = (props: Prettify<MenuSectionProps>) => {
  * @see {@link Menu} for usage example.
  */
 export const MenuSeparator = ({ className }: Prettify<MenuSeparatorProps>) => {
-	return <ReactAriaSeparator className={clsx('es:my-1.5 es:w-fill es:h-px es:bg-surface-500/15 es:mx-1.5 es:rounded-full', className)} />;
+	return <ReactAriaSeparator className={clsx('es:my-1.5 es:w-fill es:h-px es:bg-surface-500/15 es:-mx-1.5 es:rounded-full', className)} />;
 };
 
 /**
