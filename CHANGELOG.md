@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [8.1.0] - 2026-07-22
+
+- Updated dependencies.
+
 ## [8.0.0] - 2026-06-02
 
 - Updated dependencies.
@@ -644,6 +648,7 @@ Co-authored with @piqusy
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
 
+[8.1.0]: https://github.com/infinum/eightshift-ui-components/compare/8.0.0...8.1.0
 [8.0.0]: https://github.com/infinum/eightshift-ui-components/compare/7.3.0...8.0.0
 [7.3.0]: https://github.com/infinum/eightshift-ui-components/compare/7.2.1...7.3.0
 [7.2.1]: https://github.com/infinum/eightshift-ui-components/compare/7.2.0...7.2.1
