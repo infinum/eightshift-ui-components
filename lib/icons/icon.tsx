@@ -1,4 +1,4 @@
-import { cloneElement, useEffect, useState, type JSX } from 'react';
+import { cloneElement, memo, useEffect, useState, type JSX } from 'react';
 import { hasIconLoader, loadIconByName } from './generated-icon-loaders';
 import { dummySpacer } from './ui-icons/dummy-spacer';
 
@@ -62,7 +62,7 @@ interface IconProps {
  *
  * @returns {JSX.Element | null} The Icon component.
  */
-export const Icon = ({ icon, fallback = null, ...rest }: IconProps): JSX.Element | null => {
+export const Icon = memo(({ icon, fallback = null, ...rest }: IconProps): JSX.Element | null => {
 	const normalizedIconName = typeof icon === 'string' ? normalizeIconName(icon) : null;
 	const [loadedIcon, setLoadedIcon] = useState<JSX.Element | null | undefined>(() =>
 		normalizedIconName && iconCache.has(normalizedIconName) ? (iconCache.get(normalizedIconName) ?? null) : undefined,
@@ -121,4 +121,4 @@ export const Icon = ({ icon, fallback = null, ...rest }: IconProps): JSX.Element
 	}
 
 	return renderIcon(loadedIcon, rest);
-};
+});
