@@ -10,6 +10,16 @@ interface AnalysisSettings {
 	[key: string]: unknown;
 }
 
+const workerUnavailableError = 'Image analysis workers are only available in a browser environment.';
+
+export const isImageAnalysisWorkerSupported = (): boolean =>
+	typeof window !== 'undefined' &&
+	typeof document !== 'undefined' &&
+	typeof Worker !== 'undefined' &&
+	typeof Blob !== 'undefined' &&
+	typeof URL !== 'undefined' &&
+	typeof URL.createObjectURL === 'function';
+
 /**
  * Returns a memoized function that gets or creates a singleton image analysis worker (with inline fallback).
  * Also returns a callback for analyzing with the worker.
@@ -22,13 +32,23 @@ export function useImageAnalysisWorker(
 	workerRef: MutableRefObject<Worker | null>,
 	workerInline: string,
 ): {
-	getOrCreateWorker: () => Worker;
+	getOrCreateWorker: () => Worker | null;
 	analyzeWithWorkerCb: (imageBitmap: ImageBitmap, settings: AnalysisSettings) => Promise<unknown>;
 } {
-	const getOrCreateWorker = (): Worker => {
+	const getOrCreateWorker = (): Worker | null => {
+		if (!isImageAnalysisWorkerSupported()) {
+			return null;
+		}
+
 		if (!workerRef.current) {
-			workerRef.current = createImageAnalysisWorker(workerInline);
-			workerRef.current.addEventListener('error', (e) => {
+			const worker = createImageAnalysisWorker(workerInline);
+
+			if (!worker) {
+				return null;
+			}
+
+			workerRef.current = worker;
+			worker.addEventListener('error', (e) => {
 				console.error('Worker error event:', e);
 			});
 		}
@@ -38,6 +58,10 @@ export function useImageAnalysisWorker(
 
 	const analyzeWithWorkerCb = async (imageBitmap: ImageBitmap, settings: AnalysisSettings): Promise<unknown> => {
 		const worker = getOrCreateWorker();
+
+		if (!worker) {
+			throw new Error(workerUnavailableError);
+		}
 
 		return analyzeWithWorker(worker, imageBitmap, settings);
 	};
@@ -51,9 +75,13 @@ export function useImageAnalysisWorker(
  * @param {string} workerInline - The inlined worker code as a string.
  * @returns {Worker} The created worker instance.
  */
-export function createImageAnalysisWorker(workerInline: string): Worker {
+export function createImageAnalysisWorker(workerInline: string): Worker | null {
 	if (!workerInline || typeof workerInline !== 'string' || workerInline.length < 100) {
 		throw new Error('Worker could not be created: inline worker code not available. Make sure the worker is properly bundled.');
+	}
+
+	if (!isImageAnalysisWorkerSupported()) {
+		return null;
 	}
 
 	const blob = new Blob([workerInline], { type: 'application/javascript' });
