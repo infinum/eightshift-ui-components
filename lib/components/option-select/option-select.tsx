@@ -360,8 +360,8 @@ export const OptionSelect = (props: Prettify<OptionSelectProps>) => {
 
 			{type === 'menu' ? (
 				<Menu
-					triggerLabel={resolvedMenuTriggerLabel}
-					triggerIcon={resolvedTriggerIcon}
+					triggerLabel={value ? resolvedMenuTriggerLabel : notSetLabel}
+					triggerIcon={value && resolvedTriggerIcon}
 					tooltip={
 						noTriggerLabel ? (
 							<RichLabel

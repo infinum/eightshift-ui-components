@@ -1,8 +1,8 @@
 import { clsx } from 'clsx';
 import { cloneElement, type ReactElement, type ReactNode } from 'react';
 import { Heading } from 'react-aria-components';
-import { RichLabel } from '../rich-label/rich-label';
 import type { Prettify } from '../../utilities/types';
+import { Container, ContainerGroup } from '../base-control/container';
 
 type BaseOptionsPanelProps = {
 	children?: ReactNode;
@@ -15,11 +15,6 @@ type BaseOptionsPanelProps = {
 type OptionsPanelProps = BaseOptionsPanelProps & {
 	/** Title to display on the top of the panel. */
 	title?: string;
-	/** Icon to display on the top of the panel. */
-	icon?: ReactElement;
-	/** Subtitle to display on the top of the panel. */
-	subtitle?: string;
-	/** Help text to show below the panel. */
 	help?: string;
 };
 
@@ -67,31 +62,22 @@ type OptionsPanelIntroProps = BaseOptionsPanelProps & {
  * </OptionsPanel>
  */
 export const OptionsPanel = (props: Prettify<OptionsPanelProps>) => {
-	const { children, className, title, icon, subtitle, help, hidden } = props;
+	const { children, className, title, help, hidden } = props;
 
 	if (hidden) {
 		return null;
 	}
 
 	return (
-		<div>
-			<div className={clsx('es:overflow-clip es:max-w-lg', className)}>
-				{title && (
-					<RichLabel
-						icon={icon}
-						label={title}
-						subtitle={subtitle}
-						className={clsx('es:shrink-0 es:text-surface-700 es:px-1 es:pt-5 es:pb-1')}
-						labelClassName='es:text-base es:leading-tight'
-						subtitleClassName='es:text-13 es:leading-tight'
-					/>
-				)}
-
-				<div className='es:flex es:flex-col es:gap-1'>{children}</div>
-			</div>
-
+		<>
+			<ContainerGroup
+				title={title}
+				className={className}
+			>
+				{children}
+			</ContainerGroup>
 			{help && <span className='es:mx-1 es:mt-2 es:block es:text-sm es:text-secondary-400'>{help}</span>}
-		</div>
+		</>
 	);
 };
 
@@ -113,19 +99,7 @@ export const OptionsPanelSection = ({ children, className, hidden }: Prettify<Ba
 		return null;
 	}
 
-	return (
-		<div
-			className={clsx(
-				'es:flex es:flex-col es:gap-5',
-				'es:p-4',
-				'es:bg-secondary-50 es:inset-ring es:inset-ring-secondary-100',
-				'es:rounded-md es:first:rounded-t-2xl es:last:rounded-b-2xl',
-				className,
-			)}
-		>
-			{children}
-		</div>
-	);
+	return <Container className={clsx('es:max-w-lg', className)}>{children}</Container>;
 };
 
 /**

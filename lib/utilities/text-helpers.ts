@@ -1,3 +1,5 @@
+import { decode } from 'html-entities';
+
 /**
  * Slices the string in the middle and inputs the provided separator so that the string is maxLength characters long.
  *
@@ -58,7 +60,15 @@ export const truncateMiddle = (input: string | null | undefined, maxLength: numb
  * Test&Up
  * ```
  */
-export const unescapeHTML = (input = ''): string | null => new DOMParser().parseFromString(input, 'text/html').documentElement.textContent;
+export const unescapeHTML = (input = ''): string | null => {
+	if (typeof DOMParser !== 'undefined') {
+		return new DOMParser().parseFromString(input, 'text/html').documentElement.textContent;
+	}
+
+	const textContent = input.replace(/<!--[\s\S]*?-->|<\/?[a-z][^>]*>|<!doctype[^>]*>/gi, '');
+
+	return decode(textContent, { scope: 'body' });
+};
 
 /**
  * Limits the string to the maximum length and adds the provided separator in case the string is longer.
