@@ -6,6 +6,14 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 ## [8.1.0] - 2026-07-22
 
 - Updated dependencies.
+- Updated visuals of a couple of components.
+- Fixed `menu` variant of `OptionSelect` not handling trigger button icon/label properly when there's no `value`.
+- Added memoization to the `Icon` component.
+- Added missing props in `Container` type definition (`accent`, `elevated`, `primary`, `isChild`, `compact`, `standalone`, `horizontal`, `centered`, `lessSpaceStart`, `lessSpaceEnd`).
+- Fixed SSR compatibility of `unescapeHTML` helper function.
+- Web worker-based utilities for image analysis are now only available in browser environments. If you try to use them in SSR, they will return `null` instead of throwing an error.
+- Tweaked `OptionsPanel` and `OptionsPanelSection` to use `ContainerGroup` and `Container` for consistency.
+- Removed `icon` and `subtitle` props from `OptionsPanel`.
 
 ## [8.0.0] - 2026-06-02
 
