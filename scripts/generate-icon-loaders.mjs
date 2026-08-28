@@ -1,7 +1,8 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { ESLint } from 'eslint';
+
+import { format } from 'oxfmt';
 import { glob } from 'glob';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
@@ -42,9 +43,17 @@ await fs.unlink(oldOutputFile).catch(() => null);
 const existingContents = await fs.readFile(outputFile, 'utf8').catch(() => null);
 
 if (existingContents !== fileContents) {
-	await fs.writeFile(outputFile, fileContents);
+	const formatted = await format(outputFile, fileContents, {
+		useTabs: true,
+		jsxSingleQuote: true,
+		singleQuote: true,
+		singleAttributePerLine: true,
+		printWidth: 180,
+	});
 
-	const eslint = new ESLint({ fix: true });
-	const results = await eslint.lintFiles([outputFile]);
-	await ESLint.outputFixes(results);
+	if (formatted.errors.length > 0) {
+		throw new Error(`Failed to format ${outputFile}: ${formatted.errors.map(({ message }) => message).join('; ')}`);
+	}
+
+	await fs.writeFile(outputFile, formatted.code);
 }
