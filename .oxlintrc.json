@@ -43,6 +43,7 @@
 		"typescript/await-thenable": "error",
 		"typescript/ban-ts-comment": "error",
 		"typescript/consistent-return": "warn",
+		"typescript/consistent-type-imports": ["error", { "prefer": "type-imports" }],
 		"typescript/no-array-delete": "error",
 		"typescript/no-base-to-string": "error",
 		"typescript/no-duplicate-enum-values": "error",
