@@ -15,7 +15,7 @@ export const arrayMoveMultiple = <T>(array: T[], fromIndices: number[], to: numb
 
 	fromIndices.sort((a, b) => b - a);
 
-	const itemsToMove = fromIndices.map((index) => newArray.splice(index, 1)[0] as T);
+	const itemsToMove = fromIndices.flatMap((index) => newArray.splice(index, 1));
 
 	let insertAt = to;
 
@@ -43,10 +43,12 @@ export const arrayMoveMultiple = <T>(array: T[], fromIndices: number[], to: numb
  * @param {(items: T[]) => void} onChange - The callback to update the items.
  * @param {string} [idKey='id'] - The key to use for the IDs.
  */
-export const fixIds = <T extends Record<string, unknown>>(items: T[], onChange: (items: T[]) => void, idKey = 'id'): void => {
-	const allIds = items?.map((item) => item?.[idKey]) ?? [];
-	const hasDuplicates = (input: unknown[]) => new Set(input)?.size !== input?.length;
-	const hasMissingIds = items?.some((item) => typeof item?.[idKey] === 'undefined' || item?.[idKey] === null || item?.[idKey] === '');
+export const fixIds = <T extends object>(items: T[], onChange: (items: T[]) => void, idKey = 'id'): void => {
+	// SAFETY: Reading a missing JavaScript property is defined to return undefined, which is handled below.
+	const itemIdKey = idKey as keyof T;
+	const allIds = items?.map((item) => item[itemIdKey]) ?? [];
+	const hasDuplicates = (input: T[keyof T][]) => new Set(input)?.size !== input?.length;
+	const hasMissingIds = items?.some((item) => item[itemIdKey] === undefined || item[itemIdKey] === null || item[itemIdKey] === '');
 
 	if ((hasDuplicates(allIds) && items?.length > 0) || hasMissingIds) {
 		const newItems = [...items].map((item, index) => ({

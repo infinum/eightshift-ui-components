@@ -46,7 +46,7 @@ export const ImagePlaceholder = (props: Prettify<ImagePlaceholderProps>) => {
 		return null;
 	}
 
-	const styleClassName: Record<ImagePlaceholderStyle, Array<string | false | undefined>> = {
+	const styleClassName = {
 		default: [
 			'es:rounded-2xl',
 			hasUrl && 'es:ring es:ring-secondary-300',
@@ -58,9 +58,9 @@ export const ImagePlaceholder = (props: Prettify<ImagePlaceholderProps>) => {
 			!flat && 'es:shadow-xs es:shadow-black/5',
 		],
 		simple: ['es:rounded-xl es:bg-surface-500 es:text-surface-50'],
-	};
+	} satisfies Record<ImagePlaceholderStyle, Array<string | false | undefined>>;
 
-	const sizeClassName: Record<ImagePlaceholderSize, string> = {
+	const sizeClassName = {
 		auto: '',
 		default: 'es:size-20',
 		large: 'es:size-40',
@@ -68,7 +68,7 @@ export const ImagePlaceholder = (props: Prettify<ImagePlaceholderProps>) => {
 		fullHeight: 'es:h-full',
 		full: 'es:size-full',
 		video: 'es:w-full es:aspect-video',
-	};
+	} satisfies Record<ImagePlaceholderSize, string>;
 
 	return (
 		<div

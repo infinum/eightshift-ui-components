@@ -179,7 +179,7 @@ const ModalInternal = (props: ModalProps) => {
 export const Modal = (props: Prettify<ModalProps>) => {
 	const { triggerLabel, triggerIcon, triggerProps, customTrigger, open } = props;
 
-	if (typeof open !== 'undefined') {
+	if (open !== undefined) {
 		return <ModalInternal {...props} />;
 	}
 

@@ -105,6 +105,10 @@ type MenuSectionHeaderProps = Omit<ReactAriaMenuItemProps, 'children' | 'classNa
 	hidden?: boolean;
 };
 
+const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
+const isSymbolValue = <T,>(value: T): value is T & symbol => Object.prototype.toString.call(value) === '[object Symbol]';
+const emptyMenuItems: never[] = [];
+
 const isSubMenuItem = (child: ReactNode) => {
 	if (!isValidElement<{ children?: ReactNode }>(child)) {
 		return false;
@@ -114,7 +118,7 @@ const isSubMenuItem = (child: ReactNode) => {
 		return Children.toArray(child.props.children).some(isSubMenuItem);
 	}
 
-	if (typeof child.type === 'string' || typeof child.type === 'symbol') {
+	if (isStringValue(child.type) || isSymbolValue(child.type)) {
 		return false;
 	}
 
@@ -169,7 +173,7 @@ export const Menu = (props: Prettify<MenuProps>) => {
 		popoverProps,
 		tooltip,
 		keepOpen = false,
-		'aria-label': ariaLabel = typeof triggerLabel === 'string' ? triggerLabel : __('Menu', 'eightshift-ui-components'),
+		'aria-label': ariaLabel = isStringValue(triggerLabel) ? triggerLabel : __('Menu', 'eightshift-ui-components'),
 		openOnLongPress = false,
 		disabled,
 		manualWidth,
@@ -187,7 +191,7 @@ export const Menu = (props: Prettify<MenuProps>) => {
 				selectionMode: 'multiple' as const,
 				selectedKeys: new Set<never>(),
 				onSelectionChange: () => {},
-				items: [] as never[],
+				items: emptyMenuItems,
 			}
 		: undefined;
 
@@ -290,7 +294,7 @@ export const MenuItem = (props: Prettify<MenuItemProps>) => {
 		danger,
 		primary,
 		className,
-		'aria-label': ariaLabel = typeof children === 'string' ? children : __('Menu item', 'eightshift-ui-components'),
+		'aria-label': ariaLabel = isStringValue(children) ? children : __('Menu item', 'eightshift-ui-components'),
 		hidden,
 		...other
 	} = props;
@@ -369,7 +373,7 @@ export const SubMenuItem = (props: Prettify<SubMenuItemProps>) => {
 				selectionMode: 'multiple' as const,
 				selectedKeys: new Set<never>(),
 				onSelectionChange: () => {},
-				items: [] as never[],
+				items: emptyMenuItems,
 			}
 		: undefined;
 

@@ -10,7 +10,6 @@ type AnalysisSource = 'worker' | 'cache' | 'analysisData';
 
 type ImageAnalysisSettings = {
 	numColors?: number;
-	[key: string]: unknown;
 };
 
 type SmartImageColor = {
@@ -89,6 +88,9 @@ type SmartImageProps = SmartImageImageProps & {
 	children?: ReactNode | ((context: SmartImageChildContext) => ReactNode);
 };
 
+type SmartImageClassNameResolver = Exclude<SmartImageProps['className'], string | undefined>;
+type SmartImageChildrenRenderer = Exclude<SmartImageProps['children'], ReactNode | undefined>;
+
 type SmartImageStyle = CSSProperties & {
 	'--es-img-dominant-color': string;
 	'--es-img-colorful-dominant-color': string;
@@ -125,19 +127,16 @@ const parseCachedAnalysis = (value: string | null): ImageAnalysisResult | null =
 	}
 
 	try {
+		// SAFETY: SmartImage is the sole writer for this versioned cache key and serializes ImageAnalysisResult values.
 		return JSON.parse(value) as ImageAnalysisResult;
 	} catch {
 		return null;
 	}
 };
 
-const getErrorMessage = (error: unknown): string => {
-	if (error instanceof Error) {
-		return error.message;
-	}
+const isClassNameResolver = (value: SmartImageProps['className']): value is SmartImageClassNameResolver => value instanceof Function;
 
-	return String(error);
-};
+const isChildrenRenderer = (value: SmartImageProps['children']): value is SmartImageChildrenRenderer => value instanceof Function;
 
 const loadHtmlImage = async (src: string): Promise<HTMLImageElement> => {
 	const image = new Image();
@@ -235,8 +234,6 @@ const SmartImage = (props: Prettify<SmartImageProps>) => {
 		};
 
 		if (!src) {
-			setObjectUrl(null);
-
 			return () => {
 				isActive = false;
 				abortController.abort();
@@ -244,8 +241,6 @@ const SmartImage = (props: Prettify<SmartImageProps>) => {
 		}
 
 		if (analysisData) {
-			setAnalysis(analysisData);
-			setObjectUrl(src);
 			notifyAnalysisComplete(analysisData, 'analysisData');
 
 			return () => {
@@ -258,9 +253,15 @@ const SmartImage = (props: Prettify<SmartImageProps>) => {
 		const cachedAnalysis = parseCachedAnalysis(localStorage?.getItem(cacheKey) ?? null);
 
 		if (cachedAnalysis) {
-			setAnalysis(cachedAnalysis);
-			setObjectUrl(src);
-			notifyAnalysisComplete(cachedAnalysis, 'cache');
+			queueMicrotask(() => {
+				if (!isActive) {
+					return;
+				}
+
+				setAnalysis(cachedAnalysis);
+				setObjectUrl(src);
+				notifyAnalysisComplete(cachedAnalysis, 'cache');
+			});
 		}
 
 		if (!cachedAnalysis) {
@@ -320,8 +321,8 @@ const SmartImage = (props: Prettify<SmartImageProps>) => {
 					let buffer: Uint8ClampedArray;
 					let transferBuffer: ArrayBuffer | null = null;
 
-					if (typeof OffscreenCanvas !== 'undefined') {
-						const canvas = new OffscreenCanvas(width, height);
+					if ('OffscreenCanvas' in globalThis) {
+						const canvas = new globalThis.OffscreenCanvas(width, height);
 						const context = canvas.getContext('2d', { willReadFrequently: true });
 
 						if (!context) {
@@ -350,7 +351,7 @@ const SmartImage = (props: Prettify<SmartImageProps>) => {
 						transferBuffer = buffer.buffer instanceof ArrayBuffer ? buffer.buffer : null;
 					}
 
-					if ('close' in imageSource && typeof imageSource.close === 'function') {
+					if (imageSource instanceof ImageBitmap) {
 						imageSource.close();
 					}
 
@@ -395,7 +396,13 @@ const SmartImage = (props: Prettify<SmartImageProps>) => {
 						}
 
 						const exists = await urlExists(src);
-						setError(exists ? getErrorMessage(caughtError) : 'failedToFetch');
+						let errorMessage = 'failedToFetch';
+
+						if (exists) {
+							errorMessage = caughtError instanceof Error ? caughtError.message : String(caughtError);
+						}
+
+						setError(errorMessage);
 						setObjectUrl(null);
 					}
 				}
@@ -410,8 +417,15 @@ const SmartImage = (props: Prettify<SmartImageProps>) => {
 		};
 	}, [analysisData, imageAnalysisSettings?.numColors, onAnalysisComplete, resolvedColorCount, similarityThreshold, src, verbose]);
 
-	const hasAnalysed = Boolean(analysis) && Boolean(objectUrl);
-	const { dominantColors, isDark, isTransparent, transparencyInfo, averageColor } = analysis ?? {};
+	const activeAnalysis = analysisData ?? analysis;
+	let activeObjectUrl = src ? objectUrl : null;
+
+	if (analysisData) {
+		activeObjectUrl = src ?? null;
+	}
+
+	const hasAnalysed = Boolean(activeAnalysis) && Boolean(activeObjectUrl);
+	const { dominantColors, isDark, isTransparent, transparencyInfo, averageColor } = activeAnalysis ?? {};
 	const classFetchProps: SmartImageClassNameContext = {
 		isLoaded: true,
 		dominantColors,
@@ -429,7 +443,7 @@ const SmartImage = (props: Prettify<SmartImageProps>) => {
 
 	const colorfulDominantColor = dominantColors?.find((color) => (color.saturation ?? 0) > 0.25 && (color.area ?? 0) >= 0.1) || dominantColors?.[0];
 	const imageStyle: SmartImageStyle = {
-		...(imageProps.style ?? {}),
+		...imageProps.style,
 		'--es-img-dominant-color': dominantColors?.[0]?.color ?? '',
 		'--es-img-colorful-dominant-color': colorfulDominantColor?.color ?? '',
 		'--es-img-average-color': averageColor?.color ?? '',
@@ -439,9 +453,9 @@ const SmartImage = (props: Prettify<SmartImageProps>) => {
 		<img
 			decoding='async'
 			{...imageProps}
-			src={analysis && objectUrl && !error ? objectUrl : imageProps.src}
+			src={activeAnalysis && activeObjectUrl && !error ? activeObjectUrl : imageProps.src}
 			style={imageStyle}
-			className={clsx('es:transition-opacity', !hasAnalysed && !error && processingClassName, typeof className === 'function' ? className(classFetchProps) : className)}
+			className={clsx('es:transition-opacity', !hasAnalysed && !error && processingClassName, isClassNameResolver(className) ? className(classFetchProps) : className)}
 			data-is-transparent={isTransparent}
 			data-is-dark={isDark}
 		/>
@@ -452,17 +466,19 @@ const SmartImage = (props: Prettify<SmartImageProps>) => {
 	}
 
 	if (error === 'failedToFetch') {
+		const hasCustomErrorRenderer = isChildrenRenderer(children);
+
 		return (
 			<div
-				className={clsx(typeof children !== 'function' && 'es:flex es:flex-col es:gap-2 es:items-center-safe es:justify-center es:p-2', 'es:motion-preset-fade', errorClassName)}
+				className={clsx(!hasCustomErrorRenderer && 'es:flex es:flex-col es:gap-2 es:items-center-safe es:justify-center es:p-2', 'es:motion-preset-fade', errorClassName)}
 			>
-				{typeof children !== 'function' && (
+				{!hasCustomErrorRenderer && (
 					<DecorativeTooltip text={__('Error loading image', 'eightshift-ui-components')}>
 						{cloneElement(imageError, { className: 'es:text-surface-600 es:size-8' })}
 					</DecorativeTooltip>
 				)}
 
-				{typeof children === 'function'
+				{hasCustomErrorRenderer
 					? children({
 							image: imageElement,
 							hasAnalysed,
@@ -486,7 +502,7 @@ const SmartImage = (props: Prettify<SmartImageProps>) => {
 		);
 	}
 
-	return children && typeof children === 'function' ? children({ image: imageElement, ...classFetchProps }) : imageElement;
+	return isChildrenRenderer(children) ? children({ image: imageElement, ...classFetchProps }) : imageElement;
 };
 
 export { SmartImage, SmartImage as __SmartImage };

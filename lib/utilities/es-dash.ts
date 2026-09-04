@@ -3,6 +3,18 @@ import justCamelCase from 'just-camel-case';
 import justIsEmpty from 'just-is-empty';
 import justHas from 'just-has';
 
+type RuntimeValue = string | number | boolean | bigint | symbol | null | undefined | object;
+type FirstCharacterInput = string | number | boolean | bigint | symbol | null | undefined;
+
+const isStringValue = <T>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
+
+const isRuntimeValueArray = <T>(value: T): value is T & RuntimeValue[] => Array.isArray(value);
+
+const getObjectEntries = <T extends object>(value: T): Array<[string, RuntimeValue]> => {
+	// SAFETY: RuntimeValue covers every JavaScript property value Object.entries can return.
+	return Object.entries(value) as Array<[string, RuntimeValue]>;
+};
+
 /**
  * Returns a camelCase-formatted string.
  *
@@ -85,7 +97,7 @@ export const kebabCase = (input: string | null | undefined): string => justKebab
  * isEmpty([1, 2, 3]) // => false
  * ```
  */
-export const isEmpty = (input: unknown): boolean => justIsEmpty(input as Parameters<typeof justIsEmpty>[0]);
+export const isEmpty = <T extends Parameters<typeof justIsEmpty>[0]>(input: T): boolean => justIsEmpty(input);
 
 /**
  * Returns the string with its first character converted to uppercase.
@@ -97,12 +109,12 @@ export const isEmpty = (input: unknown): boolean => justIsEmpty(input as Paramet
  * @example
  * upperFirst('new super Test-title') // => 'New super Test-title'
  */
-export const upperFirst = (input: unknown): string => {
-	const normalizedInput = typeof input !== 'string' ? String(input) : input;
-
-	if (typeof input === 'undefined') {
+export const upperFirst = (input: FirstCharacterInput): string => {
+	if (input === undefined) {
 		return '';
 	}
+
+	const normalizedInput = isStringValue(input) ? input : String(input);
 
 	if (input === true) {
 		return 'True';
@@ -127,12 +139,12 @@ export const upperFirst = (input: unknown): string => {
  * @example
  * lowerFirst('New super Test-title') // => 'new super Test-title'
  */
-export const lowerFirst = (input: unknown): string => {
-	const normalizedInput = typeof input !== 'string' ? String(input) : input;
-
-	if (typeof input === 'undefined') {
+export const lowerFirst = (input: FirstCharacterInput): string => {
+	if (input === undefined) {
 		return '';
 	}
+
+	const normalizedInput = isStringValue(input) ? input : String(input);
 
 	if (input === true) {
 		return 'true';
@@ -164,7 +176,7 @@ export const lowerFirst = (input: unknown): string => {
  * has({ a: { b: 3 } }, 'a.c') // => false
  * ```
  */
-export const has = (obj: object, key: string): boolean => justHas(obj, key);
+export const has = <T extends object>(obj: T, key: string): boolean => justHas(obj, key);
 
 /**
  * Checks if value is a plain object, that is, an object created by the Object constructor or one with a `[[Prototype]]` of `null`.
@@ -180,24 +192,15 @@ export const has = (obj: object, key: string): boolean => justHas(obj, key);
  * isPlainObject(new Boolean()) // => false
  * ```
  */
-export const isPlainObject = (value: unknown): value is Record<string, unknown> => {
-	if (typeof value !== 'object' || value === null) {
+export const isPlainObject = <T>(value: T): value is T & object => {
+	if (value === null || Object.prototype.toString.call(value) !== '[object Object]') {
 		return false;
 	}
 
-	if (Object.prototype.toString.call(value) !== '[object Object]') {
-		return false;
-	}
+	// SAFETY: Object.prototype identified an object value, and JavaScript prototypes are objects or null.
+	const prototype = Object.getPrototypeOf(value) as object | null;
 
-	const proto = Object.getPrototypeOf(value) as object | null;
-
-	if (proto === null) {
-		return true;
-	}
-
-	const Ctor = Object.prototype.hasOwnProperty.call(proto, 'constructor') && (proto as { constructor?: unknown }).constructor;
-
-	return typeof Ctor === 'function' && Ctor instanceof Ctor && Function.prototype.call(Ctor) === Function.prototype.call(value);
+	return prototype === null || prototype === Object.prototype;
 };
 
 /**
@@ -216,7 +219,7 @@ export const isPlainObject = (value: unknown): value is Record<string, unknown> 
  * isObject(null) // => false
  * ```
  */
-export const isObject = (input: unknown): input is object => input instanceof Object;
+export const isObject = <T>(input: T): input is T & object => input instanceof Object;
 
 /**
  * Performs a deep comparison between two values to determine if they are equivalent.
@@ -235,84 +238,37 @@ export const isObject = (input: unknown): input is object => input instanceof Ob
  * isEqual({ a: 1 }, 'b') // => false
  * ```
  */
-export const isEqual = (first: unknown, second: unknown): boolean => {
-	if (first === second) {
+export const isEqual = <TFirst, TSecond>(first: TFirst, second: TSecond): boolean => {
+	if (Object.is(first, second)) {
 		return true;
 	}
 
-	if ((first === undefined || second === undefined || first === null || second === null) && (first || second)) {
-		return false;
-	}
-
-	const firstType = (first as { constructor?: { name?: string } })?.constructor?.name;
-	const secondType = (second as { constructor?: { name?: string } })?.constructor?.name;
-
-	if (firstType !== secondType) {
-		return false;
-	}
-
-	if (firstType === 'Array') {
-		const firstArr = first as unknown[];
-		const secondArr = second as unknown[];
-
-		if (firstArr.length !== secondArr.length) {
+	if (isRuntimeValueArray(first) || isRuntimeValueArray(second)) {
+		if (!isRuntimeValueArray(first) || !isRuntimeValueArray(second) || first.length !== second.length) {
 			return false;
 		}
 
-		let equal = true;
-
-		for (let i = 0; i < firstArr.length; i++) {
-			if (!isEqual(firstArr[i], secondArr[i])) {
-				equal = false;
-				break;
-			}
-		}
-
-		return equal;
+		return first.every((value, index) => isEqual(value, second[index]));
 	}
 
-	if (firstType === 'Object') {
-		let equal = true;
-		const fKeys = Object.keys(first as object);
-		const sKeys = Object.keys(second as object);
+	if (!isPlainObject(first) || !isPlainObject(second)) {
+		return false;
+	}
 
-		if (fKeys.length !== sKeys.length) {
+	const firstEntries = getObjectEntries(first);
+	const secondEntries = new Map(getObjectEntries(second));
+
+	if (firstEntries.length !== secondEntries.size) {
+		return false;
+	}
+
+	for (const [key, value] of firstEntries) {
+		if (!secondEntries.has(key) || !isEqual(value, secondEntries.get(key))) {
 			return false;
 		}
-
-		const firstObj = first as Record<string, unknown>;
-		const secondObj = second as Record<string, unknown>;
-
-		for (let i = 0; i < fKeys.length; i++) {
-			const key = fKeys[i]!;
-
-			if (firstObj[key] && secondObj[key]) {
-				if (firstObj[key] === secondObj[key]) {
-					continue;
-				}
-
-				const firstValType = (firstObj[key] as { constructor?: { name?: string } })?.constructor?.name;
-
-				if (firstObj[key] && (firstValType === 'Array' || firstValType === 'Object')) {
-					equal = isEqual(firstObj[key], secondObj[key]);
-
-					if (!equal) {
-						break;
-					}
-				} else if (firstObj[key] !== secondObj[key]) {
-					equal = false;
-					break;
-				}
-			} else if ((firstObj[key] && !secondObj[key]) || (!firstObj[key] && secondObj[key])) {
-				equal = false;
-				break;
-			}
-		}
-
-		return equal;
 	}
 
-	return first === second;
+	return true;
 };
 
 /**
@@ -329,4 +285,4 @@ export const isEqual = (first: unknown, second: unknown): boolean => {
  * isString(new String('Lorem')) // => false
  * ```
  */
-export const isString = (value: unknown): value is string => typeof value === 'string' || value instanceof String;
+export const isString = <T>(value: T): value is T & string => isStringValue(value);

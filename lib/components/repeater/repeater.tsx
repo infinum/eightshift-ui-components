@@ -11,19 +11,19 @@ import { Button } from '../button/button';
 import { Menu, MenuItem, MenuSeparator } from '../menu/menu';
 import { RepeaterContext, type RepeaterOpenItems } from './repeater-context';
 
-type RepeaterItemData = Record<string, unknown>;
-type RepeaterListItemValue<Item extends RepeaterItemData> = Item & { disabled?: boolean };
-type RepeaterChildValue<Item extends RepeaterItemData> = RepeaterListItemValue<Item> & {
+type RepeaterItemData = object;
+type RepeaterListItemValue<Item extends object> = Item & { disabled?: boolean };
+type RepeaterChildValue<Item extends object> = RepeaterListItemValue<Item> & {
 	updateData: (newValue: Partial<Item>) => void;
 	itemIndex: number;
 	deleteItem: () => void;
 };
-type AddButtonProps<Item extends RepeaterItemData> = {
+type AddButtonProps<Item extends object> = {
 	addItem: (additional?: Partial<RepeaterListItemValue<Item>>) => void;
 	disabled?: boolean;
 };
 
-type RepeaterProps<Item extends RepeaterItemData = RepeaterItemData> = {
+type RepeaterProps<Item extends object = object> = {
 	children: (item: RepeaterChildValue<Item>) => ReactNode;
 	/** Function to run when the items change. */
 	onChange: (items: Item[]) => void;
@@ -105,6 +105,8 @@ type RepeaterProps<Item extends RepeaterItemData = RepeaterItemData> = {
  * 	}}
  * </Repeater>
  */
+const mergeItem = <Item extends object>(item: Item, newValue: Partial<Item>): Item => ({ ...item, ...newValue });
+
 export const Repeater = <Item extends RepeaterItemData>(props: Prettify<RepeaterProps<Item>>) => {
 	const {
 		children,
@@ -144,7 +146,8 @@ export const Repeater = <Item extends RepeaterItemData>(props: Prettify<Repeater
 
 	const addItem = useCallback(
 		(additional: Partial<RepeaterListItemValue<Item>> = {}) => {
-			const newItem = { ...addDefaultItem, ...additional } as Item;
+			// SAFETY: Repeater's documented add defaults and additions together define a complete Item supplied by the consumer.
+			const newItem = mergeItem(addDefaultItem, additional) as Item;
 
 			onChange([...items, newItem]);
 			onAfterItemAdd?.(newItem);
@@ -207,12 +210,7 @@ export const Repeater = <Item extends RepeaterItemData>(props: Prettify<Repeater
 						{children({
 							...item,
 							updateData: (newValue) => {
-								const updatedItems = [...items];
-
-								updatedItems[index] = {
-									...updatedItems[index],
-									...newValue,
-								} as Item;
+								const updatedItems = items.map((currentItem, itemIndex) => (itemIndex === index ? mergeItem(currentItem, newValue) : currentItem));
 
 								onChange(updatedItems);
 							},

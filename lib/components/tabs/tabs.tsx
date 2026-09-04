@@ -69,12 +69,14 @@ type NamedElement<Props> = ReactElement<Props> & {
 };
 
 const isReactElement = <Props,>(child: ReactNode): child is ReactElement<Props> => isValidElement<Props>(child);
+const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
 
 const isNamedElement = <Props,>(child: ReactNode, name: string): child is NamedElement<Props> => {
-	if (!isValidElement(child) || typeof child.type === 'string') {
+	if (!isValidElement(child) || isStringValue(child.type)) {
 		return false;
 	}
 
+	// SAFETY: Non-intrinsic React component types may expose a displayName for composition checks.
 	return (child.type as { displayName?: string }).displayName === name;
 };
 
@@ -224,7 +226,7 @@ const tabClasses = cva(
 				type: 'underline',
 				class: [
 					'es:px-3 es:not-has-any-icon:py-3 es:has-any-icon:py-2.5 es:rounded-t-lg es:min-h-12',
-					'es:after:content-["\"] es:after:absolute es:after:bottom-0 es:after:left-0 es:after:right-0 es:after:w-3/5 es:after:mx-auto es:after:h-0.75 es:selected:after:bg-accent-600',
+					'es:after:content-[""] es:after:absolute es:after:bottom-0 es:after:left-0 es:after:right-0 es:after:w-3/5 es:after:mx-auto es:after:h-0.75 es:selected:after:bg-accent-600',
 					'es:selected:after:inset-shadow-xs es:selected:after:inset-shadow-accent-50/30',
 					'es:not-selected:hover:bg-secondary-50 es:selected:hover:bg-accent-600/5',
 					'es:selected:text-accent-600',
@@ -237,7 +239,7 @@ const tabClasses = cva(
 				class: [
 					'es:px-3 es:pt-2 es:pb-2.5 es:rounded-t-sm es:min-h-12',
 					'es:not-selected:hover:bg-secondary-50 es:selected:hover:bg-accent-600/5',
-					'es:after:content-["\"] es:after:absolute es:after:bottom-0 es:after:left-0 es:after:right-0 es:after:w-full es:after:mx-auto es:after:h-0.75',
+					'es:after:content-[""] es:after:absolute es:after:bottom-0 es:after:left-0 es:after:right-0 es:after:w-full es:after:mx-auto es:after:h-0.75',
 					'es:after:bg-linear-to-b es:hover:not-selected:not-disabled:after:from-secondary-200 es:hover:not-selected:not-disabled:after:to-secondary-300 es:selected:after:from-accent-500 es:selected:after:to-accent-600',
 					'es:after:transition',
 				],
@@ -530,15 +532,14 @@ export const Tabs = (props: Prettify<TabsProps>) => {
 	const preparedChildren = Children.toArray(children);
 	const firstTabList = preparedChildren.find((child) => isNamedElement<TabListProps>(child, 'TabList'));
 	const tabItems = Children.toArray(firstTabList?.props.children).filter(isReactElement<TabProps>);
+	const tabPanelItems = preparedChildren.filter((child) => isNamedElement<TabPanelProps>(child, 'TabPanel'));
 	const realTabIds = tabItems.map((tab, index) => tab.props.id ?? `tab-${baseId}-${index + 1}`);
-
-	let tabCount = 0;
-	let tabPanelCount = 0;
+	const tabCount = tabItems.length;
+	const tabPanelCount = tabPanelItems.length;
 
 	const childrenWithIds = preparedChildren.reduce<ReactNode[]>((accumulator, child, index) => {
 		if (isNamedElement<TabListProps>(child, 'TabList')) {
 			const childItems = Children.toArray(child.props.children).filter(isReactElement<TabProps>);
-			tabCount = childItems.length;
 
 			if (childItems.length < 1) {
 				return accumulator;
@@ -567,8 +568,8 @@ export const Tabs = (props: Prettify<TabsProps>) => {
 		}
 
 		if (isNamedElement<TabPanelProps>(child, 'TabPanel')) {
-			const panelId = realTabIds[tabPanelCount] ?? `tab-${baseId}-${tabPanelCount + 1}`;
-			tabPanelCount += 1;
+			const tabPanelIndex = tabPanelItems.indexOf(child);
+			const panelId = realTabIds[tabPanelIndex] ?? `tab-${baseId}-${tabPanelIndex + 1}`;
 
 			return [
 				...accumulator,

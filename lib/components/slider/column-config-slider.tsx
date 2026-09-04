@@ -57,6 +57,8 @@ type ColumnConfigSliderOutputProps = {
 	showOuterAsGutter?: boolean;
 };
 
+const isNumberValue = <T,>(value: T): value is T & number => Object.prototype.toString.call(value) === '[object Number]';
+
 const getColumnConfigValue = (value: number | number[]): ColumnConfigValue | null => {
 	if (!Array.isArray(value) || value.length !== 2) {
 		return null;
@@ -64,7 +66,7 @@ const getColumnConfigValue = (value: number | number[]): ColumnConfigValue | nul
 
 	const [startValue, endValue] = value;
 
-	if (typeof startValue !== 'number' || typeof endValue !== 'number') {
+	if (!isNumberValue(startValue) || !isNumberValue(endValue)) {
 		return null;
 	}
 

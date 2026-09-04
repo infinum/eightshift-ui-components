@@ -17,6 +17,8 @@ type FilePlaceholderProps = {
 	children?: ReactNode;
 };
 
+const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
+
 /**
  * A simple file placeholder.
  *
@@ -33,7 +35,7 @@ type FilePlaceholderProps = {
  */
 export const FilePlaceholder = (props: Prettify<FilePlaceholderProps>) => {
 	const { icon, fileName, className, flat, children } = props;
-	const label = fileName ?? (typeof children === 'string' ? children : undefined) ?? __('No file selected', 'eightshift-ui-components');
+	const label = fileName ?? (isStringValue(children) ? children : undefined) ?? __('No file selected', 'eightshift-ui-components');
 
 	return (
 		<RichLabel

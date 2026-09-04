@@ -38,6 +38,8 @@ type MatrixAlignProps = {
 	hidden?: boolean;
 };
 
+const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
+
 const allSizeOptions: MatrixAlignOption[] = [
 	{
 		value: 'top left',
@@ -86,7 +88,8 @@ const allSizeOptions: MatrixAlignOption[] = [
 	},
 ];
 
-const TypedTriggeredPopover = TriggeredPopover as unknown as (props: {
+// SAFETY: This adapter exposes the TriggeredPopover props used by MatrixAlign and handled by the component at runtime.
+const TypedTriggeredPopover = TriggeredPopover as (props: {
 	children?: ReactNode;
 	triggerButtonIcon?: ReactNode;
 	triggerButtonProps?: {
@@ -151,7 +154,7 @@ export const MatrixAlign = (props: Prettify<MatrixAlignProps>) => {
 			>
 				<div className='es:bg-accent-50/60 es:inset-ring es:inset-ring-accent-800/3 es:rounded-t-xl es:rounded-b-md'>
 					<RadioGroup
-						aria-label={typeof tooltip === 'string' ? tooltip : __('Position', 'eightshift-ui-components')}
+						aria-label={isStringValue(tooltip) ? tooltip : __('Position', 'eightshift-ui-components')}
 						value={value}
 						onChange={onChange}
 						orientation='horizontal'

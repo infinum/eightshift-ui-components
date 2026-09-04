@@ -24,13 +24,13 @@ type DragOperationEvent = {
 	};
 };
 
-type DraggableRenderContext<TItem extends Record<string, unknown>> = TItem & {
+type DraggableRenderContext<TItem extends object> = TItem & {
 	updateData: (newValue: Partial<TItem>) => void;
 	itemIndex: number;
 	deleteItem: () => void;
 };
 
-type DraggableProps<TItem extends Record<string, unknown>> = HTMLAttributes<HTMLDivElement> & {
+type DraggableProps<TItem extends object> = HTMLAttributes<HTMLDivElement> & {
 	children: (item: DraggableRenderContext<TItem>) => ReactNode;
 	/** Data to display in the list. */
 	items?: TItem[] | null;
@@ -58,11 +58,14 @@ type SortableItemProps = {
 
 type SortableModifier = typeof RestrictToElement | typeof RestrictToHorizontalAxis;
 
+const isNumberValue = <T,>(value: T): value is T & number => Object.prototype.toString.call(value) === '[object Number]';
+const mergeItem = <TItem extends object>(item: TItem, newValue: Partial<TItem>): TItem => ({ ...item, ...newValue });
+
 const getSortableIndexes = (event: DragOperationEvent): { oldIndex: number; newIndex: number } | null => {
 	const oldIndex = event.operation?.source?.sortable?.initialIndex;
 	const newIndex = event.operation?.source?.sortable?.index;
 
-	if (typeof oldIndex !== 'number' || typeof newIndex !== 'number') {
+	if (!isNumberValue(oldIndex) || !isNumberValue(newIndex)) {
 		return null;
 	}
 
@@ -120,24 +123,26 @@ const SortableItem = ({ id, index, disabled, children, axis }: SortableItemProps
  * 	}}
  * </Draggable>
  */
-export const Draggable = <TItem extends Record<string, unknown>>(props: Prettify<DraggableProps<TItem>>) => {
+export const Draggable = <TItem extends object>(props: Prettify<DraggableProps<TItem>>) => {
 	const { children, items, onChange, noReorder, axis = 'both', className, onAfterItemRemove, hidden, ...rest } = props;
 
 	const normalizedItems = useMemo(() => (Array.isArray(items) ? items : []), [items]);
 
-	if (typeof items === 'undefined' || items === null || !Array.isArray(items)) {
+	if (items === undefined || items === null || !Array.isArray(items)) {
 		console.warn(__("Draggable: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
 	}
 
 	const [internalIds, setInternalIds] = useState<number[]>(normalizedItems.map((_, itemIndex) => itemIndex));
 
 	useEffect(() => {
-		setInternalIds((currentIds) => {
-			if (normalizedItems.length === currentIds.length) {
-				return currentIds;
-			}
+		queueMicrotask(() => {
+			setInternalIds((currentIds) => {
+				if (normalizedItems.length === currentIds.length) {
+					return currentIds;
+				}
 
-			return normalizedItems.map((_, itemIndex) => itemIndex);
+				return normalizedItems.map((_, itemIndex) => itemIndex);
+			});
 		});
 	}, [normalizedItems]);
 
@@ -156,6 +161,7 @@ export const Draggable = <TItem extends Record<string, unknown>>(props: Prettify
 						return;
 					}
 
+					// SAFETY: DragDropProvider supplies its documented drag-operation event shape to this callback.
 					const sortableIndexes = getSortableIndexes(event as DragOperationEvent);
 
 					if (!sortableIndexes) {
@@ -181,12 +187,7 @@ export const Draggable = <TItem extends Record<string, unknown>>(props: Prettify
 								{children({
 									...item,
 									updateData: (newValue) => {
-										const updated = [...normalizedItems];
-
-										updated[itemIndex] = {
-											...updated[itemIndex],
-											...newValue,
-										} as TItem;
+										const updated = normalizedItems.map((currentItem, index) => (index === itemIndex ? mergeItem(currentItem, newValue) : currentItem));
 
 										onChange(updated);
 									},

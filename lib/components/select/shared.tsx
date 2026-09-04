@@ -10,25 +10,53 @@ import { AnimatedVisibility } from '../animated-visibility/animated-visibility';
 
 export type Primitive = string | number | boolean;
 
-export const getOptionKey = (value: Primitive) => `${typeof value}:${String(value)}`;
+type SelectPropertyValue = string | number | boolean | bigint | symbol | null | undefined | object;
+
+export const isPrimitive = <T,>(value: T): value is T & Primitive => {
+	const valueTag = Object.prototype.toString.call(value);
+
+	return valueTag === '[object String]' || valueTag === '[object Number]' || valueTag === '[object Boolean]';
+};
+
+export const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
+
+export const getOptionKey = (value: Primitive) => JSON.stringify([value]);
 
 type IconValue = string | JSX.Element | null;
 
 type SelectOption<Value extends Primitive = string> = {
 	label: string;
 	value: Value;
-	[key: string]: unknown;
 };
 
-type GroupValueMapping = Record<
-	string,
-	{
-		label?: ReactNode;
-		icon?: IconValue;
-		subtitle?: ReactNode;
-		endIcon?: IconValue;
+export const isSelectOption = <T,>(value: T): value is T & SelectOption<Primitive> => value instanceof Object && 'value' in value && isPrimitive(value.value);
+
+type GroupValue = {
+	label?: ReactNode;
+	icon?: IconValue;
+	subtitle?: ReactNode;
+	endIcon?: IconValue;
+};
+
+type GroupValueMapping = object;
+
+const getPropertyValue = <T extends object>(value: T, key: string): SelectPropertyValue => {
+	// SAFETY: SelectPropertyValue covers every JavaScript property value exposed by option extensions.
+	const entries = Object.entries(value) as Array<[string, SelectPropertyValue]>;
+
+	return entries.find(([entryKey]) => entryKey === key)?.[1];
+};
+
+const getGroupValue = <Mapping extends object>(mapping: Mapping | undefined, key: string): GroupValue | undefined => {
+	if (!mapping) {
+		return undefined;
 	}
->;
+
+	// SAFETY: Group mappings are documented as string keys containing GroupValue objects.
+	const entries = Object.entries(mapping) as Array<[string, GroupValue]>;
+
+	return entries.find(([entryKey]) => entryKey === key)?.[1];
+};
 
 type GroupedOption<Option extends SelectOption<Primitive> = SelectOption> = {
 	key: string;
@@ -190,6 +218,7 @@ export const moveArrayItem = <Item,>(array: Item[], itemToMove: Item, targetItem
 };
 
 export const SelectClearButton = ({ multi = false }: Prettify<SelectClearButtonProps>) => {
+	// SAFETY: React Aria provides this context to descendants of its Select component.
 	const state = useContext(SelectStateContext) as SelectStateValue | null;
 	const isEmpty = multi ? state?.value === null || (Array.isArray(state?.value) && state.value.length === 0) : state?.value === null;
 
@@ -222,29 +251,28 @@ export const SelectClearButton = ({ multi = false }: Prettify<SelectClearButtonP
  *
  * @returns {GroupedOption[] | null} Grouped options.
  */
-export const getGroupedOptions = <Option extends SelectOption<Primitive>>(
+export const getGroupedOptions = <Option extends SelectOption<Primitive>, Mapping extends object = GroupValueMapping>(
 	filteredOptions?: Option[] | null,
 	groupKey?: string,
-	groupValueMapping?: GroupValueMapping,
+	groupValueMapping?: Mapping,
 ): GroupedOption<Option>[] | null => {
 	if (!groupKey || !filteredOptions || filteredOptions.length === 0) {
 		return null;
 	}
 
-	const groups = filteredOptions.reduce<Record<string, Option[]>>((accumulator, item) => {
-		const key = typeof item[groupKey] === 'string' ? item[groupKey] : '_other';
+	const groups = new Map<string, Option[]>();
 
-		if (!accumulator[key]) {
-			accumulator[key] = [];
-		}
+	for (const item of filteredOptions) {
+		const groupValue = getPropertyValue(item, groupKey);
+		const key = isStringValue(groupValue) ? groupValue : '_other';
+		const options = groups.get(key) ?? [];
 
-		accumulator[key].push(item);
+		options.push(item);
+		groups.set(key, options);
+	}
 
-		return accumulator;
-	}, {});
-
-	return Object.entries(groups).map(([key, options]) => {
-		const mapping = groupValueMapping?.[key];
+	return [...groups].map(([key, options]) => {
+		const mapping = getGroupValue(groupValueMapping, key);
 
 		return {
 			key,

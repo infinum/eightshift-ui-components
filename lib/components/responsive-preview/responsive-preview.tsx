@@ -76,6 +76,7 @@ export const ResponsivePreview = (props: Prettify<ResponsivePreviewProps>) => {
 		breakpointUiData,
 	} = props;
 
+	// SAFETY: The reserved desktop-first key is written only as a boolean by responsive controls.
 	const isDesktopFirst = rawIsDesktopFirst ?? (value?.[desktopFirstKey] as boolean | undefined) ?? false;
 	const breakpoints = rawBreakpoints;
 	const desktopFirstBreakpoints = rawDesktopFirstBreakpoints ?? rawBreakpoints.slice(0, -1);
@@ -95,7 +96,7 @@ export const ResponsivePreview = (props: Prettify<ResponsivePreviewProps>) => {
 		];
 
 		breakpoints.forEach((breakpoint) => {
-			if (typeof value?.[breakpoint] === 'undefined') {
+			if (value?.[breakpoint] === undefined) {
 				return;
 			}
 
@@ -112,7 +113,7 @@ export const ResponsivePreview = (props: Prettify<ResponsivePreviewProps>) => {
 
 	if (lastDesktopFirstOverride && isDesktopFirst) {
 		desktopFirstBreakpoints.forEach((breakpoint) => {
-			if (typeof value?.[breakpoint] === 'undefined') {
+			if (value?.[breakpoint] === undefined) {
 				return;
 			}
 

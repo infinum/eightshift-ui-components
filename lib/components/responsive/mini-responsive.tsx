@@ -23,7 +23,6 @@ type InnerContentAlign = 'start' | 'center' | 'end' | 'stretch';
 type ResponsiveOption = {
 	label: string;
 	value: Exclude<ResponsiveValueItem, undefined>;
-	[key: string]: unknown;
 };
 
 type ResponsiveValue = Record<string, ResponsiveValueItem>;
@@ -94,7 +93,7 @@ const getResponsiveLabel = (value: ResponsiveValue, key: string, options?: Respo
 	return options?.find((option) => option.value === currentValue)?.label ?? upperFirst(currentValue);
 };
 
-const hasResponsiveOverrides = (value: ResponsiveValue) => Object.keys(value).some((key) => !key.startsWith('_') && typeof value[key] !== 'undefined');
+const hasResponsiveOverrides = (value: ResponsiveValue) => Object.keys(value).some((key) => !key.startsWith('_') && value[key] !== undefined);
 
 /**
  * A compact, inline version of `Responsive`. Allows the user to set different values for different breakpoints.
@@ -157,7 +156,7 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 		innerContentAlign = 'start',
 	} = props;
 
-	if (typeof rawBreakpoints === 'undefined' || !Array.isArray(rawBreakpoints)) {
+	if (rawBreakpoints === undefined || !Array.isArray(rawBreakpoints)) {
 		console.warn(__("MiniResponsive: Missing or invalid 'breakpoints' prop.", 'eightshift-ui-components'));
 
 		return null;
@@ -171,8 +170,8 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 	}
 
 	const isDesktopFirst = value[desktopFirstKey] === true;
-	const firstMobileFirstOverride = breakpoints.find((breakpoint) => typeof value[breakpoint] !== 'undefined');
-	const lastDesktopFirstOverride = [...desktopFirstBreakpoints].reverse().find((breakpoint) => typeof value[breakpoint] !== 'undefined');
+	const firstMobileFirstOverride = breakpoints.find((breakpoint) => value[breakpoint] !== undefined);
+	const lastDesktopFirstOverride = [...desktopFirstBreakpoints].reverse().find((breakpoint) => value[breakpoint] !== undefined);
 	const breakpointsToMap = isDesktopFirst ? desktopFirstBreakpoints : breakpoints;
 	const responsiveOverridesApplied = hasResponsiveOverrides(value);
 	const getBreakpointWidth = (breakpoint: string) => breakpointData[breakpoint] ?? 0;
@@ -181,7 +180,7 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 		return null;
 	}
 
-	const DefaultTooltip = () => {
+	const renderDefaultTooltip = () => {
 		const defaultBreakpoint = isDesktopFirst ? rawBreakpoints[rawBreakpoints.length - 1] : rawBreakpoints[0];
 		const overrideIcon = defaultBreakpoint ? breakpointUiData?.[defaultBreakpoint]?.icon : undefined;
 		const fallbackBreakpoint = defaultBreakpoint ?? 'desktop';
@@ -288,7 +287,11 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 				})}
 
 				<TriggeredPopover
-					triggerButtonIcon={cloneElement(dropdownCaretAlt as ReactElement, { className: 'es:size-5!' })}
+					triggerButtonIcon={cloneElement(
+						// SAFETY: dropdownCaretAlt is an internal JSX icon element.
+						dropdownCaretAlt as ReactElement,
+						{ className: 'es:size-5!' },
+					)}
 					triggerButtonProps={{
 						tooltip: __('Responsive overrides', 'eightshift-ui-components'),
 						className: 'es:w-6',
@@ -313,7 +316,7 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 								)}
 								key='_default-mobile-first'
 							>
-								<DefaultTooltip />
+								{renderDefaultTooltip()}
 
 								<div className='es:w-full es:col-start-2 es:col-end-2'>
 									{children({
@@ -337,12 +340,12 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 							const filterBreakpoints = isDesktopFirst ? [...breakpointsToMap, defaultKey] : [defaultKey, ...breakpointsToMap];
 
 							const aboveOverride = isDesktopFirst
-								? filterBreakpoints.slice(index + 1).find((currentBreakpoint) => typeof value[currentBreakpoint] !== 'undefined')
-								: [...filterBreakpoints.slice(0, index + 1)].reverse().find((currentBreakpoint) => typeof value[currentBreakpoint] !== 'undefined');
+								? filterBreakpoints.slice(index + 1).find((currentBreakpoint) => value[currentBreakpoint] !== undefined)
+								: filterBreakpoints.slice(0, index + 1).reverse().find((currentBreakpoint) => value[currentBreakpoint] !== undefined);
 
 							const belowOverride = isDesktopFirst
-								? [...filterBreakpoints.slice(0, index)].reverse().find((currentBreakpoint) => typeof value[currentBreakpoint] !== 'undefined')
-								: filterBreakpoints.slice(index + 2).find((currentBreakpoint) => typeof value[currentBreakpoint] !== 'undefined');
+								? filterBreakpoints.slice(0, index).reverse().find((currentBreakpoint) => value[currentBreakpoint] !== undefined)
+								: filterBreakpoints.slice(index + 2).find((currentBreakpoint) => value[currentBreakpoint] !== undefined);
 
 							return (
 								<div
@@ -371,11 +374,11 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 												<span className='es:block es:text-balance es:tabular-nums es:font-variation-["wdth"_64,"wght"_275,"ROND"_50,"slnt"_-2] es:text-surface-500 es:mt-1'>
 													{!isDesktopFirst ? (
 														<>
-															{!belowOverride && typeof value[breakpoint] !== 'undefined'
+															{!belowOverride && value[breakpoint] !== undefined
 																? sprintf(__('Applied when the browser width is %dpx or more.', 'eightshift-ui-components'), getBreakpointWidth(realBreakpointName))
 																: null}
 
-															{belowOverride && typeof value[breakpoint] !== 'undefined'
+															{belowOverride && value[breakpoint] !== undefined
 																? sprintf(
 																		__('Applied when the browser width is between %dpx and %dpx.', 'eightshift-ui-components'),
 																		getBreakpointWidth(realBreakpointName),
@@ -383,15 +386,15 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 																	)
 																: null}
 
-															{typeof value[breakpoint] === 'undefined' ? sprintf(__('From %dpx', 'eightshift-ui-components'), getBreakpointWidth(realBreakpointName)) : null}
+															{value[breakpoint] === undefined ? sprintf(__('From %dpx', 'eightshift-ui-components'), getBreakpointWidth(realBreakpointName)) : null}
 														</>
 													) : (
 														<>
-															{!belowOverride && typeof value[breakpoint] !== 'undefined'
+															{!belowOverride && value[breakpoint] !== undefined
 																? sprintf(__('Applied when the browser width is %dpx or less.', 'eightshift-ui-components'), getBreakpointWidth(realBreakpointName) - 1)
 																: null}
 
-															{belowOverride && typeof value[breakpoint] !== 'undefined'
+															{belowOverride && value[breakpoint] !== undefined
 																? sprintf(
 																		__('Applied when the browser width is between %dpx and %dpx.', 'eightshift-ui-components'),
 																		getBreakpointWidth(belowOverride.replace('max-', '')),
@@ -399,26 +402,26 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 																	)
 																: null}
 
-															{typeof value[breakpoint] === 'undefined'
+															{value[breakpoint] === undefined
 																? sprintf(__('Up to %dpx', 'eightshift-ui-components'), getBreakpointWidth(breakpoint.replace('max-', '')))
 																: null}
 														</>
 													)}
 												</span>
 
-												{typeof value[breakpoint] === 'undefined' ? (
+												{value[breakpoint] === undefined ? (
 													<span className='es:mt-2 es:text-sm es:leading-none es:block es:font-variation-["wdth"_75,"wght"_300,"slnt"_-5]'>
 														{__('Not set', 'eightshift-ui-components')}
 													</span>
 												) : null}
 
-												{typeof value[breakpoint] !== 'undefined' ? (
+												{value[breakpoint] !== undefined ? (
 													<div className='es:mx-auto es:mt-5'>
 														{!isDesktopFirst ? (
 															<BreakpointPreview
 																dotsStart={Boolean(belowOverride)}
 																blocks={[
-																	aboveOverride && aboveOverride !== defaultKey && typeof value[aboveOverride] !== 'undefined'
+																	aboveOverride && aboveOverride !== defaultKey && value[aboveOverride] !== undefined
 																		? {
 																				breakpoint: breakpointUiData?.[aboveOverride]?.label ?? aboveOverride,
 																				value: getResponsiveLabel(value, aboveOverride, options),
@@ -426,7 +429,7 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 																				alignEnd: !belowOverride,
 																			}
 																		: null,
-																	aboveOverride === defaultKey && typeof value[defaultKey] !== 'undefined'
+																	aboveOverride === defaultKey && value[defaultKey] !== undefined
 																		? {
 																				breakpoint: __('Default', 'eightshift-ui-components'),
 																				value: getResponsiveLabel(value, defaultKey, options),
@@ -441,7 +444,7 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 																		active: true,
 																		dotsEnd: !belowOverride,
 																	},
-																	belowOverride && typeof value[belowOverride] !== 'undefined'
+																	belowOverride && value[belowOverride] !== undefined
 																		? {
 																				breakpoint: breakpointUiData?.[belowOverride]?.label ?? belowOverride,
 																				value: getResponsiveLabel(value, belowOverride, options),
@@ -492,7 +495,7 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 										}
 									>
 										<div
-											className={clsx('es:transition-colors es:icon:size-6 es:mx-0.5', typeof value[breakpoint] !== 'undefined' ? 'es:text-surface-600' : 'es:text-surface-300')}
+											className={clsx('es:transition-colors es:icon:size-6 es:mx-0.5', value[breakpoint] !== undefined ? 'es:text-surface-600' : 'es:text-surface-300')}
 										>
 											<Icon
 												icon={breakpointUiData?.[realBreakpointName]?.icon}
@@ -521,7 +524,7 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 											onChange(newValue);
 										}}
 										icon={clearAlt}
-										disabled={typeof value[breakpoint] === 'undefined'}
+										disabled={value[breakpoint] === undefined}
 										type='ghost'
 									/>
 								</div>
@@ -540,7 +543,7 @@ export const MiniResponsive = (props: Prettify<MiniResponsiveProps>) => {
 								)}
 								key='_default-desktop-first'
 							>
-								<DefaultTooltip />
+								{renderDefaultTooltip()}
 
 								<div className='es:w-full es:col-start-2 es:col-end-2'>
 									{children({

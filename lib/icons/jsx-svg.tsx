@@ -1,55 +1,58 @@
-import type { JSX } from 'react';
+import { createElement, useId, type ComponentProps, type ComponentType, type JSX } from 'react';
 import { svgToJsxString } from 'svg-to-jsx-string';
 import JsxParser from 'react-jsx-parser';
 
-interface JsxSvgProps {
+type JsxParserProps = ComponentProps<typeof JsxParser>;
+
+interface JsxSvgProps extends Omit<JsxParserProps, 'bindings' | 'components' | 'jsx' | 'renderInWrapper'> {
 	svg: string;
 	className?: string;
 	ariaHidden?: boolean;
 	'aria-hidden'?: boolean;
 	customProps?: string;
-	customPropBindings?: Record<string, unknown>;
+	customPropBindings?: JsxParserProps['bindings'];
 	noIdRandomization?: boolean;
 	idRandomizationPrefix?: string;
-	[key: string]: unknown;
 }
+
+const createSvgComponent = (tagName: string): ComponentType<object> => (props) => createElement(tagName, props);
 
 // SVG child elements that react-jsx-parser needs mapped to pass-through.
 // The library accepts string values as native element names in addition to components.
 const svgComponents = {
-	animateMotion: 'animateMotion',
-	animateTransform: 'animateTransform',
-	clipPath: 'clipPath',
-	feBlend: 'feBlend',
-	feColorMatrix: 'feColorMatrix',
-	feComponentTransfer: 'feComponentTransfer',
-	feComposite: 'feComposite',
-	feConvolveMatrix: 'feConvolveMatrix',
-	feDiffuseLighting: 'feDiffuseLighting',
-	feDisplacementMap: 'feDisplacementMap',
-	feDistantLight: 'feDistantLight',
-	feDropShadow: 'feDropShadow',
-	feFlood: 'feFlood',
-	feFuncA: 'feFuncA',
-	feFuncB: 'feFuncB',
-	feFuncG: 'feFuncG',
-	feFuncR: 'feFuncR',
-	feGaussianBlur: 'feGaussianBlur',
-	feImage: 'feImage',
-	feMerge: 'feMerge',
-	feMergeNode: 'feMergeNode',
-	feMorphology: 'feMorphology',
-	feOffset: 'feOffset',
-	fePointLight: 'fePointLight',
-	feSpecularLighting: 'feSpecularLighting',
-	feSpotLight: 'feSpotLight',
-	feTile: 'feTile',
-	feTurbulence: 'feTurbulence',
-	foreignObject: 'foreignObject',
-	linearGradient: 'linearGradient',
-	radialGradient: 'radialGradient',
-	textPath: 'textPath',
-} as unknown as Record<string, React.ComponentType>;
+	animateMotion: createSvgComponent('animateMotion'),
+	animateTransform: createSvgComponent('animateTransform'),
+	clipPath: createSvgComponent('clipPath'),
+	feBlend: createSvgComponent('feBlend'),
+	feColorMatrix: createSvgComponent('feColorMatrix'),
+	feComponentTransfer: createSvgComponent('feComponentTransfer'),
+	feComposite: createSvgComponent('feComposite'),
+	feConvolveMatrix: createSvgComponent('feConvolveMatrix'),
+	feDiffuseLighting: createSvgComponent('feDiffuseLighting'),
+	feDisplacementMap: createSvgComponent('feDisplacementMap'),
+	feDistantLight: createSvgComponent('feDistantLight'),
+	feDropShadow: createSvgComponent('feDropShadow'),
+	feFlood: createSvgComponent('feFlood'),
+	feFuncA: createSvgComponent('feFuncA'),
+	feFuncB: createSvgComponent('feFuncB'),
+	feFuncG: createSvgComponent('feFuncG'),
+	feFuncR: createSvgComponent('feFuncR'),
+	feGaussianBlur: createSvgComponent('feGaussianBlur'),
+	feImage: createSvgComponent('feImage'),
+	feMerge: createSvgComponent('feMerge'),
+	feMergeNode: createSvgComponent('feMergeNode'),
+	feMorphology: createSvgComponent('feMorphology'),
+	feOffset: createSvgComponent('feOffset'),
+	fePointLight: createSvgComponent('fePointLight'),
+	feSpecularLighting: createSvgComponent('feSpecularLighting'),
+	feSpotLight: createSvgComponent('feSpotLight'),
+	feTile: createSvgComponent('feTile'),
+	feTurbulence: createSvgComponent('feTurbulence'),
+	foreignObject: createSvgComponent('foreignObject'),
+	linearGradient: createSvgComponent('linearGradient'),
+	radialGradient: createSvgComponent('radialGradient'),
+	textPath: createSvgComponent('textPath'),
+};
 
 /**
  * Renders SVG string as JSX SVGs.
@@ -67,8 +70,9 @@ const svgComponents = {
  */
 export const JsxSvg = (props: JsxSvgProps): JSX.Element | null => {
 	const { svg, className, customProps, customPropBindings, 'aria-hidden': ariaHiddenProp, ariaHidden, noIdRandomization, idRandomizationPrefix = 'icon', ...rest } = props;
+	const instanceId = useId().replaceAll(':', '');
 
-	if (!svg || typeof svg !== 'string') {
+	if (!svg) {
 		return null;
 	}
 
@@ -91,9 +95,8 @@ export const JsxSvg = (props: JsxSvgProps): JSX.Element | null => {
 			.map((m) => m[1])
 			.filter((v): v is string => Boolean(v));
 
-		matches.forEach((match) => {
-			const newId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-			jsxString = jsxString.replaceAll(match, `${idRandomizationPrefix}-${newId}`);
+		matches.forEach((match, index) => {
+			jsxString = jsxString.replaceAll(match, `${idRandomizationPrefix}-${instanceId}-${index}`);
 		});
 	}
 

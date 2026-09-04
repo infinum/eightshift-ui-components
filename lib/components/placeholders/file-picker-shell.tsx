@@ -46,7 +46,12 @@ type FilePickerShellProps = Omit<ComponentPropsWithoutRef<'div'>, 'children'> & 
 	hidden?: boolean;
 };
 
-const TypedSmartImage = SmartImage as unknown as (props: {
+type FilePickerShellRender = (context: { dominantColors?: SmartImageChildContext['dominantColors']; isDark?: boolean; isTransparent?: boolean; hasError?: boolean }) => ReactNode;
+
+const isRenderFunction = (value: ReactNode | FilePickerShellRender): value is FilePickerShellRender => Object.prototype.toString.call(value) === '[object Function]';
+
+// SAFETY: This adapter exposes the SmartImage render context fields consumed by FilePickerShell.
+const TypedSmartImage = SmartImage as (props: {
 	src?: string;
 	alt?: string;
 	className?: (context: SmartImageClassNameContext) => string;
@@ -109,7 +114,7 @@ export const FilePickerShell = (props: Prettify<FilePickerShellProps>) => {
 					</div>
 				) : null}
 
-				{children && typeof children !== 'function' ? <div className='es:flex es:items-center-safe es:gap-0.75 es-button-group-h'>{children}</div> : null}
+				{children && !isRenderFunction(children) ? <div className='es:flex es:items-center-safe es:gap-0.75 es-button-group-h'>{children}</div> : null}
 			</div>
 		);
 	}
@@ -167,7 +172,7 @@ export const FilePickerShell = (props: Prettify<FilePickerShellProps>) => {
 										'es:absolute es:bottom-2 es:left-2 es:right-2 es:translate-y-[125%] es:group-hover:translate-y-0 es:has-aria-expanded:translate-y-0 es:has-focus-visible:translate-y-0 es:transition-transform es:ease-spring-smooth',
 								)}
 							>
-								{typeof children === 'function' ? children({ dominantColors, isDark, isTransparent, hasError }) : children}
+								{isRenderFunction(children) ? children({ dominantColors, isDark, isTransparent, hasError }) : children}
 							</div>
 						) : null}
 					</div>

@@ -12,6 +12,11 @@ const FONT_CSS_SOURCES = [
 
 const FONT_STYLE_OUTPUTS = new Set(['assets/style.css', 'assets/style-editor.css', 'assets/style-admin.css']);
 
+interface ExternalFontAssets {
+	fontCss: string;
+	emittedFonts: Map<string, string>;
+}
+
 const resolveFontAssetPath = (cssPath: string, fontPath: string): string => {
 	if (fontPath.startsWith('@')) {
 		const packagePath = resolve(process.cwd(), 'node_modules', fontPath);
@@ -34,7 +39,7 @@ const resolveFontAssetPath = (cssPath: string, fontPath: string): string => {
 	return resolve(dirname(cssPath), fontPath);
 };
 
-const createExternalFontAssets = (): { fontCss: string; emittedFonts: Map<string, string> } => {
+const createExternalFontAssets = (): ExternalFontAssets => {
 	const emittedFonts = new Map<string, string>();
 	const fontCss = FONT_CSS_SOURCES.map((cssPath) => {
 		const css = readFileSync(cssPath, 'utf8');
