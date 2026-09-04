@@ -5,11 +5,9 @@ This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a 
 
 ## [8.2.0] - 2026-08-28
 
-### Added
+- Updated dependencies.
 - Added Oxlint and Oxfmt tooling.
 - Added anti-slop lint rules and the corresponding agent skill.
-
-### Changed
 - Replaced ESLint and Prettier with Oxc tooling.
 
 ## [8.1.0] - 2026-07-22
