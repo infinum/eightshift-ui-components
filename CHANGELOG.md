@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [8.2.0] - 2026-08-28
+## [8.2.0] - 2026-09-04
 
 - Updated dependencies.
 - Added Oxlint and Oxfmt tooling.
