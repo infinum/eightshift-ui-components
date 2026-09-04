@@ -2,13 +2,13 @@ import { __ } from '@wordpress/i18n';
 import { Fragment, type ReactNode } from 'react';
 import type { Prettify } from '../../utilities/types';
 
-type ItemCollectionRenderContext<TItem extends Record<string, unknown>> = TItem & {
+type ItemCollectionRenderContext<TItem extends object> = TItem & {
 	updateData: (newValue: Partial<TItem>) => void;
 	itemIndex: number;
 	deleteItem: () => void;
 };
 
-type ItemCollectionProps<TItem extends Record<string, unknown>> = {
+type ItemCollectionProps<TItem extends object> = {
 	children: (item: ItemCollectionRenderContext<TItem>) => ReactNode;
 	/** Items to show. */
 	items?: TItem[] | null;
@@ -42,14 +42,16 @@ type ItemCollectionProps<TItem extends Record<string, unknown>> = {
  * 	)}
  * </ItemCollection>
  */
-export const ItemCollection = <TItem extends Record<string, unknown>>(props: Prettify<ItemCollectionProps<TItem>>) => {
+const mergeItem = <TItem extends object>(item: TItem, newValue: Partial<TItem>): TItem => ({ ...item, ...newValue });
+
+export const ItemCollection = <TItem extends object>(props: Prettify<ItemCollectionProps<TItem>>) => {
 	const { children, items: rawItems, onChange, hidden } = props;
 
 	if (hidden) {
 		return null;
 	}
 
-	if (typeof rawItems === 'undefined' || rawItems === null || !Array.isArray(rawItems)) {
+	if (rawItems === undefined || rawItems === null || !Array.isArray(rawItems)) {
 		console.warn(__("ItemCollection: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
 	}
 
@@ -60,12 +62,7 @@ export const ItemCollection = <TItem extends Record<string, unknown>>(props: Pre
 			{children({
 				...item,
 				updateData: (newValue) => {
-					const updated = [...items];
-
-					updated[index] = {
-						...updated[index],
-						...newValue,
-					} as TItem;
+					const updated = items.map((currentItem, itemIndex) => (itemIndex === index ? mergeItem(currentItem, newValue) : currentItem));
 
 					onChange(updated);
 				},

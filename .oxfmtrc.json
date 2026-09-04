@@ -1,0 +1,34 @@
+{
+	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"useTabs": true,
+	"jsxSingleQuote": true,
+	"singleQuote": true,
+	"singleAttributePerLine": true,
+	"printWidth": 180,
+	"sortPackageJson": false,
+	"sortTailwindcss": true,
+	"ignorePatterns": [
+		".agent/**",
+		".agents/**",
+		".claude/**",
+		".codex/**",
+		".continue/**",
+		".cursor/**",
+		".gemini/**",
+		".opencode/**",
+		".pi/**",
+		".roo/**",
+		".windsurf/**",
+		"tools/oxlint/anti-slop/**"
+	],
+	"overrides": [
+		{
+			"files": ["lib/icons/icons.jsx"],
+			"options": {
+				"singleAttributePerLine": false,
+				"printWidth": 65535,
+				"objectWrap": "collapse"
+			}
+		}
+	]
+}

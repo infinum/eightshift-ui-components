@@ -80,19 +80,19 @@ export const ContainerPanel = (props: Prettify<ContainerPanelProps>) => {
 		return null;
 	}
 
-	if (!title && typeof use === 'undefined') {
+	if (!title && use === undefined) {
 		return <div className={clsx('es:flex es:flex-col es:gap-3 es:p-4', topBorder && 'es:border-t es:border-t-secondary-200', className)}>{children}</div>;
 	}
 
-	const justUse = !closable && typeof onUseChange !== 'undefined';
-	const justClosable = Boolean(closable) && typeof onUseChange === 'undefined';
-	const useAndClosable = Boolean(closable) && typeof onUseChange !== 'undefined';
-	const shouldUseDisclosure = Boolean(closable) || typeof use !== 'undefined';
+	const justUse = !closable && onUseChange !== undefined;
+	const justClosable = Boolean(closable) && onUseChange === undefined;
+	const useAndClosable = Boolean(closable) && onUseChange !== undefined;
+	const shouldUseDisclosure = Boolean(closable) || use !== undefined;
 
 	let isExpanded = Boolean(use);
 
 	if (closable) {
-		isExpanded = typeof use !== 'undefined' ? Boolean(use) && open : open;
+		isExpanded = use !== undefined ? Boolean(use) && open : open;
 	}
 
 	return (
@@ -136,7 +136,7 @@ export const ContainerPanel = (props: Prettify<ContainerPanelProps>) => {
 									type='ghost'
 									size='small'
 									className={clsx('es:icon:size-4! es:icon:transition-transform', isExpanded && 'es:icon:-scale-y-100')}
-									disabled={typeof use !== 'undefined' && !use}
+									disabled={use !== undefined && !use}
 								/>
 							) : null}
 						</HStack>
@@ -144,12 +144,12 @@ export const ContainerPanel = (props: Prettify<ContainerPanelProps>) => {
 				}
 				className={clsx(
 					topBorder && 'es:border-t es:border-t-secondary-200',
-					!closable && typeof use === 'undefined' && 'es:space-y-2',
+					!closable && use === undefined && 'es:space-y-2',
 					justClosable && open && 'es:pb-4',
 					justUse && use && 'es:pb-4',
 					useAndClosable && use && open && 'es:pb-4',
 					!justClosable && !justUse && !useAndClosable && 'es:pb-4',
-					!closable && !onUseChange && typeof use === 'undefined' && 'es:px-4',
+					!closable && !onUseChange && use === undefined && 'es:px-4',
 					className,
 				)}
 				labelContainerClassName={clsx(

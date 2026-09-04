@@ -10,7 +10,7 @@ import { ToggleButton } from '../toggle-button/toggle-button';
 import type { Prettify } from '../../utilities/types';
 
 type OptionSelectType = 'toggleButtons' | 'toggleButtonsSplit' | 'radios' | 'radiosSegmented' | 'menu' | 'submenu' | 'standaloneMenuItems';
-type OptionValue = string | number | boolean;
+type OptionValue = string | number | boolean | null | undefined;
 type IconValue = string | JSX.Element | null;
 type OptionSeparator = boolean | 'above' | 'below';
 
@@ -41,6 +41,10 @@ type WrapperProps = Partial<
 type ItemProps = Partial<ComponentPropsWithoutRef<typeof ToggleButton> & ComponentPropsWithoutRef<typeof RadioButton> & ComponentPropsWithoutRef<typeof MenuItem>>;
 
 type BaseControlProps = ComponentPropsWithoutRef<typeof BaseControl>;
+
+const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
+
+const isBooleanValue = <T,>(value: T): value is T & boolean => Object.prototype.toString.call(value) === '[object Boolean]';
 
 type OptionSelectProps = Omit<BaseControlProps, 'children' | 'actions' | 'icon' | 'label' | 'subtitle'> & {
 	/** Icon to display in the label. */
@@ -87,7 +91,17 @@ type OptionSelectProps = Omit<BaseControlProps, 'children' | 'actions' | 'icon' 
 	'aria-label'?: string;
 };
 
-const getOptionKey = (value: OptionValue) => `${typeof value}:${String(value)}`;
+const getOptionKey = (value: OptionValue) => {
+	if (value === null) {
+		return 'null';
+	}
+
+	if (value === undefined) {
+		return 'undefined';
+	}
+
+	return JSON.stringify([value]);
+};
 
 const renderOptionIcon = (icon?: IconValue) => (icon ? <Icon icon={icon} /> : null);
 
@@ -190,7 +204,7 @@ export const OptionSelect = (props: Prettify<OptionSelectProps>) => {
 	};
 
 	const getToggleTooltip = (optionTooltip?: ReactNode, optionAriaLabel?: string, optionLabel?: ReactNode) => {
-		if (typeof optionTooltip === 'string' || typeof optionTooltip === 'boolean') {
+		if (isStringValue(optionTooltip) || isBooleanValue(optionTooltip)) {
 			return optionTooltip;
 		}
 
@@ -198,7 +212,7 @@ export const OptionSelect = (props: Prettify<OptionSelectProps>) => {
 			return optionAriaLabel;
 		}
 
-		if (noItemLabel && typeof optionLabel === 'string') {
+		if (noItemLabel && isStringValue(optionLabel)) {
 			return optionLabel;
 		}
 
@@ -240,7 +254,7 @@ export const OptionSelect = (props: Prettify<OptionSelectProps>) => {
 						className={itemClassName}
 						icon={!noItemIcon ? renderOptionIcon(optionIcon) : null}
 						endIcon={!noItemIcon ? renderOptionIcon(optionEndIcon) : null}
-						aria-label={optionAriaLabel ?? (typeof optionLabel === 'string' ? optionLabel : undefined)}
+						aria-label={optionAriaLabel ?? (isStringValue(optionLabel) ? optionLabel : undefined)}
 						onClick={() => onChange(optionValue)}
 						shortcut={optionShortcut}
 						{...itemProps}
@@ -295,7 +309,7 @@ export const OptionSelect = (props: Prettify<OptionSelectProps>) => {
 			{['toggleButtons', 'toggleButtonsSplit'].includes(type) ? (
 				<ButtonGroup
 					vertical={vertical}
-					aria-label={typeof label !== 'undefined' ? undefined : ariaLabel}
+					aria-label={label !== undefined ? undefined : ariaLabel}
 					type={type === 'toggleButtonsSplit' ? 'split' : 'segmented'}
 					{...wrapperProps}
 				>
@@ -317,7 +331,7 @@ export const OptionSelect = (props: Prettify<OptionSelectProps>) => {
 								className={itemClassName}
 								icon={!noItemIcon ? renderOptionIcon(optionIcon) : null}
 								tooltip={getToggleTooltip(optionTooltip, optionAriaLabel, optionLabel)}
-								aria-label={optionAriaLabel ?? (typeof optionLabel === 'string' ? optionLabel : undefined)}
+								aria-label={optionAriaLabel ?? (isStringValue(optionLabel) ? optionLabel : undefined)}
 								{...itemProps}
 							>
 								{renderOptionContent(optionLabel, optionSubtitle)}
@@ -338,8 +352,8 @@ export const OptionSelect = (props: Prettify<OptionSelectProps>) => {
 						}
 					}}
 					design={radioDesign}
-					aria-label={typeof label !== 'undefined' ? undefined : ariaLabel}
-					value={value === undefined ? undefined : getOptionKey(value)}
+					aria-label={label !== undefined ? undefined : ariaLabel}
+					value={currentItem ? getOptionKey(currentItem.value) : undefined}
 					{...wrapperProps}
 				>
 					{options.map(({ label: optionLabel, value: optionValue, icon: optionIcon, ariaLabel: optionAriaLabel, subtitle: optionSubtitle, disabled: optionDisabled }) => (
@@ -350,7 +364,7 @@ export const OptionSelect = (props: Prettify<OptionSelectProps>) => {
 							className={itemClassName}
 							subtitle={!noItemLabel ? optionSubtitle : undefined}
 							icon={!noItemIcon ? renderOptionIcon(optionIcon) : null}
-							aria-label={optionAriaLabel ?? (typeof optionLabel === 'string' ? optionLabel : undefined)}
+							aria-label={optionAriaLabel ?? (isStringValue(optionLabel) ? optionLabel : undefined)}
 							label={!noItemLabel ? optionLabel : undefined}
 							{...itemProps}
 						/>
@@ -360,8 +374,8 @@ export const OptionSelect = (props: Prettify<OptionSelectProps>) => {
 
 			{type === 'menu' ? (
 				<Menu
-					triggerLabel={value ? resolvedMenuTriggerLabel : notSetLabel}
-					triggerIcon={value && resolvedTriggerIcon}
+					triggerLabel={currentItem ? resolvedMenuTriggerLabel : notSetLabel}
+					triggerIcon={currentItem ? resolvedTriggerIcon : undefined}
 					tooltip={
 						noTriggerLabel ? (
 							<RichLabel
@@ -376,10 +390,10 @@ export const OptionSelect = (props: Prettify<OptionSelectProps>) => {
 					triggerProps={{
 						...wrapperProps?.triggerProps,
 						'aria-label':
-							typeof label !== 'undefined' ? undefined : (ariaLabel ?? (typeof label === 'string' ? label : undefined) ?? (typeof tooltip === 'string' ? tooltip : undefined)),
+							label !== undefined ? undefined : (ariaLabel ?? (isStringValue(label) ? label : undefined) ?? (isStringValue(tooltip) ? tooltip : undefined)),
 					}}
 					keepOpen
-					aria-label={ariaLabel ?? (typeof label === 'string' ? label : undefined) ?? (typeof tooltip === 'string' ? tooltip : undefined) ?? __('Menu', 'eightshift-ui-components')}
+					aria-label={ariaLabel ?? (isStringValue(label) ? label : undefined) ?? (isStringValue(tooltip) ? tooltip : undefined) ?? __('Menu', 'eightshift-ui-components')}
 					{...wrapperProps}
 				>
 					{renderMenuOptions()}

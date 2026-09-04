@@ -22,7 +22,7 @@ import { cloneElement, useMemo, useRef, useState, type CSSProperties, type JSX, 
 import { Icon, clearAlt, dropdownCaret, searchEmpty } from '../../icons/internal';
 import { BaseControl } from '../base-control/base-control';
 import { RichLabel } from '../rich-label/rich-label';
-import { getGroupedOptions, getOptionKey, OptionItemBase, SelectClearButton, type Primitive } from './shared';
+import { getGroupedOptions, getOptionKey, isPrimitive, isStringValue, OptionItemBase, SelectClearButton, type Primitive } from './shared';
 import { selectButtonClass, selectControlClass } from './styles';
 import type { Prettify } from '../../utilities/types';
 
@@ -32,22 +32,13 @@ type SelectSize = 'small' | 'medium' | 'default' | 'large';
 type SelectOption = {
 	label: string;
 	value: Primitive;
-	metadata?: Record<string, unknown> | null;
+	metadata?: object | null;
 	subtitle?: ReactNode;
 	icon?: IconValue;
 	className?: string;
-	[key: string]: unknown;
 };
 
-type GroupValueMapping = Record<
-	string,
-	{
-		label?: ReactNode;
-		icon?: IconValue;
-		subtitle?: ReactNode;
-		endIcon?: IconValue;
-	}
->;
+type GroupValueMapping = object;
 
 type SelectValueType = SelectOption | Primitive | null;
 
@@ -104,20 +95,20 @@ type SelectProps = Omit<ReactAriaSelectProps<SelectOption>, 'children' | 'classN
 
 const getSelectedKey = (value: SelectValueType, simpleValue: boolean) => {
 	if (simpleValue) {
-		return typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean' ? getOptionKey(value) : null;
+		return isPrimitive(value) ? getOptionKey(value) : null;
 	}
 
-	if (!value || typeof value !== 'object') {
+	if (!value || !(value instanceof Object)) {
 		return null;
 	}
 
 	const selectedValue = value.value;
 
-	return typeof selectedValue === 'string' || typeof selectedValue === 'number' || typeof selectedValue === 'boolean' ? getOptionKey(selectedValue) : null;
+	return isPrimitive(selectedValue) ? getOptionKey(selectedValue) : null;
 };
 
 const getSearchableText = (content?: ReactNode) => {
-	if (typeof content === 'string') {
+	if (isStringValue(content)) {
 		return content;
 	}
 
@@ -125,6 +116,7 @@ const getSearchableText = (content?: ReactNode) => {
 };
 
 const getPopoverStyle = (triggerElement: HTMLDivElement | null) =>
+	// SAFETY: React CSSProperties supports custom properties consumed by the select stylesheet.
 	({
 		'--select-width': triggerElement ? `${triggerElement.offsetWidth}px` : 'var(--trigger-width)',
 	}) as CSSProperties;
@@ -241,7 +233,7 @@ export const Select = (props: Prettify<SelectProps>) => {
 					return;
 				}
 
-				if (typeof selected !== 'string') {
+				if (!isStringValue(selected)) {
 					onChange(null);
 
 					return;
@@ -367,7 +359,7 @@ export const Select = (props: Prettify<SelectProps>) => {
 					placement='bottom left'
 					maxHeight={260}
 					triggerRef={ref}
-					style={getPopoverStyle(ref.current)}
+					style={getPopoverStyle(null)}
 				>
 					{searchable ? (
 						<Autocomplete

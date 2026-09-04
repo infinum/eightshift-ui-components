@@ -114,9 +114,7 @@ export const ColorPicker = (props: Prettify<ColorPickerProps>) => {
 
 	const currentColor = colors.find(({ slug }) => slug === value)?.color;
 	const hasColorGroups = !noColorGroups && colors.some(({ slug }) => colorSuffixRegex.test(slug));
-	const colorGroupNames: Record<string, string> = {
-		generic: __('Other colors', 'eightshift-ui-components'),
-	};
+	const colorGroupNames = new Map<string, string>([['generic', __('Other colors', 'eightshift-ui-components')]]);
 
 	let groupedColors: GroupedColors | undefined;
 
@@ -134,7 +132,7 @@ export const ColorPicker = (props: Prettify<ColorPickerProps>) => {
 
 					if (!output[newSlug]) {
 						output[newSlug] = [];
-						colorGroupNames[newSlug] = current.name.replace(colorSuffixRegex, '').trim();
+						colorGroupNames.set(newSlug, current.name.replace(colorSuffixRegex, '').trim());
 					}
 
 					output[newSlug] = [
@@ -255,7 +253,7 @@ export const ColorPicker = (props: Prettify<ColorPickerProps>) => {
 				tooltip={tooltipText}
 				triggerProps={{
 					...triggerProps,
-					'aria-label': typeof label !== 'undefined' ? undefined : ariaLabel,
+					'aria-label': label !== undefined ? undefined : ariaLabel,
 				}}
 				{...menuProps}
 			>
@@ -263,7 +261,7 @@ export const ColorPicker = (props: Prettify<ColorPickerProps>) => {
 					<>
 						<MenuItem
 							onClick={() => onChange(undefined)}
-							selected={typeof value === 'undefined'}
+							selected={value === undefined}
 							endIcon={
 								<ColorSwatch
 									className='es:size-5!'
@@ -296,7 +294,7 @@ export const ColorPicker = (props: Prettify<ColorPickerProps>) => {
 							return (
 								<MenuSection
 									key={groupSlug}
-									aria-label={colorGroupNames[groupSlug]}
+									aria-label={colorGroupNames.get(groupSlug)}
 								>
 									{groupedColorItems.map((color) => (
 										<SingleItem
@@ -309,7 +307,7 @@ export const ColorPicker = (props: Prettify<ColorPickerProps>) => {
 						})}
 
 						{genericGroupedColors.length > 0 ? (
-							<MenuSection aria-label={colorGroupNames.generic}>
+							<MenuSection aria-label={colorGroupNames.get('generic')}>
 								{genericGroupedColors.map((color) => (
 									<SingleItem
 										key={color.slug}

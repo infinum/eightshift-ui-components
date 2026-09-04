@@ -166,6 +166,7 @@ const ContainerBase = <T extends ElementType = 'div'>(props: ContainerProps<T>, 
 	return (
 		<ComponentToRender
 			{...rest}
+			// SAFETY: The forwarded Element ref targets the element selected by the polymorphic `as` prop.
 			ref={ref as never}
 			className={clsx(containerClasses({ accent, elevated, primary, isChild, compact, horizontal, standalone, centered, lessSpaceStart, lessSpaceEnd }), className)}
 		>
@@ -187,9 +188,12 @@ const ContainerBase = <T extends ElementType = 'div'>(props: ContainerProps<T>, 
  * 	<p>This is a container with accent and elevated styles.</p>
  * </Container>
  */
-export const Container = forwardRef(ContainerBase) as ContainerComponent & { displayName?: string };
+const ForwardedContainer = forwardRef(ContainerBase);
+// SAFETY: ContainerComponent restores the generic `as` relationship erased by React.forwardRef.
+const TypedContainer = ForwardedContainer as ContainerComponent & { displayName?: string };
 
-Container.displayName = 'Container';
+TypedContainer.displayName = 'Container';
+export { TypedContainer as Container };
 
 type ContainerGroupProps<T extends ElementType = 'div'> = {
 	/** The HTML element to render as the container group. */
@@ -218,9 +222,11 @@ const ContainerGroupBase = <T extends ElementType = 'div'>(props: ContainerGroup
 	}
 
 	const processedChildren = Children.toArray(children).reduce<ReactNode[]>((accumulator, child, index) => {
+		// SAFETY: React component types may expose the displayName assigned below.
 		if (isValidElement(child) && (child.type as { displayName?: string })?.displayName === 'Container') {
 			return [
 				...accumulator,
+				// SAFETY: A child identified as Container accepts the horizontal prop added by ContainerGroup.
 				cloneElement(child as ReactElement<{ horizontal?: boolean }>, {
 					horizontal,
 					key: child.key ?? index,
@@ -238,6 +244,7 @@ const ContainerGroupBase = <T extends ElementType = 'div'>(props: ContainerGroup
 	const inner = (
 		<ComponentToRender
 			{...rest}
+			// SAFETY: The forwarded Element ref targets the element selected by the polymorphic `as` prop.
 			ref={ref as never}
 			className={clsx('es:flex es:gap-0.5', !horizontal && 'es:flex-col', className)}
 		>
@@ -271,6 +278,9 @@ const ContainerGroupBase = <T extends ElementType = 'div'>(props: ContainerGroup
  * 	<Container>Second container</Container>
  * </ContainerGroup>
  */
-export const ContainerGroup = forwardRef(ContainerGroupBase) as ContainerGroupComponent & { displayName?: string };
+const ForwardedContainerGroup = forwardRef(ContainerGroupBase);
+// SAFETY: ContainerGroupComponent restores the generic `as` relationship erased by React.forwardRef.
+const TypedContainerGroup = ForwardedContainerGroup as ContainerGroupComponent & { displayName?: string };
 
-ContainerGroup.displayName = 'ContainerGroup';
+TypedContainerGroup.displayName = 'ContainerGroup';
+export { TypedContainerGroup as ContainerGroup };

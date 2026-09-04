@@ -60,7 +60,7 @@ export const Spacer = (props: Prettify<SpacerProps>) => {
 		return null;
 	}
 
-	const sizes: Record<SpacerSize, SpacerSizeClasses> = {
+	const sizes = {
 		px: {
 			sizeHorizontal: 'es:h-px',
 			sizeHorizontalBorder: 'es:h-px',
@@ -85,7 +85,7 @@ export const Spacer = (props: Prettify<SpacerProps>) => {
 			sizeVertical: 'es:w-5',
 			sizeVerticalBorder: 'es:w-2',
 		},
-	};
+	} satisfies Record<SpacerSize, SpacerSizeClasses>;
 
 	const spaceClass = clsx(
 		vertical ? 'es:h-full' : 'es:w-full',

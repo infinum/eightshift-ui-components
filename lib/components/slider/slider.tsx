@@ -82,6 +82,11 @@ type SliderProps = Omit<
 	hidden?: boolean;
 };
 
+const isNumberValue = <T,>(value: T): value is T & number => Object.prototype.toString.call(value) === '[object Number]';
+const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
+
+const isMarkerMap = (markers: SliderMarkerType): markers is Record<string, ReactNode> => markers !== true && markers !== 'dots' && markers !== 'lines';
+
 /**
  * A single/multi-thumb slider component.
  *
@@ -145,7 +150,7 @@ export const Slider = (props: Prettify<SliderProps>) => {
 
 	let generatedMarkers: Record<string, ReactNode> = {};
 
-	if (markers && typeof markers === 'object' && Object.keys(markers).length > 0) {
+	if (markers && isMarkerMap(markers) && Object.keys(markers).length > 0) {
 		generatedMarkers = markers;
 	}
 
@@ -159,7 +164,7 @@ export const Slider = (props: Prettify<SliderProps>) => {
 
 	const markerData: Array<[string, ReactNode]> = vertical ? [...markerEntries].reverse() : markerEntries;
 	const isRange = Array.isArray(value);
-	const singleValue = typeof value === 'number' ? value : (value[0] ?? min);
+	const singleValue = isNumberValue(value) ? value : (value[0] ?? min);
 
 	return (
 		<ReactAriaSlider
@@ -191,7 +196,7 @@ export const Slider = (props: Prettify<SliderProps>) => {
 
 						{inputField && !isRange ? (
 							<NumberPicker
-								aria-label={typeof label === 'string' ? label : __('Slider value', 'eightshift-ui-components')}
+								aria-label={isStringValue(label) ? label : __('Slider value', 'eightshift-ui-components')}
 								value={singleValue}
 								onChange={(nextValue) => onChange(nextValue)}
 								min={min}
@@ -210,7 +215,7 @@ export const Slider = (props: Prettify<SliderProps>) => {
 
 					<ReactAriaSliderTrack className={clsx('es:isolate', vertical && 'es:mx-auto es:h-48', !vertical && 'es:grow')}>
 						{({ state }) => {
-							const stateValues = state.values.filter((entry): entry is number => typeof entry === 'number');
+							const stateValues = state.values.filter(isNumberValue);
 							const firstStateValue = stateValues[0] ?? min;
 							const lastStateValue = stateValues.at(-1) ?? firstStateValue;
 							let gridTemplate = generateGridTemplate(

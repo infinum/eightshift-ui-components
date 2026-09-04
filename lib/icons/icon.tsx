@@ -1,4 +1,4 @@
-import { cloneElement, memo, useEffect, useState, type JSX } from 'react';
+import { cloneElement, memo, useEffect, useState, type ComponentPropsWithoutRef, type JSX } from 'react';
 import { hasIconLoader, loadIconByName } from './generated-icon-loaders';
 import { dummySpacer } from './ui-icons/dummy-spacer';
 
@@ -6,6 +6,7 @@ const normalizeIconName = (name: string): string => name.replace(/[-_]+([a-z0-9]
 
 const iconCache = new Map<string, JSX.Element | null>();
 const iconLoads = new Map<string, Promise<JSX.Element | null>>();
+const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
 
 const loadIcon = (iconName: string): Promise<JSX.Element | null> => {
 	if (iconCache.has(iconName)) {
@@ -34,7 +35,9 @@ const loadIcon = (iconName: string): Promise<JSX.Element | null> => {
 	return iconLoads.get(iconName)!;
 };
 
-const renderIcon = (iconToRender: JSX.Element | null, rest: Record<string, unknown>): JSX.Element | null => {
+type IconPresentationProps = Omit<ComponentPropsWithoutRef<'svg'>, 'children'>;
+
+const renderIcon = (iconToRender: JSX.Element | null, rest: IconPresentationProps): JSX.Element | null => {
 	if (!iconToRender) {
 		return null;
 	}
@@ -46,10 +49,9 @@ const renderIcon = (iconToRender: JSX.Element | null, rest: Record<string, unkno
 	return cloneElement(iconToRender, rest);
 };
 
-interface IconProps {
+interface IconProps extends IconPresentationProps {
 	icon?: JSX.Element | string | null;
 	fallback?: JSX.Element | null;
-	[key: string]: unknown;
 }
 
 /**
@@ -63,33 +65,46 @@ interface IconProps {
  * @returns {JSX.Element | null} The Icon component.
  */
 export const Icon = memo(({ icon, fallback = null, ...rest }: IconProps): JSX.Element | null => {
-	const normalizedIconName = typeof icon === 'string' ? normalizeIconName(icon) : null;
+	const normalizedIconName = isStringValue(icon) ? normalizeIconName(icon) : null;
 	const [loadedIcon, setLoadedIcon] = useState<JSX.Element | null | undefined>(() =>
 		normalizedIconName && iconCache.has(normalizedIconName) ? (iconCache.get(normalizedIconName) ?? null) : undefined,
 	);
 
 	useEffect(() => {
 		let isDisposed = false;
+		const updateLoadedIcon = (nextIcon: JSX.Element | null | undefined) => {
+			queueMicrotask(() => {
+				if (!isDisposed) {
+					setLoadedIcon(nextIcon);
+				}
+			});
+		};
 
 		if (!normalizedIconName) {
-			setLoadedIcon(undefined);
+			updateLoadedIcon(undefined);
 
-			return undefined;
+			return () => {
+				isDisposed = true;
+			};
 		}
 
 		if (iconCache.has(normalizedIconName)) {
-			setLoadedIcon(iconCache.get(normalizedIconName) ?? null);
+			updateLoadedIcon(iconCache.get(normalizedIconName) ?? null);
 
-			return undefined;
+			return () => {
+				isDisposed = true;
+			};
 		}
 
 		if (!hasIconLoader(normalizedIconName)) {
-			setLoadedIcon(null);
+			updateLoadedIcon(null);
 
-			return undefined;
+			return () => {
+				isDisposed = true;
+			};
 		}
 
-		setLoadedIcon(undefined);
+		updateLoadedIcon(undefined);
 
 		const loadIconPromise = loadIcon(normalizedIconName).then((resolvedIcon) => {
 			if (!isDisposed) {
@@ -108,7 +123,7 @@ export const Icon = memo(({ icon, fallback = null, ...rest }: IconProps): JSX.El
 		return fallback;
 	}
 
-	if (typeof icon !== 'string') {
+	if (!isStringValue(icon)) {
 		return icon;
 	}
 

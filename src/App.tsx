@@ -1,4 +1,4 @@
-import { cloneElement, useState, type ComponentProps, type ReactElement, type ReactNode } from 'react';
+import { cloneElement, isValidElement, useState, type ComponentProps, type ReactElement, type ReactNode } from 'react';
 import {
 	Toggle,
 	AnimatedVisibility,
@@ -73,6 +73,7 @@ import {
 import { clsx } from 'clsx';
 import '../lib/style';
 import {
+	// oxlint-disable-next-line anti-slop/no-shape-in-symbol-names -- Established public icon name.
 	genericShapes,
 	num1Square,
 	num2Circle,
@@ -160,19 +161,19 @@ type DemoOption = {
 	value: string;
 	subtitle?: ReactNode;
 	icon?: string | ReactElement | null;
-	metadata?: Record<string, unknown>;
+	metadata?: object;
 	group?: string;
 	category?: string;
-	[key: string]: unknown;
 };
 
 type DemoPrimitive = string | number | boolean;
 type DemoSelectValue = DemoOption | string | null;
 type DemoMultiSelectValue = DemoOption[] | string[] | '' | null;
 type DemoOptionSelectValue = string | number | boolean | null;
-type DemoOptionSelectOption = {
+type DemoOptionSelectOption = Omit<ComponentProps<typeof OptionSelectBase>['options'][number], 'value' | 'icon' | 'endIcon'> & {
 	value: DemoOptionSelectValue;
-	[key: string]: unknown;
+	icon?: ReactNode;
+	endIcon?: ReactNode;
 };
 type DemoRangeValue = [number, number];
 type DemoRangeValueTriple = [number, number, number];
@@ -184,19 +185,15 @@ type DemoLinkSuggestionItem = {
 	value: string;
 	metadata?: {
 		subtype?: string | null;
-		[key: string]: unknown;
 	};
 };
-type DemoAsyncSelectOption = {
-	label: string;
-	value: DemoPrimitive;
-	subtitle?: string;
-	icon?: string | ReactElement | null;
-	metadata?: Record<string, unknown> | null;
-	meta?: Record<string, unknown> | null;
-	[key: string]: unknown;
-};
-type DemoAsyncMultiSelectValue = DemoAsyncSelectOption[] | DemoPrimitive[] | '' | null;
+type AsyncSelectProps = ComponentProps<typeof AsyncSelect>;
+type AsyncMultiSelectProps = ComponentProps<typeof AsyncMultiSelect>;
+type DemoAsyncSelectOption = NonNullable<AsyncSelectProps['value']>;
+type DemoAsyncMultiSelectValue = AsyncMultiSelectProps['value'];
+type DemoRawAsyncItem = Parameters<NonNullable<AsyncSelectProps['getLabel']>>[0];
+type DemoAsyncFetchedData = Parameters<NonNullable<AsyncSelectProps['getData']>>[0];
+type DemoRawItemValue = string | number | boolean | bigint | symbol | null | undefined | object;
 type DemoTabsType = 'underline' | 'underlineSecondary' | 'pill' | 'pillCompact' | 'bubble' | 'chips';
 type DemoButtonType = 'default' | 'glass' | 'glassDark';
 type DemoMatrixAlignValue = 'top left' | 'top center' | 'top right' | 'center left' | 'center center' | 'center right' | 'bottom left' | 'bottom center' | 'bottom right';
@@ -228,7 +225,10 @@ type DemoDraggableListRenderItem = DemoDraggableListItem & {
 };
 type FilePickerShellDemoProps = ComponentProps<typeof FilePickerShell>;
 
-const TypedDraggable = Draggable as unknown as (props: {
+const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
+
+// SAFETY: This adapter binds Draggable's generic item contract to the demo item type.
+const TypedDraggable = Draggable as (props: {
 	items?: DemoDraggableItem[] | null;
 	onChange: (items: DemoDraggableItem[]) => void;
 	className?: string;
@@ -237,7 +237,8 @@ const TypedDraggable = Draggable as unknown as (props: {
 	children: (item: DemoDraggableRenderItem) => ReactNode;
 }) => ReactNode;
 
-const TypedDraggableList = DraggableList as unknown as (props: {
+// SAFETY: This adapter binds DraggableList's generic item contract to the demo item type.
+const TypedDraggableList = DraggableList as (props: {
 	label?: ReactNode;
 	items?: DemoDraggableListItem[] | null;
 	onChange: (items: DemoDraggableListItem[]) => void;
@@ -245,7 +246,8 @@ const TypedDraggableList = DraggableList as unknown as (props: {
 	children: (item: DemoDraggableListRenderItem) => ReactNode;
 }) => ReactNode;
 
-const TypedSelect = SelectBase as unknown as (props: {
+// SAFETY: This adapter binds Select's generic option contract to the demo option type.
+const TypedSelect = SelectBase as (props: {
 	label?: ReactNode;
 	value: DemoSelectValue;
 	onChange: (value: DemoSelectValue) => void;
@@ -265,7 +267,8 @@ const TypedSelect = SelectBase as unknown as (props: {
 	placeholder?: string;
 }) => ReactNode;
 
-const TypedMultiSelect = MultiSelectBase as unknown as (props: {
+// SAFETY: This adapter binds MultiSelect's generic option contract to the demo option type.
+const TypedMultiSelect = MultiSelectBase as (props: {
 	label?: ReactNode;
 	value: DemoMultiSelectValue;
 	onChange: (value: DemoMultiSelectValue) => void;
@@ -279,7 +282,8 @@ const TypedMultiSelect = MultiSelectBase as unknown as (props: {
 
 const Select = TypedSelect;
 
-const TypedInputField = InputField as unknown as (props: {
+// SAFETY: This adapter exposes the legacy InputField prop subset used throughout the demo.
+const TypedInputField = InputField as (props: {
 	value?: string;
 	onChange?: (value: string) => void;
 	label?: ReactNode;
@@ -307,7 +311,12 @@ const OptionSelect = ({
 		itemProps={itemProps || undefined}
 		value={value === null || value === undefined ? undefined : String(value)}
 		onChange={(nextValue) => onChange?.(String(nextValue))}
-		options={(options ?? []).map((option) => ({ ...option, value: option.value === null || option.value === undefined ? '' : String(option.value) }))}
+		options={(options ?? []).map(({ icon: optionIcon, endIcon: optionEndIcon, ...option }) => ({
+			...option,
+			icon: isStringValue(optionIcon) || isValidElement(optionIcon) ? optionIcon : undefined,
+			endIcon: isStringValue(optionEndIcon) || isValidElement(optionEndIcon) ? optionEndIcon : undefined,
+			value: option.value === null || option.value === undefined ? '' : String(option.value),
+		}))}
 	/>
 );
 
@@ -317,8 +326,8 @@ const slugify = (input: string | number) => {
 		.toLowerCase()
 		.trim()
 		.replace(/\s+/g, '-')
-		.replace(/[^\w\-]+/g, '')
-		.replace(/\-\-+/g, '-')
+		.replace(/[^\w-]+/g, '')
+		.replace(/--+/g, '-')
 		.replace(/^-+/, '')
 		.replace(/-+$/, '');
 };
@@ -548,37 +557,44 @@ function App() {
 		});
 	};
 
-	const getItemString = (item: Record<string, unknown>, key: string) => {
-		const value = item[key];
+	const getRawItemValue = (item: DemoRawAsyncItem, key: string): DemoRawItemValue => {
+		// SAFETY: DemoRawItemValue covers every JavaScript property value exposed by the fetched demo payloads.
+		const entries = Object.entries(item) as Array<[string, DemoRawItemValue]>;
 
-		return typeof value === 'string' ? value : undefined;
+		return entries.find(([entryKey]) => entryKey === key)?.[1];
 	};
 
-	const getItemStringValue = (item: Record<string, unknown>, key: string) => {
-		const value = item[key];
+	const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
+	const isNumberValue = <T,>(value: T): value is T & number => Object.prototype.toString.call(value) === '[object Number]';
 
-		if (typeof value === 'string') {
+	const getItemString = (item: DemoRawAsyncItem, key: string) => {
+		const value = getRawItemValue(item, key);
+
+		return isStringValue(value) ? value : undefined;
+	};
+
+	const getItemStringValue = (item: DemoRawAsyncItem, key: string) => {
+		const value = getRawItemValue(item, key);
+
+		if (isStringValue(value)) {
 			return value;
 		}
 
-		if (typeof value === 'number') {
+		if (isNumberValue(value)) {
 			return String(value);
 		}
 
 		return undefined;
 	};
 
-	const mapItemsWithSlugValue = (items: Record<string, unknown>[]) => items.map((item) => ({ ...item, value: slugify(getItemStringValue(item, 'name') ?? '') }));
+	const mapItemsWithSlugValue = (items: DemoRawAsyncItem[]) =>
+		items.map((item) => {
+			Object.defineProperty(item, 'value', { configurable: true, enumerable: true, value: slugify(getItemStringValue(item, 'name') ?? ''), writable: true });
 
-	const getJokeItems = (data: unknown): Record<string, unknown>[] => {
-		if (!data || typeof data !== 'object') {
-			return [];
-		}
+			return item;
+		});
 
-		const { jokes } = data as { jokes?: unknown };
-
-		return Array.isArray(jokes) ? (jokes as Record<string, unknown>[]) : [];
-	};
+	const getJokeItems = (data: DemoAsyncFetchedData): DemoRawAsyncItem[] => (Array.isArray(data) ? data : (data.jokes ?? []));
 
 	const [v, setV] = useState<DemoSelectValue>(null);
 
@@ -858,13 +874,13 @@ function App() {
 	const [colConfig5, setColConfig5] = useState<DemoColumnConfigValue>([2, 4]);
 
 	const handleSliderValueChange = (value: number | number[]) => {
-		if (typeof value === 'number') {
+		if (isNumberValue(value)) {
 			setSliderValue(value);
 		}
 	};
 
 	const handleSliderValue2Change = (value: number | number[]) => {
-		if (typeof value === 'number') {
+		if (isNumberValue(value)) {
 			setSliderValue2(value);
 		}
 	};
@@ -887,8 +903,26 @@ function App() {
 	const handleColor1Change = (value?: string) => setColor1(value);
 	const handleColor2Change = (value?: string) => setColor2(value);
 	const handleColor3Change = (value?: string) => setColor3(value);
-	const handleMatrixValChange = (value: string) => setMatrixVal(value as DemoMatrixAlignValue);
-	const handleMatrixVal2Change = (value: string) => setMatrixVal2(value as DemoMatrixAlignValue);
+	const isMatrixAlignValue = (value: string): value is DemoMatrixAlignValue =>
+		value === 'top left' ||
+		value === 'top center' ||
+		value === 'top right' ||
+		value === 'center left' ||
+		value === 'center center' ||
+		value === 'center right' ||
+		value === 'bottom left' ||
+		value === 'bottom center' ||
+		value === 'bottom right';
+	const handleMatrixValChange = (value: string) => {
+		if (isMatrixAlignValue(value)) {
+			setMatrixVal(value);
+		}
+	};
+	const handleMatrixVal2Change = (value: string) => {
+		if (isMatrixAlignValue(value)) {
+			setMatrixVal2(value);
+		}
+	};
 	const handleSelectValueChange = (value: DemoSelectValue) => setV(value);
 	const handleTabVarChange = (value: DemoOptionSelectValue) => {
 		if (value === 'underline' || value === 'underlineSecondary' || value === 'pill' || value === 'pillCompact' || value === 'bubble' || value === 'chips') {
@@ -2719,7 +2753,8 @@ function App() {
 						groupKey='group'
 						groupValueMapping={{
 							Colors: { label: 'Vibrant Colors', icon: <GenericColorSwatch />, subtitle: 'Pick a favorite shade', endIcon: 'star' },
-							Shapes: { label: 'Geometric Shapes', icon: genericShapes, subtitle: 'Standard geometry' },
+							// oxlint-disable-next-line anti-slop/no-shape-in-symbol-names -- Established public icon name.
+							'Shapes': { label: 'Geometric Shapes', icon: genericShapes, subtitle: 'Standard geometry' },
 							_other: { label: 'Miscellaneous', icon: help },
 						}}
 						searchable
@@ -2778,7 +2813,8 @@ function App() {
 						groupKey='group'
 						groupValueMapping={{
 							Colors: { label: 'Vibrant Colors', icon: <GenericColorSwatch /> },
-							Shapes: { label: 'Geometric Shapes', icon: genericShapes },
+							// oxlint-disable-next-line anti-slop/no-shape-in-symbol-names -- Established public icon name.
+							'Shapes': { label: 'Geometric Shapes', icon: genericShapes },
 							_other: { label: 'Miscellaneous', icon: help },
 						}}
 						searchable
@@ -2825,7 +2861,8 @@ function App() {
 						groupKey='group'
 						groupValueMapping={{
 							Colors: { label: 'Vibrant Colors', icon: <GenericColorSwatch /> },
-							Shapes: { label: 'Geometric Shapes', icon: genericShapes },
+							// oxlint-disable-next-line anti-slop/no-shape-in-symbol-names -- Established public icon name.
+							'Shapes': { label: 'Geometric Shapes', icon: genericShapes },
 							_other: { label: 'Miscellaneous', icon: help },
 						}}
 						clearable
@@ -2870,7 +2907,8 @@ function App() {
 						groupKey='group'
 						groupValueMapping={{
 							Colors: { label: 'Vibrant Colors', icon: <GenericColorSwatch /> },
-							Shapes: { label: 'Geometric Shapes', icon: genericShapes },
+							// oxlint-disable-next-line anti-slop/no-shape-in-symbol-names -- Established public icon name.
+							'Shapes': { label: 'Geometric Shapes', icon: genericShapes },
 							_other: { label: 'Miscellaneous', icon: help },
 						}}
 						clearable
@@ -4490,7 +4528,6 @@ function App() {
 
 							<OptionsPanel
 								title='Header & footer'
-								subtitle='Nešto tu i tamo'
 								help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
 							>
 								<OptionsPanelSection>
@@ -4610,7 +4647,6 @@ function App() {
 
 							<OptionsPanel
 								title='Header & footer'
-								subtitle='Nešto tu i tamo'
 								help='Lorem ipsum dolor sit amet, lorem dolor sit amet? Ipsum!'
 							>
 								<OptionsPanelSection>

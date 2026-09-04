@@ -1,7 +1,8 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { ESLint } from 'eslint';
+
+import { format } from 'oxfmt';
 import { glob } from 'glob';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
@@ -9,7 +10,14 @@ const rootDir = path.resolve(scriptDir, '..');
 const iconsDir = path.join(rootDir, 'lib/icons/ui-icons');
 const outputFile = path.join(rootDir, 'lib/icons/generated-icon-loaders.ts');
 
-const normalizeIconName = (name) => name.replace(/[-_]+([a-z0-9])/gi, (_, char) => char.toUpperCase()).replace(/^([A-Z])/, (char) => char.toLowerCase());
+/**
+ * @param {string} _match
+ * @param {string} char
+ */
+const uppercaseMatch = (_match, char) => char.toUpperCase();
+
+/** @param {string} name */
+const normalizeIconName = (name) => name.replace(/[-_]+([a-z0-9])/gi, uppercaseMatch).replace(/^([A-Z])/, (char) => char.toLowerCase());
 
 const iconFiles = (await glob('*.tsx', { cwd: iconsDir })).sort();
 
@@ -42,9 +50,17 @@ await fs.unlink(oldOutputFile).catch(() => null);
 const existingContents = await fs.readFile(outputFile, 'utf8').catch(() => null);
 
 if (existingContents !== fileContents) {
-	await fs.writeFile(outputFile, fileContents);
+	const formatted = await format(outputFile, fileContents, {
+		useTabs: true,
+		jsxSingleQuote: true,
+		singleQuote: true,
+		singleAttributePerLine: true,
+		printWidth: 180,
+	});
 
-	const eslint = new ESLint({ fix: true });
-	const results = await eslint.lintFiles([outputFile]);
-	await ESLint.outputFixes(results);
+	if (formatted.errors.length > 0) {
+		throw new Error(`Failed to format ${outputFile}: ${formatted.errors.map(({ message }) => message).join('; ')}`);
+	}
+
+	await fs.writeFile(outputFile, formatted.code);
 }

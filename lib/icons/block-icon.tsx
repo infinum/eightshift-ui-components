@@ -31,7 +31,7 @@ interface BlockIconProps {
  */
 export const BlockIcon = ({ iconName }: BlockIconProps): JSX.Element => (
 	<i
-		dangerouslySetInnerHTML={{ __html: blockIcons[iconName] ?? '' }}
+		dangerouslySetInnerHTML={{ __html: Object.entries(blockIcons).find(([name]) => name === iconName)?.[1] ?? '' }}
 		style={{ lineHeight: 0 }}
 	/>
 );

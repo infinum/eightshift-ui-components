@@ -1,3 +1,4 @@
+// oxlint-disable-next-line anti-slop/no-shape-in-symbol-names -- Established public icon name.
 export const genericShapes = (
 	<svg
 		aria-hidden='true'

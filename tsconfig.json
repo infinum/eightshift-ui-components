@@ -11,6 +11,8 @@
 		"noFallthroughCasesInSwitch": true,
 		"verbatimModuleSyntax": true,
 		"isolatedModules": true,
+		"allowJs": true,
+		"checkJs": true,
 		"allowImportingTsExtensions": true,
 		"noEmit": true,
 		"declaration": false,
@@ -19,6 +21,6 @@
 		"resolveJsonModule": true,
 		"forceConsistentCasingInFileNames": true
 	},
-	"include": ["lib/**/*", "src/**/*", "*.ts", "*.d.ts"],
+	"include": ["lib/**/*", "src/**/*", "scripts/**/*.mjs", "*.ts", "*.d.ts"],
 	"exclude": ["node_modules", "dist"]
 }

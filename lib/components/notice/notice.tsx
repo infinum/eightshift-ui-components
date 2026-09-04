@@ -51,7 +51,7 @@ export const Notice = (props: Prettify<NoticeProps>) => {
 		return null;
 	}
 
-	const styles: Record<NoticeType, NoticeStyle> = {
+	const styles = {
 		info: {
 			icon: info,
 			className: 'es:inset-ring-blue-600/15 es:shadow-blue-800/5 es:from-blue-400/2 es:to-blue-600/5 es:inset-shadow-blue-500/10',
@@ -99,7 +99,8 @@ export const Notice = (props: Prettify<NoticeProps>) => {
 			subtitleColorClassName: 'es:text-surface-800/50',
 			selectionClassName: 'es:selection:bg-accent-100 es:selection:text-accent-700',
 		},
-	};
+	} satisfies Record<NoticeType, NoticeStyle>;
+	const currentStyle: NoticeStyle = styles[type];
 
 	return (
 		<div
@@ -111,23 +112,23 @@ export const Notice = (props: Prettify<NoticeProps>) => {
 				'es:bg-linear-to-b es:from-35%',
 				'es:inset-shadow-sm',
 				flat ? 'es:shadow-2xs' : 'es:shadow-sm',
-				styles[type].className,
+				currentStyle.className,
 				'es:icon:shrink-0',
 				'es:selection:p-2',
-				styles[type].selectionClassName,
-				icon || styles[type].icon ? 'es:gap-x-2 es:py-3 es:pl-2.5 es:pr-3' : 'es:py-3 es:px-3.5',
+				currentStyle.selectionClassName,
+				icon || currentStyle.icon ? 'es:gap-x-2 es:py-3 es:pl-2.5 es:pr-3' : 'es:py-3 es:px-3.5',
 				className,
 			)}
 		>
-			{(icon || styles[type].icon) && (
+			{(icon || currentStyle.icon) && (
 				<div
 					className={clsx(
 						'es:col-span-1 es:col-start-1 es:row-span-2 es:row-start-1 es:shrink-0 es:icon:size-6',
 						alignIconToTitle ? 'es:self-baseline' : 'es:self-center-safe',
-						styles[type].iconColorClassName,
+						currentStyle.iconColorClassName,
 					)}
 				>
-					{icon ?? styles[type].icon}
+					{icon ?? currentStyle.icon}
 				</div>
 			)}
 
@@ -137,7 +138,7 @@ export const Notice = (props: Prettify<NoticeProps>) => {
 						'es:col-span-2 es:col-start-2 es:text-balance es:text-14',
 						subtitle ? 'es:self-end' : 'es:row-span-2 es:self-center-safe',
 						'es:font-variation-["wdth"_78,"wght"_325,"ROND"_100]',
-						styles[type].textColorClassName,
+						currentStyle.textColorClassName,
 					)}
 				>
 					{label}
@@ -149,7 +150,7 @@ export const Notice = (props: Prettify<NoticeProps>) => {
 					className={clsx(
 						'es:col-span-2 es:col-start-2 es:text-balance es:text-xs es:leading-tighter es:pt-0.75',
 						'es:font-variation-["wdth"_90,"wght"_350,"slnt"_-1]',
-						styles[type].subtitleColorClassName,
+						currentStyle.subtitleColorClassName,
 						label ? 'es:self-start' : 'es:row-span-2 es:self-center-safe',
 					)}
 				>

@@ -6,13 +6,13 @@ import { Container, type ContainerProps } from '../base-control/container';
 import { BaseControl } from '../base-control/base-control';
 import type { Prettify } from '../../utilities/types';
 
-type DraggableListRenderContext<TItem extends Record<string, unknown>> = TItem & {
+type DraggableListRenderContext<TItem extends object> = TItem & {
 	updateData: (newValue: Partial<TItem>) => void;
 	itemIndex: number;
 	deleteItem: () => void;
 };
 
-type DraggableListProps<TItem extends Record<string, unknown>> = ComponentProps<typeof BaseControl> & {
+type DraggableListProps<TItem extends object> = ComponentProps<typeof BaseControl> & {
 	children: (item: DraggableListRenderContext<TItem>) => ReactNode;
 	/** Data to display in the list. */
 	items?: TItem[] | null;
@@ -26,8 +26,11 @@ type DraggableListProps<TItem extends Record<string, unknown>> = ComponentProps<
 	hidden?: boolean;
 };
 
+// SAFETY: This adapter preserves BaseControl's runtime props while exposing its accepted children shape.
 const TypedBaseControl = BaseControl as (props: ComponentProps<typeof BaseControl> & { children?: ReactNode }) => ReactNode;
+// SAFETY: This adapter preserves Container's runtime props while exposing the ref shape supplied by react-movable.
 const TypedContainer = Container as (props: ContainerProps<'li'> & { ref?: Ref<Element> }) => ReactNode;
+const mergeItem = <TItem extends object>(item: TItem, newValue: Partial<TItem>): TItem => ({ ...item, ...newValue });
 
 /**
  * A component that allows re-ordering a list of items.
@@ -62,12 +65,12 @@ const TypedContainer = Container as (props: ContainerProps<'li'> & { ref?: Ref<E
  * 	}}
  * </DraggableList>
  */
-export const DraggableList = <TItem extends Record<string, unknown>>(props: Prettify<DraggableListProps<TItem>>) => {
+export const DraggableList = <TItem extends object>(props: Prettify<DraggableListProps<TItem>>) => {
 	const { children, items, onChange, icon, label, subtitle, help, actions, className, itemClassName, itemContainerClassName, onAfterItemRemove, hidden, ...rest } = props;
 
 	const normalizedItems = useMemo(() => (Array.isArray(items) ? items : []), [items]);
 
-	if (typeof items === 'undefined' || items === null || !Array.isArray(items)) {
+	if (items === undefined || items === null || !Array.isArray(items)) {
 		console.warn(__("DraggableList: 'items' are not an array or are undefined!", 'eightshift-ui-components'));
 	}
 
@@ -108,12 +111,7 @@ export const DraggableList = <TItem extends Record<string, unknown>>(props: Pret
 					{children({
 						...value,
 						updateData: (newValue) => {
-							const updated = [...normalizedItems];
-
-							updated[index] = {
-								...updated[index],
-								...newValue,
-							} as TItem;
+							const updated = normalizedItems.map((currentItem, itemIndex) => (itemIndex === index ? mergeItem(currentItem, newValue) : currentItem));
 
 							onChange(updated);
 						},

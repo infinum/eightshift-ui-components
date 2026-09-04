@@ -26,9 +26,7 @@ type LinkSuggestionItem = {
 	value: string;
 	metadata?: {
 		subtype?: string | null;
-		[key: string]: unknown;
 	};
-	[key: string]: unknown;
 };
 
 type LinkInputProps = {
@@ -207,7 +205,7 @@ export const LinkInput = (props: Prettify<LinkInputProps>) => {
 		hidden,
 	} = props;
 
-	const canShowSuggestions = typeof fetchSuggestions !== 'undefined';
+	const canShowSuggestions = fetchSuggestions !== undefined;
 
 	let shouldShowSuggestions = true;
 

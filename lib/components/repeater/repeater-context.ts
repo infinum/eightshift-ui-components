@@ -16,7 +16,6 @@ export type RepeaterContextValue = {
 	isItemOpen: boolean;
 	index: number;
 	noDuplicateButton?: boolean;
-	[key: string]: unknown;
 };
 
 export const RepeaterContext = createContext<RepeaterContextValue | null>(null);

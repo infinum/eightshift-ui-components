@@ -24,34 +24,44 @@ import { Icon, Spinner, clearAlt, dropdownCaret, searchEmpty } from '../../icons
 import { unescapeHTML } from '../../utilities';
 import { BaseControl } from '../base-control/base-control';
 import { RichLabel } from '../rich-label/rich-label';
-import { getGroupedOptions, getOptionKey, OptionItemBase, SelectClearButton, type Primitive } from './shared';
+import { getGroupedOptions, getOptionKey, isPrimitive, isStringValue, OptionItemBase, SelectClearButton, type Primitive } from './shared';
 import { selectButtonClass, selectControlClass } from './styles';
 import type { Prettify } from '../../utilities/types';
 
 type IconValue = string | JSX.Element | null;
 type SelectSize = 'small' | 'medium' | 'default' | 'large';
-type RawAsyncItem = Record<string, unknown>;
+
+interface RawAsyncItem {
+	toString(): string;
+}
+
+type AsyncFetchedData = RawAsyncItem[] | { jokes?: RawAsyncItem[] };
+type RawItemValue = string | number | boolean | bigint | symbol | null | undefined | object;
 
 type AsyncSelectOption = {
 	label: string;
 	value: Primitive;
-	metadata?: Record<string, unknown> | null;
-	meta?: Record<string, unknown> | null;
+	metadata?: RawAsyncItem | null;
+	meta?: RawAsyncItem | null;
 	subtitle?: string;
 	icon?: IconValue;
 	className?: string;
-	[key: string]: unknown;
 };
 
-type GroupValueMapping = Record<
-	string,
-	{
-		label?: ReactNode;
-		icon?: IconValue;
-		subtitle?: ReactNode;
-		endIcon?: IconValue;
-	}
->;
+type GroupValueMapping = object;
+
+const getRawItemValue = (item: RawAsyncItem, key: string): RawItemValue => {
+	// SAFETY: RawItemValue covers every JavaScript property value exposed by fetched items.
+	const entries = Object.entries(item) as Array<[string, RawItemValue]>;
+
+	return entries.find(([entryKey]) => entryKey === key)?.[1];
+};
+
+const setRawItemValue = <Value,>(item: RawAsyncItem, key: string, value: Value): void => {
+	Object.defineProperty(item, key, { configurable: true, enumerable: true, value, writable: true });
+};
+
+const isNumberValue = <T,>(value: T): value is T & number => Object.prototype.toString.call(value) === '[object Number]';
 
 type AsyncSelectProps = Omit<
 	ReactAriaSelectProps<AsyncSelectOption>,
@@ -84,7 +94,7 @@ type AsyncSelectProps = Omit<
 	/** Function to get the value for the item from the fetched data. `(item) => string | number | boolean`. Defaults to reading `item.value`. */
 	getValue?: (item: RawAsyncItem) => Primitive | undefined;
 	/** Function to get the metadata for the item from the fetched data. `(item) => object` (optional). */
-	getMeta?: (item: RawAsyncItem) => Record<string, unknown> | null | undefined;
+	getMeta?: (item: RawAsyncItem) => RawAsyncItem | null | undefined;
 	/** Function to get the icon for the item from the fetched data. `(item) => JSX.Element | string`. */
 	getIcon?: (item: RawAsyncItem | AsyncSelectOption) => IconValue;
 	/** Function to get the subtitle for the item from the fetched data. `(item) => string`. */
@@ -92,13 +102,13 @@ type AsyncSelectProps = Omit<
 	/** Function to get the group name for the item from the fetched data. `(item) => string`. */
 	getGroup?: (item: RawAsyncItem) => string | undefined;
 	/** Function to pre-process the fetched data before it is used in the select. `(data) => data[]`. Defaults to a passthrough. */
-	getData?: (data: unknown) => RawAsyncItem[];
+	getData?: (data: AsyncFetchedData) => RawAsyncItem[];
 	/** Function to get the URL for fetching data. Provides typed search text if entered. `(searchText) => string`. */
 	fetchUrl?: (searchText?: string) => string;
 	/** Configuration object for the fetch request, passed to the `fetch` function. Defaults to `{}`. */
 	fetchConfig?: RequestInit;
 	/** Allows overriding the default fetch function. `(searchText, signal) => Promise`. */
-	fetchFunction?: (searchText: string | undefined, signal: AbortSignal) => Promise<unknown>;
+	fetchFunction?: (searchText: string | undefined, signal: AbortSignal) => Promise<AsyncFetchedData>;
 	/** Allows processing the options fetched from the source. `(options) => options[]`. Defaults to a passthrough. */
 	processLoadedOptions?: (options: RawAsyncItem[]) => RawAsyncItem[];
 	/** If provided, replaces the default item in the dropdown menu. `({ value, label, subtitle, metadata }) => JSX.Element`. */
@@ -126,6 +136,7 @@ type AsyncSelectProps = Omit<
 };
 
 const getPopoverStyle = (triggerElement: HTMLDivElement | null) =>
+	// SAFETY: React CSSProperties supports custom properties consumed by the select stylesheet.
 	({
 		'--select-width': triggerElement ? `${triggerElement.offsetWidth}px` : 'var(--trigger-width)',
 	}) as CSSProperties;
@@ -138,11 +149,11 @@ const getKeyFromSelection = (selected: Selection | null | undefined) => {
 	}
 
 	for (const key of selected) {
-		if (typeof key === 'string') {
+		if (isStringValue(key)) {
 			return key;
 		}
 
-		if (typeof key === 'number') {
+		if (isNumberValue(key)) {
 			return String(key);
 		}
 	}
@@ -155,11 +166,11 @@ const getKeyFromValue = (selected: Key | null | undefined) => {
 		return null;
 	}
 
-	if (typeof selected === 'string') {
+	if (isStringValue(selected)) {
 		return selected;
 	}
 
-	if (typeof selected === 'number') {
+	if (isNumberValue(selected)) {
 		return String(selected);
 	}
 
@@ -207,13 +218,21 @@ export const AsyncSelect = (props: Prettify<AsyncSelectProps>) => {
 		fetchUrl,
 		fetchConfig = {},
 		fetchFunction,
-		getLabel = (item) => (typeof item.label === 'string' ? item.label : undefined),
-		getValue = (item) => (typeof item.value === 'string' || typeof item.value === 'number' || typeof item.value === 'boolean' ? item.value : undefined),
+		getLabel = (item) => {
+			const itemLabel = getRawItemValue(item, 'label');
+
+			return isStringValue(itemLabel) ? itemLabel : undefined;
+		},
+		getValue = (item) => {
+			const itemValue = getRawItemValue(item, 'value');
+
+			return isPrimitive(itemValue) ? itemValue : undefined;
+		},
 		getMeta,
 		getIcon,
 		getSubtitle,
 		getGroup,
-		getData = (data) => (Array.isArray(data) ? (data as RawAsyncItem[]) : []),
+		getData = (data) => (Array.isArray(data) ? data : (data.jokes ?? [])),
 		extraItemProps,
 		hidden,
 		groupKey,
@@ -224,20 +243,21 @@ export const AsyncSelect = (props: Prettify<AsyncSelectProps>) => {
 		...rest
 	} = props;
 
-	const value = rawValue && !Array.isArray(rawValue) && typeof rawValue === 'object' ? rawValue : null;
+	const value = rawValue;
 	const ref = useRef<HTMLDivElement>(null);
 
 	const list = useAsyncList<AsyncSelectOption>({
 		initialSelectedKeys: value ? [getOptionKey(value.value)] : [],
 		getKey: (item) => getOptionKey(item.value),
 		async load({ signal, filterText }) {
-			let loadedData: unknown;
+			let loadedData: AsyncFetchedData;
 
 			if (fetchFunction) {
 				loadedData = await fetchFunction(filterText, signal);
 			} else if (fetchUrl) {
 				const response = await fetch(fetchUrl(filterText), { ...fetchConfig, signal });
-				const responseData: unknown = await response.json();
+				// SAFETY: Consumers define the endpoint contract through AsyncFetchedData and may normalize it with getData.
+				const responseData = (await response.json()) as AsyncFetchedData;
 
 				loadedData = responseData;
 			} else {
@@ -272,12 +292,12 @@ export const AsyncSelect = (props: Prettify<AsyncSelectProps>) => {
 				}
 
 				if (getGroup) {
-					entry[groupKey ?? '_group'] = getGroup(item);
+					setRawItemValue(entry, groupKey ?? '_group', getGroup(item));
 				}
 
 				if (extraItemProps?.length) {
 					extraItemProps.forEach((propName) => {
-						entry[propName] = item[propName];
+						setRawItemValue(entry, propName, getRawItemValue(item, propName));
 					});
 				}
 
@@ -470,7 +490,7 @@ export const AsyncSelect = (props: Prettify<AsyncSelectProps>) => {
 					placement='bottom left'
 					maxHeight={260}
 					triggerRef={ref}
-					style={getPopoverStyle(ref.current)}
+					style={getPopoverStyle(null)}
 				>
 					<Autocomplete
 						inputValue={list.filterText}

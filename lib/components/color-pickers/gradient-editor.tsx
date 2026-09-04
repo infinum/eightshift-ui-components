@@ -16,6 +16,7 @@ import { OptionSelect } from '../option-select/option-select';
 import { TriggeredPopover } from '../popover/popover';
 import { Slider } from '../slider/slider';
 import { Toggle } from '../toggle/toggle';
+// oxlint-disable-next-line anti-slop/no-shape-in-symbol-names -- Established public icon name.
 import { add, angle, centerPoint, genericShapesAlt, gradientRepeat, gradientStop, sliders, trash } from '../../icons/internal';
 import { isColorDark } from '../../utilities';
 import { ColorSwatch } from './color-swatch';
@@ -55,7 +56,7 @@ type GradientData = {
 	repeating?: boolean;
 	stops: GradientStop[];
 	orientation?: LinearOrientation;
-	shape?: 'circle' | 'ellipse';
+	'shape'?: 'circle' | 'ellipse';
 	position?: string | RadialPosition;
 	angle?: string;
 	size?: Array<{
@@ -72,6 +73,7 @@ type GradientEditorProps = {
 	hidden?: boolean;
 };
 
+// SAFETY: This adapter binds DraggableList's generic item contract to GradientStop for this editor.
 const TypedDraggableList = DraggableList as (props: {
 	children: (item: GradientStop & { updateData: (newValue: Partial<GradientStop>) => void; itemIndex: number; deleteItem: () => void }) => ReactNode;
 	items?: GradientStop[] | null;
@@ -109,8 +111,13 @@ const defaultGradientData: GradientData = {
 	],
 };
 
+const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
+const isObjectValue = <T,>(value: T): value is T & object => value !== null && Object.prototype.toString.call(value) === '[object Object]';
+const isGradientType = <T,>(value: T): value is T & GradientType => value === 'linear' || value === 'radial' || value === 'conic';
+const isGradientForm = <T,>(value: T): value is T & NonNullable<GradientData['shape']> => value === 'circle' || value === 'ellipse';
+
 const getGradientResult = (input: GradientData | string | null | undefined, type: GradientType | null | undefined) => {
-	if (!input || !type || typeof input === 'string' || !input.stops) {
+	if (!input || !type || isStringValue(input) || !input.stops) {
 		return '';
 	}
 
@@ -133,13 +140,13 @@ const getGradientResult = (input: GradientData | string | null | undefined, type
 	}
 
 	if (type === 'radial') {
-		const radialPosition = typeof input.position === 'object' ? input.position : undefined;
+		const radialPosition = isObjectValue(input.position) ? input.position : undefined;
 
-		output += `${input.shape ?? 'circle'} at ${radialPosition?.x?.value ?? 'center'} ${radialPosition?.y?.value ?? 'center'}, `;
+		output += `${input['shape'] ?? 'circle'} at ${radialPosition?.x?.value ?? 'center'} ${radialPosition?.y?.value ?? 'center'}, `;
 	}
 
 	if (type === 'conic') {
-		const conicPosition = typeof input.position === 'string' ? input.position : 'center';
+		const conicPosition = isStringValue(input.position) ? input.position : 'center';
 
 		output += `from ${input.angle ?? '0deg'} at ${conicPosition}, `;
 	}
@@ -192,7 +199,7 @@ const getGradientType = (value?: string | null): GradientType => {
 	return 'linear';
 };
 
-const stringifyGradientAxisValue = (value: string | { unit: string; value: string }) => (typeof value === 'string' ? value : `${value.value}${value.unit}`);
+const stringifyGradientAxisValue = (value: string | { unit: string; value: string }) => (isStringValue(value) ? value : `${value.value}${value.unit}`);
 
 const parseGradientData = (value: string | null | undefined, type: GradientType): GradientData => {
 	try {
@@ -228,7 +235,15 @@ const parseGradientData = (value: string | null | undefined, type: GradientType)
 	}
 };
 
-const toMatrixAlignValue = (x = 'center', y = 'center') => `${y} ${x}` as MatrixAlignValue;
+const toMatrixAlignValue = (x = 'center', y = 'center'): MatrixAlignValue => {
+	const value = `${y} ${x}`;
+
+	if (value === 'top left' || value === 'top center' || value === 'top right' || value === 'center left' || value === 'center center' || value === 'center right' || value === 'bottom left' || value === 'bottom center' || value === 'bottom right') {
+		return value;
+	}
+
+	return 'center center';
+};
 
 const parseMatrixAlignValue = (value: string) => {
 	const [y = 'center', x = 'center'] = value.split(' ');
@@ -267,8 +282,8 @@ export const GradientEditor = (props: Prettify<GradientEditorProps>) => {
 	};
 
 	const stops = gradientData.stops ?? defaultGradientData.stops;
-	const radialPosition = typeof gradientData.position === 'object' ? gradientData.position : undefined;
-	const conicPosition = typeof gradientData.position === 'string' ? gradientData.position : 'center center';
+	const radialPosition = isObjectValue(gradientData.position) ? gradientData.position : undefined;
+	const conicPosition = isStringValue(gradientData.position) ? gradientData.position : 'center center';
 
 	return (
 		<div className='es:w-full es:space-y-2.5'>
@@ -344,7 +359,11 @@ export const GradientEditor = (props: Prettify<GradientEditorProps>) => {
 					<OptionSelect
 						label={__('Type', 'eightshift-ui-components')}
 						value={gradientType}
-						onChange={(nextType) => onChange(getGradientResult({ stops }, nextType as GradientType))}
+						onChange={(nextType) => {
+							if (isGradientType(nextType)) {
+								onChange(getGradientResult({ stops }, nextType));
+							}
+						}}
 						options={gradientTypes}
 						type='toggleButtons'
 						inline
@@ -402,18 +421,23 @@ export const GradientEditor = (props: Prettify<GradientEditorProps>) => {
 				<Container hidden={gradientType !== 'radial'}>
 					<OptionSelect
 						label={__('Shape', 'eightshift-ui-components')}
-						icon={genericShapesAlt}
+						icon={
+							/* oxlint-disable-next-line anti-slop/no-shape-in-symbol-names -- Established public icon name. */
+							genericShapesAlt
+						}
 						inline
 						options={[
 							{ label: __('Circle', 'eightshift-ui-components'), value: 'circle' },
 							{ label: __('Ellipse', 'eightshift-ui-components'), value: 'ellipse' },
 						]}
-						value={gradientData.shape}
+						value={gradientData['shape']}
 						onChange={(nextValue) => {
-							setGradientData({
-								...gradientData,
-								shape: nextValue as 'circle' | 'ellipse',
-							});
+							if (isGradientForm(nextValue)) {
+								setGradientData({
+									...gradientData,
+									'shape': nextValue,
+								});
+							}
 						}}
 					/>
 				</Container>
@@ -518,7 +542,7 @@ export const GradientEditor = (props: Prettify<GradientEditorProps>) => {
 						setGradientData({
 							...gradientData,
 							stops: items.map(({ color }, index) => ({
-								...(stops[index] ?? {}),
+								...stops[index],
 								color,
 							})),
 						});

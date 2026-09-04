@@ -7,9 +7,9 @@ import { glob } from 'glob';
 import { defineConfig, type UserConfig } from 'vite';
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
 
-import externalizeFontsourceFonts from './externalize-fontsource-fonts';
-import tw4PrefixerBuild from './postcss-tw4-prefixer-build';
-import tw4Prefixer from './postcss-tw4-prefixer';
+import externalizeFontsourceFonts from './externalize-fontsource-fonts.ts';
+import tw4PrefixerBuild from './postcss-tw4-prefixer-build.ts';
+import tw4Prefixer from './postcss-tw4-prefixer.ts';
 
 const dirname = fileURLToPath(new URL('.', import.meta.url));
 

@@ -198,7 +198,9 @@ export { fullWidthImage } from './full-width-image';
 export { gearsFill } from './gears-fill';
 export { gears } from './gears';
 export { genericColorSwatch } from './generic-color-swatch';
+// oxlint-disable-next-line anti-slop/no-shape-in-symbol-names -- Established public icon name.
 export { genericShapesAlt } from './generic-shapes-alt';
+// oxlint-disable-next-line anti-slop/no-shape-in-symbol-names -- Established public icon name.
 export { genericShapes } from './generic-shapes';
 export { globeAnchor } from './globe-anchor';
 export { globeHash } from './globe-hash';
