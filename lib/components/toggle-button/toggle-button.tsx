@@ -303,6 +303,9 @@ type ToggleButtonProps = Omit<ReactAriaToggleButtonProps, 'children' | 'classNam
 	hidden?: boolean;
 };
 
+const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
+
+// SAFETY: This adapter preserves Tooltip's runtime props while exposing the children and wrapper props used here.
 const TypedTooltip = Tooltip as (props: TooltipComponentProps & { children?: ReactNode; wrapperClassName?: string }) => ReactNode;
 
 /**
@@ -356,7 +359,7 @@ export const ToggleButton = (props: Prettify<ToggleButtonProps>) => {
 
 	let tooltip = rawTooltip;
 
-	if (rawTooltip === true && typeof ariaLabel === 'string' && ariaLabel.length > 0) {
+	if (rawTooltip === true && isStringValue(ariaLabel) && ariaLabel.length > 0) {
 		tooltip = ariaLabel;
 	}
 

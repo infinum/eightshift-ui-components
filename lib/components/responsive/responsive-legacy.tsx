@@ -22,8 +22,11 @@ type ResponsiveAttributeMap = Record<string, string>;
 type ResponsiveOption = {
 	label: string;
 	value: Exclude<ResponsiveValueItem, undefined>;
-	[key: string]: unknown;
 };
+
+const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
+
+const isBooleanValue = <T,>(value: T): value is T & boolean => Object.prototype.toString.call(value) === '[object Boolean]';
 
 type ResponsiveLegacyChildProps = {
 	breakpoint: string;
@@ -75,11 +78,11 @@ const getResolvedValueLabel = (value: ResponsiveValueItem, options?: ResponsiveO
 		return optionLabel;
 	}
 
-	if (typeof value === 'string') {
+	if (isStringValue(value)) {
 		return upperFirst(value);
 	}
 
-	if (typeof value === 'boolean') {
+	if (isBooleanValue(value)) {
 		return String(value);
 	}
 
@@ -174,7 +177,7 @@ export const ResponsiveLegacy = (props: Prettify<ResponsiveLegacyProps>) => {
 	const getBreakpointLabel = (breakpoint: string) => getResolvedValueLabel(getBreakpointValue(breakpoint), options);
 	const globalOverride = breakpoints.find((breakpoint) => getBreakpointValue(breakpoint) !== inheritValue);
 
-	const DefaultTooltip = () => (
+	const renderDefaultTooltip = () => (
 		<DecorativeTooltip
 			placement='left'
 			className='es:p-3'
@@ -270,7 +273,7 @@ export const ResponsiveLegacy = (props: Prettify<ResponsiveLegacyProps>) => {
 					)}
 					key={defaultBreakpoint}
 				>
-					{detailsVisible ? <DefaultTooltip /> : null}
+					{detailsVisible ? renderDefaultTooltip() : null}
 					<div className={clsx('es:w-full', detailsVisible ? 'es:col-start-2 es:col-end-2' : 'es:col-span-full')}>
 						{children({
 							breakpoint: defaultBreakpoint,
@@ -294,7 +297,7 @@ export const ResponsiveLegacy = (props: Prettify<ResponsiveLegacyProps>) => {
 					key={defaultBreakpoint}
 					visible={detailsVisible}
 				>
-					<DefaultTooltip />
+					{renderDefaultTooltip()}
 					<div className='es:col-start-2 es:col-end-2 es:w-full'>
 						{children({
 							breakpoint: defaultBreakpoint,
@@ -314,7 +317,7 @@ export const ResponsiveLegacy = (props: Prettify<ResponsiveLegacyProps>) => {
 				{breakpoints.map((breakpoint, index) => {
 					const isOverrideSet = getBreakpointValue(breakpoint) !== inheritValue;
 
-					const aboveOverride = [...rawBreakpoints.slice(0, index + 1)].reverse().find((candidateBreakpoint) => getBreakpointValue(candidateBreakpoint) !== inheritValue);
+					const aboveOverride = rawBreakpoints.slice(0, index + 1).reverse().find((candidateBreakpoint) => getBreakpointValue(candidateBreakpoint) !== inheritValue);
 
 					const belowOverride = rawBreakpoints.slice(index + 2).find((candidateBreakpoint) => getBreakpointValue(candidateBreakpoint) !== inheritValue);
 

@@ -36,7 +36,7 @@ type AnimatedVisibilityProps = HTMLAttributes<HTMLDivElement> & {
 	transition?: ElementTransition;
 };
 
-const transitions: Record<ElementTransition, TransitionClassNames> = {
+const transitions = {
 	fade: {
 		inClassName: 'es:motion-opacity-in',
 		outClassName: 'es:motion-opacity-out',
@@ -73,7 +73,7 @@ const transitions: Record<ElementTransition, TransitionClassNames> = {
 		inClassName: 'es:motion-rotate-in es:motion-scale-in-95 es:motion-opacity-in',
 		outClassName: 'es:motion-rotate-out es:motion-scale-out-90 es:motion-opacity-out',
 	},
-};
+} satisfies Record<ElementTransition, TransitionClassNames>;
 
 /**
  * Component that allows animating the visibility of its children.
@@ -97,18 +97,20 @@ export const AnimatedVisibility = (props: Prettify<AnimatedVisibilityProps>) => 
 	const [canAnimate, setCanAnimate] = useState(true);
 
 	useEffect(() => {
-		if (visible) {
-			setIsVisibleInner(true);
-		}
+		queueMicrotask(() => {
+			if (visible) {
+				setIsVisibleInner(true);
+			}
 
-		if (!visible && noExitAnimation) {
-			setIsVisibleInner(false);
-		}
+			if (!visible && noExitAnimation) {
+				setIsVisibleInner(false);
+			}
+		});
 	}, [noExitAnimation, visible]);
 
 	useEffect(() => {
 		if (noInitial && visible) {
-			setCanAnimate(false);
+			queueMicrotask(() => setCanAnimate(false));
 		}
 	}, [noInitial, visible]);
 

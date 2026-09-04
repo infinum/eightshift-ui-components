@@ -43,6 +43,7 @@ type RepeaterItemProps = Omit<ComponentPropsWithoutRef<typeof Expandable>, 'icon
 export const RepeaterItem = (props: Prettify<RepeaterItemProps>) => {
 	const { children, icon, label, subtitle, className, actions, expandDisabled, menuOptions, noMenuButton, ...rest } = props;
 	const context = useContext(RepeaterContext);
+	// SAFETY: This literal contains valid intrinsic div data attributes and is passed directly to Expandable's header element.
 	const movableHandleHeaderProps = {
 		'data-movable-handle': true,
 	} as ComponentPropsWithoutRef<'div'>;

@@ -6,6 +6,7 @@ import { ColorSwatch as ReactAriaColorSwatch, parseColor } from 'react-aria-comp
 import type { Prettify } from '../../utilities/types';
 
 type ReactAriaColorSwatchProps = ComponentPropsWithoutRef<typeof ReactAriaColorSwatch>;
+// SAFETY: This adapter preserves ColorSwatch's runtime props while exposing its supported child content.
 const TypedReactAriaColorSwatch = ReactAriaColorSwatch as (props: ReactAriaColorSwatchProps & { children?: ReactNode }) => ReactNode;
 
 type ColorSwatchProps = Omit<ReactAriaColorSwatchProps, 'children' | 'className' | 'style' | 'color' | 'colorName'> & {

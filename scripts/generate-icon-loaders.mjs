@@ -10,7 +10,14 @@ const rootDir = path.resolve(scriptDir, '..');
 const iconsDir = path.join(rootDir, 'lib/icons/ui-icons');
 const outputFile = path.join(rootDir, 'lib/icons/generated-icon-loaders.ts');
 
-const normalizeIconName = (name) => name.replace(/[-_]+([a-z0-9])/gi, (_, char) => char.toUpperCase()).replace(/^([A-Z])/, (char) => char.toLowerCase());
+/**
+ * @param {string} _match
+ * @param {string} char
+ */
+const uppercaseMatch = (_match, char) => char.toUpperCase();
+
+/** @param {string} name */
+const normalizeIconName = (name) => name.replace(/[-_]+([a-z0-9])/gi, uppercaseMatch).replace(/^([A-Z])/, (char) => char.toLowerCase());
 
 const iconFiles = (await glob('*.tsx', { cwd: iconsDir })).sort();
 

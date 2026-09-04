@@ -311,10 +311,12 @@ export const RadioButtonGroup = (props: Prettify<RadioButtonGroupProps>) => {
 	}
 
 	const mappedChildren = Children.toArray(children).map((child, index) => {
+		// SAFETY: React component types may expose the displayName assigned to RadioButton.
 		if (!isValidElement(child) || (child.type as { displayName?: string })?.displayName !== 'RadioButton') {
 			return child;
 		}
 
+		// SAFETY: A child identified as RadioButton accepts the cloned group presentation props.
 		const radioChild = child as RadioButtonChildElement;
 
 		return cloneElement(radioChild, {

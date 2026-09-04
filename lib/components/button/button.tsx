@@ -400,7 +400,10 @@ type ButtonProps = Omit<ComponentPropsWithoutRef<typeof ReactAriaButton>, 'child
 	'aria-label'?: string;
 };
 
-const TypedTooltip = Tooltip as unknown as (props: ButtonTooltipProps & { children?: ReactNode; text: ReactNode; wrapperClassName?: string }) => ReactNode;
+// SAFETY: The tooltip adapter narrows the existing Tooltip props to the subset used by Button.
+const TypedTooltip = Tooltip as (props: ButtonTooltipProps & { children?: ReactNode; text: ReactNode; wrapperClassName?: string }) => ReactNode;
+
+const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
 
 /**
  * A simple button component.
@@ -437,7 +440,7 @@ export const Button = (props: Prettify<ButtonProps>) => {
 		...other
 	} = props;
 
-	const ariaLabel = rawAriaLabel ?? (typeof children === 'string' ? children : __('Menu item', 'eightshift-ui-components'));
+	const ariaLabel = rawAriaLabel ?? (isStringValue(children) ? children : __('Menu item', 'eightshift-ui-components'));
 	let tooltip = rawTooltip;
 
 	if (rawTooltip === true && ariaLabel.length > 0) {

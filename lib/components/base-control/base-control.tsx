@@ -36,6 +36,7 @@ export type BaseControlProps = {
 	hidden?: boolean;
 };
 
+// SAFETY: This adapter preserves RichLabel's polymorphic runtime props while exposing the subset used by BaseControl.
 const TypedRichLabel = RichLabel as <T extends ElementType = 'div'>(props: {
 	icon?: ReactNode;
 	label?: ReactNode;

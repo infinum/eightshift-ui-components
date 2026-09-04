@@ -35,7 +35,7 @@ type BreakpointPreviewProps = {
 	dotsEnd?: boolean;
 };
 
-const activeColors: Record<BreakpointColor, { text: string; bg: string }> = {
+const activeColors = {
 	blue: {
 		text: 'es:text-blue-500',
 		bg: 'es:bg-blue-500',
@@ -80,7 +80,7 @@ const activeColors: Record<BreakpointColor, { text: string; bg: string }> = {
 		text: 'es:text-secondary-600',
 		bg: 'es:bg-secondary-600',
 	},
-};
+} satisfies Record<BreakpointColor, { text: string; bg: string }>;
 
 /**
  * Component that renders a preview of the breakpoints to help users visualize the options they set.

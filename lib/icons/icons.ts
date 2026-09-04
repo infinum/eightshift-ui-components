@@ -7,7 +7,7 @@
  * - `es-`  prefixed icons are Eightshift blocks.
  * - `esf-` prefixed icons are Eightshift forms blocks.
  */
-export const blockIcons: Record<string, string> = {
+export const blockIcons = {
 	// Eightshift blocks.
 	'es-button':
 		"<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'><rect x='1' y='6' width='18' height='8' rx='1.5' fill='currentColor' fill-opacity='0.12' stroke='currentColor'/><path d='M6 10h8' stroke='currentColor' stroke-linecap='round' fill='none'/></svg>",

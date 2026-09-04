@@ -1,24 +1,24 @@
 import type { MutableRefObject } from 'react';
 
-interface WorkerMessage {
-	success: boolean;
-	data?: unknown;
-	error?: string;
-}
+type WorkerMessage<TResult> = { success: true; data: TResult } | { success: false; error?: string };
 
-interface AnalysisSettings {
-	[key: string]: unknown;
+type AnalysisSettingValue = string | number | boolean | null | undefined;
+type AnalysisSettings = Readonly<Record<string, AnalysisSettingValue>>;
+
+interface ImageAnalysisWorkerHelpers<TResult extends object> {
+	getOrCreateWorker: () => Worker | null;
+	analyzeWithWorkerCb: (imageBitmap: ImageBitmap, settings: AnalysisSettings) => Promise<TResult>;
 }
 
 const workerUnavailableError = 'Image analysis workers are only available in a browser environment.';
 
 export const isImageAnalysisWorkerSupported = (): boolean =>
-	typeof window !== 'undefined' &&
-	typeof document !== 'undefined' &&
-	typeof Worker !== 'undefined' &&
-	typeof Blob !== 'undefined' &&
-	typeof URL !== 'undefined' &&
-	typeof URL.createObjectURL === 'function';
+	'window' in globalThis &&
+	'document' in globalThis &&
+	'Worker' in globalThis &&
+	'Blob' in globalThis &&
+	'URL' in globalThis &&
+	globalThis.URL.createObjectURL instanceof Function;
 
 /**
  * Returns a memoized function that gets or creates a singleton image analysis worker (with inline fallback).
@@ -28,13 +28,10 @@ export const isImageAnalysisWorkerSupported = (): boolean =>
  * @param {string} workerInline - Inlined worker code string.
  * @returns {object} Worker helpers for creating and analyzing with the image analysis worker.
  */
-export function useImageAnalysisWorker(
+export function useImageAnalysisWorker<TResult extends object>(
 	workerRef: MutableRefObject<Worker | null>,
 	workerInline: string,
-): {
-	getOrCreateWorker: () => Worker | null;
-	analyzeWithWorkerCb: (imageBitmap: ImageBitmap, settings: AnalysisSettings) => Promise<unknown>;
-} {
+): ImageAnalysisWorkerHelpers<TResult> {
 	const getOrCreateWorker = (): Worker | null => {
 		if (!isImageAnalysisWorkerSupported()) {
 			return null;
@@ -56,14 +53,14 @@ export function useImageAnalysisWorker(
 		return workerRef.current;
 	};
 
-	const analyzeWithWorkerCb = async (imageBitmap: ImageBitmap, settings: AnalysisSettings): Promise<unknown> => {
+	const analyzeWithWorkerCb = async (imageBitmap: ImageBitmap, settings: AnalysisSettings): Promise<TResult> => {
 		const worker = getOrCreateWorker();
 
 		if (!worker) {
 			throw new Error(workerUnavailableError);
 		}
 
-		return analyzeWithWorker(worker, imageBitmap, settings);
+		return analyzeWithWorker<TResult>(worker, imageBitmap, settings);
 	};
 
 	return { getOrCreateWorker, analyzeWithWorkerCb };
@@ -76,7 +73,7 @@ export function useImageAnalysisWorker(
  * @returns {Worker} The created worker instance.
  */
 export function createImageAnalysisWorker(workerInline: string): Worker | null {
-	if (!workerInline || typeof workerInline !== 'string' || workerInline.length < 100) {
+	if (!workerInline || workerInline.length < 100) {
 		throw new Error('Worker could not be created: inline worker code not available. Make sure the worker is properly bundled.');
 	}
 
@@ -97,15 +94,15 @@ export function createImageAnalysisWorker(workerInline: string): Worker | null {
  * @param {AnalysisSettings} settings - Analysis settings.
  * @returns {Promise<unknown>} Resolves with the analysis result.
  */
-export function analyzeWithWorker(worker: Worker, imageBitmap: ImageBitmap, settings: AnalysisSettings): Promise<unknown> {
+export function analyzeWithWorker<TResult extends object>(worker: Worker, imageBitmap: ImageBitmap, settings: AnalysisSettings): Promise<TResult> {
 	return new Promise((resolve, reject) => {
-		const handleMessage = (event: MessageEvent<WorkerMessage>) => {
-			const { success, data, error } = event.data;
+		const handleMessage = (event: MessageEvent<WorkerMessage<TResult>>) => {
+			const message = event.data;
 
-			if (success) {
-				resolve(data);
+			if (message.success) {
+				resolve(message.data);
 			} else {
-				reject(new Error(error));
+				reject(new Error(message.error));
 			}
 
 			worker.removeEventListener('message', handleMessage);

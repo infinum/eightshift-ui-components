@@ -26,7 +26,7 @@ import { DraggableList } from '../draggable-list/draggable-list';
 import { DraggableListItem } from '../draggable-list/draggable-list-item';
 import { TriggeredPopover } from '../popover/popover';
 import { RichLabel } from '../rich-label/rich-label';
-import { getGroupedOptions, getOptionKey, OptionItemBase, SelectClearButton, type Primitive } from './shared';
+import { getGroupedOptions, getOptionKey, isSelectOption, isStringValue, OptionItemBase, SelectClearButton, type Primitive } from './shared';
 import { selectButtonClass, selectControlClass } from './styles';
 import type { Prettify } from '../../utilities/types';
 
@@ -36,22 +36,13 @@ type SelectSize = 'small' | 'medium' | 'default' | 'large';
 type SelectOption = {
 	label: string;
 	value: Primitive;
-	metadata?: Record<string, unknown> | null;
+	metadata?: object | null;
 	subtitle?: ReactNode;
 	icon?: IconValue;
 	className?: string;
-	[key: string]: unknown;
 };
 
-type GroupValueMapping = Record<
-	string,
-	{
-		label?: ReactNode;
-		icon?: IconValue;
-		subtitle?: ReactNode;
-		endIcon?: IconValue;
-	}
->;
+type GroupValueMapping = object;
 
 type MultiSelectValueType = SelectOption[] | Primitive[] | '' | null;
 type DraggableSelectItemContext = SelectOption & {
@@ -113,6 +104,7 @@ type MultiSelectProps = Omit<ReactAriaSelectProps<SelectOption, 'multiple'>, 'ch
 	hidden?: boolean;
 };
 
+// SAFETY: This adapter specializes DraggableList's generic item contract to SelectOption.
 const TypedDraggableList = DraggableList as (props: {
 	children: (item: DraggableSelectItemContext) => ReactNode;
 	items?: SelectOption[] | null;
@@ -124,7 +116,7 @@ const TypedDraggableList = DraggableList as (props: {
 }) => ReactNode;
 
 const getSearchableText = (content?: ReactNode) => {
-	if (typeof content === 'string') {
+	if (isStringValue(content)) {
 		return content;
 	}
 
@@ -132,6 +124,7 @@ const getSearchableText = (content?: ReactNode) => {
 };
 
 const getPopoverStyle = (triggerElement: HTMLDivElement | null) =>
+	// SAFETY: React CSSProperties supports custom properties consumed by the select stylesheet.
 	({
 		'--select-width': triggerElement ? `${triggerElement.offsetWidth}px` : 'var(--trigger-width)',
 	}) as CSSProperties;
@@ -141,7 +134,7 @@ const getSelectedKeys = (value: MultiSelectValueType) => {
 		return [];
 	}
 
-	return value.map((item) => (typeof item === 'object' && item !== null ? getOptionKey(item.value) : getOptionKey(item)));
+	return value.map((item) => (isSelectOption(item) ? getOptionKey(item.value) : getOptionKey(item)));
 };
 
 const getCurrentValue = (value: MultiSelectValueType, simpleValue: boolean, options: SelectOption[]) => {
@@ -150,12 +143,12 @@ const getCurrentValue = (value: MultiSelectValueType, simpleValue: boolean, opti
 	}
 
 	if (!simpleValue) {
-		return value.filter((item): item is SelectOption => typeof item === 'object' && item !== null);
+		return value.filter((item): item is SelectOption => isSelectOption(item));
 	}
 
 	return value
 		.map((item) => {
-			const itemValue = typeof item === 'object' && item !== null ? item.value : item;
+			const itemValue = isSelectOption(item) ? item.value : item;
 
 			return options.find((option) => getOptionKey(option.value) === getOptionKey(itemValue));
 		})
@@ -167,7 +160,7 @@ const getOptionIcon = (icon?: IconValue): ReactElement | undefined => {
 		return undefined;
 	}
 
-	return typeof icon === 'string' ? <Icon icon={icon} /> : icon;
+	return isStringValue(icon) ? <Icon icon={icon} /> : icon;
 };
 
 /**
@@ -271,7 +264,7 @@ export const MultiSelect = (props: Prettify<MultiSelectProps>) => {
 			return;
 		}
 
-		const selectedKeys = selected.filter((item): item is string => typeof item === 'string');
+		const selectedKeys = selected.filter((item): item is string => isStringValue(item));
 
 		if (selectedKeys.length === 0) {
 			onChange(simpleValue ? '' : []);
@@ -418,7 +411,7 @@ export const MultiSelect = (props: Prettify<MultiSelectProps>) => {
 						className='es:grid es:grid-cols-1 es:grid-rows-[auto_minmax(0,1fr)] es:p-0!'
 						wrapperClassName='es:w-(--select-width) es:min-w-72 es:px-1.5 es:h-fit es:from-surface-300/35 es:to-surface-300/35 es:overflow-clip es:rounded-20!'
 						hidden={noReorder || disabled || currentValue.length < 2}
-						style={getPopoverStyle(ref.current)}
+						style={getPopoverStyle(null)}
 					>
 						<span className='es:text-sm es:ml-3 es:mt-2 es:mb-1 es:font-variation-["wdth"_100,"wght"_325,"ROND"_100] es:text-surface-600'>
 							{__('Item order', 'eightshift-ui-components')}
@@ -440,7 +433,7 @@ export const MultiSelect = (props: Prettify<MultiSelectProps>) => {
 									<DraggableListItem
 										icon={getOptionIcon(realItem?.icon)}
 										label={realItem?.label}
-										subtitle={typeof realItem?.subtitle === 'string' ? realItem.subtitle : undefined}
+										subtitle={isStringValue(realItem?.subtitle) ? realItem.subtitle : undefined}
 										iconClassName='es:pointer-events-none es:select-none'
 										labelClassName='es:line-clamp-1'
 										subtitleClassName='es:line-clamp-1'
@@ -482,7 +475,7 @@ export const MultiSelect = (props: Prettify<MultiSelectProps>) => {
 					placement='bottom left'
 					maxHeight={260}
 					triggerRef={ref}
-					style={getPopoverStyle(ref.current)}
+					style={getPopoverStyle(null)}
 				>
 					{searchable ? (
 						<Autocomplete

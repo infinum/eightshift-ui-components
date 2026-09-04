@@ -10,7 +10,7 @@ interface GridTemplateOptions {
  * Generates an array of markers based on the provided minimum and maximum values and step.
  * If the step is less than 10, only markers divisible by 5 and 10 are included.
  */
-export const generateMarkers = (min: number, max: number, step = 10): Record<string, string> => {
+export const generateMarkers = (min: number, max: number, step = 10) => {
 	let adjustedStep = step;
 	const smallStep = adjustedStep < 10 && Math.abs(max - min) > 20;
 

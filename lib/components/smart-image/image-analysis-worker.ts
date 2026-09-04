@@ -179,9 +179,9 @@ self.onmessage = (event: MessageEvent<WorkerRequest>) => {
 
 	const sortedRawColors = Object.entries(colorCounts)
 		.map(([key, count]) => {
-			const [red, green, blue] = key.split(',').map(Number);
+			const [red = 0, green = 0, blue = 0] = key.split(',').map(Number);
 
-			return { r: red, g: green, b: blue, count } as PaletteCandidate;
+			return { r: red, g: green, b: blue, count };
 		})
 		.sort((left, right) => right.count - left.count);
 

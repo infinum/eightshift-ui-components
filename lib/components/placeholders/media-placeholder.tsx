@@ -42,7 +42,7 @@ export const MediaPlaceholder = (props: Prettify<MediaPlaceholderProps>) => {
 		return null;
 	}
 
-	const styleClassName: Record<MediaPlaceholderStyle, string | Array<string | false | undefined>> = {
+	const styleClassName = {
 		default: [
 			'es:rounded-2xl es:bg-surface-100 es:text-surface-700',
 			'es:inset-ring es:inset-ring-surface-300/60',
@@ -51,9 +51,9 @@ export const MediaPlaceholder = (props: Prettify<MediaPlaceholderProps>) => {
 			!flat && 'es:shadow-xs es:shadow-black/5',
 		],
 		simple: 'es:rounded-2xl es:inset-ring es:inset-ring-surface-200/75 es:bg-surface-50 es:text-surface-700 es:bg-linear-to-br es:from-surface-100/5 es:to-surface-100/40',
-	};
+	} satisfies Record<MediaPlaceholderStyle, string | Array<string | false | undefined>>;
 
-	const sizeClassName: Record<MediaPlaceholderSize, string> = {
+	const sizeClassName = {
 		auto: '',
 		default: 'es:size-20',
 		large: 'es:size-40',
@@ -61,7 +61,7 @@ export const MediaPlaceholder = (props: Prettify<MediaPlaceholderProps>) => {
 		fullHeight: 'es:h-full',
 		full: 'es:size-full',
 		video: 'es:w-full es:aspect-video',
-	};
+	} satisfies Record<MediaPlaceholderSize, string>;
 
 	return (
 		<div className={clsx('es:flex es:flex-col es:items-center es:justify-center es:gap-2 es:overflow-hidden es:p-2', styleClassName[style], sizeClassName[size], className)}>

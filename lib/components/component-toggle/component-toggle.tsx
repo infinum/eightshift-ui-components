@@ -80,9 +80,12 @@ type LegacyBaseControlProps = {
 	disabled?: boolean;
 };
 
-const TypedExpandable = Expandable as unknown as (props: LegacyExpandableProps) => ReactNode;
-const TypedTriggeredPopover = TriggeredPopover as unknown as (props: LegacyTriggeredPopoverProps) => ReactNode;
-const TypedBaseControl = BaseControl as unknown as (props: LegacyBaseControlProps) => ReactNode;
+// SAFETY: The legacy adapter exposes only props that Expandable already handles at runtime.
+const TypedExpandable = Expandable as (props: LegacyExpandableProps) => ReactNode;
+// SAFETY: The legacy adapter exposes only props that TriggeredPopover already handles at runtime.
+const TypedTriggeredPopover = TriggeredPopover as (props: LegacyTriggeredPopoverProps) => ReactNode;
+// SAFETY: The legacy adapter exposes only props that BaseControl already handles at runtime.
+const TypedBaseControl = BaseControl as (props: LegacyBaseControlProps) => ReactNode;
 
 /**
  * A component that provides a nice way to toggle a component on and off, and display its content in an expandable panel.

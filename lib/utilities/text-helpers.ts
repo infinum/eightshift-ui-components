@@ -61,8 +61,8 @@ export const truncateMiddle = (input: string | null | undefined, maxLength: numb
  * ```
  */
 export const unescapeHTML = (input = ''): string | null => {
-	if (typeof DOMParser !== 'undefined') {
-		return new DOMParser().parseFromString(input, 'text/html').documentElement.textContent;
+	if ('DOMParser' in globalThis) {
+		return new globalThis.DOMParser().parseFromString(input, 'text/html').documentElement.textContent;
 	}
 
 	const textContent = input.replace(/<!--[\s\S]*?-->|<\/?[a-z][^>]*>|<!doctype[^>]*>/gi, '');
