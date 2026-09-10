@@ -76,8 +76,8 @@ export const RichLabel = <T extends ElementType = 'div'>(props: RichLabelProps<T
 	}
 
 	const ComponentToRender = as ?? 'div';
-	const labelBaseClassName = 'es:font-variation-["wdth"_100,"wght"_330,"ROND"_15]';
-	const subtitleBaseClassName = 'es:font-variation-["wdth"_90,"wght"_365,"ROND"_85,"slnt"_-1]';
+	const labelBaseClassName = 'es:font-variation-["wdth"_100,"wght"_330,"ROND"_100]';
+	const subtitleBaseClassName = 'es:font-variation-["wdth"_85,"wght"_285,"ROND"_100]';
 
 	if (contentsOnly) {
 		return (
