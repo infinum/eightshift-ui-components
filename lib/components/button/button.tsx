@@ -54,9 +54,12 @@ type ButtonType =
 	| 'default'
 	| 'selected'
 	| 'selectedGhost'
+	| 'selectedOutline'
 	| 'ghost'
+	| 'outline'
 	| 'danger'
 	| 'dangerGhost'
+	| 'dangerOutline'
 	| 'glass'
 	| 'glassDark'
 	| 'dangerGlass'
@@ -95,9 +98,12 @@ const createComponentClasses = ({ className, flat, pending }: { className?: stri
 					default: null,
 					selected: null,
 					selectedGhost: null,
+					selectedOutline: null,
 					ghost: null,
+					outline: null,
 					danger: null,
 					dangerGhost: null,
+					dangerOutline: null,
 					glass: null,
 					glassDark: null,
 					dangerGlass: null,
@@ -247,6 +253,45 @@ const createComponentClasses = ({ className, flat, pending }: { className?: stri
 					],
 				},
 				{
+					type: 'outline',
+					disabled: false,
+					class: [
+						!pending && 'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-secondary-700',
+						pending &&
+							'es:shimmer-animation es:-bg-linear-75 es:from-accent-600/0 es:via-accent-600/15 es:to-accent-600/0 es:from-35% es:via-50% es:to-65% es:bg-surface-50 es:inset-ring es:inset-ring-accent-600/5 es:text-accent-900',
+						'es:inset-ring es:inset-ring-secondary-700/12',
+						'es:hover:from-surface-200/30 es:hover:to-surface-200/50 es:hover:text-accent-950 es:hover:inset-ring-accent-950/6',
+						'es:pressed:from-accent-600/5 es:pressed:to-accent-600/15 es:pressed:text-accent-900',
+						'es:focus-visible:bg-accent-50 es:focus-visible:text-accent-950 es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:inset-ring-accent-500',
+					],
+				},
+				{
+					type: 'dangerOutline',
+					disabled: false,
+					class: [
+						!pending && 'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-red-700',
+						pending &&
+							'es:shimmer-animation es:-bg-linear-75 es:from-red-600/0 es:via-red-600/10 es:to-red-600/0 es:from-35% es:via-50% es:to-65% es:bg-secondary-50 es:inset-ring es:inset-ring-red-600/10 es:text-red-700',
+						'es:inset-ring es:inset-ring-red-800/12',
+						'es:hover:from-red-500/4 es:hover:to-red-500/7 es:hover:inset-ring-red-700/6',
+						'es:pressed:from-red-500/10 es:pressed:to-red-500/15 es:pressed:text-red-700',
+						'es:focus-visible:bg-red-50 es:focus-visible:text-red-950 es:focus-visible:inset-ring es:focus-visible:ring-red-500/30 es:focus-visible:inset-shadow-red-300/10 es:focus-visible:inset-ring-red-500',
+					],
+				},
+				{
+					type: 'selectedOutline',
+					disabled: false,
+					class: [
+						!pending && 'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-accent-600',
+						pending &&
+							'es:shimmer-animation es:-bg-linear-75 es:from-accent-600/0 es:via-accent-600/15 es:to-accent-600/0 es:from-35% es:via-50% es:to-65% es:bg-surface-50 es:inset-ring es:inset-ring-accent-600/15 es:text-accent-700',
+						'es:inset-ring es:inset-ring-accent-800/12',
+						'es:hover:from-accent-500/5 es:hover:to-accent-500/15 es:hover:inset-ring-accent-600/6',
+						'es:pressed:from-accent-500/10 es:pressed:to-accent-500/20 es:pressed:text-accent-700',
+						'es:focus-visible:bg-accent-50 es:focus-visible:text-accent-950 es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:inset-ring-accent-500',
+					],
+				},
+				{
 					type: ['glass', 'glassDark', 'dangerGlass', 'selectedGlass'],
 					disabled: false,
 					class: 'es:overflow-clip es:backdrop-blur-md',
@@ -338,6 +383,11 @@ const createComponentClasses = ({ className, flat, pending }: { className?: stri
 					type: ['ghost', 'dangerGhost', 'selectedGhost'],
 					disabled: true,
 					class: ['es:text-secondary-500 es:any-icon:text-secondary-500/50'],
+				},
+				{
+					type: ['outline', 'dangerOutline', 'selectedOutline'],
+					disabled: true,
+					class: ['es:text-secondary-500 es:any-icon:text-secondary-500/50', 'es:inset-ring es:inset-ring-secondary-100'],
 				},
 				{
 					type: ['glass', 'glassDark', 'dangerGlass', 'selectedGlass'],
