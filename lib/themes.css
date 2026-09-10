@@ -1,177 +1,446 @@
-.es-uic-theme-green {
-	--es-color-accent-50: var(--es-color-emerald-50);
-	--es-color-accent-100: var(--es-color-emerald-100);
-	--es-color-accent-200: var(--es-color-emerald-200);
-	--es-color-accent-300: var(--es-color-emerald-300);
-	--es-color-accent-400: var(--es-color-emerald-400);
-	--es-color-accent-500: var(--es-color-emerald-500);
-	--es-color-accent-600: var(--es-color-emerald-600);
-	--es-color-accent-700: var(--es-color-emerald-700);
-	--es-color-accent-800: var(--es-color-emerald-800);
-	--es-color-accent-900: var(--es-color-emerald-900);
-	--es-color-accent-950: var(--es-color-emerald-950);
+@reference './index.css';
+@reference 'tailwindcss/theme';
 
-	--es-color-surface-50: color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
-	--es-color-surface-100: color-mix(in oklab, var(--es-color-accent-100) 20%, var(--es-color-secondary-100));
-	--es-color-surface-200: color-mix(in oklab, var(--es-color-accent-200) 20%, var(--es-color-secondary-200));
-	--es-color-surface-300: color-mix(in oklab, var(--es-color-accent-300) 20%, var(--es-color-secondary-300));
-	--es-color-surface-400: color-mix(in oklab, var(--es-color-accent-400) 20%, var(--es-color-secondary-400));
-	--es-color-surface-500: color-mix(in oklab, var(--es-color-accent-500) 20%, var(--es-color-secondary-500));
-	--es-color-surface-600: color-mix(in oklab, var(--es-color-accent-600) 20%, var(--es-color-secondary-600));
-	--es-color-surface-700: color-mix(in oklab, var(--es-color-accent-700) 20%, var(--es-color-secondary-700));
-	--es-color-surface-800: color-mix(in oklab, var(--es-color-accent-800) 20%, var(--es-color-secondary-800));
-	--es-color-surface-900: color-mix(in oklab, var(--es-color-accent-900) 20%, var(--es-color-secondary-900));
-	--es-color-surface-950: color-mix(in oklab, var(--es-color-accent-950) 20%, var(--es-color-secondary-950));
+.es-uic-theme-green {
+	--es-color-accent-50: theme(--color-green-50);
+	--es-color-accent-100: theme(--color-green-100);
+	--es-color-accent-200: theme(--color-green-200);
+	--es-color-accent-300: theme(--color-green-300);
+	--es-color-accent-400: theme(--color-green-400);
+	--es-color-accent-500: theme(--color-green-500);
+	--es-color-accent-600: theme(--color-green-600);
+	--es-color-accent-700: theme(--color-green-700);
+	--es-color-accent-800: theme(--color-green-800);
+	--es-color-accent-900: theme(--color-green-900);
+	--es-color-accent-950: theme(--color-green-950);
+
+	--es-color-surface-50: color-mix(in oklab, theme(--color-green-600) 3%, theme(--color-neutral-50));
+	--es-color-surface-100: color-mix(in oklab, theme(--color-green-600) 3%, theme(--color-neutral-100));
+	--es-color-surface-200: color-mix(in oklab, theme(--color-green-600) 3%, theme(--color-neutral-200));
+	--es-color-surface-300: color-mix(in oklab, theme(--color-green-600) 3%, theme(--color-neutral-300));
+	--es-color-surface-400: color-mix(in oklab, theme(--color-green-600) 3%, theme(--color-neutral-400));
+	--es-color-surface-500: color-mix(in oklab, theme(--color-green-600) 3%, theme(--color-neutral-500));
+	--es-color-surface-600: color-mix(in oklab, theme(--color-green-600) 3%, theme(--color-neutral-600));
+	--es-color-surface-700: color-mix(in oklab, theme(--color-green-600) 3%, theme(--color-neutral-700));
+	--es-color-surface-800: color-mix(in oklab, theme(--color-green-600) 3%, theme(--color-neutral-800));
+	--es-color-surface-900: color-mix(in oklab, theme(--color-green-600) 3%, theme(--color-neutral-900));
+	--es-color-surface-950: color-mix(in oklab, theme(--color-green-600) 3%, theme(--color-neutral-950));
 }
 
 .es-uic-theme-blue {
-	--es-color-accent-50: var(--es-color-sky-50);
-	--es-color-accent-100: var(--es-color-sky-100);
-	--es-color-accent-200: var(--es-color-sky-200);
-	--es-color-accent-300: var(--es-color-sky-300);
-	--es-color-accent-400: var(--es-color-sky-400);
-	--es-color-accent-500: var(--es-color-sky-500);
-	--es-color-accent-600: var(--es-color-sky-600);
-	--es-color-accent-700: var(--es-color-sky-700);
-	--es-color-accent-800: var(--es-color-sky-800);
-	--es-color-accent-900: var(--es-color-sky-900);
-	--es-color-accent-950: var(--es-color-sky-950);
+	--es-color-accent-50: theme(--color-sky-50);
+	--es-color-accent-100: theme(--color-sky-100);
+	--es-color-accent-200: theme(--color-sky-200);
+	--es-color-accent-300: theme(--color-sky-300);
+	--es-color-accent-400: theme(--color-sky-400);
+	--es-color-accent-500: theme(--color-sky-500);
+	--es-color-accent-600: theme(--color-sky-600);
+	--es-color-accent-700: theme(--color-sky-700);
+	--es-color-accent-800: theme(--color-sky-800);
+	--es-color-accent-900: theme(--color-sky-900);
+	--es-color-accent-950: theme(--color-sky-950);
 
-	--color-secondary-50: var(--es-color-slate-50);
-	--color-secondary-100: var(--es-color-slate-100);
-	--color-secondary-200: var(--es-color-slate-200);
-	--color-secondary-300: var(--es-color-slate-300);
-	--color-secondary-400: var(--es-color-slate-400);
-	--color-secondary-500: var(--es-color-slate-500);
-	--color-secondary-600: var(--es-color-slate-600);
-	--color-secondary-700: var(--es-color-slate-700);
-	--color-secondary-800: var(--es-color-slate-800);
-	--color-secondary-900: var(--es-color-slate-900);
-	--color-secondary-950: var(--es-color-slate-950);
+	--color-secondary-50: theme(--color-neutral-50);
+	--color-secondary-100: theme(--color-neutral-100);
+	--color-secondary-200: theme(--color-neutral-200);
+	--color-secondary-300: theme(--color-neutral-300);
+	--color-secondary-400: theme(--color-neutral-400);
+	--color-secondary-500: theme(--color-neutral-500);
+	--color-secondary-600: theme(--color-neutral-600);
+	--color-secondary-700: theme(--color-neutral-700);
+	--color-secondary-800: theme(--color-neutral-800);
+	--color-secondary-900: theme(--color-neutral-900);
+	--color-secondary-950: theme(--color-neutral-950);
 
-	--es-color-surface-50: color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
-	--es-color-surface-100: color-mix(in oklab, var(--es-color-accent-100) 20%, var(--es-color-secondary-100));
-	--es-color-surface-200: color-mix(in oklab, var(--es-color-accent-200) 20%, var(--es-color-secondary-200));
-	--es-color-surface-300: color-mix(in oklab, var(--es-color-accent-300) 20%, var(--es-color-secondary-300));
-	--es-color-surface-400: color-mix(in oklab, var(--es-color-accent-400) 20%, var(--es-color-secondary-400));
-	--es-color-surface-500: color-mix(in oklab, var(--es-color-accent-500) 20%, var(--es-color-secondary-500));
-	--es-color-surface-600: color-mix(in oklab, var(--es-color-accent-600) 20%, var(--es-color-secondary-600));
-	--es-color-surface-700: color-mix(in oklab, var(--es-color-accent-700) 20%, var(--es-color-secondary-700));
-	--es-color-surface-800: color-mix(in oklab, var(--es-color-accent-800) 20%, var(--es-color-secondary-800));
-	--es-color-surface-900: color-mix(in oklab, var(--es-color-accent-900) 20%, var(--es-color-secondary-900));
-	--es-color-surface-950: color-mix(in oklab, var(--es-color-accent-950) 20%, var(--es-color-secondary-950));
+	--es-color-surface-50: color-mix(in oklab, theme(--color-sky-600) 3%, theme(--color-neutral-50));
+	--es-color-surface-100: color-mix(in oklab, theme(--color-sky-600) 3%, theme(--color-neutral-100));
+	--es-color-surface-200: color-mix(in oklab, theme(--color-sky-600) 3%, theme(--color-neutral-200));
+	--es-color-surface-300: color-mix(in oklab, theme(--color-sky-600) 3%, theme(--color-neutral-300));
+	--es-color-surface-400: color-mix(in oklab, theme(--color-sky-600) 3%, theme(--color-neutral-400));
+	--es-color-surface-500: color-mix(in oklab, theme(--color-sky-600) 3%, theme(--color-neutral-500));
+	--es-color-surface-600: color-mix(in oklab, theme(--color-sky-600) 3%, theme(--color-neutral-600));
+	--es-color-surface-700: color-mix(in oklab, theme(--color-sky-600) 3%, theme(--color-neutral-700));
+	--es-color-surface-800: color-mix(in oklab, theme(--color-sky-600) 3%, theme(--color-neutral-800));
+	--es-color-surface-900: color-mix(in oklab, theme(--color-sky-600) 3%, theme(--color-neutral-900));
+	--es-color-surface-950: color-mix(in oklab, theme(--color-sky-600) 3%, theme(--color-neutral-950));
 }
 
 .es-uic-theme-mono {
-	--es-color-accent-50: var(--es-color-slate-50);
-	--es-color-accent-100: var(--es-color-slate-100);
-	--es-color-accent-200: var(--es-color-slate-200);
-	--es-color-accent-300: var(--es-color-slate-300);
-	--es-color-accent-400: var(--es-color-slate-400);
-	--es-color-accent-500: var(--es-color-slate-500);
-	--es-color-accent-600: var(--es-color-slate-600);
-	--es-color-accent-700: var(--es-color-slate-700);
-	--es-color-accent-800: var(--es-color-slate-800);
-	--es-color-accent-900: var(--es-color-slate-900);
-	--es-color-accent-950: var(--es-color-slate-950);
+	--es-color-accent-50: theme(--color-neutral-100);
+	--es-color-accent-100: theme(--color-neutral-200);
+	--es-color-accent-200: theme(--color-neutral-300);
+	--es-color-accent-300: theme(--color-neutral-400);
+	--es-color-accent-400: theme(--color-neutral-500);
+	--es-color-accent-500: theme(--color-neutral-600);
+	--es-color-accent-600: theme(--color-neutral-700);
+	--es-color-accent-700: theme(--color-neutral-800);
+	--es-color-accent-800: theme(--color-neutral-900);
+	--es-color-accent-900: theme(--color-neutral-950);
+	--es-color-accent-950: theme(--color-black);
 
-	--color-secondary-50: var(--es-color-mist-50);
-	--color-secondary-100: var(--es-color-mist-100);
-	--color-secondary-200: var(--es-color-mist-200);
-	--color-secondary-300: var(--es-color-mist-300);
-	--color-secondary-400: var(--es-color-mist-400);
-	--color-secondary-500: var(--es-color-mist-500);
-	--color-secondary-600: var(--es-color-mist-600);
-	--color-secondary-700: var(--es-color-mist-700);
-	--color-secondary-800: var(--es-color-mist-800);
-	--color-secondary-900: var(--es-color-mist-900);
-	--color-secondary-950: var(--es-color-mist-950);
+	--color-secondary-50: theme(--color-neutral-50);
+	--color-secondary-100: theme(--color-neutral-100);
+	--color-secondary-200: theme(--color-neutral-200);
+	--color-secondary-300: theme(--color-neutral-300);
+	--color-secondary-400: theme(--color-neutral-400);
+	--color-secondary-500: theme(--color-neutral-500);
+	--color-secondary-600: theme(--color-neutral-600);
+	--color-secondary-700: theme(--color-neutral-700);
+	--color-secondary-800: theme(--color-neutral-800);
+	--color-secondary-900: theme(--color-neutral-900);
+	--color-secondary-950: theme(--color-neutral-950);
 
-	--es-color-surface-50: color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
-	--es-color-surface-100: color-mix(in oklab, var(--es-color-accent-100) 20%, var(--es-color-secondary-100));
-	--es-color-surface-200: color-mix(in oklab, var(--es-color-accent-200) 20%, var(--es-color-secondary-200));
-	--es-color-surface-300: color-mix(in oklab, var(--es-color-accent-300) 20%, var(--es-color-secondary-300));
-	--es-color-surface-400: color-mix(in oklab, var(--es-color-accent-400) 20%, var(--es-color-secondary-400));
-	--es-color-surface-500: color-mix(in oklab, var(--es-color-accent-500) 20%, var(--es-color-secondary-500));
-	--es-color-surface-600: color-mix(in oklab, var(--es-color-accent-600) 20%, var(--es-color-secondary-600));
-	--es-color-surface-700: color-mix(in oklab, var(--es-color-accent-700) 20%, var(--es-color-secondary-700));
-	--es-color-surface-800: color-mix(in oklab, var(--es-color-accent-800) 20%, var(--es-color-secondary-800));
-	--es-color-surface-900: color-mix(in oklab, var(--es-color-accent-900) 20%, var(--es-color-secondary-900));
-	--es-color-surface-950: color-mix(in oklab, var(--es-color-accent-950) 20%, var(--es-color-secondary-950));
+	--es-color-surface-50: color-mix(in oklab, theme(--color-neutral-600) 3%, theme(--color-neutral-50));
+	--es-color-surface-100: color-mix(in oklab, theme(--color-neutral-600) 3%, theme(--color-neutral-100));
+	--es-color-surface-200: color-mix(in oklab, theme(--color-neutral-600) 3%, theme(--color-neutral-200));
+	--es-color-surface-300: color-mix(in oklab, theme(--color-neutral-600) 3%, theme(--color-neutral-300));
+	--es-color-surface-400: color-mix(in oklab, theme(--color-neutral-600) 3%, theme(--color-neutral-400));
+	--es-color-surface-500: color-mix(in oklab, theme(--color-neutral-600) 3%, theme(--color-neutral-500));
+	--es-color-surface-600: color-mix(in oklab, theme(--color-neutral-600) 3%, theme(--color-neutral-600));
+	--es-color-surface-700: color-mix(in oklab, theme(--color-neutral-600) 3%, theme(--color-neutral-700));
+	--es-color-surface-800: color-mix(in oklab, theme(--color-neutral-600) 3%, theme(--color-neutral-800));
+	--es-color-surface-900: color-mix(in oklab, theme(--color-neutral-600) 3%, theme(--color-neutral-900));
+	--es-color-surface-950: color-mix(in oklab, theme(--color-neutral-600) 3%, theme(--color-neutral-950));
 }
 
 .es-uic-theme-orange {
-	--es-color-accent-50: var(--es-color-orange-50);
-	--es-color-accent-100: var(--es-color-orange-100);
-	--es-color-accent-200: var(--es-color-orange-200);
-	--es-color-accent-300: var(--es-color-orange-300);
-	--es-color-accent-400: var(--es-color-orange-400);
-	--es-color-accent-500: var(--es-color-orange-500);
-	--es-color-accent-600: var(--es-color-orange-600);
-	--es-color-accent-700: var(--es-color-orange-700);
-	--es-color-accent-800: var(--es-color-orange-800);
-	--es-color-accent-900: var(--es-color-orange-900);
-	--es-color-accent-950: var(--es-color-orange-950);
+	--es-color-accent-50: theme(--color-orange-50);
+	--es-color-accent-100: theme(--color-orange-100);
+	--es-color-accent-200: theme(--color-orange-200);
+	--es-color-accent-300: theme(--color-orange-300);
+	--es-color-accent-400: theme(--color-orange-400);
+	--es-color-accent-500: theme(--color-orange-500);
+	--es-color-accent-600: theme(--color-orange-600);
+	--es-color-accent-700: theme(--color-orange-700);
+	--es-color-accent-800: theme(--color-orange-800);
+	--es-color-accent-900: theme(--color-orange-900);
+	--es-color-accent-950: theme(--color-orange-950);
 
-	--color-secondary-50: var(--es-color-taupe-50);
-	--color-secondary-100: var(--es-color-taupe-100);
-	--color-secondary-200: var(--es-color-taupe-200);
-	--color-secondary-300: var(--es-color-taupe-300);
-	--color-secondary-400: var(--es-color-taupe-400);
-	--color-secondary-500: var(--es-color-taupe-500);
-	--color-secondary-600: var(--es-color-taupe-600);
-	--color-secondary-700: var(--es-color-taupe-700);
-	--color-secondary-800: var(--es-color-taupe-800);
-	--color-secondary-900: var(--es-color-taupe-900);
-	--color-secondary-950: var(--es-color-taupe-950);
+	--color-secondary-50: theme(--color-neutral-50);
+	--color-secondary-100: theme(--color-neutral-100);
+	--color-secondary-200: theme(--color-neutral-200);
+	--color-secondary-300: theme(--color-neutral-300);
+	--color-secondary-400: theme(--color-neutral-400);
+	--color-secondary-500: theme(--color-neutral-500);
+	--color-secondary-600: theme(--color-neutral-600);
+	--color-secondary-700: theme(--color-neutral-700);
+	--color-secondary-800: theme(--color-neutral-800);
+	--color-secondary-900: theme(--color-neutral-900);
+	--color-secondary-950: theme(--color-neutral-950);
 
-	--es-color-surface-50: color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
-	--es-color-surface-100: color-mix(in oklab, var(--es-color-accent-100) 20%, var(--es-color-secondary-100));
-	--es-color-surface-200: color-mix(in oklab, var(--es-color-accent-200) 20%, var(--es-color-secondary-200));
-	--es-color-surface-300: color-mix(in oklab, var(--es-color-accent-300) 20%, var(--es-color-secondary-300));
-	--es-color-surface-400: color-mix(in oklab, var(--es-color-accent-400) 20%, var(--es-color-secondary-400));
-	--es-color-surface-500: color-mix(in oklab, var(--es-color-accent-500) 20%, var(--es-color-secondary-500));
-	--es-color-surface-600: color-mix(in oklab, var(--es-color-accent-600) 20%, var(--es-color-secondary-600));
-	--es-color-surface-700: color-mix(in oklab, var(--es-color-accent-700) 20%, var(--es-color-secondary-700));
-	--es-color-surface-800: color-mix(in oklab, var(--es-color-accent-800) 20%, var(--es-color-secondary-800));
-	--es-color-surface-900: color-mix(in oklab, var(--es-color-accent-900) 20%, var(--es-color-secondary-900));
-	--es-color-surface-950: color-mix(in oklab, var(--es-color-accent-950) 20%, var(--es-color-secondary-950));
+	--es-color-surface-50: color-mix(in oklab, theme(--color-orange-600) 3%, theme(--color-neutral-50));
+	--es-color-surface-100: color-mix(in oklab, theme(--color-orange-600) 3%, theme(--color-neutral-100));
+	--es-color-surface-200: color-mix(in oklab, theme(--color-orange-600) 3%, theme(--color-neutral-200));
+	--es-color-surface-300: color-mix(in oklab, theme(--color-orange-600) 3%, theme(--color-neutral-300));
+	--es-color-surface-400: color-mix(in oklab, theme(--color-orange-600) 3%, theme(--color-neutral-400));
+	--es-color-surface-500: color-mix(in oklab, theme(--color-orange-600) 3%, theme(--color-neutral-500));
+	--es-color-surface-600: color-mix(in oklab, theme(--color-orange-600) 3%, theme(--color-neutral-600));
+	--es-color-surface-700: color-mix(in oklab, theme(--color-orange-600) 3%, theme(--color-neutral-700));
+	--es-color-surface-800: color-mix(in oklab, theme(--color-orange-600) 3%, theme(--color-neutral-800));
+	--es-color-surface-900: color-mix(in oklab, theme(--color-orange-600) 3%, theme(--color-neutral-900));
+	--es-color-surface-950: color-mix(in oklab, theme(--color-orange-600) 3%, theme(--color-neutral-950));
 }
 
 .es-uic-theme-purple {
-	--es-color-accent-50: var(--es-color-indigo-50);
-	--es-color-accent-100: var(--es-color-indigo-100);
-	--es-color-accent-200: var(--es-color-indigo-200);
-	--es-color-accent-300: var(--es-color-indigo-300);
-	--es-color-accent-400: var(--es-color-indigo-400);
-	--es-color-accent-500: var(--es-color-indigo-500);
-	--es-color-accent-600: var(--es-color-indigo-600);
-	--es-color-accent-700: var(--es-color-indigo-700);
-	--es-color-accent-800: var(--es-color-indigo-800);
-	--es-color-accent-900: var(--es-color-indigo-900);
-	--es-color-accent-950: var(--es-color-indigo-950);
+	--es-color-accent-50: theme(--color-indigo-50);
+	--es-color-accent-100: theme(--color-indigo-100);
+	--es-color-accent-200: theme(--color-indigo-200);
+	--es-color-accent-300: theme(--color-indigo-300);
+	--es-color-accent-400: theme(--color-indigo-400);
+	--es-color-accent-500: theme(--color-indigo-500);
+	--es-color-accent-600: theme(--color-indigo-600);
+	--es-color-accent-700: theme(--color-indigo-700);
+	--es-color-accent-800: theme(--color-indigo-800);
+	--es-color-accent-900: theme(--color-indigo-900);
+	--es-color-accent-950: theme(--color-indigo-950);
 
-	--color-secondary-50: var(--es-color-mauve-50);
-	--color-secondary-100: var(--es-color-mauve-100);
-	--color-secondary-200: var(--es-color-mauve-200);
-	--color-secondary-300: var(--es-color-mauve-300);
-	--color-secondary-400: var(--es-color-mauve-400);
-	--color-secondary-500: var(--es-color-mauve-500);
-	--color-secondary-600: var(--es-color-mauve-600);
-	--color-secondary-700: var(--es-color-mauve-700);
-	--color-secondary-800: var(--es-color-mauve-800);
-	--color-secondary-900: var(--es-color-mauve-900);
-	--color-secondary-950: var(--es-color-mauve-950);
+	--color-secondary-50: theme(--color-neutral-50);
+	--color-secondary-100: theme(--color-neutral-100);
+	--color-secondary-200: theme(--color-neutral-200);
+	--color-secondary-300: theme(--color-neutral-300);
+	--color-secondary-400: theme(--color-neutral-400);
+	--color-secondary-500: theme(--color-neutral-500);
+	--color-secondary-600: theme(--color-neutral-600);
+	--color-secondary-700: theme(--color-neutral-700);
+	--color-secondary-800: theme(--color-neutral-800);
+	--color-secondary-900: theme(--color-neutral-900);
+	--color-secondary-950: theme(--color-neutral-950);
 
-	--es-color-surface-50: color-mix(in oklab, var(--es-color-accent-50) 20%, var(--es-color-secondary-50));
-	--es-color-surface-100: color-mix(in oklab, var(--es-color-accent-100) 20%, var(--es-color-secondary-100));
-	--es-color-surface-200: color-mix(in oklab, var(--es-color-accent-200) 20%, var(--es-color-secondary-200));
-	--es-color-surface-300: color-mix(in oklab, var(--es-color-accent-300) 20%, var(--es-color-secondary-300));
-	--es-color-surface-400: color-mix(in oklab, var(--es-color-accent-400) 20%, var(--es-color-secondary-400));
-	--es-color-surface-500: color-mix(in oklab, var(--es-color-accent-500) 20%, var(--es-color-secondary-500));
-	--es-color-surface-600: color-mix(in oklab, var(--es-color-accent-600) 20%, var(--es-color-secondary-600));
-	--es-color-surface-700: color-mix(in oklab, var(--es-color-accent-700) 20%, var(--es-color-secondary-700));
-	--es-color-surface-800: color-mix(in oklab, var(--es-color-accent-800) 20%, var(--es-color-secondary-800));
-	--es-color-surface-900: color-mix(in oklab, var(--es-color-accent-900) 20%, var(--es-color-secondary-900));
-	--es-color-surface-950: color-mix(in oklab, var(--es-color-accent-950) 20%, var(--es-color-secondary-950));
+	--es-color-surface-50: color-mix(in oklab, theme(--color-indigo-600) 3%, theme(--color-neutral-50));
+	--es-color-surface-100: color-mix(in oklab, theme(--color-indigo-600) 3%, theme(--color-neutral-100));
+	--es-color-surface-200: color-mix(in oklab, theme(--color-indigo-600) 3%, theme(--color-neutral-200));
+	--es-color-surface-300: color-mix(in oklab, theme(--color-indigo-600) 3%, theme(--color-neutral-300));
+	--es-color-surface-400: color-mix(in oklab, theme(--color-indigo-600) 3%, theme(--color-neutral-400));
+	--es-color-surface-500: color-mix(in oklab, theme(--color-indigo-600) 3%, theme(--color-neutral-500));
+	--es-color-surface-600: color-mix(in oklab, theme(--color-indigo-600) 3%, theme(--color-neutral-600));
+	--es-color-surface-700: color-mix(in oklab, theme(--color-indigo-600) 3%, theme(--color-neutral-700));
+	--es-color-surface-800: color-mix(in oklab, theme(--color-indigo-600) 3%, theme(--color-neutral-800));
+	--es-color-surface-900: color-mix(in oklab, theme(--color-indigo-600) 3%, theme(--color-neutral-900));
+	--es-color-surface-950: color-mix(in oklab, theme(--color-indigo-600) 3%, theme(--color-neutral-950));
+}
+
+.es-uic-theme-red {
+	--es-color-accent-50: theme(--color-rose-50);
+	--es-color-accent-100: theme(--color-rose-100);
+	--es-color-accent-200: theme(--color-rose-200);
+	--es-color-accent-300: theme(--color-rose-300);
+	--es-color-accent-400: theme(--color-rose-400);
+	--es-color-accent-500: theme(--color-rose-500);
+	--es-color-accent-600: theme(--color-rose-600);
+	--es-color-accent-700: theme(--color-rose-700);
+	--es-color-accent-800: theme(--color-rose-800);
+	--es-color-accent-900: theme(--color-rose-900);
+	--es-color-accent-950: theme(--color-rose-950);
+
+	--color-secondary-50: theme(--color-neutral-50);
+	--color-secondary-100: theme(--color-neutral-100);
+	--color-secondary-200: theme(--color-neutral-200);
+	--color-secondary-300: theme(--color-neutral-300);
+	--color-secondary-400: theme(--color-neutral-400);
+	--color-secondary-500: theme(--color-neutral-500);
+	--color-secondary-600: theme(--color-neutral-600);
+	--color-secondary-700: theme(--color-neutral-700);
+	--color-secondary-800: theme(--color-neutral-800);
+	--color-secondary-900: theme(--color-neutral-900);
+	--color-secondary-950: theme(--color-neutral-950);
+
+	--es-color-surface-50: color-mix(in oklab, theme(--color-rose-600) 3%, theme(--color-neutral-50));
+	--es-color-surface-100: color-mix(in oklab, theme(--color-rose-600) 3%, theme(--color-neutral-100));
+	--es-color-surface-200: color-mix(in oklab, theme(--color-rose-600) 3%, theme(--color-neutral-200));
+	--es-color-surface-300: color-mix(in oklab, theme(--color-rose-600) 3%, theme(--color-neutral-300));
+	--es-color-surface-400: color-mix(in oklab, theme(--color-rose-600) 3%, theme(--color-neutral-400));
+	--es-color-surface-500: color-mix(in oklab, theme(--color-rose-600) 3%, theme(--color-neutral-500));
+	--es-color-surface-600: color-mix(in oklab, theme(--color-rose-600) 3%, theme(--color-neutral-600));
+	--es-color-surface-700: color-mix(in oklab, theme(--color-rose-600) 3%, theme(--color-neutral-700));
+	--es-color-surface-800: color-mix(in oklab, theme(--color-rose-600) 3%, theme(--color-neutral-800));
+	--es-color-surface-900: color-mix(in oklab, theme(--color-rose-600) 3%, theme(--color-neutral-900));
+	--es-color-surface-950: color-mix(in oklab, theme(--color-rose-600) 3%, theme(--color-neutral-950));
+}
+
+.es-uic-theme-magenta {
+	--es-color-accent-50: theme(--color-fuchsia-50);
+	--es-color-accent-100: theme(--color-fuchsia-100);
+	--es-color-accent-200: theme(--color-fuchsia-200);
+	--es-color-accent-300: theme(--color-fuchsia-300);
+	--es-color-accent-400: theme(--color-fuchsia-400);
+	--es-color-accent-500: theme(--color-fuchsia-500);
+	--es-color-accent-600: theme(--color-fuchsia-600);
+	--es-color-accent-700: theme(--color-fuchsia-700);
+	--es-color-accent-800: theme(--color-fuchsia-800);
+	--es-color-accent-900: theme(--color-fuchsia-900);
+	--es-color-accent-950: theme(--color-fuchsia-950);
+
+	--color-secondary-50: theme(--color-neutral-50);
+	--color-secondary-100: theme(--color-neutral-100);
+	--color-secondary-200: theme(--color-neutral-200);
+	--color-secondary-300: theme(--color-neutral-300);
+	--color-secondary-400: theme(--color-neutral-400);
+	--color-secondary-500: theme(--color-neutral-500);
+	--color-secondary-600: theme(--color-neutral-600);
+	--color-secondary-700: theme(--color-neutral-700);
+	--color-secondary-800: theme(--color-neutral-800);
+	--color-secondary-900: theme(--color-neutral-900);
+	--color-secondary-950: theme(--color-neutral-950);
+
+	--es-color-surface-50: color-mix(in oklab, theme(--color-fuchsia-600) 3%, theme(--color-neutral-50));
+	--es-color-surface-100: color-mix(in oklab, theme(--color-fuchsia-600) 3%, theme(--color-neutral-100));
+	--es-color-surface-200: color-mix(in oklab, theme(--color-fuchsia-600) 3%, theme(--color-neutral-200));
+	--es-color-surface-300: color-mix(in oklab, theme(--color-fuchsia-600) 3%, theme(--color-neutral-300));
+	--es-color-surface-400: color-mix(in oklab, theme(--color-fuchsia-600) 3%, theme(--color-neutral-400));
+	--es-color-surface-500: color-mix(in oklab, theme(--color-fuchsia-600) 3%, theme(--color-neutral-500));
+	--es-color-surface-600: color-mix(in oklab, theme(--color-fuchsia-600) 3%, theme(--color-neutral-600));
+	--es-color-surface-700: color-mix(in oklab, theme(--color-fuchsia-600) 3%, theme(--color-neutral-700));
+	--es-color-surface-800: color-mix(in oklab, theme(--color-fuchsia-600) 3%, theme(--color-neutral-800));
+	--es-color-surface-900: color-mix(in oklab, theme(--color-fuchsia-600) 3%, theme(--color-neutral-900));
+	--es-color-surface-950: color-mix(in oklab, theme(--color-fuchsia-600) 3%, theme(--color-neutral-950));
+}
+
+.es-uic-theme-mist {
+	--es-color-accent-50: theme(--color-mist-50);
+	--es-color-accent-100: theme(--color-mist-100);
+	--es-color-accent-200: theme(--color-mist-200);
+	--es-color-accent-300: theme(--color-mist-300);
+	--es-color-accent-400: theme(--color-mist-400);
+	--es-color-accent-500: theme(--color-mist-500);
+	--es-color-accent-600: theme(--color-mist-600);
+	--es-color-accent-700: theme(--color-mist-700);
+	--es-color-accent-800: theme(--color-mist-800);
+	--es-color-accent-900: theme(--color-mist-900);
+	--es-color-accent-950: theme(--color-mist-950);
+
+	--color-secondary-50: theme(--color-neutral-50);
+	--color-secondary-100: theme(--color-neutral-100);
+	--color-secondary-200: theme(--color-neutral-200);
+	--color-secondary-300: theme(--color-neutral-300);
+	--color-secondary-400: theme(--color-neutral-400);
+	--color-secondary-500: theme(--color-neutral-500);
+	--color-secondary-600: theme(--color-neutral-600);
+	--color-secondary-700: theme(--color-neutral-700);
+	--color-secondary-800: theme(--color-neutral-800);
+	--color-secondary-900: theme(--color-neutral-900);
+	--color-secondary-950: theme(--color-neutral-950);
+
+	--es-color-surface-50: color-mix(in oklab, theme(--color-mist-600) 3%, theme(--color-neutral-50));
+	--es-color-surface-100: color-mix(in oklab, theme(--color-mist-600) 3%, theme(--color-neutral-100));
+	--es-color-surface-200: color-mix(in oklab, theme(--color-mist-600) 3%, theme(--color-neutral-200));
+	--es-color-surface-300: color-mix(in oklab, theme(--color-mist-600) 3%, theme(--color-neutral-300));
+	--es-color-surface-400: color-mix(in oklab, theme(--color-mist-600) 3%, theme(--color-neutral-400));
+	--es-color-surface-500: color-mix(in oklab, theme(--color-mist-600) 3%, theme(--color-neutral-500));
+	--es-color-surface-600: color-mix(in oklab, theme(--color-mist-600) 3%, theme(--color-neutral-600));
+	--es-color-surface-700: color-mix(in oklab, theme(--color-mist-600) 3%, theme(--color-neutral-700));
+	--es-color-surface-800: color-mix(in oklab, theme(--color-mist-600) 3%, theme(--color-neutral-800));
+	--es-color-surface-900: color-mix(in oklab, theme(--color-mist-600) 3%, theme(--color-neutral-900));
+	--es-color-surface-950: color-mix(in oklab, theme(--color-mist-600) 3%, theme(--color-neutral-950));
+}
+
+.es-uic-theme-mauve {
+	--es-color-accent-50: theme(--color-mauve-50);
+	--es-color-accent-100: theme(--color-mauve-100);
+	--es-color-accent-200: theme(--color-mauve-200);
+	--es-color-accent-300: theme(--color-mauve-300);
+	--es-color-accent-400: theme(--color-mauve-400);
+	--es-color-accent-500: theme(--color-mauve-500);
+	--es-color-accent-600: theme(--color-mauve-600);
+	--es-color-accent-700: theme(--color-mauve-700);
+	--es-color-accent-800: theme(--color-mauve-800);
+	--es-color-accent-900: theme(--color-mauve-900);
+	--es-color-accent-950: theme(--color-mauve-950);
+
+	--color-secondary-50: theme(--color-neutral-50);
+	--color-secondary-100: theme(--color-neutral-100);
+	--color-secondary-200: theme(--color-neutral-200);
+	--color-secondary-300: theme(--color-neutral-300);
+	--color-secondary-400: theme(--color-neutral-400);
+	--color-secondary-500: theme(--color-neutral-500);
+	--color-secondary-600: theme(--color-neutral-600);
+	--color-secondary-700: theme(--color-neutral-700);
+	--color-secondary-800: theme(--color-neutral-800);
+	--color-secondary-900: theme(--color-neutral-900);
+	--color-secondary-950: theme(--color-neutral-950);
+
+	--es-color-surface-50: color-mix(in oklab, theme(--color-mauve-600) 3%, theme(--color-neutral-50));
+	--es-color-surface-100: color-mix(in oklab, theme(--color-mauve-600) 3%, theme(--color-neutral-100));
+	--es-color-surface-200: color-mix(in oklab, theme(--color-mauve-600) 3%, theme(--color-neutral-200));
+	--es-color-surface-300: color-mix(in oklab, theme(--color-mauve-600) 3%, theme(--color-neutral-300));
+	--es-color-surface-400: color-mix(in oklab, theme(--color-mauve-600) 3%, theme(--color-neutral-400));
+	--es-color-surface-500: color-mix(in oklab, theme(--color-mauve-600) 3%, theme(--color-neutral-500));
+	--es-color-surface-600: color-mix(in oklab, theme(--color-mauve-600) 3%, theme(--color-neutral-600));
+	--es-color-surface-700: color-mix(in oklab, theme(--color-mauve-600) 3%, theme(--color-neutral-700));
+	--es-color-surface-800: color-mix(in oklab, theme(--color-mauve-600) 3%, theme(--color-neutral-800));
+	--es-color-surface-900: color-mix(in oklab, theme(--color-mauve-600) 3%, theme(--color-neutral-900));
+	--es-color-surface-950: color-mix(in oklab, theme(--color-mauve-600) 3%, theme(--color-neutral-950));
+}
+
+.es-uic-theme-olive {
+	--es-color-accent-50: theme(--color-olive-50);
+	--es-color-accent-100: theme(--color-olive-100);
+	--es-color-accent-200: theme(--color-olive-200);
+	--es-color-accent-300: theme(--color-olive-300);
+	--es-color-accent-400: theme(--color-olive-400);
+	--es-color-accent-500: theme(--color-olive-500);
+	--es-color-accent-600: theme(--color-olive-600);
+	--es-color-accent-700: theme(--color-olive-700);
+	--es-color-accent-800: theme(--color-olive-800);
+	--es-color-accent-900: theme(--color-olive-900);
+	--es-color-accent-950: theme(--color-olive-950);
+
+	--color-secondary-50: theme(--color-neutral-50);
+	--color-secondary-100: theme(--color-neutral-100);
+	--color-secondary-200: theme(--color-neutral-200);
+	--color-secondary-300: theme(--color-neutral-300);
+	--color-secondary-400: theme(--color-neutral-400);
+	--color-secondary-500: theme(--color-neutral-500);
+	--color-secondary-600: theme(--color-neutral-600);
+	--color-secondary-700: theme(--color-neutral-700);
+	--color-secondary-800: theme(--color-neutral-800);
+	--color-secondary-900: theme(--color-neutral-900);
+	--color-secondary-950: theme(--color-neutral-950);
+
+	--es-color-surface-50: color-mix(in oklab, theme(--color-olive-600) 3%, theme(--color-neutral-50));
+	--es-color-surface-100: color-mix(in oklab, theme(--color-olive-600) 3%, theme(--color-neutral-100));
+	--es-color-surface-200: color-mix(in oklab, theme(--color-olive-600) 3%, theme(--color-neutral-200));
+	--es-color-surface-300: color-mix(in oklab, theme(--color-olive-600) 3%, theme(--color-neutral-300));
+	--es-color-surface-400: color-mix(in oklab, theme(--color-olive-600) 3%, theme(--color-neutral-400));
+	--es-color-surface-500: color-mix(in oklab, theme(--color-olive-600) 3%, theme(--color-neutral-500));
+	--es-color-surface-600: color-mix(in oklab, theme(--color-olive-600) 3%, theme(--color-neutral-600));
+	--es-color-surface-700: color-mix(in oklab, theme(--color-olive-600) 3%, theme(--color-neutral-700));
+	--es-color-surface-800: color-mix(in oklab, theme(--color-olive-600) 3%, theme(--color-neutral-800));
+	--es-color-surface-900: color-mix(in oklab, theme(--color-olive-600) 3%, theme(--color-neutral-900));
+	--es-color-surface-950: color-mix(in oklab, theme(--color-olive-600) 3%, theme(--color-neutral-950));
+}
+
+.es-uic-theme-slate {
+	--es-color-accent-50: theme(--color-slate-50);
+	--es-color-accent-100: theme(--color-slate-100);
+	--es-color-accent-200: theme(--color-slate-200);
+	--es-color-accent-300: theme(--color-slate-300);
+	--es-color-accent-400: theme(--color-slate-400);
+	--es-color-accent-500: theme(--color-slate-500);
+	--es-color-accent-600: theme(--color-slate-600);
+	--es-color-accent-700: theme(--color-slate-700);
+	--es-color-accent-800: theme(--color-slate-800);
+	--es-color-accent-900: theme(--color-slate-900);
+	--es-color-accent-950: theme(--color-slate-950);
+
+	--color-secondary-50: theme(--color-neutral-50);
+	--color-secondary-100: theme(--color-neutral-100);
+	--color-secondary-200: theme(--color-neutral-200);
+	--color-secondary-300: theme(--color-neutral-300);
+	--color-secondary-400: theme(--color-neutral-400);
+	--color-secondary-500: theme(--color-neutral-500);
+	--color-secondary-600: theme(--color-neutral-600);
+	--color-secondary-700: theme(--color-neutral-700);
+	--color-secondary-800: theme(--color-neutral-800);
+	--color-secondary-900: theme(--color-neutral-900);
+	--color-secondary-950: theme(--color-neutral-950);
+
+	--es-color-surface-50: color-mix(in oklab, theme(--color-slate-600) 3%, theme(--color-neutral-50));
+	--es-color-surface-100: color-mix(in oklab, theme(--color-slate-600) 3%, theme(--color-neutral-100));
+	--es-color-surface-200: color-mix(in oklab, theme(--color-slate-600) 3%, theme(--color-neutral-200));
+	--es-color-surface-300: color-mix(in oklab, theme(--color-slate-600) 3%, theme(--color-neutral-300));
+	--es-color-surface-400: color-mix(in oklab, theme(--color-slate-600) 3%, theme(--color-neutral-400));
+	--es-color-surface-500: color-mix(in oklab, theme(--color-slate-600) 3%, theme(--color-neutral-500));
+	--es-color-surface-600: color-mix(in oklab, theme(--color-slate-600) 3%, theme(--color-neutral-600));
+	--es-color-surface-700: color-mix(in oklab, theme(--color-slate-600) 3%, theme(--color-neutral-700));
+	--es-color-surface-800: color-mix(in oklab, theme(--color-slate-600) 3%, theme(--color-neutral-800));
+	--es-color-surface-900: color-mix(in oklab, theme(--color-slate-600) 3%, theme(--color-neutral-900));
+	--es-color-surface-950: color-mix(in oklab, theme(--color-slate-600) 3%, theme(--color-neutral-950));
+}
+
+.es-uic-theme-yellow {
+	--es-color-accent-50: theme(--color-yellow-50);
+	--es-color-accent-100: theme(--color-yellow-100);
+	--es-color-accent-200: theme(--color-yellow-200);
+	--es-color-accent-300: theme(--color-yellow-300);
+	--es-color-accent-400: theme(--color-yellow-400);
+	--es-color-accent-500: theme(--color-yellow-500);
+	--es-color-accent-600: theme(--color-yellow-600);
+	--es-color-accent-700: theme(--color-yellow-700);
+	--es-color-accent-800: theme(--color-yellow-800);
+	--es-color-accent-900: theme(--color-yellow-900);
+	--es-color-accent-950: theme(--color-yellow-950);
+
+	--color-secondary-50: theme(--color-neutral-50);
+	--color-secondary-100: theme(--color-neutral-100);
+	--color-secondary-200: theme(--color-neutral-200);
+	--color-secondary-300: theme(--color-neutral-300);
+	--color-secondary-400: theme(--color-neutral-400);
+	--color-secondary-500: theme(--color-neutral-500);
+	--color-secondary-600: theme(--color-neutral-600);
+	--color-secondary-700: theme(--color-neutral-700);
+	--color-secondary-800: theme(--color-neutral-800);
+	--color-secondary-900: theme(--color-neutral-900);
+	--color-secondary-950: theme(--color-neutral-950);
+
+	--es-color-surface-50: color-mix(in oklab, theme(--color-yellow-600) 3%, theme(--color-neutral-50));
+	--es-color-surface-100: color-mix(in oklab, theme(--color-yellow-600) 3%, theme(--color-neutral-100));
+	--es-color-surface-200: color-mix(in oklab, theme(--color-yellow-600) 3%, theme(--color-neutral-200));
+	--es-color-surface-300: color-mix(in oklab, theme(--color-yellow-600) 3%, theme(--color-neutral-300));
+	--es-color-surface-400: color-mix(in oklab, theme(--color-yellow-600) 3%, theme(--color-neutral-400));
+	--es-color-surface-500: color-mix(in oklab, theme(--color-yellow-600) 3%, theme(--color-neutral-500));
+	--es-color-surface-600: color-mix(in oklab, theme(--color-yellow-600) 3%, theme(--color-neutral-600));
+	--es-color-surface-700: color-mix(in oklab, theme(--color-yellow-600) 3%, theme(--color-neutral-700));
+	--es-color-surface-800: color-mix(in oklab, theme(--color-yellow-600) 3%, theme(--color-neutral-800));
+	--es-color-surface-900: color-mix(in oklab, theme(--color-yellow-600) 3%, theme(--color-neutral-900));
+	--es-color-surface-950: color-mix(in oklab, theme(--color-yellow-600) 3%, theme(--color-neutral-950));
 }
