@@ -5,6 +5,7 @@ import '../font-faces/geist.css';
 import '../font-faces/geist-mono.css';
 import '../font-faces/google-sans-flex.css';
 import '../lib/index.css';
+import '../lib/themes.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
