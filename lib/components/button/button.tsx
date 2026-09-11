@@ -256,7 +256,7 @@ const createComponentClasses = ({ className, flat, pending }: { className?: stri
 					type: 'outline',
 					disabled: false,
 					class: [
-						!pending && 'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-secondary-700',
+						!pending && 'es:bg-white es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-secondary-700',
 						pending &&
 							'es:shimmer-animation es:-bg-linear-75 es:from-accent-600/0 es:via-accent-600/15 es:to-accent-600/0 es:from-35% es:via-50% es:to-65% es:bg-surface-50 es:inset-ring es:inset-ring-accent-600/5 es:text-accent-900',
 						'es:inset-ring es:inset-ring-secondary-700/12',
@@ -269,7 +269,7 @@ const createComponentClasses = ({ className, flat, pending }: { className?: stri
 					type: 'dangerOutline',
 					disabled: false,
 					class: [
-						!pending && 'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-red-700',
+						!pending && 'es:bg-white es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-red-700',
 						pending &&
 							'es:shimmer-animation es:-bg-linear-75 es:from-red-600/0 es:via-red-600/10 es:to-red-600/0 es:from-35% es:via-50% es:to-65% es:bg-secondary-50 es:inset-ring es:inset-ring-red-600/10 es:text-red-700',
 						'es:inset-ring es:inset-ring-red-800/12',
@@ -282,7 +282,7 @@ const createComponentClasses = ({ className, flat, pending }: { className?: stri
 					type: 'selectedOutline',
 					disabled: false,
 					class: [
-						!pending && 'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-accent-600',
+						!pending && 'es:bg-white es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-accent-600',
 						pending &&
 							'es:shimmer-animation es:-bg-linear-75 es:from-accent-600/0 es:via-accent-600/15 es:to-accent-600/0 es:from-35% es:via-50% es:to-65% es:bg-surface-50 es:inset-ring es:inset-ring-accent-600/15 es:text-accent-700',
 						'es:inset-ring es:inset-ring-accent-800/12',
@@ -387,7 +387,7 @@ const createComponentClasses = ({ className, flat, pending }: { className?: stri
 				{
 					type: ['outline', 'dangerOutline', 'selectedOutline'],
 					disabled: true,
-					class: ['es:text-secondary-500 es:any-icon:text-secondary-500/50', 'es:inset-ring es:inset-ring-secondary-100'],
+					class: ['es:bg-gray-50 es:text-secondary-500 es:any-icon:text-secondary-500/50', 'es:inset-ring es:inset-ring-secondary-100'],
 				},
 				{
 					type: ['glass', 'glassDark', 'dangerGlass', 'selectedGlass'],

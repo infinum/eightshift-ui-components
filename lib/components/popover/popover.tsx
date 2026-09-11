@@ -157,9 +157,9 @@ export const Popover = (props: Prettify<PopoverProps>) => {
 			className={({ isEntering, isExiting }) =>
 				clsx(
 					'es:font-sans',
-					'es:rounded-2xl es:bg-linear-to-br es:from-surface-50/85 es:to-surface-50/85 es:inset-ring es:inset-ring-surface-500/15 es:shadow-xl es:outline-hidden',
+					'es:rounded-2xl es:bg-linear-to-br es:from-surface-50/50 es:to-surface-50/50 es:inset-ring es:inset-ring-surface-500/15 es:shadow-xl es:outline-hidden',
 					'es:backdrop-blur-xl es:backdrop-brightness-110 es:backdrop-saturate-125',
-					'es:inset-shadow-xs es:inset-shadow-white/50',
+					'es:inset-shadow-sm es:inset-shadow-white/30',
 					'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
 					'es:placement-left:origin-right es:placement-right:origin-left',
 					'es:motion-ease-spring-bouncy',

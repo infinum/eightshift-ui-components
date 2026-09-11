@@ -253,33 +253,23 @@
 }
 
 @utility transition-plus {
-	transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events, border-radius, font-variation-settings;
-	transition-duration: var(--es-default-transition-duration);
-	transition-timing-function: var(--es-default-transition-timing-function);
+	@apply es:transition-[color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to,opacity,box-shadow,transform,translate,scale,rotate,filter,-webkit-backdrop-filter,backdrop-filter,display,content-visibility,overlay,pointer-events,border-radius,font-variation-settings];
 }
 
 @utility transition-plus-w {
-	transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events, border-radius, font-variation-settings, width;
-	transition-duration: var(--es-default-transition-duration);
-	transition-timing-function: var(--es-default-transition-timing-function);
+	@apply es:transition-[color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to,opacity,box-shadow,transform,translate,scale,rotate,filter,-webkit-backdrop-filter,backdrop-filter,display,content-visibility,overlay,pointer-events,border-radius,font-variation-settings,width];
 }
 
 @utility transition-plus-h {
-	transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events, border-radius, font-variation-settings, height;
-	transition-duration: var(--es-default-transition-duration);
-	transition-timing-function: var(--es-default-transition-timing-function);
+	@apply es:transition-[color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to,opacity,box-shadow,transform,translate,scale,rotate,filter,-webkit-backdrop-filter,backdrop-filter,display,content-visibility,overlay,pointer-events,border-radius,font-variation-settings,height];
 }
 
 @utility transition-plus-m {
-	transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events, border-radius, font-variation-settings, margin;
-	transition-duration: var(--es-default-transition-duration);
-	transition-timing-function: var(--es-default-transition-timing-function);
+	@apply es:transition-[color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to,opacity,box-shadow,transform,translate,scale,rotate,filter,-webkit-backdrop-filter,backdrop-filter,display,content-visibility,overlay,pointer-events,border-radius,font-variation-settings,margin];
 }
 
 @utility transition-plus-size {
-	transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events, border-radius, font-variation-settings, width, height;
-	transition-duration: var(--es-default-transition-duration);
-	transition-timing-function: var(--es-default-transition-timing-function);
+	@apply es:transition-[color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to,opacity,box-shadow,transform,translate,scale,rotate,filter,-webkit-backdrop-filter,backdrop-filter,display,content-visibility,overlay,pointer-events,border-radius,font-variation-settings,width,height];
 }
 
 @keyframes es-uic-shimmer {

@@ -161,6 +161,7 @@ import {
 	upload,
 	Icon,
 	emptyCircle,
+	warningFill,
 } from '../lib/icons';
 import { iconLoaders } from '../lib/icons/generated-icon-loaders';
 
@@ -1631,7 +1632,7 @@ function App() {
 					<PromptPopover
 						triggerButtonIcon={trash}
 						tooltip='Delete post'
-						icon={warning}
+						icon={warningFill}
 						label='Delete post?'
 						subtitle='This action cannot be undone.'
 						type='default'
@@ -1642,7 +1643,7 @@ function App() {
 					<PromptPopover
 						triggerButtonIcon={trash}
 						tooltip='Delete post'
-						icon={warning}
+						icon={warningFill}
 						label='Delete post?'
 						subtitle='This action cannot be undone.'
 						type='danger'
@@ -1653,7 +1654,7 @@ function App() {
 					<PromptPopover
 						triggerButtonIcon={trash}
 						tooltip='Delete post'
-						icon={warning}
+						icon={warningFill}
 						label='Delete post?'
 						subtitle='This action cannot be undone.'
 						type='success'
