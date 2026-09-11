@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [8.3.0] - 2026-09-11
+
+- Updated dependencies.
+- Added `outline`, `outlineSelected`, `outlineDanger` `Button` variants.
+- Added `outline` `ToggleButton` variants.
+- Added new color themes (`red`, `magenta`, `yellow`, `mist`, `mauve`, `olive`, `slate`), available via `es-uic-*` classes and simplified color mappings
+- Added `PromptPopover` component.
+
 ## [8.2.0] - 2026-09-04
 
 - Updated dependencies.
@@ -663,6 +671,8 @@ Co-authored with @piqusy
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
 
+[8.3.0]: https://github.com/infinum/eightshift-ui-components/compare/8.2.0...8.3.0
+[8.2.0]: https://github.com/infinum/eightshift-ui-components/compare/8.1.0...8.2.0
 [8.1.0]: https://github.com/infinum/eightshift-ui-components/compare/8.0.0...8.1.0
 [8.0.0]: https://github.com/infinum/eightshift-ui-components/compare/7.3.0...8.0.0
 [7.3.0]: https://github.com/infinum/eightshift-ui-components/compare/7.2.1...7.3.0

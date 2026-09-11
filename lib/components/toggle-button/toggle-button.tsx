@@ -7,7 +7,7 @@ import type { Prettify } from '../../utilities/types';
 
 const componentClasses = cva(
 	[
-		'es:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_0,"slnt"_0] es:not-aria-pressed:hover:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_75,"slnt"_0] es:aria-pressed:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_75,"slnt"_-2]',
+		'es:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_0,"slnt"_0] es:not-aria-pressed:hover:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_75,"slnt"_0] es:aria-pressed:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_75,"slnt"_0]',
 		'es:flex es:items-center es:justify-center',
 		'es:transition-plus es:duration-300 es:ease-spring-smooth es:text-13',
 		'es:any-focus:outline-hidden',
@@ -40,6 +40,7 @@ const componentClasses = cva(
 			type: {
 				default: null,
 				ghost: null,
+				outline: null,
 				simple: null,
 			},
 			disabled: {
@@ -177,6 +178,30 @@ const componentClasses = cva(
 				],
 			},
 			{
+				type: 'outline',
+				disabled: false,
+				selected: false,
+				class: [
+					'es:bg-white',
+					'es:bg-linear-to-br es:from-surface-200/0 es:to-surface-200/0 es:text-secondary-700',
+					'es:inset-ring es:inset-ring-secondary-700/12',
+					'es:hover:from-surface-200/30 es:hover:to-surface-200/50 es:hover:text-accent-950 es:hover:inset-ring-accent-950/6',
+					'es:pressed:from-accent-600/5 es:pressed:to-accent-600/15 es:pressed:text-accent-900',
+					'es:focus-visible:bg-accent-50 es:focus-visible:text-accent-950 es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:inset-ring-accent-500',
+				],
+			},
+			{
+				type: 'outline',
+				disabled: false,
+				selected: true,
+				class: [
+					'es:bg-white',
+					'es:bg-linear-to-br es:from-accent-600/70 es:to-accent-600/90 es:text-white',
+					'es:inset-ring es:inset-ring-accent-800/10',
+					'es:focus-visible:bg-accent-50 es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:inset-ring-accent-500',
+				],
+			},
+			{
 				type: 'default',
 				disabled: true,
 				class: [
@@ -189,6 +214,11 @@ const componentClasses = cva(
 				type: 'ghost',
 				disabled: true,
 				class: ['es:text-secondary-500 es:any-icon:text-secondary-500/50'],
+			},
+			{
+				type: 'outline',
+				disabled: true,
+				class: ['es:text-secondary-500 es:any-icon:text-secondary-500/50', 'es:inset-ring es:inset-ring-secondary-100'],
 			},
 			{
 				size: 'small',
