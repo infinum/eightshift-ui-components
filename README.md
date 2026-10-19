@@ -19,7 +19,7 @@ Run `bun run lint` to check TypeScript, React, and Tailwind classes. Tailwind ch
 
 Run `bun run lint:fix` to remove duplicate classes and replace deprecated or noncanonical utilities. Unknown classes and conflicting styles need a manual decision and remain errors after autofix. Review the changes before committing. To limit fixes to one file, use `bun run lint:fix lib/components/button/button.tsx`.
 
-Class sorting stays with `bun run fmt`; the Tailwind lint plugin does not enable its sorting or line-wrapping rules. Use `bun run fmt:check` to check formatting without changing files.
+Class sorting stays with `bun run fmt`; Oxfmt loads `lib/style.css` to recognize the `es:` prefix and project utilities. The Tailwind lint plugin does not enable its sorting or line-wrapping rules. Use `bun run fmt:check` to check formatting without changing files.
 
 Non-Tailwind theme and SVG marker classes are explicitly allowed by `better-tailwindcss/no-unknown-classes` in `oxlint.config.ts`. Extend that list only for classes defined or consumed by the project, not for unknown `es:` utilities.
 
