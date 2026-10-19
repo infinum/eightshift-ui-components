@@ -1,6 +1,6 @@
 {
 	"name": "@eightshift/ui-components",
-	"version": "8.3.0",
+	"version": "8.4.0",
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
@@ -92,6 +92,7 @@
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"css-gradient-parser": "^0.0.18",
+		"eslint-plugin-better-tailwindcss": "4.7.0",
 		"glob": "^13.0.6",
 		"just-camel-case": "^6.2.0",
 		"just-debounce-it": "^3.2.0",

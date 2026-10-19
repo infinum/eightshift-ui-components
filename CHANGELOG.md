@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [8.4.0] - 2026-10-16
+
+- Added Tailwind validation and autofixes to Oxlint for duplicate, deprecated, and noncanonical classes, including `*ClassName` slot props. Unknown utilities and conflicting styles are reported without automatic fixes.
+- Fixed Tailwind class sorting in Oxfmt to load the project stylesheet and recognize the `es:` prefix.
+
 ## [8.3.0] - 2026-09-11
 
 - Updated dependencies.
@@ -669,8 +674,9 @@ Co-authored with @piqusy
 ## [1.0.0] - 2024-06-20
 - Initial release
 
-[Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/master...HEAD
+[Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/8.4.0...HEAD
 
+[8.4.0]: https://github.com/infinum/eightshift-ui-components/compare/8.3.0...8.4.0
 [8.3.0]: https://github.com/infinum/eightshift-ui-components/compare/8.2.0...8.3.0
 [8.2.0]: https://github.com/infinum/eightshift-ui-components/compare/8.1.0...8.2.0
 [8.1.0]: https://github.com/infinum/eightshift-ui-components/compare/8.0.0...8.1.0

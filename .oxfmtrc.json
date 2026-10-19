@@ -6,7 +6,9 @@
 	"singleAttributePerLine": true,
 	"printWidth": 180,
 	"sortPackageJson": false,
-	"sortTailwindcss": true,
+	"sortTailwindcss": {
+		"stylesheet": "./lib/style.css"
+	},
 	"ignorePatterns": [
 		".agent/**",
 		".agents/**",
