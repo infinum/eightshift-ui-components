@@ -3,8 +3,6 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [Unreleased]
-
 ## [8.4.0] - 2026-10-16
 
 - Added Tailwind validation and autofixes to Oxlint for duplicate, deprecated, and noncanonical classes, including `*ClassName` slot props. Unknown utilities and conflicting styles are reported without automatic fixes.
