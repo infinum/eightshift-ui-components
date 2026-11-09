@@ -1,5 +1,4 @@
 import { cloneElement, memo, useEffect, useState, type ComponentPropsWithoutRef, type JSX } from 'react';
-import { hasIconLoader, loadIconByName } from './generated-icon-loaders';
 import { dummySpacer } from './ui-icons/dummy-spacer';
 
 const normalizeIconName = (name: string): string => name.replace(/[-_]+([a-z0-9])/gi, (_, char: string) => char.toUpperCase()).replace(/^([A-Z])/, (char) => char.toLowerCase());
@@ -14,7 +13,14 @@ const loadIcon = (iconName: string): Promise<JSX.Element | null> => {
 	}
 
 	if (!iconLoads.has(iconName)) {
-		const iconLoad = loadIconByName(iconName)
+		const iconLoad = import('./generated-icon-loaders')
+			.then(({ hasIconLoader, loadIconByName }) => {
+				if (!hasIconLoader(iconName)) {
+					return null;
+				}
+
+				return loadIconByName(iconName);
+			})
 			.then((loadedIcon) => {
 				iconCache.set(iconName, loadedIcon);
 
@@ -57,8 +63,8 @@ interface IconProps extends IconPresentationProps {
 /**
  * Renders an icon by name without eagerly importing the entire icon set.
  *
- * String icons are lazy-loaded on demand and render `dummySpacer` while the
- * module resolves. Invalid icon names render `fallback` instead.
+ * String icons load the catalogue on first use, then the requested icon module,
+ * rendering `dummySpacer` while they resolve. Invalid names render `fallback`.
  *
  * @param {IconProps} props - Icon props.
  *
@@ -90,14 +96,6 @@ export const Icon = memo(({ icon, fallback = null, ...rest }: IconProps): JSX.El
 
 		if (iconCache.has(normalizedIconName)) {
 			updateLoadedIcon(iconCache.get(normalizedIconName) ?? null);
-
-			return () => {
-				isDisposed = true;
-			};
-		}
-
-		if (!hasIconLoader(normalizedIconName)) {
-			updateLoadedIcon(null);
 
 			return () => {
 				isDisposed = true;

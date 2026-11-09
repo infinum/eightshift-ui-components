@@ -14,4 +14,8 @@ import { Icon } from '@eightshift/ui-components/icons';
 <Icon icon={iconName} fallback={null} />
 ```
 
-`Icon` lazy-loads the requested icon module by name and renders a `dummySpacer` placeholder while the module resolves. If the icon name is invalid or the icon cannot be loaded, it renders the provided `fallback` instead.
+`Icon` loads the icon-loader catalogue only when it first resolves a string name, then lazy-loads the requested icon module. This avoids loading the catalogue at startup but adds one request before the first dynamic icon can load. Subsequent resolutions reuse the catalogue, and repeated requests for the same normalized name share the in-flight load and cached result.
+
+A `dummySpacer` placeholder is rendered while the catalogue or icon module resolves. Invalid names also wait for the catalogue before rendering the provided `fallback`. If the catalogue or icon cannot be loaded, the result is cached for that name and `fallback` is rendered instead.
+
+Passing a statically imported React element to `Icon` renders it immediately without loading the catalogue.
