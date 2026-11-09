@@ -3,8 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
-## [8.4.1] - 2026-11-09
+## [8.4.1] - 2026-11-03
 
+- Updated dependencies (`motion` 14, `@wordpress/i18n` 7, React Aria, React Spectrum, `@dnd-kit/*`, Vite, Oxlint, Oxfmt).
+- `motion` 14 and `@wordpress/i18n` 7 are bundled into `dist`, so consumers need no changes.
 - Deferred the `Icon` loader catalogue until the first string icon is resolved, reducing startup JavaScript at the cost of one extra first-use request. Statically imported icon elements still render immediately.
 
 ## [8.4.0] - 2026-10-16
