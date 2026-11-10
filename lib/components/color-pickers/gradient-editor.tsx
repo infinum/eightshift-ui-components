@@ -162,17 +162,17 @@ const gradientTypes: Array<{ label: string; value: GradientType; icon: JSX.Eleme
 	{
 		label: __('Linear'),
 		value: 'linear',
-		icon: <div className='es:transparent es:size-4 es:rounded-full es:bg-linear-to-br es:from-current' />,
+		icon: <div className='es:size-4 es:rounded-full es:bg-linear-to-br es:from-current' />,
 	},
 	{
 		label: __('Radial'),
 		value: 'radial',
-		icon: <div className='es:transparent es:size-4 es:rounded-full es:bg-radial es:from-current/75 es:to-current/10' />,
+		icon: <div className='es:size-4 es:rounded-full es:bg-radial es:from-current/75 es:to-current/10' />,
 	},
 	{
 		label: __('Conic'),
 		value: 'conic',
-		icon: <div className='es:transparent es:size-4 es:rounded-full es:bg-conic es:from-current' />,
+		icon: <div className='es:size-4 es:rounded-full es:bg-conic es:from-current' />,
 	},
 ] as const;
 
@@ -291,7 +291,7 @@ export const GradientEditor = (props: Prettify<GradientEditorProps>) => {
 				<Container>
 					<button
 						className={clsx(
-							'es:shadow-sm, es:mx-auto es:block es:h-40 es:rounded-lg es:border es:border-secondary-300 es:transition-[width] es:duration-300 es:ease-spring-snappy',
+							'es:shadow-sm es:mx-auto es:block es:h-40 es:rounded-lg es:border es:border-secondary-300 es:transition-[width] es:duration-300 es:ease-spring-snappy',
 							'es:mb-2',
 							squarePreview ? 'es:w-40' : 'es:w-full',
 						)}

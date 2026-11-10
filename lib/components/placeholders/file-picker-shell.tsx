@@ -169,7 +169,7 @@ export const FilePickerShell = (props: Prettify<FilePickerShellProps>) => {
 									'es-button-group-h',
 									!hasError &&
 										!isTransparent &&
-										'es:absolute es:bottom-2 es:left-2 es:right-2 es:translate-y-[125%] es:group-hover:translate-y-0 es:has-aria-expanded:translate-y-0 es:has-focus-visible:translate-y-0 es:transition-transform es:ease-spring-smooth',
+										'es:absolute es:bottom-2 es:inset-x-2  es:translate-y-[125%] es:group-hover:translate-y-0 es:has-aria-expanded:translate-y-0 es:has-focus-visible:translate-y-0 es:transition-transform es:ease-spring-smooth',
 								)}
 							>
 								{isRenderFunction(children) ? children({ dominantColors, isDark, isTransparent, hasError }) : children}

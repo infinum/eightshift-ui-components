@@ -125,9 +125,9 @@ export const BreakpointPreview = (props: Prettify<BreakpointPreviewProps>) => {
 				<>
 					<div className='es:row-start-1 es:flex es:shrink-0 es:translate-x-1 es:items-center es:gap-1 es:justify-self-end es:text-secondary-400'>
 						<div className='es:flex es:gap-0.5 es:text-secondary-300'>
-							<div className='es:size-0.5 es:rounded es:bg-current' />
-							<div className='es:size-0.5 es:rounded es:bg-current' />
-							<div className='es:size-0.5 es:rounded es:bg-current' />
+							<div className='es:size-0.5 es:rounded-sm es:bg-current' />
+							<div className='es:size-0.5 es:rounded-sm es:bg-current' />
+							<div className='es:size-0.5 es:rounded-sm es:bg-current' />
 						</div>
 					</div>
 					<div className='es:row-start-2 es:size-px es:justify-self-end' />
@@ -143,27 +143,27 @@ export const BreakpointPreview = (props: Prettify<BreakpointPreviewProps>) => {
 					<Fragment key={index}>
 						<div className='es:row-start-1 es:flex es:min-w-28 es:items-center es:gap-1 es:font-mono es:font-medium es:text-secondary-400'>
 							{blockDotsStart ? (
-								<div className={clsx('es:flex es:gap-0.5', active ? activeTextColor : 'text-secondary-300')}>
-									<div className='es:size-0.5 es:rounded es:bg-current' />
-									<div className='es:size-0.5 es:rounded es:bg-current' />
-									<div className='es:size-0.5 es:rounded es:bg-current' />
+								<div className={clsx('es:flex es:gap-0.5', active ? activeTextColor : 'es:text-secondary-300')}>
+									<div className='es:size-0.5 es:rounded-sm es:bg-current' />
+									<div className='es:size-0.5 es:rounded-sm es:bg-current' />
+									<div className='es:size-0.5 es:rounded-sm es:bg-current' />
 								</div>
 							) : null}
 							{width ? <span>{width}</span> : null}
-							<div className={clsx('es:grow es:rounded', active ? 'es:h-0.5' : 'es:h-px es:bg-secondary-300', active && activeBgColor)} />
+							<div className={clsx('es:grow es:rounded-sm', active ? 'es:h-0.5' : 'es:h-px es:bg-secondary-300', active && activeBgColor)} />
 							{widthEnd ? <span>{widthEnd}</span> : null}
 							{blockDotsEnd ? (
 								<div className={clsx('es:flex es:gap-0.5', active ? activeTextColor : 'es:text-secondary-300')}>
-									<div className='es:size-0.5 es:rounded es:bg-current' />
-									<div className='es:size-0.5 es:rounded es:bg-current' />
-									<div className='es:size-0.5 es:rounded es:bg-current' />
+									<div className='es:size-0.5 es:rounded-sm es:bg-current' />
+									<div className='es:size-0.5 es:rounded-sm es:bg-current' />
+									<div className='es:size-0.5 es:rounded-sm es:bg-current' />
 								</div>
 							) : null}
 						</div>
 						<div className='es:row-start-2 es:flex es:w-full es:min-w-28 es:flex-col es:items-start es:gap-1'>
 							<span
 								className={clsx(
-									'es:rounded es:px-1 es:py-0.5',
+									'es:rounded-sm es:px-1 es:py-0.5',
 									hasActive && active && 'es:text-white',
 									hasActive && active && activeBgColor,
 									hasActive && !active && 'es:bg-secondary-200 es:text-secondary-500',
@@ -183,9 +183,9 @@ export const BreakpointPreview = (props: Prettify<BreakpointPreviewProps>) => {
 				<>
 					<div className='es:row-start-1 es:flex es:shrink-0 es:-translate-x-1 es:items-center es:gap-1 es:font-mono es:font-medium es:text-secondary-400'>
 						<div className='es:flex es:gap-0.5 es:text-secondary-300'>
-							<div className='es:size-0.5 es:rounded es:bg-current' />
-							<div className='es:size-0.5 es:rounded es:bg-current' />
-							<div className='es:size-0.5 es:rounded es:bg-current' />
+							<div className='es:size-0.5 es:rounded-sm es:bg-current' />
+							<div className='es:size-0.5 es:rounded-sm es:bg-current' />
+							<div className='es:size-0.5 es:rounded-sm es:bg-current' />
 						</div>
 					</div>
 					<div className='es:row-start-2 es:size-px' />

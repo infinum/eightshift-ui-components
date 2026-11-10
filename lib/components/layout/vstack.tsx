@@ -34,5 +34,5 @@ export const VStack = ({ children, noWrap, className, hidden, as }: Prettify<Sta
 
 	const ComponentToRender = as ?? 'div';
 
-	return <ComponentToRender className={clsx('es:flex es:flex-col es:gap-x-1.5 es:gap-y-1.5', !noWrap && 'es:flex-wrap', className)}>{children}</ComponentToRender>;
+	return <ComponentToRender className={clsx('es:flex es:flex-col es:gap-1.5 ', !noWrap && 'es:flex-wrap', className)}>{children}</ComponentToRender>;
 };

@@ -7,6 +7,7 @@ import { VStack } from '../layout/vstack';
 import { TriggeredPopover } from '../popover/popover';
 import { RichLabel } from '../rich-label/rich-label';
 import type { Prettify } from '../../utilities/types';
+import { isString } from '../../utilities/es-dash';
 
 export type PromptPopoverType = 'default' | 'ai' | 'danger' | 'success';
 
@@ -16,6 +17,7 @@ type TriggeredPopoverWithCloseProps = Omit<ComponentPropsWithoutRef<typeof Trigg
 	children?: ReactNode | ((props: { close: () => void }) => ReactNode);
 };
 
+// SAFETY: TriggeredPopover forwards children unchanged through Popover to React Aria Dialog, which supports the close render prop.
 const TypedTriggeredPopover = TriggeredPopover as (props: TriggeredPopoverWithCloseProps) => ReactNode;
 
 export type PromptPopoverProps = Omit<ComponentPropsWithoutRef<typeof TriggeredPopover>, 'children' | 'triggerButtonIcon' | 'triggerButtonProps'> & {
@@ -59,12 +61,12 @@ export type PromptPopoverProps = Omit<ComponentPropsWithoutRef<typeof TriggeredP
 	popoverProps?: Omit<ComponentPropsWithoutRef<typeof TriggeredPopover>, 'children' | 'triggerButtonIcon' | 'triggerButtonProps'>;
 };
 
-const typeClassNames: Record<PromptPopoverType, string> = {
+const typeClassNames = {
 	default: '',
 	ai: 'es-uic-theme-purple',
 	danger: 'es-uic-theme-red',
 	success: 'es-uic-theme-green',
-};
+} satisfies Record<PromptPopoverType, string>;
 
 /**
  * A confirmation prompt displayed in a triggered popover.
@@ -104,7 +106,7 @@ export const PromptPopover = (props: Prettify<PromptPopoverProps>) => {
 
 	const typeClassName = typeClassNames[type];
 	const StackComponent = verticalActions ? VStack : HStack;
-	const triggerAriaLabel = typeof tooltip === 'string' ? tooltip : undefined;
+	const triggerAriaLabel = isString(tooltip) ? tooltip : undefined;
 
 	return (
 		<TypedTriggeredPopover

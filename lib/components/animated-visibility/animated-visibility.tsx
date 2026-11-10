@@ -125,7 +125,7 @@ export const AnimatedVisibility = (props: Prettify<AnimatedVisibilityProps>) => 
 						'es:motion-duration-300',
 						decreaseBounce && 'es:motion-ease-spring-snappy es:motion-ease-linear/opacity',
 						!decreaseBounce && 'es:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
-						'es:fill-mode-forwards',
+						'es:[animation-fill-mode:forwards]',
 						className,
 					)}
 					onAnimationEnd={() => {

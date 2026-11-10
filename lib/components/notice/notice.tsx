@@ -148,7 +148,7 @@ export const Notice = (props: Prettify<NoticeProps>) => {
 			{subtitle && (
 				<span
 					className={clsx(
-						'es:col-span-2 es:col-start-2 es:text-balance es:text-xs es:leading-tighter es:pt-0.75',
+						'es:col-span-2 es:col-start-2 es:text-balance es:text-xs es:pt-0.75',
 						'es:font-variation-["wdth"_90,"wght"_350,"slnt"_-1]',
 						currentStyle.subtitleColorClassName,
 						label ? 'es:self-start' : 'es:row-span-2 es:self-center-safe',

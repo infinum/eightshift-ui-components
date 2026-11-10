@@ -157,7 +157,7 @@ const tabListClasses = cva('es:flex', {
 		{
 			type: ['pill', 'pillCompact'],
 			flat: false,
-			class: 'es:shadow es:shadow-black/5',
+			class: 'es:shadow-sm es:shadow-black/5',
 		},
 	],
 	defaultVariants: {
@@ -226,7 +226,7 @@ const tabClasses = cva(
 				type: 'underline',
 				class: [
 					'es:px-3 es:not-has-any-icon:py-3 es:has-any-icon:py-2.5 es:rounded-t-lg es:min-h-12',
-					'es:after:content-[""] es:after:absolute es:after:bottom-0 es:after:left-0 es:after:right-0 es:after:w-3/5 es:after:mx-auto es:after:h-0.75 es:selected:after:bg-accent-600',
+					'es:after:content-[""] es:after:absolute es:after:bottom-0 es:after:inset-x-0  es:after:w-3/5 es:after:mx-auto es:after:h-0.75 es:selected:after:bg-accent-600',
 					'es:selected:after:inset-shadow-xs es:selected:after:inset-shadow-accent-50/30',
 					'es:not-selected:hover:bg-secondary-50 es:selected:hover:bg-accent-600/5',
 					'es:selected:text-accent-600',
@@ -239,7 +239,7 @@ const tabClasses = cva(
 				class: [
 					'es:px-3 es:pt-2 es:pb-2.5 es:rounded-t-sm es:min-h-12',
 					'es:not-selected:hover:bg-secondary-50 es:selected:hover:bg-accent-600/5',
-					'es:after:content-[""] es:after:absolute es:after:bottom-0 es:after:left-0 es:after:right-0 es:after:w-full es:after:mx-auto es:after:h-0.75',
+					'es:after:content-[""] es:after:absolute es:after:bottom-0 es:after:inset-x-0  es:after:w-full es:after:mx-auto es:after:h-0.75',
 					'es:after:bg-linear-to-b es:hover:not-selected:not-disabled:after:from-secondary-200 es:hover:not-selected:not-disabled:after:to-secondary-300 es:selected:after:from-accent-500 es:selected:after:to-accent-600',
 					'es:after:transition',
 				],
@@ -318,7 +318,7 @@ const tabClasses = cva(
 					'es:text-secondary-700 es:selected:text-white',
 					'es:min-h-7.5 es:rounded-lg es:selected:rounded-xl',
 					'es:transition-plus',
-					'es:pl-3 es:has-any-icon:pl-2 es:pr-3 es:py-1.5',
+					'es:px-3 es:has-any-icon:pl-2  es:py-1.5',
 				],
 			},
 			{

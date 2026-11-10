@@ -277,7 +277,7 @@ export const ColumnConfigSlider = (props: Prettify<ColumnConfigSliderProps>) => 
 											'es:origin-center',
 											'es:hover:ring-[0.25px] es:focus-visible:ring-[0.5px] es:dragging:ring-[1px] es:ring-accent-500',
 											'es:transform-none!',
-											'es:dragging:es:bg-accent-600 es:disabled:bg-secondary-400',
+											'es:dragging:bg-accent-600 es:disabled:bg-secondary-400',
 											'es:focus-visible:outline-2 es:outline-offset-2 es:outline-accent-500/40',
 											'es:bg-accent-500',
 											'es:hover:ring-accent-600',
@@ -307,7 +307,7 @@ export const ColumnConfigSlider = (props: Prettify<ColumnConfigSliderProps>) => 
 														'es:text-center',
 														'es:line-clamp-1',
 														'es:flex es:items-center es:justify-center es:gap-1',
-														'es:shadow',
+														'es:shadow-sm',
 														showOuterAsGutter && 'es:icon:size-2 es:icon:stroke-3',
 													)}
 													initial={{ y: 2, opacity: 0, scale: 0.85 }}

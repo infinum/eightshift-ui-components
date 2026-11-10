@@ -294,7 +294,7 @@ export const LinkInput = (props: Prettify<LinkInputProps>) => {
 									<div
 										className={clsx(
 											'es:opacity-0 es:group-hover:opacity-100 es:group-focus-within:opacity-100 es:focus-visible:opacity-100',
-											'es:flex es:size-8 es:items-center es:justify-center es:rounded-md es:text-secondary-600 es:backdrop-blur es:transition',
+											'es:flex es:size-8 es:items-center es:justify-center es:rounded-md es:text-secondary-600 es:backdrop-blur-sm es:transition',
 											'es:hover:bg-red-600/5 es:hover:text-red-600',
 											'es:icon:size-6',
 										)}
@@ -404,10 +404,10 @@ export const LinkInput = (props: Prettify<LinkInputProps>) => {
 							{keyboardShortcuts ? (
 								<div className='es:flex es:flex-wrap es:items-center es:justify-end-safe es:gap-x-4 es:gap-y-0.5 es:px-2.5 es:pb-2 es:pt-0.5'>
 									<div className='es:flex es:gap-1 es:items-center'>
-										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-13 es:text-box-trim'>
+										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded-sm es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-13 es:text-box-trim'>
 											&darr;
 										</kbd>
-										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-13 es:text-box-trim'>
+										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded-sm es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-13 es:text-box-trim'>
 											&uarr;
 										</kbd>
 										<span className='es:font-variation-["wdth"_75,"wght"_325,"ROND"_100,"slnt"_-4] es:text-12 es:text-box-trim es:text-surface-700'>
@@ -416,7 +416,7 @@ export const LinkInput = (props: Prettify<LinkInputProps>) => {
 									</div>
 
 									<div className='es:flex es:gap-1 es:items-center'>
-										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-13 es:text-box-trim'>
+										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded-sm es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-13 es:text-box-trim'>
 											&crarr;
 										</kbd>
 										<span className='es:font-variation-["wdth"_75,"wght"_325,"ROND"_100,"slnt"_-4] es:text-12 es:text-box-trim es:text-surface-700'>
@@ -425,7 +425,7 @@ export const LinkInput = (props: Prettify<LinkInputProps>) => {
 									</div>
 
 									<div className='es:flex es:gap-1 es:items-center'>
-										<kbd className='es:flex es:h-4 es:items-center es:justify-center es:rounded es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_67,"wght"_450,"ROND"_100] es:text-10 es:text-box-trim es:px-0.75'>
+										<kbd className='es:flex es:h-4 es:items-center es:justify-center es:rounded-sm es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_67,"wght"_450,"ROND"_100] es:text-10 es:text-box-trim es:px-0.75'>
 											Esc
 										</kbd>
 										<span className='es:font-variation-["wdth"_75,"wght"_325,"ROND"_100,"slnt"_-4] es:text-12 es:text-box-trim es:text-surface-700'>

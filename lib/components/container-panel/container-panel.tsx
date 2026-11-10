@@ -154,7 +154,7 @@ export const ContainerPanel = (props: Prettify<ContainerPanelProps>) => {
 				)}
 				labelContainerClassName={clsx(
 					(closable || onUseChange) && 'es:pl-4 es:pr-3 es:min-h-12',
-					!(closable || onUseChange) && 'es:mt-3 es:mb-3',
+					!(closable || onUseChange) && 'es:my-3 ',
 					(closable || onUseChange) && 'es:mb-0!',
 					'es:pb-0!',
 				)}

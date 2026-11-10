@@ -517,7 +517,7 @@ export const AsyncMultiSelect = (props: Prettify<AsyncMultiSelectProps>) => {
 						</SelectValue>
 
 						<div
-							className={clsx('es:absolute es:bottom-0 es:right-3 es:top-0 es:my-auto es:flex es:items-center', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}
+							className={clsx('es:absolute es:inset-y-0 es:right-3  es:my-auto es:flex es:items-center', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}
 							aria-hidden='true'
 						>
 							{!customDropdownArrow
@@ -646,7 +646,7 @@ export const AsyncMultiSelect = (props: Prettify<AsyncMultiSelectProps>) => {
 								slot='clear'
 								aria-label={__('Clear', 'eightshift-ui-components')}
 								className={clsx(
-									'es:absolute es:right-3 es:top-0 es:bottom-0 es:my-auto es:border-none es:bg-transparent',
+									'es:absolute es:right-3 es:inset-y-0  es:my-auto es:border-none es:bg-transparent',
 									'es:flex es:size-7 es:items-center es:justify-center es:rounded-3xl es:text-sm es:text-surface-700 es:transition es:hover:bg-accent-50 es:hover:text-accent-800 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300',
 									'es:peer-placeholder-shown:opacity-0',
 								)}

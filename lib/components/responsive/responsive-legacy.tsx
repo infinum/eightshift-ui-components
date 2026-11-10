@@ -217,7 +217,7 @@ export const ResponsiveLegacy = (props: Prettify<ResponsiveLegacyProps>) => {
 				</div>
 			}
 		>
-			<div className='es:flex es:size-7 es:items-center es:justify-center es:rounded es:border es:border-accent-500/10 es:bg-accent-50 es:p-0.5 es:text-accent-800 es:shadow-sm es:shadow-accent-600/25 es:icon:size-5'>
+			<div className='es:flex es:size-7 es:items-center es:justify-center es:rounded-sm es:border es:border-accent-500/10 es:bg-accent-50 es:p-0.5 es:text-accent-800 es:shadow-sm es:shadow-accent-600/25 es:icon:size-5'>
 				<Icon
 					icon={`screen${upperFirst(defaultBreakpoint)}`}
 					fallback={play}
@@ -405,7 +405,7 @@ export const ResponsiveLegacy = (props: Prettify<ResponsiveLegacyProps>) => {
 							>
 								<div
 									className={clsx(
-										'es:flex es:size-7 es:items-center es:justify-center es:rounded es:border es:p-0.5 es:shadow-sm es:transition-colors es:icon:size-5',
+										'es:flex es:size-7 es:items-center es:justify-center es:rounded-sm es:border es:p-0.5 es:shadow-sm es:transition-colors es:icon:size-5',
 										getBreakpointValue(breakpoint) === inheritValue
 											? 'es:border-secondary-200 es:bg-secondary-50 es:text-secondary-700'
 											: 'es:border-secondary-100 es:bg-white es:text-secondary-500',

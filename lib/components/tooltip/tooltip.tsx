@@ -129,11 +129,11 @@ export const Tooltip = (props: Prettify<TooltipProps>) => {
 					clsx(
 						'es:group es:pointer-events-none',
 						'es:font-variation-["wdth"_72,"wght"_380,"ROND"_100]',
-						'es:z-40 es:select-none es:rounded-lg es:inset-ring es:px-2.5 es:py-2 es:text-13 es:leading-none es:shadow es:backdrop-blur-xl es:backdrop-brightness-105 es:backdrop-saturate-125 es:will-change-[transform,opacity] es:fill-mode-forwards',
+						'es:z-40 es:select-none es:rounded-lg es:inset-ring es:px-2.5 es:py-2 es:text-13 es:leading-none es:shadow-sm es:backdrop-blur-xl es:backdrop-brightness-105 es:backdrop-saturate-125 es:will-change-[transform,opacity] es:[animation-fill-mode:forwards]',
 						theme === 'light' && 'es:inset-ring-surface-800/5 es:bg-surface-50/90 es:text-secondary-700',
 						theme === 'dark' && 'es:inset-ring-surface-200/15 es:bg-surface-800/80 es:text-secondary-100',
 						isEntering &&
-							'es:motion-opacity-in es:motion-duration-300 es:placement-left:motion-translate-x-in-[5%] es:placement-right:-motion-translate-x-in-[5%] es:placement-top:motion-translate-y-in-[5%] es:placement-bottom:-motion-translate-y-in-[5%] es:motion-ease-spring-smooth es:motion-ease-linear/opacity',
+							'es:motion-preset-fade-sm  es:placement-left:motion-translate-x-in-[5%] es:placement-right:motion-translate-x-in-[-5%] es:placement-top:motion-translate-y-in-[5%] es:placement-bottom:motion-translate-y-in-[-5%] es:motion-ease-spring-smooth es:motion-ease-linear/opacity',
 						isExiting &&
 							'es:motion-opacity-out es:motion-duration-200 es:placement-left:motion-translate-x-out-[12.5%] es:placement-right:motion-translate-x-out-[-12.5%] es:placement-top:motion-translate-y-out-[12.5%] es:placement-bottom:motion-translate-y-out-[-12.5%] es:motion-ease-spring-smooth es:motion-ease-linear/opacity',
 						className,

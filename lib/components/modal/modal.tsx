@@ -109,8 +109,8 @@ const ModalInternal = (props: ModalProps) => {
 						'es:w-full es:overflow-y-hidden es:rounded-3xl es:inset-ring es:inset-ring-surface-400/30 es:bg-white es:bg-linear-to-b es:from-accent-300/3 es:to-accent-300/1 es:text-left es:align-middle es:shadow-xl es:text-surface-900',
 						width === 'default' && 'es:max-w-lg',
 						width === 'wide' && 'es:max-w-[80vw]',
-						isEntering && 'es:motion-scale-in-95 es:motion-fade-in es:motion-translate-y-in-[2rem] es:motion-duration-300 es:motion-ease-spring-smooth/scale',
-						isExiting && 'es:motion-scale-out-95 es:motion-fade-out es:motion-translate-y-out-[2rem] es:motion-duration-250 es:motion-ease-spring-smooth/scale',
+						isEntering && 'es:motion-scale-in-95 es:motion-preset-fade-sm es:motion-translate-y-in-[2rem]  es:motion-ease-spring-smooth/scale',
+						isExiting && 'es:motion-scale-out-95 es:motion-opacity-out es:motion-translate-y-out-[2rem] es:motion-duration-250 es:motion-ease-spring-smooth/scale',
 						className,
 					)
 				}
