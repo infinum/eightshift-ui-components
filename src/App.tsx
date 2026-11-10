@@ -82,7 +82,7 @@ import { clsx } from 'clsx';
 import '../lib/style';
 import {
 	// oxlint-disable-next-line anti-slop/no-shape-in-symbol-names -- Established public icon name.
-	genericShapes,
+	genericShapes as geometryIcon,
 	num1Square,
 	num2Circle,
 	num3SquareAlt,
@@ -2769,7 +2769,7 @@ function App() {
 							// oxlint-disable-next-line anti-slop/no-shape-in-symbol-names -- Established public icon name.
 							Shapes: {
 								label: 'Geometric Shapes',
-								icon: genericShapes,
+								icon: geometryIcon,
 								subtitle: 'Standard geometry',
 							},
 							_other: { label: 'Miscellaneous', icon: help },
@@ -2839,7 +2839,7 @@ function App() {
 						groupValueMapping={{
 							Colors: { label: 'Vibrant Colors', icon: <GenericColorSwatch /> },
 							// oxlint-disable-next-line anti-slop/no-shape-in-symbol-names -- Established public icon name.
-							Shapes: { label: 'Geometric Shapes', icon: genericShapes },
+							Shapes: { label: 'Geometric Shapes', icon: geometryIcon },
 							_other: { label: 'Miscellaneous', icon: help },
 						}}
 						searchable
@@ -2889,7 +2889,7 @@ function App() {
 						groupValueMapping={{
 							Colors: { label: 'Vibrant Colors', icon: <GenericColorSwatch /> },
 							// oxlint-disable-next-line anti-slop/no-shape-in-symbol-names -- Established public icon name.
-							Shapes: { label: 'Geometric Shapes', icon: genericShapes },
+							Shapes: { label: 'Geometric Shapes', icon: geometryIcon },
 							_other: { label: 'Miscellaneous', icon: help },
 						}}
 						clearable
@@ -2939,7 +2939,7 @@ function App() {
 						groupValueMapping={{
 							Colors: { label: 'Vibrant Colors', icon: <GenericColorSwatch /> },
 							// oxlint-disable-next-line anti-slop/no-shape-in-symbol-names -- Established public icon name.
-							Shapes: { label: 'Geometric Shapes', icon: genericShapes },
+							Shapes: { label: 'Geometric Shapes', icon: geometryIcon },
 							_other: { label: 'Miscellaneous', icon: help },
 						}}
 						clearable
@@ -3222,7 +3222,7 @@ function App() {
 						useComponent={useComp}
 						onChange={setUseComp}
 					>
-						<div className='es:min-h-24 es:w-full es:rounded-md es:bg-secondary-200 p-2'>
+						<div className='es:min-h-24 es:w-full es:rounded-md es:bg-secondary-200 es:p-2'>
 							Lorem options
 							<Button>Hello</Button>
 							<InputField label='Hi' />
@@ -3250,7 +3250,7 @@ function App() {
 						onChange={setUseComp}
 						expandButtonDisabled
 					>
-						<div className='es:min-h-24 es:w-full es:rounded-md es:p-2 bg-secondary-200'>
+						<div className='es:min-h-24 es:w-full es:rounded-md es:p-2 es:bg-secondary-200'>
 							Lorem options expandButtonDisabled
 							<Button>Hello</Button>
 							<InputField label='Hi' />
@@ -3264,7 +3264,7 @@ function App() {
 						onChange={setUseComp}
 						noExpandButton
 					>
-						<div className='es:min-h-24 es:w-full es:rounded-md es:p-2 bg-secondary-200'>
+						<div className='es:min-h-24 es:w-full es:rounded-md es:p-2 es:bg-secondary-200'>
 							Lorem options noExpandButton
 							<Button>Hello</Button>
 							<InputField label='Hi' />
@@ -3279,7 +3279,7 @@ function App() {
 						noExpandButton
 						noUseToggle
 					>
-						<div className='es:min-h-24 es:w-full es:rounded-md es:p-2 bg-secondary-200'>
+						<div className='es:min-h-24 es:w-full es:rounded-md es:p-2 es:bg-secondary-200'>
 							Lorem options noExpandButton noUseToggle
 							<Button>Hello</Button>
 							<InputField label='Hi' />
@@ -3855,7 +3855,7 @@ function App() {
 						onChange={handleCurrColorChange}
 					/>
 
-					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded es:border es:bg-secondary-100 es:p-1 es:text-sm'>
+					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded-sm es:border es:bg-secondary-100 es:p-1 es:text-sm'>
 						{currColor}
 					</code>
 
@@ -3865,7 +3865,7 @@ function App() {
 						allowTransparency
 					/>
 
-					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded es:border es:bg-secondary-100 es:p-1 es:text-sm'>
+					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded-sm es:border es:bg-secondary-100 es:p-1 es:text-sm'>
 						{currColor2}
 					</code>
 
@@ -3876,7 +3876,7 @@ function App() {
 						outputFormat='hsla'
 					/>
 
-					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded es:border es:bg-secondary-100 es:p-1 es:text-sm'>
+					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded-sm es:border es:bg-secondary-100 es:p-1 es:text-sm'>
 						{currColor3}
 					</code>
 
@@ -5145,7 +5145,7 @@ function App() {
 						</div>
 					</div>
 
-					<div className='es:grid es:grid-cols-1 es:gap-2 sm:es:grid-cols-2 lg:es:grid-cols-3 xl:es:grid-cols-4'>
+					<div className='es:grid es:grid-cols-1 es:gap-2 es:sm:grid-cols-2 es:lg:grid-cols-3 es:xl:grid-cols-4'>
 						{iconEntries.map((iconName) => (
 							<div
 								key={iconName}
@@ -5154,7 +5154,7 @@ function App() {
 								<div className='es:flex es:size-8 es:shrink-0 es:items-center es:justify-center es:rounded-lg es:bg-white es:text-secondary-900 es:icon:size-4.5'>
 									<Icon icon={iconName} />
 								</div>
-								<div className='es:min-w-0 es:font-mono es:text-11 es:leading-tight es:text-secondary-700'>
+								<div className='es:min-w-0 es:font-mono es:text-[0.6875rem] es:leading-tight es:text-secondary-700'>
 									{iconName}
 								</div>
 							</div>
