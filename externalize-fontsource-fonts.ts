@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 
@@ -96,20 +97,39 @@ export default function externalizeFontsourceFonts(): Plugin {
 		},
 
 		generateBundle(_, bundle) {
+			const fonts: Array<{ hash: string; file: string }> = [];
+
 			for (const [fontFileName, absoluteFontPath] of emittedFonts) {
+				const source = Uint8Array.from(readFileSync(absoluteFontPath));
+				const file = `fonts/${fontFileName}`;
+
+				fonts.push({ hash: createHash('sha256').update(source).digest('hex'), file });
 				this.emitFile({
 					type: 'asset',
-					fileName: `assets/fonts/${fontFileName}`,
-					source: Uint8Array.from(readFileSync(absoluteFontPath)),
+					fileName: `assets/${file}`,
+					source,
 				});
 			}
+
+			this.emitFile({
+				type: 'asset',
+				fileName: 'assets/fonts-manifest.json',
+				source: JSON.stringify({ version: 1, fonts, css: fontCss }, null, 2),
+			});
 
 			for (const file of Object.values(bundle)) {
 				if (file.type !== 'asset' || !FONT_STYLE_OUTPUTS.has(file.fileName)) {
 					continue;
 				}
 
-				file.source = `${fontCss}\n\n${file.source.toString()}`;
+				this.emitFile({
+					type: 'asset',
+					fileName: file.fileName.replace(/\.css$/, '-no-fonts.css'),
+					source: file.source,
+				});
+
+				const styleCss = file.source instanceof Uint8Array ? new TextDecoder().decode(file.source) : file.source;
+				file.source = `${fontCss}\n\n${styleCss}`;
 			}
 		},
 	};

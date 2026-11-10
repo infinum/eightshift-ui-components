@@ -1,3 +1,12 @@
+declare module 'node:crypto' {
+	interface Hash {
+		update(data: Uint8Array): Hash;
+		digest(encoding: 'hex'): string;
+	}
+
+	export function createHash(algorithm: string): Hash;
+}
+
 declare module 'node:path' {
 	export function dirname(path: string): string;
 	export function resolve(...paths: string[]): string;

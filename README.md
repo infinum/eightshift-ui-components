@@ -23,6 +23,14 @@ Class sorting stays with `bun run fmt`; Oxfmt loads `lib/style.css` to recognize
 
 Non-Tailwind theme and SVG marker classes are explicitly allowed by `better-tailwindcss/no-unknown-classes` in `oxlint.config.ts`. Extend that list only for classes defined or consumed by the project, not for unknown `es:` utilities.
 
+## Shared font assets
+
+Existing `styles`, `styles-editor`, and `styles-admin` exports continue to include fonts. Applications managing shared same-origin fonts can instead load `styles-no-fonts`, `styles-editor-no-fonts`, and `styles-admin-no-fonts`. Their files are `dist/assets/style-no-fonts.css`, `style-editor-no-fonts.css`, and `style-admin-no-fonts.css`; explicit file-path exports are also available. These companions omit font declarations, not font-family styling. Load only one version of each stylesheet.
+
+The `fonts-manifest` export (`dist/assets/fonts-manifest.json`) contains `{ version: 1, fonts: [{ hash, file }], css }`. Each hash is the full lowercase SHA-256 of the emitted font bytes; each file is an assets-relative `fonts/<filename>` path. `css` is the complete font-face stylesheet, preserving weights, subsets, display settings, and Unicode ranges, with assets-relative `./fonts/<filename>` URLs. Original files remain under `dist/assets/fonts/`.
+
+Consumers must validate the manifest, publish these font bytes at their shared same-origin URLs, rewrite the matching CSS URLs, and load the resulting font stylesheet once alongside the font-free companions. Do not import a font-included stylesheet as well: this would reintroduce the original font URLs. Without a shared-font integration, continue using the existing exports.
+
 ## Who do I talk to?
 
 If you have any questions or problems, please [open an issue](https://github.com/infinum/eightshift-ui-components/issues) on GitHub and we will do our best to give you a timely answer.
