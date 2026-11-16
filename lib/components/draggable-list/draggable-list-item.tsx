@@ -42,7 +42,7 @@ export const DraggableListItem = (props: Prettify<DraggableListItemProps>) => {
 
 	return (
 		<HStack
-			className={clsx('es:w-fill es:group es:pl-1', className)}
+			className={clsx('es:group es:w-fill es:pl-1', className)}
 			{...rest}
 		>
 			<RichLabel

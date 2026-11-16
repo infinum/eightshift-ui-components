@@ -10,8 +10,8 @@ import type { Prettify } from '../../utilities/types';
 const radioClasses = cva(
 	[
 		'es:size-5 es:shrink-0',
-		'es:grid es:place-items-center es:grid-cols-1 es:grid-rows-1',
-		'es:*:row-start-1 es:*:col-start-1',
+		'es:grid es:grid-cols-1 es:grid-rows-1 es:place-items-center',
+		'es:*:col-start-1 es:*:row-start-1',
 		'es:rounded-full',
 		'es:transition-plus es:duration-300 es:ease-spring-smooth',
 		'es:inset-ring',
@@ -22,7 +22,7 @@ const radioClasses = cva(
 		variants: {
 			disabled: {
 				true: 'es:cursor-not-allowed',
-				false: 'es:inset-shadow-xs es:bg-linear-to-b es:from-25%',
+				false: 'es:bg-linear-to-b es:from-25% es:inset-shadow-xs',
 			},
 			flat: {
 				true: null,
@@ -50,7 +50,7 @@ const radioClasses = cva(
 				checked: true,
 				disabled: false,
 				class: [
-					'es:bg-accent-600 es:inset-ring-accent-800/5 es:text-white',
+					'es:bg-accent-600 es:text-white es:inset-ring-accent-800/5',
 					'es:from-accent-50/10 es:to-accent-50/2',
 					'es:inset-shadow-accent-50/35',
 					'es:group-focus-visible:inset-ring-accent-950',
@@ -59,12 +59,12 @@ const radioClasses = cva(
 			{
 				checked: true,
 				disabled: true,
-				class: ['es:bg-secondary-400 es:inset-ring-secondary-400 es:text-white'],
+				class: ['es:bg-secondary-400 es:text-white es:inset-ring-secondary-400'],
 			},
 			{
 				checked: false,
 				disabled: true,
-				class: ['es:bg-white es:inset-ring-secondary-300 es:text-secondary-50', 'es:bg-linear-to-b es:from-secondary-800/0 es:to-secondary-800/3'],
+				class: ['es:bg-white es:text-secondary-50 es:inset-ring-secondary-300', 'es:bg-linear-to-b es:from-secondary-800/0 es:to-secondary-800/3'],
 			},
 		],
 		defaultVariants: {
@@ -75,7 +75,7 @@ const radioClasses = cva(
 	},
 );
 
-const radioContainerClass = cva('es:flex es:gap-2 es:items-center-safe', {
+const radioContainerClass = cva('es:flex es:items-center-safe es:gap-2', {
 	variants: {
 		design: {
 			default: 'es:py-1.5',
@@ -98,17 +98,17 @@ const radioContainerClass = cva('es:flex es:gap-2 es:items-center-safe', {
 	compoundVariants: [
 		{
 			design: ['segmented', 'segmentedHorizontal'],
-			class: ['es:px-3 es:py-2 es:w-fill es:inset-ring es:min-h-13', 'es:transition-plus es:duration-300'],
+			class: ['es:min-h-13 es:w-fill es:px-3 es:py-2 es:inset-ring', 'es:transition-plus es:duration-300'],
 		},
 		{
 			checked: false,
 			design: ['segmented', 'segmentedHorizontal'],
-			class: ['es:bg-white es:bg-linear-to-b es:from-secondary-50/75 es:to-secondary-100/50 es:from-25% es:inset-ring-secondary-200/50', 'es:rounded-md es:hover:rounded-18'],
+			class: ['es:bg-white es:bg-linear-to-b es:from-secondary-50/75 es:from-25% es:to-secondary-100/50 es:inset-ring-secondary-200/50', 'es:rounded-md es:hover:rounded-18'],
 		},
 		{
 			checked: true,
 			design: ['segmented', 'segmentedHorizontal'],
-			class: 'es:bg-surface-100 es:text-accent-900 es:inset-ring-accent-600/10 es:rounded-3xl',
+			class: 'es:rounded-3xl es:bg-surface-100 es:text-accent-900 es:inset-ring-accent-600/10',
 		},
 		{ design: 'segmented', checked: false, class: 'es:first:rounded-t-2xl es:last:rounded-b-2xl es:before-current:rounded-b-2xl es:after-current:rounded-t-2xl' },
 		{ design: 'segmentedHorizontal', checked: false, class: 'es:first:rounded-l-2xl es:last:rounded-r-2xl es:before-current:rounded-r-2xl es:after-current:rounded-l-2xl' },

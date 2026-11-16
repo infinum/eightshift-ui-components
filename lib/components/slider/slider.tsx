@@ -189,7 +189,7 @@ export const Slider = (props: Prettify<SliderProps>) => {
 						{actions}
 
 						{!inputField || (inputField && isRange) ? (
-							<ReactAriaSliderOutput className='es:text-xs es:tabular-nums es:text-secondary-600'>
+							<ReactAriaSliderOutput className='es:text-xs es:text-secondary-600 es:tabular-nums'>
 								{({ state }) => state.values.map((_, index) => state.getThumbValueLabel(index)).join(' – ')}
 							</ReactAriaSliderOutput>
 						) : null}
@@ -258,7 +258,7 @@ export const Slider = (props: Prettify<SliderProps>) => {
 
 							return (
 								<div
-									className={clsx('es:grid', trackBgGradientSupport && 'es:@container', vertical && 'es:justify-items-center es:h-full', !vertical && 'es:items-center')}
+									className={clsx('es:grid', trackBgGradientSupport && 'es:@container', vertical && 'es:h-full es:justify-items-center', !vertical && 'es:items-center')}
 									style={{
 										gridTemplateColumns: vertical ? '1fr' : gridTemplate.join(' '),
 										gridTemplateRows: vertical ? gridTemplate.join(' ') : '1fr',
@@ -270,7 +270,7 @@ export const Slider = (props: Prettify<SliderProps>) => {
 											className={clsx(
 												'es:flex es:justify-between',
 												!vertical && ['es:w-fill es:self-center', 'es:row-1 es:mx-0.75'],
-												vertical && ['es:h-fill es:flex es:flex-col es:justify-self-center', 'es:col-1 es:my-0.75'],
+												vertical && ['es:flex es:h-fill es:flex-col es:justify-self-center', 'es:col-1 es:my-0.75'],
 											)}
 											style={{
 												gridColumn: vertical ? undefined : `1 / span ${gridTemplate.length}`,
@@ -311,7 +311,7 @@ export const Slider = (props: Prettify<SliderProps>) => {
 																'es:absolute es:transition',
 																!vertical && 'es:top-5 es:-translate-x-1/4 es:-rotate-90 es:text-end',
 																vertical && 'es:left-5 es:-translate-y-1/4 es:text-start',
-																'es:select-none es:text-10 es:tracking-wide es:tabular-nums',
+																'es:text-10 es:tracking-wide es:tabular-nums es:select-none',
 																isWithinActiveBar ? 'es:text-surface-400' : 'es:text-surface-300',
 																disabled && 'es:opacity-0',
 															)}
@@ -333,14 +333,14 @@ export const Slider = (props: Prettify<SliderProps>) => {
 											aria-label={thumbLabels?.[index]}
 											className={clsx(
 												!vertical && ['es:h-10 es:w-0.75', 'es:row-1'],
-												vertical && ['es:w-10 es:h-0.75', 'es:col-1'],
+												vertical && ['es:h-0.75 es:w-10', 'es:col-1'],
 												'es:z-20',
 												'es:static! es:rounded-md es:transition es:duration-300',
 												'es:origin-center',
-												'es:hover:ring-[0.25px] es:focus-visible:ring-[0.5px] es:dragging:ring-[1px] es:ring-accent-500',
+												'es:ring-accent-500 es:hover:ring-[0.25px] es:focus-visible:ring-[0.5px] es:dragging:ring-[1px]',
 												'es:transform-none!',
-												'es:dragging:bg-accent-600 es:disabled:bg-secondary-400',
-												'es:focus-visible:outline-2 es:outline-offset-2 es:outline-accent-500/40',
+												'es:disabled:bg-secondary-400 es:dragging:bg-accent-600',
+												'es:outline-offset-2 es:outline-accent-500/40 es:focus-visible:outline-2',
 												'es:bg-accent-500',
 												'es:hover:ring-accent-600',
 												'es:dragging:bg-accent-600 es:dragging:ring-accent-600',
@@ -359,13 +359,13 @@ export const Slider = (props: Prettify<SliderProps>) => {
 												{state.focusedThumb === index || hoveredThumbs.includes(index) ? (
 													<motion.div
 														className={clsx(
-															'es:absolute es:text-nowrap es:w-fit es:min-w-5 es:h-6',
+															'es:absolute es:h-6 es:w-fit es:min-w-5 es:text-nowrap',
 															!vertical && 'es:bottom-12 es:-translate-x-1/2',
 															vertical && 'es:left-12 es:-translate-y-1/2',
 															'es:bg-surface-50/80 es:text-surface-700',
 															'es:backdrop-blur-xs',
 															'es:text-12 es:leading-none',
-															'es:py-1 es:px-2 es:rounded-lg',
+															'es:rounded-lg es:px-2 es:py-1',
 															'es:text-center',
 															'es:line-clamp-1',
 															'es:flex es:items-center es:justify-center es:gap-1',
@@ -443,7 +443,7 @@ export const Slider = (props: Prettify<SliderProps>) => {
 													'es:transition es:duration-300 es:ease-spring-smooth',
 													!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
 													!vertical && [
-														'es:h-6 es:row-1',
+														'es:row-1 es:h-6',
 														index === 0 && 'es:rounded-l-xl',
 														index === gridTemplate.length - 1 && 'es:rounded-r-xl',
 														!isRange && [
@@ -458,7 +458,7 @@ export const Slider = (props: Prettify<SliderProps>) => {
 														isRange && [index > firstMarkerIndex && index < lastMarkerIndex && activeStyle, (index < firstMarkerIndex || index > lastMarkerIndex) && inactiveStyle],
 													],
 													vertical && [
-														'es:w-6 es:col-1',
+														'es:col-1 es:w-6',
 														index === 0 && 'es:rounded-t-xl',
 														index === gridTemplate.length - 1 && 'es:rounded-b-xl',
 														!isRange && [

@@ -17,5 +17,5 @@ interface SpinnerProps {
  * <Spinner />
  */
 export const Spinner = ({ className }: SpinnerProps): JSX.Element => (
-	<div className={clsx('es:animate-spin es:anim-duration-1000', 'es:spinner-5 es:text-accent-600 es:size-8 es:rounded-full', className)} />
+	<div className={clsx('es:animate-spin es:anim-duration-1000', 'es:size-8 es:rounded-full es:text-accent-600 es:spinner-5', className)} />
 );

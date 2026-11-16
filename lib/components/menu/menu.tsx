@@ -266,7 +266,7 @@ export const MenuSection = (props: Prettify<MenuSectionProps>) => {
  * @see {@link Menu} for usage example.
  */
 export const MenuSeparator = ({ className }: Prettify<MenuSeparatorProps>) => {
-	return <ReactAriaSeparator className={clsx('es:my-1.5 es:w-fill es:h-px es:bg-surface-500/15 es:-mx-1.5 es:rounded-full', className)} />;
+	return <ReactAriaSeparator className={clsx('es:-mx-1.5 es:my-1.5 es:h-px es:w-fill es:rounded-full es:bg-surface-500/15', className)} />;
 };
 
 /**
@@ -319,21 +319,21 @@ export const MenuItem = (props: Prettify<MenuItemProps>) => {
 			aria-label={ariaLabel}
 			isDisabled={disabled}
 			className={clsx(
-				'es:flex es:min-w-44 es:min-h-10 es:items-center es:gap-1.5',
-				'es:select-none es:rounded-xl es:py-1 es:px-3 es:text-sm es:transition',
+				'es:flex es:min-h-10 es:min-w-44 es:items-center es:gap-1.5',
+				'es:rounded-xl es:px-3 es:py-1 es:text-sm es:transition es:select-none',
 				'es:any-focus:outline-hidden',
 				'es:icon:shrink-0',
 				!disabled && 'es:inset-ring-0',
 				!disabled && 'es:focus-visible:inset-ring',
 				!disabled &&
 					!(danger || primary) &&
-					'es:hover:bg-surface-600/5 es:focus-visible:inset-ring-secondary-950/10 es:focus-visible:bg-secondary-950/5 es:contrast-more:focus-visible:bg-accent-800',
+					'es:hover:bg-surface-600/5 es:focus-visible:bg-secondary-950/5 es:focus-visible:inset-ring-secondary-950/10 es:contrast-more:focus-visible:bg-accent-800',
 				!disabled &&
 					danger &&
-					'es:hover:bg-red-500/5 es:focus-visible:inset-ring-red-600/30 es:focus-visible:bg-red-600/5 es:hover:text-red-900 es:focus-visible:text-red-950 es:contrast-more:focus-visible:bg-red-800',
+					'es:hover:bg-red-500/5 es:hover:text-red-900 es:focus-visible:bg-red-600/5 es:focus-visible:text-red-950 es:focus-visible:inset-ring-red-600/30 es:contrast-more:focus-visible:bg-red-800',
 				!disabled &&
 					primary &&
-					'es:hover:bg-accent-600/6 es:focus-visible:inset-ring-accent-600/20 es:focus-visible:bg-accent-600/5 es:hover:text-accent-900 es:focus-visible:text-accent-950 es:contrast-more:focus-visible:bg-accent-700',
+					'es:hover:bg-accent-600/6 es:hover:text-accent-900 es:focus-visible:bg-accent-600/5 es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-600/20 es:contrast-more:focus-visible:bg-accent-700',
 				!disabled && 'es:contrast-more:focus-visible:text-white! es:contrast-more:focus-visible:icon:text-white!',
 				disabled ? 'es:text-surface-400' : 'es:text-surface-700',
 				className,
@@ -349,7 +349,7 @@ export const MenuItem = (props: Prettify<MenuItemProps>) => {
 				noColor
 			/>
 
-			{shortcut ? <div className='es:ml-auto es:pl-2 es:text-[0.6875rem] es:tracking-tight es:text-surface-400 es:contrast-more:text-current es:shrink-0'>{shortcut}</div> : null}
+			{shortcut ? <div className='es:ml-auto es:shrink-0 es:pl-2 es:text-[0.6875rem] es:tracking-tight es:text-surface-400 es:contrast-more:text-current'>{shortcut}</div> : null}
 			{endIcon ? <div className={clsx('es:shrink-0 es:icon:shrink-0', !shortcut && 'es:ml-auto es:pl-2')}>{endIcon}</div> : null}
 		</ReactAriaMenuItem>
 	);
@@ -424,8 +424,8 @@ export const MenuSectionHeader = (props: Prettify<MenuSectionHeaderProps>) => {
 		<ReactAriaMenuItem
 			{...other}
 			className={clsx(
-				'es:mx-1 es:px-1 es:pt-1.5 es:pb-2 es:first:pt-2 es:flex es:min-w-44 es:items-center es:gap-1.5 es:font-variation-["wdth"_76,"wght"_325,"ROND"_100]',
-				'es:select-none es:text-13',
+				'es:mx-1 es:flex es:min-w-44 es:items-center es:gap-1.5 es:px-1 es:pt-1.5 es:pb-2 es:font-variation-["wdth"_76,"wght"_325,"ROND"_100] es:first:pt-2',
+				'es:text-13 es:select-none',
 				'es:icon:shrink-0',
 				'es:text-surface-500',
 				className,

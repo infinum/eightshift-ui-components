@@ -33,7 +33,7 @@ const outsideClasses = cva(
 				checked: false,
 				disabled: false,
 				class: [
-					'es:inset-ring-secondary-400 es:bg-white es:bg-linear-to-r es:from-secondary-800/1 es:to-secondary-800/3',
+					'es:bg-white es:bg-linear-to-r es:from-secondary-800/1 es:to-secondary-800/3 es:inset-ring-secondary-400',
 					'es:hover:bg-surface-100',
 					'es:group-hover:inset-ring-surface-400',
 				],
@@ -52,12 +52,12 @@ const outsideClasses = cva(
 			{
 				checked: false,
 				disabled: true,
-				class: ['es:inset-ring-secondary-300 es:bg-white'],
+				class: ['es:bg-white es:inset-ring-secondary-300'],
 			},
 			{
 				checked: true,
 				disabled: true,
-				class: ['es:inset-ring-secondary-300 es:bg-secondary-300'],
+				class: ['es:bg-secondary-300 es:inset-ring-secondary-300'],
 			},
 		],
 		defaultVariants: {
@@ -68,7 +68,7 @@ const outsideClasses = cva(
 	},
 );
 
-const thumbClasses = cva(['es:block es:rounded-full es:will-change-transform', 'es:shrink-0', 'es:no-webkit-highlight', 'es:transition es:ease-spring-bouncy es:duration-400'], {
+const thumbClasses = cva(['es:block es:rounded-full es:will-change-transform', 'es:shrink-0', 'es:no-webkit-highlight', 'es:transition es:duration-400 es:ease-spring-bouncy'], {
 	variants: {
 		checked: {
 			false: 'es:not-pressed:scale-90',

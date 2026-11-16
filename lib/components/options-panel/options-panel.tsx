@@ -122,9 +122,9 @@ export const OptionsPanelHeader = ({ children, sticky, title, className, actions
 
 	return (
 		<div className={clsx('es:space-y-2.5', limitWidth && 'es:max-w-2xl', sticky && 'es:sticky es:top-0 es:z-10 es:bg-white', className)}>
-			<div className='es:flex es:flex-wrap es:items-center es:justify-between es:gap-x-8 es:gap-y-4 es:mb-10'>
+			<div className='es:mb-10 es:flex es:flex-wrap es:items-center es:justify-between es:gap-x-8 es:gap-y-4'>
 				<Heading
-					className='es:text-2xl es:text-surface-800 es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:m-0!'
+					className='es:m-0! es:text-2xl es:text-surface-800 es:font-variation-["wdth"_100,"wght"_450,"ROND"_100]'
 					level={level}
 				>
 					{title}
@@ -158,22 +158,22 @@ export const OptionsPanelIntro = ({ icon, title, subtitle, className, iconClassN
 		<div
 			className={clsx(
 				'es:relative es:overflow-clip',
-				'es:py-5 es:px-6 es:rounded-2xl es:max-w-lg',
+				'es:max-w-lg es:rounded-2xl es:px-6 es:py-5',
 				'es:bg-surface-100 es:inset-ring es:inset-ring-surface-600/5',
 				!flat && 'es:shadow-xs es:shadow-black/5',
 				className,
 			)}
 		>
 			<Heading
-				className='es:text-3xl es:my-0! es:text-accent-900 es:font-variation-["wdth"_50,"wght"_325,"slnt"_-4,"ROND"_100]'
+				className='es:my-0! es:text-3xl es:text-accent-900 es:font-variation-["wdth"_50,"wght"_325,"slnt"_-4,"ROND"_100]'
 				level={level}
 			>
 				{title}
 			</Heading>
 
-			{subtitle && <p className='es:text-13 es:my-0! es:text-surface-500 es:mt-0.75 es:font-variation-["wdth"_95,"wght"_275]'>{subtitle}</p>}
+			{subtitle && <p className='es:my-0! es:mt-0.75 es:text-13 es:text-surface-500 es:font-variation-["wdth"_95,"wght"_275]'>{subtitle}</p>}
 
-			{icon && cloneElement(icon, { className: clsx('es:absolute es:-top-2 es:right-2.5 es:rotate-12 es:text-surface-500/10 es:size-18', iconClassName) })}
+			{icon && cloneElement(icon, { className: clsx('es:absolute es:-top-2 es:right-2.5 es:size-18 es:rotate-12 es:text-surface-500/10', iconClassName) })}
 		</div>
 	);
 };

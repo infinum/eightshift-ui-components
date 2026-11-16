@@ -87,12 +87,12 @@ const tabListClasses = cva('es:flex', {
 			underlineSecondary: '',
 			pill: '',
 			pillCompact: '',
-			bubble: 'es:bg-white es:rounded-28 es:p-1.5 es:gap-px',
+			bubble: 'es:gap-px es:rounded-28 es:bg-white es:p-1.5',
 			chips: '',
 		},
 		orientation: {
-			horizontal: 'es:overflow-x-auto es:overflow-y-visible es:max-h-none es:items-stretch',
-			vertical: 'es:flex-col es:gap-0.75 es:overflow-y-auto es:self-start es:max-h-[85vh]',
+			horizontal: 'es:max-h-none es:items-stretch es:overflow-x-auto es:overflow-y-visible',
+			vertical: 'es:max-h-[85vh] es:flex-col es:gap-0.75 es:self-start es:overflow-y-auto',
 		},
 		flat: {
 			true: '',
@@ -108,7 +108,7 @@ const tabListClasses = cva('es:flex', {
 		{
 			type: ['underline', 'underlineSecondary'],
 			orientation: 'horizontal',
-			class: 'es:border-b es:border-b-secondary-200 es:justify-center-safe es:rounded-t-lg',
+			class: 'es:justify-center-safe es:rounded-t-lg es:border-b es:border-b-secondary-200',
 		},
 		{
 			type: ['underline', 'underlineSecondary'],
@@ -137,7 +137,7 @@ const tabListClasses = cva('es:flex', {
 		{
 			type: ['pill', 'pillCompact'],
 			orientation: 'horizontal',
-			class: 'es:rounded-full es:gap-0.5 es:mx-auto es:w-fit',
+			class: 'es:mx-auto es:w-fit es:gap-0.5 es:rounded-full',
 		},
 		{
 			type: ['pill'],
@@ -171,7 +171,7 @@ const tabClasses = cva(
 		'es:group es:relative es:shrink-0',
 		'es:flex es:items-center es:gap-1.5',
 		'es:select-none',
-		'es:transition-plus es:text-center es:text-12 es:leading-[1.15] es:text-box-trim',
+		'es:text-center es:text-12 es:leading-[1.15] es:transition-plus es:text-box-trim',
 		'es:any-focus:outline-hidden',
 		'es:contrast-more:inset-ring es:contrast-more:inset-ring-accent-500/0 es:contrast-more:focus-visible:inset-ring-accent-500',
 		'es:disabled:text-secondary-400',
@@ -225,8 +225,8 @@ const tabClasses = cva(
 				vertical: false,
 				type: 'underline',
 				class: [
-					'es:px-3 es:not-has-any-icon:py-3 es:has-any-icon:py-2.5 es:rounded-t-lg es:min-h-12',
-					'es:after:content-[""] es:after:absolute es:after:bottom-0 es:after:inset-x-0  es:after:w-3/5 es:after:mx-auto es:after:h-0.75 es:selected:after:bg-accent-600',
+					'es:min-h-12 es:rounded-t-lg es:px-3 es:not-has-any-icon:py-3 es:has-any-icon:py-2.5',
+					'es:after:absolute es:after:inset-x-0 es:after:bottom-0 es:after:mx-auto es:after:h-0.75 es:after:w-3/5 es:after:content-[""] es:selected:after:bg-accent-600',
 					'es:selected:after:inset-shadow-xs es:selected:after:inset-shadow-accent-50/30',
 					'es:not-selected:hover:bg-secondary-50 es:selected:hover:bg-accent-600/5',
 					'es:selected:text-accent-600',
@@ -237,9 +237,9 @@ const tabClasses = cva(
 				vertical: false,
 				type: 'underlineSecondary',
 				class: [
-					'es:px-3 es:pt-2 es:pb-2.5 es:rounded-t-sm es:min-h-12',
+					'es:min-h-12 es:rounded-t-sm es:px-3 es:pt-2 es:pb-2.5',
 					'es:not-selected:hover:bg-secondary-50 es:selected:hover:bg-accent-600/5',
-					'es:after:content-[""] es:after:absolute es:after:bottom-0 es:after:inset-x-0  es:after:w-full es:after:mx-auto es:after:h-0.75',
+					'es:after:absolute es:after:inset-x-0 es:after:bottom-0 es:after:mx-auto es:after:h-0.75 es:after:w-full es:after:content-[""]',
 					'es:after:bg-linear-to-b es:hover:not-selected:not-disabled:after:from-secondary-200 es:hover:not-selected:not-disabled:after:to-secondary-300 es:selected:after:from-accent-500 es:selected:after:to-accent-600',
 					'es:after:transition',
 				],
@@ -248,9 +248,9 @@ const tabClasses = cva(
 				vertical: true,
 				type: ['underline', 'underlineSecondary'],
 				class: [
-					'es:p-2 es:rounded-xl es:not-has-any-icon:rounded-3xl es:has-any-icon:aspect-4/3 es:not-has-any-icon:aspect-5/3',
+					'es:rounded-xl es:p-2 es:not-has-any-icon:aspect-5/3 es:not-has-any-icon:rounded-3xl es:has-any-icon:aspect-4/3',
 					'es:text-secondary-500 es:selected:text-accent-800',
-					'es:not-has-any-icon:selected:bg-accent-600/5 es:not-has-any-icon:not-selected:hover:bg-secondary-50',
+					'es:not-has-any-icon:not-selected:hover:bg-secondary-50 es:not-has-any-icon:selected:bg-accent-600/5',
 				],
 			},
 			{
@@ -258,35 +258,35 @@ const tabClasses = cva(
 				class: [
 					'es:rounded-xl es:not-has-any-icon:rounded-3xl',
 					'es:text-secondary-500 es:selected:text-accent-800',
-					'es:not-has-any-icon:selected:bg-accent-600/5 es:not-has-any-icon:not-selected:hover:bg-secondary-50',
+					'es:not-has-any-icon:not-selected:hover:bg-secondary-50 es:not-has-any-icon:selected:bg-accent-600/5',
 				],
 			},
 			{
 				type: ['bubble'],
 				vertical: false,
-				class: 'es:px-2 es:py-0.5 es:grow',
+				class: 'es:grow es:px-2 es:py-0.5',
 			},
 			{
 				type: ['bubble'],
 				vertical: true,
-				class: 'es:p-2 es:has-any-icon:aspect-4/3 es:not-has-any-icon:aspect-5/3',
+				class: 'es:p-2 es:not-has-any-icon:aspect-5/3 es:has-any-icon:aspect-4/3',
 			},
 			{
 				type: ['pill', 'pillCompact'],
 				class: [
 					'es:rounded-full',
-					'es:selected:bg-accent-50 es:not-selected:hover:bg-secondary-100 es:selected:text-accent-900',
+					'es:not-selected:hover:bg-secondary-100 es:selected:bg-accent-50 es:selected:text-accent-900',
 					'es:bg-linear-to-br es:selected:from-accent-600/5 es:selected:to-accent-600/15',
 					'es:selected:inset-ring es:selected:inset-ring-accent-600/10',
 				],
 			},
 			{
 				type: ['pill'],
-				class: ['es:py-3 es:min-h-12'],
+				class: ['es:min-h-12 es:py-3'],
 			},
 			{
 				type: ['pillCompact'],
-				class: ['es:py-2 es:min-h-9.5'],
+				class: ['es:min-h-9.5 es:py-2'],
 			},
 			{
 				type: ['pill'],
@@ -301,24 +301,24 @@ const tabClasses = cva(
 			{
 				type: ['pill'],
 				vertical: true,
-				class: ['es:pl-5 es:has-any-icon:pl-4 es:pr-6'],
+				class: ['es:pr-6 es:pl-5 es:has-any-icon:pl-4'],
 			},
 			{
 				type: ['pillCompact'],
 				vertical: true,
-				class: ['es:pl-4 es:has-any-icon:pl-3 es:pr-3'],
+				class: ['es:pr-3 es:pl-4 es:has-any-icon:pl-3'],
 			},
 			{
 				type: ['chips'],
 				class: [
 					'es:bg-secondary-50 es:selected:bg-accent-500',
 					'es:inset-ring es:inset-ring-secondary-200/30 es:selected:inset-ring-accent-600/30',
-					'es:bg-linear-to-b es:from-25% es:from-accent-700/0 es:to-accent-700/0 es:selected:from-accent-700/10 es:selected:to-accent-700/30',
+					'es:bg-linear-to-b es:from-accent-700/0 es:from-25% es:to-accent-700/0 es:selected:from-accent-700/10 es:selected:to-accent-700/30',
 					'es:selected:inset-shadow-sm es:selected:inset-shadow-accent-50/30',
 					'es:text-secondary-700 es:selected:text-white',
 					'es:min-h-7.5 es:rounded-lg es:selected:rounded-xl',
 					'es:transition-plus',
-					'es:px-3 es:has-any-icon:pl-2  es:py-1.5',
+					'es:px-3 es:py-1.5 es:has-any-icon:pl-2',
 				],
 			},
 			{
@@ -350,7 +350,7 @@ const tabIconClasses = cva('es:transition es:duration-200 es:ease-spring-bouncy'
 			vertical: true,
 			type: ['underline', 'underlineSecondary'],
 			class: [
-				'es:bg-white es:px-3.5 es:py-1.25 es:rounded-full',
+				'es:rounded-full es:bg-white es:px-3.5 es:py-1.25',
 				'es:group-hover:bg-surface-500/7',
 				'es:group-selected:bg-accent-500/10 es:group-selected:text-accent-800',
 				'es:group-hover:group-selected:ring es:group-hover:group-selected:ring-accent-500/10',
@@ -359,7 +359,7 @@ const tabIconClasses = cva('es:transition es:duration-200 es:ease-spring-bouncy'
 		{
 			type: ['bubble'],
 			class: [
-				'es:bg-white es:px-3.5 es:py-1.25 es:rounded-full',
+				'es:rounded-full es:bg-white es:px-3.5 es:py-1.25',
 				'es:group-hover:bg-surface-500/7',
 				'es:group-selected:bg-accent-500/10 es:group-selected:text-accent-800',
 				'es:group-hover:group-selected:ring es:group-hover:group-selected:ring-accent-500/10',
@@ -372,7 +372,7 @@ const tabBadgeClasses = cva(
 	[
 		'es:transition-plus',
 		'es:flex es:items-center-safe es:justify-center-safe',
-		'es:min-h-4.5 es:min-w-4.5 es:leading-none es:rounded-full es:shrink-0',
+		'es:min-h-4.5 es:min-w-4.5 es:shrink-0 es:rounded-full es:leading-none',
 		'es:text-12 es:leading-none es:text-box-trim',
 		'es:any-icon:size-2.5',
 	],

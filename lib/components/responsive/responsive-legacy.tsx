@@ -186,7 +186,7 @@ export const ResponsiveLegacy = (props: Prettify<ResponsiveLegacyProps>) => {
 			arrow
 			text={
 				<div className='es:max-w-64 es:p-1'>
-					<span className='es:block es:text-balance es:font-semibold es:tabular-nums'>{__('Default', 'eightshift-ui-components')}</span>
+					<span className='es:block es:font-semibold es:text-balance es:tabular-nums'>{__('Default', 'eightshift-ui-components')}</span>
 
 					<span className='es:block es:text-balance es:tabular-nums'>
 						{!globalOverride ? __('Always applied, regardless of browser width.', 'eightshift-ui-components') : null}
@@ -317,7 +317,10 @@ export const ResponsiveLegacy = (props: Prettify<ResponsiveLegacyProps>) => {
 				{breakpoints.map((breakpoint, index) => {
 					const isOverrideSet = getBreakpointValue(breakpoint) !== inheritValue;
 
-					const aboveOverride = rawBreakpoints.slice(0, index + 1).reverse().find((candidateBreakpoint) => getBreakpointValue(candidateBreakpoint) !== inheritValue);
+					const aboveOverride = rawBreakpoints
+						.slice(0, index + 1)
+						.reverse()
+						.find((candidateBreakpoint) => getBreakpointValue(candidateBreakpoint) !== inheritValue);
 
 					const belowOverride = rawBreakpoints.slice(index + 2).find((candidateBreakpoint) => getBreakpointValue(candidateBreakpoint) !== inheritValue);
 

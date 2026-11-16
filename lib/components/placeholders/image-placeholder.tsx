@@ -87,9 +87,7 @@ export const ImagePlaceholder = (props: Prettify<ImagePlaceholderProps>) => {
 						imageMode === 'cover' && 'es:object-cover',
 						imageMode === 'contain' && 'es:object-contain',
 						imageMode === 'fill' && 'es:object-fill',
-						hasUrl
-							? 'es:motion-preset-fade-sm es:motion-scale-in-125 es:motion-blur-in-xs es:motion-delay-300/blur  es:motion-ease-spring-snappy/scale'
-							: 'es:hidden',
+						hasUrl ? 'es:motion-preset-fade-sm es:motion-scale-in-125 es:motion-blur-in-xs es:motion-ease-spring-snappy/scale es:motion-delay-300/blur' : 'es:hidden',
 					)}
 					src={url}
 					alt={alt}
@@ -99,7 +97,7 @@ export const ImagePlaceholder = (props: Prettify<ImagePlaceholderProps>) => {
 			<div
 				className={clsx(
 					'es:place-self-center es:justify-self-center es:transition es:[animation-fill-mode:forwards] es:icon:size-7',
-					!hasUrl ? 'es:motion-preset-fade-sm es:motion-scale-in-90  es:motion-ease-spring-snappy/scale' : 'es:invisible',
+					!hasUrl ? 'es:motion-preset-fade-sm es:motion-scale-in-90 es:motion-ease-spring-snappy/scale' : 'es:invisible',
 				)}
 			>
 				{image}

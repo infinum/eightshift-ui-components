@@ -83,17 +83,17 @@ const inputClass = cva(
 		'es:inset-ring!',
 		'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/30',
 		'es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500',
-		'es:placeholder-shown:pr-0 es:pr-10',
+		'es:pr-10 es:placeholder-shown:pr-0',
 		'es:focus:placeholder:text-surface-400',
 		'es:font-variation-["wdth"_80,"wght"_325,"slnt"_0,"ROND"_100] es:placeholder-shown:font-variation-["wdth"_60,"wght"_300,"slnt"_-10,"ROND"_0]',
 	],
 	{
 		variants: {
 			size: {
-				small: ['es:min-h-8', 'es:py-2 es:px-2.5'],
-				medium: ['es:min-h-9', 'es:py-2 es:px-3'],
-				default: ['es:min-h-10', 'es:py-2 es:px-3'],
-				large: ['es:min-h-12', 'es:py-2 es:px-4'],
+				small: ['es:min-h-8', 'es:px-2.5 es:py-2'],
+				medium: ['es:min-h-9', 'es:px-3 es:py-2'],
+				default: ['es:min-h-10', 'es:px-3 es:py-2'],
+				large: ['es:min-h-12', 'es:px-4 es:py-2'],
 			},
 			inline: {
 				true: 'es:min-w-48',
@@ -114,7 +114,7 @@ const inputClass = cva(
 				disabled: false,
 				class: [
 					'es:bg-white',
-					'es:bg-linear-to-b es:from-secondary-100/0 es:to-secondary-100/50 es:from-25%',
+					'es:bg-linear-to-b es:from-secondary-100/0 es:from-25% es:to-secondary-100/50',
 					'es:hover:from-surface-100/0 es:hover:to-surface-100/50',
 					'es:inset-ring-secondary-400/50 es:hover:inset-ring-surface-300 es:focus:inset-ring-surface-400',
 					'es:inset-shadow-sm es:inset-shadow-secondary-100/50',
@@ -137,7 +137,7 @@ const inputClass = cva(
 			},
 			{
 				disabled: true,
-				class: ['es:bg-white es:inset-ring-secondary-200 es:text-secondary-400'],
+				class: ['es:bg-white es:text-secondary-400 es:inset-ring-secondary-200'],
 			},
 		],
 		defaultVariants: { disabled: false, flat: false, inline: false },
@@ -271,7 +271,7 @@ export const LinkInput = (props: Prettify<LinkInputProps>) => {
 				inline={inline}
 				help={help}
 			>
-				<Group className='es:relative es:group'>
+				<Group className='es:group es:relative'>
 					<Input
 						placeholder={disabled ? undefined : placeholder}
 						className={clsx(inputClass({ disabled, flat, size, inline }), className)}
@@ -287,13 +287,13 @@ export const LinkInput = (props: Prettify<LinkInputProps>) => {
 							onPress={() => {
 								onChange?.({ url: undefined, isAnchor: false });
 							}}
-							className='es:any-focus:outline-hidden es:rounded-xs es:transition-plus es:focus-visible:rounded-md es:focus-visible:bg-surface-200 es:focus-visible:text-accent-900'
+							className='es:rounded-xs es:transition-plus es:focus-visible:rounded-md es:focus-visible:bg-surface-200 es:focus-visible:text-accent-900 es:any-focus:outline-hidden'
 						>
 							{!(shouldShowSuggestions && suggestionList.isLoading) ? (
 								<Tooltip text={__('Clear', 'eightshift-ui-components')}>
 									<div
 										className={clsx(
-											'es:opacity-0 es:group-hover:opacity-100 es:group-focus-within:opacity-100 es:focus-visible:opacity-100',
+											'es:opacity-0 es:group-focus-within:opacity-100 es:group-hover:opacity-100 es:focus-visible:opacity-100',
 											'es:flex es:size-8 es:items-center es:justify-center es:rounded-md es:text-secondary-600 es:backdrop-blur-sm es:transition',
 											'es:hover:bg-red-600/5 es:hover:text-red-600',
 											'es:icon:size-6',
@@ -304,7 +304,7 @@ export const LinkInput = (props: Prettify<LinkInputProps>) => {
 								</Tooltip>
 							) : null}
 
-							{shouldShowSuggestions && suggestionList.isLoading ? <Spinner className='es:size-5! es:m-1.5 es:spinner-4!' /> : null}
+							{shouldShowSuggestions && suggestionList.isLoading ? <Spinner className='es:m-1.5 es:size-5! es:spinner-4!' /> : null}
 						</ReactAriaButton>
 					</AnimatedVisibility>
 				</Group>
@@ -317,7 +317,7 @@ export const LinkInput = (props: Prettify<LinkInputProps>) => {
 						clsx(
 							'es:font-sans',
 							'es:w-(--trigger-width)',
-							'es:rounded-xl es:outline-hidden es:min-w-72',
+							'es:min-w-72 es:rounded-xl es:outline-hidden',
 							'es:has-first-selected:rounded-t-18!',
 							'es:has-last-selected:rounded-b-18!',
 							'es:inset-ring es:inset-ring-surface-500/10',
@@ -328,12 +328,12 @@ export const LinkInput = (props: Prettify<LinkInputProps>) => {
 							'es:backdrop-saturate-125',
 							'es:shadow-lg es:shadow-black/10',
 							'es:transition-plus',
-							'es:motion-duration-250 es:motion-ease-spring-bouncy',
-							'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
-							(isEntering || !(suggestionList.isLoading || !shouldShowSuggestions)) && 'es:motion-scale-x-in-95 es:motion-scale-y-in-85 es:motion-opacity-in-0',
+							'es:motion-ease-spring-bouncy es:motion-duration-250',
+							'es:placement-top:origin-bottom-left es:placement-bottom:origin-top-left',
+							(isEntering || !(suggestionList.isLoading || !shouldShowSuggestions)) && 'es:motion-opacity-in-0 es:motion-scale-x-in-95 es:motion-scale-y-in-85',
 							(isEntering || !(suggestionList.isLoading || !shouldShowSuggestions)) &&
 								'es:placement-top:motion-translate-y-in-[0.5rem] es:placement-bottom:motion-translate-y-in-[-0.5rem]',
-							isExiting && 'es:motion-scale-x-out-95 es:motion-scale-y-out-85 es:motion-opacity-out-0',
+							isExiting && 'es:motion-opacity-out-0 es:motion-scale-x-out-95 es:motion-scale-y-out-85',
 							isExiting && 'es:placement-top:motion-translate-y-out-[0.5rem] es:placement-bottom:motion-translate-y-out-[-0.5rem]',
 							(suggestionList.isLoading || !shouldShowSuggestions) && 'es:invisible',
 						)
@@ -346,7 +346,7 @@ export const LinkInput = (props: Prettify<LinkInputProps>) => {
 							icon={searchEmpty}
 							label={__('No results', 'eightshift-ui-components')}
 							subtitle={__('Try a different search term', 'eightshift-ui-components')}
-							className='es:p-4 es:w-fit es:mx-auto es:flex-col es:items-center es:gap-2.5'
+							className='es:mx-auto es:w-fit es:flex-col es:items-center es:gap-2.5 es:p-4'
 							iconClassName='es:text-accent-50 es:bg-linear-to-br es:from-accent-600 es:to-accent-700 es:p-2 es:rounded-full es:icon:size-7!'
 							labelClassName='es:mx-auto'
 							subtitleClassName='es:mx-auto'
@@ -379,9 +379,9 @@ export const LinkInput = (props: Prettify<LinkInputProps>) => {
 											className={clsx(
 												'es:transition-plus',
 												'es:px-2 es:py-2.5',
-												'es:bg-accent-900/4 es:rounded-sm es:first:rounded-t-lg es:last:rounded-b-lg es:after-current:rounded-t-lg es:before-current:rounded-b-lg',
-												'es:focus-visible:bg-surface-200/65 es:focus-visible:rounded-2xl es:focus-visible:text-accent-950',
-												'es:hover:bg-surface-200/50 es:hover:rounded-2xl es:hover:text-accent-900',
+												'es:rounded-sm es:bg-accent-900/4 es:first:rounded-t-lg es:last:rounded-b-lg es:before-current:rounded-b-lg es:after-current:rounded-t-lg',
+												'es:focus-visible:rounded-2xl es:focus-visible:bg-surface-200/65 es:focus-visible:text-accent-950',
+												'es:hover:rounded-2xl es:hover:bg-surface-200/50 es:hover:text-accent-900',
 												'es:pressed:rounded-3xl!',
 												'es:text-surface-950',
 											)}
@@ -402,33 +402,33 @@ export const LinkInput = (props: Prettify<LinkInputProps>) => {
 							</ListBox>
 
 							{keyboardShortcuts ? (
-								<div className='es:flex es:flex-wrap es:items-center es:justify-end-safe es:gap-x-4 es:gap-y-0.5 es:px-2.5 es:pb-2 es:pt-0.5'>
-									<div className='es:flex es:gap-1 es:items-center'>
-										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded-sm es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-13 es:text-box-trim'>
+								<div className='es:flex es:flex-wrap es:items-center es:justify-end-safe es:gap-x-4 es:gap-y-0.5 es:px-2.5 es:pt-0.5 es:pb-2'>
+									<div className='es:flex es:items-center es:gap-1'>
+										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded-sm es:bg-surface-600/10 es:font-sans es:text-13 es:text-surface-600 es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-box-trim'>
 											&darr;
 										</kbd>
-										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded-sm es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-13 es:text-box-trim'>
+										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded-sm es:bg-surface-600/10 es:font-sans es:text-13 es:text-surface-600 es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-box-trim'>
 											&uarr;
 										</kbd>
-										<span className='es:font-variation-["wdth"_75,"wght"_325,"ROND"_100,"slnt"_-4] es:text-12 es:text-box-trim es:text-surface-700'>
+										<span className='es:text-12 es:text-surface-700 es:font-variation-["wdth"_75,"wght"_325,"ROND"_100,"slnt"_-4] es:text-box-trim'>
 											{__('Navigate', 'eightshift-ui-components')}
 										</span>
 									</div>
 
-									<div className='es:flex es:gap-1 es:items-center'>
-										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded-sm es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-13 es:text-box-trim'>
+									<div className='es:flex es:items-center es:gap-1'>
+										<kbd className='es:flex es:size-4 es:items-center es:justify-center es:rounded-sm es:bg-surface-600/10 es:font-sans es:text-13 es:text-surface-600 es:font-variation-["wdth"_100,"wght"_450,"ROND"_100] es:text-box-trim'>
 											&crarr;
 										</kbd>
-										<span className='es:font-variation-["wdth"_75,"wght"_325,"ROND"_100,"slnt"_-4] es:text-12 es:text-box-trim es:text-surface-700'>
+										<span className='es:text-12 es:text-surface-700 es:font-variation-["wdth"_75,"wght"_325,"ROND"_100,"slnt"_-4] es:text-box-trim'>
 											{__('Select', 'eightshift-ui-components')}
 										</span>
 									</div>
 
-									<div className='es:flex es:gap-1 es:items-center'>
-										<kbd className='es:flex es:h-4 es:items-center es:justify-center es:rounded-sm es:bg-surface-600/10 es:text-surface-600 es:font-sans es:font-variation-["wdth"_67,"wght"_450,"ROND"_100] es:text-10 es:text-box-trim es:px-0.75'>
+									<div className='es:flex es:items-center es:gap-1'>
+										<kbd className='es:flex es:h-4 es:items-center es:justify-center es:rounded-sm es:bg-surface-600/10 es:px-0.75 es:font-sans es:text-10 es:text-surface-600 es:font-variation-["wdth"_67,"wght"_450,"ROND"_100] es:text-box-trim'>
 											Esc
 										</kbd>
-										<span className='es:font-variation-["wdth"_75,"wght"_325,"ROND"_100,"slnt"_-4] es:text-12 es:text-box-trim es:text-surface-700'>
+										<span className='es:text-12 es:text-surface-700 es:font-variation-["wdth"_75,"wght"_325,"ROND"_100,"slnt"_-4] es:text-box-trim'>
 											{__('Hide', 'eightshift-ui-components')}
 										</span>
 									</div>

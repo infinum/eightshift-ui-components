@@ -238,7 +238,17 @@ const parseGradientData = (value: string | null | undefined, type: GradientType)
 const toMatrixAlignValue = (x = 'center', y = 'center'): MatrixAlignValue => {
 	const value = `${y} ${x}`;
 
-	if (value === 'top left' || value === 'top center' || value === 'top right' || value === 'center left' || value === 'center center' || value === 'center right' || value === 'bottom left' || value === 'bottom center' || value === 'bottom right') {
+	if (
+		value === 'top left' ||
+		value === 'top center' ||
+		value === 'top right' ||
+		value === 'center left' ||
+		value === 'center center' ||
+		value === 'center right' ||
+		value === 'bottom left' ||
+		value === 'bottom center' ||
+		value === 'bottom right'
+	) {
 		return value;
 	}
 
@@ -291,7 +301,7 @@ export const GradientEditor = (props: Prettify<GradientEditorProps>) => {
 				<Container>
 					<button
 						className={clsx(
-							'es:shadow-sm es:mx-auto es:block es:h-40 es:rounded-lg es:border es:border-secondary-300 es:transition-[width] es:duration-300 es:ease-spring-snappy',
+							'es:mx-auto es:block es:h-40 es:rounded-lg es:border es:border-secondary-300 es:shadow-sm es:transition-[width] es:duration-300 es:ease-spring-snappy',
 							'es:mb-2',
 							squarePreview ? 'es:w-40' : 'es:w-full',
 						)}
@@ -337,7 +347,7 @@ export const GradientEditor = (props: Prettify<GradientEditorProps>) => {
 
 								return (
 									<div
-										className='es:pointer-events-none es:absolute es:-bottom-4.5 es:-translate-x-1/3 es:flex es:w-3 es:items-center es:justify-center es:text-center es:text-12 es:leading-none es:py-px es:rounded-sm es:font-semibold es:tabular-nums es:font-mono es:ring es:ring-accent-600'
+										className='es:pointer-events-none es:absolute es:-bottom-4.5 es:flex es:w-3 es:-translate-x-1/3 es:items-center es:justify-center es:rounded-sm es:py-px es:text-center es:font-mono es:text-12 es:leading-none es:font-semibold es:tabular-nums es:ring es:ring-accent-600'
 										style={{
 											backgroundColor: stops[index]?.color,
 											color: foregroundColor,

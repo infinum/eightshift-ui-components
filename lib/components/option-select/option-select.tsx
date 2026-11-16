@@ -389,8 +389,7 @@ export const OptionSelect = (props: Prettify<OptionSelectProps>) => {
 					}
 					triggerProps={{
 						...wrapperProps?.triggerProps,
-						'aria-label':
-							label !== undefined ? undefined : (ariaLabel ?? (isStringValue(label) ? label : undefined) ?? (isStringValue(tooltip) ? tooltip : undefined)),
+						'aria-label': label !== undefined ? undefined : (ariaLabel ?? (isStringValue(label) ? label : undefined) ?? (isStringValue(tooltip) ? tooltip : undefined)),
 					}}
 					keepOpen
 					aria-label={ariaLabel ?? (isStringValue(label) ? label : undefined) ?? (isStringValue(tooltip) ? tooltip : undefined) ?? __('Menu', 'eightshift-ui-components')}

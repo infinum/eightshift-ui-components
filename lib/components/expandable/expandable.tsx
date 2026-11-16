@@ -110,14 +110,14 @@ export const Expandable = (props: Prettify<ExpandableProps>) => {
 		>
 			<div
 				className={clsx(
-					'es:flex es:items-center es:gap-1 es:pr-1.25 es:py-1 es:pl-2.5',
+					'es:flex es:items-center es:gap-1 es:py-1 es:pr-1.25 es:pl-2.5',
 					standalone && 'es:rounded-xl',
 					!standalone && 'es:rounded-md es:group-first:rounded-t-xl es:group-after-current:rounded-t-xl',
 					'es:inset-ring',
 					'es:inset-shadow-xs',
-					isOpen && 'es:bg-surface-100 es:inset-ring-surface-300/75 es:inset-shadow-surface-100/30',
-					isOpen && 'es:rounded-b-md es:rounded-t-xl',
-					!isOpen && 'es:bg-white es:bg-linear-to-b es:from-25% es:from-secondary-100/5 es:to-secondary-300/10 es:inset-ring-secondary-300/45 es:inset-shadow-secondary-200/50',
+					isOpen && 'es:bg-surface-100 es:inset-shadow-surface-100/30 es:inset-ring-surface-300/75',
+					isOpen && 'es:rounded-t-xl es:rounded-b-md',
+					!isOpen && 'es:bg-white es:bg-linear-to-b es:from-secondary-100/5 es:from-25% es:to-secondary-300/10 es:inset-shadow-secondary-200/50 es:inset-ring-secondary-300/45',
 					!isOpen && !standalone && 'es:rounded-b-md es:group-last:rounded-b-xl es:group-before-current:rounded-b-xl',
 					!flat && 'es:shadow-xs es:shadow-black/5',
 					'es:transition-plus es:duration-200 es:motion-ease-spring-bouncy',
@@ -136,7 +136,7 @@ export const Expandable = (props: Prettify<ExpandableProps>) => {
 				{actions && !keepActionsOnExpand ? (
 					<AnimatedVisibility
 						visible={!isOpen}
-						className='es:flex es:gap-1 es:shrink-0'
+						className='es:flex es:shrink-0 es:gap-1'
 						transition='scaleFade'
 						decreaseBounce
 						noInitial
@@ -145,7 +145,7 @@ export const Expandable = (props: Prettify<ExpandableProps>) => {
 					</AnimatedVisibility>
 				) : null}
 
-				{actions && keepActionsOnExpand ? <div className='es:flex es:gap-1 es:shrink-0'>{actions}</div> : null}
+				{actions && keepActionsOnExpand ? <div className='es:flex es:shrink-0 es:gap-1'>{actions}</div> : null}
 
 				{customOpenButton
 					? customOpenButton({ open: isOpen, toggleOpen, tooltip: isOpen ? __('Close', 'eightshift-ui-components') : __('Open', 'eightshift-ui-components'), disabled })
@@ -160,7 +160,7 @@ export const Expandable = (props: Prettify<ExpandableProps>) => {
 						tooltip={isOpen ? __('Close', 'eightshift-ui-components') : __('Open', 'eightshift-ui-components')}
 						disabled={disabled}
 						className={clsx(
-							'es:icon:transition-plus es:ease-spring-bouncier es:duration-400',
+							'es:duration-400 es:ease-spring-bouncier es:icon:transition-plus',
 							isOpen && 'es:icon:-scale-y-100 es:icon:text-surface-600',
 							!isOpen && 'es:icon:text-secondary-500',
 						)}
@@ -172,11 +172,11 @@ export const Expandable = (props: Prettify<ExpandableProps>) => {
 			<DisclosurePanel
 				className={clsx(
 					'es:h-(--disclosure-panel-height)',
-					'es:opacity-0 es:-translate-y-2',
+					'es:-translate-y-2 es:opacity-0',
 					!isOpen && 'es:rounded-t-xl',
-					isOpen && 'es:rounded-t-md es:opacity-100 es:*:motion-preset-fade-sm es:*:motion-delay-75 es:translate-y-1 es:mb-1',
+					isOpen && 'es:mb-1 es:translate-y-1 es:rounded-t-md es:opacity-100 es:*:motion-preset-fade-sm es:*:motion-delay-75',
 					'es:origin-top',
-					'es:bg-white es:rounded-b-xl es:inset-ring es:inset-ring-surface-200',
+					'es:rounded-b-xl es:bg-white es:inset-ring es:inset-ring-surface-200',
 					'es:inset-shadow-sm es:inset-shadow-accent-600/5',
 					!flat && 'es:shadow-xs es:shadow-black/5',
 					'es:transition-plus-h',

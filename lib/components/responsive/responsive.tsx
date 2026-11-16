@@ -197,17 +197,17 @@ export const Responsive = (props: Prettify<ResponsiveProps>) => {
 		return (
 			<DecorativeTooltip
 				placement='left'
-				className='es:p-4! es:rounded-2xl! es:max-w-96!'
+				className='es:max-w-96! es:rounded-2xl! es:p-4!'
 				theme='light'
 				offset={7.5}
 				arrow
 				text={
 					<>
-						<span className='es:block es:font-variation-["wdth"_95,"wght"_475,"ROND"_100] es:text-14 es:leading-none es:text-surface-600'>
+						<span className='es:block es:text-14 es:leading-none es:text-surface-600 es:font-variation-["wdth"_95,"wght"_475,"ROND"_100]'>
 							{__('Default', 'eightshift-ui-components')}
 						</span>
 
-						<span className='es:block es:text-balance es:tabular-nums es:font-variation-["wdth"_64,"wght"_275,"ROND"_50,"slnt"_-2] es:text-surface-500 es:mt-1'>
+						<span className='es:mt-1 es:block es:text-balance es:text-surface-500 es:tabular-nums es:font-variation-["wdth"_64,"wght"_275,"ROND"_50,"slnt"_-2]'>
 							{!firstMobileFirstOverride && !lastDesktopFirstOverride ? __('Always applied, regardless of browser width.', 'eightshift-ui-components') : null}
 
 							{firstMobileFirstOverride && !isDesktopFirst
@@ -265,7 +265,7 @@ export const Responsive = (props: Prettify<ResponsiveProps>) => {
 					</>
 				}
 			>
-				<div className='es:icon:size-6 es:mx-0.5 es:text-accent-700'>
+				<div className='es:mx-0.5 es:text-accent-700 es:icon:size-6'>
 					<Icon
 						icon={overrideIcon}
 						fallback={<Icon icon={`screen${upperFirst(fallbackBreakpoint)}`} />}
@@ -389,7 +389,7 @@ export const Responsive = (props: Prettify<ResponsiveProps>) => {
 				<div
 					className={clsx(
 						'es:grid es:items-center es:gap-x-2 es:transition-[grid-template-columns,margin-block-end] es:duration-200',
-						detailsVisible && 'es:bg-white/50 es:p-1.5 es:rounded-sm es:first:rounded-t-2xl es:last:rounded-b-2xl es:inset-ring es:inset-ring-accent-600/25',
+						detailsVisible && 'es:rounded-sm es:bg-white/50 es:p-1.5 es:inset-ring es:inset-ring-accent-600/25 es:first:rounded-t-2xl es:last:rounded-b-2xl',
 						innerContentAlign === 'start' && 'es:justify-items-start',
 						innerContentAlign === 'center' && 'es:justify-items-center',
 						innerContentAlign === 'end' && 'es:justify-items-end',
@@ -419,7 +419,7 @@ export const Responsive = (props: Prettify<ResponsiveProps>) => {
 				<AnimatedVisibility
 					className={clsx(
 						'es:mb-0.5 es:grid es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2',
-						'es:bg-white/50 es:p-1.5 es:rounded-sm es:first:rounded-t-2xl es:last:rounded-b-2xl es:inset-ring es:inset-ring-accent-600/25',
+						'es:rounded-sm es:bg-white/50 es:p-1.5 es:inset-ring es:inset-ring-accent-600/25 es:first:rounded-t-2xl es:last:rounded-b-2xl',
 						innerContentAlign === 'start' && 'es:justify-items-start',
 						innerContentAlign === 'center' && 'es:justify-items-center',
 						innerContentAlign === 'end' && 'es:justify-items-end',
@@ -456,17 +456,23 @@ export const Responsive = (props: Prettify<ResponsiveProps>) => {
 
 					const aboveOverride = isDesktopFirst
 						? filterBreakpoints.slice(index + 1).find((currentBreakpoint) => value[currentBreakpoint] !== undefined)
-						: filterBreakpoints.slice(0, index + 1).reverse().find((currentBreakpoint) => value[currentBreakpoint] !== undefined);
+						: filterBreakpoints
+								.slice(0, index + 1)
+								.reverse()
+								.find((currentBreakpoint) => value[currentBreakpoint] !== undefined);
 
 					const belowOverride = isDesktopFirst
-						? filterBreakpoints.slice(0, index).reverse().find((currentBreakpoint) => value[currentBreakpoint] !== undefined)
+						? filterBreakpoints
+								.slice(0, index)
+								.reverse()
+								.find((currentBreakpoint) => value[currentBreakpoint] !== undefined)
 						: filterBreakpoints.slice(index + 2).find((currentBreakpoint) => value[currentBreakpoint] !== undefined);
 
 					return (
 						<div
 							className={clsx(
 								'es:grid es:grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2',
-								'es:bg-white/50 es:p-1.5 es:rounded-sm es:inset-ring es:inset-ring-surface-200/60',
+								'es:rounded-sm es:bg-white/50 es:p-1.5 es:inset-ring es:inset-ring-surface-200/60',
 								!isDesktopFirst && 'es:last:rounded-b-2xl',
 								isDesktopFirst && 'es:first:rounded-t-2xl',
 								innerContentAlign === 'start' && 'es:justify-items-start',
@@ -479,16 +485,16 @@ export const Responsive = (props: Prettify<ResponsiveProps>) => {
 							<DecorativeTooltip
 								placement='left'
 								theme='light'
-								className='es:p-4! es:rounded-2xl! es:max-w-96!'
+								className='es:max-w-96! es:rounded-2xl! es:p-4!'
 								offset={7.5}
 								arrow
 								text={
 									<>
-										<span className='es:block es:font-variation-["wdth"_95,"wght"_475,"ROND"_100] es:text-14 es:leading-none es:text-surface-600'>
+										<span className='es:block es:text-14 es:leading-none es:text-surface-600 es:font-variation-["wdth"_95,"wght"_475,"ROND"_100]'>
 											{breakpointUiData?.[realBreakpointName]?.label ?? upperFirst(realBreakpointName)}
 										</span>
 
-										<span className='es:block es:text-balance es:tabular-nums es:font-variation-["wdth"_64,"wght"_275,"ROND"_50,"slnt"_-2] es:text-surface-500 es:mt-1'>
+										<span className='es:mt-1 es:block es:text-balance es:text-surface-500 es:tabular-nums es:font-variation-["wdth"_64,"wght"_275,"ROND"_50,"slnt"_-2]'>
 											{!isDesktopFirst ? (
 												<>
 													{!belowOverride && value[breakpoint] !== undefined
@@ -519,15 +525,13 @@ export const Responsive = (props: Prettify<ResponsiveProps>) => {
 															)
 														: null}
 
-													{value[breakpoint] === undefined
-														? sprintf(__('Up to %dpx', 'eightshift-ui-components'), getBreakpointWidth(breakpoint.replace('max-', '')))
-														: null}
+													{value[breakpoint] === undefined ? sprintf(__('Up to %dpx', 'eightshift-ui-components'), getBreakpointWidth(breakpoint.replace('max-', ''))) : null}
 												</>
 											)}
 										</span>
 
 										{value[breakpoint] === undefined ? (
-											<span className='es:mt-2 es:text-sm es:leading-none es:block es:font-variation-["wdth"_75,"wght"_300,"slnt"_-5]'>
+											<span className='es:mt-2 es:block es:text-sm es:leading-none es:font-variation-["wdth"_75,"wght"_300,"slnt"_-5]'>
 												{__('Not set', 'eightshift-ui-components')}
 											</span>
 										) : null}
@@ -611,7 +615,7 @@ export const Responsive = (props: Prettify<ResponsiveProps>) => {
 									</>
 								}
 							>
-								<div className={clsx('es:transition-colors es:icon:size-6 es:mx-0.5', value[breakpoint] !== undefined ? 'es:text-surface-600' : 'es:text-surface-300')}>
+								<div className={clsx('es:mx-0.5 es:transition-colors es:icon:size-6', value[breakpoint] !== undefined ? 'es:text-surface-600' : 'es:text-surface-300')}>
 									<Icon
 										icon={breakpointUiData?.[realBreakpointName]?.icon}
 										fallback={<Icon icon={`screen${upperFirst(realBreakpointName)}`} />}
@@ -651,7 +655,7 @@ export const Responsive = (props: Prettify<ResponsiveProps>) => {
 				<div
 					className={clsx(
 						'es:grid es:items-center es:gap-x-2 es:transition-[grid-template-columns,margin-block-start] es:duration-150',
-						detailsVisible && 'es:bg-white/50 es:p-1.5 es:rounded-sm es:first:rounded-t-2xl es:last:rounded-b-2xl es:inset-ring es:inset-ring-accent-600/25 es:transition-plus',
+						detailsVisible && 'es:rounded-sm es:bg-white/50 es:p-1.5 es:inset-ring es:inset-ring-accent-600/25 es:transition-plus es:first:rounded-t-2xl es:last:rounded-b-2xl',
 						innerContentAlign === 'start' && 'es:justify-items-start',
 						innerContentAlign === 'center' && 'es:justify-items-center',
 						innerContentAlign === 'end' && 'es:justify-items-end',
@@ -681,7 +685,7 @@ export const Responsive = (props: Prettify<ResponsiveProps>) => {
 				<AnimatedVisibility
 					className={clsx(
 						'es:grid es:grid-cols-[minmax(0,1.75rem)_minmax(0,1fr)_minmax(0,2.25rem)] es:items-center es:gap-x-2 es:pt-1',
-						'es:bg-white/50 es:p-1.5 es:rounded-sm es:first:rounded-t-2xl es:last:rounded-b-2xl es:inset-ring es:inset-ring-accent-600/25',
+						'es:rounded-sm es:bg-white/50 es:p-1.5 es:inset-ring es:inset-ring-accent-600/25 es:first:rounded-t-2xl es:last:rounded-b-2xl',
 						innerContentAlign === 'start' && 'es:justify-items-start',
 						innerContentAlign === 'center' && 'es:justify-items-center',
 						innerContentAlign === 'end' && 'es:justify-items-end',

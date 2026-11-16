@@ -165,7 +165,7 @@ export const Repeater = <Item extends RepeaterItemData>(props: Prettify<Repeater
 	const renderList = useCallback(
 		({ children: listChildren, props: listProps }: RenderListParams) => (
 			<ul
-				className={clsx('es:w-full es:list-none es:m-0! es:flex es:flex-col es:gap-0.75', className)}
+				className={clsx('es:m-0! es:flex es:w-full es:list-none es:flex-col es:gap-0.75', className)}
 				{...listProps}
 			>
 				{listChildren}
@@ -185,7 +185,7 @@ export const Repeater = <Item extends RepeaterItemData>(props: Prettify<Repeater
 
 			return (
 				<li
-					className='es:group es:w-full es:list-none es:any-focus:outline-hidden es:m-0!'
+					className='es:group es:m-0! es:w-full es:list-none es:any-focus:outline-hidden'
 					key={key}
 					{...rest}
 				>

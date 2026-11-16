@@ -1,11 +1,4 @@
-import {
-	cloneElement,
-	isValidElement,
-	useState,
-	type ComponentProps,
-	type ReactElement,
-	type ReactNode,
-} from 'react';
+import { cloneElement, isValidElement, useState, type ComponentProps, type ReactElement, type ReactNode } from 'react';
 import {
 	Toggle,
 	AnimatedVisibility,
@@ -179,10 +172,7 @@ type DemoPrimitive = string | number | boolean;
 type DemoSelectValue = DemoOption | string | null;
 type DemoMultiSelectValue = DemoOption[] | string[] | '' | null;
 type DemoOptionSelectValue = string | number | boolean | null;
-type DemoOptionSelectOption = Omit<
-	ComponentProps<typeof OptionSelectBase>['options'][number],
-	'value' | 'icon' | 'endIcon'
-> & {
+type DemoOptionSelectOption = Omit<ComponentProps<typeof OptionSelectBase>['options'][number], 'value' | 'icon' | 'endIcon'> & {
 	value: DemoOptionSelectValue;
 	icon?: ReactNode;
 	endIcon?: ReactNode;
@@ -203,32 +193,12 @@ type AsyncSelectProps = ComponentProps<typeof AsyncSelect>;
 type AsyncMultiSelectProps = ComponentProps<typeof AsyncMultiSelect>;
 type DemoAsyncSelectOption = NonNullable<AsyncSelectProps['value']>;
 type DemoAsyncMultiSelectValue = AsyncMultiSelectProps['value'];
-type DemoRawAsyncItem = Parameters<
-	NonNullable<AsyncSelectProps['getLabel']>
->[0];
-type DemoAsyncFetchedData = Parameters<
-	NonNullable<AsyncSelectProps['getData']>
->[0];
-type DemoRawItemValue =
-	string | number | boolean | bigint | symbol | null | undefined | object;
-type DemoTabsType =
-	| 'underline'
-	| 'underlineSecondary'
-	| 'pill'
-	| 'pillCompact'
-	| 'bubble'
-	| 'chips';
+type DemoRawAsyncItem = Parameters<NonNullable<AsyncSelectProps['getLabel']>>[0];
+type DemoAsyncFetchedData = Parameters<NonNullable<AsyncSelectProps['getData']>>[0];
+type DemoRawItemValue = string | number | boolean | bigint | symbol | null | undefined | object;
+type DemoTabsType = 'underline' | 'underlineSecondary' | 'pill' | 'pillCompact' | 'bubble' | 'chips';
 type DemoButtonType = 'default' | 'glass' | 'glassDark';
-type DemoMatrixAlignValue =
-	| 'top left'
-	| 'top center'
-	| 'top right'
-	| 'center left'
-	| 'center center'
-	| 'center right'
-	| 'bottom left'
-	| 'bottom center'
-	| 'bottom right';
+type DemoMatrixAlignValue = 'top left' | 'top center' | 'top right' | 'center left' | 'center center' | 'center right' | 'bottom left' | 'bottom center' | 'bottom right';
 type DemoRepeaterItem = {
 	title: string;
 	subtitle?: string;
@@ -257,8 +227,7 @@ type DemoDraggableListRenderItem = DemoDraggableListItem & {
 };
 type FilePickerShellDemoProps = ComponentProps<typeof FilePickerShell>;
 
-const isStringValue = <T,>(value: T): value is T & string =>
-	Object.prototype.toString.call(value) === '[object String]';
+const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
 
 // SAFETY: This adapter binds Draggable's generic item contract to the demo item type.
 const TypedDraggable = Draggable as (props: {
@@ -349,10 +318,7 @@ const OptionSelect = ({
 	options,
 	itemProps,
 	...rest
-}: Omit<
-	ComponentProps<typeof OptionSelectBase>,
-	'value' | 'onChange' | 'options' | 'itemProps'
-> & {
+}: Omit<ComponentProps<typeof OptionSelectBase>, 'value' | 'onChange' | 'options' | 'itemProps'> & {
 	value?: DemoOptionSelectValue;
 	onChange?: (value: string) => void;
 	options?: DemoOptionSelectOption[];
@@ -363,23 +329,12 @@ const OptionSelect = ({
 		itemProps={itemProps || undefined}
 		value={value === null || value === undefined ? undefined : String(value)}
 		onChange={(nextValue) => onChange?.(String(nextValue))}
-		options={(options ?? []).map(
-			({ icon: optionIcon, endIcon: optionEndIcon, ...option }) => ({
-				...option,
-				icon:
-					isStringValue(optionIcon) || isValidElement(optionIcon)
-						? optionIcon
-						: undefined,
-				endIcon:
-					isStringValue(optionEndIcon) || isValidElement(optionEndIcon)
-						? optionEndIcon
-						: undefined,
-				value:
-					option.value === null || option.value === undefined
-						? ''
-						: String(option.value),
-			}),
-		)}
+		options={(options ?? []).map(({ icon: optionIcon, endIcon: optionEndIcon, ...option }) => ({
+			...option,
+			icon: isStringValue(optionIcon) || isValidElement(optionIcon) ? optionIcon : undefined,
+			endIcon: isStringValue(optionEndIcon) || isValidElement(optionEndIcon) ? optionEndIcon : undefined,
+			value: option.value === null || option.value === undefined ? '' : String(option.value),
+		}))}
 	/>
 );
 
@@ -395,9 +350,7 @@ const slugify = (input: string | number) => {
 		.replace(/-+$/, '');
 };
 
-const iconEntries = Object.keys(iconLoaders).sort((iconNameA, iconNameB) =>
-	iconNameA.localeCompare(iconNameB),
-);
+const iconEntries = Object.keys(iconLoaders).sort((iconNameA, iconNameB) => iconNameA.localeCompare(iconNameB));
 
 const FilePickerShellDemo = ({ url, ...rest }: FilePickerShellDemoProps) => (
 	<FilePickerShell
@@ -417,10 +370,16 @@ const FilePickerShellDemo = ({ url, ...rest }: FilePickerShellDemoProps) => (
 
 			return (
 				<>
-					<Button className='es:grow' type={buttonType}>
+					<Button
+						className='es:grow'
+						type={buttonType}
+					>
 						Replace
 					</Button>
-					<Button className='es:grow' type={buttonType}>
+					<Button
+						className='es:grow'
+						type={buttonType}
+					>
 						Remove
 					</Button>
 
@@ -431,32 +390,18 @@ const FilePickerShellDemo = ({ url, ...rest }: FilePickerShellDemoProps) => (
 					>
 						<ul className='es:flex es:items-center es:justify-center es:gap-2 es:p-2'>
 							<li
-								className='es:flex es:px-2 es:py-0.5 es:items-center es:justify-center es:rounded-sm es:border es:border-dotted es:border-secondary-300'
+								className='es:flex es:items-center es:justify-center es:rounded-sm es:border es:border-dotted es:border-secondary-300 es:px-2 es:py-0.5'
 								style={{ backgroundColor: isDark ? '#000' : '#fff' }}
 							>
-								<span
-									className={clsx(
-										'es:text-xs es:font-mono es:font-medium',
-										isDark ? 'es:text-white' : 'es:text-black',
-									)}
-								>
-									{isDark ? 'dark' : 'light'}
-								</span>
+								<span className={clsx('es:font-mono es:text-xs es:font-medium', isDark ? 'es:text-white' : 'es:text-black')}>{isDark ? 'dark' : 'light'}</span>
 							</li>
 							{dominantColors?.map(({ color, isDark }, index) => (
 								<li
 									key={index}
-									className='es:flex es:px-1 es:py-0.5 es:items-center es:justify-center es:rounded-sm es:border es:border-dotted es:border-secondary-300'
+									className='es:flex es:items-center es:justify-center es:rounded-sm es:border es:border-dotted es:border-secondary-300 es:px-1 es:py-0.5'
 									style={{ backgroundColor: color }}
 								>
-									<span
-										className={clsx(
-											'es:text-xs es:font-mono es:font-medium',
-											isDark ? 'es:text-white' : 'es:text-black',
-										)}
-									>
-										{color}
-									</span>
+									<span className={clsx('es:font-mono es:text-xs es:font-medium', isDark ? 'es:text-white' : 'es:text-black')}>{color}</span>
 								</li>
 							))}
 						</ul>
@@ -476,10 +421,8 @@ function App() {
 	const [toggled4, setToggled4] = useState(false);
 	const [toggled5, setToggled5] = useState(false);
 	const [linkTxt, setLinkTxt] = useState<string | undefined>(undefined);
-	const [matrixVal, setMatrixVal] =
-		useState<DemoMatrixAlignValue>('center center');
-	const [matrixVal2, setMatrixVal2] =
-		useState<DemoMatrixAlignValue>('top left');
+	const [matrixVal, setMatrixVal] = useState<DemoMatrixAlignValue>('center center');
+	const [matrixVal2, setMatrixVal2] = useState<DemoMatrixAlignValue>('top left');
 	const [menuThingy, setMenuThingy] = useState(false);
 	const [menuThingy2, setMenuThingy2] = useState(false);
 	const [num, setNum] = useState(0);
@@ -561,17 +504,13 @@ function App() {
 		},
 	];
 
-	const getLinkData = async (
-		searchTerm = '',
-	): Promise<DemoLinkSuggestionItem[]> => {
+	const getLinkData = async (searchTerm = ''): Promise<DemoLinkSuggestionItem[]> => {
 		if (!searchTerm) {
 			return linkData;
 		}
 
 		const filtered = linkData.filter(
-			({ label, value }) =>
-				label.toLowerCase().includes(searchTerm.toLowerCase().trim()) ||
-				value.toLowerCase().includes(searchTerm.toLowerCase().trim()),
+			({ label, value }) => label.toLowerCase().includes(searchTerm.toLowerCase().trim()) || value.toLowerCase().includes(searchTerm.toLowerCase().trim()),
 		);
 
 		await new Promise<void>((resolve) => setTimeout(resolve, 500));
@@ -629,8 +568,7 @@ function App() {
 	];
 
 	const getAsyncGroupedData = (searchText?: string): Promise<DemoOption[]> => {
-		const filterData = ({ label }: DemoOption) =>
-			label.toLowerCase().includes(searchText?.toLowerCase() ?? '');
+		const filterData = ({ label }: DemoOption) => label.toLowerCase().includes(searchText?.toLowerCase() ?? '');
 
 		return new Promise<DemoOption[]>((resolve) => {
 			setTimeout(() => {
@@ -645,20 +583,15 @@ function App() {
 		});
 	};
 
-	const getRawItemValue = (
-		item: DemoRawAsyncItem,
-		key: string,
-	): DemoRawItemValue => {
+	const getRawItemValue = (item: DemoRawAsyncItem, key: string): DemoRawItemValue => {
 		// SAFETY: DemoRawItemValue covers every JavaScript property value exposed by the fetched demo payloads.
 		const entries = Object.entries(item) as Array<[string, DemoRawItemValue]>;
 
 		return entries.find(([entryKey]) => entryKey === key)?.[1];
 	};
 
-	const isStringValue = <T,>(value: T): value is T & string =>
-		Object.prototype.toString.call(value) === '[object String]';
-	const isNumberValue = <T,>(value: T): value is T & number =>
-		Object.prototype.toString.call(value) === '[object Number]';
+	const isStringValue = <T,>(value: T): value is T & string => Object.prototype.toString.call(value) === '[object String]';
+	const isNumberValue = <T,>(value: T): value is T & number => Object.prototype.toString.call(value) === '[object Number]';
 
 	const getItemString = (item: DemoRawAsyncItem, key: string) => {
 		const value = getRawItemValue(item, key);
@@ -692,16 +625,13 @@ function App() {
 			return item;
 		});
 
-	const getJokeItems = (data: DemoAsyncFetchedData): DemoRawAsyncItem[] =>
-		Array.isArray(data) ? data : (data.jokes ?? []);
+	const getJokeItems = (data: DemoAsyncFetchedData): DemoRawAsyncItem[] => (Array.isArray(data) ? data : (data.jokes ?? []));
 
 	const [v, setV] = useState<DemoSelectValue>(null);
 
 	const [tabVar, setTabVar] = useState<DemoTabsType>('underline');
 
-	const [draggableLayout, setDraggableLayout] = useState<
-		'grid' | 'horizontal' | 'vertical'
-	>('grid');
+	const [draggableLayout, setDraggableLayout] = useState<'grid' | 'horizontal' | 'vertical'>('grid');
 
 	const [cpOpen, setCpOpen] = useState(false);
 
@@ -774,29 +704,18 @@ function App() {
 
 	const [repeaterItems, setRepeaterItems] = useState(repeaterDefaultItems);
 	const [repeaterItems2, setRepeaterItems2] = useState(repeaterDefaultItems2);
-	const [draggableListItems, setDraggableListItems] = useState<
-		DemoDraggableListItem[]
-	>(draggableListDefaultItems);
-	const [draggableListItems2, setDraggableListItems2] = useState<
-		DemoDraggableListItem[]
-	>(draggableListDefaultItems);
-	const [draggableItems, setDraggableItems] = useState<DemoDraggableItem[]>(
-		draggableDefaultItems,
-	);
+	const [draggableListItems, setDraggableListItems] = useState<DemoDraggableListItem[]>(draggableListDefaultItems);
+	const [draggableListItems2, setDraggableListItems2] = useState<DemoDraggableListItem[]>(draggableListDefaultItems);
+	const [draggableItems, setDraggableItems] = useState<DemoDraggableItem[]>(draggableDefaultItems);
 
 	const [sliderValue, setSliderValue] = useState(0);
 	const [sliderValue2, setSliderValue2] = useState(0);
-	const [rangeSliderValue, setRangeSliderValue] = useState<DemoRangeValue>([
-		33, 66,
-	]);
-	const [rangeSliderValue2, setRangeSliderValue2] =
-		useState<DemoRangeValueTriple>([33, 55, 66]);
+	const [rangeSliderValue, setRangeSliderValue] = useState<DemoRangeValue>([33, 66]);
+	const [rangeSliderValue2, setRangeSliderValue2] = useState<DemoRangeValueTriple>([33, 55, 66]);
 
 	const [currColor, setCurrColor] = useState<string | undefined>('#0D3636');
 	const [currColor2, setCurrColor2] = useState<string | undefined>('#0D3636');
-	const [currColor3, setCurrColor3] = useState<string | undefined>(
-		'hsla(180, 61.19%, 13.14%, 1)',
-	);
+	const [currColor3, setCurrColor3] = useState<string | undefined>('hsla(180, 61.19%, 13.14%, 1)');
 	const [grad, setGrad] = useState('linear-gradient(30deg, #000, #00000000)');
 
 	const defaultColors = [
@@ -929,29 +848,26 @@ function App() {
 		{ label: 'Ipsum', value: true },
 	];
 
-	const [responsiveState, setResponsiveState] =
-		useState<DemoResponsiveLegacyValue>({
-			myAttrLarge: false,
-			myAttrDesktop: undefined,
-			myAttrTablet: undefined,
-			myAttrMobile: true,
-		});
+	const [responsiveState, setResponsiveState] = useState<DemoResponsiveLegacyValue>({
+		myAttrLarge: false,
+		myAttrDesktop: undefined,
+		myAttrTablet: undefined,
+		myAttrMobile: true,
+	});
 
-	const [responsiveState2, setResponsiveState2] =
-		useState<DemoResponsiveLegacyValue>({
-			myAttrLarge: false,
-			myAttrDesktop: undefined,
-			myAttrTablet: undefined,
-			myAttrMobile: true,
-		});
+	const [responsiveState2, setResponsiveState2] = useState<DemoResponsiveLegacyValue>({
+		myAttrLarge: false,
+		myAttrDesktop: undefined,
+		myAttrTablet: undefined,
+		myAttrMobile: true,
+	});
 
-	const [responsiveState3, setResponsiveState3] =
-		useState<DemoResponsiveLegacyValue>({
-			myAttrLarge: false,
-			myAttrDesktop: '',
-			myAttrTablet: '',
-			myAttrMobile: true,
-		});
+	const [responsiveState3, setResponsiveState3] = useState<DemoResponsiveLegacyValue>({
+		myAttrLarge: false,
+		myAttrDesktop: '',
+		myAttrTablet: '',
+		myAttrMobile: true,
+	});
 
 	const responsiveAttr = {
 		large: 'myAttrLarge',
@@ -1040,14 +956,7 @@ function App() {
 	};
 	const handleSelectValueChange = (value: DemoSelectValue) => setV(value);
 	const handleTabVarChange = (value: DemoOptionSelectValue) => {
-		if (
-			value === 'underline' ||
-			value === 'underlineSecondary' ||
-			value === 'pill' ||
-			value === 'pillCompact' ||
-			value === 'bubble' ||
-			value === 'chips'
-		) {
+		if (value === 'underline' || value === 'underlineSecondary' || value === 'pill' || value === 'pillCompact' || value === 'bubble' || value === 'chips') {
 			setTabVar(value);
 		}
 	};
@@ -1056,12 +965,9 @@ function App() {
 			setDraggableLayout(value);
 		}
 	};
-	const handleDraggableItemsChange = (items: DemoDraggableItem[]) =>
-		setDraggableItems(items);
-	const handleDraggableListItemsChange = (items: DemoDraggableListItem[]) =>
-		setDraggableListItems(items);
-	const handleDraggableListItems2Change = (items: DemoDraggableListItem[]) =>
-		setDraggableListItems2(items);
+	const handleDraggableItemsChange = (items: DemoDraggableItem[]) => setDraggableItems(items);
+	const handleDraggableListItemsChange = (items: DemoDraggableListItem[]) => setDraggableListItems(items);
+	const handleDraggableListItems2Change = (items: DemoDraggableListItem[]) => setDraggableListItems2(items);
 
 	return (
 		<div className='es:flex es:flex-col es:items-center es:justify-center es:overscroll-none es:p-10'>
@@ -1074,9 +980,7 @@ function App() {
 					label='Control theme'
 					value={controlTheme}
 					onChange={(value) => {
-						document.documentElement.classList.remove(
-							`es-uic-theme-${controlTheme}`,
-						);
+						document.documentElement.classList.remove(`es-uic-theme-${controlTheme}`);
 
 						setControlTheme(value);
 						document.documentElement.classList.add(`es-uic-theme-${value}`);
@@ -1112,64 +1016,154 @@ function App() {
 					url.searchParams.set('tab', String(key));
 					window.history.replaceState({}, '', url);
 				}}
-				defaultSelectedKey={
-					new URLSearchParams(window.location.search).get('tab') ?? undefined
-				}
+				defaultSelectedKey={new URLSearchParams(window.location.search).get('tab') ?? undefined}
 			>
 				<TabList className='es:sticky es:top-16'>
-					<Tab icon={toggleOnAlt} label='Toggle / Switch' id='toggle' />
-					<Tab icon={verticalSpacing} label='Spacer' id='spacer' />
+					<Tab
+						icon={toggleOnAlt}
+						label='Toggle / Switch'
+						id='toggle'
+					/>
+					<Tab
+						icon={verticalSpacing}
+						label='Spacer'
+						id='spacer'
+					/>
 					<Tab
 						icon={animationGeneric}
 						label='Animated visibility'
 						id='anim-vis'
 					/>
-					<Tab icon={dropdownClose} label='Expandable' id='expandable' />
-					<Tab icon={link} label='LinkInput' id='link-input' />
-					<Tab icon={info} label='Notice' id='notice' />
+					<Tab
+						icon={dropdownClose}
+						label='Expandable'
+						id='expandable'
+					/>
+					<Tab
+						icon={link}
+						label='LinkInput'
+						id='link-input'
+					/>
+					<Tab
+						icon={info}
+						label='Notice'
+						id='notice'
+					/>
 					<Tab
 						icon={chatBubble}
 						label='Triggered popover'
 						id='triggered-popover'
 					/>
-					<Tab icon={buttonOutline} label='Button' id='button' />
+					<Tab
+						icon={buttonOutline}
+						label='Button'
+						id='button'
+					/>
 					<Tab
 						icon={position3x3CenterCenter}
 						label='Matrix align'
 						id='matrix-align'
 					/>
-					<Tab icon={hamburgerMenu} label='Menu' id='menu' />
-					<Tab icon={hoverBackgroundGlow} label='Tooltip' id='tooltip' />
-					<Tab icon={num2CircleAlt} label='Number picker' id='num-pick' />
-					<Tab icon={responsive} label='Responsive 2.0' id='responsive-2' />
-					<Tab icon={fieldLabel} label='Base control' id='base-ctrl' />
-					<Tab icon={dropdown} label='Select' id='select' />
-					<Tab icon={multiple} label='MultiSelect' id='multi-select' />
-					<Tab icon={loopMode} label='AsyncSelect' id='async-select' />
+					<Tab
+						icon={hamburgerMenu}
+						label='Menu'
+						id='menu'
+					/>
+					<Tab
+						icon={hoverBackgroundGlow}
+						label='Tooltip'
+						id='tooltip'
+					/>
+					<Tab
+						icon={num2CircleAlt}
+						label='Number picker'
+						id='num-pick'
+					/>
+					<Tab
+						icon={responsive}
+						label='Responsive 2.0'
+						id='responsive-2'
+					/>
+					<Tab
+						icon={fieldLabel}
+						label='Base control'
+						id='base-ctrl'
+					/>
+					<Tab
+						icon={dropdown}
+						label='Select'
+						id='select'
+					/>
+					<Tab
+						icon={multiple}
+						label='MultiSelect'
+						id='multi-select'
+					/>
+					<Tab
+						icon={loopMode}
+						label='AsyncSelect'
+						id='async-select'
+					/>
 					<Tab
 						icon={loopMode}
 						label='AsyncMultiSelect'
 						id='async-multi-select'
 					/>
-					<Tab icon={newTab} label='Tabs' id='tabs' />
-					<Tab icon={inputField} label='Input field' id='input' />
+					<Tab
+						icon={newTab}
+						label='Tabs'
+						id='tabs'
+					/>
+					<Tab
+						icon={inputField}
+						label='Input field'
+						id='input'
+					/>
 					<Tab
 						icon={componentOptions}
 						label='Component toggle'
 						id='comp-toggle'
 					/>
-					<Tab icon={gridAutoRows} label='Repeater' id='repeater' />
-					<Tab icon={checkSquare} label='Checkbox' id='checbox' />
-					<Tab icon={listUnordered} label='Radio button' id='radio' />
-					<Tab icon={slider} label='Slider' id='slider' />
+					<Tab
+						icon={gridAutoRows}
+						label='Repeater'
+						id='repeater'
+					/>
+					<Tab
+						icon={checkSquare}
+						label='Checkbox'
+						id='checbox'
+					/>
+					<Tab
+						icon={listUnordered}
+						label='Radio button'
+						id='radio'
+					/>
+					<Tab
+						icon={slider}
+						label='Slider'
+						id='slider'
+					/>
 					<Tab
 						icon={solidCircleFilled}
 						label='Solid color picker'
 						id='solid-color-pick'
 					/>
-					<Tab icon={gradient} label='Gradient editor' id='gradient-editor' />
-					<Tab icon={color} label='Color swatch' id='color-swatch' />
-					<Tab icon={eyedropper} label='Color picker' id='color-picker' />
+					<Tab
+						icon={gradient}
+						label='Gradient editor'
+						id='gradient-editor'
+					/>
+					<Tab
+						icon={color}
+						label='Color swatch'
+						id='color-swatch'
+					/>
+					<Tab
+						icon={eyedropper}
+						label='Color picker'
+						id='color-picker'
+					/>
 					<Tab
 						icon={responsiveOverridesAlt}
 						label='Responsive (legacy)'
@@ -1180,24 +1174,68 @@ function App() {
 						label='Column config slider'
 						id='col-config-slider'
 					/>
-					<Tab icon={group} label='Container panel' id='cont-panel' />
-					<Tab icon={layoutAlt} label='Layout components' id='stacks' />
-					<Tab icon={emptyCircle} label='Placeholders' id='placeholder' />
-					<Tab icon={cursorMove} label='Draggable' id='draggable' />
-					<Tab icon={cursorMove} label='Draggable list' id='draggable-list' />
-					<Tab icon={options} label='Options panel' id='opt-panel' />
+					<Tab
+						icon={group}
+						label='Container panel'
+						id='cont-panel'
+					/>
+					<Tab
+						icon={layoutAlt}
+						label='Layout components'
+						id='stacks'
+					/>
+					<Tab
+						icon={emptyCircle}
+						label='Placeholders'
+						id='placeholder'
+					/>
+					<Tab
+						icon={cursorMove}
+						label='Draggable'
+						id='draggable'
+					/>
+					<Tab
+						icon={cursorMove}
+						label='Draggable list'
+						id='draggable-list'
+					/>
+					<Tab
+						icon={options}
+						label='Options panel'
+						id='opt-panel'
+					/>
 					<Tab
 						icon={previewResponsive}
 						label='Responsive preview'
 						id='resp-preview'
 					/>
-					<Tab icon={browser} label='Modal' id='modal' />
-					<Tab icon={multiple} label='Item collection' id='item-collection' />
-					<Tab icon={file} label='File picker shell' id='file-picker-shell' />
-					<Tab icon={imageLazyLoad} label='Smart image' id='smart-img' />
-					<Tab icon={iconGeneric} label='Icons' id='icons' />
+					<Tab
+						icon={browser}
+						label='Modal'
+						id='modal'
+					/>
+					<Tab
+						icon={multiple}
+						label='Item collection'
+						id='item-collection'
+					/>
+					<Tab
+						icon={file}
+						label='File picker shell'
+						id='file-picker-shell'
+					/>
+					<Tab
+						icon={imageLazyLoad}
+						label='Smart image'
+						id='smart-img'
+					/>
+					<Tab
+						icon={iconGeneric}
+						label='Icons'
+						id='icons'
+					/>
 				</TabList>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<Toggle
 						checked={toggled}
 						onChange={(value) => setToggled(value)}
@@ -1229,7 +1267,10 @@ function App() {
 						disabled
 					/>
 
-					<Switch checked={toggled} onChange={(value) => setToggled(value)} />
+					<Switch
+						checked={toggled}
+						onChange={(value) => setToggled(value)}
+					/>
 
 					<Switch
 						checked={toggled}
@@ -1285,21 +1326,35 @@ function App() {
 						</Container>
 					</ContainerGroup>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					<Spacer size='s' className='es:bg-violet-50' border />
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
+					<Spacer
+						size='s'
+						className='es:bg-violet-50'
+						border
+					/>
 
 					<Spacer border />
 
 					<Spacer icon={componentGeneric} />
-					<Spacer icon={componentGeneric} label='My divider' />
+					<Spacer
+						icon={componentGeneric}
+						label='My divider'
+					/>
 					<Spacer
 						icon={componentGeneric}
 						label='My divider'
 						subtitle='Lorem ipsum'
 					/>
 
-					<Spacer icon={componentGeneric} border />
-					<Spacer icon={componentGeneric} label='My divider' border />
+					<Spacer
+						icon={componentGeneric}
+						border
+					/>
+					<Spacer
+						icon={componentGeneric}
+						label='My divider'
+						border
+					/>
 					<Spacer
 						icon={componentGeneric}
 						label='My divider'
@@ -1307,9 +1362,12 @@ function App() {
 						border
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<HStack>
-						<ToggleButton selected={animVis} onChange={setAnimVis}>
+						<ToggleButton
+							selected={animVis}
+							onChange={setAnimVis}
+						>
 							Show
 						</ToggleButton>
 
@@ -1321,7 +1379,11 @@ function App() {
 							Show
 						</ToggleButton>
 
-						<ToggleButton selected={animVis} onChange={setAnimVis} type='ghost'>
+						<ToggleButton
+							selected={animVis}
+							onChange={setAnimVis}
+							type='ghost'
+						>
 							Show
 						</ToggleButton>
 
@@ -1340,14 +1402,13 @@ function App() {
 							noInitial
 							transition='slideFade'
 						>
-							<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>
-								Hi, I&apos;m content.
-							</div>
+							<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>Hi, I&apos;m content.</div>
 						</AnimatedVisibility>
-						<AnimatedVisibility visible={animVis} transition='slideFade'>
-							<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>
-								Hi, I&apos;m content.
-							</div>
+						<AnimatedVisibility
+							visible={animVis}
+							transition='slideFade'
+						>
+							<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>Hi, I&apos;m content.</div>
 						</AnimatedVisibility>
 					</div>
 
@@ -1355,7 +1416,7 @@ function App() {
 						Left has <code>noInitial</code> set.
 					</span>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<Expandable
 						standalone
 						icon={experiment}
@@ -1369,9 +1430,7 @@ function App() {
 							/>
 						}
 					>
-						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>
-							lorem
-						</div>
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>lorem</div>
 
 						<Button
 							onPress={() => console.log('hi')}
@@ -1415,9 +1474,7 @@ function App() {
 						}
 						flat
 					>
-						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>
-							lorem
-						</div>
+						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>lorem</div>
 					</Expandable>
 
 					<hr className='es:my-2' />
@@ -1435,9 +1492,7 @@ function App() {
 								/>
 							}
 						>
-							<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>
-								lorem
-							</div>
+							<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>lorem</div>
 							<Button
 								onPress={() => console.log('hi')}
 								icon={emptyRect}
@@ -1478,13 +1533,11 @@ function App() {
 							}
 							flat
 						>
-							<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>
-								lorem
-							</div>
+							<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-200 es:p-4'>lorem</div>
 						</Expandable>
 					</div>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<LinkInput
 						url={linkTxt}
 						help='Help, not sure how to input this'
@@ -1562,7 +1615,7 @@ function App() {
 
 					<pre>{JSON.stringify(linkTxt)}</pre>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<Notice
 						label='Lorem ipsum dolor'
 						subtitle='Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
@@ -1613,8 +1666,16 @@ function App() {
 						subtitle='will be shown here'
 						type='placeholder'
 					/>
-					<Notice icon={person} label='Post meta' type='placeholder' />
-					<Notice icon={person} subtitle='Post meta' type='placeholder' />
+					<Notice
+						icon={person}
+						label='Post meta'
+						type='placeholder'
+					/>
+					<Notice
+						icon={person}
+						subtitle='Post meta'
+						type='placeholder'
+					/>
 
 					<Notice
 						icon={person}
@@ -1624,10 +1685,8 @@ function App() {
 						alignIconToTitle
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					<TriggeredPopover className='es:bg-purple-50 es:p-5 es:rounded-2xl'>
-						Hello
-					</TriggeredPopover>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
+					<TriggeredPopover className='es:rounded-2xl es:bg-purple-50 es:p-5'>Hello</TriggeredPopover>
 
 					<PromptPopover
 						triggerButtonIcon={trash}
@@ -1673,7 +1732,7 @@ function App() {
 						onPrimary={(close) => close()}
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<Button>Hello</Button>
 
 					<ButtonGroup>
@@ -1726,7 +1785,10 @@ function App() {
 						label='Disabled?'
 					/>
 
-					<Button pending={buttonPending} disabled={buttonDisabled}>
+					<Button
+						pending={buttonPending}
+						disabled={buttonDisabled}
+					>
 						Pending button
 					</Button>
 
@@ -1817,10 +1879,9 @@ function App() {
 
 					<div
 						style={{
-							backgroundImage:
-								'url(https://fastly.picsum.photos/id/328/600/800.jpg?hmac=BZ-xPwUADtXzjRoS5pt6s9NZob3vvu89cOu6DYICMQE',
+							backgroundImage: 'url(https://fastly.picsum.photos/id/328/600/800.jpg?hmac=BZ-xPwUADtXzjRoS5pt6s9NZob3vvu89cOu6DYICMQE',
 						}}
-						className='es:bg-cover es:p-8 es:space-y-5 es:bg-bottom-right'
+						className='es:space-y-5 es:bg-cover es:bg-bottom-right es:p-8'
 					>
 						<Button
 							type='glass'
@@ -1886,9 +1947,15 @@ function App() {
 					<hr className='es:my-2' />
 
 					<div className='es:flex es:items-center es:gap-2'>
-						<Button size='small' icon={componentGeneric} />
+						<Button
+							size='small'
+							icon={componentGeneric}
+						/>
 						<Button size='small'>Hello</Button>
-						<Button size='small' icon={componentGeneric}>
+						<Button
+							size='small'
+							icon={componentGeneric}
+						>
 							Hello
 						</Button>
 					</div>
@@ -1899,39 +1966,72 @@ function App() {
 						<Button icon={componentGeneric}>Hello</Button>
 					</div>
 
-					<Button icon={componentGeneric} type='danger'>
+					<Button
+						icon={componentGeneric}
+						type='danger'
+					>
 						Hello
 					</Button>
-					<Button icon={componentGeneric} type='danger'>
-						Hello
-					</Button>
-
-					<Button icon={componentGeneric} type='dangerGhost'>
-						Hello
-					</Button>
-
-					<Button icon={componentGeneric} type='danger' disabled>
-						Hello
-					</Button>
-					<Button icon={componentGeneric} type='ghost'>
-						Hello
-					</Button>
-					<Button icon={componentGeneric} type='ghost' disabled>
+					<Button
+						icon={componentGeneric}
+						type='danger'
+					>
 						Hello
 					</Button>
 
-					<Button icon={componentGeneric} type='selectedGhost'>
+					<Button
+						icon={componentGeneric}
+						type='dangerGhost'
+					>
 						Hello
 					</Button>
 
-					<Button icon={componentGeneric} type='selectedGhost' disabled>
+					<Button
+						icon={componentGeneric}
+						type='danger'
+						disabled
+					>
+						Hello
+					</Button>
+					<Button
+						icon={componentGeneric}
+						type='ghost'
+					>
+						Hello
+					</Button>
+					<Button
+						icon={componentGeneric}
+						type='ghost'
+						disabled
+					>
+						Hello
+					</Button>
+
+					<Button
+						icon={componentGeneric}
+						type='selectedGhost'
+					>
+						Hello
+					</Button>
+
+					<Button
+						icon={componentGeneric}
+						type='selectedGhost'
+						disabled
+					>
 						Hello
 					</Button>
 
 					<div className='es:flex es:items-center es:gap-2'>
-						<Button size='large' icon={componentGeneric} />
+						<Button
+							size='large'
+							icon={componentGeneric}
+						/>
 						<Button size='large'>Hello</Button>
-						<Button size='large' icon={componentGeneric}>
+						<Button
+							size='large'
+							icon={componentGeneric}
+						>
 							Hello
 						</Button>
 					</div>
@@ -2066,8 +2166,11 @@ function App() {
 						vertical
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					<MatrixAlign value={matrixVal} onChange={handleMatrixValChange} />
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
+					<MatrixAlign
+						value={matrixVal}
+						onChange={handleMatrixValChange}
+					/>
 
 					<MatrixAlign
 						value={matrixVal2}
@@ -2077,13 +2180,24 @@ function App() {
 						label='Position'
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					<Menu aria-label='Bok i tebi' keepOpen>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
+					<Menu
+						aria-label='Bok i tebi'
+						keepOpen
+					>
 						<MenuSection label='Demo'>
-							<MenuItem danger icon={trash} id='del'>
+							<MenuItem
+								danger
+								icon={trash}
+								id='del'
+							>
 								Delete
 							</MenuItem>
-							<MenuItem primary icon={save} id='save'>
+							<MenuItem
+								primary
+								icon={save}
+								id='save'
+							>
 								Save
 							</MenuItem>
 							<MenuItem
@@ -2116,10 +2230,17 @@ function App() {
 					</Menu>
 
 					<Menu aria-label='Hello'>
-						<MenuItem id='new' shortcut='Ctrl + O'>
+						<MenuItem
+							id='new'
+							shortcut='Ctrl + O'
+						>
 							New…
 						</MenuItem>
-						<MenuItem shortcut='Ctrl + N' endIcon={emptyRect} id='open'>
+						<MenuItem
+							shortcut='Ctrl + N'
+							endIcon={emptyRect}
+							id='open'
+						>
 							Open…
 						</MenuItem>
 						<MenuSeparator />
@@ -2131,7 +2252,10 @@ function App() {
 							<MenuItem id='print'>Print…</MenuItem>
 							<MenuItem id='print2'>Print2…</MenuItem>
 							<SubMenuItem trigger={<MenuItem>Sub</MenuItem>}>
-								<MenuItem disabled id='print3'>
+								<MenuItem
+									disabled
+									id='print3'
+								>
 									Print3…
 								</MenuItem>
 								<MenuItem id='print4'>Print4…</MenuItem>
@@ -2151,7 +2275,10 @@ function App() {
 						tooltip='Size'
 					/>
 
-					<Menu triggerLabel='Menu with submenu' keepOpen>
+					<Menu
+						triggerLabel='Menu with submenu'
+						keepOpen
+					>
 						<OptionSelect
 							type='standaloneMenuItems'
 							value={loremIpsum}
@@ -2305,25 +2432,44 @@ function App() {
 						label='Not set demo'
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:flex es:flex-col es:items-center es:space-y-4 es:p-5!'>
+				<TabPanel className='es:flex es:h-fit es:max-h-[85vh] es:w-96 es:flex-col es:items-center es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<DecorativeTooltip text='Hello'>Hover me</DecorativeTooltip>
-					<DecorativeTooltip text='Hello' theme='light'>
+					<DecorativeTooltip
+						text='Hello'
+						theme='light'
+					>
 						Hover me
 					</DecorativeTooltip>
 
-					<DecorativeTooltip text='Hello' theme='light' placement='left'>
+					<DecorativeTooltip
+						text='Hello'
+						theme='light'
+						placement='left'
+					>
 						Left
 					</DecorativeTooltip>
 
-					<DecorativeTooltip text='Hello' theme='light' placement='right'>
+					<DecorativeTooltip
+						text='Hello'
+						theme='light'
+						placement='right'
+					>
 						Right
 					</DecorativeTooltip>
 
-					<DecorativeTooltip text='Hello' theme='light' placement='top'>
+					<DecorativeTooltip
+						text='Hello'
+						theme='light'
+						placement='top'
+					>
 						Top
 					</DecorativeTooltip>
 
-					<DecorativeTooltip text='Hello' theme='light' placement='bottom'>
+					<DecorativeTooltip
+						text='Hello'
+						theme='light'
+						placement='bottom'
+					>
 						Bottom
 					</DecorativeTooltip>
 
@@ -2331,7 +2477,7 @@ function App() {
 						<Button>Hover me</Button>
 					</Tooltip>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<NumberPicker
 						label='Pick a number'
 						value={num}
@@ -2498,7 +2644,7 @@ function App() {
 						/>
 					</NumberPicker>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<Responsive
 						icon={emptyRect}
 						label='Font family'
@@ -2527,12 +2673,7 @@ function App() {
 						breakpointData={globalManifest.globalVariables.breakpoints}
 						inline
 					>
-						{({
-							currentValue,
-							handleChange,
-							options,
-							isInlineCollapsedView,
-						}) => (
+						{({ currentValue, handleChange, options, isInlineCollapsedView }) => (
 							<OptionSelect
 								options={options ?? []}
 								onChange={(value) => handleChange(value)}
@@ -2542,9 +2683,7 @@ function App() {
 						)}
 					</Responsive>
 
-					<pre className='es:w-full es:text-xs'>
-						{JSON.stringify(resp, null, 2)}
-					</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(resp, null, 2)}</pre>
 
 					<Spacer border />
 
@@ -2557,25 +2696,21 @@ function App() {
 						breakpoints={['mobile', 'tablet', 'desktop', 'large']}
 						breakpointData={globalManifest.globalVariables.breakpoints}
 					>
-						{({
-							currentValue,
-							handleChange,
-							options,
-							isInlineCollapsedView,
-						}) => (
+						{({ currentValue, handleChange, options, isInlineCollapsedView }) => (
 							<OptionSelect
 								options={options ?? []}
 								onChange={(value) => handleChange(value)}
 								value={currentValue}
 								type={isInlineCollapsedView ? 'menu' : 'toggleButtons'}
-								itemProps={
-									isInlineCollapsedView ? undefined : { type: 'simple' }
-								}
+								itemProps={isInlineCollapsedView ? undefined : { type: 'simple' }}
 							/>
 						)}
 					</MiniResponsive>
 
-					<Spacer className='es:opacity-25' border />
+					<Spacer
+						className='es:opacity-25'
+						border
+					/>
 
 					<MiniResponsive
 						value={resp}
@@ -2584,29 +2719,20 @@ function App() {
 						breakpoints={['mobile', 'tablet', 'desktop', 'large']}
 						breakpointData={globalManifest.globalVariables.breakpoints}
 					>
-						{({
-							currentValue,
-							handleChange,
-							options,
-							isInlineCollapsedView,
-						}) => (
+						{({ currentValue, handleChange, options, isInlineCollapsedView }) => (
 							<OptionSelect
 								options={options ?? []}
 								onChange={(value) => handleChange(value)}
 								value={currentValue}
 								type={isInlineCollapsedView ? 'menu' : 'toggleButtons'}
 								aria-label='Font family'
-								itemProps={
-									isInlineCollapsedView ? undefined : { type: 'simple' }
-								}
+								itemProps={isInlineCollapsedView ? undefined : { type: 'simple' }}
 								tooltip
 							/>
 						)}
 					</MiniResponsive>
 
-					<pre className='es:w-full es:text-xs'>
-						{JSON.stringify(resp, null, 2)}
-					</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(resp, null, 2)}</pre>
 
 					<Spacer border />
 
@@ -2634,11 +2760,9 @@ function App() {
 						)}
 					</Responsive>
 
-					<pre className='es:w-full es:text-xs'>
-						{JSON.stringify(resp2, null, 2)}
-					</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(resp2, null, 2)}</pre>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<BaseControl>
 						<Button>Hi</Button>
 					</BaseControl>
@@ -2647,7 +2771,10 @@ function App() {
 						<Button>Hi</Button>
 					</BaseControl>
 
-					<BaseControl icon={emptyCircle} label='Moja lijepa komponenta'>
+					<BaseControl
+						icon={emptyCircle}
+						label='Moja lijepa komponenta'
+					>
 						<Button>Hi</Button>
 					</BaseControl>
 
@@ -2713,10 +2840,10 @@ function App() {
 						}
 						inline
 					>
-						<div className='es:bg-gray-50 es:size-10' />
+						<div className='es:size-10 es:bg-gray-50' />
 					</BaseControl>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<TypedSelect
 						label='Single basic'
 						value={sinSel}
@@ -2784,11 +2911,7 @@ function App() {
 						onChange={setSinSelSimple}
 						options={data}
 						simpleValue
-						customValueDisplay={(item) => (
-							<span className='es:font-bold es:text-blue-400'>
-								{item?.label}
-							</span>
-						)}
+						customValueDisplay={(item) => <span className='es:font-bold es:text-blue-400'>{item?.label}</span>}
 					/>
 					<TypedSelect
 						label='Custom menu option'
@@ -2796,14 +2919,10 @@ function App() {
 						onChange={setSinSelSimple}
 						options={data}
 						simpleValue
-						customMenuOption={(item) => (
-							<span className='es:font-bold es:text-blue-400'>
-								{item?.label}
-							</span>
-						)}
+						customMenuOption={(item) => <span className='es:font-bold es:text-blue-400'>{item?.label}</span>}
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<TypedMultiSelect
 						label='Multi basic'
 						value={mulSel}
@@ -2846,7 +2965,7 @@ function App() {
 						clearable
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<AsyncSelect
 						label='Async single'
 						value={sinASel2}
@@ -2856,9 +2975,7 @@ function App() {
 								? `https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5&contains=${searchText?.substring(0, 30) ?? ''}`
 								: 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw&amount=5'
 						}
-						getLabel={(item) =>
-							getItemString(item, 'joke') ?? getItemString(item, 'setup')
-						}
+						getLabel={(item) => getItemString(item, 'joke') ?? getItemString(item, 'setup')}
 						getValue={(item) => getItemStringValue(item, 'id')}
 						getSubtitle={(item) => getItemString(item, 'delivery')}
 						getIcon={() => <span className='es:shrink-0 es:text-lg'>😂</span>}
@@ -2905,15 +3022,11 @@ function App() {
 						}
 						getLabel={(item) => getItemString(item, 'name')}
 						getValue={(item) => getItemStringValue(item, 'value')}
-						getGroup={(item) =>
-							getItemString(item, 'country') === 'Croatia'
-								? 'From Croatia'
-								: 'International'
-						}
+						getGroup={(item) => (getItemString(item, 'country') === 'Croatia' ? 'From Croatia' : 'International')}
 						clearable
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<AsyncMultiSelect
 						label='Async multi (universities)'
 						value={mulASel}
@@ -2945,7 +3058,7 @@ function App() {
 						clearable
 					/>
 				</TabPanel>
-				<TabPanel className='es:w-4xl es:max-h-[85vh] es:h-fit es:overflow-y-auto es:max-w-[90vw] es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-4xl es:max-w-[90vw] es:space-y-4 es:overflow-y-auto es:p-5!'>
 					<ContainerGroup>
 						<Container>
 							<Tabs>
@@ -2982,16 +3095,15 @@ function App() {
 						<TabList>
 							<Tab>Founding of Rome</Tab>
 							<Tab badge='2'>Monarchy and Republic</Tab>
-							<Tab icon={componentGeneric} badge='2'>
+							<Tab
+								icon={componentGeneric}
+								badge='2'
+							>
 								Monarchy and Republic
 							</Tab>
 							<Tab
 								icon={emptyCircle}
-								badge={
-									<DecorativeTooltip text='Lorem ipsum'>
-										{cloneElement(arrowDown, { className: 'es:stroke-[2.25]' })}
-									</DecorativeTooltip>
-								}
+								badge={<DecorativeTooltip text='Lorem ipsum'>{cloneElement(arrowDown, { className: 'es:stroke-[2.25]' })}</DecorativeTooltip>}
 							>
 								Monarchy and Republic
 							</Tab>
@@ -3044,30 +3156,23 @@ function App() {
 						<TabList>
 							<Tab>Founding of Rome</Tab>
 							<Tab badge='2'>Monarchy and Republic</Tab>
-							<Tab icon={componentGeneric} badge='2'>
+							<Tab
+								icon={componentGeneric}
+								badge='2'
+							>
 								Monarchy and Republic
 							</Tab>
 							<Tab
 								icon={emptyCircle}
-								badge={
-									<DecorativeTooltip text='Lorem ipsum'>
-										{cloneElement(arrowDown, { className: 'es:stroke-[2.25]' })}
-									</DecorativeTooltip>
-								}
+								badge={<DecorativeTooltip text='Lorem ipsum'>{cloneElement(arrowDown, { className: 'es:stroke-[2.25]' })}</DecorativeTooltip>}
 							>
 								Monarchy and Republic
 							</Tab>
 							<Tab disabled>Empire of Something Else</Tab>
 						</TabList>
-						<TabPanel style={{ height: '50vh' }}>
-							Arma virumque cano, Troiae qui primus ab oris.
-						</TabPanel>
-						<TabPanel style={{ height: '50vh' }}>
-							Senatus lorem Populusque Romanus.
-						</TabPanel>
-						<TabPanel style={{ height: '50vh' }}>
-							Senatus Populusque Romanus.
-						</TabPanel>
+						<TabPanel style={{ height: '50vh' }}>Arma virumque cano, Troiae qui primus ab oris.</TabPanel>
+						<TabPanel style={{ height: '50vh' }}>Senatus lorem Populusque Romanus.</TabPanel>
+						<TabPanel style={{ height: '50vh' }}>Senatus Populusque Romanus.</TabPanel>
 						<TabPanel style={{ height: '50vh' }}>Alea jacta est.</TabPanel>
 						<TabPanel style={{ height: '50vh' }}>Nešto.</TabPanel>
 					</Tabs>
@@ -3086,12 +3191,8 @@ function App() {
 							<Tab disabled>Empire of Something Else</Tab>
 							<Tab>Empire of Something Else too</Tab>
 						</TabList>
-						<TabPanel style={{ height: '50vh' }}>
-							Arma virumque cano, Troiae qui primus ab oris.
-						</TabPanel>
-						<TabPanel style={{ height: '50vh' }}>
-							Senatus Populusque Romanus.
-						</TabPanel>
+						<TabPanel style={{ height: '50vh' }}>Arma virumque cano, Troiae qui primus ab oris.</TabPanel>
+						<TabPanel style={{ height: '50vh' }}>Senatus Populusque Romanus.</TabPanel>
 						<TabPanel style={{ height: '50vh' }}>Alea jacta est.</TabPanel>
 						<TabPanel style={{ height: '50vh' }}>Nešto.</TabPanel>
 						<TabPanel style={{ height: '50vh' }}>Nešto.</TabPanel>
@@ -3100,7 +3201,7 @@ function App() {
 
 				<hr className='es:my-2' />
 
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<InputField
 						value={txt1}
 						onChange={setTxt1}
@@ -3215,7 +3316,7 @@ function App() {
 						placeholder='Type here...'
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<ComponentToggle
 						icon={paragraph}
 						label='Paragraph'
@@ -3250,7 +3351,7 @@ function App() {
 						onChange={setUseComp}
 						expandButtonDisabled
 					>
-						<div className='es:min-h-24 es:w-full es:rounded-md es:p-2 es:bg-secondary-200'>
+						<div className='es:min-h-24 es:w-full es:rounded-md es:bg-secondary-200 es:p-2'>
 							Lorem options expandButtonDisabled
 							<Button>Hello</Button>
 							<InputField label='Hi' />
@@ -3264,7 +3365,7 @@ function App() {
 						onChange={setUseComp}
 						noExpandButton
 					>
-						<div className='es:min-h-24 es:w-full es:rounded-md es:p-2 es:bg-secondary-200'>
+						<div className='es:min-h-24 es:w-full es:rounded-md es:bg-secondary-200 es:p-2'>
 							Lorem options noExpandButton
 							<Button>Hello</Button>
 							<InputField label='Hi' />
@@ -3279,14 +3380,14 @@ function App() {
 						noExpandButton
 						noUseToggle
 					>
-						<div className='es:min-h-24 es:w-full es:rounded-md es:p-2 es:bg-secondary-200'>
+						<div className='es:min-h-24 es:w-full es:rounded-md es:bg-secondary-200 es:p-2'>
 							Lorem options noExpandButton noUseToggle
 							<Button>Hello</Button>
 							<InputField label='Hi' />
 						</div>
 					</ComponentToggle>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<Repeater
 						items={repeaterItems}
 						onChange={setRepeaterItems}
@@ -3351,8 +3452,7 @@ function App() {
 						onAfterItemRemove={(items) => console.log('Removed', items)}
 					>
 						{(item) => {
-							const { title, subtitle, icon, toggledThingy, link, updateData } =
-								item;
+							const { title, subtitle, icon, toggledThingy, link, updateData } = item;
 
 							return (
 								<RepeaterItem
@@ -3435,13 +3535,10 @@ function App() {
 						)}
 					</pre>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<Checkbox
 						checked={toggled && toggled3 && toggled4 && toggled5}
-						indeterminate={
-							(toggled || toggled3 || toggled4 || toggled5) &&
-							!(toggled && toggled3 && toggled4 && toggled5)
-						}
+						indeterminate={(toggled || toggled3 || toggled4 || toggled5) && !(toggled && toggled3 && toggled4 && toggled5)}
 						label='Select all'
 						onChange={(value) => {
 							setToggled(value);
@@ -3502,7 +3599,7 @@ function App() {
 						Hello
 					</Checkbox>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<RadioButtonGroup
 						label='Hello'
 						value={radioValue}
@@ -3562,9 +3659,21 @@ function App() {
 						orientation='horizontal'
 						onChange={setRadioValue}
 					>
-						<RadioButton label='Lorem' subtitle='Ips value' value='lorem2' />
-						<RadioButton label='Ipsum' subtitle='Ips value' value='ipsum2' />
-						<RadioButton label='Dolor' subtitle='Ips value' value='dolor2' />
+						<RadioButton
+							label='Lorem'
+							subtitle='Ips value'
+							value='lorem2'
+						/>
+						<RadioButton
+							label='Ipsum'
+							subtitle='Ips value'
+							value='ipsum2'
+						/>
+						<RadioButton
+							label='Dolor'
+							subtitle='Ips value'
+							value='dolor2'
+						/>
 					</RadioButtonGroup>
 
 					<RadioButtonGroup
@@ -3573,9 +3682,21 @@ function App() {
 						onChange={setRadioValue}
 						design='segmented'
 					>
-						<RadioButton label='Lorem' subtitle='Ips value' value='lorem3' />
-						<RadioButton label='Ipsum' subtitle='Ips value' value='ipsum3' />
-						<RadioButton label='Dolor' subtitle='Ips value' value='dolor3' />
+						<RadioButton
+							label='Lorem'
+							subtitle='Ips value'
+							value='lorem3'
+						/>
+						<RadioButton
+							label='Ipsum'
+							subtitle='Ips value'
+							value='ipsum3'
+						/>
+						<RadioButton
+							label='Dolor'
+							subtitle='Ips value'
+							value='dolor3'
+						/>
 					</RadioButtonGroup>
 
 					<RadioButtonGroup
@@ -3585,9 +3706,21 @@ function App() {
 						onChange={setRadioValue}
 						design='segmented'
 					>
-						<RadioButton label='Lorem' subtitle='Ips value' value='lorem4' />
-						<RadioButton label='Ipsum' subtitle='Ips value' value='ipsum4' />
-						<RadioButton label='Dolor' subtitle='Ips value' value='dolor4' />
+						<RadioButton
+							label='Lorem'
+							subtitle='Ips value'
+							value='lorem4'
+						/>
+						<RadioButton
+							label='Ipsum'
+							subtitle='Ips value'
+							value='ipsum4'
+						/>
+						<RadioButton
+							label='Dolor'
+							subtitle='Ips value'
+							value='dolor4'
+						/>
 					</RadioButtonGroup>
 
 					<OptionSelect
@@ -3614,7 +3747,7 @@ function App() {
 						itemProps={{ alignEnd: true }}
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<Slider
 						label='Slider'
 						value={sliderValue}
@@ -3694,8 +3827,7 @@ function App() {
 							100: <span className='es:text-blue-500'>B</span>,
 						}}
 						trackStyle={{
-							backgroundImage:
-								'linear-gradient(to right in oklab, #ff0000, #00ff00, #0000ff)',
+							backgroundImage: 'linear-gradient(to right in oklab, #ff0000, #00ff00, #0000ff)',
 							backgroundColor: 'transparent',
 						}}
 						trackBgGradientSupport
@@ -3849,15 +3981,13 @@ function App() {
 						markers
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<SolidColorPicker
 						value={currColor}
 						onChange={handleCurrColorChange}
 					/>
 
-					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded-sm es:border es:bg-secondary-100 es:p-1 es:text-sm'>
-						{currColor}
-					</code>
+					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded-sm es:border es:bg-secondary-100 es:p-1 es:text-sm'>{currColor}</code>
 
 					<SolidColorPicker
 						value={currColor2}
@@ -3865,9 +3995,7 @@ function App() {
 						allowTransparency
 					/>
 
-					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded-sm es:border es:bg-secondary-100 es:p-1 es:text-sm'>
-						{currColor2}
-					</code>
+					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded-sm es:border es:bg-secondary-100 es:p-1 es:text-sm'>{currColor2}</code>
 
 					<SolidColorPicker
 						value={currColor3}
@@ -3876,9 +4004,7 @@ function App() {
 						outputFormat='hsla'
 					/>
 
-					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded-sm es:border es:bg-secondary-100 es:p-1 es:text-sm'>
-						{currColor3}
-					</code>
+					<code className='es:flex es:min-h-9 es:min-w-24 es:items-center es:justify-center es:rounded-sm es:border es:bg-secondary-100 es:p-1 es:text-sm'>{currColor3}</code>
 
 					<SolidColorPicker
 						value={currColor3}
@@ -3887,18 +4013,31 @@ function App() {
 						disabled
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					<GradientEditor value={grad} onChange={setGrad} />
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
+					<GradientEditor
+						value={grad}
+						onChange={setGrad}
+					/>
 
-					<code className='es:max-w-60 es:rounded-md es:border es:bg-secondary-50 es:p-1 es:font-mono es:text-xs'>
-						{grad}
-					</code>
+					<code className='es:max-w-60 es:rounded-md es:border es:bg-secondary-50 es:p-1 es:font-mono es:text-xs'>{grad}</code>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					<ColorSwatch flat color='red' />
-					<ColorSwatch flat color='transparent' />
-					<ColorSwatch flat color='#4433EE80' />
-					<ColorSwatch flat color='#0D3636' />
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
+					<ColorSwatch
+						flat
+						color='red'
+					/>
+					<ColorSwatch
+						flat
+						color='transparent'
+					/>
+					<ColorSwatch
+						flat
+						color='#4433EE80'
+					/>
+					<ColorSwatch
+						flat
+						color='#0D3636'
+					/>
 					<ColorSwatch
 						gradient='linear-gradient(#0D3636, rgb(249 250 251))'
 						colorName='Linear gradient'
@@ -3918,7 +4057,7 @@ function App() {
 						customGradient
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<ColorPicker
 						value={color1}
 						onChange={handleColor1Change}
@@ -3971,7 +4110,7 @@ function App() {
 						showColorCode
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<ResponsiveLegacy
 						icon={help}
 						label='Lorem or ipsum?'
@@ -4002,9 +4141,7 @@ function App() {
 						)}
 					</ResponsiveLegacy>
 
-					<pre className='es:w-full es:text-xs'>
-						{JSON.stringify(responsiveState, null, 2)}
-					</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(responsiveState, null, 2)}</pre>
 
 					<ResponsiveLegacy
 						icon={help}
@@ -4022,12 +4159,7 @@ function App() {
 						allowUndefined
 						inline
 					>
-						{({
-							currentValue,
-							options,
-							handleChange,
-							isInlineCollapsedView,
-						}) => {
+						{({ currentValue, options, handleChange, isInlineCollapsedView }) => {
 							if (isInlineCollapsedView) {
 								return (
 									<Switch
@@ -4053,9 +4185,7 @@ function App() {
 						}}
 					</ResponsiveLegacy>
 
-					<pre className='es:w-full es:text-xs'>
-						{JSON.stringify(responsiveState2, null, 2)}
-					</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(responsiveState2, null, 2)}</pre>
 
 					<ResponsiveLegacy
 						icon={help}
@@ -4087,11 +4217,9 @@ function App() {
 						)}
 					</ResponsiveLegacy>
 
-					<pre className='es:w-full es:text-xs'>
-						{JSON.stringify(responsiveState3, null, 2)}
-					</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(responsiveState3, null, 2)}</pre>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<ColumnConfigSlider
 						icon={columns}
 						label='Column configuration'
@@ -4099,9 +4227,7 @@ function App() {
 						onChange={setColConfig}
 					/>
 
-					<pre className='es:w-full es:text-xs'>
-						{JSON.stringify(colConfig)}
-					</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(colConfig)}</pre>
 
 					<ColumnConfigSlider
 						icon={columns}
@@ -4111,9 +4237,7 @@ function App() {
 						columns={14}
 					/>
 
-					<pre className='es:w-full es:text-xs'>
-						{JSON.stringify(colConfig2)}
-					</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(colConfig2)}</pre>
 
 					<ColumnConfigSlider
 						icon={columns}
@@ -4124,9 +4248,7 @@ function App() {
 						showOuterAsGutter
 					/>
 
-					<pre className='es:w-full es:text-xs'>
-						{JSON.stringify(colConfig2)}
-					</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(colConfig2)}</pre>
 
 					<ColumnConfigSlider
 						icon={columns}
@@ -4136,9 +4258,7 @@ function App() {
 						disableOffset
 					/>
 
-					<pre className='es:w-full es:text-xs'>
-						{JSON.stringify(colConfig2)}
-					</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(colConfig2)}</pre>
 
 					<ColumnConfigSlider
 						icon={columns}
@@ -4148,9 +4268,7 @@ function App() {
 						disableWidth
 					/>
 
-					<pre className='es:w-full es:text-xs'>
-						{JSON.stringify(colConfig2)}
-					</pre>
+					<pre className='es:w-full es:text-xs'>{JSON.stringify(colConfig2)}</pre>
 
 					<ColumnConfigSlider
 						icon={columns}
@@ -4170,7 +4288,7 @@ function App() {
 					/>
 				</TabPanel>
 
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-0 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-0 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<ContainerPanel>
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
 					</ContainerPanel>
@@ -4179,11 +4297,18 @@ function App() {
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
 					</ContainerPanel>
 
-					<ContainerPanel title='Component name' icon={emptyCircle} accentLabel>
+					<ContainerPanel
+						title='Component name'
+						icon={emptyCircle}
+						accentLabel
+					>
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
 					</ContainerPanel>
 
-					<ContainerPanel title='Component name' closable>
+					<ContainerPanel
+						title='Component name'
+						closable
+					>
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
 					</ContainerPanel>
 
@@ -4214,7 +4339,10 @@ function App() {
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-300' />
 					</ContainerPanel>
 
-					<ContainerPanel title='Component name' closable>
+					<ContainerPanel
+						title='Component name'
+						closable
+					>
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-400' />
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-300' />
 					</ContainerPanel>
@@ -4238,21 +4366,32 @@ function App() {
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-300' />
 					</ContainerPanel>
 
-					<Checkbox checked={cpOpen} onChange={setCpOpen} label='Use' />
+					<Checkbox
+						checked={cpOpen}
+						onChange={setCpOpen}
+						label='Use'
+					/>
 
 					<ContainerPanel use={cpOpen}>
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-300' />
 					</ContainerPanel>
 
-					<ContainerPanel title='Demo' use={cpOpen}>
+					<ContainerPanel
+						title='Demo'
+						use={cpOpen}
+					>
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-300' />
 					</ContainerPanel>
 
-					<ContainerPanel title='Demo' use={cpOpen} closable>
+					<ContainerPanel
+						title='Demo'
+						use={cpOpen}
+						closable
+					>
 						<div className='es:h-40 es:w-full es:rounded-md es:bg-secondary-300' />
 					</ContainerPanel>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<HStack className='es:max-w-72'>
 						<Button icon={emptyCircle} />
 						<Button icon={emptyCircle} />
@@ -4267,7 +4406,10 @@ function App() {
 						<Button icon={emptyCircle} />
 					</HStack>
 
-					<HStack noWrap className='es:max-w-72'>
+					<HStack
+						noWrap
+						className='es:max-w-72'
+					>
 						<Button icon={emptyCircle} />
 						<Button icon={emptyCircle} />
 						<Button icon={emptyCircle} />
@@ -4291,7 +4433,10 @@ function App() {
 						<Button icon={emptyCircle} />
 					</VStack>
 
-					<VStack noWrap className='es:max-h-40'>
+					<VStack
+						noWrap
+						className='es:max-h-40'
+					>
 						<Button icon={emptyCircle} />
 						<Button icon={emptyCircle} />
 						<Button icon={emptyCircle} />
@@ -4301,7 +4446,7 @@ function App() {
 						<Button icon={emptyCircle} />
 					</VStack>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<ImagePlaceholder />
 					simple
 					<ImagePlaceholder style='simple' />
@@ -4327,16 +4472,29 @@ function App() {
 					<Spacer />
 					<Spacer border />
 					<Spacer />
-					<FilePlaceholder fileName='demo.json' icon={experiment} />
+					<FilePlaceholder
+						fileName='demo.json'
+						icon={experiment}
+					/>
 					<FilePlaceholder fileName='demo.json' />
 					<FilePlaceholder />
 					<Spacer />
 					<Spacer border />
 					<Spacer />
 					<MediaPlaceholder icon={experiment} />
-					<MediaPlaceholder icon={experiment} size='large' />
-					<MediaPlaceholder icon={experiment} style='simple' />
-					<MediaPlaceholder icon={experiment} style='simple' size='large' />
+					<MediaPlaceholder
+						icon={experiment}
+						size='large'
+					/>
+					<MediaPlaceholder
+						icon={experiment}
+						style='simple'
+					/>
+					<MediaPlaceholder
+						icon={experiment}
+						style='simple'
+						size='large'
+					/>
 					<MediaPlaceholder
 						icon={experiment}
 						style='simple'
@@ -4348,7 +4506,10 @@ function App() {
 						style='simple'
 						size='large'
 						helpText={
-							<RichLabel icon={a11yWarning} label='Lorem ipsum dolor.' />
+							<RichLabel
+								icon={a11yWarning}
+								label='Lorem ipsum dolor.'
+							/>
 						}
 					/>
 					<MediaPlaceholder
@@ -4361,7 +4522,7 @@ function App() {
 						<Button type='simple'>Or don't</Button>
 					</MediaPlaceholder>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<OptionSelect
 						value={draggableLayout}
 						onChange={handleDraggableLayoutChange}
@@ -4378,8 +4539,7 @@ function App() {
 						items={draggableItems}
 						onChange={handleDraggableItemsChange}
 						className={clsx(
-							draggableLayout === 'grid' &&
-								'es:grid es:auto-rows-auto es:grid-cols-3 es:gap-1',
+							draggableLayout === 'grid' && 'es:grid es:auto-rows-auto es:grid-cols-3 es:gap-1',
 							draggableLayout === 'horizontal' && 'es:flex es:gap-1',
 							draggableLayout === 'vertical' && 'es:flex es:flex-col es:gap-1',
 						)}
@@ -4390,8 +4550,8 @@ function App() {
 							const { toggle, title, updateData, deleteItem } = item;
 
 							return (
-								<div className='es:relative es:size-full es:rounded-lg es:border es:border-secondary-200 es:bg-secondary-50 es:p-2 es:flex es:flex-col es:gap-2'>
-									<DraggableHandle className='es:absolute es:right-1 es:top-1' />
+								<div className='es:relative es:flex es:size-full es:flex-col es:gap-2 es:rounded-lg es:border es:border-secondary-200 es:bg-secondary-50 es:p-2'>
+									<DraggableHandle className='es:absolute es:top-1 es:right-1' />
 									<p>{title}</p>
 									<Switch
 										aria-label='Title'
@@ -4410,11 +4570,9 @@ function App() {
 						}}
 					</TypedDraggable>
 
-					<pre className='es:w-xs es:overflow-clip'>
-						{JSON.stringify(draggableItems, null, 2)}
-					</pre>
+					<pre className='es:w-xs es:overflow-clip'>{JSON.stringify(draggableItems, null, 2)}</pre>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<TypedDraggableList
 						label='My draggable list'
 						items={draggableListItems}
@@ -4463,7 +4621,7 @@ function App() {
 						}}
 					</TypedDraggableList>
 				</TabPanel>
-				<TabPanel className='es:rounded-3xl es:w-4xl es:max-h-[85vh] es:h-fit es:overflow-y-auto es:max-w-[90vw] es:space-y-4 es:p-5! es:bg-[#f1f1f1]'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-4xl es:max-w-[90vw] es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-[#f1f1f1] es:p-5!'>
 					<OptionsPanelHeader
 						title='Global settings'
 						actions={
@@ -4715,7 +4873,7 @@ function App() {
 						</TabPanel>
 					</Tabs>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<ResponsivePreview
 						value={{
 							_default: 'sans',
@@ -4738,7 +4896,7 @@ function App() {
 						breakpointData={globalManifest.globalVariables.breakpoints}
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<p>Auto</p>
 
 					<Modal
@@ -4753,160 +4911,94 @@ function App() {
 						width='wide'
 					>
 						<p>
-							Pellentesque habitant morbi tristique senectus et netus et
-							malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat
-							vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
-							amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
-							placerat eleifend leo.
+							Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet,
+							ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
 						</p>
 
-						<p>
-							Pellentesque habitant morbi tristique senectus et netus et
-							malesuada fames ac turpis egestas.
-						</p>
+						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
 
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
-							volutpat felis odio, venenatis commodo dolor tincidunt vitae.
-							Nulla sodales nulla laoreet, hendrerit tortor non, faucibus
-							turpis. Pellentesque dictum lacus at ultrices sagittis. Morbi
-							pulvinar sapien a velit tempus venenatis. Morbi iaculis lobortis
-							ex vitae euismod. Donec rutrum urna et eros iaculis, at hendrerit
-							diam pharetra. Nunc tristique molestie tellus eget aliquam. Sed
-							molestie pulvinar lectus, at dapibus dolor.
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi volutpat felis odio, venenatis commodo dolor tincidunt vitae. Nulla sodales nulla laoreet, hendrerit
+							tortor non, faucibus turpis. Pellentesque dictum lacus at ultrices sagittis. Morbi pulvinar sapien a velit tempus venenatis. Morbi iaculis lobortis ex vitae euismod.
+							Donec rutrum urna et eros iaculis, at hendrerit diam pharetra. Nunc tristique molestie tellus eget aliquam. Sed molestie pulvinar lectus, at dapibus dolor.
 						</p>
 						<p>
-							In non sem vitae lorem maximus sollicitudin id id quam. Integer
-							elementum, enim in tristique mollis, dui leo porta metus, sit amet
-							luctus metus velit at nulla. Nam scelerisque viverra blandit.
-							Mauris sed dictum nisl, ut vehicula ex. Donec ut tincidunt neque.
-							Ut ornare leo libero, et lobortis dolor euismod sed. Vestibulum
+							In non sem vitae lorem maximus sollicitudin id id quam. Integer elementum, enim in tristique mollis, dui leo porta metus, sit amet luctus metus velit at nulla. Nam
+							scelerisque viverra blandit. Mauris sed dictum nisl, ut vehicula ex. Donec ut tincidunt neque. Ut ornare leo libero, et lobortis dolor euismod sed. Vestibulum
 							sollicitudin ultrices ipsum quis consequat.
 						</p>
 						<p>
-							Fusce placerat arcu non facilisis gravida. Aliquam finibus in orci
-							quis aliquet. Vestibulum ante ipsum primis in faucibus orci luctus
-							et ultrices posuere cubilia curae; Vestibulum sed lacus a augue
-							consequat egestas ac a ligula. Aliquam vitae molestie ligula, eget
-							auctor tortor. Quisque rhoncus ex vel molestie cursus. Maecenas
-							egestas justo ac nulla tristique, ac tempor ipsum gravida. Nullam
-							eget velit pretium, tincidunt lorem ac, convallis tortor. Cras
-							tristique euismod efficitur. Proin at nunc sed nulla pharetra
-							imperdiet non ut sem. Nam et nibh auctor, scelerisque magna vitae,
-							malesuada nulla. Mauris eget consequat risus. Phasellus commodo
-							odio et malesuada aliquam. Curabitur turpis lacus, vestibulum
-							pharetra velit a, maximus convallis est. Donec est lorem, placerat
-							eget ligula et, luctus pellentesque dui.
+							Fusce placerat arcu non facilisis gravida. Aliquam finibus in orci quis aliquet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+							curae; Vestibulum sed lacus a augue consequat egestas ac a ligula. Aliquam vitae molestie ligula, eget auctor tortor. Quisque rhoncus ex vel molestie cursus. Maecenas
+							egestas justo ac nulla tristique, ac tempor ipsum gravida. Nullam eget velit pretium, tincidunt lorem ac, convallis tortor. Cras tristique euismod efficitur. Proin at
+							nunc sed nulla pharetra imperdiet non ut sem. Nam et nibh auctor, scelerisque magna vitae, malesuada nulla. Mauris eget consequat risus. Phasellus commodo odio et
+							malesuada aliquam. Curabitur turpis lacus, vestibulum pharetra velit a, maximus convallis est. Donec est lorem, placerat eget ligula et, luctus pellentesque dui.
 						</p>
 						<p>
-							Aliquam aliquet justo in felis egestas, vitae dapibus nibh
-							convallis. Nunc mauris leo, volutpat nec maximus quis, lacinia
-							eget leo. Phasellus a dui et ipsum mollis ultrices. Ut eget
-							viverra purus, ac placerat ante. Vestibulum vitae convallis orci,
-							a mollis lorem. Quisque risus neque, feugiat quis risus ac,
-							condimentum auctor orci. Proin lacinia diam sed erat pharetra, id
-							ultricies quam viverra. Aliquam neque orci, condimentum sit amet
-							elit vitae, ullamcorper vestibulum nisl. Etiam nec erat sit amet
-							magna pellentesque congue. Suspendisse volutpat a justo sed
-							vehicula. Nam auctor nisi et imperdiet fermentum. Nulla rutrum sit
-							amet nisi eu feugiat. Proin quis lectus eu justo varius rhoncus
-							vitae non nisl. Nullam sagittis nunc id nibh accumsan, nec
-							tincidunt quam vehicula. Sed placerat sed erat eget egestas.
+							Aliquam aliquet justo in felis egestas, vitae dapibus nibh convallis. Nunc mauris leo, volutpat nec maximus quis, lacinia eget leo. Phasellus a dui et ipsum mollis
+							ultrices. Ut eget viverra purus, ac placerat ante. Vestibulum vitae convallis orci, a mollis lorem. Quisque risus neque, feugiat quis risus ac, condimentum auctor
+							orci. Proin lacinia diam sed erat pharetra, id ultricies quam viverra. Aliquam neque orci, condimentum sit amet elit vitae, ullamcorper vestibulum nisl. Etiam nec
+							erat sit amet magna pellentesque congue. Suspendisse volutpat a justo sed vehicula. Nam auctor nisi et imperdiet fermentum. Nulla rutrum sit amet nisi eu feugiat.
+							Proin quis lectus eu justo varius rhoncus vitae non nisl. Nullam sagittis nunc id nibh accumsan, nec tincidunt quam vehicula. Sed placerat sed erat eget egestas.
 						</p>
 						<p>
-							Vestibulum urna tellus, tristique ac ex nec, tristique accumsan
-							quam. Class aptent taciti sociosqu ad litora torquent per conubia
-							nostra, per inceptos himenaeos. Mauris vel diam et urna
-							pellentesque tincidunt sed ut turpis. In hac habitasse platea
-							dictumst. Donec lobortis egestas lacinia. Proin blandit nisi quis
-							turpis auctor pulvinar. Cras mattis placerat rhoncus.
+							Vestibulum urna tellus, tristique ac ex nec, tristique accumsan quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+							Mauris vel diam et urna pellentesque tincidunt sed ut turpis. In hac habitasse platea dictumst. Donec lobortis egestas lacinia. Proin blandit nisi quis turpis auctor
+							pulvinar. Cras mattis placerat rhoncus.
 						</p>
 						<p>
-							Nunc ut risus in mauris blandit porttitor. Cras vel sapien eget
-							mauris maximus consequat ut in velit. Fusce aliquam massa diam, id
-							dictum nisl semper eu. Nulla dapibus erat sit amet ligula
-							pharetra, a vestibulum dolor faucibus. In hac habitasse platea
-							dictumst. Aenean at molestie tellus. Donec et lobortis sem. Sed
-							imperdiet elit dapibus semper consectetur. Fusce facilisis
-							lobortis elit suscipit aliquam. Quisque auctor, erat et iaculis
-							fringilla, ante velit eleifend lorem, id pretium mauris sem eget
-							sapien. Aliquam erat volutpat. Phasellus nec lorem ut orci
-							sagittis rutrum at volutpat sapien. Quisque at porta risus.
+							Nunc ut risus in mauris blandit porttitor. Cras vel sapien eget mauris maximus consequat ut in velit. Fusce aliquam massa diam, id dictum nisl semper eu. Nulla
+							dapibus erat sit amet ligula pharetra, a vestibulum dolor faucibus. In hac habitasse platea dictumst. Aenean at molestie tellus. Donec et lobortis sem. Sed imperdiet
+							elit dapibus semper consectetur. Fusce facilisis lobortis elit suscipit aliquam. Quisque auctor, erat et iaculis fringilla, ante velit eleifend lorem, id pretium
+							mauris sem eget sapien. Aliquam erat volutpat. Phasellus nec lorem ut orci sagittis rutrum at volutpat sapien. Quisque at porta risus.
 						</p>
 						<p>
-							Aliquam vel magna eleifend, finibus mi a, viverra tortor. Integer
-							feugiat neque at rhoncus convallis. Nulla dictum venenatis sapien,
-							elementum feugiat mi tristique id. Sed lacinia purus eget dolor
-							ullamcorper pretium. Maecenas sed consequat odio. Mauris est
-							felis, commodo ut mauris vitae, finibus pulvinar tortor. Curabitur
-							rutrum, est vitae sagittis semper, elit ex blandit magna,
-							ullamcorper viverra enim metus eget lectus. Proin semper eleifend
-							congue. Donec consectetur pharetra est, vel pharetra tortor
-							sagittis a. Phasellus faucibus, tellus ac congue dapibus, augue
-							risus fermentum felis, nec vehicula nisl quam id urna. Etiam
-							malesuada lectus vel consequat commodo. Nam non ex augue.
+							Aliquam vel magna eleifend, finibus mi a, viverra tortor. Integer feugiat neque at rhoncus convallis. Nulla dictum venenatis sapien, elementum feugiat mi tristique
+							id. Sed lacinia purus eget dolor ullamcorper pretium. Maecenas sed consequat odio. Mauris est felis, commodo ut mauris vitae, finibus pulvinar tortor. Curabitur
+							rutrum, est vitae sagittis semper, elit ex blandit magna, ullamcorper viverra enim metus eget lectus. Proin semper eleifend congue. Donec consectetur pharetra est,
+							vel pharetra tortor sagittis a. Phasellus faucibus, tellus ac congue dapibus, augue risus fermentum felis, nec vehicula nisl quam id urna. Etiam malesuada lectus vel
+							consequat commodo. Nam non ex augue.
 						</p>
 						<p>
-							Sed et turpis ex. Pellentesque dapibus viverra blandit. Aliquam
-							dictum euismod mauris eget sodales. Etiam id ultrices odio. Cras
-							ac egestas lorem. Class aptent taciti sociosqu ad litora torquent
-							per conubia nostra, per inceptos himenaeos. Mauris placerat
-							aliquet ante, vitae placerat neque posuere ut. Integer gravida sed
-							augue eu bibendum. Praesent in consequat dolor. Quisque mi mi,
-							dignissim sit amet mi nec, elementum viverra massa. Aenean
-							ultrices maximus ex ac tincidunt. Nullam vel enim porta, mattis
-							augue ac, ultrices purus. Curabitur malesuada nec risus sit amet
-							condimentum. Orci varius natoque penatibus et magnis dis
-							parturient montes, nascetur ridiculus mus.
+							Sed et turpis ex. Pellentesque dapibus viverra blandit. Aliquam dictum euismod mauris eget sodales. Etiam id ultrices odio. Cras ac egestas lorem. Class aptent taciti
+							sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris placerat aliquet ante, vitae placerat neque posuere ut. Integer gravida sed augue eu
+							bibendum. Praesent in consequat dolor. Quisque mi mi, dignissim sit amet mi nec, elementum viverra massa. Aenean ultrices maximus ex ac tincidunt. Nullam vel enim
+							porta, mattis augue ac, ultrices purus. Curabitur malesuada nec risus sit amet condimentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+							ridiculus mus.
 						</p>
 						<p>
-							Pellentesque bibendum quam vitae dui mattis congue. Donec vel
-							rhoncus ipsum, eu gravida mauris. Phasellus rhoncus pellentesque
-							dolor nec finibus. Pellentesque malesuada nunc ex, eget
-							scelerisque diam imperdiet in. Nulla sed tristique diam. Nullam id
-							feugiat ipsum, quis vehicula erat. Proin sodales turpis magna, ac
-							tempor enim pretium quis.
+							Pellentesque bibendum quam vitae dui mattis congue. Donec vel rhoncus ipsum, eu gravida mauris. Phasellus rhoncus pellentesque dolor nec finibus. Pellentesque
+							malesuada nunc ex, eget scelerisque diam imperdiet in. Nulla sed tristique diam. Nullam id feugiat ipsum, quis vehicula erat. Proin sodales turpis magna, ac tempor
+							enim pretium quis.
 						</p>
 						<p>
-							Mauris pulvinar venenatis lectus, vitae tincidunt dolor ultricies
-							eu. In sit amet dui vel orci fermentum luctus. Cras pharetra est
-							quis urna venenatis, ut varius tortor auctor. Ut vitae
-							sollicitudin nulla. Sed cursus lectus ligula, in luctus sem
-							pellentesque vel. In imperdiet nibh ac tellus fermentum, blandit
-							iaculis ante ultrices. Vivamus ultricies, purus non scelerisque
-							molestie, elit nulla suscipit ligula, vitae faucibus purus lorem
-							et justo. Nulla at odio nec arcu efficitur posuere in in sapien.
+							Mauris pulvinar venenatis lectus, vitae tincidunt dolor ultricies eu. In sit amet dui vel orci fermentum luctus. Cras pharetra est quis urna venenatis, ut varius
+							tortor auctor. Ut vitae sollicitudin nulla. Sed cursus lectus ligula, in luctus sem pellentesque vel. In imperdiet nibh ac tellus fermentum, blandit iaculis ante
+							ultrices. Vivamus ultricies, purus non scelerisque molestie, elit nulla suscipit ligula, vitae faucibus purus lorem et justo. Nulla at odio nec arcu efficitur posuere
+							in in sapien.
 						</p>
 					</Modal>
 
-					<Modal title='My modal' triggerLabel='No backdrop' noBackdrop>
+					<Modal
+						title='My modal'
+						triggerLabel='No backdrop'
+						noBackdrop
+					>
 						<p>
-							Pellentesque habitant morbi tristique senectus et netus et
-							malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat
-							vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
-							amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
-							placerat eleifend leo.
+							Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet,
+							ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
 						</p>
 
-						<p>
-							Pellentesque habitant morbi tristique senectus et netus et
-							malesuada fames ac turpis egestas.
-						</p>
+						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
 					</Modal>
 
 					<Modal triggerLabel='No title'>
 						<p>
-							Pellentesque habitant morbi tristique senectus et netus et
-							malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat
-							vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
-							amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
-							placerat eleifend leo.
+							Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet,
+							ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
 						</p>
 
-						<p>
-							Pellentesque habitant morbi tristique senectus et netus et
-							malesuada fames ac turpis egestas.
-						</p>
+						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
 					</Modal>
 
 					<Modal
@@ -4914,23 +5006,20 @@ function App() {
 						triggerLabel='No close button'
 						noCloseButton
 						actions={
-							<Button type='simple' slot='close'>
+							<Button
+								type='simple'
+								slot='close'
+							>
 								Close
 							</Button>
 						}
 					>
 						<p>
-							Pellentesque habitant morbi tristique senectus et netus et
-							malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat
-							vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
-							amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
-							placerat eleifend leo.
+							Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet,
+							ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
 						</p>
 
-						<p>
-							Pellentesque habitant morbi tristique senectus et netus et
-							malesuada fames ac turpis egestas.
-						</p>
+						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
 					</Modal>
 
 					<p>Manual</p>
@@ -4944,21 +5033,18 @@ function App() {
 						actions={<Button slot='close'>Close</Button>}
 					>
 						<p>
-							Pellentesque habitant morbi tristique senectus et netus et
-							malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat
-							vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
-							amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
-							placerat eleifend leo.
+							Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet,
+							ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
 						</p>
 
-						<p>
-							Pellentesque habitant morbi tristique senectus et netus et
-							malesuada fames ac turpis egestas.
-						</p>
+						<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
 					</Modal>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
-					<ItemCollection items={draggableItems} onChange={setDraggableItems}>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
+					<ItemCollection
+						items={draggableItems}
+						onChange={setDraggableItems}
+					>
 						{(item) => {
 							const { toggle, title, updateData, itemIndex, deleteItem } = item;
 
@@ -4983,7 +5069,7 @@ function App() {
 						}}
 					</ItemCollection>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<FilePickerShell
 						className='es:w-full'
 						url='myfile.json'
@@ -5020,18 +5106,21 @@ function App() {
 					<FilePickerShell
 						className='es:w-full'
 						noUrlContent={
-							<Button size='large' icon={upload}>
+							<Button
+								size='large'
+								icon={upload}
+							>
 								Upload
 							</Button>
 						}
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-96 es:max-h-[85vh] es:h-fit es:overflow-y-auto es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-96 es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<SmartImage
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/pixel/resize-bicubic.jpg'
 						className={({ isDark }) =>
 							clsx(
-								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								'es:rounded-xl es:border es:bg-secondary-100 es:p-4 es:outline-8 es:-outline-offset-10 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color))',
 								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
 							)
 						}
@@ -5040,7 +5129,7 @@ function App() {
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-normal-map.jpg'
 						className={({ isDark }) =>
 							clsx(
-								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								'es:rounded-xl es:border es:bg-secondary-100 es:p-4 es:outline-8 es:-outline-offset-10 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color))',
 								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
 							)
 						}
@@ -5049,7 +5138,7 @@ function App() {
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/pixel-sorting.png'
 						className={({ isDark }) =>
 							clsx(
-								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								'es:rounded-xl es:border es:bg-secondary-100 es:p-4 es:outline-8 es:-outline-offset-10 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color))',
 								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
 							)
 						}
@@ -5058,7 +5147,7 @@ function App() {
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/poisson-image.avif'
 						className={({ isDark }) =>
 							clsx(
-								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								'es:rounded-xl es:border es:bg-secondary-100 es:p-4 es:outline-8 es:-outline-offset-10 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color))',
 								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
 							)
 						}
@@ -5067,7 +5156,7 @@ function App() {
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/unbiased-normals.png'
 						className={({ isDark }) =>
 							clsx(
-								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								'es:rounded-xl es:border es:bg-secondary-100 es:p-4 es:outline-8 es:-outline-offset-10 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color))',
 								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
 							)
 						}
@@ -5076,7 +5165,7 @@ function App() {
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ascii-raymarch.jpg'
 						className={({ isDark }) =>
 							clsx(
-								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								'es:rounded-xl es:border es:bg-secondary-100 es:p-4 es:outline-8 es:-outline-offset-10 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color))',
 								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
 							)
 						}
@@ -5085,7 +5174,7 @@ function App() {
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/geom-extra-hiccup.jpg'
 						className={({ isDark }) =>
 							clsx(
-								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								'es:rounded-xl es:border es:bg-secondary-100 es:p-4 es:outline-8 es:-outline-offset-10 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color))',
 								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
 							)
 						}
@@ -5094,7 +5183,7 @@ function App() {
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/bitmap-font.gif'
 						className={({ isDark }) =>
 							clsx(
-								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								'es:rounded-xl es:border es:bg-secondary-100 es:p-4 es:outline-8 es:-outline-offset-10 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color))',
 								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
 							)
 						}
@@ -5103,7 +5192,7 @@ function App() {
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/examples/ellipse-proximity.png'
 						className={({ isDark }) =>
 							clsx(
-								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								'es:rounded-xl es:border es:bg-secondary-100 es:p-4 es:outline-8 es:-outline-offset-10 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color))',
 								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
 							)
 						}
@@ -5112,7 +5201,7 @@ function App() {
 						src='https://raw.githubusercontent.com/thi-ng/umbrella/develop/assets/banners/thing-rdom.svg'
 						className={({ isDark }) =>
 							clsx(
-								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								'es:rounded-xl es:border es:bg-secondary-100 es:p-4 es:outline-8 es:-outline-offset-10 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color))',
 								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
 							)
 						}
@@ -5121,27 +5210,21 @@ function App() {
 						src=''
 						className={({ isDark }) =>
 							clsx(
-								'es:p-4 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color)) es:outline-8 es:-outline-offset-10 es:bg-secondary-100 es:border es:rounded-xl',
+								'es:rounded-xl es:border es:bg-secondary-100 es:p-4 es:outline-8 es:-outline-offset-10 es:outline-(--es-img-colorful-dominant-color,var(--es-img-dominant-color))',
 								isDark ? 'es:border-secondary-100' : 'es:border-secondary-800',
 							)
 						}
 					/>
 				</TabPanel>
-				<TabPanel className='es:bg-white es:rounded-3xl es:w-4xl es:max-h-[85vh] es:h-fit es:overflow-y-auto es:max-w-[90vw] es:space-y-4 es:p-5!'>
+				<TabPanel className='es:h-fit es:max-h-[85vh] es:w-4xl es:max-w-[90vw] es:space-y-4 es:overflow-y-auto es:rounded-3xl es:bg-white es:p-5!'>
 					<div className='es:flex es:flex-wrap es:items-center es:justify-between es:gap-3'>
 						<div className='es:space-y-1'>
-							<h2 className='es:text-xl es:font-medium es:text-secondary-900'>
-								All icons
-							</h2>
-							<p className='es:text-sm es:text-secondary-600'>
-								Compact reference for the full icons export.
-							</p>
+							<h2 className='es:text-xl es:font-medium es:text-secondary-900'>All icons</h2>
+							<p className='es:text-sm es:text-secondary-600'>Compact reference for the full icons export.</p>
 						</div>
 						<div className='es:inline-flex es:items-center es:gap-2 es:rounded-full es:bg-secondary-100 es:px-3 es:py-1.5 es:text-sm es:font-medium es:text-secondary-700'>
 							<span className='es:text-secondary-500'>Count</span>
-							<span className='es:font-mono es:text-secondary-900'>
-								{iconEntries.length}
-							</span>
+							<span className='es:font-mono es:text-secondary-900'>{iconEntries.length}</span>
 						</div>
 					</div>
 
@@ -5154,9 +5237,7 @@ function App() {
 								<div className='es:flex es:size-8 es:shrink-0 es:items-center es:justify-center es:rounded-lg es:bg-white es:text-secondary-900 es:icon:size-4.5'>
 									<Icon icon={iconName} />
 								</div>
-								<div className='es:min-w-0 es:font-mono es:text-[0.6875rem] es:leading-tight es:text-secondary-700'>
-									{iconName}
-								</div>
+								<div className='es:min-w-0 es:font-mono es:text-[0.6875rem] es:leading-tight es:text-secondary-700'>{iconName}</div>
 							</div>
 						))}
 					</div>

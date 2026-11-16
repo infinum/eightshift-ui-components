@@ -9,7 +9,7 @@ const componentClasses = cva(
 	[
 		'es:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_0,"slnt"_0] es:not-aria-pressed:hover:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_75,"slnt"_0] es:aria-pressed:font-variation-["wdth"_85,"wght"_325,"ROND"_100,"GRAD"_75,"slnt"_0]',
 		'es:flex es:items-center es:justify-center',
-		'es:transition-plus es:duration-300 es:ease-spring-smooth es:text-13',
+		'es:text-13 es:transition-plus es:duration-300 es:ease-spring-smooth',
 		'es:any-focus:outline-hidden',
 		'es:focus-visible:ring-2',
 		'es:shrink-0',
@@ -93,12 +93,12 @@ const componentClasses = cva(
 				selected: false,
 				class: [
 					'es:text-black',
-					'es:bg-linear-to-b es:from-black/2 es:to-black/4 es:from-25% es:bg-white',
+					'es:bg-white es:bg-linear-to-b es:from-black/2 es:from-25% es:to-black/4',
 					'es:inset-ring es:inset-ring-secondary-800/20',
 					'es:inset-shadow-sm es:inset-shadow-white/75',
-					'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10',
-					'es:pressed:bg-surface-100 es:pressed:text-accent-950 es:pressed:inset-ring-surface-300 es:pressed:inset-shadow-white/10',
-					'es:focus-visible:ring-accent-500/30 es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
+					'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-shadow-white/10 es:hover:inset-ring-surface-300',
+					'es:pressed:bg-surface-100 es:pressed:text-accent-950 es:pressed:inset-shadow-white/10 es:pressed:inset-ring-surface-300',
+					'es:focus-visible:bg-accent-50 es:focus-visible:text-accent-950 es:focus-visible:ring-accent-500/30 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:inset-ring-accent-500',
 				],
 			},
 			{
@@ -115,13 +115,13 @@ const componentClasses = cva(
 				class: [
 					'es:font-variation-["wdth"_80,"wdth"_64,"wght"_375,"GRAD"_150]',
 					'es:any-icon:drop-shadow-xs es:any-icon:drop-shadow-accent-800/25',
-					'es:text-white es:text-shadow-xs es:text-shadow-accent-900/30',
-					'es:bg-linear-to-b es:from-accent-800/10 es:to-accent-800/30 es:bg-accent-500 es:from-30%',
+					'es:text-white es:text-shadow-accent-900/30 es:text-shadow-xs',
+					'es:bg-accent-500 es:bg-linear-to-b es:from-accent-800/10 es:from-30% es:to-accent-800/30',
 					'es:inset-ring es:inset-ring-accent-600',
 					'es:inset-shadow-sm es:inset-shadow-accent-50/25',
 					'es:hover:from-accent-800/20 es:hover:to-accent-800/40',
 					'es:pressed:from-accent-800/30 es:pressed:to-accent-800/50',
-					'es:focus-visible:ring-accent-500/30 es:focus-visible:inset-ring-accent-700 es:focus-visible:bg-accent-600',
+					'es:focus-visible:bg-accent-600 es:focus-visible:ring-accent-500/30 es:focus-visible:inset-ring-accent-700',
 				],
 			},
 			{
@@ -137,10 +137,10 @@ const componentClasses = cva(
 				selected: false,
 				class: [
 					'es:text-black',
-					'es:bg-radial-[at_50%_5%] es:from-50% es:from-surface-500/6 es:to-surface-500/12',
-					'es:hover:bg-surface-100 es:hover:text-accent-900 es:hover:inset-ring-surface-300 es:hover:inset-shadow-white/10 es:hover:from-accent-600/4 es:hover:to-accent-600/10',
-					'es:pressed:bg-surface-100 es:pressed:text-accent-950 es:pressed:inset-ring-surface-300 es:pressed:inset-shadow-white/10',
-					'es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:text-accent-950 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
+					'es:bg-radial-[at_50%_5%] es:from-surface-500/6 es:from-50% es:to-surface-500/12',
+					'es:hover:bg-surface-100 es:hover:from-accent-600/4 es:hover:to-accent-600/10 es:hover:text-accent-900 es:hover:inset-shadow-white/10 es:hover:inset-ring-surface-300',
+					'es:pressed:bg-surface-100 es:pressed:text-accent-950 es:pressed:inset-shadow-white/10 es:pressed:inset-ring-surface-300',
+					'es:focus-visible:bg-accent-50 es:focus-visible:text-accent-950 es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:inset-ring-accent-500',
 				],
 			},
 			{
@@ -149,8 +149,8 @@ const componentClasses = cva(
 				selected: true,
 				class: [
 					'es:text-white',
-					'es:bg-radial-[at_50%_5%] es:from-50% es:from-accent-600/75 es:to-accent-600 es:text-white es:text-shadow-xs es:text-shadow-black/15',
-					'es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-ring-accent-500 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:bg-accent-50',
+					'es:bg-radial-[at_50%_5%] es:from-accent-600/75 es:from-50% es:to-accent-600 es:text-white es:text-shadow-black/15 es:text-shadow-xs',
+					'es:focus-visible:bg-accent-50 es:focus-visible:inset-ring es:focus-visible:ring-accent-500/30 es:focus-visible:inset-shadow-accent-300/10 es:focus-visible:inset-ring-accent-500',
 					'es:inset-ring es:inset-ring-accent-800/15',
 				],
 			},

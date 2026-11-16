@@ -116,7 +116,7 @@ export const Notice = (props: Prettify<NoticeProps>) => {
 				'es:icon:shrink-0',
 				'es:selection:p-2',
 				currentStyle.selectionClassName,
-				icon || currentStyle.icon ? 'es:gap-x-2 es:py-3 es:pl-2.5 es:pr-3' : 'es:py-3 es:px-3.5',
+				icon || currentStyle.icon ? 'es:gap-x-2 es:py-3 es:pr-3 es:pl-2.5' : 'es:px-3.5 es:py-3',
 				className,
 			)}
 		>
@@ -135,7 +135,7 @@ export const Notice = (props: Prettify<NoticeProps>) => {
 			{label && (
 				<span
 					className={clsx(
-						'es:col-span-2 es:col-start-2 es:text-balance es:text-14',
+						'es:col-span-2 es:col-start-2 es:text-14 es:text-balance',
 						subtitle ? 'es:self-end' : 'es:row-span-2 es:self-center-safe',
 						'es:font-variation-["wdth"_78,"wght"_325,"ROND"_100]',
 						currentStyle.textColorClassName,
@@ -148,7 +148,7 @@ export const Notice = (props: Prettify<NoticeProps>) => {
 			{subtitle && (
 				<span
 					className={clsx(
-						'es:col-span-2 es:col-start-2 es:text-balance es:text-xs es:pt-0.75',
+						'es:col-span-2 es:col-start-2 es:pt-0.75 es:text-xs es:text-balance',
 						'es:font-variation-["wdth"_90,"wght"_350,"slnt"_-1]',
 						currentStyle.subtitleColorClassName,
 						label ? 'es:self-start' : 'es:row-span-2 es:self-center-safe',

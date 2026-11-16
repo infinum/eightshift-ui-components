@@ -469,9 +469,7 @@ const SmartImage = (props: Prettify<SmartImageProps>) => {
 		const hasCustomErrorRenderer = isChildrenRenderer(children);
 
 		return (
-			<div
-				className={clsx(!hasCustomErrorRenderer && 'es:flex es:flex-col es:gap-2 es:items-center-safe es:justify-center es:p-2', 'es:motion-preset-fade', errorClassName)}
-			>
+			<div className={clsx(!hasCustomErrorRenderer && 'es:flex es:flex-col es:items-center-safe es:justify-center es:gap-2 es:p-2', 'es:motion-preset-fade', errorClassName)}>
 				{!hasCustomErrorRenderer && (
 					<DecorativeTooltip text={__('Error loading image', 'eightshift-ui-components')}>
 						{cloneElement(imageError, { className: 'es:text-surface-600 es:size-8' })}
@@ -490,7 +488,7 @@ const SmartImage = (props: Prettify<SmartImageProps>) => {
 							averageColor: null,
 							hasError: true,
 							errorBadge: (
-								<div className='es:size-full es:flex es:items-center es:justify-center'>
+								<div className='es:flex es:size-full es:items-center es:justify-center'>
 									<DecorativeTooltip text={__('Error loading image', 'eightshift-ui-components')}>
 										{cloneElement(imageError, { className: 'es:text-surface-600 es:size-8' })}
 									</DecorativeTooltip>

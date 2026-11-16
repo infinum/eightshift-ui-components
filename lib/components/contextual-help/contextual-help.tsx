@@ -82,7 +82,7 @@ export const ContextualHelp = (props: Prettify<ContextualHelpProps>) => {
 				aria-label={typeAriaLabels?.[type] || typeAriaLabels.help}
 				type='simple'
 				size='small'
-				className='es:rounded-full! es:p-0! es:size-6! es:icon:size-4!'
+				className='es:size-6! es:rounded-full! es:p-0! es:icon:size-4!'
 				{...triggerButtonProps}
 			>
 				{triggerButtonLabel}
@@ -91,7 +91,7 @@ export const ContextualHelp = (props: Prettify<ContextualHelpProps>) => {
 				placement={'bottom start'}
 				offset={8}
 				crossOffset={-8}
-				className={clsx('es:p-3.5 es:flex es:flex-col es:gap-2 es:max-w-56!', className)}
+				className={clsx('es:flex es:max-w-56! es:flex-col es:gap-2 es:p-3.5', className)}
 				style={style}
 				showArrow
 				{...rest}

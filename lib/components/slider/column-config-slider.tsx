@@ -169,11 +169,11 @@ export const ColumnConfigSlider = (props: Prettify<ColumnConfigSliderProps>) => 
 						<>
 							<div
 								className={clsx(
-									'es:row-span-1 es:row-start-1 es:w-fill es:h-6 es:self-center es:my-0.5',
+									'es:row-span-1 es:row-start-1 es:my-0.5 es:h-6 es:w-fill es:self-center',
 									'es:rounded-l-xl es:rounded-r-sm',
 									'es:transition-plus-m es:duration-300 es:ease-spring-smooth',
 									!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
-									!disabled && ['es:bg-surface-200', 'es:bg-linear-to-b es:from-surface-700/0 es:to-surface-700/5 es:from-25%', 'es:inset-ring es:inset-ring-surface-300/20'],
+									!disabled && ['es:bg-surface-200', 'es:bg-linear-to-b es:from-surface-700/0 es:from-25% es:to-surface-700/5', 'es:inset-ring es:inset-ring-surface-300/20'],
 									disabled && 'es:bg-secondary-200',
 									!disableOffset && 'es:mr-1.25',
 									value[0] < 2 && 'es:hidden',
@@ -183,11 +183,11 @@ export const ColumnConfigSlider = (props: Prettify<ColumnConfigSliderProps>) => 
 
 							<div
 								className={clsx(
-									'es:row-span-1 es:row-start-1 es:w-fill es:h-6 es:self-center es:my-0.5',
+									'es:row-span-1 es:row-start-1 es:my-0.5 es:h-6 es:w-fill es:self-center',
 									'es:rounded-l-sm es:rounded-r-xl',
 									'es:transition-plus-m es:duration-300 es:ease-spring-smooth',
 									!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
-									!disabled && ['es:bg-surface-200', 'es:bg-linear-to-b es:from-surface-700/0 es:to-surface-700/5 es:from-25%', 'es:inset-ring es:inset-ring-surface-300/20'],
+									!disabled && ['es:bg-surface-200', 'es:bg-linear-to-b es:from-surface-700/0 es:from-25% es:to-surface-700/5', 'es:inset-ring es:inset-ring-surface-300/20'],
 									disabled && 'es:bg-secondary-200',
 									!disableWidth && 'es:ml-1.25',
 									value[1] === columns && 'es:hidden',
@@ -198,14 +198,14 @@ export const ColumnConfigSlider = (props: Prettify<ColumnConfigSliderProps>) => 
 							<div
 								className={clsx(
 									'es:pointer-events-none es:col-start-1 es:row-start-1',
-									'es:h-6 es:w-fill es:self-center es:rounded-sm es:my-0.5',
+									'es:my-0.5 es:h-6 es:w-fill es:self-center es:rounded-sm',
 									'es:transition es:duration-300',
 									!flat && !disabled && 'es:shadow-xs es:shadow-black/5',
 									'es:mx-1.25',
 									value[0] === 1 && 'es:ml-1.75',
 									value[1] === columns && 'es:mr-1.75',
 									!disabled && [
-										'es:bg-accent-500 es:bg-linear-to-b es:from-accent-100/15 es:to-accent-100/0 es:from-25%',
+										'es:bg-accent-500 es:bg-linear-to-b es:from-accent-100/15 es:from-25% es:to-accent-100/0',
 										'es:inset-ring es:inset-ring-accent-700/10',
 										'es:inset-shadow-sm es:inset-shadow-accent-50/30',
 									],
@@ -220,15 +220,15 @@ export const ColumnConfigSlider = (props: Prettify<ColumnConfigSliderProps>) => 
 								<span
 									key={marker}
 									className={clsx(
-										'es:row-span-1 es:row-start-1 es:select-none es:place-self-center',
+										'es:row-span-1 es:row-start-1 es:place-self-center es:select-none',
 										'es:icon:size-2 es:icon:stroke-3',
 										'es:transition es:duration-300 es:ease-spring-smooth',
 										marker >= value[0] - 1 && marker < value[1] ? 'es:text-accent-900' : 'es:text-surface-400',
 										disabled && 'es:opacity-0',
 										!disableOffset && index === 0 && value[0] === 2 && 'es:-translate-x-px',
 										!disableWidth && index === columns - 1 && value[1] === columns - 1 && 'es:translate-x-px',
-										!disableOffset && index === 0 && value[0] === 1 && 'es:opacity-0 es:scale-50',
-										!disableWidth && index === columns - 1 && value[1] === columns && 'es:opacity-0 es:scale-50',
+										!disableOffset && index === 0 && value[0] === 1 && 'es:scale-50 es:opacity-0',
+										!disableWidth && index === columns - 1 && value[1] === columns && 'es:scale-50 es:opacity-0',
 									)}
 									style={{ gridColumn: index + 1 }}
 								>
@@ -275,10 +275,10 @@ export const ColumnConfigSlider = (props: Prettify<ColumnConfigSliderProps>) => 
 										className={clsx(
 											'es:static! es:row-span-1 es:row-start-1 es:h-full es:w-1 es:rounded-md es:transition es:duration-300',
 											'es:origin-center',
-											'es:hover:ring-[0.25px] es:focus-visible:ring-[0.5px] es:dragging:ring-[1px] es:ring-accent-500',
+											'es:ring-accent-500 es:hover:ring-[0.25px] es:focus-visible:ring-[0.5px] es:dragging:ring-[1px]',
 											'es:transform-none!',
-											'es:dragging:bg-accent-600 es:disabled:bg-secondary-400',
-											'es:focus-visible:outline-2 es:outline-offset-2 es:outline-accent-500/40',
+											'es:disabled:bg-secondary-400 es:dragging:bg-accent-600',
+											'es:outline-offset-2 es:outline-accent-500/40 es:focus-visible:outline-2',
 											'es:bg-accent-500',
 											'es:hover:ring-accent-600',
 											'es:dragging:bg-accent-600 es:dragging:ring-accent-600',
@@ -299,11 +299,11 @@ export const ColumnConfigSlider = (props: Prettify<ColumnConfigSliderProps>) => 
 											{index === state.focusedThumb ? (
 												<motion.div
 													className={clsx(
-														'es:absolute es:bottom-12 es:w-fit es:min-w-5 es:h-6 es:text-nowrap es:-translate-x-1/2',
+														'es:absolute es:bottom-12 es:h-6 es:w-fit es:min-w-5 es:-translate-x-1/2 es:text-nowrap',
 														'es:bg-surface-50/80 es:text-surface-700',
 														'es:backdrop-blur-xs',
 														'es:text-12 es:leading-none',
-														'es:py-1 es:px-2 es:rounded-lg',
+														'es:rounded-lg es:px-2 es:py-1',
 														'es:text-center',
 														'es:line-clamp-1',
 														'es:flex es:items-center es:justify-center es:gap-1',
@@ -358,7 +358,7 @@ export const ColumnConfigSlider = (props: Prettify<ColumnConfigSliderProps>) => 
  * <ColumnConfigSliderOutput />
  */
 export const ColumnConfigSliderOutput = ({ showOuterAsGutter }: Prettify<ColumnConfigSliderOutputProps>) => (
-	<ReactAriaSliderOutput className={clsx('es:text-xs es:tabular-nums es:text-secondary-600')}>
+	<ReactAriaSliderOutput className={clsx('es:text-xs es:text-secondary-600 es:tabular-nums')}>
 		{({ state }) => {
 			const columns = state.getThumbMaxValue(1);
 			const offset = parseInt(state.getThumbValueLabel(0), 10);

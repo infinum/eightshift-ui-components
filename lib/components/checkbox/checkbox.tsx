@@ -10,8 +10,8 @@ import type { Prettify } from '../../utilities/types';
 const checkboxClasses = cva(
 	[
 		'es:size-5 es:shrink-0',
-		'es:grid es:place-items-center es:grid-cols-1 es:grid-rows-1',
-		'es:*:row-start-1 es:*:col-start-1',
+		'es:grid es:grid-cols-1 es:grid-rows-1 es:place-items-center',
+		'es:*:col-start-1 es:*:row-start-1',
 		'es:rounded-sm',
 		'es:transition-plus es:duration-300 es:ease-spring-smooth',
 		'es:inset-ring',
@@ -22,7 +22,7 @@ const checkboxClasses = cva(
 		variants: {
 			disabled: {
 				true: 'es:cursor-not-allowed',
-				false: 'es:inset-shadow-xs es:bg-linear-to-b es:from-25%',
+				false: 'es:bg-linear-to-b es:from-25% es:inset-shadow-xs',
 			},
 			flat: {
 				true: null,
@@ -58,7 +58,7 @@ const checkboxClasses = cva(
 				active: true,
 				disabled: false,
 				class: [
-					'es:bg-accent-600 es:inset-ring-accent-800/5 es:text-white',
+					'es:bg-accent-600 es:text-white es:inset-ring-accent-800/5',
 					'es:from-accent-50/10 es:to-accent-50/2',
 					'es:inset-shadow-accent-50/35',
 					'es:group-focus-visible:inset-ring-accent-950',
@@ -67,12 +67,12 @@ const checkboxClasses = cva(
 			{
 				active: true,
 				disabled: true,
-				class: ['es:bg-secondary-400 es:inset-ring-secondary-400 es:text-white'],
+				class: ['es:bg-secondary-400 es:text-white es:inset-ring-secondary-400'],
 			},
 			{
 				active: false,
 				disabled: true,
-				class: ['es:bg-white es:inset-ring-secondary-300 es:text-secondary-50', 'es:bg-linear-to-b es:from-secondary-800/0 es:to-secondary-800/3'],
+				class: ['es:bg-white es:text-secondary-50 es:inset-ring-secondary-300', 'es:bg-linear-to-b es:from-secondary-800/0 es:to-secondary-800/3'],
 			},
 		],
 		defaultVariants: {

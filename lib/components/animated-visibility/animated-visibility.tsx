@@ -3,15 +3,7 @@ import { type HTMLAttributes, type ReactNode, useEffect, useState } from 'react'
 import type { Prettify } from '../../utilities/types';
 
 type ElementTransition =
-	| 'fade'
-	| 'slideFade'
-	| 'scaleFade'
-	| 'scaleRotateFade'
-	| 'slideFadeUpSlight'
-	| 'slideFadeDownSlight'
-	| 'slideInFadeOut'
-	| 'scaleSlideFade'
-	| 'scaleSlideFadeSlight';
+	'fade' | 'slideFade' | 'scaleFade' | 'scaleRotateFade' | 'slideFadeUpSlight' | 'slideFadeDownSlight' | 'slideInFadeOut' | 'scaleSlideFade' | 'scaleSlideFadeSlight';
 
 type TransitionClassNames = {
 	inClassName: string;
@@ -123,7 +115,7 @@ export const AnimatedVisibility = (props: Prettify<AnimatedVisibilityProps>) => 
 						!noEnterAnimation && visible && !noInitial && transitions[transition].inClassName,
 						!noExitAnimation && !visible && transitions[transition].outClassName,
 						'es:motion-duration-300',
-						decreaseBounce && 'es:motion-ease-spring-snappy es:motion-ease-linear/opacity',
+						decreaseBounce && 'es:motion-ease-linear/opacity es:motion-ease-spring-snappy',
 						!decreaseBounce && 'es:motion-ease-spring-bouncy es:motion-ease-linear/opacity',
 						'es:[animation-fill-mode:forwards]',
 						className,
