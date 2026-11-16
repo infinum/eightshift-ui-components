@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
+## [8.5.0] - 2026-11-16
+
+- Added opt-in font-free stylesheet exports: `styles-no-fonts`, `styles-editor-no-fonts`, and `styles-admin-no-fonts`, including explicit `dist/assets` paths.
+- Added `fonts-manifest` with font file paths, SHA-256 hashes, and font-face CSS for consumer-managed shared font assets. Existing stylesheet exports still include fonts; shared-font loading requires consumer integration.
+- Corrected Tailwind classes in components and the demo.
+- Replaced Oxfmt with Bun formatting and native Tailwind class sorting. Repository formatting requires Bun 1.4.4 or newer; Oxlint remains the lint tool.
+
 ## [8.4.1] - 2026-11-03
 
 - Updated dependencies (`motion` 14, `@wordpress/i18n` 7, React Aria, React Spectrum, `@dnd-kit/*`, Vite, Oxlint, Oxfmt).
@@ -682,6 +689,7 @@ Co-authored with @piqusy
 
 [Unreleased]: https://github.com/infinum/eightshift-ui-components/compare/8.4.1...HEAD
 
+[8.5.0]: https://github.com/infinum/eightshift-ui-components/compare/8.4.1...8.5.0
 [8.4.1]: https://github.com/infinum/eightshift-ui-components/compare/8.4.0...8.4.1
 [8.4.0]: https://github.com/infinum/eightshift-ui-components/compare/8.3.0...8.4.0
 [8.3.0]: https://github.com/infinum/eightshift-ui-components/compare/8.2.0...8.3.0
