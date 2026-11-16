@@ -70,11 +70,12 @@
 		"start": "node ./scripts/generate-icon-loaders.mjs && vite",
 		"build": "node ./scripts/generate-icon-loaders.mjs && vite build && tsc -p tsconfig.build.json",
 		"typecheck": "tsc --noEmit",
-		"lint": "oxlint",
+		"lint": "bun run fmt:check && oxlint",
 		"lint:fix": "oxlint --fix",
-		"fmt": "oxfmt 'lib/**/*.{ts,tsx}' 'src/**/*.{ts,tsx}' '*.ts' 'scripts/**/*.mjs' package.json",
-		"fmt:check": "oxfmt --check 'lib/**/*.{ts,tsx}' 'src/**/*.{ts,tsx}' '*.ts' 'scripts/**/*.mjs' package.json",
-		"preview": "vite preview"
+		"fmt": "bun fmt --no-script 'lib/**/*.{ts,tsx}' 'src/**/*.{ts,tsx}' '*.ts' 'scripts/**/*.mjs' package.json",
+		"fmt:check": "bun fmt --no-script --check 'lib/**/*.{ts,tsx}' 'src/**/*.{ts,tsx}' '*.ts' 'scripts/**/*.mjs' package.json",
+		"preview": "vite preview",
+		"fmt:files": "bun fmt --no-script"
 	},
 	"peerDependencies": {
 		"react": "^18.3.1",
@@ -109,7 +110,6 @@
 		"just-kebab-case": "^4.2.0",
 		"just-throttle": "^4.2.0",
 		"lightningcss": "^1.33.0",
-		"oxfmt": "0.74.0",
 		"oxlint": "1.89.0",
 		"oxlint-tsgolint": "7.0.2004",
 		"postcss": "^8.5.31",
