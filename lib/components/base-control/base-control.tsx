@@ -105,7 +105,7 @@ export const BaseControl = (props: Prettify<BaseControlProps>) => {
 					/>
 				)}
 
-				{inline && actions && <div className='es:flex es:items-center es:gap-1 es:mr-auto es:ml-1'>{actions}</div>}
+				{inline && actions && <div className='es:mr-auto es:ml-1 es:flex es:items-center es:gap-1'>{actions}</div>}
 
 				{inline && <div className={clsx('es:ml-auto es:flex es:items-center es:gap-1', controlContainerClassName)}>{children}</div>}
 
@@ -117,7 +117,7 @@ export const BaseControl = (props: Prettify<BaseControlProps>) => {
 
 			{help && (
 				<Text
-					className={clsx('es:inline-block es:text-sm es:text-secondary-500 es:mt-1.5 es:font-variation-["wdth"_66,"wght"_325,"slnt"_-4]', !noHelpInset && 'es:pl-1')}
+					className={clsx('es:mt-1.5 es:inline-block es:text-sm es:text-secondary-500 es:font-variation-["wdth"_66,"wght"_325,"slnt"_-4]', !noHelpInset && 'es:pl-1')}
 					slot='description'
 				>
 					{help}

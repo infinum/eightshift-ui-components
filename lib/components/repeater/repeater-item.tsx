@@ -63,7 +63,7 @@ export const RepeaterItem = (props: Prettify<RepeaterItemProps>) => {
 			headerClassName={clsx(
 				'es:transition-plus',
 				!isItemOpen && !isDragged && 'es:not-group-first:not-group-before-current:rounded-t-md es:not-group-last:not-group-after-current:rounded-b-md',
-				!isItemOpen && isOutOfBounds && 'es:inset-ring-red-200! es:text-red-900! es:bg-red-50! es:[&_button]:invisible es:[&_svg_path]:stroke-red-600',
+				!isItemOpen && isOutOfBounds && 'es:bg-red-50! es:text-red-900! es:inset-ring-red-200! es:[&_button]:invisible es:[&_svg_path]:stroke-red-600',
 				isDragged && 'es:rounded-2xl! es:bg-surface-50! es:inset-ring-surface-100',
 			)}
 			open={allOpen}

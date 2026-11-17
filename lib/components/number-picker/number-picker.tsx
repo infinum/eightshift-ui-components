@@ -50,9 +50,9 @@ const inputClass = cva(
 				readOnly: false,
 				class: [
 					'es:bg-white',
-					'es:bg-linear-to-b es:from-secondary-100/0 es:to-secondary-100/50 es:from-25%',
+					'es:bg-linear-to-b es:from-secondary-100/0 es:from-25% es:to-secondary-100/50',
 					'es:hover:from-surface-100/0 es:hover:to-surface-100/50',
-					'es:inset-ring-secondary-400/50 es:hover:inset-ring-surface-300 es:focus-within:inset-ring-surface-400',
+					'es:inset-ring-secondary-400/50 es:focus-within:inset-ring-surface-400 es:hover:inset-ring-surface-300',
 					'es:inset-shadow-sm es:inset-shadow-secondary-100/50',
 					'es:hover:placeholder:text-surface-400',
 					'es:placeholder:text-secondary-400',
@@ -68,12 +68,12 @@ const inputClass = cva(
 					'es:focus-within:text-accent-950',
 					'es:placeholder:text-secondary-500/80',
 					'es:bg-secondary-100 es:focus-within:bg-surface-50',
-					'es:inset-ring-secondary-200/15 es:hover:inset-ring-secondary-200/65 es:focus-within:inset-ring-surface-200',
+					'es:inset-ring-secondary-200/15 es:focus-within:inset-ring-surface-200 es:hover:inset-ring-secondary-200/65',
 				],
 			},
-			{ disabled: true, class: ['es:bg-secondary-50 es:inset-ring-secondary-200 es:text-secondary-400'] },
-			{ readOnly: true, flat: false, class: ['es:bg-secondary-50 es:inset-ring-secondary-300 es:text-secondary-400'] },
-			{ readOnly: true, flat: true, class: ['es:bg-secondary-50 es:inset-ring-secondary-300/60 es:text-secondary-400'] },
+			{ disabled: true, class: ['es:bg-secondary-50 es:text-secondary-400 es:inset-ring-secondary-200'] },
+			{ readOnly: true, flat: false, class: ['es:bg-secondary-50 es:text-secondary-400 es:inset-ring-secondary-300'] },
+			{ readOnly: true, flat: true, class: ['es:bg-secondary-50 es:text-secondary-400 es:inset-ring-secondary-300/60'] },
 		],
 		defaultVariants: { disabled: false, flat: false, size: 'default', readOnly: false },
 	},
@@ -198,24 +198,24 @@ export const NumberPicker = (props: Prettify<NumberPickerProps>) => {
 						{prefix ? (
 							<span
 								slot='prefix'
-								className='es:mr-1 es:-translate-y-px es:select-none es:leading-none es:text-current/65 es:font-variation-["wdth"_76,"wght"_325,"slnt"_-2,"ROND"_100] es:group-focus-within:text-surface-500'
+								className='es:mr-1 es:-translate-y-px es:leading-none es:text-current/65 es:select-none es:font-variation-["wdth"_76,"wght"_325,"slnt"_-2,"ROND"_100] es:group-focus-within:text-surface-500'
 							>
 								{prefix}
 							</span>
 						) : null}
 
 						<Input
-							className='es:font-variation-["wdth"_80,"wght"_325,"slnt"_0,"ROND"_100] es:placeholder-shown:font-variation-["wdth"_60,"wght"_300,"slnt"_-10,"ROND"_0] es:any-focus:outline-hidden! es:p-px! es:border-none! es:shadow-none! es:bg-transparent es:text-13!'
+							className='es:border-none! es:bg-transparent es:p-px! es:text-13! es:shadow-none! es:font-variation-["wdth"_80,"wght"_325,"slnt"_0,"ROND"_100] es:placeholder-shown:font-variation-["wdth"_60,"wght"_300,"slnt"_-10,"ROND"_0] es:any-focus:outline-hidden!'
 							placeholder={placeholder}
 							style={{ width: inputWidth }}
 						/>
 
 						<ButtonGroup
 							className={clsx(
-								'es:hidden es:transition-discrete es:gap-0! es:transition es:pl-0.5 es:ease-spring-smooth es:duration-300 es:origin-left',
-								'es:starting:opacity-0 es:starting:translate-x-2',
-								'es:opacity-100 es:translate-x-0',
-								!disabled && !readOnly && 'es:group-hover:flex es:group-focus-within:flex',
+								'es:hidden es:origin-left es:gap-0! es:pl-0.5 es:transition es:transition-discrete es:duration-300 es:ease-spring-smooth',
+								'es:starting:translate-x-2 es:starting:opacity-0',
+								'es:translate-x-0 es:opacity-100',
+								!disabled && !readOnly && 'es:group-focus-within:flex es:group-hover:flex',
 								disabled && 'es:hidden',
 							)}
 							vertical
@@ -223,7 +223,7 @@ export const NumberPicker = (props: Prettify<NumberPickerProps>) => {
 							<Button
 								type='ghost'
 								className={clsx(
-									'es:col-start-4 es:w-4 es:disabled:opacity-40 es:text-current/80 es:group-focus-within:text-surface-500 es:icon:size-[0.65rem] es:icon:stroke-2',
+									'es:col-start-4 es:w-4 es:text-current/80 es:group-focus-within:text-surface-500 es:disabled:opacity-40 es:icon:size-[0.65rem] es:icon:stroke-2',
 									size === 'small' ? 'es:h-3' : 'es:h-3.5',
 								)}
 								slot='increment'
@@ -232,7 +232,7 @@ export const NumberPicker = (props: Prettify<NumberPickerProps>) => {
 							<Button
 								type='ghost'
 								className={clsx(
-									'es:col-start-4 es:w-4 es:disabled:opacity-40 es:text-current/80 es:group-focus-within:text-surface-500 es:icon:size-[0.65rem] es:icon:stroke-2',
+									'es:col-start-4 es:w-4 es:text-current/80 es:group-focus-within:text-surface-500 es:disabled:opacity-40 es:icon:size-[0.65rem] es:icon:stroke-2',
 									size === 'small' ? 'es:h-3' : 'es:h-3.5',
 								)}
 								slot='decrement'
@@ -243,7 +243,7 @@ export const NumberPicker = (props: Prettify<NumberPickerProps>) => {
 						{suffix ? (
 							<span
 								slot='suffix'
-								className='es:ml-1 es:-translate-y-px es:select-none es:leading-none es:text-current/60 es:font-variation-["wdth"_76,"wght"_325,"slnt"_-2,"ROND"_100] es:group-focus-within:text-surface-500'
+								className='es:ml-1 es:-translate-y-px es:leading-none es:text-current/60 es:select-none es:font-variation-["wdth"_76,"wght"_325,"slnt"_-2,"ROND"_100] es:group-focus-within:text-surface-500'
 							>
 								{suffix}
 							</span>

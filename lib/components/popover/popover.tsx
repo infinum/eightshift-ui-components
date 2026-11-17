@@ -157,17 +157,17 @@ export const Popover = (props: Prettify<PopoverProps>) => {
 			className={({ isEntering, isExiting }) =>
 				clsx(
 					'es:font-sans',
-					'es:rounded-2xl es:bg-linear-to-br es:from-surface-50/90 es:to-surface-50/90 es:inset-ring es:inset-ring-surface-500/15 es:shadow-xl es:outline-hidden',
+					'es:rounded-2xl es:bg-linear-to-br es:from-surface-50/90 es:to-surface-50/90 es:shadow-xl es:inset-ring es:inset-ring-surface-500/15 es:outline-hidden',
 					'es:backdrop-blur-xl es:backdrop-brightness-110 es:backdrop-saturate-115',
 					'es:inset-shadow-sm es:inset-shadow-white/30',
-					'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
+					'es:placement-top:origin-bottom-left es:placement-bottom:origin-top-left',
 					'es:placement-left:origin-right es:placement-right:origin-left',
 					'es:motion-ease-spring-bouncy',
-					isEntering && 'es:*:pointer-events-none es:motion-duration-300',
-					'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
-					isEntering && 'es:motion-scale-x-in-95 es:motion-scale-y-in-90 es:motion-opacity-in-0',
+					isEntering && 'es:motion-duration-300 es:*:pointer-events-none',
+					'es:placement-top:origin-bottom-left es:placement-bottom:origin-top-left',
+					isEntering && 'es:motion-opacity-in-0 es:motion-scale-x-in-95 es:motion-scale-y-in-90',
 					isEntering && 'es:placement-top:motion-translate-y-in-[0.25rem] es:placement-bottom:motion-translate-y-in-[-0.25rem]',
-					isExiting && 'es:motion-scale-x-out-95 es:motion-scale-y-out-90 es:motion-opacity-out-0 es:motion-duration-200',
+					isExiting && 'es:motion-opacity-out-0 es:motion-scale-x-out-95 es:motion-scale-y-out-90 es:motion-duration-200',
 					isExiting && 'es:placement-top:motion-translate-y-out-[0.25rem] es:placement-bottom:motion-translate-y-out-[-0.25rem]',
 					wrapperClassName,
 				)
@@ -182,11 +182,11 @@ export const Popover = (props: Prettify<PopoverProps>) => {
 						height={12}
 						viewBox='0 0 12 12'
 						className={clsx(
-							'es:block es:fill-surface-50 es:stroke-1 es:stroke-surface-500/10',
+							'es:block es:fill-surface-50 es:stroke-surface-500/10 es:stroke-1',
 							'es:group-placement-top:-translate-y-px',
-							'es:group-placement-bottom:rotate-180 es:group-placement-bottom:translate-y-px',
-							'es:group-placement-left:-rotate-90 es:group-placement-left:-translate-x-px',
-							'es:group-placement-right:rotate-90 es:group-placement-right:translate-x-px',
+							'es:group-placement-bottom:translate-y-px es:group-placement-bottom:rotate-180',
+							'es:group-placement-left:-translate-x-px es:group-placement-left:-rotate-90',
+							'es:group-placement-right:translate-x-px es:group-placement-right:rotate-90',
 						)}
 					>
 						<path d='M0 0 L6 6 L12 0' />

@@ -75,7 +75,7 @@ export const ColorSwatch = (props: Prettify<ColorSwatchProps>) => {
 			}}
 			className={() =>
 				clsx(
-					'es:size-6 es:rounded-5 es:in-aria-expanded:rounded-2xl es:border es:border-secondary-300 es:transition-[border-radius]',
+					'es:size-6 es:rounded-5 es:border es:border-secondary-300 es:transition-[border-radius] es:in-aria-expanded:rounded-2xl',
 					!hasVisibleColor && 'es:bg-white',
 					!flat && 'es:shadow-sm',
 					className,

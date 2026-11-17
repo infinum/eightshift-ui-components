@@ -152,13 +152,13 @@ export const MatrixAlign = (props: Prettify<MatrixAlignProps>) => {
 				}}
 				wrapperClassName='es:from-surface-300/30 es:to-surface-300/30 es:p-0.5'
 			>
-				<div className='es:bg-accent-50/60 es:inset-ring es:inset-ring-accent-800/3 es:rounded-t-xl es:rounded-b-md'>
+				<div className='es:rounded-t-xl es:rounded-b-md es:bg-accent-50/60 es:inset-ring es:inset-ring-accent-800/3'>
 					<RadioGroup
 						aria-label={isStringValue(tooltip) ? tooltip : __('Position', 'eightshift-ui-components')}
 						value={value}
 						onChange={onChange}
 						orientation='horizontal'
-						className={clsx('es:grid es:gap-1 es:w-fit es:mx-auto', size === '2x2' && 'es:grid-cols-2 es:p-5', size === '3x3' && 'es:grid-cols-3 es:p-3')}
+						className={clsx('es:mx-auto es:grid es:w-fit es:gap-1', size === '2x2' && 'es:grid-cols-2 es:p-5', size === '3x3' && 'es:grid-cols-3 es:p-3')}
 					>
 						{sizeOptions.map(({ value: itemValue, label: itemLabel }) => (
 							<Radio
@@ -168,10 +168,10 @@ export const MatrixAlign = (props: Prettify<MatrixAlignProps>) => {
 								value={itemValue}
 								className={({ isSelected }) =>
 									clsx(
-										'es:size-6 es:rounded-sm es:transition-plus es:ease-spring-bouncy es:inset-ring es:pressed:scale-90',
+										'es:size-6 es:rounded-sm es:inset-ring es:transition-plus es:ease-spring-bouncy es:pressed:scale-90',
 										isSelected &&
-											'es:bg-accent-500 es:rounded-xl es:inset-ring-accent-700 es:inset-shadow-sm es:inset-shadow-accent-50/25 es:bg-linear-to-b es:from-25% es:from-accent-700/5 es:to-accent-700/30 es:shadow-xs es:shadow-black/10',
-										!isSelected && 'es:bg-surface-300 es:hover:bg-surface-400 es:hover:rounded-md es:focus-visible:rounded-lg es:pressed:rounded-xl es:inset-ring-surface-400/20',
+											'es:rounded-xl es:bg-accent-500 es:bg-linear-to-b es:from-accent-700/5 es:from-25% es:to-accent-700/30 es:shadow-xs es:inset-shadow-sm es:shadow-black/10 es:inset-shadow-accent-50/25 es:inset-ring-accent-700',
+										!isSelected && 'es:bg-surface-300 es:inset-ring-surface-400/20 es:hover:rounded-md es:hover:bg-surface-400 es:focus-visible:rounded-lg es:pressed:rounded-xl',
 									)
 								}
 							/>
@@ -179,7 +179,7 @@ export const MatrixAlign = (props: Prettify<MatrixAlignProps>) => {
 					</RadioGroup>
 				</div>
 
-				<div className='es:pb-1 es:pt-1.5 es:text-12 es:text-center es:text-surface-600'>{currentItemLabel}</div>
+				<div className='es:pt-1.5 es:pb-1 es:text-center es:text-12 es:text-surface-600'>{currentItemLabel}</div>
 			</TypedTriggeredPopover>
 		</BaseControl>
 	);

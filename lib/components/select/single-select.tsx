@@ -288,7 +288,7 @@ export const Select = (props: Prettify<SelectProps>) => {
 								}
 
 								if (!currentValue) {
-									return <span className='es:select-none es:pointer-events-none es:pr-6 es:text-sm es:text-surface-500'>{placeholder}</span>;
+									return <span className='es:pointer-events-none es:pr-6 es:text-sm es:text-surface-500 es:select-none'>{placeholder}</span>;
 								}
 
 								const selectedIcon = selectedItem?.icon ?? null;
@@ -298,7 +298,7 @@ export const Select = (props: Prettify<SelectProps>) => {
 										icon={selectedIcon ? <Icon icon={selectedIcon} /> : null}
 										label={selectedItem?.label}
 										subtitle={selectedItem?.subtitle}
-										className={clsx('es:pr-6 es:grow es:w-full', disabled && 'es:grayscale es:pointer-events-none')}
+										className={clsx('es:w-full es:grow es:pr-6', disabled && 'es:pointer-events-none es:grayscale')}
 										iconClassName='es:pointer-events-none es:select-none'
 									/>
 								);
@@ -306,7 +306,7 @@ export const Select = (props: Prettify<SelectProps>) => {
 						</SelectValue>
 
 						<div
-							className={clsx('es:absolute es:bottom-0 es:right-3 es:top-0 es:my-auto es:flex es:items-center', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}
+							className={clsx('es:absolute es:inset-y-0 es:right-3 es:my-auto es:flex es:items-center', disabled ? 'es:text-secondary-300' : 'es:text-secondary-500')}
 							aria-hidden='true'
 						>
 							{!customDropdownArrow
@@ -318,7 +318,7 @@ export const Select = (props: Prettify<SelectProps>) => {
 							{customDropdownArrow ? (
 								<div
 									aria-hidden='true'
-									className='es:group-aria-expanded:-scale-y-100 es:transition-transform es:duration-200'
+									className='es:transition-transform es:duration-200 es:group-aria-expanded:-scale-y-100'
 								>
 									{customDropdownArrow}
 								</div>
@@ -335,8 +335,8 @@ export const Select = (props: Prettify<SelectProps>) => {
 							'es:font-sans',
 							'es:w-(--select-width) es:min-w-72',
 							'es:outline-hidden',
-							searchable ? 'es:rounded-b-xl es:rounded-t-3xl' : 'es:rounded-2xl',
-							'es:overflow-clip es:grid es:grid-cols-1',
+							searchable ? 'es:rounded-t-3xl es:rounded-b-xl' : 'es:rounded-2xl',
+							'es:grid es:grid-cols-1 es:overflow-clip',
 							searchable ? 'es:grid-rows-[auto_minmax(0,1fr)]' : 'es:grid-rows-1',
 							!searchable && !options.length ? 'es:has-first-selected:rounded-t-20!' : null,
 							'es:has-last-selected:rounded-b-20!',
@@ -348,11 +348,11 @@ export const Select = (props: Prettify<SelectProps>) => {
 							'es:backdrop-saturate-125',
 							'es:shadow-lg es:shadow-black/10',
 							'es:transition-plus',
-							'es:motion-duration-300 es:motion-ease-spring-bouncy',
-							'es:placement-bottom:origin-top-left es:placement-top:origin-bottom-left',
-							isEntering && 'es:motion-scale-x-in-95 es:motion-scale-y-in-85 es:motion-opacity-in-0',
+							'es:motion-ease-spring-bouncy es:motion-duration-300',
+							'es:placement-top:origin-bottom-left es:placement-bottom:origin-top-left',
+							isEntering && 'es:motion-opacity-in-0 es:motion-scale-x-in-95 es:motion-scale-y-in-85',
 							isEntering && 'es:placement-top:motion-translate-y-in-[0.5rem] es:placement-bottom:motion-translate-y-in-[-0.5rem]',
-							isExiting && 'es:motion-scale-x-out-95 es:motion-scale-y-out-85 es:motion-opacity-out-0',
+							isExiting && 'es:motion-opacity-out-0 es:motion-scale-x-out-95 es:motion-scale-y-out-85',
 							isExiting && 'es:placement-top:motion-translate-y-out-[0.5rem] es:placement-bottom:motion-translate-y-out-[-0.5rem]',
 						)
 					}
@@ -369,14 +369,14 @@ export const Select = (props: Prettify<SelectProps>) => {
 						>
 							<SearchField
 								aria-label={__('Search', 'eightshift-ui-components')}
-								className='es:flex es:items-center es:relative'
+								className='es:relative es:flex es:items-center'
 								autoFocus
 							>
 								<Input
 									placeholder={__('Search...', 'eightshift-ui-components')}
 									className={clsx(
-										'es:peer es:size-full es:h-9.5 es:outline-hidden! es:pl-3.5 es:pr-9 es:shadow-none! es:text-13! es:placeholder:text-surface-500 es:[&::-webkit-search-cancel-button]:hidden',
-										'es:bg-accent-900/8 es:m-1.5 es:rounded-3xl! es:border-none!',
+										'es:peer es:size-full es:h-9.5 es:pr-9 es:pl-3.5 es:text-13! es:shadow-none! es:outline-hidden! es:placeholder:text-surface-500 es:[&::-webkit-search-cancel-button]:hidden',
+										'es:m-1.5 es:rounded-3xl! es:border-none! es:bg-accent-900/8',
 										'es:inset-ring! es:inset-ring-accent-950/7 es:focus:inset-ring-accent-950/20',
 										'es:text-accent-950 es:placeholder:text-accent-700/50',
 										'es:transition',
@@ -387,8 +387,8 @@ export const Select = (props: Prettify<SelectProps>) => {
 									slot='clear'
 									aria-label={__('Clear', 'eightshift-ui-components')}
 									className={clsx(
-										'es:absolute es:right-3 es:top-0 es:bottom-0 es:my-auto es:border-none es:bg-transparent',
-										'es:flex es:size-7 es:items-center es:justify-center es:rounded-3xl es:text-sm es:text-surface-700 es:transition es:hover:bg-accent-50 es:hover:text-accent-800 es:any-focus:outline-hidden es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300',
+										'es:absolute es:inset-y-0 es:right-3 es:my-auto es:border-none es:bg-transparent',
+										'es:flex es:size-7 es:items-center es:justify-center es:rounded-3xl es:text-sm es:text-surface-700 es:transition es:hover:bg-accent-50 es:hover:text-accent-800 es:focus:ring-2 es:focus:ring-accent-500/50 es:disabled:text-secondary-300 es:any-focus:outline-hidden',
 										'es:peer-placeholder-shown:opacity-0',
 									)}
 								>
@@ -397,13 +397,13 @@ export const Select = (props: Prettify<SelectProps>) => {
 							</SearchField>
 
 							<ListBox
-								className='es:space-y-0.75 es:p-1.5 es:pt-0 es:any-focus:outline-hidden es:h-full es:overflow-y-auto es:rounded-t-xl'
+								className='es:h-full es:space-y-0.75 es:overflow-y-auto es:rounded-t-xl es:p-1.5 es:pt-0 es:any-focus:outline-hidden'
 								renderEmptyState={() => (
 									<RichLabel
 										icon={searchEmpty}
 										label={__('No results', 'eightshift-ui-components')}
 										subtitle={__('Try a different search term', 'eightshift-ui-components')}
-										className='es:min-h-14 es:p-2 es:w-fit es:mx-auto es:motion-preset-slide-up es:motion-ease-spring-bouncy es:motion-duration-200 es:shrink-0'
+										className='es:mx-auto es:min-h-14 es:w-fit es:shrink-0 es:motion-preset-slide-up es:p-2 es:motion-ease-spring-bouncy es:motion-duration-200'
 										iconClassName='es:text-accent-700 es:icon:size-7!'
 										noColor
 									/>
@@ -416,7 +416,7 @@ export const Select = (props: Prettify<SelectProps>) => {
 												id={item.key}
 												className='es:flex es:flex-col es:gap-0.75'
 											>
-												<Header className='es:px-2.5 es:pb-1 es:pt-3 es:select-none'>
+												<Header className='es:px-2.5 es:pt-3 es:pb-1 es:select-none'>
 													<RichLabel
 														icon={item.icon}
 														label={item.label}
@@ -436,13 +436,13 @@ export const Select = (props: Prettify<SelectProps>) => {
 						</Autocomplete>
 					) : (
 						<ListBox
-							className='es:space-y-0.75 es:p-1.5 es:any-focus:outline-hidden es:h-full es:overflow-y-auto es:rounded-t-xl'
+							className='es:h-full es:space-y-0.75 es:overflow-y-auto es:rounded-t-xl es:p-1.5 es:any-focus:outline-hidden'
 							renderEmptyState={() => (
 								<RichLabel
 									icon={searchEmpty}
 									label={__('No results', 'eightshift-ui-components')}
 									subtitle={__('Try a different search term', 'eightshift-ui-components')}
-									className='es:min-h-14 es:p-2 es:w-fit es:mx-auto es:motion-preset-slide-up es:motion-ease-spring-bouncy es:motion-duration-200'
+									className='es:mx-auto es:min-h-14 es:w-fit es:motion-preset-slide-up es:p-2 es:motion-ease-spring-bouncy es:motion-duration-200'
 									iconClassName='es:text-accent-700 es:icon:size-7!'
 									noColor
 								/>
@@ -455,7 +455,7 @@ export const Select = (props: Prettify<SelectProps>) => {
 											id={item.key}
 											className='es:flex es:flex-col es:gap-0.75'
 										>
-											<Header className='es:px-2.5 es:pb-1 es:pt-3 es:select-none'>
+											<Header className='es:px-2.5 es:pt-3 es:pb-1 es:select-none'>
 												<RichLabel
 													icon={item.icon}
 													label={item.label}

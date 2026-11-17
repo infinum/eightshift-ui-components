@@ -95,7 +95,7 @@ export const FilePickerShell = (props: Prettify<FilePickerShellProps>) => {
 	}
 
 	if (!url) {
-		return noUrlContent ? <div className={clsx('es:grid es:auto-cols-fr es:grid-flow-col es:gap-2 es:p-px es:w-full')}>{noUrlContent}</div> : null;
+		return noUrlContent ? <div className={clsx('es:grid es:w-full es:auto-cols-fr es:grid-flow-col es:gap-2 es:p-px')}>{noUrlContent}</div> : null;
 	}
 
 	if (type !== 'image') {
@@ -103,18 +103,18 @@ export const FilePickerShell = (props: Prettify<FilePickerShellProps>) => {
 			<div
 				{...rest}
 				className={clsx(
-					'es:border es:border-surface-200 es:bg-surface-50 es:flex es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-2 es:overflow-clip es:group es:p-2',
+					'es:group es:relative es:isolate es:flex es:flex-col es:justify-between es:gap-2 es:overflow-clip es:rounded-2xl es:border es:border-surface-200 es:bg-surface-50 es:p-2',
 					className,
 				)}
 			>
 				{type === 'file' ? (
-					<div className='es:grow es:flex es:flex-col es:gap-2 es:text-sm es:items-center-safe es:justify-center es:font-mono es:icon:size-6 es:rounded-xl es:bg-white/50 es:inset-ring es:inset-ring-surface-100 es:icon:text-surface-500 es:text-surface-700 es:px-2 es:py-4'>
+					<div className='es:flex es:grow es:flex-col es:items-center-safe es:justify-center es:gap-2 es:rounded-xl es:bg-white/50 es:px-2 es:py-4 es:font-mono es:text-sm es:text-surface-700 es:inset-ring es:inset-ring-surface-100 es:icon:size-6 es:icon:text-surface-500'>
 						{icon}
 						<span className='es:line-clamp-1'>{truncateMiddle(url, 34)}</span>
 					</div>
 				) : null}
 
-				{children && !isRenderFunction(children) ? <div className='es:flex es:items-center-safe es:gap-0.75 es-button-group-h'>{children}</div> : null}
+				{children && !isRenderFunction(children) ? <div className='es-button-group-h es:flex es:items-center-safe es:gap-0.75'>{children}</div> : null}
 			</div>
 		);
 	}
@@ -126,12 +126,12 @@ export const FilePickerShell = (props: Prettify<FilePickerShellProps>) => {
 			className={({ hasAnalysed, isTransparent, transparencyInfo, isDark, hasError }) =>
 				clsx(
 					hasAnalysed && isTransparent && url && 'es:p-4',
-					hasAnalysed && isTransparent && isDark && 'es:object-contain es:mx-auto',
-					hasAnalysed && isTransparent && !isDark && 'es:object-contain es:mx-auto',
+					hasAnalysed && isTransparent && isDark && 'es:mx-auto es:object-contain',
+					hasAnalysed && isTransparent && !isDark && 'es:mx-auto es:object-contain',
 					hasAnalysed && isTransparent && (transparencyInfo?.left || transparencyInfo?.right) && 'es:w-full!',
 					hasAnalysed && isTransparent && (transparencyInfo?.top || transparencyInfo?.bottom) && 'es:h-full!',
-					hasAnalysed && !isTransparent && 'es:w-full! es:aspect-3-2 es:object-cover',
-					hasAnalysed && 'es:grow es:rounded-xl es:h-fill!',
+					hasAnalysed && !isTransparent && 'es:aspect-3-2 es:w-full! es:object-cover',
+					hasAnalysed && 'es:h-fill! es:grow es:rounded-xl',
 					hasError && 'es:rounded-xl',
 				)
 			}
@@ -142,12 +142,12 @@ export const FilePickerShell = (props: Prettify<FilePickerShellProps>) => {
 				return (
 					<div
 						className={clsx(
-							'es:border es:justify-between es:rounded-2xl es:isolate es:relative es:flex-col es:gap-y-2 es:grid es:grid-cols-1 es:overflow-clip es:aspect-3-2 es:transition',
+							'es:relative es:isolate es:grid es:aspect-3-2 es:grid-cols-1 es:flex-col es:justify-between es:gap-y-2 es:overflow-clip es:rounded-2xl es:border es:transition',
 							!hasError && hasAnalysed ? 'es:border-secondary-200' : 'es:border-secondary-200/0',
 							!hasError && hasAnalysed && !isTransparent && 'es:group es:grid-rows-1',
-							((hasAnalysed && isTransparent) || hasError) && 'es:p-2 es:grid-rows-[minmax(0,1fr)_auto] es:h-fit',
+							((hasAnalysed && isTransparent) || hasError) && 'es:h-fit es:grid-rows-[minmax(0,1fr)_auto] es:p-2',
 							!hasError && !hasAnalysed && 'es:shimmer-dark es:bg-surface-100',
-							hasError && 'es:bg-surface-50 es:border-surface-100',
+							hasError && 'es:border-surface-100 es:bg-surface-50',
 							className,
 						)}
 						style={
@@ -169,7 +169,7 @@ export const FilePickerShell = (props: Prettify<FilePickerShellProps>) => {
 									'es-button-group-h',
 									!hasError &&
 										!isTransparent &&
-										'es:absolute es:bottom-2 es:left-2 es:right-2 es:translate-y-[125%] es:group-hover:translate-y-0 es:has-aria-expanded:translate-y-0 es:has-focus-visible:translate-y-0 es:transition-transform es:ease-spring-smooth',
+										'es:absolute es:inset-x-2 es:bottom-2 es:translate-y-[125%] es:transition-transform es:ease-spring-smooth es:group-hover:translate-y-0 es:has-focus-visible:translate-y-0 es:has-aria-expanded:translate-y-0',
 								)}
 							>
 								{isRenderFunction(children) ? children({ dominantColors, isDark, isTransparent, hasError }) : children}

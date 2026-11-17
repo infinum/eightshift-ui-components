@@ -106,11 +106,11 @@ const ModalInternal = (props: ModalProps) => {
 			<ReactAriaModal
 				className={({ isEntering, isExiting }) =>
 					clsx(
-						'es:w-full es:overflow-y-hidden es:rounded-3xl es:inset-ring es:inset-ring-surface-400/30 es:bg-white es:bg-linear-to-b es:from-accent-300/3 es:to-accent-300/1 es:text-left es:align-middle es:shadow-xl es:text-surface-900',
+						'es:w-full es:overflow-y-hidden es:rounded-3xl es:bg-white es:bg-linear-to-b es:from-accent-300/3 es:to-accent-300/1 es:text-left es:align-middle es:text-surface-900 es:shadow-xl es:inset-ring es:inset-ring-surface-400/30',
 						width === 'default' && 'es:max-w-lg',
 						width === 'wide' && 'es:max-w-[80vw]',
-						isEntering && 'es:motion-scale-in-95 es:motion-fade-in es:motion-translate-y-in-[2rem] es:motion-duration-300 es:motion-ease-spring-smooth/scale',
-						isExiting && 'es:motion-scale-out-95 es:motion-fade-out es:motion-translate-y-out-[2rem] es:motion-duration-250 es:motion-ease-spring-smooth/scale',
+						isEntering && 'es:motion-preset-fade-sm es:motion-scale-in-95 es:motion-translate-y-in-[2rem] es:motion-ease-spring-smooth/scale',
+						isExiting && 'es:motion-scale-out-95 es:motion-opacity-out es:motion-translate-y-out-[2rem] es:motion-ease-spring-smooth/scale es:motion-duration-250',
 						className,
 					)
 				}
@@ -121,10 +121,10 @@ const ModalInternal = (props: ModalProps) => {
 				>
 					{({ close }) => (
 						<>
-							<HStack className={clsx(title && 'es:p-6 es:pb-3 es:justify-between', headerClassName)}>
+							<HStack className={clsx(title && 'es:justify-between es:p-6 es:pb-3', headerClassName)}>
 								{title ? (
 									<Heading
-										className='es:text-balance es:text-3xl! es:my-0! es:text-accent-800 es:font-variation-["wdth"_40,"wght"_425,"slnt"_-3,"ROND"_100]'
+										className='es:my-0! es:text-3xl! es:text-balance es:text-accent-800 es:font-variation-["wdth"_40,"wght"_425,"slnt"_-3,"ROND"_100]'
 										slot='title'
 									>
 										{title}
@@ -151,7 +151,7 @@ const ModalInternal = (props: ModalProps) => {
 							</HStack>
 
 							{children ? (
-								<div className={clsx('es:px-6 es:space-y-2.5 es:overflow-y-auto es:max-h-[70vh]', !actions && 'es:mb-6', contentContainerClassName)}>{children}</div>
+								<div className={clsx('es:max-h-[70vh] es:space-y-2.5 es:overflow-y-auto es:px-6', !actions && 'es:mb-6', contentContainerClassName)}>{children}</div>
 							) : null}
 
 							{actions ? <HStack className={clsx('es:justify-end es:px-6 es:py-4', actionsClassName)}>{actions}</HStack> : null}

@@ -153,8 +153,8 @@ export const ContainerPanel = (props: Prettify<ContainerPanelProps>) => {
 					className,
 				)}
 				labelContainerClassName={clsx(
-					(closable || onUseChange) && 'es:pl-4 es:pr-3 es:min-h-12',
-					!(closable || onUseChange) && 'es:mt-3 es:mb-3',
+					(closable || onUseChange) && 'es:min-h-12 es:pr-3 es:pl-4',
+					!(closable || onUseChange) && 'es:my-3',
 					(closable || onUseChange) && 'es:mb-0!',
 					'es:pb-0!',
 				)}
@@ -171,8 +171,8 @@ export const ContainerPanel = (props: Prettify<ContainerPanelProps>) => {
 					<DisclosurePanel
 						className={clsx(
 							'es:h-(--disclosure-panel-height) es:overflow-hidden',
-							'es:opacity-0 es:-translate-y-2',
-							isExpanded && 'es:opacity-100 es:translate-y-0',
+							'es:-translate-y-2 es:opacity-0',
+							isExpanded && 'es:translate-y-0 es:opacity-100',
 							'es:transition-plus-h',
 						)}
 					>

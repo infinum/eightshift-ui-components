@@ -186,7 +186,7 @@ export const ResponsiveLegacy = (props: Prettify<ResponsiveLegacyProps>) => {
 			arrow
 			text={
 				<div className='es:max-w-64 es:p-1'>
-					<span className='es:block es:text-balance es:font-semibold es:tabular-nums'>{__('Default', 'eightshift-ui-components')}</span>
+					<span className='es:block es:font-semibold es:text-balance es:tabular-nums'>{__('Default', 'eightshift-ui-components')}</span>
 
 					<span className='es:block es:text-balance es:tabular-nums'>
 						{!globalOverride ? __('Always applied, regardless of browser width.', 'eightshift-ui-components') : null}
@@ -217,7 +217,7 @@ export const ResponsiveLegacy = (props: Prettify<ResponsiveLegacyProps>) => {
 				</div>
 			}
 		>
-			<div className='es:flex es:size-7 es:items-center es:justify-center es:rounded es:border es:border-accent-500/10 es:bg-accent-50 es:p-0.5 es:text-accent-800 es:shadow-sm es:shadow-accent-600/25 es:icon:size-5'>
+			<div className='es:flex es:size-7 es:items-center es:justify-center es:rounded-sm es:border es:border-accent-500/10 es:bg-accent-50 es:p-0.5 es:text-accent-800 es:shadow-sm es:shadow-accent-600/25 es:icon:size-5'>
 				<Icon
 					icon={`screen${upperFirst(defaultBreakpoint)}`}
 					fallback={play}
@@ -317,7 +317,10 @@ export const ResponsiveLegacy = (props: Prettify<ResponsiveLegacyProps>) => {
 				{breakpoints.map((breakpoint, index) => {
 					const isOverrideSet = getBreakpointValue(breakpoint) !== inheritValue;
 
-					const aboveOverride = rawBreakpoints.slice(0, index + 1).reverse().find((candidateBreakpoint) => getBreakpointValue(candidateBreakpoint) !== inheritValue);
+					const aboveOverride = rawBreakpoints
+						.slice(0, index + 1)
+						.reverse()
+						.find((candidateBreakpoint) => getBreakpointValue(candidateBreakpoint) !== inheritValue);
 
 					const belowOverride = rawBreakpoints.slice(index + 2).find((candidateBreakpoint) => getBreakpointValue(candidateBreakpoint) !== inheritValue);
 
@@ -405,7 +408,7 @@ export const ResponsiveLegacy = (props: Prettify<ResponsiveLegacyProps>) => {
 							>
 								<div
 									className={clsx(
-										'es:flex es:size-7 es:items-center es:justify-center es:rounded es:border es:p-0.5 es:shadow-sm es:transition-colors es:icon:size-5',
+										'es:flex es:size-7 es:items-center es:justify-center es:rounded-sm es:border es:p-0.5 es:shadow-sm es:transition-colors es:icon:size-5',
 										getBreakpointValue(breakpoint) === inheritValue
 											? 'es:border-secondary-200 es:bg-secondary-50 es:text-secondary-700'
 											: 'es:border-secondary-100 es:bg-white es:text-secondary-500',

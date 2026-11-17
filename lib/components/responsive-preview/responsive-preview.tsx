@@ -147,12 +147,12 @@ export const ResponsivePreview = (props: Prettify<ResponsivePreviewProps>) => {
 					label={__('Breakpoint preview', 'eightshift-ui-components')}
 				/>
 
-				<span className='es:ml-auto es:select-none es:rounded es:bg-secondary-100 es:px-1 es:py-0.5 es:text-xs es:text-secondary-500'>
+				<span className='es:ml-auto es:rounded-sm es:bg-secondary-100 es:px-1 es:py-0.5 es:text-xs es:text-secondary-500 es:select-none'>
 					{isDesktopFirst ? __('Desktop-first', 'eightshift-ui-components') : __('Mobile-first', 'eightshift-ui-components')}
 				</span>
 			</div>
 
-			{previewItems.length === 0 ? <span className='es:text-sm es:italic es:text-secondary-500'>{__('No overrides applied', 'eightshift-ui-components')}</span> : null}
+			{previewItems.length === 0 ? <span className='es:text-sm es:text-secondary-500 es:italic'>{__('No overrides applied', 'eightshift-ui-components')}</span> : null}
 			<BreakpointPreview
 				blocks={previewItems}
 				dotsStart

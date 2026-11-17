@@ -94,7 +94,7 @@ export const OptionItemBase = (props: Prettify<OptionItemBaseProps>) => (
 				'es:min-h-11',
 				'es:scroll-m-2 es:scroll-p-2',
 				'es:flex es:items-center-safe es:gap-2',
-				'es:transition-plus es:ease-out es:duration-400',
+				'es:transition-plus es:duration-400 es:ease-out',
 				'es:px-3 es:py-1.75',
 				'es:not-has-any-icon:pl-3.5',
 				isSelected && [
@@ -102,7 +102,7 @@ export const OptionItemBase = (props: Prettify<OptionItemBaseProps>) => (
 					'es:rounded-2xl',
 					'es:before-selected:rounded-b-md',
 					'es:after-selected:rounded-t-md',
-					'es:focus-visible:bg-white/90 es:focus-visible:rounded-3xl es:focus-visible:text-accent-700',
+					'es:focus-visible:rounded-3xl es:focus-visible:bg-white/90 es:focus-visible:text-accent-700',
 					'es:pressed:rounded-4xl',
 					'es:hover:bg-accent-100 es:hover:text-accent-800',
 					'es:text-accent-800',
@@ -111,9 +111,9 @@ export const OptionItemBase = (props: Prettify<OptionItemBaseProps>) => (
 					'es:bg-surface-50/90',
 					'es:rounded-md',
 					'es:first:rounded-t-xl es:last:rounded-b-xl',
-					'es:after-current:rounded-t-xl es:before-current:rounded-b-xl',
+					'es:before-current:rounded-b-xl es:after-current:rounded-t-xl',
 					'es:hover:rounded-2xl es:pressed:rounded-3xl',
-					'es:focus-visible:bg-white/90 es:focus-visible:rounded-2xl es:focus-visible:text-accent-950',
+					'es:focus-visible:rounded-2xl es:focus-visible:bg-white/90 es:focus-visible:text-accent-950',
 					'es:hover:bg-surface-100/90 es:hover:text-accent-900',
 					'es:text-accent-950',
 				],
@@ -130,8 +130,8 @@ export const OptionItemBase = (props: Prettify<OptionItemBaseProps>) => (
 				{props.selectIndicator ? (
 					<div
 						className={clsx(
-							'es:transition es:rounded-3xl es:size-5',
-							'es:flex es:items-center es:justify-center es:shrink-0',
+							'es:size-5 es:rounded-3xl es:transition',
+							'es:flex es:shrink-0 es:items-center es:justify-center',
 							'es:ml-auto es:overflow-clip',
 							isSelected && 'es:bg-accent-700/15 es:text-accent-900',
 							!isSelected && 'es:bg-surface-800/7',
@@ -230,7 +230,7 @@ export const SelectClearButton = ({ multi = false }: Prettify<SelectClearButtonP
 				'es:rounded-md es:hover:rounded-lg es:pressed:rounded-xl',
 				'es:text-secondary-600 es:hover:bg-red-700/4 es:hover:text-red-700 es:disabled:text-secondary-300',
 				'es:h-7 es:px-1',
-				'es:any-focus:outline-hidden es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50',
+				'es:focus-visible:ring-2 es:focus-visible:ring-accent-500/50 es:any-focus:outline-hidden',
 				'es:transition-plus',
 				isEmpty ? 'es:hidden' : 'es:flex',
 			)}

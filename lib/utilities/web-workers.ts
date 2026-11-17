@@ -13,12 +13,7 @@ interface ImageAnalysisWorkerHelpers<TResult extends object> {
 const workerUnavailableError = 'Image analysis workers are only available in a browser environment.';
 
 export const isImageAnalysisWorkerSupported = (): boolean =>
-	'window' in globalThis &&
-	'document' in globalThis &&
-	'Worker' in globalThis &&
-	'Blob' in globalThis &&
-	'URL' in globalThis &&
-	globalThis.URL.createObjectURL instanceof Function;
+	'window' in globalThis && 'document' in globalThis && 'Worker' in globalThis && 'Blob' in globalThis && 'URL' in globalThis && globalThis.URL.createObjectURL instanceof Function;
 
 /**
  * Returns a memoized function that gets or creates a singleton image analysis worker (with inline fallback).
@@ -28,10 +23,7 @@ export const isImageAnalysisWorkerSupported = (): boolean =>
  * @param {string} workerInline - Inlined worker code string.
  * @returns {object} Worker helpers for creating and analyzing with the image analysis worker.
  */
-export function useImageAnalysisWorker<TResult extends object>(
-	workerRef: MutableRefObject<Worker | null>,
-	workerInline: string,
-): ImageAnalysisWorkerHelpers<TResult> {
+export function useImageAnalysisWorker<TResult extends object>(workerRef: MutableRefObject<Worker | null>, workerInline: string): ImageAnalysisWorkerHelpers<TResult> {
 	const getOrCreateWorker = (): Worker | null => {
 		if (!isImageAnalysisWorkerSupported()) {
 			return null;

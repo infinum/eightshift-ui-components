@@ -82,10 +82,10 @@ export const RichLabel = <T extends ElementType = 'div'>(props: RichLabelProps<T
 	if (contentsOnly) {
 		return (
 			<>
-				{icon && <span className={clsx('es:icon:size-5 es:not-contrast-more:opacity-85', iconClassName)}>{icon}</span>}
+				{icon && <span className={clsx('es:not-contrast-more:opacity-85 es:icon:size-5', iconClassName)}>{icon}</span>}
 				{label && <span className={clsx('es:text-balance', labelBaseClassName, labelClassName)}>{label}</span>}
-				{subtitle && <span className={clsx('es:text-balance es:text-xs es:not-contrast-more:opacity-65', subtitleBaseClassName, subtitleClassName)}>{subtitle}</span>}
-				{endIcon && <span className={clsx('es:icon:size-5 es:not-contrast-more:opacity-85 es:ml-auto', iconClassName)}>{endIcon}</span>}
+				{subtitle && <span className={clsx('es:text-xs es:text-balance es:not-contrast-more:opacity-65', subtitleBaseClassName, subtitleClassName)}>{subtitle}</span>}
+				{endIcon && <span className={clsx('es:ml-auto es:not-contrast-more:opacity-85 es:icon:size-5', iconClassName)}>{endIcon}</span>}
 			</>
 		);
 	}
@@ -95,16 +95,16 @@ export const RichLabel = <T extends ElementType = 'div'>(props: RichLabelProps<T
 			className={clsx('es:flex es:items-center es:gap-1.75 es:text-sm', fullWidth && 'es:grow', noColorClassName, className)}
 			{...rest}
 		>
-			{icon && <span className={clsx('es:icon:size-5 es:shrink-0', 'es:not-contrast-more:opacity-85', iconClassName)}>{icon}</span>}
+			{icon && <span className={clsx('es:shrink-0 es:icon:size-5', 'es:not-contrast-more:opacity-85', iconClassName)}>{icon}</span>}
 
 			{(label || subtitle) && (
-				<div className={clsx('es:flex es:items-start es:text-balance es:text-start', inlineSubtitle ? 'es:gap-1.5' : 'es:flex-col', labelSubtitleWrapClassName)}>
+				<div className={clsx('es:flex es:items-start es:text-start es:text-balance', inlineSubtitle ? 'es:gap-1.5' : 'es:flex-col', labelSubtitleWrapClassName)}>
 					{label && <span className={clsx(labelBaseClassName, labelClassName)}>{label}</span>}
 					{subtitle && <span className={clsx(!fullSizeSubtitle && 'es:text-12', subtitleBaseClassName, 'es:not-contrast-more:opacity-65', subtitleClassName)}>{subtitle}</span>}
 				</div>
 			)}
 
-			{endIcon && <span className={clsx('es:icon:size-5 es:shrink-0', 'es:not-contrast-more:opacity-85 es:ml-auto', iconClassName)}>{endIcon}</span>}
+			{endIcon && <span className={clsx('es:shrink-0 es:icon:size-5', 'es:ml-auto es:not-contrast-more:opacity-85', iconClassName)}>{endIcon}</span>}
 		</ComponentToRender>
 	);
 };

@@ -109,7 +109,7 @@ export const SolidColorPicker = (props: Prettify<SolidColorPickerProps>) => {
 				onChangeEnd={onChangeEnd ? applyColorChangeEnd : undefined}
 				isDisabled={disabled}
 			>
-				<ColorThumb className='es:size-5 es:rounded-full es:transition es:dragging:scale-110! es:border es:border-white es:shadow-[0_0_0_1px_black] es:disabled:invisible' />
+				<ColorThumb className='es:size-5 es:rounded-full es:border es:border-white es:shadow-[0_0_0_1px_black] es:transition es:disabled:invisible es:dragging:scale-110!' />
 			</ColorArea>
 
 			<ColorSlider
@@ -125,7 +125,7 @@ export const SolidColorPicker = (props: Prettify<SolidColorPickerProps>) => {
 						'es:disabled:bg-linear-to-r! es:disabled:from-white es:disabled:to-secondary-100',
 					)}
 				>
-					<ColorThumb className='es:top-3.25 es:size-5 es:rounded-full es:border es:border-white es:shadow-[0_0_0_1px_black] es:transition es:dragging:scale-110! es:disabled:invisible' />
+					<ColorThumb className='es:top-3.25 es:size-5 es:rounded-full es:border es:border-white es:shadow-[0_0_0_1px_black] es:transition es:disabled:invisible es:dragging:scale-110!' />
 				</SliderTrack>
 			</ColorSlider>
 
@@ -177,7 +177,7 @@ export const SolidColorPicker = (props: Prettify<SolidColorPickerProps>) => {
 							'es:px-3',
 							'es:font-mono es:text-12',
 							'es:bg-white',
-							'es:bg-linear-to-b es:from-secondary-100/0 es:to-secondary-100/50 es:from-25%',
+							'es:bg-linear-to-b es:from-secondary-100/0 es:from-25% es:to-secondary-100/50',
 							'es:hover:from-surface-100/0 es:hover:to-surface-100/50',
 							'es:inset-ring-secondary-400/50 es:hover:inset-ring-surface-300 es:focus:inset-ring-surface-400',
 							'es:inset-shadow-sm es:inset-shadow-secondary-100/50',

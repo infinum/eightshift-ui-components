@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
 
-export const selectButtonClass = cva('es:any-focus:outline-hidden es:text-start es:size-full es:inline-block es:group es:overflow-x-clip', {
+export const selectButtonClass = cva('es:group es:inline-block es:size-full es:overflow-x-clip es:text-start es:any-focus:outline-hidden', {
 	variants: {
 		size: {
 			small: ['es:min-h-8', 'es:px-2.5'],
@@ -19,7 +19,7 @@ export const selectControlClass = cva(
 		'es:relative',
 		'es:flex es:items-center es:gap-px',
 		'es:leading-none',
-		'es:rounded-lg es:hover:rounded-xl es:has-focus-visible:rounded-2xl es:group-open:rounded-2xl',
+		'es:rounded-lg es:group-open:rounded-2xl es:hover:rounded-xl es:has-focus-visible:rounded-2xl',
 		'es:transition-plus',
 		'es:any-focus:outline-hidden',
 		'es:inset-ring',
@@ -66,7 +66,7 @@ export const selectControlClass = cva(
 				disabled: false,
 				class: [
 					'es:bg-white',
-					'es:bg-linear-to-b es:from-secondary-100/0 es:to-secondary-100/50 es:from-25%',
+					'es:bg-linear-to-b es:from-secondary-100/0 es:from-25% es:to-secondary-100/50',
 					'es:hover:from-surface-100/0 es:hover:to-surface-100/50',
 					'es:inset-ring-secondary-400/50 es:hover:inset-ring-surface-300 es:focus:inset-ring-surface-400',
 					'es:inset-shadow-sm es:inset-shadow-secondary-100/50',
@@ -88,17 +88,17 @@ export const selectControlClass = cva(
 			},
 			{
 				disabled: true,
-				class: ['es:bg-secondary-50 es:inset-ring-secondary-200 es:text-secondary-400'],
+				class: ['es:bg-secondary-50 es:text-secondary-400 es:inset-ring-secondary-200'],
 			},
 			{
 				readOnly: true,
 				flat: false,
-				class: ['es:bg-secondary-50 es:inset-ring-secondary-300 es:text-secondary-400'],
+				class: ['es:bg-secondary-50 es:text-secondary-400 es:inset-ring-secondary-300'],
 			},
 			{
 				readOnly: true,
 				flat: true,
-				class: ['es:bg-secondary-50 es:inset-ring-secondary-300/60 es:text-secondary-400'],
+				class: ['es:bg-secondary-50 es:text-secondary-400 es:inset-ring-secondary-300/60'],
 			},
 		],
 		defaultVariants: {

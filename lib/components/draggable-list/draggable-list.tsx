@@ -84,7 +84,7 @@ export const DraggableList = <TItem extends object>(props: Prettify<DraggableLis
 			return (
 				<ul
 					ref={listProps.ref}
-					className={clsx('es:w-full es:list-none es:m-0!', itemContainerClassName)}
+					className={clsx('es:m-0! es:w-full es:list-none', itemContainerClassName)}
 				>
 					{listChildren}
 				</ul>
@@ -103,7 +103,7 @@ export const DraggableList = <TItem extends object>(props: Prettify<DraggableLis
 					key={key}
 					accent={isDragged || isSelected}
 					elevated={isDragged || isSelected}
-					className={clsx('es:list-none es:m-0!', isDragged && 'es:z-99999', itemClassName)}
+					className={clsx('es:m-0! es:list-none', isDragged && 'es:z-99999', itemClassName)}
 					data-selected={isDragged || isSelected || containerProps.style?.position === 'fixed'}
 					ref={ref}
 					{...containerProps}

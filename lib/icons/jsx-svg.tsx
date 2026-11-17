@@ -15,7 +15,10 @@ interface JsxSvgProps extends Omit<JsxParserProps, 'bindings' | 'components' | '
 	idRandomizationPrefix?: string;
 }
 
-const createSvgComponent = (tagName: string): ComponentType<object> => (props) => createElement(tagName, props);
+const createSvgComponent =
+	(tagName: string): ComponentType<object> =>
+	(props) =>
+		createElement(tagName, props);
 
 // SVG child elements that react-jsx-parser needs mapped to pass-through.
 // The library accepts string values as native element names in addition to components.

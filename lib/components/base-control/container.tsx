@@ -6,14 +6,14 @@ import type { Prettify } from '../../utilities/types';
 const containerClasses = cva('es:inset-ring', {
 	variants: {
 		elevated: {
-			true: 'es:inset-shadow-sm es:shadow-sm es:shadow-black/5',
+			true: 'es:shadow-sm es:inset-shadow-sm es:shadow-black/5',
 		},
 		primary: {
 			true: 'es:rounded-full',
 		},
 		compact: {
-			false: 'es:py-2 es:min-h-13',
-			true: 'es:py-1 es:min-h-9',
+			false: 'es:min-h-13 es:py-2',
+			true: 'es:min-h-9 es:py-1',
 		},
 		centered: {
 			true: 'es:flex es:items-center',
@@ -87,24 +87,24 @@ const containerClasses = cva('es:inset-ring', {
 			accent: false,
 			elevated: false,
 			class: [
-				'es:bg-white es:bg-linear-to-b es:from-secondary-50/75 es:to-secondary-100/50 es:from-25% es:inset-ring-secondary-200/50',
+				'es:bg-white es:bg-linear-to-b es:from-secondary-50/75 es:from-25% es:to-secondary-100/50 es:inset-ring-secondary-200/50',
 				'es:inset-shadow-sm es:inset-shadow-white/30',
 			],
 		},
 		{
 			accent: true,
 			elevated: false,
-			class: 'es:bg-surface-100/80 es:inset-ring-surface-200 es:text-accent-900',
+			class: 'es:bg-surface-100/80 es:text-accent-900 es:inset-ring-surface-200',
 		},
 		{
 			accent: false,
 			elevated: true,
-			class: 'es:bg-secondary-100 es:inset-ring-secondary-200 es:inset-shadow-white/50',
+			class: 'es:bg-secondary-100 es:inset-shadow-white/50 es:inset-ring-secondary-200',
 		},
 		{
 			accent: true,
 			elevated: true,
-			class: ['es:bg-surface-100 es:bg-linear-to-r es:from-accent-400/10 es:to-accent-400/12', ' es:inset-ring-accent-600/10 es:inset-shadow-white/50 es:text-accent-900'],
+			class: ['es:bg-surface-100 es:bg-linear-to-r es:from-accent-400/10 es:to-accent-400/12', 'es:text-accent-900 es:inset-shadow-white/50 es:inset-ring-accent-600/10'],
 		},
 	],
 	defaultVariants: {
@@ -258,7 +258,7 @@ const ContainerGroupBase = <T extends ElementType = 'div'>(props: ContainerGroup
 
 	return (
 		<div className={wrapClassName}>
-			<span className='es:ml-2 es:mb-1 es:inline-block es:text-12 es:font-variation-["wdth"_108,"wght"_300,"ROND"_100] es:text-surface-600'>{label}</span>
+			<span className='es:mb-1 es:ml-2 es:inline-block es:text-12 es:text-surface-600 es:font-variation-["wdth"_108,"wght"_300,"ROND"_100]'>{label}</span>
 			{inner}
 		</div>
 	);

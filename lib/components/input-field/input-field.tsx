@@ -32,7 +32,7 @@ const inputClass = cva(
 			},
 			multiline: {
 				false: 'es:py-2',
-				true: 'es:py-3 es:rounded-br-sm!',
+				true: 'es:rounded-br-sm! es:py-3',
 			},
 			disabled: {
 				false: 'es:selection:bg-surface-100 es:selection:text-accent-800',
@@ -54,7 +54,7 @@ const inputClass = cva(
 				readOnly: false,
 				class: [
 					'es:bg-white',
-					'es:bg-linear-to-b es:from-secondary-100/0 es:to-secondary-100/50 es:from-25%',
+					'es:bg-linear-to-b es:from-secondary-100/0 es:from-25% es:to-secondary-100/50',
 					'es:hover:from-surface-100/0 es:hover:to-surface-100/50',
 					'es:inset-ring-secondary-400/50 es:hover:inset-ring-surface-300 es:focus:inset-ring-surface-400',
 					'es:inset-shadow-sm es:inset-shadow-secondary-100/50',
@@ -76,9 +76,9 @@ const inputClass = cva(
 					'es:shadow-none',
 				],
 			},
-			{ disabled: true, class: ['es:bg-secondary-50 es:inset-ring-secondary-200 es:text-secondary-400'] },
-			{ readOnly: true, flat: false, class: ['es:bg-secondary-50 es:inset-ring-secondary-300 es:text-secondary-400'] },
-			{ readOnly: true, flat: true, class: ['es:bg-secondary-50 es:inset-ring-secondary-300/60 es:text-secondary-400'] },
+			{ disabled: true, class: ['es:bg-secondary-50 es:text-secondary-400 es:inset-ring-secondary-200'] },
+			{ readOnly: true, flat: false, class: ['es:bg-secondary-50 es:text-secondary-400 es:inset-ring-secondary-300'] },
+			{ readOnly: true, flat: true, class: ['es:bg-secondary-50 es:text-secondary-400 es:inset-ring-secondary-300/60'] },
 		],
 		defaultVariants: { disabled: false, flat: false, mono: false, size: 'default', multiline: false, readOnly: false },
 	},
