@@ -2,7 +2,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { format } from 'oxfmt';
+import { execFileSync } from 'node:child_process';
 import { glob } from 'glob';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
@@ -47,20 +47,13 @@ const fileContents = `${[
 const oldOutputFile = outputFile.replace(/\.ts$/, '.js');
 await fs.unlink(oldOutputFile).catch(() => null);
 
+const formatted = execFileSync('bun', ['fmt', '--no-script', `--stdin-filepath=${outputFile}`], {
+	cwd: rootDir,
+	input: fileContents,
+	encoding: 'utf8',
+});
 const existingContents = await fs.readFile(outputFile, 'utf8').catch(() => null);
 
-if (existingContents !== fileContents) {
-	const formatted = await format(outputFile, fileContents, {
-		useTabs: true,
-		jsxSingleQuote: true,
-		singleQuote: true,
-		singleAttributePerLine: true,
-		printWidth: 180,
-	});
-
-	if (formatted.errors.length > 0) {
-		throw new Error(`Failed to format ${outputFile}: ${formatted.errors.map(({ message }) => message).join('; ')}`);
-	}
-
-	await fs.writeFile(outputFile, formatted.code);
+if (existingContents !== formatted) {
+	await fs.writeFile(outputFile, formatted);
 }

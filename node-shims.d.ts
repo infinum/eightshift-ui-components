@@ -1,3 +1,7 @@
+declare module 'node:child_process' {
+	export function execFileSync(file: string, args: string[], options: { cwd: string; input: string; encoding: 'utf8' }): string;
+}
+
 declare module 'node:crypto' {
 	interface Hash {
 		update(data: Uint8Array): Hash;
